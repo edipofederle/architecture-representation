@@ -36,6 +36,7 @@ public class ProfileSMarty {
 			createVariantSpecializationStereotypes();
 			createVariabilityStereotype();
 			createInterfaceStereotype();
+			createConcernStereotype();
 
 		try {
 			URI profileURI = URI.createFileURI("/Users/edipofederle/Desktop/"+profileName);
@@ -48,11 +49,19 @@ public class ProfileSMarty {
 	}
 
 
+	private void createConcernStereotype() {
+		Stereotype _interface = helper.createStereotype(this.profile, "concern", false);
+		Class klassMetaClass = helper.referenceMetaclass(this.profile,
+				UMLPackage.Literals.CLASS.getName());
+		helper.createExtension(klassMetaClass, _interface, false);
+	}
+
+
 	private void createInterfaceStereotype() {
 		Stereotype _interface = helper.createStereotype(this.profile, "interface", false);
-		Class commentMetaClass = helper.referenceMetaclass(this.profile,
+		Class classMetaClass = helper.referenceMetaclass(this.profile,
 				UMLPackage.Literals.CLASS.getName());
-		helper.createExtension(commentMetaClass, _interface, false);
+		helper.createExtension(classMetaClass, _interface, false);
 		
 	}
 

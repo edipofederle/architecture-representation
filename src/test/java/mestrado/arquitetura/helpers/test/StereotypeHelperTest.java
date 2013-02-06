@@ -1,14 +1,56 @@
 package mestrado.arquitetura.helpers.test;
 
+import static org.junit.Assert.*;
+import mestrado.arquitetura.factories.Klass;
+import mestrado.arquitetura.helpers.StereotypeHelper;
+
+import org.eclipse.uml2.uml.Classifier;
 import org.junit.Test;
 
-public class StereotypeHelperTest extends TestHelper{
+public class StereotypeHelperTest extends TestHelper {
 
 	@Test
-	public void shouldReturnStereotypeOfElement(){
+	public void shouldReturnTrueIfIsVariantPointClass() {
+
+		Classifier a = Klass.create()
+				            .withName("Car")
+							.withStereotypes("variationPoint").getObject();
 		
-		
-		
+		boolean result = StereotypeHelper.isVariationPoint(a);
+		assertEquals("isVariationPoint should return true", true, result);
 	}
 	
+	@Test
+	public void shouldReturnFalseIfIsNOTVariantPointClass() {
+
+		Classifier a = Klass.create().getObject();
+		boolean result = StereotypeHelper.isVariationPoint(a);
+		
+		assertEquals("isVariationPoint should return false", false, result);
+	}
+	
+	@Test
+	public void shouldReturnTrueIfIsConcern(){
+		Classifier a = Klass.create()
+	            .withName("Car")
+				.withStereotypes("concern").getObject();
+		
+		boolean result = StereotypeHelper.isConcern(a);
+		
+		assertEquals("isConcern should return false", true, result);
+	}
+	
+	@Test
+	public void shouldReturnFalseIfIsNotConcern(){
+		Classifier a = Klass.create()
+	            .withName("Car")
+				.withStereotypes("interface").getObject();
+		
+		boolean result = StereotypeHelper.isConcern(a);
+		
+		assertEquals("isConcern should return false", false, result);
+	}
+	
+	
+
 }

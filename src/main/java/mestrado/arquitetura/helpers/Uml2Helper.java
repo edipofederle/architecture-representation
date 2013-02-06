@@ -30,7 +30,7 @@ import org.eclipse.uml2.uml.resource.UMLResource;
 
 public class Uml2Helper extends Base {
 	
-	protected Uml2Helper(){}
+	public Uml2Helper(){}
 
 	public Profile createProfile(String name) {
 		Profile profile = UMLFactory.eINSTANCE.createProfile();
@@ -61,7 +61,7 @@ public class Uml2Helper extends Base {
 		return child.createGeneralization(parent);
 	}
 
-	protected org.eclipse.uml2.uml.Class createClass(
+	public org.eclipse.uml2.uml.Class createClass(
 			org.eclipse.uml2.uml.Package nestingPackage, String name,
 			boolean isAbstract) {
 		org.eclipse.uml2.uml.Class createdClass = nestingPackage
@@ -69,7 +69,7 @@ public class Uml2Helper extends Base {
 		return createdClass;
 	}
 
-	protected org.eclipse.uml2.uml.Package createPackage(
+	public org.eclipse.uml2.uml.Package createPackage(
 			org.eclipse.uml2.uml.Package nestingPackage, String name) {
 		org.eclipse.uml2.uml.Package createdPackage = nestingPackage
 				.createNestedPackage(name);
@@ -79,7 +79,7 @@ public class Uml2Helper extends Base {
 		return createdPackage;
 	}
 
-	protected Model createModel(String name) {
+	public Model createModel(String name) {
 		Model model = UMLFactory.eINSTANCE.createModel();
 		model.setName(name);
 
@@ -88,11 +88,11 @@ public class Uml2Helper extends Base {
 		return model;
 	}
 
-	protected void out(String output) {
+	public void out(String output) {
 		System.out.println(output);
 	}
 
-	protected void err(String error) {
+	public void err(String error) {
 		System.out.println(error);
 	}
 

@@ -2,6 +2,7 @@ package mestrado.arquitetura.helpers;
 
 import java.util.Iterator;
 
+import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Stereotype;
 
@@ -21,6 +22,18 @@ public class StereotypeHelper {
 			}
 		}
 		return has;
+	}
+
+	public static boolean isVariationPoint(Classifier a) {
+		return hasStereotype(a, StereotypesTypes.VARIATION_POINT);
+	}
+
+	public static boolean isVariability(Classifier a) {
+		return hasStereotype(a, StereotypesTypes.VARIABILITY);
+	}
+
+	public static boolean isConcern(Classifier a) {
+		return hasStereotype(a, StereotypesTypes.CONCERN);
 	}
 
 

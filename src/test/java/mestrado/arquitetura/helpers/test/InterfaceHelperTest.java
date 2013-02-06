@@ -32,6 +32,5 @@ public class InterfaceHelperTest extends TestHelper {
 		Classifier klass = givenAClass();
 		Assert.assertFalse("should NOT be a interface", InterfaceHelper.isInterface(klass));
 	}
-	
 
 }

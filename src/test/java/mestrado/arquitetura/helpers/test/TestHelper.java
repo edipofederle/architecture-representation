@@ -11,19 +11,20 @@ import mestrado.arquitetura.helpers.Uml2HelperFactory;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.Stereotype;
 
 public abstract class TestHelper {
 
-	protected Uml2Helper uml2Helper;
-	protected ModelHelper modelHelper;
+	protected static Uml2Helper uml2Helper;
+	protected static ModelHelper modelHelper;
 
-	public TestHelper() {
+	static{
 		uml2Helper = Uml2HelperFactory.getUml2Helper();
 		modelHelper = ModelHelperFactory.getModelHelper();
 		
 	}
 
-	protected Package givenAModel(String modelName) {
+	public static Package givenAModel(String modelName) {
 		//TODO Move from Here, problemas dos estereotipos
 		String uri = getUrlToModel(modelName);
 		String absolutePath = new File(uri).getAbsolutePath();
@@ -31,18 +32,24 @@ public abstract class TestHelper {
 		return epo2Model;
 	}
 
-	protected Classifier givenAClass() {
+	public static Classifier givenAClass() {
 		Package content = givenAModel("ExtendedPO2");
 		List<Classifier> elementsClass = modelHelper.getAllClasses(content);
 		return elementsClass.get(0);
 	}
 
-	protected String getUrlToModel(String modelName) {
+	protected static String getUrlToModel(String modelName) {
 		return "src/test/java/resources/" + modelName + ".uml";
 	}
 
 	protected URI getUriToResource(String resourcesNamee) {
 		return URI.createFileURI(getUrlToModel(resourcesNamee));
+	}
+	
+	public static Stereotype getStereotypeByName(String name){
+		Package perfil = givenAModel("smartyProfile");
+		return  perfil.getOwnedStereotype(name);
+		
 	}
 
 }
