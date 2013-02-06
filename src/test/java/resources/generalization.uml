@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_PTMz0Gx3EeKyRMx4-4rGpA" name="model">
+  <packagedElement xmi:type="uml:Class" xmi:id="_axe1AGx3EeKyRMx4-4rGpA" name="Classe Pai"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_cwOZoGx3EeKyRMx4-4rGpA" name="Classe Filha">
+    <generalization xmi:id="_LQq9EGx4EeKyRMx4-4rGpA" general="_axe1AGx3EeKyRMx4-4rGpA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_XtVN4Gx_EeKyRMx4-4rGpA" name="Classe Filha 2">
+    <generalization xmi:id="_Y8-34Gx_EeKyRMx4-4rGpA" general="_axe1AGx3EeKyRMx4-4rGpA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_uvtu8GyAEeKyRMx4-4rGpA" name="Pai"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_wU9OcGyAEeKyRMx4-4rGpA" name="FIlho">
+    <generalization xmi:id="_xQtFAGyAEeKyRMx4-4rGpA" general="_uvtu8GyAEeKyRMx4-4rGpA"/>
+  </packagedElement>
+</uml:Model>

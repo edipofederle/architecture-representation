@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:smartyProfile="http:///schemas/smartyProfile/_eYWmUG7uEeKKiqMrBwh0SQ/0" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/smartyProfile/_eYWmUG7uEeKKiqMrBwh0SQ/0 smartyProfile.uml#_eYXNYG7uEeKKiqMrBwh0SQ">
+  <uml:Model xmi:id="_6QTVoG-TEeKKiqMrBwh0SQ" name="model">
+    <packagedElement xmi:type="uml:Class" xmi:id="_CPsOEG-UEeKKiqMrBwh0SQ" name="ClasseNumeroUm"/>
+    <profileApplication xmi:id="__MneoG-TEeKKiqMrBwh0SQ">
+      <eAnnotations xmi:id="__MneoW-TEeKKiqMrBwh0SQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="smartyProfile.uml#_eYXNYG7uEeKKiqMrBwh0SQ"/>
+      </eAnnotations>
+      <appliedProfile href="smartyProfile.uml#_1e3rYG7tEeKEDfUZrZrpVQ"/>
+    </profileApplication>
+  </uml:Model>
+  <smartyProfile:variationPoint xmi:id="_E44d4G-UEeKKiqMrBwh0SQ" base_Class="_CPsOEG-UEeKKiqMrBwh0SQ"/>
+  <smartyProfile:interface xmi:id="_MswSwG-oEeKKiqMrBwh0SQ" base_Class="_CPsOEG-UEeKKiqMrBwh0SQ"/>
+</xmi:XMI>

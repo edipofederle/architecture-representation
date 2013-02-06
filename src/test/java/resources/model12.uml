@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_bEZZAGsOEeKyRMx4-4rGpA" name="model">
+  <packagedElement xmi:type="uml:Class" xmi:id="_eIomEGsOEeKyRMx4-4rGpA" name="Foo"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_fHVC8GsOEeKyRMx4-4rGpA" name="Bar">
+    <ownedAttribute xmi:id="_mjj10GvQEeKyRMx4-4rGpA" name="foo" type="_eIomEGsOEeKyRMx4-4rGpA" association="_mjpVYGvQEeKyRMx4-4rGpA">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mjj10WvQEeKyRMx4-4rGpA" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mjj10mvQEeKyRMx4-4rGpA" value="1"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_mjpVYGvQEeKyRMx4-4rGpA" name="bar_foo_1" memberEnd="_mjpVYWvQEeKyRMx4-4rGpA _mjj10GvQEeKyRMx4-4rGpA">
+    <ownedEnd xmi:id="_mjpVYWvQEeKyRMx4-4rGpA" name="bar" type="_fHVC8GsOEeKyRMx4-4rGpA" association="_mjpVYGvQEeKyRMx4-4rGpA">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mjpVYmvQEeKyRMx4-4rGpA" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mjpVY2vQEeKyRMx4-4rGpA" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+</uml:Model>
