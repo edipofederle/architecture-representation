@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
+import mestrado.arquitetura.helpers.ModelIncompleteException;
 import mestrado.arquitetura.helpers.ModelNotFoundException;
 
 import org.eclipse.emf.common.util.EList;
@@ -16,16 +17,15 @@ import org.junit.Test;
 public class ModelHelperTest extends TestHelper {
 	
 	
-	
 	@Test
-	public void shouldReturnAllClasses() throws ModelNotFoundException {
+	public void shouldReturnAllClasses() throws ModelNotFoundException , ModelIncompleteException{
 		Package content = modelHelper.getModel(getUrlToModel("ExtendedPO2"));
 		List<Classifier> elementsClass = modelHelper.getAllClasses(content);
 		assertEquals(10, elementsClass.size());
 	}
 
 	@Test
-	public void shouldReturnAllInterfaces() throws ModelNotFoundException {
+	public void shouldReturnAllInterfaces() throws ModelNotFoundException, ModelIncompleteException {
 		Package content = modelHelper.getModel(getUrlToModel("ExtendedPO2"));
 		List<Classifier> elementsInterfaces = modelHelper.getAllInterfaces(content);
 		assertEquals(1, elementsInterfaces.size());
@@ -33,28 +33,28 @@ public class ModelHelperTest extends TestHelper {
 	}
 
 	@Test
-	public void shouldReturnAllAssociations() throws ModelNotFoundException {
+	public void shouldReturnAllAssociations() throws ModelNotFoundException  , ModelIncompleteException{
 		Package content = modelHelper.getModel(getUrlToModel("ExtendedPO2"));
 		List<Classifier> elementsAssociations = modelHelper.getAllAssociations(content);
 		assertEquals(8, elementsAssociations.size());
 	}
 	
 	@Test
-	public void shouldReturnAllDependency() throws ModelNotFoundException{
+	public void shouldReturnAllDependency() throws ModelNotFoundException , ModelIncompleteException{
 		Package content = modelHelper.getModel(getUrlToModel("ExtendedPO2"));
 		List<Classifier> dependency = modelHelper.getAllDependencies(content);
 		assertEquals(1, dependency.size());
 	}
 	
 	@Test
-	public void shouldReturnAllPackages() throws ModelNotFoundException{
+	public void shouldReturnAllPackages() throws ModelNotFoundException , ModelIncompleteException{
 		Package content = modelHelper.getModel(getUrlToModel("ExtendedPO2"));
 		List<Classifier> packages = modelHelper.getAllPackages(content);
 		assertEquals(1, packages.size());
 	}
 	
 	@Test
-	public void shouldReturnTwoClassesForAPackage() throws ModelNotFoundException{
+	public void shouldReturnTwoClassesForAPackage() throws ModelNotFoundException , ModelIncompleteException{
 		Package p = modelHelper.getModel(getUrlToModel("package"));
 		List<Classifier> packages = modelHelper.getAllPackages(p);
 		assertEquals("Package1", ((Package)packages.get(0)).getName());
@@ -68,21 +68,21 @@ public class ModelHelperTest extends TestHelper {
 	}
 
 	@Test
-	public void shouldReturnAllComments() throws ModelNotFoundException{
+	public void shouldReturnAllComments() throws ModelNotFoundException , ModelIncompleteException{ 
 		Package content = modelHelper.getModel(getUrlToModel("ExtendedPO2"));
 		List<Classifier> comments = modelHelper.getAllComments(content);
 		assertEquals(1, comments.size());
 	}
 	
 	@Test
-	public void shouldReturnAllGeneralizations() throws ModelNotFoundException{
+	public void shouldReturnAllGeneralizations() throws ModelNotFoundException, ModelIncompleteException{
 		Package content = modelHelper.getModel(getUrlToModel("generalization"));
 		List<EList<Classifier>> generalizations = modelHelper.getAllGeneralizations(content);
 		assertEquals(3, generalizations.size());
 	}
 	
 	@Test
-	public void shouldReturnModelName() throws ModelNotFoundException{
+	public void shouldReturnModelName() throws ModelNotFoundException , ModelIncompleteException{
 		assertEquals("model12", modelHelper.getName(getUrlToModel("model12")));
 	}
 	
@@ -92,13 +92,13 @@ public class ModelHelperTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldReturnAModel() throws ModelNotFoundException{
-		Package model = modelHelper.getModel(getUrlToModel("model"));
+	public void shouldReturnAModel() throws ModelNotFoundException , ModelIncompleteException{
+		Package model = modelHelper.getModel(getUrlToModel("ExtendedPO2"));
 		assertNotNull(model);
 	}
 	
 	@Test(expected=ModelNotFoundException.class)
-	public void shouldReturnModelNotFoundmodelDontExists() throws ModelNotFoundException{
+	public void shouldReturnModelNotFoundmodelDontExists() throws ModelNotFoundException , ModelIncompleteException{
 		modelHelper.getModel("/not/found/path/model.uml");
 	}
 }

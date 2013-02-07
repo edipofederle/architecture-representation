@@ -1,7 +1,9 @@
 package mestrado.arquitetura.helpers.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import mestrado.arquitetura.factories.Klass;
+import mestrado.arquitetura.helpers.ModelIncompleteException;
+import mestrado.arquitetura.helpers.ModelNotFoundException;
 import mestrado.arquitetura.helpers.StereotypeHelper;
 
 import org.eclipse.uml2.uml.Classifier;
@@ -10,7 +12,7 @@ import org.junit.Test;
 public class StereotypeHelperTest extends TestHelper {
 
 	@Test
-	public void shouldReturnTrueIfIsVariantPointClass() {
+	public void shouldReturnTrueIfIsVariantPointClass() throws ModelNotFoundException , ModelIncompleteException {
 
 		Classifier a = Klass.create()
 				            .withName("Car")
@@ -30,7 +32,7 @@ public class StereotypeHelperTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldReturnTrueIfIsConcern(){
+	public void shouldReturnTrueIfIsConcern() throws ModelNotFoundException , ModelIncompleteException{
 		Classifier a = Klass.create()
 	            .withName("Car")
 				.withStereotypes("concern").getObject();
@@ -41,7 +43,7 @@ public class StereotypeHelperTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldReturnFalseIfIsNotConcern(){
+	public void shouldReturnFalseIfIsNotConcern() throws ModelNotFoundException , ModelIncompleteException{
 		Classifier a = Klass.create()
 	            .withName("Car")
 				.withStereotypes("interface").getObject();
@@ -50,7 +52,5 @@ public class StereotypeHelperTest extends TestHelper {
 		
 		assertEquals("isConcern should return false", false, result);
 	}
-	
-	
 
 }

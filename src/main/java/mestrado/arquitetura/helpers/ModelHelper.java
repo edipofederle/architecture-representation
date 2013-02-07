@@ -64,9 +64,9 @@ public class ModelHelper extends ElementHelper {
 		throw new ModelNotFoundException("Model " + xmiFile + " not found");
 	}
 
-	public Package getModel(String xmiFile) throws ModelNotFoundException {
+	public Package getModel(String xmiFile) throws ModelNotFoundException, ModelIncompleteException {
 		if (modelExists(xmiFile))
-			return uml2Helper.load(URI.createURI(xmiFile), "");
+			return uml2Helper.load(URI.createURI(xmiFile).toString());
 		throw new ModelNotFoundException("Model " + xmiFile + " not found");
 	}
 

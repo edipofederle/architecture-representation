@@ -3,6 +3,8 @@ package                                                                         
 import mestrado.arquitetura.helpers.InterfaceHelper;
 import mestrado.arquitetura.helpers.ModelHelper;
 import mestrado.arquitetura.helpers.ModelHelperFactory;
+import mestrado.arquitetura.helpers.ModelIncompleteException;
+import mestrado.arquitetura.helpers.ModelNotFoundException;
 
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Package;
@@ -20,7 +22,7 @@ public class InterfaceHelperTest extends TestHelper {
 	}
 	
 	@Test
-	public void isInterfaceWhenClassWithStereotypeInterface(){
+	public void isInterfaceWhenClassWithStereotypeInterface() throws ModelNotFoundException , ModelIncompleteException{
 		Package model = givenAModel("interface");
 		Classifier klass = modelHelper.getAllClasses(model).get(0);
 		
@@ -28,7 +30,7 @@ public class InterfaceHelperTest extends TestHelper {
 	}
 	
 	@Test
-	public void isNotInterfaceWhenClassWithoutStereotypeInterface(){
+	public void isNotInterfaceWhenClassWithoutStereotypeInterface() throws ModelNotFoundException , ModelIncompleteException{
 		Classifier klass = givenAClass();
 		Assert.assertFalse("should NOT be a interface", InterfaceHelper.isInterface(klass));
 	}

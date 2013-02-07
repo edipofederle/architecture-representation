@@ -1,10 +1,12 @@
 package mestrado.arquitetura.helpers.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
 import mestrado.arquitetura.helpers.ClassHelper;
+import mestrado.arquitetura.helpers.ModelIncompleteException;
+import mestrado.arquitetura.helpers.ModelNotFoundException;
 
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Operation;
@@ -15,7 +17,7 @@ import org.junit.Test;
 public class ClassHelperTest extends TestHelper {
 	
 	 @Test
-	 public void shouldReturnAllAttributesForAClass(){
+	 public void shouldReturnAllAttributesForAClass() throws ModelNotFoundException , ModelIncompleteException{
 		 PackageableElement aClass = givenAClass();
 		 assertEquals("Address", aClass.getName());
 		 List<Classifier> attrs = ClassHelper.getAllAttributesForAClass(aClass);
@@ -25,7 +27,7 @@ public class ClassHelperTest extends TestHelper {
 	 }
 	
 	 @Test 
-	 public void shouldReturnAllMethodsForAClass(){
+	 public void shouldReturnAllMethodsForAClass() throws ModelNotFoundException , ModelIncompleteException{
 		 PackageableElement aClass = givenAClass();
 		 List<Classifier> methods = ClassHelper.getAllMethodsForAClass(aClass);
 		 assertEquals(1, methods.size());

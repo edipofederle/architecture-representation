@@ -5,13 +5,11 @@ import java.util.List;
 
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.PackageableElement;
-import org.eclipse.uml2.uml.internal.impl.OperationImpl;
-import org.eclipse.uml2.uml.internal.impl.PropertyImpl;
 
 public class ClassHelper extends ElementHelper {
 
-	private final static Class<PropertyImpl> PROPERTY = PropertyImpl.class;
-	private final static Class<OperationImpl> OPERATION = OperationImpl.class;
+	private final static String PROPERTY = "property";
+	private final static String OPERATION = "operation";
 
 	public static List<Classifier> getAllAttributesForAClass(
 			PackageableElement aClass) {

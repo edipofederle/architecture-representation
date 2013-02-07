@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 
+import mestrado.arquitetura.helpers.ModelIncompleteException;
+import mestrado.arquitetura.helpers.ModelNotFoundException;
 import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
 
@@ -87,22 +89,22 @@ public class HelperTest extends TestHelper {
 	}
 	
 	@Test
-	public void testCreateAttr(){
+	public void testCreateAttr() throws ModelNotFoundException{
 		Profile prof = givenAProfile("ecore");
 		Stereotype eStructuralFeatureStereotype = uml2Helper.createStereotype(prof, "EStructuralFeature", true);
-		 Type booleanPrimitiveType = uml2Helper.getPrimitiveType("Boolean");
+		Type booleanPrimitiveType = uml2Helper.getPrimitiveType("Boolean");
 		Property isTransientProperty = uml2Helper.createAttribute(eStructuralFeatureStereotype, "isTransient", booleanPrimitiveType, 0, 1);
 		assertNotNull(isTransientProperty);
 	}
 	
 	@Test
-	public void testReference(){
+	public void testReference() throws ModelNotFoundException{
 		Profile prof = givenAProfile("ecore");
 		uml2Helper.referenceMetaclass(prof, UMLPackage.Literals.PROPERTY.getName());
 	}
 	
 	@Test
-	public void testCreateExtension(){
+	public void testCreateExtension() throws ModelNotFoundException{
 		Profile prof = givenAProfile("ecore");
 		Class propertyMetaclass = uml2Helper.referenceMetaclass(prof, UMLPackage.Literals.PROPERTY.getName());
 		Stereotype eAttributeStereotype = uml2Helper.createStereotype(prof, "eAttribute", true);
@@ -111,16 +113,16 @@ public class HelperTest extends TestHelper {
 	}
 	
 	@Test
-	public void testLoadResources(){
-		Profile profile =  (Profile) uml2Helper.load(getUriToResource("perfil1"), "");
+	public void testLoadResources() throws ModelNotFoundException, ModelIncompleteException{
+		Profile profile =  (Profile) uml2Helper.load(getUriToResource("perfil1"));
 		assertNotNull(profile);
 	}
 	
 	@Test
-	public void testApplyProfile() throws IOException{
+	public void testApplyProfile() throws IOException, ModelNotFoundException, ModelIncompleteException{
 		Profile profile = givenAProfile("ecore");
 		profile.define();
-		Package epo2Model =  uml2Helper.load(getUriToResource("perfil1"), "");
+		Package epo2Model =  uml2Helper.load(getUriToResource("perfil1").toString());
 		uml2Helper.applyProfile(epo2Model, profile);
 		assertNotNull(epo2Model.getAllAppliedProfiles());
 		assertEquals(1, epo2Model.getAllAppliedProfiles().size());

@@ -2,6 +2,9 @@ package mestrado.arquitetura.factories;
 
 import static org.junit.Assert.*;
 
+import mestrado.arquitetura.helpers.ModelIncompleteException;
+import mestrado.arquitetura.helpers.ModelNotFoundException;
+
 import org.eclipse.uml2.uml.Classifier;
 import org.junit.Test;
 
@@ -23,7 +26,7 @@ public class KlassTest {
 	}
 	
 	@Test
-	public void shouldReturnAClassWithStereotypeMandatoryAndNewName(){
+	public void shouldReturnAClassWithStereotypeMandatoryAndNewName() throws ModelNotFoundException, ModelIncompleteException{
 		Classifier klass = Klass.create().withName("Person").withStereotypes("mandatory").getObject();
 		assertNotNull(klass);
 		assertEquals("Person", klass.getName());
@@ -31,7 +34,7 @@ public class KlassTest {
 	}
 	
 	@Test
-	public void shouldReturnAClassWithStereotypeVariationPointAndNewName(){
+	public void shouldReturnAClassWithStereotypeVariationPointAndNewName() throws ModelNotFoundException , ModelIncompleteException{
 		Classifier klass = Klass.create().withName("Person2").withStereotypes("variationPoint").getObject();
 		assertNotNull(klass);
 		assertEquals("Person2", klass.getName());
@@ -39,7 +42,7 @@ public class KlassTest {
 	}
 	
 	@Test
-	public void shouldReturnAClasseWithTwoStereotypesApplied(){
+	public void shouldReturnAClasseWithTwoStereotypesApplied() throws ModelNotFoundException , ModelIncompleteException{
 		Classifier klass = Klass.create().withName("Car").withStereotypes("variationPoint", "mandatory", "interface").getObject();
 		assertNotNull(klass);
 		assertEquals("Car", klass.getName());

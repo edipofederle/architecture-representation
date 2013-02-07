@@ -1,5 +1,8 @@
+
 package mestrado.arquitetura.helpers;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,7 +11,6 @@ import mestrado.arquitetura.base.Base;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -28,15 +30,21 @@ import org.eclipse.uml2.uml.UMLFactory;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.resource.UMLResource;
 
+/**
+ * @author edipofederle
+ */
+
 public class Uml2Helper extends Base {
 	
+	private static final boolean PRINT_LOGS = false;
+
 	public Uml2Helper(){}
 
 	public Profile createProfile(String name) {
 		Profile profile = UMLFactory.eINSTANCE.createProfile();
 		profile.setName(name);
 
-		System.out.println("Profile '" + profile.getQualifiedName()
+		printLog("Profile '" + profile.getQualifiedName()
 				+ "' created.");
 
 		return profile;
@@ -74,7 +82,7 @@ public class Uml2Helper extends Base {
 		org.eclipse.uml2.uml.Package createdPackage = nestingPackage
 				.createNestedPackage(name);
 
-		out("Package '" + createdPackage.getQualifiedName() + "' created.");
+		printLog("Package '" + createdPackage.getQualifiedName() + "' created.");
 
 		return createdPackage;
 	}
@@ -83,13 +91,9 @@ public class Uml2Helper extends Base {
 		Model model = UMLFactory.eINSTANCE.createModel();
 		model.setName(name);
 
-		out("Model '" + model.getQualifiedName() + "' created.");
+		printLog("Model '" + model.getQualifiedName() + "' created.");
 
 		return model;
-	}
-
-	public void out(String output) {
-		System.out.println(output);
 	}
 
 	public void err(String error) {
@@ -97,16 +101,15 @@ public class Uml2Helper extends Base {
 	}
 
 	public org.eclipse.uml2.uml.Class referenceMetaclass(Profile profile,
-			String name) {
-		Model umlMetamodel = (Model) load(
-				URI.createURI(UMLResource.UML_METAMODEL_URI), "");
+			String name) throws ModelNotFoundException {
+		Model umlMetamodel = (Model) getInternalResources(URI.createURI(UMLResource.UML_METAMODEL_URI));
 
 		org.eclipse.uml2.uml.Class metaclass = (org.eclipse.uml2.uml.Class) umlMetamodel
 				.getOwnedType(name);
 
 		profile.createMetaclassReference(metaclass);
 
-		System.out.println("Metaclass '" + metaclass.getQualifiedName()
+		printLog("Metaclass '" + metaclass.getQualifiedName()
 				+ "' referenced.");
 
 		return metaclass;
@@ -116,7 +119,7 @@ public class Uml2Helper extends Base {
 			Stereotype stereotype, boolean required) {
 		Extension extension = stereotype.createExtension(metaclass, required);
 
-		System.out.println((required ? "Required extension '" : "Extension '")
+		printLog((required ? "Required extension '" : "Extension '")
 				+ extension.getQualifiedName() + "' created.");
 
 		return extension;
@@ -146,7 +149,7 @@ public class Uml2Helper extends Base {
 
 		sb.append(" created.");
 
-		System.out.println(sb.toString());
+		printLog(sb.toString());
 
 		return attribute;
 	}
@@ -154,39 +157,50 @@ public class Uml2Helper extends Base {
 	public Enumeration createEnumeration(org.eclipse.uml2.uml.Package package_,
 			String name) {
 
-		Enumeration enumeration = (Enumeration) package_
-				.createOwnedEnumeration(name);
-		System.out.println("Enumeration '" + enumeration.getQualifiedName()
-				+ "' created.");
+		Enumeration enumeration = (Enumeration) package_.createOwnedEnumeration(name);
+		printLog("Enumeration '" + enumeration.getQualifiedName()+ "' created.");
 
 		return enumeration;
 	}
 
-	public EnumerationLiteral createEnumerationLiteral(Enumeration enumeration,
-			String name) {
+	public EnumerationLiteral createEnumerationLiteral(Enumeration enumeration, String name) {
 		EnumerationLiteral enumerationLiteral = enumeration
 				.createOwnedLiteral(name);
 
-		System.out.println("Enumeration literal '"
+		printLog("Enumeration literal '"
 				+ enumerationLiteral.getQualifiedName() + "' created.");
 
 		return enumerationLiteral;
 	}
 
-	public org.eclipse.uml2.uml.Package load(URI uri, String pathAbsolute) {
+	public org.eclipse.uml2.uml.Package load(String pathAbsolute) throws ModelNotFoundException, ModelIncompleteException {
+				
+		File file = new File(pathAbsolute);
+		FilenameFilter filter = new OnlyCompleteResources();
 		
-		org.eclipse.uml2.uml.Package package_ = null;
-		if (!"".equals(pathAbsolute))
-			getResources().getResource(URI.createFileURI(pathAbsolute), true);
-		try {
-			Resource resource = getResources().getResource(uri, true);
-			package_ = (org.eclipse.uml2.uml.Package) EcoreUtil
-					.getObjectByType(resource.getContents(),
-							UMLPackage.Literals.PACKAGE);
-		} catch (WrappedException we) {
-			err(we.getMessage());
+		if(fileExists(file)){
+			File dir = file.getParentFile();
+			String resourcesName = pathAbsolute.substring(pathAbsolute.lastIndexOf("/")+1, pathAbsolute.length()-4);
+			
+			if (isCompleteResources(filter, dir, resourcesName))
+				throw new ModelIncompleteException("Modelo Incompleto");
+			
+			return getExternalResources(pathAbsolute);
 		}
+		
+		throw new ModelNotFoundException("Nao encontrado");
+	}
 
+	private boolean isCompleteResources(FilenameFilter filter, File dir,
+			String resourcesName) {
+		return !filter.accept(dir, resourcesName);
+	}
+
+	private org.eclipse.uml2.uml.Package getExternalResources(String uri) {org.eclipse.uml2.uml.Package package_;
+		
+		Resource resource = getResources().getResource(URI.createFileURI(uri), true);
+		package_ = (org.eclipse.uml2.uml.Package) EcoreUtil.getObjectByType(resource.getContents(),
+															UMLPackage.Literals.PACKAGE);
 		return package_;
 	}
 
@@ -202,9 +216,22 @@ public class Uml2Helper extends Base {
 		throw new EnumerationNotFoundException(name);
 	}
 
-	public Type getPrimitiveType(String typeName) {
-		Package umlPrimitiveTypes = load(URI.createURI(UMLResource.UML_PRIMITIVE_TYPES_LIBRARY_URI), "");
+	public Type getPrimitiveType(String typeName) throws ModelNotFoundException {
+		Package umlPrimitiveTypes = getInternalResources(URI.createURI(UMLResource.UML_PRIMITIVE_TYPES_LIBRARY_URI));
 		return umlPrimitiveTypes.getOwnedType(typeName);
+	}
+	
+	/**
+	 * Carrega um recurso interno. Recurso interno pode ser entendido como por exemplo 
+	 * o mota modelo uml, tipos primitivos etc.
+	 * 
+	 * @param createURI
+	 * @return
+	 */
+	private Package getInternalResources(URI createURI) {
+		Resource resource = getResources().getResource(createURI, true);
+		return (org.eclipse.uml2.uml.Package) EcoreUtil.getObjectByType(resource.getContents(),
+															UMLPackage.Literals.PACKAGE);
 	}
 
 	public Stereotype createStereotype(Profile prof, String name,
@@ -229,13 +256,23 @@ public class Uml2Helper extends Base {
 
 		try {
 			package_.applyProfile(profile);
-			System.out.println("Profile '" + profile.getQualifiedName()
+			printLog("Profile '" + profile.getQualifiedName()
 					+ "' applied to package '" + package_.getQualifiedName()
 					+ "'.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	private boolean fileExists(File file) {
+		return file.exists();
+	}
+	
+	private void printLog(String message){
+		if(PRINT_LOGS)
+			System.out.println(message);
+	}
+
 	
 	
 }

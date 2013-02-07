@@ -3,6 +3,7 @@ package mestrado.arquitetura.smarty.profile;
 import java.io.IOException;
 
 import mestrado.arquitetura.helpers.EnumerationNotFoundException;
+import mestrado.arquitetura.helpers.ModelNotFoundException;
 import mestrado.arquitetura.helpers.StereotypeNotFoundException;
 import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
@@ -26,7 +27,7 @@ public class ProfileSMarty {
 	private Profile profile;
 	private Enumeration bindingTime;
 
-	public ProfileSMarty(String profileName) {
+	public ProfileSMarty(String profileName) throws ModelNotFoundException {
 		this.profile = helper.createProfile(profileName);
 		this.profile.setName("smartyProfile");
 
@@ -49,7 +50,7 @@ public class ProfileSMarty {
 	}
 
 
-	private void createConcernStereotype() {
+	private void createConcernStereotype() throws ModelNotFoundException {
 		Stereotype _interface = helper.createStereotype(this.profile, "concern", false);
 		Class klassMetaClass = helper.referenceMetaclass(this.profile,
 				UMLPackage.Literals.CLASS.getName());
@@ -57,7 +58,7 @@ public class ProfileSMarty {
 	}
 
 
-	private void createInterfaceStereotype() {
+	private void createInterfaceStereotype() throws ModelNotFoundException {
 		Stereotype _interface = helper.createStereotype(this.profile, "interface", false);
 		Class classMetaClass = helper.referenceMetaclass(this.profile,
 				UMLPackage.Literals.CLASS.getName());
@@ -66,7 +67,7 @@ public class ProfileSMarty {
 	}
 
 
-	private void createVariabilityStereotype() {
+	private void createVariabilityStereotype() throws ModelNotFoundException {
 		Stereotype variability = helper.createStereotype(this.profile, "variability", false);
 
 		Class commentMetaClass = helper.referenceMetaclass(this.profile,
@@ -105,7 +106,7 @@ public class ProfileSMarty {
 		}
 	}
 
-	private void createVariationPointStereotype(){
+	private void createVariationPointStereotype() throws ModelNotFoundException{
 		Stereotype variantPoint = helper.createStereotype(this.profile, "variationPoint", false);
 
 		Class classMetaClass = helper.referenceMetaclass(this.profile, UMLPackage.Literals.CLASS.getName());
@@ -125,7 +126,7 @@ public class ProfileSMarty {
 		helper.createAttribute(variantPoint, "bindingTime", bindingTime, 1, 1);
 	}
 
-	private void createVariantStereotype(){
+	private void createVariantStereotype() throws ModelNotFoundException{
 		Stereotype variant = helper.createStereotype(this.profile, "variant", true);
 
 		Class classMetaClass = helper.referenceMetaclass(this.profile,	UMLPackage.Literals.CLASS.getName());
