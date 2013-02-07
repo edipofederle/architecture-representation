@@ -37,8 +37,16 @@ import org.eclipse.uml2.uml.resource.UMLResource;
 public class Uml2Helper extends Base {
 	
 	private static final boolean PRINT_LOGS = false;
+	private static Package profile;
+	private static Uml2Helper instance;
 
-	public Uml2Helper(){}
+	
+	public static Uml2Helper getInstance() throws ModelNotFoundException, ModelIncompleteException{
+		if (instance == null){
+			instance = new Uml2Helper();
+		}
+		return instance;
+	}
 
 	public Profile createProfile(String name) {
 		Profile profile = UMLFactory.eINSTANCE.createProfile();
@@ -191,25 +199,13 @@ public class Uml2Helper extends Base {
 		throw new ModelNotFoundException("Nao encontrado");
 	}
 
-	private boolean isCompleteResources(FilenameFilter filter, File dir,
-			String resourcesName) {
-		return !filter.accept(dir, resourcesName);
-	}
-
-	private org.eclipse.uml2.uml.Package getExternalResources(String uri) {org.eclipse.uml2.uml.Package package_;
-		
-		Resource resource = getResources().getResource(URI.createFileURI(uri), true);
-		package_ = (org.eclipse.uml2.uml.Package) EcoreUtil.getObjectByType(resource.getContents(),
-															UMLPackage.Literals.PACKAGE);
-		return package_;
-	}
 
 	public PackageableElement getEnumerationByName(Profile profile, String name)
 			throws EnumerationNotFoundException {
 		EList<PackageableElement> a = profile.getPackagedElements();
 		for (PackageableElement packageableElement : a) {
-			if (packageableElement instanceof Enumeration
-					&& packageableElement.getName().equals(name))
+			if (packageableElement.eClass().equals(UMLPackage.Literals.ENUMERATION)
+					&& packageableElement.getName().equalsIgnoreCase(name))
 				return packageableElement;
 		}
 
@@ -221,18 +217,7 @@ public class Uml2Helper extends Base {
 		return umlPrimitiveTypes.getOwnedType(typeName);
 	}
 	
-	/**
-	 * Carrega um recurso interno. Recurso interno pode ser entendido como por exemplo 
-	 * o mota modelo uml, tipos primitivos etc.
-	 * 
-	 * @param createURI
-	 * @return
-	 */
-	private Package getInternalResources(URI createURI) {
-		Resource resource = getResources().getResource(createURI, true);
-		return (org.eclipse.uml2.uml.Package) EcoreUtil.getObjectByType(resource.getContents(),
-															UMLPackage.Literals.PACKAGE);
-	}
+
 
 	public Stereotype createStereotype(Profile prof, String name,
 			boolean isAbstract) {
@@ -264,7 +249,7 @@ public class Uml2Helper extends Base {
 		}
 	}
 	
-	private boolean fileExists(File file) {
+	private static boolean fileExists(File file) {
 		return file.exists();
 	}
 	
@@ -272,7 +257,49 @@ public class Uml2Helper extends Base {
 		if(PRINT_LOGS)
 			System.out.println(message);
 	}
+	
+	/**
+	 * Carrega um recurso interno. Recurso interno pode ser entendido como por exemplo 
+	 * o mota modelo uml, tipos primitivos etc.
+	 * 
+	 * @param createURI
+	 * @return
+	 */
+	private Package getInternalResources(URI createURI) {
+		Resource resource = getResources().getResource(createURI, true);
+		return (org.eclipse.uml2.uml.Package) EcoreUtil.getObjectByType(resource.getContents(),
+															UMLPackage.Literals.PACKAGE);
+	}
+	
+	private static boolean isCompleteResources(FilenameFilter filter, File dir, String resourcesName) {
+		return !filter.accept(dir, resourcesName);
+	}
 
+	public org.eclipse.uml2.uml.Package getExternalResources(String uri) {org.eclipse.uml2.uml.Package package_;
+		
+		Resource resource = getResources().getResource(URI.createFileURI(uri), true);
+		package_ = (org.eclipse.uml2.uml.Package) EcoreUtil.getObjectByType(resource.getContents(),
+															UMLPackage.Literals.PACKAGE);
+		return package_;
+	}
+
+	//TODO READ FROM CONFIGURATION FILE
+	private Profile loadSMartyProfile() throws ModelNotFoundException, ModelIncompleteException {
+		return (Profile) getExternalResources("src/test/java/resources/smartyProfile.uml");
+	}
+	
+	public Profile getSMartyProfile(){
+		return (Profile) profile;
+	}
+	
+	public void setSMartyProfile() throws ModelNotFoundException, ModelIncompleteException{
+		profile =  loadSMartyProfile();
+	}
 	
 	
+	public EnumerationLiteral getLiteralEnumeration(String name) throws EnumerationNotFoundException {
+		Enumeration a = (Enumeration) getEnumerationByName((Profile) profile, "BindingTime");
+		return a.getOwnedLiteral(name);
+	}
+
 }

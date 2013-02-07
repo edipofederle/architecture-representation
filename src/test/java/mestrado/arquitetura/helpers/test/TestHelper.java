@@ -21,8 +21,22 @@ public abstract class TestHelper {
 	protected static ModelHelper modelHelper;
 
 	static{
-		uml2Helper = Uml2HelperFactory.getUml2Helper();
-		modelHelper = ModelHelperFactory.getModelHelper();
+		try {
+			uml2Helper = Uml2HelperFactory.getUml2Helper();
+		} catch (ModelNotFoundException e) {
+			// TODO AJUSTAR
+			e.printStackTrace();
+		} catch (ModelIncompleteException e) {
+			// TODO AJUSTAR
+			e.printStackTrace();
+		}
+		try {
+			modelHelper = ModelHelperFactory.getModelHelper();
+		} catch (ModelNotFoundException e) {
+			e.printStackTrace();
+		} catch (ModelIncompleteException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -44,7 +58,7 @@ public abstract class TestHelper {
 		return "src/test/java/resources/" + modelName + ".uml";
 	}
 
-	protected String getUriToResource(String resourcesNamee) {
+	protected static String getUriToResource(String resourcesNamee) {
 		return URI.createFileURI(getUrlToModel(resourcesNamee)).toString();
 	}
 	

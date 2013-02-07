@@ -4,7 +4,7 @@ public class ModelHelperFactory {
 	
 	private static ModelHelper instance;
 	
-	public static ModelHelper getModelHelper(){
+	public static ModelHelper getModelHelper() throws ModelNotFoundException, ModelIncompleteException{
 		if (instance == null)
 			instance = new ModelHelper();
 		return instance;

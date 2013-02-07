@@ -30,7 +30,7 @@ public class HelperTest extends TestHelper {
 	private Uml2Helper uml2Helper;
 	
 	@Before
-	public void setUp(){
+	public void setUp() throws ModelNotFoundException, ModelIncompleteException{
 		uml2Helper = Uml2HelperFactory.getUml2Helper();
 	}
 	

@@ -4,14 +4,14 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 
 public abstract class Base {
 	
-	InitializeResources resources;
+	static InitializeResources resources;
 	
 	public Base(){
 		if (resources == null)
 			resources = InitializeResources.getInstance();
 	}
 	
-	public ResourceSet getResources(){
+	public static ResourceSet getResources(){
 		return resources.getResources();
 	}
 	

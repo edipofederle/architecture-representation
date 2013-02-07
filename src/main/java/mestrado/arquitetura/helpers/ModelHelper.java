@@ -15,12 +15,13 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.PackageableElement;
 
 public class ModelHelper extends ElementHelper {
 
-	private Uml2Helper uml2Helper;
+	private static Uml2Helper uml2Helper;
 
-	protected ModelHelper(){
+	protected ModelHelper() throws ModelNotFoundException, ModelIncompleteException{
 		uml2Helper = Uml2HelperFactory.getUml2Helper();
 	}
 

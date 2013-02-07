@@ -17,7 +17,7 @@ public class InterfaceHelperTest extends TestHelper {
 	private ModelHelper modelHelper; 
 	
 	@Before
-	public void setUp(){
+	public void setUp() throws ModelNotFoundException, ModelIncompleteException{
 		modelHelper = ModelHelperFactory.getModelHelper();
 	}
 	
