@@ -12,11 +12,10 @@ public class OnlyCompleteResources implements FilenameFilter {
 		File[] listOfFiles = dir.listFiles(); 
 		for(int i=0; i < listOfFiles.length; i++){
 			String nameFile = listOfFiles[i].getName();
-			if (nameFile.equalsIgnoreCase(name+".notation"))
-				resoucesComplet1 = true;
-			if (nameFile.equalsIgnoreCase(name+".di"))
-				resoucesComplet2 = true;
+			if (nameFile.equalsIgnoreCase(name+".notation")){ resoucesComplet1 = true; }
+			if (nameFile.equalsIgnoreCase(name+".di")) { resoucesComplet2 = true; }
 		}
+		
 		if (resoucesComplet1 && resoucesComplet2)
 			return true;
 		return false;

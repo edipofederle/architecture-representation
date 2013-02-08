@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import mestrado.arquitetura.helpers.ModelIncompleteException;
 import mestrado.arquitetura.helpers.ModelNotFoundException;
+import mestrado.arquitetura.helpers.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
 
@@ -59,7 +60,7 @@ public class HelperTest extends TestHelper {
 	public void shouldSaveProfile() throws IOException{
 		Profile profile = givenAProfile("myProfile");
 		URI profileURI = URI.createFileURI("arch/src/test/java/resources/"+profile.getName());
-		uml2Helper.save(profile, profileURI);
+		uml2Helper.saveResources(profile, profileURI);
 		File profileFile = new File("arch/src/test/java/resources/" + profile.getName() + ".uml");
 		assertTrue(profileFile.exists());
 	}
@@ -111,18 +112,13 @@ public class HelperTest extends TestHelper {
 		uml2Helper.createExtension(propertyMetaclass, eAttributeStereotype, false);
 		assertEquals(1, prof.getMetaclassReferences().size());
 	}
+
 	
 	@Test
-	public void testLoadResources() throws ModelNotFoundException, ModelIncompleteException{
-		Profile profile =  (Profile) uml2Helper.load(getUriToResource("perfil1"));
-		assertNotNull(profile);
-	}
-	
-	@Test
-	public void testApplyProfile() throws IOException, ModelNotFoundException, ModelIncompleteException{
+	public void testApplyProfile() throws IOException, ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		Profile profile = givenAProfile("ecore");
 		profile.define();
-		Package epo2Model =  uml2Helper.load(getUriToResource("perfil1").toString());
+		Package epo2Model =  uml2Helper.load(getUriToResource("smarty.profile").toString());
 		uml2Helper.applyProfile(epo2Model, profile);
 		assertNotNull(epo2Model.getAllAppliedProfiles());
 		assertEquals(1, epo2Model.getAllAppliedProfiles().size());

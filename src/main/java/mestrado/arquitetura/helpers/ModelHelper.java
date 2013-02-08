@@ -15,7 +15,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Package;
-import org.eclipse.uml2.uml.PackageableElement;
 
 public class ModelHelper extends ElementHelper {
 
@@ -65,7 +64,7 @@ public class ModelHelper extends ElementHelper {
 		throw new ModelNotFoundException("Model " + xmiFile + " not found");
 	}
 
-	public Package getModel(String xmiFile) throws ModelNotFoundException, ModelIncompleteException {
+	public Package getModel(String xmiFile) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
 		if (modelExists(xmiFile))
 			return uml2Helper.load(URI.createURI(xmiFile).toString());
 		throw new ModelNotFoundException("Model " + xmiFile + " not found");

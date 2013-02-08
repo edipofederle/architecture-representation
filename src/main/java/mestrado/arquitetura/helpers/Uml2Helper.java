@@ -58,14 +58,14 @@ public class Uml2Helper extends Base {
 		return profile;
 	}
 
-	public void save(org.eclipse.uml2.uml.Package package_, URI uri)
+	public void saveResources(org.eclipse.uml2.uml.Package package_, URI uri)
 			throws IOException {
 		ArrayList<EObject> contents = new ArrayList<EObject>();
 		contents.add(package_);
 		save(contents, uri);
 	}
 
-	public void save(Collection<EObject> contents, URI uri) throws IOException {
+	private void save(Collection<EObject> contents, URI uri) throws IOException {
 		URI finalUri = uri.appendFileExtension(UMLResource.FILE_EXTENSION);
 		Resource resource = getResources().createResource(finalUri);
 		resource.getContents().addAll(contents);
@@ -181,7 +181,7 @@ public class Uml2Helper extends Base {
 		return enumerationLiteral;
 	}
 
-	public org.eclipse.uml2.uml.Package load(String pathAbsolute) throws ModelNotFoundException, ModelIncompleteException {
+	public org.eclipse.uml2.uml.Package load(String pathAbsolute) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
 				
 		File file = new File(pathAbsolute);
 		FilenameFilter filter = new OnlyCompleteResources();
@@ -190,13 +190,27 @@ public class Uml2Helper extends Base {
 			File dir = file.getParentFile();
 			String resourcesName = pathAbsolute.substring(pathAbsolute.lastIndexOf("/")+1, pathAbsolute.length()-4);
 			
-			if (isCompleteResources(filter, dir, resourcesName))
-				throw new ModelIncompleteException("Modelo Incompleto");
+			if (isCompleteResources(filter, dir, resourcesName)) throw new ModelIncompleteException("Modelo Incompleto");
 			
-			return getExternalResources(pathAbsolute);
+			Package model = getExternalResources(pathAbsolute);
+			
+			if(model.eClass().equals(UMLPackage.Literals.PROFILE))	return model; 
+			if(hasSMartyProfile(model))  return model; 
+
+			throw new SMartyProfileNotAppliedToModelExcepetion("Profile SMarty Nao incluido no modelo." );
 		}
 		
 		throw new ModelNotFoundException("Nao encontrado");
+	}
+
+	//TODO Refatorar. Considera um modelo com um único perfil
+	// e o mesmo como sendo o SMArty.
+	private boolean hasSMartyProfile(Package model) {
+		EList<Profile> profiles = model.getAppliedProfiles();
+		for (Profile profile : profiles) {
+			if (profile.eClass().equals(UMLPackage.Literals.PROFILE)) return true;
+		}
+		return false;
 	}
 
 
@@ -260,7 +274,7 @@ public class Uml2Helper extends Base {
 	
 	/**
 	 * Carrega um recurso interno. Recurso interno pode ser entendido como por exemplo 
-	 * o mota modelo uml, tipos primitivos etc.
+	 * o meta modelo uml, tipos primitivos etc.
 	 * 
 	 * @param createURI
 	 * @return
@@ -285,13 +299,14 @@ public class Uml2Helper extends Base {
 
 	//TODO READ FROM CONFIGURATION FILE
 	private Profile loadSMartyProfile() throws ModelNotFoundException, ModelIncompleteException {
-		return (Profile) getExternalResources("src/test/java/resources/smartyProfile.uml");
+		return (Profile) getExternalResources("src/test/java/resources/smarty.profile.uml");
 	}
 	
 	public Profile getSMartyProfile(){
 		return (Profile) profile;
 	}
 	
+	//TODO Load profile according name of model
 	public void setSMartyProfile() throws ModelNotFoundException, ModelIncompleteException{
 		profile =  loadSMartyProfile();
 	}

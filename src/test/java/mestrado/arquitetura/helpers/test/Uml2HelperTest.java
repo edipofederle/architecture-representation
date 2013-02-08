@@ -1,17 +1,20 @@
 package mestrado.arquitetura.helpers.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import mestrado.arquitetura.helpers.EnumerationNotFoundException;
-import mestrado.arquitetura.helpers.ModelHelper;
 import mestrado.arquitetura.helpers.ModelHelperFactory;
 import mestrado.arquitetura.helpers.ModelIncompleteException;
 import mestrado.arquitetura.helpers.ModelNotFoundException;
+import mestrado.arquitetura.helpers.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.uml2.uml.EnumerationLiteral;
+import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.PackageableElement;
 import org.eclipse.uml2.uml.Profile;
 import org.eclipse.uml2.uml.UMLPackage;
@@ -21,7 +24,6 @@ import org.junit.Test;
 public class Uml2HelperTest  extends TestHelper{
 	
 	private static Uml2Helper uml2Helper;
-	private static ModelHelper modelHelper;
 	
 	@Before
 	public void setUp() throws ModelNotFoundException, ModelIncompleteException{
@@ -30,20 +32,20 @@ public class Uml2HelperTest  extends TestHelper{
 	}
 	
 	@Test(expected=ModelNotFoundException.class)
-	public void shouldRaiseExecptioWhenModelNotFound() throws ModelNotFoundException , ModelIncompleteException{
+	public void shouldRaiseExecptioWhenModelNotFound() throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		URI uri = URI.createFileURI("modeloNaoExiste.uml");
 		uml2Helper.load(uri.toString());
 	}
 	
 	@Test(expected=ModelIncompleteException.class)
-	public  void shouldRaiseModelNotFoundExceptionWhenModelIncomplete() throws ModelNotFoundException , ModelIncompleteException{
+	public  void shouldRaiseModelNotFoundExceptionWhenModelIncomplete() throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		URI uri = URI.createFileURI(getUriToResource("modelIncompleto"));
 		uml2Helper.load(uri.toString());
 	}
 	
 	@Test
-	public void shouldGetEnumByName() throws ModelNotFoundException, ModelIncompleteException, EnumerationNotFoundException{
-		Profile profile = (Profile) modelHelper.getModel(getUriToResource("smartyProfile"));
+	public void shouldGetEnumByName() throws ModelNotFoundException, ModelIncompleteException, EnumerationNotFoundException , SMartyProfileNotAppliedToModelExcepetion{
+		Profile profile = (Profile) uml2Helper.load(getUriToResource("smarty.profile"));
 		PackageableElement enumm = uml2Helper.getEnumerationByName(profile, "BindingTime");
 		assertTrue(enumm.eClass().equals(UMLPackage.Literals.ENUMERATION));
 	}
@@ -53,7 +55,30 @@ public class Uml2HelperTest  extends TestHelper{
 		 EnumerationLiteral a = uml2Helper.getLiteralEnumeration("DESIGN_TIME");
 		 assertNotNull(a);
 		 assertEquals("DESIGN_TIME", a.getName());
+	}
+	
+	
+	@Test
+	public void testIfProfileIsDefined(){
 		
 	}
+	
+	
+	@Test
+	public void givenAModelshouldReturnUriToPerfil() throws ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
+		Package model = givenAModel("variability");
+		EList<Profile> profiles = model.getAppliedProfiles();
+		assertEquals(1, profiles.size());
+		assertEquals("smartyProfile", profiles.get(0).getName());
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

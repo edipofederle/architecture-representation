@@ -7,6 +7,7 @@ import mestrado.arquitetura.helpers.ModelHelper;
 import mestrado.arquitetura.helpers.ModelHelperFactory;
 import mestrado.arquitetura.helpers.ModelIncompleteException;
 import mestrado.arquitetura.helpers.ModelNotFoundException;
+import mestrado.arquitetura.helpers.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
 
@@ -40,7 +41,7 @@ public abstract class TestHelper {
 		
 	}
 
-	public static Package givenAModel(String modelName) throws ModelNotFoundException , ModelIncompleteException {
+	public static Package givenAModel(String modelName) throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion {
 		//TODO Move from Here, problemas dos estereotipos
 		String uri = getUrlToModel(modelName);
 		String absolutePath = new File(uri).getAbsolutePath();
@@ -48,7 +49,7 @@ public abstract class TestHelper {
 		return epo2Model;
 	}
 
-	public static Classifier givenAClass() throws ModelNotFoundException  , ModelIncompleteException{
+	public static Classifier givenAClass() throws ModelNotFoundException  , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		Package content = givenAModel("ExtendedPO2");
 		List<Classifier> elementsClass = modelHelper.getAllClasses(content);
 		return elementsClass.get(0);
@@ -62,7 +63,7 @@ public abstract class TestHelper {
 		return URI.createFileURI(getUrlToModel(resourcesNamee)).toString();
 	}
 	
-	public static Stereotype getStereotypeByName(String name) throws ModelNotFoundException , ModelIncompleteException{
+	public static Stereotype getStereotypeByName(String name) throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		Package perfil = givenAModel("smartyProfile");
 		return  perfil.getOwnedStereotype(name);
 		

@@ -2,7 +2,9 @@ package mestrado.arquitetura.helpers;
 
 import java.util.Iterator;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Stereotype;
 
@@ -28,13 +30,19 @@ public class StereotypeHelper {
 		return hasStereotype(a, StereotypesTypes.VARIATION_POINT);
 	}
 
-	public static boolean isVariability(Classifier a) {
-		return hasStereotype(a, StereotypesTypes.VARIABILITY);
+	public static boolean isVariability(Classifier klass) {
+		EList<Comment> comments = klass.getPackage().getOwnedComments();
+		for (Comment comment : comments) {
+			for (Stereotype stereotype : comment.getAppliedStereotypes()) {
+				if( stereotype.getName().equalsIgnoreCase("variability") )
+					return true;
+			}
+		}
+		return false;
 	}
 
 	public static boolean isConcern(Classifier a) {
 		return hasStereotype(a, StereotypesTypes.CONCERN);
 	}
-
 
 }

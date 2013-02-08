@@ -2,6 +2,7 @@ package mestrado.arquitetura.factories;
 
 import mestrado.arquitetura.helpers.ModelIncompleteException;
 import mestrado.arquitetura.helpers.ModelNotFoundException;
+import mestrado.arquitetura.helpers.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.eclipse.uml2.uml.Class;
@@ -29,15 +30,15 @@ public class Klass extends TestHelper {
 			return this;
 		}
 		
-		public Klass withStereotypes(String ... stereotypes) throws ModelNotFoundException , ModelIncompleteException{
-			Profile perfil = (Profile) givenAModel("smartyProfile");
+		public Klass withStereotypes(String ... stereotypes) throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
+			Profile perfil = (Profile) givenAModel("smarty.profile"); // TODO Verificar isto.
 			model.applyProfile(perfil);
 			for (String sterotype : stereotypes)
 				klasse.applyStereotype(perfil.getOwnedStereotype(sterotype));
 			return this;
 		}
 		
-		public Classifier getObject(){
+		public Classifier build(){
 			return klasse;
 		}
 	

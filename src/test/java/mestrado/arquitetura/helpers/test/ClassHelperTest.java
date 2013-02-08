@@ -7,6 +7,7 @@ import java.util.List;
 import mestrado.arquitetura.helpers.ClassHelper;
 import mestrado.arquitetura.helpers.ModelIncompleteException;
 import mestrado.arquitetura.helpers.ModelNotFoundException;
+import mestrado.arquitetura.helpers.SMartyProfileNotAppliedToModelExcepetion;
 
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Operation;
@@ -17,17 +18,16 @@ import org.junit.Test;
 public class ClassHelperTest extends TestHelper {
 	
 	 @Test
-	 public void shouldReturnAllAttributesForAClass() throws ModelNotFoundException , ModelIncompleteException{
+	 public void shouldReturnAllAttributesForAClass() throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		 PackageableElement aClass = givenAClass();
-		 assertEquals("Address", aClass.getName());
+		 assertEquals("Person", aClass.getName());
 		 List<Classifier> attrs = ClassHelper.getAllAttributesForAClass(aClass);
 		 assertEquals(2, attrs.size());
-		 assertEquals("country", ((Property)attrs.get(0)).getLabel());
-		 assertEquals("String", ((Property) attrs.get(0)).getType().getName());
+		 assertEquals("name", ((Property)attrs.get(1)).getLabel());
 	 }
 	
 	 @Test 
-	 public void shouldReturnAllMethodsForAClass() throws ModelNotFoundException , ModelIncompleteException{
+	 public void shouldReturnAllMethodsForAClass() throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		 PackageableElement aClass = givenAClass();
 		 List<Classifier> methods = ClassHelper.getAllMethodsForAClass(aClass);
 		 assertEquals(1, methods.size());

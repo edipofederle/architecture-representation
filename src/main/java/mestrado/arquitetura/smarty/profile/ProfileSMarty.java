@@ -50,7 +50,7 @@ public class ProfileSMarty {
 
 		try {
 			URI profileURI = URI.createFileURI("/Users/edipofederle/Desktop/"+profileName);
-			helper.save(this.profile, profileURI);
+			helper.saveResources(this.profile, profileURI);
 			System.out.println("\n");
 			System.out.println("Perfil " + profileName + " salvo com sucesso em: " + profileURI);
 		} catch (IOException e) {
