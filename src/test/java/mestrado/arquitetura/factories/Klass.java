@@ -5,7 +5,6 @@ import mestrado.arquitetura.helpers.ModelNotFoundException;
 import mestrado.arquitetura.helpers.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
-import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.Profile;
@@ -13,8 +12,7 @@ import org.eclipse.uml2.uml.Profile;
 
 public class Klass extends TestHelper {
 
-
-		private static Class klasse;
+		private static Classifier klasse;
 		private static  Model model;
 	
 		String name;

@@ -13,11 +13,10 @@ public class ModelElementHelper {
 	public static List<Stereotype> getAllStereotypes(Classifier klass) {
 		List<Stereotype> stereotypes = new ArrayList<Stereotype>();
 		
-		for(Stereotype stereotype :  klass.getAppliedStereotypes())
+		for(Stereotype stereotype : klass.getAppliedStereotypes())
 			stereotypes.add(stereotype);
 		
-		if (stereotypes.isEmpty())
-			return Collections.emptyList();
+		if (stereotypes.isEmpty()) return Collections.emptyList();
 		
 		return stereotypes; 
 	}
@@ -27,9 +26,8 @@ public class ModelElementHelper {
 	}
 
 	public static boolean isClass(Classifier klass) {
-		boolean isClass = klass.eClass().equals(UMLPackage.Literals.CLASS) ? true : false;
-		return isClass;
+		if (isInterface(klass))	return false;
+		return klass.eClass().equals(UMLPackage.Literals.CLASS) ? true : false;
 	}
 	
-
 }

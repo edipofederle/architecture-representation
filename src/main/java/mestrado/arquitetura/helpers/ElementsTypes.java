@@ -9,5 +9,7 @@ public class ElementsTypes {
 	public static final String DEPENDENCY = "dependency";
 	public static final String PACKAGE = "package";
 	public static final String COMMENT = "comment";
+	public static final String PROPERTY = "property";
+	public static final String OPERATION = "operation";
 
 }

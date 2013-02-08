@@ -57,5 +57,13 @@ public class ModelElementHelperTest extends TestHelper {
 		Classifier klass = givenAClass();
 		assertTrue("should be a class", ModelElementHelper.isClass(klass));
 	}
+	
+	@Test
+	public void shouldReturnFalseWhenIsNotAClass() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+		 Classifier interfac = Klass.create().withName("Order")
+                .withStereotypes("interface")
+                .build();
+		assertFalse("should NOT be a class", ModelElementHelper.isClass(interfac));
+	}
 
 }

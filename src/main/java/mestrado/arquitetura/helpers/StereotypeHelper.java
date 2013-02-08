@@ -32,12 +32,11 @@ public class StereotypeHelper {
 
 	public static boolean isVariability(Classifier klass) {
 		EList<Comment> comments = klass.getPackage().getOwnedComments();
-		for (Comment comment : comments) {
-			for (Stereotype stereotype : comment.getAppliedStereotypes()) {
-				if( stereotype.getName().equalsIgnoreCase("variability") )
-					return true;
-			}
-		}
+		
+		for (Comment comment : comments) 
+			for (Stereotype stereotype : comment.getAppliedStereotypes())
+				if( stereotype.getName().equalsIgnoreCase("variability")) return true;
+		
 		return false;
 	}
 
