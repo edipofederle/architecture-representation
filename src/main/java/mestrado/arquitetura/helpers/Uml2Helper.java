@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import mestrado.arquitetura.base.Base;
+import mestrado.arquitetura.helpers.test.UtilResources;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -20,6 +21,7 @@ import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Extension;
 import org.eclipse.uml2.uml.LiteralUnlimitedNatural;
 import org.eclipse.uml2.uml.Model;
+import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.PackageableElement;
 import org.eclipse.uml2.uml.Profile;
@@ -228,11 +230,9 @@ public class Uml2Helper extends Base {
 
 	public Type getPrimitiveType(String typeName) throws ModelNotFoundException {
 		Package umlPrimitiveTypes = getInternalResources(URI.createURI(UMLResource.UML_PRIMITIVE_TYPES_LIBRARY_URI));
-		return umlPrimitiveTypes.getOwnedType(typeName);
+		return umlPrimitiveTypes.getOwnedType(UtilResources.capitalize(typeName));
 	}
 	
-
-
 	public Stereotype createStereotype(Profile prof, String name,
 			boolean isAbstract) {
 		Stereotype stereotype = prof.createOwnedStereotype(name, isAbstract);
@@ -311,10 +311,13 @@ public class Uml2Helper extends Base {
 		profile =  loadSMartyProfile();
 	}
 	
-	
 	public EnumerationLiteral getLiteralEnumeration(String name) throws EnumerationNotFoundException {
 		Enumeration a = (Enumeration) getEnumerationByName((Profile) profile, "BindingTime");
 		return a.getOwnedLiteral(name);
 	}
-
+	
+	public Operation createOperation(Classifier klass, String methodName, EList<String> parameterNames, EList<Type> parameterTypes, Type returnType){
+		org.eclipse.uml2.uml.Class k = (org.eclipse.uml2.uml.Class) klass;
+		return k.createOwnedOperation(methodName, parameterNames, parameterTypes, returnType);
+	}
 }

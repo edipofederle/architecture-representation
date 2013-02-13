@@ -40,13 +40,13 @@ public class ProfileSMarty {
 		this.profile = helper.createProfile(profileName);
 		this.profile.setName("smartyProfile");
 
-			createBindingTimeEnumeration();
-			createVariationPointStereotype();
-			createVariantStereotype();
-			createVariantSpecializationStereotypes();
-			createVariabilityStereotype();
-			createInterfaceStereotype();
-			createConcernStereotype();
+		createBindingTimeEnumeration();
+		createVariationPointStereotype();
+		createVariantStereotype();
+		createVariantSpecializationStereotypes();
+		createVariabilityStereotype();
+		createInterfaceStereotype();
+		createConcernStereotype();
 
 		try {
 			URI profileURI = URI.createFileURI("/Users/edipofederle/Desktop/"+profileName);
