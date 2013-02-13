@@ -196,9 +196,14 @@ public class Uml2Helper extends Base {
 			
 			Package model = getExternalResources(pathAbsolute);
 			
-			if(model.eClass().equals(UMLPackage.Literals.PROFILE))	return model; 
 			if(hasSMartyProfile(model))  return model; 
 
+			if(model.eClass().equals(UMLPackage.Literals.PROFILE)){
+				if (!((Profile) model).isDefined())
+					((Profile) model).define();
+				return model; 
+			}
+			
 			throw new SMartyProfileNotAppliedToModelExcepetion("Profile SMarty Nao incluido no modelo." );
 		}
 		

@@ -17,6 +17,7 @@ import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.PackageableElement;
 import org.eclipse.uml2.uml.Profile;
+import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,10 +60,44 @@ public class Uml2HelperTest  extends TestHelper{
 	
 	
 	@Test
-	public void testIfProfileIsDefined(){
-		
+	public void whenProfileIsntDefinedDefineIt() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+		Profile profile = (Profile) uml2Helper.load(getUriToResource("profileNotdefined.profile"));
+		assertTrue(profile.isDefined());
 	}
 	
+	@Test
+	public void shouldGetPrimitiveType() throws ModelNotFoundException{
+		Type str = uml2Helper.getPrimitiveType("String");
+		assertNotNull(str);
+		assertEquals("String", str.getName());
+	}
+	
+
+	@Test
+	public void shouldGetPrimitiveTypeWithSpace() throws ModelNotFoundException{
+		Type str = uml2Helper.getPrimitiveType("String  ");
+		assertNotNull(str);
+		assertEquals("String", str.getName());
+		
+		Type integer = uml2Helper.getPrimitiveType(" Integer");
+		assertNotNull(integer);
+		assertEquals("Integer", integer.getName());
+	}
+	
+	@Test
+	public void shouldGetPrimitiveTypeIgnoringCase() throws ModelNotFoundException{
+		Type str = uml2Helper.getPrimitiveType("string");
+		assertNotNull(str);
+		assertEquals("String", str.getName());
+		
+		Type integer = uml2Helper.getPrimitiveType("integer");
+		assertNotNull(integer);
+		assertEquals("Integer", integer.getName());
+		
+		Type integer2 = uml2Helper.getPrimitiveType(" InTeger");
+		assertNotNull(integer2);
+		assertEquals("Integer", integer2.getName());
+	}
 	
 	@Test
 	public void givenAModelshouldReturnUriToPerfil() throws ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
@@ -72,13 +107,4 @@ public class Uml2HelperTest  extends TestHelper{
 		assertEquals("smartyProfile", profiles.get(0).getName());
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
