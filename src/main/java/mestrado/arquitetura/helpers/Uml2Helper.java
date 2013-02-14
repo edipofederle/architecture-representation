@@ -238,8 +238,7 @@ public class Uml2Helper extends Base {
 		return umlPrimitiveTypes.getOwnedType(UtilResources.capitalize(typeName));
 	}
 	
-	public Stereotype createStereotype(Profile prof, String name,
-			boolean isAbstract) {
+	public Stereotype createStereotype(Profile prof, String name, boolean isAbstract) {
 		Stereotype stereotype = prof.createOwnedStereotype(name, isAbstract);
 		return stereotype;
 	}
@@ -255,9 +254,7 @@ public class Uml2Helper extends Base {
 		throw new StereotypeNotFoundException(name);
 	}
 
-	public void applyProfile(org.eclipse.uml2.uml.Package package_,
-			Profile profile) {
-
+	public void applyProfile(org.eclipse.uml2.uml.Package package_,	Profile profile) {
 		try {
 			package_.applyProfile(profile);
 			printLog("Profile '" + profile.getQualifiedName()
@@ -311,7 +308,6 @@ public class Uml2Helper extends Base {
 		return (Profile) profile;
 	}
 	
-	//TODO Load profile according name of model
 	public void setSMartyProfile() throws ModelNotFoundException, ModelIncompleteException{
 		profile =  loadSMartyProfile();
 	}

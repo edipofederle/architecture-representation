@@ -8,7 +8,7 @@ import org.eclipse.uml2.uml.PackageableElement;
 
 public class ClassHelper extends ElementHelper {
 
-	public static List<Classifier> getAllAttributesForAClass(PackageableElement aClass) {
+	public static List<Classifier> getAllAttributesForAClass(Classifier aClass) {
 		List<Classifier> allPropertys = new ArrayList<Classifier>();
 		allPropertys = getAllElementsByType(aClass, ElementsTypes.PROPERTY);
 		return allPropertys;

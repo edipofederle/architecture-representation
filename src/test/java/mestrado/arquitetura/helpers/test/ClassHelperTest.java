@@ -19,7 +19,7 @@ public class ClassHelperTest extends TestHelper {
 	
 	 @Test
 	 public void shouldReturnAllAttributesForAClass() throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
-		 PackageableElement aClass = givenAClass();
+		 Classifier aClass = givenAClass();
 		 assertEquals("Person", aClass.getName());
 		 List<Classifier> attrs = ClassHelper.getAllAttributesForAClass(aClass);
 		 assertEquals(2, attrs.size());

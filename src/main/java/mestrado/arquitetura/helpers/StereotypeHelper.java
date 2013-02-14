@@ -14,8 +14,7 @@ public class StereotypeHelper {
 		boolean has = false;
 
 		if (elt != null) {
-			@SuppressWarnings("rawtypes")
-			Iterator i = elt.getAppliedStereotypes().iterator();
+			Iterator<Stereotype> i = elt.getAppliedStereotypes().iterator();
 			Stereotype currentStereotype;
 			while (i.hasNext() && !has) {
 				currentStereotype = (Stereotype) i.next();

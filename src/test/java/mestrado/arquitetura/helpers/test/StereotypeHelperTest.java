@@ -1,10 +1,12 @@
 package mestrado.arquitetura.helpers.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 
 import mestrado.arquitetura.factories.Klass;
 import mestrado.arquitetura.helpers.ModelIncompleteException;
@@ -81,5 +83,40 @@ public class StereotypeHelperTest extends TestHelper {
 		
 		assertEquals("isVariability should return false", false, result);
 	}
+	
+	
+	@Test
+	public void shouldReturnFalseIfIsNotVariability2() throws ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion, IOException{
+		
+		String uri = getUrlToModel("variabilitySem");
+		String absolutePath = new File(uri).getAbsolutePath();
+		Package model = uml2Helper.load(absolutePath);
+
+		Classifier klass = modelHelper.getAllClasses(model).get(0);
+		assertNotNull(klass);
+		
+		assertEquals("Class1", klass.getName());
+		assertFalse(StereotypeHelper.isVariability(klass));
+	}
+	
+	
+	@Test
+	public void shouldReturnFalseToNullStereotype(){
+		assertFalse(StereotypeHelper.hasStereotype(null, "variantionPoint"));
+	}
+	
+	@Test
+	public void shouldTestHasStereotype() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+		Classifier a = Klass.create()
+	            .withName("Bird")
+				.withStereotypes("variationPoint", "alternative_OR").build();
+		
+		assertTrue(StereotypeHelper.hasStereotype(a, "variationPoint"));
+		assertFalse(StereotypeHelper.hasStereotype(a, "wtf"));
+		
+	}
+	
+	
+	
 
 }

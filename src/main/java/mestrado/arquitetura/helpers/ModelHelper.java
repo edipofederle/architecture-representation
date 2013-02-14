@@ -74,7 +74,7 @@ public class ModelHelper extends ElementHelper {
 		return false;
 	}
 
-	public List<Classifier> getAllMethods(Class model) {
+	public List<Classifier> getAllMethods(Classifier model) {
 		return getAllElementsByType(model, OPERATION);
 	}
 

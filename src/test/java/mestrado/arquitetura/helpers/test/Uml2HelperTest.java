@@ -58,7 +58,6 @@ public class Uml2HelperTest  extends TestHelper{
 		 assertEquals("DESIGN_TIME", a.getName());
 	}
 	
-	
 	@Test
 	public void whenProfileIsntDefinedDefineIt() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
 		Profile profile = (Profile) uml2Helper.load(getUriToResource("profileNotdefined.profile"));
@@ -72,7 +71,6 @@ public class Uml2HelperTest  extends TestHelper{
 		assertEquals("String", str.getName());
 	}
 	
-
 	@Test
 	public void shouldGetPrimitiveTypeWithSpace() throws ModelNotFoundException{
 		Type str = uml2Helper.getPrimitiveType("String  ");

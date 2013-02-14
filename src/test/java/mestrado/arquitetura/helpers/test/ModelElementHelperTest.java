@@ -66,4 +66,5 @@ public class ModelElementHelperTest extends TestHelper {
 		assertFalse("should NOT be a class", ModelElementHelper.isClass(interfac));
 	}
 
+
 }

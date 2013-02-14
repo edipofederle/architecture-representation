@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Stereotype;
-import org.eclipse.uml2.uml.UMLPackage;
 
 public class ModelElementHelper {
 
@@ -27,7 +26,7 @@ public class ModelElementHelper {
 
 	public static boolean isClass(Classifier klass) {
 		if (isInterface(klass))	return false;
-		return klass.eClass().equals(UMLPackage.Literals.CLASS) ? true : false;
+		return true;
 	}
 	
 }
