@@ -1,7 +1,13 @@
 package mestrado.arquitetura.helpers;
 
 
-import static mestrado.arquitetura.helpers.ElementsTypes.*;
+import static mestrado.arquitetura.helpers.ElementsTypes.ASSOCIATION;
+import static mestrado.arquitetura.helpers.ElementsTypes.CLASS;
+import static mestrado.arquitetura.helpers.ElementsTypes.COMMENT;
+import static mestrado.arquitetura.helpers.ElementsTypes.DEPENDENCY;
+import static mestrado.arquitetura.helpers.ElementsTypes.INTERFACE;
+import static mestrado.arquitetura.helpers.ElementsTypes.OPERATION;
+import static mestrado.arquitetura.helpers.ElementsTypes.PACKAGE;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -9,7 +15,6 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Package;
 
