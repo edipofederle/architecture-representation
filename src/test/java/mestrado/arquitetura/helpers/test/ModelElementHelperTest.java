@@ -13,6 +13,7 @@ import mestrado.arquitetura.helpers.ModelNotFoundException;
 import mestrado.arquitetura.helpers.SMartyProfileNotAppliedToModelExcepetion;
 
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Stereotype;
 import org.junit.Test;
@@ -41,20 +42,20 @@ public class ModelElementHelperTest extends TestHelper {
 	@Test
 	public void isInterfaceWhenClassWithStereotypeInterface() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
 		Package model = givenAModel("interface");
-		Classifier klass = modelHelper.getAllClasses(model).get(0);
+		NamedElement klass = modelHelper.getAllClasses(model).get(0);
 
 		assertTrue("should be a interface.", ModelElementHelper.isInterface(klass));
 	}
 
 	@Test
 	public void isNotInterfaceWhenClassWithoutStereotypeInterface()	throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
-		Classifier klass = givenAClass();
+		NamedElement klass = givenAClass();
 		assertFalse("should NOT be a interface", ModelElementHelper.isInterface(klass));
 	}
 	
 	@Test
 	public void shouldReturnTrueWhenIsAClass() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
-		Classifier klass = givenAClass();
+		NamedElement klass = givenAClass();
 		assertTrue("should be a class", ModelElementHelper.isClass(klass));
 	}
 	

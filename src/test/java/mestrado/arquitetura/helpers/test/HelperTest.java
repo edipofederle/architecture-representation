@@ -112,18 +112,16 @@ public class HelperTest extends TestHelper {
 		uml2Helper.createExtension(propertyMetaclass, eAttributeStereotype, false);
 		assertEquals(1, prof.getMetaclassReferences().size());
 	}
-
 	
 	@Test
 	public void testApplyProfile() throws IOException, ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		Profile profile = givenAProfile("ecore");
 		profile.define();
-		Package epo2Model =  uml2Helper.load(getUriToResource("smarty.profile").toString());
+		Package epo2Model =  uml2Helper.load(getUrlToModel("smarty.profile").toString());
 		uml2Helper.applyProfile(epo2Model, profile);
 		assertNotNull(epo2Model.getAllAppliedProfiles());
 		assertEquals(1, epo2Model.getAllAppliedProfiles().size());
 		assertEquals("Model name should be ecore", "ecore", epo2Model.getAllAppliedProfiles().get(0).getName());
 	}
-	
 	
 }

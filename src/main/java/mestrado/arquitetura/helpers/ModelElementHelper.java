@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Stereotype;
 
 public class ModelElementHelper {
 
-	public static List<Stereotype> getAllStereotypes(Classifier klass) {
+	public static <T> List<Stereotype> getAllStereotypes(NamedElement klass) {
 		List<Stereotype> stereotypes = new ArrayList<Stereotype>();
 		
 		for(Stereotype stereotype : klass.getAppliedStereotypes())
@@ -20,11 +20,11 @@ public class ModelElementHelper {
 		return stereotypes; 
 	}
 	
-	public static boolean isInterface(Classifier klass){
+	public static boolean isInterface(NamedElement klass){
 		return StereotypeHelper.hasStereotype(klass, StereotypesTypes.INTERFACE);
 	}
 
-	public static boolean isClass(Classifier klass) {
+	public static boolean isClass(NamedElement klass) {
 		if (isInterface(klass))	return false;
 		return true;
 	}

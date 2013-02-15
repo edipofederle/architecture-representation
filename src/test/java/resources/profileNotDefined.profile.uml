@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Profile xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_zdCUIHYMEeKUyqBiov16uw" name="profile" metaclassReference="_I0N30HYzEeK1lv_vvJ4xRg">
   <eAnnotations xmi:id="_cYVNIHYyEeK1lv_vvJ4xRg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_fvh_MHZCEeK1lv_vvJ4xRg" name="profile" nsURI="http:///schemas/profile/_fvhYIHZCEeK1lv_vvJ4xRg/3" nsPrefix="profile">
+      <eAnnotations xmi:id="_fvh_NnZCEeK1lv_vvJ4xRg" source="PapyrusVersion">
+        <details xmi:id="_fvh_N3ZCEeK1lv_vvJ4xRg" key="Version" value="0.0.3"/>
+        <details xmi:id="_fvh_OHZCEeK1lv_vvJ4xRg" key="Comment" value=""/>
+        <details xmi:id="_fvh_OXZCEeK1lv_vvJ4xRg" key="Copyright" value=""/>
+        <details xmi:id="_fvh_OnZCEeK1lv_vvJ4xRg" key="Date" value="2013-02-13"/>
+        <details xmi:id="_fvh_O3ZCEeK1lv_vvJ4xRg" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_fvh_MXZCEeK1lv_vvJ4xRg" name="whateverStereotype">
+        <eAnnotations xmi:id="_fvh_MnZCEeK1lv_vvJ4xRg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_uyv6AHYyEeK1lv_vvJ4xRg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_fvh_M3ZCEeK1lv_vvJ4xRg" name="base_Comment" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Comment"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
     <contents xmi:type="ecore:EPackage" xmi:id="_KUbtYHYzEeK1lv_vvJ4xRg" name="profile" nsURI="http:///schemas/profile/_KUafQHYzEeK1lv_vvJ4xRg/2" nsPrefix="profile">
       <eAnnotations xmi:id="_KUcUcXYzEeK1lv_vvJ4xRg" source="PapyrusVersion">
         <details xmi:id="_KUcUcnYzEeK1lv_vvJ4xRg" key="Version" value="0.0.2"/>

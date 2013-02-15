@@ -3,14 +3,14 @@ package mestrado.arquitetura.helpers;
 import java.util.Iterator;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Comment;
-import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Stereotype;
 
 public class StereotypeHelper {
 	
-	public static boolean hasStereotype(Element elt, String stereotypeName) {
+	public static boolean hasStereotype(NamedElement elt, String stereotypeName) {
 		boolean has = false;
 
 		if (elt != null) {
@@ -25,12 +25,12 @@ public class StereotypeHelper {
 		return has;
 	}
 
-	public static boolean isVariationPoint(Classifier a) {
+	public static boolean isVariationPoint(NamedElement a) {
 		return hasStereotype(a, StereotypesTypes.VARIATION_POINT);
 	}
 
-	public static boolean isVariability(Classifier klass) {
-		EList<Comment> comments = klass.getPackage().getOwnedComments();
+	public static boolean isVariability(NamedElement klass) {
+		EList<Comment> comments = ((Class) klass).getPackage().getOwnedComments();
 		
 		for (Comment comment : comments) 
 			for (Stereotype stereotype : comment.getAppliedStereotypes())
@@ -39,7 +39,9 @@ public class StereotypeHelper {
 		return false;
 	}
 
-	public static boolean isConcern(Classifier a) {
+	public static boolean isConcern(NamedElement a) {
+		if(a instanceof Stereotype)
+			return StereotypesTypes.CONCERN.equalsIgnoreCase(a.getName());
 		return hasStereotype(a, StereotypesTypes.CONCERN);
 	}
 

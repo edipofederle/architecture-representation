@@ -7,14 +7,18 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import mestrado.arquitetura.factories.Klass;
+import mestrado.arquitetura.helpers.ModelElementHelper;
 import mestrado.arquitetura.helpers.ModelIncompleteException;
 import mestrado.arquitetura.helpers.ModelNotFoundException;
 import mestrado.arquitetura.helpers.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.helpers.StereotypeHelper;
 
+import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.junit.Test;
 
@@ -23,7 +27,7 @@ public class StereotypeHelperTest extends TestHelper {
 	@Test
 	public void shouldReturnTrueIfIsVariantPointClass() throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion {
 
-		Classifier a = Klass.create()
+		NamedElement a = Klass.create()
 				            .withName("Car")
 							.withStereotypes("variationPoint").build();
 		
@@ -34,7 +38,7 @@ public class StereotypeHelperTest extends TestHelper {
 	@Test
 	public void shouldReturnFalseIfIsNOTVariantPointClass() {
 
-		Classifier a = Klass.create().build();
+		NamedElement a = Klass.create().build();
 		boolean result = StereotypeHelper.isVariationPoint(a);
 		
 		assertEquals("isVariationPoint should return false", false, result);
@@ -67,9 +71,9 @@ public class StereotypeHelperTest extends TestHelper {
 		String uri = getUrlToModel("variability");
 		String absolutePath = new File(uri).getAbsolutePath();
 		Package model = uml2Helper.load(absolutePath);
-		Classifier klass = modelHelper.getAllClasses(model).get(0);
+		NamedElement klass = modelHelper.getAllClasses(model).get(0);
 		assertNotNull(klass);
-		assertEquals("Class1", klass.getName());
+		assertEquals("Class1", ((Class)klass).getName());
 		assertTrue(StereotypeHelper.isVariability(klass));
 	}
 	
@@ -92,10 +96,10 @@ public class StereotypeHelperTest extends TestHelper {
 		String absolutePath = new File(uri).getAbsolutePath();
 		Package model = uml2Helper.load(absolutePath);
 
-		Classifier klass = modelHelper.getAllClasses(model).get(0);
+		NamedElement klass = modelHelper.getAllClasses(model).get(0);
 		assertNotNull(klass);
 		
-		assertEquals("Class1", klass.getName());
+		assertEquals("Class1", ((Class)klass).getName());
 		assertFalse(StereotypeHelper.isVariability(klass));
 	}
 	
@@ -113,6 +117,20 @@ public class StereotypeHelperTest extends TestHelper {
 		
 		assertTrue(StereotypeHelper.hasStereotype(a, "variationPoint"));
 		assertFalse(StereotypeHelper.hasStereotype(a, "wtf"));
+	}
+	
+	
+	@Test
+	public void test() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+		String uri = getUrlToModel("testArch");
+	
+		Package model = uml2Helper.load(uri);
+		List<Classifier> p = modelHelper.getAllPackages(model);
+		
+		List<Classifier> c = modelHelper.getAllClasses(((Package)p.get(0)));
+		assertNotNull(c);
+		assertNotNull(ModelElementHelper.getAllStereotypes(c.get(0)));
+		System.out.println(ModelElementHelper.getAllStereotypes(c.get(0)));
 		
 	}
 	

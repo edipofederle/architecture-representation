@@ -1,4 +1,3 @@
-
 package mestrado.arquitetura.helpers;
 
 import java.io.File;
@@ -184,7 +183,7 @@ public class Uml2Helper extends Base {
 	}
 
 	public org.eclipse.uml2.uml.Package load(String pathAbsolute) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
-				
+		
 		File file = new File(pathAbsolute);
 		FilenameFilter filter = new OnlyCompleteResources();
 		

@@ -38,15 +38,23 @@ public class Uml2HelperTest  extends TestHelper{
 		uml2Helper.load(uri.toString());
 	}
 	
+	
+	@Test
+	public void shouldLoadAModelWithTwoProfiles() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+		String uri = getUrlToModel("testArch");
+		Package model = uml2Helper.load(uri.toString());
+		assertEquals("should have two profiles applied", 2, model.getAppliedProfiles().size());
+	}
+	
 	@Test(expected=ModelIncompleteException.class)
 	public  void shouldRaiseModelNotFoundExceptionWhenModelIncomplete() throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
-		URI uri = URI.createFileURI(getUriToResource("modelIncompleto"));
-		uml2Helper.load(uri.toString());
+		String uri = getUrlToModel("modelIncompleto");
+		uml2Helper.load(uri);
 	}
 	
 	@Test
 	public void shouldGetEnumByName() throws ModelNotFoundException, ModelIncompleteException, EnumerationNotFoundException , SMartyProfileNotAppliedToModelExcepetion{
-		Profile profile = (Profile) uml2Helper.load(getUriToResource("smarty.profile"));
+		Profile profile = (Profile) uml2Helper.load(getUrlToModel("smarty.profile"));
 		PackageableElement enumm = uml2Helper.getEnumerationByName(profile, "BindingTime");
 		assertTrue(enumm.eClass().equals(UMLPackage.Literals.ENUMERATION));
 	}
@@ -60,7 +68,7 @@ public class Uml2HelperTest  extends TestHelper{
 	
 	@Test
 	public void whenProfileIsntDefinedDefineIt() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
-		Profile profile = (Profile) uml2Helper.load(getUriToResource("profileNotdefined.profile"));
+		Profile profile = (Profile) uml2Helper.load(getUrlToModel("profileNotdefined.profile"));
 		assertTrue(profile.isDefined());
 	}
 	

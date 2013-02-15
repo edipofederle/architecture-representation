@@ -16,6 +16,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 
 public class ModelHelper extends ElementHelper {
@@ -53,9 +54,9 @@ public class ModelHelper extends ElementHelper {
 	public List<EList<Classifier>> getAllGeneralizations(Package model) {
 		List<Classifier> allClasses = getAllClasses(model);
 		List<EList<Classifier>> a = new ArrayList<EList<Classifier>>();
-		for (Classifier classImpl : allClasses) {
-			if (!classImpl.getGeneralizations().isEmpty())
-				a.add((classImpl.getGenerals()));
+		for (NamedElement classImpl : allClasses) {
+			if (!((Classifier) classImpl).getGeneralizations().isEmpty())
+				a.add((((Classifier) classImpl).getGenerals()));
 		}
 		return a;
 	}

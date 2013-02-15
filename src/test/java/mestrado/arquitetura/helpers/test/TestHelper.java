@@ -13,6 +13,7 @@ import mestrado.arquitetura.helpers.Uml2HelperFactory;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Stereotype;
 
@@ -49,14 +50,20 @@ public abstract class TestHelper {
 		return epo2Model;
 	}
 
-	public static Classifier givenAClass() throws ModelNotFoundException  , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
+	public static NamedElement givenAClass() throws ModelNotFoundException  , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		Package content = givenAModel("ExtendedPO2");
 		List<Classifier> elementsClass = modelHelper.getAllClasses(content);
 		return elementsClass.get(0);
 	}
-
+	/**
+	 * Retorna URI para um resource dentro de "src/test/java/resources/"
+	 * @param modelName. ex: "meuModel" ( sem a extensao do arquivo ).
+	 * @return uri String
+	 */
 	protected static String getUrlToModel(String modelName) {
-		return "src/test/java/resources/" + modelName + ".uml";
+		
+		return new File("src/test/java/resources/" + modelName + ".uml").getAbsolutePath(); 
+		
 	}
 
 	protected static String getUriToResource(String resourcesNamee) {

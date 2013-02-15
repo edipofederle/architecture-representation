@@ -9,7 +9,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Element;
-import org.eclipse.uml2.uml.PackageableElement;
+import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.UMLPackage;
 
 public abstract class ElementHelper {
@@ -29,7 +29,7 @@ public abstract class ElementHelper {
 	}
 		
 	@SuppressWarnings("unchecked")
-	protected static <T> List<Classifier> getAllElementsByType(PackageableElement element, String type) {
+	protected static <T> List<Classifier> getAllElementsByType(NamedElement element, String type) {
 		EList<Element> ownedElements = element.getOwnedElements();
 		List<T> elements = new ArrayList<T>();
 		for (Element e : ownedElements) {
@@ -38,7 +38,7 @@ public abstract class ElementHelper {
 		}
 		return (List<Classifier>) elements;
 	}
-	
+
 	private static EClass getLiteralType(String type){
 		return types.get(type);
 	}

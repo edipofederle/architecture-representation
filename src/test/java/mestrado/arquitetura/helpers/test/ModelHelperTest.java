@@ -11,6 +11,7 @@ import mestrado.arquitetura.helpers.SMartyProfileNotAppliedToModelExcepetion;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 import org.junit.Test;
@@ -30,7 +31,7 @@ public class ModelHelperTest extends TestHelper {
 		Package content = modelHelper.getModel(getUrlToModel("ExtendedPO2"));
 		List<Classifier> elementsInterfaces = modelHelper.getAllInterfaces(content);
 		assertEquals(1, elementsInterfaces.size());
-		assertEquals("myInterface", elementsInterfaces.get(0).getName());
+		assertEquals("myInterface", ((Interface) elementsInterfaces.get(0)).getName());
 	}
 
 	@Test
