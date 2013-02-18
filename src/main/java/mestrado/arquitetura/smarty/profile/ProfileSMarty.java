@@ -25,10 +25,8 @@ public class ProfileSMarty {
 		try {
 			helper = Uml2HelperFactory.getUml2Helper();
 		} catch (ModelNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ModelIncompleteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -60,10 +58,12 @@ public class ProfileSMarty {
 
 
 	private void createConcernStereotype() throws ModelNotFoundException {
-		Stereotype _interface = helper.createStereotype(this.profile, "concern", false);
+		Stereotype concern = helper.createStereotype(this.profile, "concern", false);
+		
+		helper.createAttribute(concern, "name", helper.getPrimitiveType("String"), 1, 1);
 		Class klassMetaClass = helper.referenceMetaclass(this.profile,
 				UMLPackage.Literals.CLASS.getName());
-		helper.createExtension(klassMetaClass, _interface, false);
+		helper.createExtension(klassMetaClass, concern, false);
 	}
 
 

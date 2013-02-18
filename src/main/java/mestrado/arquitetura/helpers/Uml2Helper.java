@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import mestrado.arquitetura.base.Base;
-import mestrado.arquitetura.helpers.test.UtilResources;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
