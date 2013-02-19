@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 import mestrado.arquitetura.factories.Klass;
+import mestrado.arquitetura.helpers.ConcernNotFoundException;
 import mestrado.arquitetura.helpers.ModelElementHelper;
 import mestrado.arquitetura.helpers.ModelIncompleteException;
 import mestrado.arquitetura.helpers.ModelNotFoundException;
@@ -20,7 +21,6 @@ import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class StereotypeHelperTest extends TestHelper {
@@ -57,7 +57,7 @@ public class StereotypeHelperTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldBeAConcern() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+	public void shouldBeAConcern() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, ConcernNotFoundException{
 		String uri = getUrlToModel("concerns");
 		Package model = uml2Helper.load(uri);
 		List<Classifier> c = modelHelper.getAllClasses(model);
@@ -69,8 +69,36 @@ public class StereotypeHelperTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldNotBeAConcern(){
+	public void shouldNotBeAConcern() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+		String uri = getUrlToModel("concerns");
+		Package model = uml2Helper.load(uri);
+		List<Classifier> c = modelHelper.getAllClasses(model);
+		assertNotNull(c.get(1));
+		assertEquals("Bar", c.get(1).getName());
+		assertFalse(StereotypeHelper.isConcern(c.get(1)));
+	}
+	
+	@Test
+	public void test() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+		String uri = getUrlToModel("modelDois");
+		Package model = uml2Helper.load(uri);
+		List<Classifier> c = modelHelper.getAllClasses(model);
+		assertNotNull(c.get(0));
+		assertEquals(1, ModelElementHelper.getAllStereotypes(c.get(0)).size());
+		assertEquals("Class1", c.get(0).getName());
+		assertTrue(StereotypeHelper.isConcern2(c.get(0)));
 		
+	}
+	
+	@Test(expected=ConcernNotFoundException.class)
+	public void shouldReturnExceptionWhenTryGetNameOfNonStereotype() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, ConcernNotFoundException{
+		String uri = getUrlToModel("concerns");
+		Package model = uml2Helper.load(uri);
+		List<Classifier> c = modelHelper.getAllClasses(model);
+		assertNotNull(c.get(1));
+		assertEquals("Bar", c.get(1).getName());
+		assertFalse(StereotypeHelper.isConcern(c.get(1)));
+		StereotypeHelper.getConcernName(c.get(1));
 	}
 	
 	@Test
@@ -88,7 +116,7 @@ public class StereotypeHelperTest extends TestHelper {
 	public void shouldReturnFalseIfIsNotVariability() throws ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		Classifier a = Klass.create()
 	            .withName("game")
-				.withStereotypes("interface").build();
+				.withStereotypes("interface", "variationPoint").build();
 		
 		boolean result = StereotypeHelper.isVariability(a);
 		

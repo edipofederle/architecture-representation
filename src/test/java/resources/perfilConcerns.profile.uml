@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Profile xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_9v_84HqaEeK1gM_kVgXLQw" name="perfilConcerns" metaclassReference="_ClV7MHqbEeK1gM_kVgXLQw">
   <eAnnotations xmi:id="_EgIM4HqbEeK1gM_kVgXLQw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_MocU0Xq8EeK1gM_kVgXLQw" name="perfilConcerns" nsURI="http:///schemas/perfilConcerns/_MocU0Hq8EeK1gM_kVgXLQw/9" nsPrefix="perfilConcerns">
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_MocU0nq8EeK1gM_kVgXLQw" name="Concern" abstract="true">
+        <eAnnotations xmi:id="_MocU03q8EeK1gM_kVgXLQw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_-WptMHqaEeK1gM_kVgXLQw"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_MocU1Hq8EeK1gM_kVgXLQw" name="base_Class" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Class"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_MocU1nq8EeK1gM_kVgXLQw" name="Persistence" eSuperTypes="_MocU0nq8EeK1gM_kVgXLQw">
+        <eAnnotations xmi:id="_MocU13q8EeK1gM_kVgXLQw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_EwztMHqbEeK1gM_kVgXLQw"/>
+      </eClassifiers>
+    </contents>
+    <contents xmi:type="ecore:EPackage" xmi:id="_0XFOQXqxEeK1gM_kVgXLQw" name="perfilConcerns" nsURI="http:///schemas/perfilConcerns/_0XFOQHqxEeK1gM_kVgXLQw/8" nsPrefix="perfilConcerns">
+      <eAnnotations xmi:id="_0XFOSnqxEeK1gM_kVgXLQw" source="PapyrusVersion">
+        <details xmi:id="_0XFOS3qxEeK1gM_kVgXLQw" key="Version" value="0.0.5"/>
+        <details xmi:id="_0XFOTHqxEeK1gM_kVgXLQw" key="Comment" value=""/>
+        <details xmi:id="_0XFOTXqxEeK1gM_kVgXLQw" key="Copyright" value=""/>
+        <details xmi:id="_0XFOTnqxEeK1gM_kVgXLQw" key="Date" value="2013-02-19"/>
+        <details xmi:id="_0XFOT3qxEeK1gM_kVgXLQw" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_0XFOQnqxEeK1gM_kVgXLQw" name="Concern" abstract="true">
+        <eAnnotations xmi:id="_0XFOQ3qxEeK1gM_kVgXLQw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_-WptMHqaEeK1gM_kVgXLQw"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_0XFORHqxEeK1gM_kVgXLQw" name="base_Class" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Class"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_0XFORnqxEeK1gM_kVgXLQw" name="Persistence" eSuperTypes="_0XFOQnqxEeK1gM_kVgXLQw">
+        <eAnnotations xmi:id="_0XFOR3qxEeK1gM_kVgXLQw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_EwztMHqbEeK1gM_kVgXLQw"/>
+      </eClassifiers>
+    </contents>
     <contents xmi:type="ecore:EPackage" xmi:id="_E-aGgXqqEeK1gM_kVgXLQw" name="perfilConcerns" nsURI="http:///schemas/perfilConcerns/_E-aGgHqqEeK1gM_kVgXLQw/7" nsPrefix="perfilConcerns">
       <eAnnotations xmi:id="_E-atkXqqEeK1gM_kVgXLQw" source="PapyrusVersion">
         <details xmi:id="_E-atknqqEeK1gM_kVgXLQw" key="Version" value="0.0.4"/>

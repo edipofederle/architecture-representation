@@ -7,7 +7,6 @@ import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class ArchitectureBuilderTest extends TestHelper {

@@ -17,9 +17,9 @@
     </profileApplication>
   </uml:Model>
   <perfilConcerns:Persistence xmi:id="_2naLwHqpEeK1gM_kVgXLQw" base_Class="_m60-IHqpEeK1gM_kVgXLQw"/>
-  <perfilConcerns_1:Persistence xmi:id="_dx51UHqqEeK1gM_kVgXLQw" base_Class="_m60-IHqpEeK1gM_kVgXLQw"/>
   <smartyProfile:variationPoint xmi:id="_dyYWcHqqEeK1gM_kVgXLQw" base_Class="_m60-IHqpEeK1gM_kVgXLQw"/>
   <smartyProfile:mandatory xmi:id="_fsw_gHqqEeK1gM_kVgXLQw" base_Class="_5RUNQHqpEeK1gM_kVgXLQw"/>
   <smartyProfile:interface xmi:id="_ftR84HqqEeK1gM_kVgXLQw" base_Class="_5RUNQHqpEeK1gM_kVgXLQw"/>
-  <smartyProfile_1:variationPoint xmi:id="_9IHqQHqqEeKrvOtKHwVHcA" base_Class="_m60-IHqpEeK1gM_kVgXLQw"/>
+  <perfilConcerns_1:Persistence xmi:id="_zoMKIHrAEeKrvOtKHwVHcA" base_Class="_m60-IHqpEeK1gM_kVgXLQw"/>
+  <smartyProfile_1:variationPoint xmi:id="_zpCesHrAEeKrvOtKHwVHcA" base_Class="_m60-IHqpEeK1gM_kVgXLQw"/>
 </xmi:XMI>

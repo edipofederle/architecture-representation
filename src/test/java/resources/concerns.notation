@@ -37,7 +37,7 @@
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_m64BgXqpEeK1gM_kVgXLQw"/>
     </children>
     <element xmi:type="uml:Class" href="concerns.uml#_m60-IHqpEeK1gM_kVgXLQw"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_m62zUXqpEeK1gM_kVgXLQw" x="60" y="106" width="121" height="111"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_m62zUXqpEeK1gM_kVgXLQw" x="60" y="106" width="220" height="165"/>
   </children>
   <children xmi:type="notation:Shape" xmi:id="_5RWCcHqpEeK1gM_kVgXLQw" type="2008" fontName="Lucida Grande" fontHeight="11" lineColor="0">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_5RWpgHqpEeK1gM_kVgXLQw" source="ShadowFigure">
@@ -76,7 +76,7 @@
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5RXQo3qpEeK1gM_kVgXLQw"/>
     </children>
     <element xmi:type="uml:Class" href="concerns.uml#_5RUNQHqpEeK1gM_kVgXLQw"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5RWCcXqpEeK1gM_kVgXLQw" x="243" y="108" width="154" height="109"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5RWCcXqpEeK1gM_kVgXLQw" x="432" y="90" width="199" height="172"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_je1YYHqpEeK1gM_kVgXLQw"/>
   <element xmi:type="uml:Model" href="concerns.uml#_je0KQHqpEeK1gM_kVgXLQw"/>

@@ -43,6 +43,7 @@ public class StereotypeHelper {
 
 	public static boolean isConcern(NamedElement a) {
 		EList<Stereotype> stes = a.getAppliedStereotypes();
+		
 		for (Stereotype stereotype : stes) {
 			try {
 				if(stereotype instanceof StereotypeImpl){
@@ -67,23 +68,30 @@ public class StereotypeHelper {
 	 * 
 	 * @param c
 	 * @return
+	 * @throws ConcernNotFoundException 
 	 */
-	public static String getConcernName(NamedElement c) {
+	public static String getConcernName(NamedElement c) throws ConcernNotFoundException {
 		if (isConcern(c)){
 			EList<Stereotype> stes = c.getAppliedStereotypes();
 			for (Stereotype stereotype : stes) {
-				try {
-					if(stereotype instanceof StereotypeImpl){
-						if (((Classifier) stereotype).getGeneralizations().get(0).getGeneral().getName().equalsIgnoreCase(StereotypesTypes.CONCERN))
-							return stereotype.getName();
-					}
-				}catch (Exception e) {
-					//TODO Log
-				}
+				if(stereotype instanceof StereotypeImpl)
+					if (((Classifier) stereotype).getGeneralizations().get(0).getGeneral().getName().equalsIgnoreCase(StereotypesTypes.CONCERN))
+						return stereotype.getName();
 			}
-		}
-		return null;
+		}else throw new ConcernNotFoundException("There is not concern in element " + c );
 		
+		return null;
+	}
+
+	public static boolean isConcern2(NamedElement element) {
+		EList<Stereotype> stes = element.getAppliedStereotypes();
+		for (Stereotype stereotype : stes) {
+			EList<Stereotype> subStereotype = stereotype.getApplicableStereotypes();
+			for (Stereotype subste : subStereotype)
+				if(StereotypesTypes.CONCERN.equalsIgnoreCase(subste.getName()))
+					return true;
+		}
+		return false;
 	}
 
 }

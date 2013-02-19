@@ -2,19 +2,27 @@
 
 ------- Esterótipo Concern --------------
 
-Esteréotipo podem ser definidos somente dentro de um perfil.
-	Estereótipo 'Concern'. 
+Existem duas formas de informar concerns:
+
+	1)
+		Um Perfil que irá guardar o estereótipo concern estendendo o estereótipo Stereotype.
+		Um segundo Perfil, onde irá ser criado os concerns propriamente ditos.
+		Neste segundo, deve-se aplicar o primeiro perfil. Após isto, aplicar o estereótipo concern em estereótipos
+		desejados.
+		
+		Como visto este método usa dois arquivos de Perfil. Isto pode ser uma desvantagem, visto que cada 
+		arquivo possui outros dois associados, ou seja, teria 6 arquivos.
+		
+		Somando com os arquivos da arquitetura propriamente dita, seriam 9 arquivos. Também é necessário aplicar
+		ambos os estereótipos na arquitetura que se está manipulando.
+		
+	2)
 	
-
-Implementado atualmente:
+		Somente um perfil seria utilizado. Neste método, um estereótipo abstrato chamado concern seria criado.
+		Este esterótipo, por sua vez, iria estender as metaclasses (ex: class). Os estereótipos concerns iriam
+		estender do esterótipo abstrado concern.
 		
-		'Concern' -> name:String
-		Limitação: Nome do concern  não é visualizada.
 		
-Sugestão de implementação:
-
-		Concern <-- ConcernName
-		
-		Limitação: devem ser criados dentro de um arquivo de perfil.
+Em questões relacionadas a implementação da identificação de concerns ambas as formas são bastante parecidas. 
 
 ------- Esteréotipo Concern --------------
