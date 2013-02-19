@@ -10,9 +10,9 @@ public class InitializeResourcesTestSingleton {
 	
 	
 	@Test
-	public void shouldJaveSameInstance(){
-		InitializeResources initializerResources1 =  InitializeResources.getInstance();
-		InitializeResources initializerResources2 =  InitializeResources.getInstance();
+	public void shouldHaveSameInstance(){
+		InitializeResources initializerResources1 = InitializeResources.getInstance();
+		InitializeResources initializerResources2 = InitializeResources.getInstance();
 		
 		assertTrue(initializerResources1 == initializerResources2);
 		

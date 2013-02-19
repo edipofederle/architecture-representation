@@ -4,9 +4,11 @@ import java.util.Iterator;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Stereotype;
+import org.eclipse.uml2.uml.internal.impl.StereotypeImpl;
 
 public class StereotypeHelper {
 	
@@ -40,9 +42,48 @@ public class StereotypeHelper {
 	}
 
 	public static boolean isConcern(NamedElement a) {
-		if(a instanceof Stereotype)
-			return StereotypesTypes.CONCERN.equalsIgnoreCase(a.getName());
-		return hasStereotype(a, StereotypesTypes.CONCERN);
+		EList<Stereotype> stes = a.getAppliedStereotypes();
+		for (Stereotype stereotype : stes) {
+			try {
+				if(stereotype instanceof StereotypeImpl){
+					if (((Classifier) stereotype).getGeneralizations().get(0)
+							.getGeneral().getName()
+							.equalsIgnoreCase(StereotypesTypes.CONCERN))
+						return true;
+				}
+			} catch (Exception e) {
+				return hasStereotype(a, StereotypesTypes.CONCERN);
+			}
+		}
+		return false;
+	}
+
+	public static String getValueOfAttribute(Classifier element, Stereotype s, String attr) {
+		return (String) element.getValue(s, attr);
+	}
+
+	/**
+	 * Retorna o nome do concern, caso existir. Se element não possuir conern retorna ConcernNotFoundExpection.
+	 * 
+	 * @param c
+	 * @return
+	 */
+	public static String getConcernName(NamedElement c) {
+		if (isConcern(c)){
+			EList<Stereotype> stes = c.getAppliedStereotypes();
+			for (Stereotype stereotype : stes) {
+				try {
+					if(stereotype instanceof StereotypeImpl){
+						if (((Classifier) stereotype).getGeneralizations().get(0).getGeneral().getName().equalsIgnoreCase(StereotypesTypes.CONCERN))
+							return stereotype.getName();
+					}
+				}catch (Exception e) {
+					//TODO Log
+				}
+			}
+		}
+		return null;
+		
 	}
 
 }

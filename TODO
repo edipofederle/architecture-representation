@@ -1,0 +1,20 @@
+#TODO
+
+------- Esterótipo Concern --------------
+
+Esteréotipo podem ser definidos somente dentro de um perfil.
+	Estereótipo 'Concern'. 
+	
+
+Implementado atualmente:
+		
+		'Concern' -> name:String
+		Limitação: Nome do concern  não é visualizada.
+		
+Sugestão de implementação:
+
+		Concern <-- ConcernName
+		
+		Limitação: devem ser criados dentro de um arquivo de perfil.
+
+------- Esteréotipo Concern --------------

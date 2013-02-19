@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:perfilConcerns="http:///schemas/perfilConcerns/_v6gO4HqpEeK1gM_kVgXLQw/6" xmlns:perfilConcerns_1="http:///schemas/perfilConcerns/_E-aGgHqqEeK1gM_kVgXLQw/7" xmlns:smartyProfile="http:///schemas/smartyProfile/_jWxa0HqkEeK1gM_kVgXLQw/1" xmlns:smartyProfile_1="http:///schemas/smartyProfile/_NQCRoHn-EeKPzNgP2hkCeg/1" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/perfilConcerns/_E-aGgHqqEeK1gM_kVgXLQw/7 perfilConcerns.profile.uml#_E-aGgXqqEeK1gM_kVgXLQw http:///schemas/smartyProfile/_jWxa0HqkEeK1gM_kVgXLQw/1 smarty.profile.uml#_jWyo8HqkEeK1gM_kVgXLQw http:///schemas/smartyProfile/_NQCRoHn-EeKPzNgP2hkCeg/1 smarty.profile.uml#_NQC4sHn-EeKPzNgP2hkCeg">
+  <uml:Model xmi:id="_je0KQHqpEeK1gM_kVgXLQw" name="model">
+    <packagedElement xmi:type="uml:Class" xmi:id="_m60-IHqpEeK1gM_kVgXLQw" name="Foo"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_5RUNQHqpEeK1gM_kVgXLQw" name="Bar"/>
+    <profileApplication xmi:id="_x2LRYHqpEeK1gM_kVgXLQw">
+      <eAnnotations xmi:id="_x2LRYXqpEeK1gM_kVgXLQw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="perfilConcerns.profile.uml#_E-aGgXqqEeK1gM_kVgXLQw"/>
+      </eAnnotations>
+      <appliedProfile href="perfilConcerns.profile.uml#_9v_84HqaEeK1gM_kVgXLQw"/>
+    </profileApplication>
+    <profileApplication xmi:id="_HhP2sHqqEeK1gM_kVgXLQw">
+      <eAnnotations xmi:id="_HhQdwHqqEeK1gM_kVgXLQw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_NQC4sHn-EeKPzNgP2hkCeg"/>
+      </eAnnotations>
+      <appliedProfile href="smarty.profile.uml#_2VWwgHn7EeKiZOaStIEhYA"/>
+    </profileApplication>
+  </uml:Model>
+  <perfilConcerns:Persistence xmi:id="_2naLwHqpEeK1gM_kVgXLQw" base_Class="_m60-IHqpEeK1gM_kVgXLQw"/>
+  <perfilConcerns_1:Persistence xmi:id="_dx51UHqqEeK1gM_kVgXLQw" base_Class="_m60-IHqpEeK1gM_kVgXLQw"/>
+  <smartyProfile:variationPoint xmi:id="_dyYWcHqqEeK1gM_kVgXLQw" base_Class="_m60-IHqpEeK1gM_kVgXLQw"/>
+  <smartyProfile:mandatory xmi:id="_fsw_gHqqEeK1gM_kVgXLQw" base_Class="_5RUNQHqpEeK1gM_kVgXLQw"/>
+  <smartyProfile:interface xmi:id="_ftR84HqqEeK1gM_kVgXLQw" base_Class="_5RUNQHqpEeK1gM_kVgXLQw"/>
+  <smartyProfile_1:variationPoint xmi:id="_9IHqQHqqEeKrvOtKHwVHcA" base_Class="_m60-IHqpEeK1gM_kVgXLQw"/>
+</xmi:XMI>

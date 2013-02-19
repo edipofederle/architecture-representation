@@ -7,6 +7,7 @@ import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ArchitectureBuilderTest extends TestHelper {
@@ -47,10 +48,4 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("Class2", architecture.getPackages().get(0).getClasses().get(1).getName());
 	}
 	
-	//TODO Teste incompleto. Ver como vai ser representado Concern
-	@Test
-	public void shouldContainOneConcern(){
-		assertEquals(1, architecture.getPackages().get(0).getClasses().get(0).getConcerns().size());
-		assertEquals("concern", architecture.getPackages().get(0).getClasses().get(0).getConcerns().get(0).getName());
-	}
 }

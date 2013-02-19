@@ -110,7 +110,7 @@ public class Uml2HelperTest  extends TestHelper{
 		Package model = givenAModel("variability");
 		EList<Profile> profiles = model.getAppliedProfiles();
 		assertEquals(1, profiles.size());
-		assertEquals("smarty", profiles.get(0).getName());
+		assertEquals("smartyProfile", profiles.get(0).getName());
 	}
 	
 }
