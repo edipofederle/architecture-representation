@@ -3,12 +3,14 @@ package mestrado.arquitetura.builders.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
 import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
+import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Concern;
 
 import org.junit.Before;
@@ -47,9 +49,23 @@ public class ArchitectureBuilderTest extends TestHelper {
 	
 	@Test
 	public void packageShouldContainTwoClasses(){
-		assertEquals(2, architecture.getPackages().get(0).getClasses().size());
+		assertEquals(3, architecture.getPackages().get(0).getClasses().size());
 		assertEquals("Class1", architecture.getPackages().get(0).getClasses().get(0).getName());
 		assertEquals("Class2", architecture.getPackages().get(0).getClasses().get(1).getName());
+		assertEquals("Bar", architecture.getPackages().get(0).getClasses().get(2).getName());
+	}
+	
+	
+	@Test
+	public void classShouldBeAbastract(){
+		Class klass = architecture.getPackages().get(0).getClasses().get(2);
+		assertTrue("class should be abstract", klass.isAbstract());
+	}
+	
+	@Test
+	public void classShoiuldNotBeAbstract(){
+		Class klass = architecture.getPackages().get(0).getClasses().get(1);
+		assertFalse("class should not be abstract", klass.isAbstract());
 	}
 	
 	@Test

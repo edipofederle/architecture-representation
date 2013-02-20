@@ -27,5 +27,11 @@ public class Class extends Element {
 		this.isAbstract = isAbstract;
 	}
 
+	public boolean isAbstract() {
+		return isAbstract;
+	}
+	
+	
+
 	
 }

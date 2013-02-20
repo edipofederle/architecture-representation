@@ -4,6 +4,7 @@ import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 
 import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 
 public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representation.Class> {
 	
@@ -16,9 +17,10 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 
 	@Override
 	protected mestrado.arquitetura.representation.Class buildElement(NamedElement modelElement) {
-		//boolean isAbstract = modelElement.getPlainAttribute("abstract") == "true";
-		mestrado.arquitetura.representation.Class klass =
-				new Class(architecture, name, isVariationPoint, variantType, false);
+		boolean isAbstract = false;
+		if(modelElement instanceof ClassImpl)
+			isAbstract = ((org.eclipse.uml2.uml.Classifier)modelElement).isAbstract();
+		mestrado.arquitetura.representation.Class klass = new Class(architecture, name, isVariationPoint, variantType, isAbstract);
 		//klass.getAttributes().addAll(getAttributes(modelElement));
 		//class_.getMethods().addAll(getMethods(modelElement));
 		return klass;

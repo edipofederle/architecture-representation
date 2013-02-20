@@ -2,6 +2,7 @@ package mestrado.arquitetura.helpers.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -108,6 +109,17 @@ public class ModelHelperTest extends TestHelper {
 	@Test(expected=SMartyProfileNotAppliedToModelExcepetion.class)
 	public void shouldReturnProfileNotAppliedToModel() throws ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		modelHelper.getModel(getUrlToModel("modelSemPerfil"));
+	}
+	
+	@Test
+	public void shouldBeAbastractClass() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+		Package model = givenAModel("testArch"); // Classes estao em pacotes
+		assertNotNull(model);
+		List<Classifier> a = modelHelper.getAllPackages(model);
+		assertEquals(1, a.size());
+		List<Classifier> c = modelHelper.getAllClasses((Package) a.get(0));
+		assertEquals("Bar", c.get(2).getName());
+		assertTrue(c.get(2).isAbstract());
 	}
 	
 }
