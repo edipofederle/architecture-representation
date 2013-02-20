@@ -55,6 +55,20 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("Bar", architecture.getPackages().get(0).getClasses().get(2).getName());
 	}
 	
+	@Test
+	public void shouldHaveAClassBarWithOneAttribute(){
+		 Class barKlass = architecture.getPackages().get(0).getClasses().get(2);
+		 assertEquals("String",barKlass.getAttributes().get(0).getType());
+		 assertEquals("name",barKlass.getAttributes().get(0).getName());
+	}
+	
+	@Test
+	public void shouldHaveAEmptyStringTypeWhenNotTypeFoundForAttribute(){
+		Class klassClass2 = architecture.getPackages().get(0).getClasses().get(1);
+		assertEquals("", klassClass2.getAttributes().get(0).getType());
+		assertEquals("age", klassClass2.getAttributes().get(0).getName());
+	}
+	
 	
 	@Test
 	public void classShouldBeAbastract(){

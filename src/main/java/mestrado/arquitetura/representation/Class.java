@@ -12,14 +12,14 @@ public class Class extends Element {
 		setAbstract(isAbstract);
 	}
 
-	private final List<String> attributes = new ArrayList<String>();
+	private final List<Attribute> attributes = new ArrayList<Attribute>();
 
 	
-	public void setAttribute(String attr){
+	public void setAttribute(Attribute attr){
 		this.attributes.add(attr);
 	}
 	
-	public List<String> getAttributes() {
+	public List<Attribute> getAttributes() {
 		return attributes;
 	}
 	

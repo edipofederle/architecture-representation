@@ -3,8 +3,14 @@
   <uml:Model xmi:id="_cFDbYHdcEeKFLPdiRaUVaA" name="model">
     <packagedElement xmi:type="uml:Package" xmi:id="_lBUy0HdcEeKFLPdiRaUVaA" name="Package1">
       <packagedElement xmi:type="uml:Class" xmi:id="_mlAMEHdcEeKFLPdiRaUVaA" name="Class1"/>
-      <packagedElement xmi:type="uml:Class" xmi:id="_niquMHdcEeKFLPdiRaUVaA" name="Class2"/>
-      <packagedElement xmi:type="uml:Class" xmi:id="_jQr7sHt6EeKj6c5Uq9Fn3w" name="Bar" isAbstract="true"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_niquMHdcEeKFLPdiRaUVaA" name="Class2">
+        <ownedAttribute xmi:id="_Aq8qMHuPEeKj6c5Uq9Fn3w" name="age"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_jQr7sHt6EeKj6c5Uq9Fn3w" name="Bar" isAbstract="true">
+        <ownedAttribute xmi:id="_0Nm8kHuKEeKj6c5Uq9Fn3w" name="name">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedAttribute>
+      </packagedElement>
     </packagedElement>
     <profileApplication xmi:id="_OsJDQHn-EeKPzNgP2hkCeg">
       <eAnnotations xmi:id="_OsJDQXn-EeKPzNgP2hkCeg" source="http://www.eclipse.org/uml2/2.0.0/UML">

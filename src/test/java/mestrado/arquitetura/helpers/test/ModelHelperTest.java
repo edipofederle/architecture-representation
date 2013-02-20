@@ -26,7 +26,7 @@ public class ModelHelperTest extends TestHelper {
 		List<Classifier> elementsClass = modelHelper.getAllClasses(content);
 		assertEquals(10, elementsClass.size());
 	}
-
+	
 	@Test
 	public void shouldReturnAllInterfaces() throws ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion {
 		Package content = modelHelper.getModel(getUrlToModel("ExtendedPO2"));
