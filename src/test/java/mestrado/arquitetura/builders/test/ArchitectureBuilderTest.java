@@ -45,7 +45,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void shouldHaveCorrectNameForPackage(){
 		assertEquals("Package1", architecture.getPackages().get(0).getName());
-	}
+	}	
 	
 	@Test
 	public void packageShouldContainTwoClasses(){
@@ -53,6 +53,12 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("Class1", architecture.getPackages().get(0).getClasses().get(0).getName());
 		assertEquals("Class2", architecture.getPackages().get(0).getClasses().get(1).getName());
 		assertEquals("Bar", architecture.getPackages().get(0).getClasses().get(2).getName());
+	}
+	
+	@Test
+	public void shouldHaveMandatoryStereotype(){
+		Class class1 = architecture.getPackages().get(0).getClasses().get(0);
+		assertEquals("mandatory",class1.getVariantType().toString());
 	}
 	
 	@Test

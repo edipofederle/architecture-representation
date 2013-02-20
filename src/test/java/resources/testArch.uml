@@ -5,7 +5,9 @@
       <packagedElement xmi:type="uml:Class" xmi:id="_mlAMEHdcEeKFLPdiRaUVaA" name="Class1"/>
       <packagedElement xmi:type="uml:Class" xmi:id="_niquMHdcEeKFLPdiRaUVaA" name="Class2">
         <ownedAttribute xmi:id="_Aq8qMHuPEeKj6c5Uq9Fn3w" name="age"/>
-        <ownedAttribute xmi:id="_1QHJIHuPEeKj6c5Uq9Fn3w" name="name"/>
+        <ownedAttribute xmi:id="_1QHJIHuPEeKj6c5Uq9Fn3w" name="name">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_jQr7sHt6EeKj6c5Uq9Fn3w" name="Bar" isAbstract="true">
         <ownedAttribute xmi:id="_0Nm8kHuKEeKj6c5Uq9Fn3w" name="name">
@@ -37,4 +39,5 @@
   <smartyProfile_1:variationPoint xmi:id="_VdL5QHn-EeKPzNgP2hkCeg" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
   <perfilConcerns:Persistence xmi:id="_rYyjsHtYEeKj6c5Uq9Fn3w" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
   <perfilConcerns:sorting xmi:id="_WB_XsHt4EeKj6c5Uq9Fn3w" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
+  <smartyProfile_1:mandatory xmi:id="_tdsgQHuQEeKj6c5Uq9Fn3w" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
 </xmi:XMI>

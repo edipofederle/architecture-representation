@@ -1,6 +1,6 @@
 package mestrado.arquitetura.representation;
 
-//*W
+
 public enum VariantType {
 	
 	NONE(""),
