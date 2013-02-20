@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:perfilConcerns="http:///schemas/perfilConcerns/_MocU0Hq8EeK1gM_kVgXLQw/9" xmlns:smarty="http:///schemas/smarty/_JCfpEHnQEeKPzNgP2hkCeg/0" xmlns:smartyProfile="http:///schemas/smartyProfile/_9qTU4Hd2EeKFLPdiRaUVaA/1" xmlns:smartyProfile_1="http:///schemas/smartyProfile/_NQCRoHn-EeKPzNgP2hkCeg/1" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/perfilConcerns/_MocU0Hq8EeK1gM_kVgXLQw/9 perfilConcerns.profile.uml#_MocU0Xq8EeK1gM_kVgXLQw http:///schemas/smarty/_JCfpEHnQEeKPzNgP2hkCeg/0 smarty.profile.uml#_JClIoHnQEeKPzNgP2hkCeg http:///schemas/smartyProfile/_9qTU4Hd2EeKFLPdiRaUVaA/1 smarty.profile.uml#_9qUjAHd2EeKFLPdiRaUVaA http:///schemas/smartyProfile/_NQCRoHn-EeKPzNgP2hkCeg/1 smarty.profile.uml#_NQC4sHn-EeKPzNgP2hkCeg">
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:perfilConcerns="http:///schemas/perfilConcerns/_P_xWkHt4EeKj6c5Uq9Fn3w/13" xmlns:smarty="http:///schemas/smarty/_JCfpEHnQEeKPzNgP2hkCeg/0" xmlns:smartyProfile="http:///schemas/smartyProfile/_9qTU4Hd2EeKFLPdiRaUVaA/1" xmlns:smartyProfile_1="http:///schemas/smartyProfile/_NQCRoHn-EeKPzNgP2hkCeg/1" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/perfilConcerns/_P_xWkHt4EeKj6c5Uq9Fn3w/13 perfilConcerns.profile.uml#_P_8VsHt4EeKj6c5Uq9Fn3w http:///schemas/smarty/_JCfpEHnQEeKPzNgP2hkCeg/0 smarty.profile.uml#_JClIoHnQEeKPzNgP2hkCeg http:///schemas/smartyProfile/_9qTU4Hd2EeKFLPdiRaUVaA/1 smarty.profile.uml#_9qUjAHd2EeKFLPdiRaUVaA http:///schemas/smartyProfile/_NQCRoHn-EeKPzNgP2hkCeg/1 smarty.profile.uml#_NQC4sHn-EeKPzNgP2hkCeg">
   <uml:Model xmi:id="_cFDbYHdcEeKFLPdiRaUVaA" name="model">
     <packagedElement xmi:type="uml:Package" xmi:id="_lBUy0HdcEeKFLPdiRaUVaA" name="Package1">
       <packagedElement xmi:type="uml:Class" xmi:id="_mlAMEHdcEeKFLPdiRaUVaA" name="Class1"/>
@@ -19,7 +19,7 @@
     </profileApplication>
     <profileApplication xmi:id="_mu19EHtYEeKj6c5Uq9Fn3w">
       <eAnnotations xmi:id="_mvWTYHtYEeKj6c5Uq9Fn3w" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="perfilConcerns.profile.uml#_MocU0Xq8EeK1gM_kVgXLQw"/>
+        <references xmi:type="ecore:EPackage" href="perfilConcerns.profile.uml#_P_8VsHt4EeKj6c5Uq9Fn3w"/>
       </eAnnotations>
       <appliedProfile href="perfilConcerns.profile.uml#_9v_84HqaEeK1gM_kVgXLQw"/>
     </profileApplication>
@@ -28,4 +28,5 @@
   <smarty:concern xmi:id="_2uhF8HnQEeKPzNgP2hkCeg" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
   <smartyProfile_1:variationPoint xmi:id="_VdL5QHn-EeKPzNgP2hkCeg" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
   <perfilConcerns:Persistence xmi:id="_rYyjsHtYEeKj6c5Uq9Fn3w" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
+  <perfilConcerns:sorting xmi:id="_WB_XsHt4EeKj6c5Uq9Fn3w" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
 </xmi:XMI>

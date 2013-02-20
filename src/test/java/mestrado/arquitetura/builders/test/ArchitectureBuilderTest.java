@@ -59,4 +59,12 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("Persistence", concerns.get(0).getName());
 	}
 	
+	@Test
+	public void shouldContainTwoConcerns(){
+		List<Concern> concerns = architecture.getPackages().get(0).getClasses().get(0).getConcerns();
+		assertEquals(2, concerns.size());
+		assertEquals("Persistence",  concerns.get(0).getName());
+		assertEquals("sorting",  concerns.get(1).getName());
+	}
+	
 }
