@@ -69,6 +69,12 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("age", klassClass2.getAttributes().get(0).getName());
 	}
 	
+	@Test
+	public void shouldClass2HaveTwoAttributes(){
+		Class klassClass2 = architecture.getPackages().get(0).getClasses().get(1);
+		assertEquals(2, klassClass2.getAttributes().size());
+	}
+	
 	
 	@Test
 	public void classShouldBeAbastract(){

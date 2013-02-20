@@ -5,6 +5,7 @@
       <packagedElement xmi:type="uml:Class" xmi:id="_mlAMEHdcEeKFLPdiRaUVaA" name="Class1"/>
       <packagedElement xmi:type="uml:Class" xmi:id="_niquMHdcEeKFLPdiRaUVaA" name="Class2">
         <ownedAttribute xmi:id="_Aq8qMHuPEeKj6c5Uq9Fn3w" name="age"/>
+        <ownedAttribute xmi:id="_1QHJIHuPEeKj6c5Uq9Fn3w" name="name"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_jQr7sHt6EeKj6c5Uq9Fn3w" name="Bar" isAbstract="true">
         <ownedAttribute xmi:id="_0Nm8kHuKEeKj6c5Uq9Fn3w" name="name">
