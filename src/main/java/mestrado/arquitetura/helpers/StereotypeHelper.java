@@ -8,6 +8,7 @@ import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Stereotype;
+import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 import org.eclipse.uml2.uml.internal.impl.StereotypeImpl;
 
 public class StereotypeHelper {
@@ -41,20 +42,15 @@ public class StereotypeHelper {
 		return false;
 	}
 
-	public static boolean isConcern(NamedElement a) {
-		EList<Stereotype> stes = a.getAppliedStereotypes();
-		
-		for (Stereotype stereotype : stes) {
-			try {
-				if(stereotype instanceof StereotypeImpl){
-					if (((Classifier) stereotype).getGeneralizations().get(0)
-							.getGeneral().getName()
-							.equalsIgnoreCase(StereotypesTypes.CONCERN))
-						return true;
-				}
-			} catch (Exception e) {
-				return hasStereotype(a, StereotypesTypes.CONCERN);
-			}
+	public static boolean hasConcern(NamedElement a) {
+		try {
+			if(a instanceof ClassImpl)
+				if (searchForConcernsStereotypes(a) != null) return true;
+			if (a instanceof StereotypeImpl) 
+				if (((Classifier) a).getGeneralizations().get(0).getGeneral().getName().equalsIgnoreCase(StereotypesTypes.CONCERN))
+					return true;
+		} catch (Exception e) {
+			return hasStereotype(a, StereotypesTypes.CONCERN);
 		}
 		return false;
 	}
@@ -64,23 +60,18 @@ public class StereotypeHelper {
 	}
 
 	/**
-	 * Retorna o nome do concern, caso existir. Se element não possuir conern retorna ConcernNotFoundExpection.
+	 * Retorna o nome do concern, caso existir. Se element não possuir concern retorna ConcernNotFoundExpection.
 	 * 
 	 * @param c
 	 * @return
 	 * @throws ConcernNotFoundException 
 	 */
 	public static String getConcernName(NamedElement c) throws ConcernNotFoundException {
-		if (isConcern(c)){
-			EList<Stereotype> stes = c.getAppliedStereotypes();
-			for (Stereotype stereotype : stes) {
-				if(stereotype instanceof StereotypeImpl)
-					if (((Classifier) stereotype).getGeneralizations().get(0).getGeneral().getName().equalsIgnoreCase(StereotypesTypes.CONCERN))
-						return stereotype.getName();
-			}
-		}else throw new ConcernNotFoundException("There is not concern in element " + c );
+		if (hasConcern(c))
+			if (searchForConcernsStereotypes(c) != null )
+				return searchForConcernsStereotypes(c).getName();
+		throw new ConcernNotFoundException("There is not concern in element " + c );
 		
-		return null;
 	}
 
 	public static boolean isConcern2(NamedElement element) {
@@ -92,6 +83,19 @@ public class StereotypeHelper {
 					return true;
 		}
 		return false;
+	}
+	
+	private static Stereotype searchForConcernsStereotypes(NamedElement element){
+		EList<Stereotype> stes = element.getAppliedStereotypes();
+		for (Stereotype stereotype : stes) {
+			if(stereotype instanceof StereotypeImpl)
+				if(!stereotype.getGeneralizations().isEmpty())
+					if (stereotype.getGeneralizations().get(0).getGeneral()
+						                     .getName().equalsIgnoreCase(StereotypesTypes.CONCERN))
+						return stereotype;
+					
+		}
+		return null; //TODO FIX NO return null
 	}
 
 }

@@ -51,31 +51,31 @@ public class StereotypeHelperTest extends TestHelper {
 	            .withName("Car")
 				.withStereotypes("interface").build();
 		
-		boolean result = StereotypeHelper.isConcern(a);
+		boolean result = StereotypeHelper.hasConcern(a);
 		
 		assertEquals("isConcern should return false", false, result);
 	}
 	
 	@Test
-	public void shouldBeAConcern() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, ConcernNotFoundException{
+	public void shouldHaveAConcern() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, ConcernNotFoundException{
 		String uri = getUrlToModel("concerns");
 		Package model = uml2Helper.load(uri);
 		List<Classifier> c = modelHelper.getAllClasses(model);
 		assertNotNull(c.get(0));
 		assertEquals("Foo", c.get(0).getName());
 		assertEquals(2, ModelElementHelper.getAllStereotypes(c.get(0)).size());
-		assertTrue(StereotypeHelper.isConcern(c.get(0)));
+		assertTrue(StereotypeHelper.hasConcern(c.get(0)));
 		assertEquals("concern Name should be 'Persistence'", "Persistence", StereotypeHelper.getConcernName(c.get(0)));
 	}
 	
 	@Test
-	public void shouldNotBeAConcern() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+	public void shouldNotHaveAConcern() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
 		String uri = getUrlToModel("concerns");
 		Package model = uml2Helper.load(uri);
 		List<Classifier> c = modelHelper.getAllClasses(model);
 		assertNotNull(c.get(1));
 		assertEquals("Bar", c.get(1).getName());
-		assertFalse(StereotypeHelper.isConcern(c.get(1)));
+		assertFalse(StereotypeHelper.hasConcern(c.get(1)));
 	}
 	
 	@Test
@@ -97,7 +97,7 @@ public class StereotypeHelperTest extends TestHelper {
 		List<Classifier> c = modelHelper.getAllClasses(model);
 		assertNotNull(c.get(1));
 		assertEquals("Bar", c.get(1).getName());
-		assertFalse(StereotypeHelper.isConcern(c.get(1)));
+		assertFalse(StereotypeHelper.hasConcern(c.get(1)));
 		StereotypeHelper.getConcernName(c.get(1));
 	}
 	

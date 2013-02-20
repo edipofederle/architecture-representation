@@ -15,12 +15,12 @@ import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.NamedElement;
 
 public class PackageBuilder extends ElementBuilder<Package> {
-	
-	
+
+
 
 	private ClassBuilder classBuilder;
 	private static ModelHelper modelHelper;
-	
+
 	static{
 		try {
 			modelHelper = ModelHelperFactory.getModelHelper();
@@ -30,12 +30,12 @@ public class PackageBuilder extends ElementBuilder<Package> {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public PackageBuilder(Architecture architecture,  ClassBuilder classBuilder) {
 		super(architecture);
 		this.classBuilder = classBuilder;
 	}
-	
+
 	@Override
 	public Package buildElement(NamedElement modelElement) {
 		Package pkg = new Package(architecture, name, isVariationPoint, variantType);

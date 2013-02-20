@@ -48,7 +48,7 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 	}
 	
 	private void verifyConcern(Stereotype stereotype) {
-		if (StereotypeHelper.isConcern(stereotype))
+		if (StereotypeHelper.hasConcern(stereotype))
 			 concerns.add(stereotype.getName());
 	}
 	

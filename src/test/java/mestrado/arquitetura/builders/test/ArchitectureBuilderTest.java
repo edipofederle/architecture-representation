@@ -1,10 +1,15 @@
 package mestrado.arquitetura.builders.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
+
 import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
+import mestrado.arquitetura.representation.Concern;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +31,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	
 	@Test
 	public void shouldHaveAName() throws Exception{
-		assertEquals("Architecture name should be modelVariability", "testArch", architecture.getName());
+		assertEquals("Architecture name should be 'modelVariability", "testArch", architecture.getName());
 	}
 	
 	@Test
@@ -45,6 +50,13 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals(2, architecture.getPackages().get(0).getClasses().size());
 		assertEquals("Class1", architecture.getPackages().get(0).getClasses().get(0).getName());
 		assertEquals("Class2", architecture.getPackages().get(0).getClasses().get(1).getName());
+	}
+	
+	@Test
+	public void shouldContainsAClassWithConcern(){
+		List<Concern> concerns = architecture.getPackages().get(0).getClasses().get(0).getConcerns();
+		assertFalse(concerns.isEmpty());
+		assertEquals("Persistence", concerns.get(0).getName());
 	}
 	
 }
