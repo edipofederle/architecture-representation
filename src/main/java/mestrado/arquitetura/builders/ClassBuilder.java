@@ -21,9 +21,6 @@ import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 
 public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representation.Class> {
 	
-	
-	
-	
 	private AttributeBuilder attributeBuilder;
 	private MethodBuilder methodBuilder;
 	private ModelHelper modelHelper;
@@ -45,12 +42,16 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 
 	@Override
 	protected mestrado.arquitetura.representation.Class buildElement(NamedElement modelElement) {
+		mestrado.arquitetura.representation.Class klass = null; // TODO VER ISTO. 
+		
 		boolean isAbstract = false;
-		if(modelElement instanceof ClassImpl)
+		if(modelElement instanceof ClassImpl){
 			isAbstract = ((org.eclipse.uml2.uml.Classifier)modelElement).isAbstract();
-		mestrado.arquitetura.representation.Class klass = new Class(architecture, name, isVariationPoint, variantType, isAbstract);
+		
+		klass = new Class(architecture, name, isVariationPoint, variantType, isAbstract);
 		klass.getAttributes().addAll(getAttributes(modelElement));
 		klass.getMethods().addAll(getMethods(modelElement));
+		}
 		return klass;
 	}
 
@@ -59,9 +60,8 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 		
 		if(modelElement instanceof ClassImpl){
 			EList<Property> attributes = ((Classifier) modelElement).getAllAttributes();
-			for (Property property : attributes) {
+			for (Property property : attributes)
 				attrs.add(attributeBuilder.create(property));
-			}
 		}
 		return attrs;
 	}
@@ -70,9 +70,8 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 		List<Method> methods = new ArrayList<Method>();
 		List<Operation> elements = modelHelper.getAllMethods(modelElement);
 		
-		for (Operation classifier : elements) {
+		for (Operation classifier : elements)
 			methods.add(methodBuilder.create(classifier));
-		}
 			
 		return methods;
 	}

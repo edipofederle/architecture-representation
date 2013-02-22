@@ -16,8 +16,6 @@ import org.eclipse.uml2.uml.NamedElement;
 
 public class PackageBuilder extends ElementBuilder<Package> {
 
-
-
 	private ClassBuilder classBuilder;
 	private static ModelHelper modelHelper;
 
@@ -51,6 +49,4 @@ public class PackageBuilder extends ElementBuilder<Package> {
 		}
 		return listOfClasses;
 	}
-
-
 }
