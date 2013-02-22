@@ -18,7 +18,7 @@ import org.junit.Test;
 
 public class ArchitectureBuilderTest extends TestHelper {
 	
-	Architecture architecture;
+	private Architecture architecture;
 	
 	@Before
 	public void setUp() throws Exception{
@@ -67,6 +67,21 @@ public class ArchitectureBuilderTest extends TestHelper {
 		 assertEquals("String",barKlass.getAttributes().get(0).getType());
 		 assertEquals("name",barKlass.getAttributes().get(0).getName());
 	}
+	
+	@Test
+	public void shouldHaveOneMethod(){
+		 Class barKlass = architecture.getPackages().get(0).getClasses().get(0);
+		 assertEquals("Class1", barKlass.getName());
+		 assertEquals(1, barKlass.getMethods().size());
+		 assertEquals("foo", barKlass.getMethods().get(0).getName());
+		 assertEquals("String", barKlass.getMethods().get(0).getReturnType());
+		 assertEquals(2, barKlass.getMethods().get(0).getParameters().size());
+		 assertEquals("name", barKlass.getMethods().get(0).getParameters().get(1).getName());
+		 assertEquals("String", barKlass.getMethods().get(0).getParameters().get(1).getType());
+		 
+		 //TODO Ver porque ta criando um params a mais.
+	}
+	
 	
 	@Test
 	public void shouldHaveAEmptyStringTypeWhenNotTypeFoundForAttribute(){

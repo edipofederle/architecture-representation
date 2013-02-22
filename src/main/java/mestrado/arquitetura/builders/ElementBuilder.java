@@ -77,7 +77,6 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 		return createdElements.get(xmiid);
 	}
 	
-	
 	/**
 	 * Returna o atributo xmi:id como uma <b>String</b> para um dado eObject.
 	 * Retrona <b>null</b> (por enquanto) caso xmiResources for null.

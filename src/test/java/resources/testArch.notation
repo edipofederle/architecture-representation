@@ -23,11 +23,11 @@
           <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_mlCoVXdcEeKFLPdiRaUVaA" key="QualifiedNameDepth" value="1000"/>
         </eAnnotations>
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_aGtHQHd7EeKFLPdiRaUVaA" source="Stereotype_Annotation">
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_aGtHQXd7EeKFLPdiRaUVaA" key="StereotypeWithQualifiedNameList" value=""/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_aGtHQnd7EeKFLPdiRaUVaA" key="StereotypeList" value="smartyProfile::concern"/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_aGtHQ3d7EeKFLPdiRaUVaA" key="Stereotype_Presentation_Kind" value="HorizontalStereo"/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_aGtHRHd7EeKFLPdiRaUVaA" key="PropStereoDisplay" value=""/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_aGtHRXd7EeKFLPdiRaUVaA" key="StereotypePropertyLocation" value="Compartment"/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_uF9Z0HzzEeKJvOxVmtIMiw" key="StereotypeWithQualifiedNameList" value=""/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_uF9Z0XzzEeKJvOxVmtIMiw" key="StereotypeList" value=""/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_uF9Z0nzzEeKJvOxVmtIMiw" key="Stereotype_Presentation_Kind" value="HorizontalStereo"/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_uF9Z03zzEeKJvOxVmtIMiw" key="PropStereoDisplay" value=""/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_uF9Z1HzzEeKJvOxVmtIMiw" key="StereotypePropertyLocation" value="Compartment"/>
         </eAnnotations>
         <children xmi:type="notation:DecorationNode" xmi:id="_mlCoVndcEeKFLPdiRaUVaA" type="5014"/>
         <children xmi:type="notation:BasicCompartment" xmi:id="_mlCoV3dcEeKFLPdiRaUVaA" type="7011">
@@ -37,6 +37,10 @@
           <layoutConstraint xmi:type="notation:Bounds" xmi:id="_mlCoW3dcEeKFLPdiRaUVaA"/>
         </children>
         <children xmi:type="notation:BasicCompartment" xmi:id="_mlCoXHdcEeKFLPdiRaUVaA" type="7012">
+          <children xmi:type="notation:Shape" xmi:id="_tbjVcHz0EeKJvOxVmtIMiw" type="3013" fontName="Lucida Grande" fontHeight="11" lineColor="0">
+            <element xmi:type="uml:Operation" href="testArch.uml#_tatn8Hz0EeKJvOxVmtIMiw"/>
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_tbjVcXz0EeKJvOxVmtIMiw"/>
+          </children>
           <styles xmi:type="notation:TitleStyle" xmi:id="_mlCoXXdcEeKFLPdiRaUVaA"/>
           <styles xmi:type="notation:SortingStyle" xmi:id="_mlCoXndcEeKFLPdiRaUVaA"/>
           <styles xmi:type="notation:FilteringStyle" xmi:id="_mlCoX3dcEeKFLPdiRaUVaA"/>

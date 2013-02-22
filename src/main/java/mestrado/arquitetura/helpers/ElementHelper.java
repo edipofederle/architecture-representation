@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.UMLPackage;
@@ -29,14 +28,14 @@ public abstract class ElementHelper {
 	}
 		
 	@SuppressWarnings("unchecked")
-	protected static <T> List<Classifier> getAllElementsByType(NamedElement element, String type) {
+	protected static <T> List<T> getAllElementsByType(NamedElement element, String type) {
 		EList<Element> ownedElements = element.getOwnedElements();
 		List<T> elements = new ArrayList<T>();
 		for (Element e : ownedElements) {
 			if (e.eClass().equals(getLiteralType(type)))
 				elements.add((T) e);
 		}
-		return (List<Classifier>) elements;
+		return (List<T>) elements;
 	}
 
 	private static EClass getLiteralType(String type){

@@ -2,7 +2,12 @@
 <xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:perfilConcerns="http:///schemas/perfilConcerns/_P_xWkHt4EeKj6c5Uq9Fn3w/13" xmlns:smarty="http:///schemas/smarty/_JCfpEHnQEeKPzNgP2hkCeg/0" xmlns:smartyProfile="http:///schemas/smartyProfile/_9qTU4Hd2EeKFLPdiRaUVaA/1" xmlns:smartyProfile_1="http:///schemas/smartyProfile/_NQCRoHn-EeKPzNgP2hkCeg/1" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/perfilConcerns/_P_xWkHt4EeKj6c5Uq9Fn3w/13 perfilConcerns.profile.uml#_P_8VsHt4EeKj6c5Uq9Fn3w http:///schemas/smarty/_JCfpEHnQEeKPzNgP2hkCeg/0 smarty.profile.uml#_JClIoHnQEeKPzNgP2hkCeg http:///schemas/smartyProfile/_9qTU4Hd2EeKFLPdiRaUVaA/1 smarty.profile.uml#_9qUjAHd2EeKFLPdiRaUVaA http:///schemas/smartyProfile/_NQCRoHn-EeKPzNgP2hkCeg/1 smarty.profile.uml#_NQC4sHn-EeKPzNgP2hkCeg">
   <uml:Model xmi:id="_cFDbYHdcEeKFLPdiRaUVaA" name="model">
     <packagedElement xmi:type="uml:Package" xmi:id="_lBUy0HdcEeKFLPdiRaUVaA" name="Package1">
-      <packagedElement xmi:type="uml:Class" xmi:id="_mlAMEHdcEeKFLPdiRaUVaA" name="Class1"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_mlAMEHdcEeKFLPdiRaUVaA" name="Class1">
+        <ownedOperation xmi:id="_tatn8Hz0EeKJvOxVmtIMiw" name="foo">
+          <ownedParameter xmi:id="_KIuEgHz1EeKJvOxVmtIMiw" name="" type="_NTZtRHz0EeKJvOxVmtIMiw" direction="return"/>
+          <ownedParameter xmi:id="_MdWZkHz1EeKJvOxVmtIMiw" name="name" type="_NTZtRHz0EeKJvOxVmtIMiw" isUnique="false"/>
+        </ownedOperation>
+      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_niquMHdcEeKFLPdiRaUVaA" name="Class2">
         <ownedAttribute xmi:id="_Aq8qMHuPEeKj6c5Uq9Fn3w" name="age"/>
         <ownedAttribute xmi:id="_1QHJIHuPEeKj6c5Uq9Fn3w" name="name">
@@ -14,6 +19,45 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedAttribute>
       </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Model" xmi:id="_NTZGMHz0EeKJvOxVmtIMiw" name="PrimitiveTypes" URI="http://www.omg.org/spec/PrimitiveTypes/20110701">
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_NTZGMXz0EeKJvOxVmtIMiw" name="Boolean">
+        <ownedComment xmi:id="_NTZGMnz0EeKJvOxVmtIMiw" annotatedElement="_NTZGMXz0EeKJvOxVmtIMiw">
+          <body>A Boolean type is used for logical expression, consisting of the predefined values true and false.</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_NTZtQHz0EeKJvOxVmtIMiw" name="Integer">
+        <ownedComment xmi:id="_NTZtQXz0EeKJvOxVmtIMiw" annotatedElement="_NTZtQHz0EeKJvOxVmtIMiw">
+          <body>An integer is a primitive type representing integer values.</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_NTZtQnz0EeKJvOxVmtIMiw" name="Real">
+        <ownedComment xmi:id="_NTZtQ3z0EeKJvOxVmtIMiw" annotatedElement="_NTZtQnz0EeKJvOxVmtIMiw">
+          <body>A real is a primitive type representing the mathematical concept of real.</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_NTZtRHz0EeKJvOxVmtIMiw" name="String">
+        <ownedComment xmi:id="_NTZtRXz0EeKJvOxVmtIMiw" annotatedElement="_NTZtRHz0EeKJvOxVmtIMiw">
+          <body>A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters.</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_NTZtRnz0EeKJvOxVmtIMiw" name="UnlimitedNatural">
+        <ownedComment xmi:id="_NTZtR3z0EeKJvOxVmtIMiw" annotatedElement="_NTZtRnz0EeKJvOxVmtIMiw">
+          <body>An unlimited natural is a primitive type representing unlimited natural values.</body>
+        </ownedComment>
+      </packagedElement>
+      <profileApplication xmi:id="_NTZtSHz0EeKJvOxVmtIMiw">
+        <eAnnotations xmi:id="_NTZtSXz0EeKJvOxVmtIMiw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+          <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
+        </eAnnotations>
+        <appliedProfile href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+      </profileApplication>
+      <profileApplication xmi:id="_NTZtSnz0EeKJvOxVmtIMiw">
+        <eAnnotations xmi:id="_NTZtS3z0EeKJvOxVmtIMiw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+          <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/4.0.0/UML/Profile/L2#/"/>
+        </eAnnotations>
+        <appliedProfile href="pathmap://UML_PROFILES/StandardL2.profile.uml#_0"/>
+      </profileApplication>
     </packagedElement>
     <profileApplication xmi:id="_OsJDQHn-EeKPzNgP2hkCeg">
       <eAnnotations xmi:id="_OsJDQXn-EeKPzNgP2hkCeg" source="http://www.eclipse.org/uml2/2.0.0/UML">

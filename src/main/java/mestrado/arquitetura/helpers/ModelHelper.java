@@ -17,6 +17,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
 
 public class ModelHelper extends ElementHelper {
@@ -80,7 +81,7 @@ public class ModelHelper extends ElementHelper {
 		return false;
 	}
 
-	public List<Classifier> getAllMethods(Classifier model) {
+	public List<Operation> getAllMethods(NamedElement model) {
 		return getAllElementsByType(model, OPERATION);
 	}
 
