@@ -81,7 +81,6 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals(2, klassClass2.getAttributes().size());
 	}
 	
-	
 	@Test
 	public void classShouldBeAbastract(){
 		Class klass = architecture.getPackages().get(0).getClasses().get(2);

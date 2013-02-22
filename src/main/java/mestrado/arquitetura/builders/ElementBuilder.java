@@ -1,6 +1,7 @@
 package mestrado.arquitetura.builders;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import mestrado.arquitetura.helpers.ModelElementHelper;
@@ -8,6 +9,9 @@ import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.VariantType;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Stereotype;
 
@@ -19,7 +23,7 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 	protected VariantType variantType;
 	protected List<String> concerns;
 	protected final Architecture architecture;
-	//private final HashMap<String, T> createdElements = new HashMap<String, T>();
+	private final HashMap<String, T> createdElements = new HashMap<String, T>();
 
 	public ElementBuilder(Architecture architecture) {
 		this.architecture = architecture;
@@ -32,8 +36,8 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 		inspectStereotypes(modelElement);
 		name = modelElement.getName();
 		T element = buildElement(modelElement);
-		element.addConcerns(concerns); // TODO Ver isto
-		//createdElements.put(modelElement.getXMIID(), element); // TODO VER ISTO
+		element.addConcerns(concerns);
+		createdElements.put(getXmiId(modelElement), element);
 		return element;
 	}
 	
@@ -67,6 +71,27 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 		isVariationPoint = false;
 		variantType = VariantType.NONE;
 		concerns = new ArrayList<String>();
+	}
+	
+	public T getElementByXMIID(Integer xmiid) {
+		return createdElements.get(xmiid);
+	}
+	
+	
+	/**
+	 * Returna o atributo xmi:id como uma <b>String</b> para um dado eObject.
+	 * Retrona <b>null</b> (por enquanto) caso xmiResources for null.
+	 * 
+	 * @param eObject
+	 * @return <b>String</b>
+	 */
+	private static String getXmiId (EObject eObject) {
+		Resource xmiResource = eObject.eResource();
+		if (xmiResource == null ) {
+			return null; //TODO verificar isto. Não retornar NULL.
+		} else {
+			return ((XMLResource) xmiResource).getID(eObject);
+		}
 	}
 	
 }
