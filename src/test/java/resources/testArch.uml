@@ -4,7 +4,7 @@
     <packagedElement xmi:type="uml:Package" xmi:id="_lBUy0HdcEeKFLPdiRaUVaA" name="Package1">
       <packagedElement xmi:type="uml:Class" xmi:id="_mlAMEHdcEeKFLPdiRaUVaA" name="Class1">
         <ownedOperation xmi:id="_tatn8Hz0EeKJvOxVmtIMiw" name="foo">
-          <ownedParameter xmi:id="_KIuEgHz1EeKJvOxVmtIMiw" name="" type="_NTZtRHz0EeKJvOxVmtIMiw" direction="return"/>
+          <ownedParameter xmi:id="_KIuEgHz1EeKJvOxVmtIMiw" name="description" type="_NTZtRHz0EeKJvOxVmtIMiw" direction="return"/>
           <ownedParameter xmi:id="_MdWZkHz1EeKJvOxVmtIMiw" name="name" type="_NTZtRHz0EeKJvOxVmtIMiw" isUnique="false"/>
         </ownedOperation>
       </packagedElement>

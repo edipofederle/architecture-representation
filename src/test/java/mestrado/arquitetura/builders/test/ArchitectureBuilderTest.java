@@ -70,16 +70,16 @@ public class ArchitectureBuilderTest extends TestHelper {
 	
 	@Test
 	public void shouldHaveOneMethod(){
-		 Class barKlass = architecture.getPackages().get(0).getClasses().get(0);
-		 assertEquals("Class1", barKlass.getName());
-		 assertEquals(1, barKlass.getMethods().size());
-		 assertEquals("foo", barKlass.getMethods().get(0).getName());
-		 assertEquals("String", barKlass.getMethods().get(0).getReturnType());
-		 assertEquals(2, barKlass.getMethods().get(0).getParameters().size());
-		 assertEquals("name", barKlass.getMethods().get(0).getParameters().get(1).getName());
-		 assertEquals("String", barKlass.getMethods().get(0).getParameters().get(1).getType());
-		 
-		 //TODO Ver porque ta criando um params a mais.
+		 Class class1 = architecture.getPackages().get(0).getClasses().get(0);
+		 assertEquals("Class1", class1.getName());
+		 assertEquals(1, class1.getMethods().size());
+		 assertEquals("foo", class1.getMethods().get(0).getName());
+		 assertEquals("String", class1.getMethods().get(0).getReturnType());
+		 assertEquals(2, class1.getMethods().get(0).getParameters().size());
+		 assertEquals("name", class1.getMethods().get(0).getParameters().get(1).getName());
+		 assertEquals("String", class1.getMethods().get(0).getParameters().get(1).getType());
+		 assertEquals("description", class1.getMethods().get(0).getParameters().get(0).getName());
+		 assertEquals("String", class1.getMethods().get(0).getParameters().get(0).getType());
 	}
 	
 	
