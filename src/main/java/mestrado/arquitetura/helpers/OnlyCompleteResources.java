@@ -3,6 +3,14 @@ package mestrado.arquitetura.helpers;
 import java.io.File;
 import java.io.FilenameFilter;
 
+/**
+ * Classe responsável por verificar se modelo ( arquitetura) é completa.
+ * 
+ * Uma arquitetura completa deve conter um arquivo .uml, .notation e .di 
+ * 
+ * @author edipofederle
+ *
+ */
 public class OnlyCompleteResources implements FilenameFilter {
 
 	public boolean accept(File dir, String name) {

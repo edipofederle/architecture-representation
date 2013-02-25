@@ -13,13 +13,24 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import mestrado.arquitetura.exceptions.ModelIncompleteException;
+import mestrado.arquitetura.exceptions.ModelNotFoundException;
+import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.Property;
 
+/**
+ * Helper para atuar sobre um model ( arquitetura ).
+ * 
+ * @author edipofederle
+ *
+ */
 public class ModelHelper extends ElementHelper {
 
 	private static Uml2Helper uml2Helper;
@@ -28,31 +39,37 @@ public class ModelHelper extends ElementHelper {
 		uml2Helper = Uml2HelperFactory.getUml2Helper();
 	}
 
-	public List<Classifier> getAllClasses(Package model) {
+	public List<Classifier> getAllClasses(NamedElement model) {
 		return getAllElementsByType(model, CLASS);
 	}
 
-	public List<Classifier> getAllInterfaces(Package model) {
+	public List<Property> getAllAttributesForAClass(NamedElement aClass) {
+		List<Property> allPropertys = new ArrayList<Property>();
+		allPropertys = getAllElementsByType(aClass, ElementsTypes.PROPERTY);
+		return allPropertys;
+	}
+	
+	public List<Classifier> getAllInterfaces(NamedElement model) {
 		return getAllElementsByType(model, INTERFACE);
 	}
 
-	public List<Classifier> getAllAssociations(Package model) {
+	public List<Classifier> getAllAssociations(NamedElement model) {
 		return getAllElementsByType(model, ASSOCIATION);
 	}
 
-	public List<Classifier> getAllDependencies(Package model) {
+	public List<Classifier> getAllDependencies(NamedElement model) {
 		return getAllElementsByType(model, DEPENDENCY);
 	}
 
-	public List<Classifier> getAllPackages(Package model) {
+	public List<Classifier> getAllPackages(NamedElement model) {
 		return getAllElementsByType(model, PACKAGE);
 	}
 
-	public List<Classifier> getAllComments(Package model) {
+	public List<Classifier> getAllComments(NamedElement model) {
 		return getAllElementsByType(model, COMMENT);
 	}
 
-	public List<EList<Classifier>> getAllGeneralizations(Package model) {
+	public List<EList<Classifier>> getAllGeneralizations(NamedElement model) {
 		List<Classifier> allClasses = getAllClasses(model);
 		List<EList<Classifier>> a = new ArrayList<EList<Classifier>>();
 		for (NamedElement classImpl : allClasses) {

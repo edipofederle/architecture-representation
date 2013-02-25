@@ -2,6 +2,8 @@ package mestrado.arquitetura.helpers;
 
 import java.util.Iterator;
 
+import mestrado.arquitetura.exceptions.ConcernNotFoundException;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
@@ -11,8 +13,23 @@ import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 import org.eclipse.uml2.uml.internal.impl.StereotypeImpl;
 
+/**
+ * 
+ * Helpers para trabalhar com estereótipos.
+ * 
+ * @author edipofederle
+ *
+ */
 public class StereotypeHelper {
 	
+	/**
+	 * 
+	 * Verifica se um dado elemento (elt) contém o estereótipo (stereotypeName ).
+	 * 
+	 * @param elt
+	 * @param stereotypeName
+	 * @return boolean
+	 */
 	public static boolean hasStereotype(NamedElement elt, String stereotypeName) {
 		boolean has = false;
 
@@ -28,12 +45,24 @@ public class StereotypeHelper {
 		return has;
 	}
 
-	public static boolean isVariationPoint(NamedElement a) {
-		return hasStereotype(a, StereotypesTypes.VARIATION_POINT);
+	/**
+	 * Verifica se um elemento é um ponto de variação.
+	 * 
+	 * @param element
+	 * @return boolean
+	 */
+	public static boolean isVariationPoint(NamedElement element) {
+		return hasStereotype(element, StereotypesTypes.VARIATION_POINT);
 	}
 
-	public static boolean isVariability(NamedElement klass) {
-		EList<Comment> comments = ((Class) klass).getPackage().getOwnedComments();
+	/**
+	 * Verifica se um elemento é uma variabilidade.
+	 * 
+	 * @param element
+	 * @return boolean
+	 */
+	public static boolean isVariability(NamedElement element) {
+		EList<Comment> comments = ((Class) element).getPackage().getOwnedComments();
 		
 		for (Comment comment : comments) 
 			for (Stereotype stereotype : comment.getAppliedStereotypes())
@@ -41,20 +70,34 @@ public class StereotypeHelper {
 		
 		return false;
 	}
-
-	public static boolean hasConcern(NamedElement a) {
+	
+	/**
+	 * Verifica se elemento possui interesse
+	 * 
+	 * @param element
+	 * @return boolean
+	 */
+	public static boolean hasConcern(NamedElement element) {
 		try {
-			if(a instanceof ClassImpl)
-				if (searchForConcernsStereotypes(a) != null) return true;
-			if (a instanceof StereotypeImpl) 
-				if (((Classifier) a).getGeneralizations().get(0).getGeneral().getName().equalsIgnoreCase(StereotypesTypes.CONCERN))
+			if(element instanceof ClassImpl)
+				if (searchForConcernsStereotypes(element) != null) return true;
+			if (element instanceof StereotypeImpl) 
+				if (((Classifier) element).getGeneralizations().get(0).getGeneral().getName().equalsIgnoreCase(StereotypesTypes.CONCERN))
 					return true;
 		} catch (Exception e) {
-			return hasStereotype(a, StereotypesTypes.CONCERN);
+			return hasStereotype(element, StereotypesTypes.CONCERN);
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Retorna o valorde um attributo de um dado estereótipo.
+	 * 
+	 * @param element
+	 * @param s
+	 * @param attr
+	 * @return
+	 */
 	public static String getValueOfAttribute(Classifier element, Stereotype s, String attr) {
 		return (String) element.getValue(s, attr);
 	}
@@ -73,18 +116,13 @@ public class StereotypeHelper {
 		throw new ConcernNotFoundException("There is not concern in element " + c );
 		
 	}
-
-	public static boolean isConcern2(NamedElement element) {
-		EList<Stereotype> stes = element.getAppliedStereotypes();
-		for (Stereotype stereotype : stes) {
-			EList<Stereotype> subStereotype = stereotype.getApplicableStereotypes();
-			for (Stereotype subste : subStereotype)
-				if(StereotypesTypes.CONCERN.equalsIgnoreCase(subste.getName()))
-					return true;
-		}
-		return false;
-	}
 	
+	/**
+	 * Busca por concern em todos os estereótipos aplicados em um elemento.
+	 * 
+	 * @param element
+	 * @return {@link Stereotype}
+	 */
 	private static Stereotype searchForConcernsStereotypes(NamedElement element){
 		EList<Stereotype> stes = element.getAppliedStereotypes();
 		for (Stereotype stereotype : stes) {

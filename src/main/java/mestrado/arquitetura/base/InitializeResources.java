@@ -13,6 +13,12 @@ import org.eclipse.uml2.uml.resource.UMLResource;
 import org.eclipse.uml2.uml.resource.XMI2UMLResource;
 import org.eclipse.uml2.uml.resources.util.UMLResourcesUtil;
 
+/**
+ * inicialização dos recursos necessários.
+ * 
+ * @author edipofederle
+ *
+ */
 public class InitializeResources {
 	
 	private static final InitializeResources initializeResources = new InitializeResources();
@@ -41,7 +47,10 @@ public class InitializeResources {
 		
 	}
 	
-	protected void registerPathmaps() {
+	/**
+	 * Registra os recursos necessários (libraries, metamodels, UMLPrimitivesTypes e Profiles).
+	 */
+	private void registerPathmaps() {
 		 String umlResourcePath = UMLResourcesUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 		 try {
 			umlResourcePath = URLDecoder.decode(umlResourcePath, "UTF-8");
@@ -75,6 +84,12 @@ public class InitializeResources {
 		
 	 }
 	
+	/**
+	 * 
+	 * Retorna um RESOURCE_SET configurado.
+	 *  
+	 * @return ResourceSet
+	 */
 	public ResourceSet getResources(){
 		return RESOURCE_SET;
 	}

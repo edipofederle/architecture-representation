@@ -1,6 +1,6 @@
 package mestrado.arquitetura.smarty.profile;
 
-import mestrado.arquitetura.helpers.ModelNotFoundException;
+import mestrado.arquitetura.exceptions.ModelNotFoundException;
 
 
 public class SMarty {

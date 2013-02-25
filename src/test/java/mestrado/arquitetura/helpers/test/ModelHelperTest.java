@@ -6,14 +6,17 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import mestrado.arquitetura.helpers.ModelIncompleteException;
-import mestrado.arquitetura.helpers.ModelNotFoundException;
-import mestrado.arquitetura.helpers.SMartyProfileNotAppliedToModelExcepetion;
+import mestrado.arquitetura.exceptions.ModelIncompleteException;
+import mestrado.arquitetura.exceptions.ModelNotFoundException;
+import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Interface;
+import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 import org.junit.Test;
 
@@ -26,6 +29,16 @@ public class ModelHelperTest extends TestHelper {
 		List<Classifier> elementsClass = modelHelper.getAllClasses(content);
 		assertEquals(10, elementsClass.size());
 	}
+	
+	 @Test
+	 public void shouldReturnAllAttributesForAClass() throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
+		 NamedElement aClass = givenAClass();
+		 assertEquals("Person", ((Class)aClass).getName());
+		 List<Property> attrs = modelHelper.getAllAttributesForAClass(aClass);
+		 assertEquals(2, attrs.size());
+		 assertEquals("name", (attrs.get(1)).getLabel());
+	 }
+	
 	
 	@Test
 	public void shouldReturnAllInterfaces() throws ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion {

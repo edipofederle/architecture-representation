@@ -2,10 +2,10 @@ package mestrado.arquitetura.smarty.profile;
 
 import java.io.IOException;
 
-import mestrado.arquitetura.helpers.EnumerationNotFoundException;
-import mestrado.arquitetura.helpers.ModelIncompleteException;
-import mestrado.arquitetura.helpers.ModelNotFoundException;
-import mestrado.arquitetura.helpers.StereotypeNotFoundException;
+import mestrado.arquitetura.exceptions.EnumerationNotFoundException;
+import mestrado.arquitetura.exceptions.ModelIncompleteException;
+import mestrado.arquitetura.exceptions.ModelNotFoundException;
+import mestrado.arquitetura.exceptions.StereotypeNotFoundException;
 import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
 

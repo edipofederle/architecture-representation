@@ -16,6 +16,13 @@ import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Stereotype;
 
 
+/**
+ * Classe abstrata que abstrai elemetnos comuns aos builders.
+ * 
+ * @author edipofederle
+ *
+ * @param <T>
+ */
 public abstract class ElementBuilder<T extends mestrado.arquitetura.representation.Element> {
 
 	protected String name;
@@ -65,7 +72,6 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 		isVariationPoint = StereotypeHelper.isVariationPoint(stereotype);
 	}
 	
-
 	private void initialize() {
 		name = "";
 		isVariationPoint = false;

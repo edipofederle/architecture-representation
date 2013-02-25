@@ -2,6 +2,12 @@ package mestrado.arquitetura.base;
 
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
+/**
+ * Classe abstrata resposável fornece os Recursos necessários para usar a UML2.
+ * 
+ * @author edipofederle
+ *
+ */
 public abstract class Base {
 	
 	static InitializeResources resources;
@@ -15,7 +21,4 @@ public abstract class Base {
 		return resources.getResources();
 	}
 	
-	
-	
-
 }

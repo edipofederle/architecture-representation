@@ -7,12 +7,26 @@ import java.util.List;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Stereotype;
 
+/**
+ * Estereótipo Helper.
+ * 
+ * @author edipofederle
+ *
+ */
 public class ModelElementHelper {
 
-	public static <T> List<Stereotype> getAllStereotypes(NamedElement klass) {
+	/**
+	 * Retorna todos os estereótipo de uma dada ELemento. <br />
+	 * 
+	 * Se nenhum esterótipo for encontrado retorna uma lista vazia.
+	 * 
+	 * @param element
+	 * @return List<{@link Stereotype}>
+	 */
+	public static <T> List<Stereotype> getAllStereotypes(NamedElement element) {
 		List<Stereotype> stereotypes = new ArrayList<Stereotype>();
 		
-		for(Stereotype stereotype : klass.getAppliedStereotypes())
+		for(Stereotype stereotype : element.getAppliedStereotypes())
 			stereotypes.add(stereotype);
 		
 		if (stereotypes.isEmpty()) return Collections.emptyList();
@@ -20,10 +34,21 @@ public class ModelElementHelper {
 		return stereotypes; 
 	}
 	
+	/**
+	 * Verifica se uma classe é uma interface. 
+	 * 
+	 * @param klass
+	 * @return boolean
+	 */
 	public static boolean isInterface(NamedElement klass){
 		return StereotypeHelper.hasStereotype(klass, StereotypesTypes.INTERFACE);
 	}
-
+	
+	/**
+	 * Verifica se elemento é uma classe
+	 * @param klass
+	 * @return
+	 */
 	public static boolean isClass(NamedElement klass) {
 		if (isInterface(klass))	return false;
 		return true;

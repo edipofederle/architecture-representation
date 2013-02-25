@@ -13,6 +13,12 @@ import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.Type;
 
+/**
+ * Builder resposável por criar element do tipo Método.
+ * 
+ * @author edipofederle
+ *
+ */
 public class MethodBuilder extends ElementBuilder<Method> {
 
 	public MethodBuilder(Architecture architecture) {
@@ -22,18 +28,18 @@ public class MethodBuilder extends ElementBuilder<Method> {
 	@Override
 	protected Method buildElement(NamedElement modelElement) {
 		Operation method =  ((Operation) modelElement);
-		Type methodType = method.getType();
-		String type = methodType != null ? methodType.getName() : "";
+		Type methodReturnType = method.getType();
+		String type = methodReturnType != null ? methodReturnType.getName() : "";
 		boolean isAbstract = false;
 		
-		List<ParameterMethod> paramsMethod = new ArrayList<ParameterMethod>();
+		List<ParameterMethod> parameterMethodReceives = new ArrayList<ParameterMethod>();
 		
 		isAbstract = method.isAbstract();
 		EList<Parameter> params = method.getOwnedParameters();
 		for (Parameter parameter : params)
-			paramsMethod.add(new ParameterMethod(parameter.getName(), parameter.getType().getName()));
+			parameterMethodReceives.add(new ParameterMethod(parameter.getName(), parameter.getType().getName()));
 			
-		Method m = new Method(architecture, name, isVariationPoint, variantType, type, isAbstract, paramsMethod);
+		Method m = new Method(architecture, name, isVariationPoint, variantType, type, isAbstract, parameterMethodReceives);
 		return m;
 	}
 

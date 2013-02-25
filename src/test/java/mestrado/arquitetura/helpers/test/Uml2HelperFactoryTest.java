@@ -1,8 +1,8 @@
 package mestrado.arquitetura.helpers.test;
 
 import static org.junit.Assert.*;
-import mestrado.arquitetura.helpers.ModelIncompleteException;
-import mestrado.arquitetura.helpers.ModelNotFoundException;
+import mestrado.arquitetura.exceptions.ModelIncompleteException;
+import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
 

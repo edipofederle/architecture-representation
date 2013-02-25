@@ -1,8 +1,8 @@
 package mestrado.arquitetura.factories;
 
-import mestrado.arquitetura.helpers.ModelIncompleteException;
-import mestrado.arquitetura.helpers.ModelNotFoundException;
-import mestrado.arquitetura.helpers.SMartyProfileNotAppliedToModelExcepetion;
+import mestrado.arquitetura.exceptions.ModelIncompleteException;
+import mestrado.arquitetura.exceptions.ModelNotFoundException;
+import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.eclipse.uml2.uml.Classifier;

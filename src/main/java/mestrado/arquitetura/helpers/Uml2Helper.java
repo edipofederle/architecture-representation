@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import mestrado.arquitetura.base.Base;
+import mestrado.arquitetura.exceptions.EnumerationNotFoundException;
+import mestrado.arquitetura.exceptions.ModelIncompleteException;
+import mestrado.arquitetura.exceptions.ModelNotFoundException;
+import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import mestrado.arquitetura.exceptions.StereotypeNotFoundException;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
