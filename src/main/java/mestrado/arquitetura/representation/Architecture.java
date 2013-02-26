@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Architecture {
 	
-	private List<Package> packages = new ArrayList<Package>();
+	private List<Element> elements = new ArrayList<Element>();
 	private HashMap<String, Concern> concerns = new HashMap<String, Concern>();
 	
 	private String name;
@@ -23,8 +23,8 @@ public class Architecture {
 		return name;
 	}
 
-	public List<Package> getPackages() {
-		return packages;
+	public List<Element> getElements() {
+		return elements;
 	}
 	
 	public Concern getOrCreateConcernByName(String name){
@@ -36,4 +36,25 @@ public class Architecture {
 		return concern;
 	}
 
+	public HashMap<String, Concern> getConcerns() {
+		return concerns;
+	}
+
+	public List<Package> getPackages() {
+		List<Package> paks = new ArrayList<Package>();
+		for (Element element : elements) {
+			if(element.getTypeElement().equals("package"))
+				paks.add(((Package)element));
+		}
+		return paks;
+	}
+
+	public List<Class> getClasses(){
+		List<Class> paks = new ArrayList<Class>();
+		for (Element element : elements) {
+			if(element.getTypeElement().equals("klass"))
+				paks.add(((Class)element));
+		}
+		return paks;
+	}
 }

@@ -10,6 +10,7 @@ import mestrado.arquitetura.helpers.ModelHelperFactory;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Attribute;
 import mestrado.arquitetura.representation.Class;
+import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.Method;
 
 import org.eclipse.uml2.uml.NamedElement;
@@ -53,16 +54,16 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 	 * Constrói um elemento do tipo {@link Class}.
 	 */
 	@Override
-	protected mestrado.arquitetura.representation.Class buildElement(NamedElement modelElement) {
+	protected mestrado.arquitetura.representation.Class buildElement(NamedElement modelElement, Element parent) {
 		mestrado.arquitetura.representation.Class klass = null; // TODO VER ISTO. 
 		
 		boolean isAbstract = false;
 		if(modelElement instanceof ClassImpl){
 			isAbstract = ((org.eclipse.uml2.uml.Classifier)modelElement).isAbstract();
 		
-		klass = new Class(architecture, name, isVariationPoint, variantType, isAbstract);
-		klass.getAttributes().addAll(getAttributes(modelElement));
-		klass.getMethods().addAll(getMethods(modelElement));
+		klass = new Class(architecture, name, isVariationPoint, variantType, isAbstract, parent);
+		klass.getAttributes().addAll(getAttributes(modelElement, klass));
+		klass.getMethods().addAll(getMethods(modelElement, klass));
 		}
 		return klass;
 	}
@@ -72,14 +73,14 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 	 * @param modelElement
 	 * @return List
 	 */
-	private List<Attribute> getAttributes(NamedElement modelElement) {
+	private List<Attribute> getAttributes(NamedElement modelElement, Class parent) {
 		List<Attribute> attrs = new ArrayList<Attribute>();
 		
 		if(modelElement instanceof ClassImpl){
 			//EList<Property> attributes = ((Classifier) modelElement).getAllAttributes();
 			List<Property> attributes = modelHelper.getAllAttributesForAClass(modelElement);
 			for (Property property : attributes)
-				attrs.add(attributeBuilder.create(property));
+				attrs.add(attributeBuilder.create(property, parent));
 		}
 		return attrs;
 	}
@@ -90,12 +91,12 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 	 * @param modelElement
 	 * @return List
 	 */
-	private List<Method> getMethods(NamedElement modelElement) {
+	private List<Method> getMethods(NamedElement modelElement, Class parent) {
 		List<Method> methods = new ArrayList<Method>();
 		List<Operation> elements = modelHelper.getAllMethods(modelElement);
 		
 		for (Operation classifier : elements)
-			methods.add(methodBuilder.create(classifier));
+			methods.add(methodBuilder.create(classifier, parent));
 			
 		return methods;
 	}

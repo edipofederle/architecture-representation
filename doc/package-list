@@ -1,8 +1,14 @@
 mestrado.arquitetura.base
 mestrado.arquitetura.base.test
+mestrado.arquitetura.builders
 mestrado.arquitetura.builders.test
+mestrado.arquitetura.exceptions
 mestrado.arquitetura.factories
+mestrado.arquitetura.genericsTests
 mestrado.arquitetura.helpers
 mestrado.arquitetura.helpers.test
 mestrado.arquitetura.representation
+mestrado.arquitetura.representation.test
 mestrado.arquitetura.smarty.profile
+mestrado.arquitetura.xmi2uml2
+mestrado.arquitetura.xmi2uml2.test

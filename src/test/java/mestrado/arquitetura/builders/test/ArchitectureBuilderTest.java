@@ -27,6 +27,11 @@ public class ArchitectureBuilderTest extends TestHelper {
 	}
 	
 	@Test
+	public void shouldHaveTwoConcerns(){
+		assertEquals("Architecture should have two conecern", 2, architecture.getConcerns().size());
+	}
+	
+	@Test
 	public void shouldNotBeNull() throws Exception{
 		assertNotNull("Architecture should NOT be null", architecture);
 	}
@@ -39,7 +44,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void shouldHaveLoadPackages() throws Exception{
 		assertNotNull(architecture.getPackages());
-		assertEquals(1, architecture.getPackages().size());
+		assertEquals("Architecture should have one package", 1, architecture.getPackages().size());
 	}
 	
 	@Test
@@ -58,7 +63,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void shouldHaveMandatoryStereotype(){
 		Class class1 = architecture.getPackages().get(0).getClasses().get(0);
-		assertEquals("mandatory",class1.getVariantType().toString());
+		assertEquals("mandatory", class1.getVariantType().toString());
 	}
 	
 	@Test
@@ -71,6 +76,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void shouldHaveOneMethod(){
 		 Class class1 = architecture.getPackages().get(0).getClasses().get(0);
+		 
 		 assertEquals("Class1", class1.getName());
 		 assertEquals(1, class1.getMethods().size());
 		 assertEquals("foo", class1.getMethods().get(0).getName());
@@ -81,7 +87,6 @@ public class ArchitectureBuilderTest extends TestHelper {
 		 assertEquals("description", class1.getMethods().get(0).getParameters().get(0).getName());
 		 assertEquals("String", class1.getMethods().get(0).getParameters().get(0).getType());
 	}
-	
 	
 	@Test
 	public void shouldHaveAEmptyStringTypeWhenNotTypeFoundForAttribute(){
@@ -97,13 +102,13 @@ public class ArchitectureBuilderTest extends TestHelper {
 	}
 	
 	@Test
-	public void classShouldBeAbastract(){
+	public void shoulClassdBeAbastract(){
 		Class klass = architecture.getPackages().get(0).getClasses().get(2);
 		assertTrue("class should be abstract", klass.isAbstract());
 	}
 	
 	@Test
-	public void classShoiuldNotBeAbstract(){
+	public void shouldClassNotBeAbstract(){
 		Class klass = architecture.getPackages().get(0).getClasses().get(1);
 		assertFalse("class should not be abstract", klass.isAbstract());
 	}
@@ -123,4 +128,27 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("sorting",  concerns.get(1).getName());
 	}
 	
+	@Test
+	public void testWithoutPackages() throws Exception{
+		String uriToArchitecture = getUrlToModel("semPacote");
+		architecture = new ArchitectureBuilder().create(uriToArchitecture);
+		assertNotNull(architecture);
+		assertEquals(1, architecture.getClasses().size());
+		assertEquals("Foo", architecture.getClasses().get(0).getName());
+		
+		assertEquals(1, architecture.getPackages().size());
+		assertEquals("pacote1", architecture.getPackages().get(0).getName());
+		Class klassBar = architecture.getPackages().get(0).getClasses().get(0);
+		assertEquals("Bar", klassBar.getName());
+		
+	}
+
+	@Test
+	public void shoudlElementHaveAParentPackage() throws Exception{
+		String uriToArchitecture = getUrlToModel("semPacote");
+		architecture = new ArchitectureBuilder().create(uriToArchitecture);
+		Class klassBar = architecture.getPackages().get(0).getClasses().get(0);
+		assertNotNull(klassBar.getParent());
+		assertEquals("Class should belongs to package 'pacote1'", "pacote1", klassBar.getParent().getName());
+	}
 }

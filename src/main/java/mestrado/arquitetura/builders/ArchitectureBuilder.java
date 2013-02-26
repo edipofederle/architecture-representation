@@ -1,5 +1,6 @@
 package mestrado.arquitetura.builders;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -10,6 +11,8 @@ import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.helpers.ModelHelper;
 import mestrado.arquitetura.helpers.ModelHelperFactory;
 import mestrado.arquitetura.representation.Architecture;
+import mestrado.arquitetura.representation.Class;
+import mestrado.arquitetura.representation.Element;
 
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.NamedElement;
@@ -26,6 +29,7 @@ public class ArchitectureBuilder {
 	private ModelHelper modelHelper;
 	private Package model;
 	private PackageBuilder packageBuilder;
+	private ClassBuilder classBuilder;
 	
 	/**
 	 *  Construtor. Initializa helpers.
@@ -53,9 +57,18 @@ public class ArchitectureBuilder {
 		
 		initialize(architecture);
 		
-		architecture.getPackages().addAll(loadPackages());
+		architecture.getElements().addAll(loadPackages());
+		architecture.getElements().addAll(loadClasses());
 		
 		return architecture;
+	}
+
+	private Collection<? extends Element> loadClasses() {
+		List<Class> listOfClasses = new ArrayList<Class>();
+		List<Classifier> classes = modelHelper.getAllClasses(model);
+		for (NamedElement element : classes)
+			listOfClasses.add(classBuilder.create(element, null));
+		return listOfClasses;
 	}
 
 	/**
@@ -66,7 +79,7 @@ public class ArchitectureBuilder {
 		Set<mestrado.arquitetura.representation.Package> packages = new HashSet<mestrado.arquitetura.representation.Package>();
 		List<Classifier> packagess = modelHelper.getAllPackages(model);
 		for (NamedElement pkg : packagess)
-			packages.add(packageBuilder.create(pkg));
+			packages.add(packageBuilder.create(pkg, null)); //TODO VER 
 		
 		return packages;
 		
@@ -78,7 +91,7 @@ public class ArchitectureBuilder {
 	 * @param architecture
 	 */
 	private void initialize(Architecture architecture) {
-		ClassBuilder classBuilder = new ClassBuilder(architecture);
+		classBuilder = new ClassBuilder(architecture);
 		packageBuilder = new PackageBuilder(architecture, classBuilder);
 	}
 	

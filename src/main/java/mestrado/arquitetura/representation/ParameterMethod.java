@@ -1,5 +1,11 @@
 package mestrado.arquitetura.representation;
 
+/**
+ * Representa parametro de um método.
+ * 
+ * @author edipofederle
+ *
+ */
 public class ParameterMethod {
 	
 	private String name;

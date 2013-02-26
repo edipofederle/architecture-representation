@@ -9,8 +9,8 @@ public class Class extends Element {
 	private final List<Attribute> attributes = new ArrayList<Attribute>();
 	private final List<Method> methods = new ArrayList<Method>();
 	
-	public Class(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, boolean isAbstract) {
-		super(architecture, name, isVariationPoint, variantType);
+	public Class(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, boolean isAbstract, Element parent) {
+		super(architecture, name, isVariationPoint, variantType, "klass", parent);
 		setAbstract(isAbstract);
 	}
 

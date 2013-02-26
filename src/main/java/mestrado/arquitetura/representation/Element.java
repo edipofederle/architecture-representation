@@ -15,12 +15,28 @@ public abstract class Element {
 	private VariantType variantType;
 	private final List<Concern> concerns = new ArrayList<Concern>();
 	private Architecture architecture;
+	private String typeElement;
+	private Element parent;
 	
-	public Element(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType) {
+	public Element(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String typeString, Element parent) {
 		setArchitecture(architecture);
 		setName(name);
 		setIsVariationPoint(isVariationPoint);
 		setVariantType(variantType);
+		setTypeElement(typeString);
+		setParent(parent);
+	}
+
+	private void setParent(Element parent) {
+		this.parent = parent;
+	}
+
+	private void setTypeElement(String typeElement) {
+		this.typeElement = typeElement;
+	}
+	
+	public String getTypeElement(){
+		return this.typeElement;
 	}
 
 	public String getName() {
@@ -75,10 +91,8 @@ public abstract class Element {
 		concerns.add(concern);
 	}
 	
+	public Element getParent(){
+		return this.parent;
+	}
 	
-	
-	
-	
-	
-
 }

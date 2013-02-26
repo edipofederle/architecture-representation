@@ -9,8 +9,8 @@ public class Method extends Element{
 	private final List<ParameterMethod> parameters = new ArrayList<ParameterMethod>();
 	private boolean isAbstract;
 
-	public Method(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod) {
-		super(architecture, name, isVariationPoint, variantType);
+	public Method(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, Element parent) {
+		super(architecture, name, isVariationPoint, variantType, "method", parent);
 		setReturnType(returnType);
 		setAbstract(isAbstract);
 		setParams(paramsMethod);
@@ -20,8 +20,8 @@ public class Method extends Element{
 		parameters.addAll(paramsMethod);
 	}
 
-	public Method(Architecture architecture, String name, Boolean isVariationPoint, VariantType variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod) {
-		this(architecture, name, false, VariantType.NONE, returnType, isAbstract, paramsMethod);
+	public Method(Architecture architecture, String name, Boolean isVariationPoint, VariantType variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, Element parent) {
+		this(architecture, name, false, VariantType.NONE, returnType, isAbstract, paramsMethod, parent);
 	}
 
 	public void setAbstract(boolean isAbstract) {

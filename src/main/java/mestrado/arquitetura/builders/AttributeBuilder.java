@@ -2,6 +2,7 @@ package mestrado.arquitetura.builders;
 
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Attribute;
+import mestrado.arquitetura.representation.Element;
 
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Property;
@@ -23,10 +24,10 @@ public class AttributeBuilder extends ElementBuilder<Attribute> {
 	 * constrói um elemento do tipo atributo.
 	 */
 	@Override
-	protected Attribute buildElement(NamedElement modelElement) {
+	protected Attribute buildElement(NamedElement modelElement, Element parent) {
 		Type attributeType = ((Property) modelElement).getType();
 		String type = attributeType != null ? attributeType.getName() : "";
-		return new Attribute(architecture, name, isVariationPoint, variantType, type);
+		return new Attribute(architecture, name, isVariationPoint, variantType, type, parent);
 	}
 
 }

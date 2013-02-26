@@ -111,7 +111,6 @@ public class StereotypeHelperTest extends TestHelper {
 		assertEquals("isVariability should return false", false, result);
 	}
 	
-	
 	@Test
 	public void shouldReturnFalseIfIsNotVariability2() throws ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion, IOException{
 		
@@ -155,6 +154,5 @@ public class StereotypeHelperTest extends TestHelper {
 		assertNotNull(ModelElementHelper.getAllStereotypes(c.get(0)));
 		
 	}
-	
 
 }
