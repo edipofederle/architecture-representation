@@ -91,8 +91,13 @@ public abstract class Element {
 		concerns.add(concern);
 	}
 	
+	/**
+	 * Returns Parent Element. If there is no parent returns null.
+	 * 
+	 * @return {@link Element}
+	 */
 	public Element getParent(){
-		return this.parent;
+		return this.parent != null ? this.parent : null; // Eu nao queria retorna null :(
 	}
 	
 }

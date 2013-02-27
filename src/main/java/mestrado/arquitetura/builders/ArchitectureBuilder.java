@@ -26,6 +26,7 @@ import org.eclipse.uml2.uml.Package;
  */
 public class ArchitectureBuilder {
 	
+	private static final Element NO_PARENT = null;
 	private ModelHelper modelHelper;
 	private Package model;
 	private PackageBuilder packageBuilder;
@@ -79,10 +80,9 @@ public class ArchitectureBuilder {
 		Set<mestrado.arquitetura.representation.Package> packages = new HashSet<mestrado.arquitetura.representation.Package>();
 		List<Classifier> packagess = modelHelper.getAllPackages(model);
 		for (NamedElement pkg : packagess)
-			packages.add(packageBuilder.create(pkg, null)); //TODO VER 
+			packages.add(packageBuilder.create(pkg, NO_PARENT));
 		
 		return packages;
-		
 	}
 
 	/**

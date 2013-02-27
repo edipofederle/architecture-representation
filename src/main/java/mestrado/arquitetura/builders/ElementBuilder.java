@@ -39,6 +39,13 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 	
 	protected abstract T buildElement(NamedElement modelElement, Element parent);
 	
+	/**
+	 * Cria um novo elemento arquitetural. 
+	 * 
+	 * @param modelElement
+	 * @param parent null se não tiver parent.
+	 * @return
+	 */
 	public T create(NamedElement modelElement, Element parent) {
 		initialize();
 		inspectStereotypes(modelElement);

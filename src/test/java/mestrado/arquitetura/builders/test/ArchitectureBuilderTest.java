@@ -12,6 +12,8 @@ import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Concern;
+import mestrado.arquitetura.representation.Element;
+import mestrado.arquitetura.representation.Method;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -150,5 +152,38 @@ public class ArchitectureBuilderTest extends TestHelper {
 		Class klassBar = architecture.getPackages().get(0).getClasses().get(0);
 		assertNotNull(klassBar.getParent());
 		assertEquals("Class should belongs to package 'pacote1'", "pacote1", klassBar.getParent().getName());
+	}
+	
+	@Test
+	public void shouldAClassWithoutPackageBelongsToNONEParent() throws Exception{
+		String uriToArchitecture = getUrlToModel("semPacote");
+		architecture = new ArchitectureBuilder().create(uriToArchitecture);
+		Class fooKlass = architecture.getClasses().get(0);
+		
+		assertEquals(null, fooKlass.getParent());
+	}
+	
+	@Test
+	public void shouldMethodHaveAParentClass(){
+		Class class1 = architecture.getPackages().get(0).getClasses().get(0);
+		assertNotNull(class1.getMethods().get(0));
+		assertNotNull(class1.getParent());
+		assertEquals("Class1", class1.getMethods().get(0).getParent().getName());
+	}
+	
+	@Test
+	public void shouldAttributeHaveAParentClass(){
+		Class klassClass2 = architecture.getPackages().get(0).getClasses().get(1);
+		Element parentKlassClass2 = klassClass2.getAttributes().get(0).getParent();
+		assertNotNull(parentKlassClass2);
+		assertEquals("Class2", parentKlassClass2.getName());
+	}
+	
+	@Test
+	public void shouldMethodhaveAParrentClass(){
+		Class class1 = architecture.getPackages().get(0).getClasses().get(0);
+		Method fooMethod = class1.getMethods().get(0);
+		assertNotNull(fooMethod.getParent());
+		assertEquals("Class1", fooMethod.getParent().getName());
 	}
 }
