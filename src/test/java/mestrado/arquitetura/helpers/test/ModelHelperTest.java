@@ -18,6 +18,7 @@ import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.internal.impl.ClassImpl;
+import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 import org.junit.Test;
 
 public class ModelHelperTest extends TestHelper {
@@ -129,8 +130,16 @@ public class ModelHelperTest extends TestHelper {
 		Package model = givenAModel("testArch"); // Classes estao em pacotes
 		assertNotNull(model);
 		List<Classifier> a = modelHelper.getAllPackages(model);
-		assertEquals(1, a.size());
-		List<Classifier> c = modelHelper.getAllClasses((Package) a.get(0));
+		PackageImpl p = null;
+		
+		for(int i =0; i < a.size(); i++){
+			if("Package1".equalsIgnoreCase(((PackageImpl)a.get(i)).getName())){
+				p = (PackageImpl) a.get(i);
+			}
+		}
+		
+		assertEquals(2, a.size());
+		List<Classifier> c = modelHelper.getAllClasses(p);
 		assertEquals("Bar", c.get(2).getName());
 		assertTrue(c.get(2).isAbstract());
 	}

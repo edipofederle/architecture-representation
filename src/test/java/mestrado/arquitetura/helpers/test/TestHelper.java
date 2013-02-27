@@ -1,8 +1,12 @@
 package mestrado.arquitetura.helpers.test;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import junitx.framework.Assert;
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
@@ -10,6 +14,7 @@ import mestrado.arquitetura.helpers.ModelHelper;
 import mestrado.arquitetura.helpers.ModelHelperFactory;
 import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
+import mestrado.arquitetura.representation.Class;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.uml2.uml.Classifier;
@@ -73,7 +78,27 @@ public abstract class TestHelper {
 	public static Stereotype getStereotypeByName(String name) throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		Package perfil = givenAModel("smartyProfile");
 		return  perfil.getOwnedStereotype(name);
+	}
+	
+	//Custom asserts
+	protected <T> void assertContains(List<T> list, String expected) {
+		for (T t : list) {
+			if(list.get(0) instanceof mestrado.arquitetura.representation.Package){
+				String name = ((mestrado.arquitetura.representation.Package) t).getName();
+				if(expected.equalsIgnoreCase(name))
+					return ;
+			}
+		}
+		Assert.fail("list there is no element called " + expected);
+	}
+	
+	protected void hasClassesNames(mestrado.arquitetura.representation.Package pkg, String ... names){
+		List<Class> klasses = pkg.getClasses();	
+		List<String> namesKlasses = new ArrayList<String>();
+		for (Class name : klasses) 
+			namesKlasses.add(name.getName());
 		
+		Assert.assertTrue(namesKlasses.containsAll(Arrays.asList(names)));
 	}
 
 }

@@ -14,18 +14,22 @@ import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Concern;
 import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.Method;
+import mestrado.arquitetura.representation.Package;
 
 import org.junit.Before;
 import org.junit.Test;
 
+
 public class ArchitectureBuilderTest extends TestHelper {
 	
 	private Architecture architecture;
+	private Package package1;
 	
 	@Before
 	public void setUp() throws Exception{
 		String uriToArchitecture = getUrlToModel("testArch");
 		architecture = new ArchitectureBuilder().create(uriToArchitecture);
+		package1 = getPackageByName("Package1");
 	}
 	
 	@Test
@@ -46,38 +50,44 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void shouldHaveLoadPackages() throws Exception{
 		assertNotNull(architecture.getPackages());
-		assertEquals("Architecture should have one package", 1, architecture.getPackages().size());
+		assertEquals("Architecture should have one package", 2, architecture.getPackages().size());
 	}
 	
 	@Test
 	public void shouldHaveCorrectNameForPackage(){
-		assertEquals("Package1", architecture.getPackages().get(0).getName());
+		assertContains(architecture.getPackages(), "Package1");
 	}	
 	
 	@Test
 	public void packageShouldContainTwoClasses(){
-		assertEquals(3, architecture.getPackages().get(0).getClasses().size());
-		assertEquals("Class1", architecture.getPackages().get(0).getClasses().get(0).getName());
-		assertEquals("Class2", architecture.getPackages().get(0).getClasses().get(1).getName());
-		assertEquals("Bar", architecture.getPackages().get(0).getClasses().get(2).getName());
+		hasClassesNames(package1, "Class1", "Class2", "Bar");
+	}
+	
+	public Package getPackageByName(String name){
+		List<Package> packges = architecture.getPackages();
+		for (Package p : packges) {
+			if(name.equalsIgnoreCase(p.getName()))
+				return p;
+		}
+		return null;
 	}
 	
 	@Test
 	public void shouldHaveMandatoryStereotype(){
-		Class class1 = architecture.getPackages().get(0).getClasses().get(0);
+		Class class1 = package1.getClasses().get(0);
 		assertEquals("mandatory", class1.getVariantType().toString());
 	}
 	
 	@Test
 	public void shouldHaveAClassBarWithOneAttribute(){
-		 Class barKlass = architecture.getPackages().get(0).getClasses().get(2);
+		 Class barKlass = package1.getClasses().get(2);
 		 assertEquals("String",barKlass.getAttributes().get(0).getType());
 		 assertEquals("name",barKlass.getAttributes().get(0).getName());
 	}
 	
 	@Test
 	public void shouldHaveOneMethod(){
-		 Class class1 = architecture.getPackages().get(0).getClasses().get(0);
+		 Class class1 =package1.getClasses().get(0);
 		 
 		 assertEquals("Class1", class1.getName());
 		 assertEquals(1, class1.getMethods().size());
@@ -92,39 +102,39 @@ public class ArchitectureBuilderTest extends TestHelper {
 	
 	@Test
 	public void shouldHaveAEmptyStringTypeWhenNotTypeFoundForAttribute(){
-		Class klassClass2 = architecture.getPackages().get(0).getClasses().get(1);
+		Class klassClass2 = package1.getClasses().get(1);
 		assertEquals("", klassClass2.getAttributes().get(0).getType());
 		assertEquals("age", klassClass2.getAttributes().get(0).getName());
 	}
 	
 	@Test
 	public void shouldClass2HaveTwoAttributes(){
-		Class klassClass2 = architecture.getPackages().get(0).getClasses().get(1);
+		Class klassClass2 = package1.getClasses().get(1);
 		assertEquals(2, klassClass2.getAttributes().size());
 	}
 	
 	@Test
 	public void shoulClassdBeAbastract(){
-		Class klass = architecture.getPackages().get(0).getClasses().get(2);
+		Class klass = package1.getClasses().get(2);
 		assertTrue("class should be abstract", klass.isAbstract());
 	}
 	
 	@Test
 	public void shouldClassNotBeAbstract(){
-		Class klass = architecture.getPackages().get(0).getClasses().get(1);
+		Class klass = package1.getClasses().get(1);
 		assertFalse("class should not be abstract", klass.isAbstract());
 	}
 	
 	@Test
 	public void shouldContainsAClassWithConcern(){
-		List<Concern> concerns = architecture.getPackages().get(0).getClasses().get(0).getConcerns();
+		List<Concern> concerns =  package1.getClasses().get(0).getConcerns();
 		assertFalse(concerns.isEmpty());
 		assertEquals("Persistence", concerns.get(0).getName());
 	}
 	
 	@Test
 	public void shouldContainTwoConcerns(){
-		List<Concern> concerns = architecture.getPackages().get(0).getClasses().get(0).getConcerns();
+		List<Concern> concerns = package1.getClasses().get(0).getConcerns();
 		assertEquals(2, concerns.size());
 		assertEquals("Persistence",  concerns.get(0).getName());
 		assertEquals("sorting",  concerns.get(1).getName());
@@ -142,7 +152,6 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("pacote1", architecture.getPackages().get(0).getName());
 		Class klassBar = architecture.getPackages().get(0).getClasses().get(0);
 		assertEquals("Bar", klassBar.getName());
-		
 	}
 
 	@Test
@@ -165,7 +174,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	
 	@Test
 	public void shouldMethodHaveAParentClass(){
-		Class class1 = architecture.getPackages().get(0).getClasses().get(0);
+		Class class1 = package1.getClasses().get(0);
 		assertNotNull(class1.getMethods().get(0));
 		assertNotNull(class1.getParent());
 		assertEquals("Class1", class1.getMethods().get(0).getParent().getName());
@@ -173,7 +182,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	
 	@Test
 	public void shouldAttributeHaveAParentClass(){
-		Class klassClass2 = architecture.getPackages().get(0).getClasses().get(1);
+		Class klassClass2 = package1.getClasses().get(1);
 		Element parentKlassClass2 = klassClass2.getAttributes().get(0).getParent();
 		assertNotNull(parentKlassClass2);
 		assertEquals("Class2", parentKlassClass2.getName());
@@ -181,9 +190,13 @@ public class ArchitectureBuilderTest extends TestHelper {
 	
 	@Test
 	public void shouldMethodhaveAParrentClass(){
-		Class class1 = architecture.getPackages().get(0).getClasses().get(0);
+		Class class1 = package1.getClasses().get(0);
 		Method fooMethod = class1.getMethods().get(0);
 		assertNotNull(fooMethod.getParent());
 		assertEquals("Class1", fooMethod.getParent().getName());
+	}
+	
+	@Test
+	public void shouldLoadPackageInsidePackage(){
 	}
 }
