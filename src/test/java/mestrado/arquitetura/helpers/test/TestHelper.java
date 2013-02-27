@@ -81,6 +81,7 @@ public abstract class TestHelper {
 	}
 	
 	//Custom asserts
+	
 	protected <T> void assertContains(List<T> list, String expected) {
 		for (T t : list) {
 			if(list.get(0) instanceof mestrado.arquitetura.representation.Package){

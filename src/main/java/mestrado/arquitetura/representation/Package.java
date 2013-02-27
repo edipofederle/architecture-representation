@@ -25,4 +25,13 @@ public class Package extends Element {
 		}
 		return paks;
 	}
+	
+	public List<Package> getNestedPackages(){
+		List<Package> paks = new ArrayList<Package>();
+		for (Element element : elements) {
+			if(element.getTypeElement().equals("package"))
+				paks.add(((Package)element));
+		}
+		return paks;
+	}
 }

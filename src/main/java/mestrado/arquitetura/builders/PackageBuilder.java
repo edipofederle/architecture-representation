@@ -1,6 +1,7 @@
 package mestrado.arquitetura.builders;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
@@ -44,10 +45,23 @@ public class PackageBuilder extends ElementBuilder<Package> {
 	@Override
 	public Package buildElement(NamedElement modelElement, Element parent) {
 		Package pkg = new Package(architecture, name, isVariationPoint, variantType, parent);
+		pkg.getElements().addAll(getNestedPackages(modelElement, null)); //TODO ver sobre pai
+		getNestedPackages(modelElement, null);
 		pkg.getElements().addAll(getClasses(modelElement, pkg));
 		return pkg;
 	}
 	
+	private Collection<? extends Element> getNestedPackages(NamedElement modelElement, Object object) {
+		List<Package> listOfPackes = new ArrayList<Package>();
+		List<Classifier> paks = modelHelper.getAllPackages(modelElement);
+		
+		for (NamedElement element : paks) {
+			listOfPackes.add(this.create(element, null));
+		}
+		
+		return listOfPackes;
+	}
+
 	/**
 	 * Retorna todas as classes de um dado pacote.
 	 * @param modelElement
