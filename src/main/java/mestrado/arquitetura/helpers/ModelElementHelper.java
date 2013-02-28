@@ -36,9 +36,8 @@ public class ModelElementHelper {
 			EList<Comment> comments = ((Class) element).getPackage().getOwnedComments();
 			
 			for (Comment comment : comments) 
-				for (Stereotype stereotype : comment.getAppliedStereotypes()){
+				for (Stereotype stereotype : comment.getAppliedStereotypes())
 					stereotypes.add(stereotype);
-				}
 		}
 		
 		if (stereotypes.isEmpty()) return Collections.emptyList();

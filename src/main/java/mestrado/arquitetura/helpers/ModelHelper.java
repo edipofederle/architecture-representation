@@ -46,6 +46,7 @@ public class ModelHelper extends ElementHelper {
 	public List<Property> getAllAttributesForAClass(NamedElement aClass) {
 		List<Property> allPropertys = new ArrayList<Property>();
 		allPropertys = getAllElementsByType(aClass, ElementsTypes.PROPERTY);
+		
 		return allPropertys;
 	}
 	
@@ -76,25 +77,28 @@ public class ModelHelper extends ElementHelper {
 			if (!((Classifier) classImpl).getGeneralizations().isEmpty())
 				a.add((((Classifier) classImpl).getGenerals()));
 		}
+		
 		return a;
 	}
 
 	public String getName(String xmiFile) throws ModelNotFoundException {
 		if (modelExists(xmiFile))
 			return new File(xmiFile).getName().split("\\.")[0];
+		
 		throw new ModelNotFoundException("Model " + xmiFile + " not found");
 	}
 
 	public Package getModel(String xmiFile) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
 		if (modelExists(xmiFile))
 			return uml2Helper.load(URI.createURI(xmiFile).toString());
+		
 		throw new ModelNotFoundException("Model " + xmiFile + " not found");
 	}
 
 	private boolean modelExists(String xmiFile) {
 		File model = new File(xmiFile);
-		if (model.exists())
-			return true;
+		if (model.exists()) return true;
+		
 		return false;
 	}
 

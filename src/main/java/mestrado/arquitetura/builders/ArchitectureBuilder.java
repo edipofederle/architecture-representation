@@ -69,6 +69,7 @@ public class ArchitectureBuilder {
 		List<Classifier> classes = modelHelper.getAllClasses(model);
 		for (NamedElement element : classes)
 			listOfClasses.add(classBuilder.create(element, null));
+		
 		return listOfClasses;
 	}
 

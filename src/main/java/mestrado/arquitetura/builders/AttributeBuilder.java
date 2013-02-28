@@ -27,6 +27,7 @@ public class AttributeBuilder extends ElementBuilder<Attribute> {
 	protected Attribute buildElement(NamedElement modelElement, Element parent) {
 		Type attributeType = ((Property) modelElement).getType();
 		String type = attributeType != null ? attributeType.getName() : "";
+		
 		return new Attribute(architecture, name, isVariationPoint, variantType, type, parent);
 	}
 

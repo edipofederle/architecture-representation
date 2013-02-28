@@ -48,6 +48,7 @@ public class PackageBuilder extends ElementBuilder<Package> {
 		pkg.getElements().addAll(getNestedPackages(modelElement, null)); //TODO ver sobre pai
 		getNestedPackages(modelElement, null);
 		pkg.getElements().addAll(getClasses(modelElement, pkg));
+		
 		return pkg;
 	}
 	
@@ -55,9 +56,8 @@ public class PackageBuilder extends ElementBuilder<Package> {
 		List<Package> listOfPackes = new ArrayList<Package>();
 		List<Classifier> paks = modelHelper.getAllPackages(modelElement);
 		
-		for (NamedElement element : paks) {
+		for (NamedElement element : paks)
 			listOfPackes.add(this.create(element, null));
-		}
 		
 		return listOfPackes;
 	}

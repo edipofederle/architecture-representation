@@ -35,6 +35,7 @@ public abstract class ElementHelper {
 			if (e.eClass().equals(getLiteralType(type)))
 				elements.add((T) e);
 		}
+		
 		return (List<T>) elements;
 	}
 

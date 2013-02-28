@@ -25,6 +25,7 @@ public class OnlyCompleteResources implements FilenameFilter {
 		}
 		
 		if (resoucesCompleteNotation && resoucesCompletDi) return true;
+		
 		return false;
 	}
 

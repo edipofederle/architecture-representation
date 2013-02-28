@@ -58,13 +58,13 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 		mestrado.arquitetura.representation.Class klass = null; // TODO VER ISTO. 
 		
 		boolean isAbstract = false;
-		if(modelElement instanceof ClassImpl){
+		if(modelElement instanceof ClassImpl)
 			isAbstract = ((org.eclipse.uml2.uml.Classifier)modelElement).isAbstract();
 		
 		klass = new Class(architecture, name, isVariationPoint, variantType, isAbstract, parent);
 		klass.getAttributes().addAll(getAttributes(modelElement, klass));
 		klass.getMethods().addAll(getMethods(modelElement, klass));
-		}
+		
 		return klass;
 	}
 	
@@ -82,6 +82,7 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 			for (Property property : attributes)
 				attrs.add(attributeBuilder.create(property, parent));
 		}
+		
 		return attrs;
 	}
 	

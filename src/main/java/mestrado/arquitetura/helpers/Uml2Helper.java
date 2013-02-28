@@ -47,9 +47,7 @@ public class Uml2Helper extends Base {
 
 	
 	public static Uml2Helper getInstance() throws ModelNotFoundException, ModelIncompleteException{
-		if (instance == null){
-			instance = new Uml2Helper();
-		}
+		if (instance == null) instance = new Uml2Helper();
 		return instance;
 	}
 
@@ -57,16 +55,15 @@ public class Uml2Helper extends Base {
 		Profile profile = UMLFactory.eINSTANCE.createProfile();
 		profile.setName(name);
 
-		printLog("Profile '" + profile.getQualifiedName()
-				+ "' created.");
+		printLog("Profile '" + profile.getQualifiedName()+ "' created.");
 
 		return profile;
 	}
 
-	public void saveResources(org.eclipse.uml2.uml.Package package_, URI uri)
-			throws IOException {
+	public void saveResources(org.eclipse.uml2.uml.Package package_, URI uri) throws IOException {
 		ArrayList<EObject> contents = new ArrayList<EObject>();
 		contents.add(package_);
+		
 		save(contents, uri);
 	}
 
@@ -74,6 +71,7 @@ public class Uml2Helper extends Base {
 		URI finalUri = uri.appendFileExtension(UMLResource.FILE_EXTENSION);
 		Resource resource = getResources().createResource(finalUri);
 		resource.getContents().addAll(contents);
+		
 		resource.save(null);
 	}
 
@@ -82,18 +80,14 @@ public class Uml2Helper extends Base {
 		return child.createGeneralization(parent);
 	}
 
-	public org.eclipse.uml2.uml.Class createClass(
-			org.eclipse.uml2.uml.Package nestingPackage, String name,
-			boolean isAbstract) {
-		org.eclipse.uml2.uml.Class createdClass = nestingPackage
-				.createOwnedClass(name, isAbstract);
+	public org.eclipse.uml2.uml.Class createClass(org.eclipse.uml2.uml.Package nestingPackage, String name,			boolean isAbstract) {
+		org.eclipse.uml2.uml.Class createdClass = nestingPackage.createOwnedClass(name, isAbstract);
+		
 		return createdClass;
 	}
 
-	public org.eclipse.uml2.uml.Package createPackage(
-			org.eclipse.uml2.uml.Package nestingPackage, String name) {
-		org.eclipse.uml2.uml.Package createdPackage = nestingPackage
-				.createNestedPackage(name);
+	public org.eclipse.uml2.uml.Package createPackage(org.eclipse.uml2.uml.Package nestingPackage, String name) {
+		org.eclipse.uml2.uml.Package createdPackage = nestingPackage.createNestedPackage(name);
 
 		printLog("Package '" + createdPackage.getQualifiedName() + "' created.");
 
@@ -113,35 +107,29 @@ public class Uml2Helper extends Base {
 		System.out.println(error);
 	}
 
-	public org.eclipse.uml2.uml.Class referenceMetaclass(Profile profile,
-			String name) throws ModelNotFoundException {
+	public org.eclipse.uml2.uml.Class referenceMetaclass(Profile profile, String name) throws ModelNotFoundException {
 		Model umlMetamodel = (Model) getInternalResources(URI.createURI(UMLResource.UML_METAMODEL_URI));
 
 		org.eclipse.uml2.uml.Class metaclass = (org.eclipse.uml2.uml.Class) umlMetamodel
-				.getOwnedType(name);
+						                       .getOwnedType(name);
 
 		profile.createMetaclassReference(metaclass);
 
-		printLog("Metaclass '" + metaclass.getQualifiedName()
-				+ "' referenced.");
+		printLog("Metaclass '" + metaclass.getQualifiedName()+ "' referenced.");
 
 		return metaclass;
 	}
 
-	public Extension createExtension(org.eclipse.uml2.uml.Class metaclass,
-			Stereotype stereotype, boolean required) {
+	public Extension createExtension(org.eclipse.uml2.uml.Class metaclass,	Stereotype stereotype, boolean required) {
 		Extension extension = stereotype.createExtension(metaclass, required);
 
-		printLog((required ? "Required extension '" : "Extension '")
-				+ extension.getQualifiedName() + "' created.");
+		printLog((required ? "Required extension '" : "Extension '") + extension.getQualifiedName() + "' created.");
 
 		return extension;
 	}
 
-	public Property createAttribute(org.eclipse.uml2.uml.Class class_,
-			String name, Type type, int lowerBound, int upperBound) {
-		Property attribute = class_.createOwnedAttribute(name, type,
-				lowerBound, upperBound);
+	public Property createAttribute(org.eclipse.uml2.uml.Class class_, String name, Type type, int lowerBound, int upperBound) {
+		Property attribute = class_.createOwnedAttribute(name, type,lowerBound, upperBound);
 
 		StringBuffer sb = new StringBuffer();
 
@@ -167,8 +155,7 @@ public class Uml2Helper extends Base {
 		return attribute;
 	}
 
-	public Enumeration createEnumeration(org.eclipse.uml2.uml.Package package_,
-			String name) {
+	public Enumeration createEnumeration(org.eclipse.uml2.uml.Package package_,	String name) {
 
 		Enumeration enumeration = (Enumeration) package_.createOwnedEnumeration(name);
 		printLog("Enumeration '" + enumeration.getQualifiedName()+ "' created.");
@@ -180,8 +167,7 @@ public class Uml2Helper extends Base {
 		EnumerationLiteral enumerationLiteral = enumeration
 				.createOwnedLiteral(name);
 
-		printLog("Enumeration literal '"
-				+ enumerationLiteral.getQualifiedName() + "' created.");
+		printLog("Enumeration literal '"+ enumerationLiteral.getQualifiedName() + "' created.");
 
 		return enumerationLiteral;
 	}
@@ -204,6 +190,7 @@ public class Uml2Helper extends Base {
 			if(model.eClass().equals(UMLPackage.Literals.PROFILE)){
 				if (!((Profile) model).isDefined())
 					((Profile) model).define();
+				
 				return model; 
 			}
 			
@@ -217,9 +204,9 @@ public class Uml2Helper extends Base {
 	// e o mesmo como sendo o SMArty.
 	private boolean hasSMartyProfile(Package model) {
 		EList<Profile> profiles = model.getAppliedProfiles();
-		for (Profile profile : profiles) {
+		for (Profile profile : profiles) 
 			if (profile.eClass().equals(UMLPackage.Literals.PROFILE)) return true;
-		}
+
 		return false;
 	}
 
@@ -238,22 +225,23 @@ public class Uml2Helper extends Base {
 
 	public Type getPrimitiveType(String typeName) throws ModelNotFoundException {
 		Package umlPrimitiveTypes = getInternalResources(URI.createURI(UMLResource.UML_PRIMITIVE_TYPES_LIBRARY_URI));
+	
 		return umlPrimitiveTypes.getOwnedType(UtilResources.capitalize(typeName));
 	}
 	
 	public Stereotype createStereotype(Profile prof, String name, boolean isAbstract) {
 		Stereotype stereotype = prof.createOwnedStereotype(name, isAbstract);
+		
 		return stereotype;
 	}
 
-	public PackageableElement getStereotypeByName(Profile prof, String name)
-			throws StereotypeNotFoundException {
+	public PackageableElement getStereotypeByName(Profile prof, String name) throws StereotypeNotFoundException {
 		EList<PackageableElement> a = prof.getPackagedElements();
 		for (PackageableElement packageableElement : a) {
-			if (packageableElement instanceof Stereotype
-					&& packageableElement.getName().equals(name))
+			if (packageableElement instanceof Stereotype && packageableElement.getName().equals(name))
 				return packageableElement;
 		}
+		
 		throw new StereotypeNotFoundException(name);
 	}
 
@@ -286,6 +274,7 @@ public class Uml2Helper extends Base {
 	 */
 	private Package getInternalResources(URI createURI) {
 		Resource resource = getResources().getResource(createURI, true);
+		
 		return (org.eclipse.uml2.uml.Package) EcoreUtil.getObjectByType(resource.getContents(),
 															UMLPackage.Literals.PACKAGE);
 	}
@@ -317,11 +306,13 @@ public class Uml2Helper extends Base {
 	
 	public EnumerationLiteral getLiteralEnumeration(String name) throws EnumerationNotFoundException {
 		Enumeration a = (Enumeration) getEnumerationByName((Profile) profile, "BindingTime");
+		
 		return a.getOwnedLiteral(name);
 	}
 	
 	public Operation createOperation(Classifier klass, String methodName, EList<String> parameterNames, EList<Type> parameterTypes, Type returnType){
 		org.eclipse.uml2.uml.Class k = (org.eclipse.uml2.uml.Class) klass;
+		
 		return k.createOwnedOperation(methodName, parameterNames, parameterTypes, returnType);
 	}
 }

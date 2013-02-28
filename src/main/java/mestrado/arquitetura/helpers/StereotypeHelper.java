@@ -53,6 +53,7 @@ public class StereotypeHelper extends TestHelper {
 					has = true;
 			}
 		}
+		
 		return has;
 	}
 
@@ -109,19 +110,13 @@ public class StereotypeHelper extends TestHelper {
 		} catch (Exception e) {
 			return hasStereotype(element, StereotypesTypes.CONCERN);
 		}
+		
 		return false;
 	}
 	
 	/**
-	 * Retorna o valor de um attributo de um dado estereótipo.
-	 * 
-	 * OBS: Funcionando para Comentarios.
-	 * Se precisar usar para outro tipo adicionar no método.
-	 * 
-	 * TODO Pensando numa boa forma de fazer isso sem usar ifs.
-	 * 
-	 * 
-	 * @param <T>
+	 * Retorna o valor de um attributo de um dado estereótipo e EnumerationLiteral.
+	 * 	 * @param <T>
 	 * 
 	 * @param element
 	 * @param stereotype
@@ -150,6 +145,7 @@ public class StereotypeHelper extends TestHelper {
 		if (hasConcern(c))
 			if (searchForConcernsStereotypes(c) != null )
 				return searchForConcernsStereotypes(c).getName();
+		
 		throw new ConcernNotFoundException("There is not concern in element " + c );
 		
 	}
@@ -170,6 +166,7 @@ public class StereotypeHelper extends TestHelper {
 						return stereotype;
 					
 		}
+		
 		return null;
 	}
 
@@ -187,7 +184,6 @@ public class StereotypeHelper extends TestHelper {
 			String variants = getValueOfAttribute(commentVariability, variability, "variants");
 			String allowAddingVar = getValueOfAttribute(commentVariability, variability, "allowAddingVar");
 			
-			
 			variabilityProps.put("name", name);
 			variabilityProps.put("bindingTime", bidingTime);
 			variabilityProps.put("maxSelection", maxSelection);
@@ -197,6 +193,7 @@ public class StereotypeHelper extends TestHelper {
 			
 			return variabilityProps;
 		}
+		
 		return Collections.emptyMap();
 	}
 

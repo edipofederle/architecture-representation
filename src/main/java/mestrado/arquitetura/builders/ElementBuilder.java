@@ -53,6 +53,7 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 		T element = buildElement(modelElement, parent);
 		element.addConcerns(concerns);
 		createdElements.put(getXmiId(modelElement), element);
+		
 		return element;
 	}
 	
@@ -100,11 +101,8 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 	 */
 	private static String getXmiId (EObject eObject) {
 		Resource xmiResource = eObject.eResource();
-		if (xmiResource == null ) {
-			return null; //TODO verificar isto. Não retornar NULL.
-		} else {
-			return ((XMLResource) xmiResource).getID(eObject);
-		}
+		if (xmiResource == null ) return null; //TODO verificar isto. Não retornar NULL.
+		return ((XMLResource) xmiResource).getID(eObject);
 	}
 	
 }

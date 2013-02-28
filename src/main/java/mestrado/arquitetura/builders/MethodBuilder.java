@@ -44,6 +44,7 @@ public class MethodBuilder extends ElementBuilder<Method> {
 			parameterMethodReceives.add(new ParameterMethod(parameter.getName(), parameter.getType().getName()));
 			
 		Method m = new Method(architecture, name, isVariationPoint, variantType, type, isAbstract, parameterMethodReceives, parent);
+		
 		return m;
 	}
 
