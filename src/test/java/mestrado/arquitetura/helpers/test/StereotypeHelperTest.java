@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import mestrado.arquitetura.exceptions.ConcernNotFoundException;
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
@@ -152,6 +153,26 @@ public class StereotypeHelperTest extends TestHelper {
 		List<Classifier> c = modelHelper.getAllClasses(((Package)p.get(0)));
 		assertNotNull(c);
 		assertNotNull(ModelElementHelper.getAllStereotypes(c.get(0)));
+	}
+	
+	@Test
+	public void shouldGetPerpertyOfVariabilityStereotype() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+		String uri = getUrlToModel("variability");
+		String absolutePath = new File(uri).getAbsolutePath();
+		Package model = uml2Helper.load(absolutePath);
+		
+		NamedElement klass = modelHelper.getAllClasses(model).get(0);
+		
+		assertTrue(StereotypeHelper.isVariability(klass));
+		
+		Map<String, String> variabilityAttrubutes = StereotypeHelper.getVariabilityAttributes(klass);
+		
+		assertEquals("casa", variabilityAttrubutes.get("name"));
+		assertEquals("DESIGN_TIME", variabilityAttrubutes.get("bindingTime"));
+		assertEquals("1", variabilityAttrubutes.get("maxSelection"));
+		assertEquals("2", variabilityAttrubutes.get("minSelection"));
+		assertEquals("teste, teste1, teste2", variabilityAttrubutes.get("variants"));
+		assertEquals("false", variabilityAttrubutes.get("allowAddingVar"));
 		
 	}
 

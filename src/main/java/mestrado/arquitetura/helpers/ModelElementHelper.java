@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Stereotype;
 
@@ -28,6 +31,15 @@ public class ModelElementHelper {
 		
 		for(Stereotype stereotype : element.getAppliedStereotypes())
 			stereotypes.add(stereotype);
+		
+		if(element instanceof Class){
+			EList<Comment> comments = ((Class) element).getPackage().getOwnedComments();
+			
+			for (Comment comment : comments) 
+				for (Stereotype stereotype : comment.getAppliedStereotypes()){
+					stereotypes.add(stereotype);
+				}
+		}
 		
 		if (stereotypes.isEmpty()) return Collections.emptyList();
 		

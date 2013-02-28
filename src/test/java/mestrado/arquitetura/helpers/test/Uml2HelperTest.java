@@ -40,10 +40,10 @@ public class Uml2HelperTest  extends TestHelper{
 	
 	
 	@Test
-	public void shouldLoadAModelWithThreeProfiles() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+	public void shouldLoadAModelWithTwoProfiles() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
 		String uri = getUrlToModel("testArch");
 		Package model = uml2Helper.load(uri.toString());
-		assertEquals("should have three profiles applied", 3, model.getAppliedProfiles().size());
+		assertEquals("should have two profiles applied", 2, model.getAppliedProfiles().size());
 	}
 	
 	@Test(expected=ModelIncompleteException.class)
@@ -109,8 +109,8 @@ public class Uml2HelperTest  extends TestHelper{
 	public void givenAModelshouldReturnUriToPerfil() throws ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		Package model = givenAModel("variability");
 		EList<Profile> profiles = model.getAppliedProfiles();
-		assertEquals(1, profiles.size());
-		assertEquals("smartyProfile", profiles.get(0).getName());
+		assertEquals(2, profiles.size());
+		assertEquals("smartyProfile", profiles.get(1).getName());
 	}
 	
 }
