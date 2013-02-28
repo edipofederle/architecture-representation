@@ -198,7 +198,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	
 	@Test
 	public void shouldLoadPackagesInsidePackage(){
-	  	assertEquals("Pacote2 should contains two packges", 2,getPackageByName("Pacote2").getNestedPackages().size());
+	  	assertEquals("Pacote2 should contains two packges", 2, getPackageByName("Pacote2").getNestedPackages().size());
 	  	assertEquals("Pacote1DentroDoPacote2", getPackageByName("Pacote2").getNestedPackages().get(0).getName());
 	}
 	
@@ -209,6 +209,15 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertNotNull(p);
 		assertEquals(2,p.getClasses().size());
 		hasClassesNames(p, "Person", "City");
+	}
+	
+	@Test
+	public void shouldNEstedPackage2HaveOneClass(){
+		Package pkg = getPackageByName("Pacote2");
+		Package pacote2DentrodoPacote2 = pkg.getNestedPackages().get(1);
+		assertNotNull(pacote2DentrodoPacote2);
+		assertEquals(1, pacote2DentrodoPacote2.getClasses().size());
+		hasClassesNames(pacote2DentrodoPacote2, "Bar2");
 	}
 	
 }

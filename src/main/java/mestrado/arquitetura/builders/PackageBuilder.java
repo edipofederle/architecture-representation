@@ -17,7 +17,7 @@ import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.NamedElement;
 
 /**
- * Builder resposável por criar element do tipo Pacote.
+ * Builder responsável por criar element do tipo Pacote.
  * 
  * @author edipofederle
  *
