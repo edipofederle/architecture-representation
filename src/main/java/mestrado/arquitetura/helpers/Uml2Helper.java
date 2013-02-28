@@ -312,7 +312,6 @@ public class Uml2Helper extends Base {
 	
 	public Operation createOperation(Classifier klass, String methodName, EList<String> parameterNames, EList<Type> parameterTypes, Type returnType){
 		org.eclipse.uml2.uml.Class k = (org.eclipse.uml2.uml.Class) klass;
-		
 		return k.createOwnedOperation(methodName, parameterNames, parameterTypes, returnType);
 	}
 }
