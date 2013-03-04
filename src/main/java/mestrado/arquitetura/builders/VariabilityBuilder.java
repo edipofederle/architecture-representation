@@ -30,13 +30,15 @@ public class VariabilityBuilder {
 	public Variability create(Classifier klass) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
 
 		Variability variability  = null;
+		Map<String, String> variabilityAttributes = StereotypeHelper.getVariabilityAttributes(klass);
 		
-		Map<String, String> a = StereotypeHelper.getVariabilityAttributes(klass);
-		if(a != null){
+		if(variabilities.get(variabilityAttributes.get("name")) != null) return variabilities.get(variabilityAttributes.get("name"));
+		
+		if(variabilityAttributes != null){
 			Element variationPointElement = architecture.findElementByName(klass.getName()); // Busca Classe ja na representacao
-			variability = new Variability(a.get("name"), a.get("minSelection"), a.get("maxSelection"), allowAddingVar(a), a, klass.getName());
+			variability = new Variability(variabilityAttributes.get("name"), variabilityAttributes.get("minSelection"), variabilityAttributes.get("maxSelection"), allowAddingVar(variabilityAttributes), variabilityAttributes, klass.getName());
 			variabilities.put(variability.getName(), variability);
-			String[] variantsElements = a.get("variants").split(",");
+			String[] variantsElements = variabilityAttributes.get("variants").split(",");
 			
 			for (String variantElement : variantsElements) {
 				Element element = architecture.findElementByName(variantElement);
@@ -45,6 +47,7 @@ public class VariabilityBuilder {
 			
 			variability.addVariationPoint(new VariationPoint(variationPointElement, variants));
 		}
+		
 		return variability;
 	}
 

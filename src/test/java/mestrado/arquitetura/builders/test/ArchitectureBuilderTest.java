@@ -240,7 +240,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("nameClass2Variability", variability.getName());
 		assertEquals("1", variability.getMinSelection());
 		assertEquals("2", variability.getMaxSelection());
-		assertFalse(variability.allowAddingVar());
+		assertTrue(variability.allowAddingVar());
 		assertEquals("Bar", variability.getVariationPoints().get(0).getVariants().get(0).getName());
 		assertEquals("Class2", variability.getVariationPoints().get(0).getVariationPointElement().getName());
 	}
