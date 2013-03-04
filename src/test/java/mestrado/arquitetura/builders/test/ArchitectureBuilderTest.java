@@ -15,6 +15,7 @@ import mestrado.arquitetura.representation.Concern;
 import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.Method;
 import mestrado.arquitetura.representation.Package;
+import mestrado.arquitetura.representation.Variability;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -50,7 +51,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void shouldHaveLoadPackages() throws Exception{
 		assertNotNull(architecture.getPackages());
-		assertEquals("Architecture should have one package", 2, architecture.getPackages().size());
+		assertEquals("Architecture should have two package", 2, architecture.getPackages().size());
 	}
 	
 	@Test
@@ -93,11 +94,11 @@ public class ArchitectureBuilderTest extends TestHelper {
 		 assertEquals(1, class1.getMethods().size());
 		 assertEquals("foo", class1.getMethods().get(0).getName());
 		 assertEquals("String", class1.getMethods().get(0).getReturnType());
-		 assertEquals(2, class1.getMethods().get(0).getParameters().size());
+		 assertEquals(3, class1.getMethods().get(0).getParameters().size());
 		 assertEquals("name", class1.getMethods().get(0).getParameters().get(1).getName());
 		 assertEquals("String", class1.getMethods().get(0).getParameters().get(1).getType());
-		 assertEquals("description", class1.getMethods().get(0).getParameters().get(0).getName());
-		 assertEquals("String", class1.getMethods().get(0).getParameters().get(0).getType());
+		 assertEquals("Description", class1.getMethods().get(0).getParameters().get(2).getName());
+		 assertEquals("String", class1.getMethods().get(0).getParameters().get(2).getType());
 	}
 	
 	@Test
@@ -129,15 +130,15 @@ public class ArchitectureBuilderTest extends TestHelper {
 	public void shouldContainsAClassWithConcern(){
 		List<Concern> concerns =  package1.getClasses().get(0).getConcerns();
 		assertFalse(concerns.isEmpty());
-		assertEquals("Persistence", concerns.get(0).getName());
+		assertEquals("Persistence", concerns.get(1).getName());
 	}
 	
 	@Test
 	public void shouldContainTwoConcerns(){
 		List<Concern> concerns = package1.getClasses().get(0).getConcerns();
 		assertEquals(2, concerns.size());
-		assertEquals("Persistence",  concerns.get(0).getName());
-		assertEquals("sorting",  concerns.get(1).getName());
+		assertEquals("Persistence",  concerns.get(1).getName());
+		assertEquals("sorting",  concerns.get(0).getName());
 	}
 	
 	@Test
@@ -145,7 +146,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 		String uriToArchitecture = getUrlToModel("semPacote");
 		architecture = new ArchitectureBuilder().create(uriToArchitecture);
 		assertNotNull(architecture);
-		assertEquals(1, architecture.getClasses().size());
+		assertEquals(2, architecture.getClasses().size());
 		assertEquals("Foo", architecture.getClasses().get(0).getName());
 		
 		assertEquals(1, architecture.getPackages().size());
@@ -218,6 +219,30 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertNotNull(pacote2DentrodoPacote2);
 		assertEquals(1, pacote2DentrodoPacote2.getClasses().size());
 		hasClassesNames(pacote2DentrodoPacote2, "Bar2");
+	}
+	
+	@Test
+	public void shouldHaveOneVariability(){
+		assertEquals(1, architecture.getVariability().size());
+	}
+	
+	@Test
+	public void shouldVariabilityBelongToClass1(){
+		Variability variability = architecture.getVariability().get(0);
+		assertNotNull(variability);
+		
+		assertEquals("Class2", variability.getOwnerClass());
+	}
+	
+	@Test
+	public void shouldVariabilityHaveCorrectAttributesValues(){ 
+		Variability variability = architecture.getVariability().get(0);
+		assertEquals("nameClass2Variability", variability.getName());
+		assertEquals("1", variability.getMinSelection());
+		assertEquals("2", variability.getMaxSelection());
+		assertFalse(variability.allowAddingVar());
+		assertEquals("Bar", variability.getVariationPoints().get(0).getVariants().get(0).getName());
+		assertEquals("Class2", variability.getVariationPoints().get(0).getVariationPointElement().getName());
 	}
 	
 }

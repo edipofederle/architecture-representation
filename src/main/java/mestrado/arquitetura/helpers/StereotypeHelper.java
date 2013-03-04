@@ -74,15 +74,23 @@ public class StereotypeHelper extends TestHelper {
 	 * @return boolean
 	 */
 	public static Comment getCommentVariability(NamedElement element) {
+		/**
+		 * Como não é possível recuperar os elementos do tipo Comentário da UML2,
+		 * é preciso recuperar todos os comentários que existem na arquitetura 
+		 * e por meio destes ver a qual classe o mesmo pertence.
+		 */
 		EList<Comment> comments = ((Class) element).getPackage().getOwnedComments();
 		
-		for (Comment comment : comments) 
-			for (Stereotype stereotype : comment.getAppliedStereotypes())
-				if (stereotype.getName().equalsIgnoreCase("variability")) return comment;
+		for (Comment comment : comments){
+			String nameOfElement = ((NamedElement) comment.getAnnotatedElements().get(0)).getName();
+			
+			if(commentBelongsToKlass(element, nameOfElement))
+				for (Stereotype stereotype : comment.getAppliedStereotypes())
+					if (stereotype.getName().equalsIgnoreCase("variability")) return comment;
+		}
 		
 		return null;
 	}
-	
 	
 	/**
 	 * Verifica se um elemento é uma variabilidade.
@@ -150,25 +158,6 @@ public class StereotypeHelper extends TestHelper {
 		
 	}
 	
-	/**
-	 * Busca por concern em todos os estereótipos aplicados em um elemento.
-	 * 
-	 * @param element
-	 * @return {@link Stereotype}
-	 */
-	private static Stereotype searchForConcernsStereotypes(NamedElement element){
-		EList<Stereotype> stes = element.getAppliedStereotypes();
-		for (Stereotype stereotype : stes) {
-			if(stereotype instanceof StereotypeImpl)
-				if(!stereotype.getGeneralizations().isEmpty())
-					if (stereotype.getGeneralizations().get(0).getGeneral()
-						                     .getName().equalsIgnoreCase(StereotypesTypes.CONCERN))
-						return stereotype;
-					
-		}
-		
-		return null;
-	}
 
 	public static Map<String, String> getVariabilityAttributes(NamedElement klass) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
 		Comment commentVariability  = getCommentVariability(klass);
@@ -207,4 +196,28 @@ public class StereotypeHelper extends TestHelper {
 		return null;
 	}
 
+	private static boolean commentBelongsToKlass(NamedElement element, String nameOfElement) {
+		return element.getName().equals(nameOfElement);
+	}
+	
+	/**
+	 * Busca por concern em todos os estereótipos aplicados em um elemento.
+	 * 
+	 * @param element
+	 * @return {@link Stereotype}
+	 */
+	private static Stereotype searchForConcernsStereotypes(NamedElement element){
+		EList<Stereotype> stes = element.getAppliedStereotypes();
+		for (Stereotype stereotype : stes) {
+			if(stereotype instanceof StereotypeImpl)
+				if(!stereotype.getGeneralizations().isEmpty())
+					if (stereotype.getGeneralizations().get(0).getGeneral()
+						          .getName().equalsIgnoreCase(StereotypesTypes.CONCERN))
+						return stereotype;
+					
+		}
+		
+		return null;
+	}
+	
 }

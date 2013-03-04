@@ -8,6 +8,7 @@ public class Architecture {
 	
 	private List<Element> elements = new ArrayList<Element>();
 	private HashMap<String, Concern> concerns = new HashMap<String, Concern>();
+	private List<Variability> variabilities = new ArrayList<Variability>();
 	
 	private String name;
 	
@@ -56,5 +57,20 @@ public class Architecture {
 				paks.add(((Class)element));
 		}
 		return paks;
+	}
+	
+	public List<Variability> getVariability() {
+		return variabilities;
+	}
+	
+	//TODO refatorar para buscar todo tipo de elemento
+	public Element findElementByName(String name) {
+		List<Class> klasses = getClasses();
+		for (Class klass : klasses) {
+			if(name.equalsIgnoreCase(klass.getName()))
+				return klass;
+		}
+		
+		return null; // Verifica Null
 	}
 }

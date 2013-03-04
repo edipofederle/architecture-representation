@@ -9,6 +9,7 @@ import java.util.List;
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import mestrado.arquitetura.helpers.StereotypeHelper;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Class;
@@ -142,6 +143,19 @@ public class ModelHelperTest extends TestHelper {
 		List<Classifier> c = modelHelper.getAllClasses(p);
 		assertEquals("Bar", c.get(2).getName());
 		assertTrue(c.get(2).isAbstract());
+	}
+	
+	@Test
+	public void shouldReturnAllVariabilities() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+		Package model = givenAModel("variability");
+		assertEquals(1, modelHelper.getAllVariabilities(model).size());
+	}
+	
+	
+	@Test
+	public void shouldLoadAllClassesOfAllPackages() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+		Package model = givenAModel("testArch");
+		assertEquals(6, modelHelper.getAllClasses(model).size());
 	}
 	
 }

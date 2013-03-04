@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_kEiacHdcEeKFLPdiRaUVaA" type="PapyrusUMLClassDiagram" name="ClassDiagram" measurementUnit="Pixel">
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_kEiacHdcEeKFLPdiRaUVaA" type="PapyrusUMLClassDiagram" name="ClassDiagram" measurementUnit="Pixel">
   <children xmi:type="notation:Shape" xmi:id="_lCZJ0HdcEeKFLPdiRaUVaA" type="2007" fontName="Lucida Grande" fontHeight="11" lineColor="0">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_lCZw4HdcEeKFLPdiRaUVaA" source="ShadowFigure">
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_lCZw4XdcEeKFLPdiRaUVaA" key="ShadowFigure_Value" value="false"/>
@@ -23,11 +23,11 @@
           <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_mlCoVXdcEeKFLPdiRaUVaA" key="QualifiedNameDepth" value="1000"/>
         </eAnnotations>
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_aGtHQHd7EeKFLPdiRaUVaA" source="Stereotype_Annotation">
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_uF9Z0HzzEeKJvOxVmtIMiw" key="StereotypeWithQualifiedNameList" value=""/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_uF9Z0XzzEeKJvOxVmtIMiw" key="StereotypeList" value=""/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_uF9Z0nzzEeKJvOxVmtIMiw" key="Stereotype_Presentation_Kind" value="HorizontalStereo"/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_uF9Z03zzEeKJvOxVmtIMiw" key="PropStereoDisplay" value=""/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_uF9Z1HzzEeKJvOxVmtIMiw" key="StereotypePropertyLocation" value="Compartment"/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_owNfEIASEeKfhKWYalU4oQ" key="StereotypeWithQualifiedNameList" value=""/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_owNfEYASEeKfhKWYalU4oQ" key="StereotypeList" value="perfilConcerns::Persistence,perfilConcerns::sorting"/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_owNfEoASEeKfhKWYalU4oQ" key="Stereotype_Presentation_Kind" value="HorizontalStereo"/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_owNfE4ASEeKfhKWYalU4oQ" key="PropStereoDisplay" value=""/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_owNfFIASEeKfhKWYalU4oQ" key="StereotypePropertyLocation" value="Compartment"/>
         </eAnnotations>
         <children xmi:type="notation:DecorationNode" xmi:id="_mlCoVndcEeKFLPdiRaUVaA" type="5014"/>
         <children xmi:type="notation:BasicCompartment" xmi:id="_mlCoV3dcEeKFLPdiRaUVaA" type="7011">
@@ -87,6 +87,27 @@
         <element xmi:type="uml:Class" href="testArch.uml#_niquMHdcEeKFLPdiRaUVaA"/>
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nisjYXdcEeKFLPdiRaUVaA" x="274" y="37"/>
       </children>
+      <children xmi:type="notation:Shape" xmi:id="_LB9I0IK3EeKM7tkgtLdLRQ" type="2012" fontName="Lucida Grande" fontHeight="11" lineColor="0">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_LCJ9IIK3EeKM7tkgtLdLRQ" source="ShadowFigure">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_LCJ9IYK3EeKM7tkgtLdLRQ" key="ShadowFigure_Value" value="false"/>
+        </eAnnotations>
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_LCJ9IoK3EeKM7tkgtLdLRQ" source="displayNameLabelIcon">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_LCJ9I4K3EeKM7tkgtLdLRQ" key="displayNameLabelIcon_value" value="false"/>
+        </eAnnotations>
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_LCJ9JIK3EeKM7tkgtLdLRQ" source="QualifiedName">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_LCJ9JYK3EeKM7tkgtLdLRQ" key="QualifiedNameDepth" value="1000"/>
+        </eAnnotations>
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_0R4N0IK3EeKM7tkgtLdLRQ" source="Stereotype_Annotation">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_0wvUEIK3EeKM7tkgtLdLRQ" key="StereotypeWithQualifiedNameList" value=""/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_0wv7IIK3EeKM7tkgtLdLRQ" key="StereotypeList" value="smartyProfile::variability"/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_0wv7IYK3EeKM7tkgtLdLRQ" key="Stereotype_Presentation_Kind" value="HorizontalStereo"/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_0wv7IoK3EeKM7tkgtLdLRQ" key="PropStereoDisplay" value=""/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_0wv7I4K3EeKM7tkgtLdLRQ" key="StereotypePropertyLocation" value="Compartment"/>
+        </eAnnotations>
+        <children xmi:type="notation:DecorationNode" xmi:id="_LCKkMIK3EeKM7tkgtLdLRQ" type="5038"/>
+        <element xmi:type="uml:Comment" href="testArch.uml#_K8NGIIK3EeKM7tkgtLdLRQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_LB9v4IK3EeKM7tkgtLdLRQ" x="225" y="202"/>
+      </children>
       <styles xmi:type="notation:TitleStyle" xmi:id="_lCaX8XdcEeKFLPdiRaUVaA"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_lCaX8ndcEeKFLPdiRaUVaA"/>
     </children>
@@ -95,4 +116,10 @@
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_kEiacXdcEeKFLPdiRaUVaA"/>
   <element xmi:type="uml:Model" href="testArch.uml#_cFDbYHdcEeKFLPdiRaUVaA"/>
+  <edges xmi:type="notation:Connector" xmi:id="_1kco8IK3EeKM7tkgtLdLRQ" type="4013" source="_LB9I0IK3EeKM7tkgtLdLRQ" target="_nisjYHdcEeKFLPdiRaUVaA" lineColor="0">
+    <styles xmi:type="notation:FontStyle" xmi:id="_1kco8YK3EeKM7tkgtLdLRQ" fontName="Lucida Grande" fontHeight="11"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_1kco8oK3EeKM7tkgtLdLRQ" points="[0, 0, -53, 115]$[48, -65, -5, 50]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_1kj9sIK3EeKM7tkgtLdLRQ" id="(0.46,0.0)"/>
+  </edges>
 </notation:Diagram>

@@ -11,6 +11,7 @@ import static mestrado.arquitetura.helpers.ElementsTypes.PACKAGE;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
@@ -20,6 +21,7 @@ import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
@@ -38,11 +40,30 @@ public class ModelHelper extends ElementHelper {
 	protected ModelHelper() throws ModelNotFoundException, ModelIncompleteException{
 		uml2Helper = Uml2HelperFactory.getUml2Helper();
 	}
-
-	public List<Classifier> getAllClasses(NamedElement model) {
+	
+	/**
+	 * Recupera Classes de um pacote. TODO ver isto
+	 * @param model
+	 * @return
+	 */
+	public List<Classifier> getClasses(NamedElement model) {
 		return getAllElementsByType(model, CLASS);
 	}
-
+	
+	public List<Classifier> getAllClasses(NamedElement model) {
+		List<Classifier> classes = new ArrayList<Classifier>();
+		
+		List<Classifier> pacotes  = getAllPackages(model);
+		
+		classes.addAll(getClasses(model));
+		
+		for (int i = 0; i < pacotes.size(); i++)
+			classes.addAll(getAllClassesOfPackage((Package)pacotes.get(i)));
+		
+		return classes;
+	}
+	
+	
 	public List<Property> getAllAttributesForAClass(NamedElement aClass) {
 		List<Property> allPropertys = new ArrayList<Property>();
 		allPropertys = getAllElementsByType(aClass, ElementsTypes.PROPERTY);
@@ -104,6 +125,46 @@ public class ModelHelper extends ElementHelper {
 
 	public List<Operation> getAllMethods(NamedElement model) {
 		return getAllElementsByType(model, OPERATION);
+	}
+	
+	/**
+	 * Retorna todas as variabilidades de um modelo.
+	 * 
+	 * Essas variabilidades estão em elementos do tipo {@link Comment}
+	 * 
+	 * @param model
+	 * @return List<{@link Comment}>
+	 */
+	public List<Comment> getAllVariabilities(Package model) {
+		List<Comment> variabilities = new ArrayList<Comment>();
+		List<Classifier> classes = new ArrayList<Classifier>();
+		
+		classes = getAllClasses(model);
+		
+		for (int i = 0; i < classes.size(); i++) {
+			if(StereotypeHelper.isVariability(classes.get(i)))
+				variabilities.add(StereotypeHelper.getCommentVariability(classes.get(i)));
+		}
+		
+		if(!variabilities.isEmpty()) return variabilities;
+		return Collections.emptyList();
+	}
+	
+	/**
+	 * Método recursivo que recuperar todas as classes de todos os pacotes e subpacotes.
+	 * 
+	 * @param pacote
+	 * @return
+	 */
+	private List<Classifier> getAllClassesOfPackage(Package pacote) {
+		List<Classifier> classes = new ArrayList<Classifier>();
+		
+		classes.addAll(getClasses(pacote));
+		List<Classifier> a = getAllPackages((Package)pacote);
+		for (int i = 0; i < a.size(); i++) 
+			classes.addAll(getAllClassesOfPackage((Package)a.get(i)));
+		
+		return classes;
 	}
 
 }

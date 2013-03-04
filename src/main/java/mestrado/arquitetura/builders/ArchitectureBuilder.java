@@ -2,17 +2,21 @@ package mestrado.arquitetura.builders;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
+import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.helpers.ModelHelper;
 import mestrado.arquitetura.helpers.ModelHelperFactory;
+import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Element;
+import mestrado.arquitetura.representation.Variability;
 
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.NamedElement;
@@ -31,6 +35,7 @@ public class ArchitectureBuilder {
 	private Package model;
 	private PackageBuilder packageBuilder;
 	private ClassBuilder classBuilder;
+	private VariabilityBuilder variabilityBuilder;
 	
 	/**
 	 *  Construtor. Initializa helpers.
@@ -59,9 +64,27 @@ public class ArchitectureBuilder {
 		initialize(architecture);
 		
 		architecture.getElements().addAll(loadPackages());
-		architecture.getElements().addAll(loadClasses());
+		architecture.getElements().addAll(loadClasses()); // Classes que nao possuem pacotes
+		architecture.getVariability().addAll(loadVariability());
 		
 		return architecture;
+	}
+
+	private List<Variability> loadVariability() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
+		List<Variability> variabilities = new ArrayList<Variability>();
+		
+		List<Classifier> variabilitiesTemp = modelHelper.getAllClasses(model);
+		for (Classifier classifier : variabilitiesTemp) {
+			if(StereotypeHelper.isVariability(classifier)){
+				variabilities.add(variabilityBuilder.create(classifier));
+			}
+		}
+
+		
+		if (!variabilities.isEmpty())
+			return variabilities;
+		
+		return Collections.emptyList();
 	}
 
 	private Collection<? extends Element> loadClasses() {
@@ -88,12 +111,16 @@ public class ArchitectureBuilder {
 
 	/**
 	 * Inicializa os elementos da arquitetura. Instanciando as classes builders
-	 * juntamente com susas depedências.
+	 * juntamente com suas depedências.
+	 * 
 	 * @param architecture
+	 * @throws ModelIncompleteException 
+	 * @throws ModelNotFoundException 
 	 */
-	private void initialize(Architecture architecture) {
+	private void initialize(Architecture architecture) throws ModelNotFoundException, ModelIncompleteException {
 		classBuilder = new ClassBuilder(architecture);
 		packageBuilder = new PackageBuilder(architecture, classBuilder);
+		variabilityBuilder = new VariabilityBuilder(architecture);
 	}
 	
 }
