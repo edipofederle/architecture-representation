@@ -245,4 +245,10 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("Class2", variability.getVariationPoints().get(0).getVariationPointElement().getName());
 	}
 	
+	@Test
+	public void testVariationPointToString(){
+		Variability variability = architecture.getVariability().get(0);
+		assertEquals("Variants: Bar", variability.getVariationPoints().get(0).toString());
+	}
+	
 }

@@ -23,20 +23,20 @@ public class VariationPoint {
 	public List<Element> getVariants() {
 		return variants;
 	}
-//	
-//	@Override
-//	public String toString() {
-//		StringBuilder builder = new StringBuilder();
-//				
-//		if (!getVariants().isEmpty()) {
-//			builder.append("Variants: ");
-//			Element[] variantsArray = getVariants().toArray(new Element[0]);
-//			for (int i = 0; i < variantsArray.length; i++) {
-//				if (i > 0)
-//					builder.append(", ");
-//				builder.append(variantsArray[i].getName());
-//			}
-//		}
-//		return builder.toString();
-//	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+				
+		if (!getVariants().isEmpty()) {
+			builder.append("Variants: ");
+			Element[] variantsArray = getVariants().toArray(new Element[0]);
+			for (int i = 0; i < variantsArray.length; i++) {
+				if (i > 0)
+					builder.append(", ");
+				builder.append(variantsArray[i].getName());
+			}
+		}
+		return builder.toString();
+	}
 }

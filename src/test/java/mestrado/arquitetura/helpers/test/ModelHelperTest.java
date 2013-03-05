@@ -9,7 +9,6 @@ import java.util.List;
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
-import mestrado.arquitetura.helpers.StereotypeHelper;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Class;
@@ -23,7 +22,6 @@ import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 import org.junit.Test;
 
 public class ModelHelperTest extends TestHelper {
-	
 	
 	@Test
 	public void shouldReturnAllClasses() throws ModelNotFoundException , ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
@@ -40,7 +38,7 @@ public class ModelHelperTest extends TestHelper {
 		 assertEquals(2, attrs.size());
 		 assertEquals("name", (attrs.get(1)).getLabel());
 	 }
-	
+
 	
 	@Test
 	public void shouldReturnAllInterfaces() throws ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion {
@@ -120,7 +118,6 @@ public class ModelHelperTest extends TestHelper {
 		modelHelper.getModel("/not/found/path/model.uml");
 	}
 	
-	
 	@Test(expected=SMartyProfileNotAppliedToModelExcepetion.class)
 	public void shouldReturnProfileNotAppliedToModel() throws ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		modelHelper.getModel(getUrlToModel("modelSemPerfil"));
@@ -133,11 +130,9 @@ public class ModelHelperTest extends TestHelper {
 		List<Classifier> a = modelHelper.getAllPackages(model);
 		PackageImpl p = null;
 		
-		for(int i =0; i < a.size(); i++){
-			if("Package1".equalsIgnoreCase(((PackageImpl)a.get(i)).getName())){
+		for(int i =0; i < a.size(); i++)
+			if("Package1".equalsIgnoreCase(((PackageImpl)a.get(i)).getName()))
 				p = (PackageImpl) a.get(i);
-			}
-		}
 		
 		assertEquals(2, a.size());
 		List<Classifier> c = modelHelper.getAllClasses(p);
@@ -150,7 +145,6 @@ public class ModelHelperTest extends TestHelper {
 		Package model = givenAModel("variability");
 		assertEquals(1, modelHelper.getAllVariabilities(model).size());
 	}
-	
 	
 	@Test
 	public void shouldLoadAllClassesOfAllPackages() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
