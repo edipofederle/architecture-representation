@@ -268,8 +268,9 @@ public class ArchitectureBuilderTest extends TestHelper {
 			if (interClassRelationship instanceof AssociationInterClassRelationship)
 				associationCount++;
 		}
-		assertEquals("Architecture should contain 2 associations", 2, associationCount);
+		assertEquals("Architecture should contain 2 associations", 3, associationCount);
 	}
+	
 	
 	@Test
 	public void testAssociations() throws Exception{ 
@@ -319,11 +320,37 @@ public class ArchitectureBuilderTest extends TestHelper {
 	public void testMultiplicityAssociationRelationship(){
 		List<InterClassRelationship> r = architecture2.getInterClassRelationships();
 		AssociationInterClassRelationship association = (AssociationInterClassRelationship) r.get(1);
+		
 		assertEquals("1", association.getParticipants().get(1).getMultiplicity().getLowerValue());
 		assertEquals("*", association.getParticipants().get(1).getMultiplicity().getUpperValue());
-		
 		assertEquals("1..*", association.getParticipants().get(1).getMultiplicity().toString() );
 	}
 	
+	@Test
+	public void testMultiplicityAssociationRelationship2(){
+		List<InterClassRelationship> r = architecture2.getInterClassRelationships();
+		AssociationInterClassRelationship association = (AssociationInterClassRelationship) r.get(0);
+		
+		assertEquals("1", association.getParticipants().get(0).getMultiplicity().getLowerValue());
+		assertEquals("1", association.getParticipants().get(0).getMultiplicity().getUpperValue());
+		assertEquals("1..1", association.getParticipants().get(0).getMultiplicity().toString() );
+	}
+	
+	@Test
+	public void shouldContainCompositeAssociation() throws Exception{
+		List<InterClassRelationship> r = architecture2.getInterClassRelationships();
+		AssociationInterClassRelationship associationComposite = (AssociationInterClassRelationship) r.get(2);
+		List<AssociationEnd> participants = associationComposite.getParticipants();
+		
+		assertFalse(associationComposite.getParticipants().get(0).isNavigable());
+		assertEquals("Class5", participants.get(0).getCLSClass().getName());
+		
+		assertEquals("none", associationComposite.getParticipants().get(1).getAggregation());
+		assertTrue(associationComposite.getParticipants().get(1).isNavigable());
+		assertEquals("Class6", participants.get(1).getCLSClass().getName());
+		
+		
+		assertEquals("composite", associationComposite.getParticipants().get(0).getAggregation()); //TODO rever nome do metodo getAggregation para getTypeAssociation?
+	}
 	
 }

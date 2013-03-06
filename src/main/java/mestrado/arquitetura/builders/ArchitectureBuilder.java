@@ -19,12 +19,10 @@ import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.InterClassRelationship;
 import mestrado.arquitetura.representation.Variability;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
-import org.eclipse.uml2.uml.Type;
 
 /**
  * Builder resposável por criar a arquitetura.
