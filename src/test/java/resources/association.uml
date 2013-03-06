@@ -12,8 +12,20 @@
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_8vPuYoW6EeKQy-5Acz47IA" value="1"/>
     </ownedEnd>
   </packagedElement>
-  <profileApplication xmi:id="_Wu7qoIZXEeKZyvMPi8ed6A">
-    <eAnnotations xmi:id="_Wu_VAIZXEeKZyvMPi8ed6A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+  <packagedElement xmi:type="uml:Class" xmi:id="_mg4tMIZnEeKyMIl1Rwy2HQ" name="Class3"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_nY5TQIZnEeKyMIl1Rwy2HQ" name="Class4"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_n8GG8IZnEeKyMIl1Rwy2HQ" name="class3_class4_1" memberEnd="_n8GG8YZnEeKyMIl1Rwy2HQ _n8Ff4IZnEeKyMIl1Rwy2HQ" navigableOwnedEnd="_n8GG8YZnEeKyMIl1Rwy2HQ">
+    <ownedEnd xmi:id="_n8Ff4IZnEeKyMIl1Rwy2HQ" name="class4" type="_nY5TQIZnEeKyMIl1Rwy2HQ" association="_n8GG8IZnEeKyMIl1Rwy2HQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_n8Ff4YZnEeKyMIl1Rwy2HQ" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_n8Ff4oZnEeKyMIl1Rwy2HQ" value="1"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_n8GG8YZnEeKyMIl1Rwy2HQ" name="class3" type="_mg4tMIZnEeKyMIl1Rwy2HQ" association="_n8GG8IZnEeKyMIl1Rwy2HQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_n8GG8oZnEeKyMIl1Rwy2HQ" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_n8GG84ZnEeKyMIl1Rwy2HQ" value="*"/>
+    </ownedEnd>
+  </packagedElement>
+  <profileApplication xmi:id="_YZGSIIZyEeKZyvMPi8ed6A">
+    <eAnnotations xmi:id="_YZG5MIZyEeKZyvMPi8ed6A" source="http://www.eclipse.org/uml2/2.0.0/UML">
       <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_OaSVgIEVEeKfhKWYalU4oQ"/>
     </eAnnotations>
     <appliedProfile href="smarty.profile.uml#_pWQg0HnPEeKAopGwrqrm1w"/>

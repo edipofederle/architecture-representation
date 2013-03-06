@@ -27,6 +27,7 @@ import org.junit.Test;
 public class ArchitectureBuilderTest extends TestHelper {
 	
 	private Architecture architecture;
+	private Architecture architecture2;
 	private Package package1;
 	
 	@Before
@@ -34,6 +35,9 @@ public class ArchitectureBuilderTest extends TestHelper {
 		String uriToArchitecture = getUrlToModel("testArch");
 		architecture = new ArchitectureBuilder().create(uriToArchitecture);
 		package1 = getPackageByName("Package1");
+		
+		String uriToArchitecture2 = getUrlToModel("association");
+		architecture2 = new ArchitectureBuilder().create(uriToArchitecture2);
 	}
 	
 	@Test
@@ -257,14 +261,23 @@ public class ArchitectureBuilderTest extends TestHelper {
 	// Associations Tests //TODO Move from here
 	
 	@Test
+	public void shouldHaveTwoAssociations(){
+		 List<InterClassRelationship> relationships = architecture2.getInterClassRelationships();
+		 int associationCount = 0;
+		 for (InterClassRelationship interClassRelationship : relationships) {
+			if (interClassRelationship instanceof AssociationInterClassRelationship)
+				associationCount++;
+		}
+		assertEquals("Architecture should contain 2 associations", 2, associationCount);
+	}
+	
+	@Test
 	public void testAssociations() throws Exception{ 
-		String uriToArchitecture = getUrlToModel("association");
-		architecture = new ArchitectureBuilder().create(uriToArchitecture);
-		assertNotNull(architecture);
+
+		assertNotNull(architecture2);
 		
-		List<InterClassRelationship> r = architecture.getInterClassRelationships();
+		List<InterClassRelationship> r = architecture2.getInterClassRelationships();
 		assertNotNull(r);
-		assertEquals(1, r.size());
 		assertTrue(r.get(0) instanceof AssociationInterClassRelationship);
 
 		AssociationInterClassRelationship association = (AssociationInterClassRelationship) r.get(0);
@@ -281,5 +294,36 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertTrue(association.getParticipants().get(1).isNavigable());
 		assertEquals("Class1", participants.get(1).getCLSClass().getName());
 	}
+	
+	@Test
+	public void testAssociation2(){
+		List<InterClassRelationship> r = architecture2.getInterClassRelationships();
+		AssociationInterClassRelationship association = (AssociationInterClassRelationship) r.get(1);
+		List<AssociationEnd> participants = association.getParticipants();
+		
+		assertNotNull(association);
+		
+		assertEquals(2, participants.size());
+		
+		assertEquals("none", association.getParticipants().get(0).getAggregation());
+		assertFalse(association.getParticipants().get(0).isNavigable());
+		assertEquals("Class3", participants.get(0).getCLSClass().getName());
+		
+		assertEquals("none", association.getParticipants().get(1).getAggregation());
+		assertTrue(association.getParticipants().get(1).isNavigable());
+		assertEquals("Class4", participants.get(1).getCLSClass().getName());
+		
+	}
+	
+	@Test
+	public void testMultiplicityAssociationRelationship(){
+		List<InterClassRelationship> r = architecture2.getInterClassRelationships();
+		AssociationInterClassRelationship association = (AssociationInterClassRelationship) r.get(1);
+		assertEquals("1", association.getParticipants().get(1).getMultiplicity().getLowerValue());
+		assertEquals("*", association.getParticipants().get(1).getMultiplicity().getUpperValue());
+		
+		assertEquals("1..*", association.getParticipants().get(1).getMultiplicity().toString() );
+	}
+	
 	
 }

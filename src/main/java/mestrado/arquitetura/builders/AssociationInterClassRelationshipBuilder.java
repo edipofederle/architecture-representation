@@ -39,7 +39,6 @@ public class AssociationInterClassRelationshipBuilder {
 		
 		EList<Property> endssInfos = association.getOwnedEnds();	
 		
-		
 		for (int i = 0; i < ends.size(); i++) {
 			Class c = classBuilder.getElementByXMIID(getXmiId(ends.get(i)));
 			elementsOfAssociation.add(associationEndBuilder.create(endssInfos.get(i),c));

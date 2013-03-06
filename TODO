@@ -11,5 +11,31 @@ Implementação:
 	- Testes de Unidade
 	
 	
+Relacionamentos:
+
+	Associações:
 	
-TODOS
+		- Associanção
+		
+		1) ( OK )
+			Navigable: True;
+			Nabigable: False;
+			
+		2) ( OK )
+			Navigable: False;
+			Nabigable: True;
+		
+		3)
+			Navigable: True;
+			Nabigable: True;
+			
+		4)
+			Navigable: False;
+			Nabigable: False;
+			
+			
+			
+			
+			
+			
+			

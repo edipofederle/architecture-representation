@@ -10,26 +10,32 @@ package mestrado.arquitetura.representation;
  */
 public class AssociationEnd {
 
-	private Class class_;
+	private Class klass;
 	private boolean isNavigable;
 	private String aggregation;
+	private Multiplicity multiplicity;
 
-	public AssociationEnd(Class class_, boolean isNavigable, String aggregation) {
-		setCLSClass(class_);
+	public AssociationEnd(Class klass, boolean isNavigable, String aggregation, Multiplicity multiplicity) {
+		setCLSClass(klass);
 		setNavigable(isNavigable);
 		setAggregation(aggregation);
+		setMultiplicity(multiplicity);
 	}
 
-	public AssociationEnd(Class class_) {
-		this(class_, false, "");
+	private void setMultiplicity(Multiplicity multiplicity) {
+		this.multiplicity = multiplicity;
+	}
+
+	public AssociationEnd(Class klass) {
+		this(klass, false, "", null);
 	}
 
 	public Class getCLSClass() {
-		return class_;
+		return klass;
 	}
 
 	public void setCLSClass(Class c) {
-		this.class_ = c;
+		this.klass = c;
 	}
 
 	public boolean isNavigable() {
@@ -51,4 +57,9 @@ public class AssociationEnd {
 	public void replaceCLSClass(Class c) {
 		setCLSClass(c);
 	}
+
+	public Multiplicity getMultiplicity() {
+		return multiplicity;
+	}
+	
 }
