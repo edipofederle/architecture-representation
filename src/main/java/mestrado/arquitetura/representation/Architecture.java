@@ -10,6 +10,8 @@ public class Architecture {
 	private HashMap<String, Concern> concerns = new HashMap<String, Concern>();
 	private List<Variability> variabilities = new ArrayList<Variability>();
 	
+	private List<InterClassRelationship> interClassRelationships = new ArrayList<InterClassRelationship>();
+	
 	private String name;
 	
 	public Architecture(String name){
@@ -63,6 +65,15 @@ public class Architecture {
 		return variabilities;
 	}
 	
+	
+	public List<InterClassRelationship> getInterClassRelationships() {
+		return interClassRelationships;
+	}
+
+	public void setInterClassRelationships(List<InterClassRelationship> interClassRelationships) {
+		this.interClassRelationships = interClassRelationships;
+	}
+
 	//TODO refatorar para buscar todo tipo de elemento
 	public Element findElementByName(String name) {
 		List<Class> klasses = getClasses();

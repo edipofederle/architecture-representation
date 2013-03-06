@@ -20,6 +20,7 @@ import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.NamedElement;
@@ -75,7 +76,7 @@ public class ModelHelper extends ElementHelper {
 		return getAllElementsByType(model, INTERFACE);
 	}
 
-	public List<Classifier> getAllAssociations(NamedElement model) {
+	public List<Association> getAllAssociations(NamedElement model) {
 		return getAllElementsByType(model, ASSOCIATION);
 	}
 

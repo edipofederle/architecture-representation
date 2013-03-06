@@ -16,11 +16,15 @@ import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Element;
+import mestrado.arquitetura.representation.InterClassRelationship;
 import mestrado.arquitetura.representation.Variability;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.Type;
 
 /**
  * Builder resposável por criar a arquitetura.
@@ -36,6 +40,8 @@ public class ArchitectureBuilder {
 	private PackageBuilder packageBuilder;
 	private ClassBuilder classBuilder;
 	private VariabilityBuilder variabilityBuilder;
+	
+	private AssociationInterClassRelationshipBuilder associationInterClassRelationshipBuilder;
 	
 	/**
 	 *  Construtor. Initializa helpers.
@@ -63,11 +69,31 @@ public class ArchitectureBuilder {
 		
 		initialize(architecture);
 		
-		architecture.getElements().addAll(loadPackages());
+		architecture.getElements().addAll(loadPackages()); // Classes que possuem pacotes são carregadas juntamente com seus pacotes
 		architecture.getElements().addAll(loadClasses()); // Classes que nao possuem pacotes
 		architecture.getVariability().addAll(loadVariability());
 		
+		architecture.getInterClassRelationships().addAll(loadInterClassRelationships());
+		
 		return architecture;
+	}
+
+	private List<InterClassRelationship> loadInterClassRelationships() {
+		List<InterClassRelationship> relationships = new ArrayList<InterClassRelationship>();
+		relationships.addAll(loadAssociations());
+		return relationships;
+	}
+
+	private List<InterClassRelationship> loadAssociations() {
+		List<InterClassRelationship> interClassRelationships = new ArrayList<InterClassRelationship>();
+		
+		List<Association> associations = modelHelper.getAllAssociations(model);
+		
+		for (Association association : associations) {
+			interClassRelationships.add(associationInterClassRelationshipBuilder.create(association));
+		}
+		
+		return interClassRelationships;
 	}
 
 	private List<Variability> loadVariability() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
@@ -121,6 +147,8 @@ public class ArchitectureBuilder {
 		classBuilder = new ClassBuilder(architecture);
 		packageBuilder = new PackageBuilder(architecture, classBuilder);
 		variabilityBuilder = new VariabilityBuilder(architecture);
+		
+		associationInterClassRelationshipBuilder = new AssociationInterClassRelationshipBuilder(classBuilder);
 	}
 	
 }

@@ -11,6 +11,7 @@ import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Interface;
@@ -51,7 +52,7 @@ public class ModelHelperTest extends TestHelper {
 	@Test
 	public void shouldReturnAllAssociations() throws ModelNotFoundException  , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		Package content = modelHelper.getModel(getUrlToModel("ExtendedPO2"));
-		List<Classifier> elementsAssociations = modelHelper.getAllAssociations(content);
+		List<Association> elementsAssociations = modelHelper.getAllAssociations(content);
 		assertEquals(2, elementsAssociations.size());
 	}
 	

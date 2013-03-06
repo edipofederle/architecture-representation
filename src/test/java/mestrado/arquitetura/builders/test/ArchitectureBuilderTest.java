@@ -10,9 +10,12 @@ import java.util.List;
 import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
+import mestrado.arquitetura.representation.AssociationEnd;
+import mestrado.arquitetura.representation.AssociationInterClassRelationship;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Concern;
 import mestrado.arquitetura.representation.Element;
+import mestrado.arquitetura.representation.InterClassRelationship;
 import mestrado.arquitetura.representation.Method;
 import mestrado.arquitetura.representation.Package;
 import mestrado.arquitetura.representation.Variability;
@@ -249,6 +252,34 @@ public class ArchitectureBuilderTest extends TestHelper {
 	public void testVariationPointToString(){
 		Variability variability = architecture.getVariability().get(0);
 		assertEquals("Variants: Bar", variability.getVariationPoints().get(0).toString());
+	}
+	
+	// Associations Tests //TODO Move from here
+	
+	@Test
+	public void testAssociations() throws Exception{ 
+		String uriToArchitecture = getUrlToModel("association");
+		architecture = new ArchitectureBuilder().create(uriToArchitecture);
+		assertNotNull(architecture);
+		
+		List<InterClassRelationship> r = architecture.getInterClassRelationships();
+		assertNotNull(r);
+		assertEquals(1, r.size());
+		assertTrue(r.get(0) instanceof AssociationInterClassRelationship);
+
+		AssociationInterClassRelationship association = (AssociationInterClassRelationship) r.get(0);
+		List<AssociationEnd> participants = association.getParticipants();
+		
+		assertEquals(2, participants.size());
+		
+		assertNotNull(association.getParticipants());
+		assertEquals("none", association.getParticipants().get(0).getAggregation());
+		assertFalse(association.getParticipants().get(0).isNavigable());
+		assertEquals("Class2", participants.get(0).getCLSClass().getName());
+		
+		assertEquals("none", association.getParticipants().get(1).getAggregation());
+		assertTrue(association.getParticipants().get(1).isNavigable());
+		assertEquals("Class1", participants.get(1).getCLSClass().getName());
 	}
 	
 }

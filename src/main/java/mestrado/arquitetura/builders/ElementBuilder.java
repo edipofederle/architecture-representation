@@ -88,7 +88,7 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 		concerns = new ArrayList<String>();
 	}
 	
-	public T getElementByXMIID(Integer xmiid) {
+	public T getElementByXMIID(String xmiid) {
 		return createdElements.get(xmiid);
 	}
 	
