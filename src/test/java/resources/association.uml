@@ -26,18 +26,30 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_8GZ5wIaLEeKyMIl1Rwy2HQ" name="Class5"/>
   <packagedElement xmi:type="uml:Class" xmi:id="_8cbNEIaLEeKyMIl1Rwy2HQ" name="Class6"/>
-  <packagedElement xmi:type="uml:Association" xmi:id="_9ItEQ4aLEeKyMIl1Rwy2HQ" name="class5_class6_1" memberEnd="_9ItERIaLEeKyMIl1Rwy2HQ _9ItEQIaLEeKyMIl1Rwy2HQ" navigableOwnedEnd="_9ItEQIaLEeKyMIl1Rwy2HQ">
-    <ownedEnd xmi:id="_9ItERIaLEeKyMIl1Rwy2HQ" name="class5" type="_8GZ5wIaLEeKyMIl1Rwy2HQ" aggregation="composite" association="_9ItEQ4aLEeKyMIl1Rwy2HQ">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9ItERYaLEeKyMIl1Rwy2HQ" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9ItERoaLEeKyMIl1Rwy2HQ" value="1"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_9ItEQ4aLEeKyMIl1Rwy2HQ" name="class5_class6_1" memberEnd="_9ItERIaLEeKyMIl1Rwy2HQ _9ItEQIaLEeKyMIl1Rwy2HQ">
+    <ownedEnd xmi:id="_9ItERIaLEeKyMIl1Rwy2HQ" name="class5" type="_8GZ5wIaLEeKyMIl1Rwy2HQ" association="_9ItEQ4aLEeKyMIl1Rwy2HQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9ItERYaLEeKyMIl1Rwy2HQ"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9ItERoaLEeKyMIl1Rwy2HQ" value="*"/>
     </ownedEnd>
-    <ownedEnd xmi:id="_9ItEQIaLEeKyMIl1Rwy2HQ" name="class6" type="_8cbNEIaLEeKyMIl1Rwy2HQ" association="_9ItEQ4aLEeKyMIl1Rwy2HQ">
+    <ownedEnd xmi:id="_9ItEQIaLEeKyMIl1Rwy2HQ" name="class6" type="_8cbNEIaLEeKyMIl1Rwy2HQ" aggregation="composite" association="_9ItEQ4aLEeKyMIl1Rwy2HQ">
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9ItEQYaLEeKyMIl1Rwy2HQ" value="1"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9ItEQoaLEeKyMIl1Rwy2HQ" value="1"/>
     </ownedEnd>
   </packagedElement>
-  <profileApplication xmi:id="_4uw4cIafEeKZyvMPi8ed6A">
-    <eAnnotations xmi:id="_4uxfgIafEeKZyvMPi8ed6A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+  <packagedElement xmi:type="uml:Class" xmi:id="_gR38sIaoEeKyMIl1Rwy2HQ" name="Class7"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_goaNYIaoEeKyMIl1Rwy2HQ" name="Class8"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_iietYIaoEeKyMIl1Rwy2HQ" name="class7_class8_1" memberEnd="_iietYYaoEeKyMIl1Rwy2HQ _iieGUIaoEeKyMIl1Rwy2HQ">
+    <ownedEnd xmi:id="_iietYYaoEeKyMIl1Rwy2HQ" name="class7" type="_gR38sIaoEeKyMIl1Rwy2HQ" aggregation="shared" association="_iietYIaoEeKyMIl1Rwy2HQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iietYoaoEeKyMIl1Rwy2HQ" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iietY4aoEeKyMIl1Rwy2HQ" value="*"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_iieGUIaoEeKyMIl1Rwy2HQ" name="class8" type="_goaNYIaoEeKyMIl1Rwy2HQ" association="_iietYIaoEeKyMIl1Rwy2HQ">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iieGUYaoEeKyMIl1Rwy2HQ" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iieGUoaoEeKyMIl1Rwy2HQ" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <profileApplication xmi:id="_CW6vYIapEeKZyvMPi8ed6A">
+    <eAnnotations xmi:id="_CW6vYYapEeKZyvMPi8ed6A" source="http://www.eclipse.org/uml2/2.0.0/UML">
       <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_OaSVgIEVEeKfhKWYalU4oQ"/>
     </eAnnotations>
     <appliedProfile href="smarty.profile.uml#_pWQg0HnPEeKAopGwrqrm1w"/>

@@ -47,7 +47,7 @@ public class AssociationEnd {
 	}
 
 	public String getAggregation() {
-		return aggregation;
+		return "shared".equalsIgnoreCase(aggregation) ? "Aggregation" : aggregation;
 	}
 
 	private void setAggregation(String aggregation) {

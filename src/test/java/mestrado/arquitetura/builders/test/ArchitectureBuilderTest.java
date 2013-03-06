@@ -268,7 +268,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 			if (interClassRelationship instanceof AssociationInterClassRelationship)
 				associationCount++;
 		}
-		assertEquals("Architecture should contain 2 associations", 3, associationCount);
+		assertEquals("Architecture should contain 4 associations", 4, associationCount);
 	}
 	
 	
@@ -345,12 +345,32 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertFalse(associationComposite.getParticipants().get(0).isNavigable());
 		assertEquals("Class5", participants.get(0).getCLSClass().getName());
 		
-		assertEquals("none", associationComposite.getParticipants().get(1).getAggregation());
-		assertTrue(associationComposite.getParticipants().get(1).isNavigable());
+		assertEquals("composite", associationComposite.getParticipants().get(1).getAggregation());
+		assertFalse(associationComposite.getParticipants().get(1).isNavigable());
 		assertEquals("Class6", participants.get(1).getCLSClass().getName());
+		assertEquals("none", associationComposite.getParticipants().get(0).getAggregation()); //TODO rever nome do metodo getAggregation para getTypeAssociation?
+	
+		assertEquals("0..*",associationComposite.getParticipants().get(0).getMultiplicity().toString());
+		assertEquals("1..1",associationComposite.getParticipants().get(1).getMultiplicity().toString());
+	}
+	
+	@Test
+	public void shouldContainAggregationAssociation(){
+		List<InterClassRelationship> r = architecture2.getInterClassRelationships();
+		AssociationInterClassRelationship aggregation = (AssociationInterClassRelationship) r.get(3);
+		List<AssociationEnd> participants = aggregation.getParticipants();
 		
+		assertFalse(aggregation.getParticipants().get(0).isNavigable());
+		assertEquals("Class7", participants.get(0).getCLSClass().getName());
 		
-		assertEquals("composite", associationComposite.getParticipants().get(0).getAggregation()); //TODO rever nome do metodo getAggregation para getTypeAssociation?
+		assertFalse(aggregation.getParticipants().get(1).isNavigable());
+		assertEquals("Class8", participants.get(1).getCLSClass().getName());
+		
+		assertEquals("Aggregation", aggregation.getParticipants().get(0).getAggregation());
+		assertFalse(aggregation.getParticipants().get(1).isNavigable());
+		
+		assertEquals("1..1", aggregation.getParticipants().get(1).getMultiplicity().toString());
+		assertEquals("1..*", aggregation.getParticipants().get(0).getMultiplicity().toString());	
 	}
 	
 }
