@@ -19,8 +19,10 @@ import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.InterClassRelationship;
 import mestrado.arquitetura.representation.Variability;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 
@@ -40,6 +42,7 @@ public class ArchitectureBuilder {
 	private VariabilityBuilder variabilityBuilder;
 	
 	private AssociationInterClassRelationshipBuilder associationInterClassRelationshipBuilder;
+	private GeneralizationInterClassRelationshipBuilder generalizationInterClassRelationshipBuilder;
 	
 	/**
 	 *  Construtor. Initializa helpers.
@@ -73,13 +76,29 @@ public class ArchitectureBuilder {
 		
 		architecture.getInterClassRelationships().addAll(loadInterClassRelationships());
 		
+		
 		return architecture;
 	}
 
 	private List<InterClassRelationship> loadInterClassRelationships() {
 		List<InterClassRelationship> relationships = new ArrayList<InterClassRelationship>();
+		relationships.addAll(loadGeneralizations());
 		relationships.addAll(loadAssociations());
 		return relationships;
+	}
+
+	private List<? extends InterClassRelationship> loadGeneralizations() {
+		List<InterClassRelationship> interClassRelationships = new ArrayList<InterClassRelationship>();
+		
+		List<EList<Generalization>> generalizations = modelHelper.getAllGeneralizations(model);
+		
+		for (EList<Generalization> eList : generalizations) {
+			for (Generalization generalization : eList) {
+				interClassRelationships.add(generalizationInterClassRelationshipBuilder.create(generalization));
+			}
+		}
+		
+		return interClassRelationships;
 	}
 
 	private List<InterClassRelationship> loadAssociations() {
@@ -87,9 +106,8 @@ public class ArchitectureBuilder {
 		
 		List<Association> associations = modelHelper.getAllAssociations(model);
 		
-		for (Association association : associations) {
+		for (Association association : associations) 
 			interClassRelationships.add(associationInterClassRelationshipBuilder.create(association));
-		}
 		
 		return interClassRelationships;
 	}
@@ -98,15 +116,11 @@ public class ArchitectureBuilder {
 		List<Variability> variabilities = new ArrayList<Variability>();
 		
 		List<Classifier> variabilitiesTemp = modelHelper.getAllClasses(model);
-		for (Classifier classifier : variabilitiesTemp) {
-			if(StereotypeHelper.isVariability(classifier)){
+		for (Classifier classifier : variabilitiesTemp) 
+			if(StereotypeHelper.isVariability(classifier))
 				variabilities.add(variabilityBuilder.create(classifier));
-			}
-		}
-
 		
-		if (!variabilities.isEmpty())
-			return variabilities;
+		if (!variabilities.isEmpty()) return variabilities;
 		
 		return Collections.emptyList();
 	}
@@ -147,6 +161,8 @@ public class ArchitectureBuilder {
 		variabilityBuilder = new VariabilityBuilder(architecture);
 		
 		associationInterClassRelationshipBuilder = new AssociationInterClassRelationshipBuilder(classBuilder);
+		generalizationInterClassRelationshipBuilder = new GeneralizationInterClassRelationshipBuilder(classBuilder);
+		
 	}
 	
 }

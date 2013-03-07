@@ -20,9 +20,13 @@ import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Comment;
+import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
@@ -43,7 +47,7 @@ public class ModelHelper extends ElementHelper {
 	}
 	
 	/**
-	 * Recupera Classes de um pacote. TODO ver isto
+	 * Recupera Classes de um pacote.
 	 * @param model
 	 * @return
 	 */
@@ -92,15 +96,19 @@ public class ModelHelper extends ElementHelper {
 		return getAllElementsByType(model, COMMENT);
 	}
 
-	public List<EList<Classifier>> getAllGeneralizations(NamedElement model) {
+	public List<EList<Generalization>> getAllGeneralizations(NamedElement model) {
+		
 		List<Classifier> allClasses = getAllClasses(model);
-		List<EList<Classifier>> a = new ArrayList<EList<Classifier>>();
+		List<EList<Generalization>> lista = new ArrayList<EList<Generalization>>() ;
+		
 		for (NamedElement classImpl : allClasses) {
-			if (!((Classifier) classImpl).getGeneralizations().isEmpty())
-				a.add((((Classifier) classImpl).getGenerals()));
+			if (!((Classifier) classImpl).getGeneralizations().isEmpty()){
+				EList<Generalization> g = ((Classifier) classImpl).getGeneralizations();
+				lista.add(g);
+			}
 		}
 		
-		return a;
+		return lista;
 	}
 
 	public String getName(String xmiFile) throws ModelNotFoundException {
@@ -166,6 +174,12 @@ public class ModelHelper extends ElementHelper {
 			classes.addAll(getAllClassesOfPackage((Package)a.get(i)));
 		
 		return classes;
+	}
+
+	public String getXmiId (EObject eObject) {
+		Resource xmiResource = eObject.eResource();
+		if (xmiResource == null ) return null;
+		return ((XMLResource) xmiResource).getID(eObject);
 	}
 
 }

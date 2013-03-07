@@ -15,6 +15,7 @@ import mestrado.arquitetura.representation.AssociationInterClassRelationship;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Concern;
 import mestrado.arquitetura.representation.Element;
+import mestrado.arquitetura.representation.GeneralizationInterClassRelationship;
 import mestrado.arquitetura.representation.InterClassRelationship;
 import mestrado.arquitetura.representation.Method;
 import mestrado.arquitetura.representation.Package;
@@ -29,6 +30,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	private Architecture architecture;
 	private Architecture architecture2;
 	private Package package1;
+	
 	
 	@Before
 	public void setUp() throws Exception{
@@ -408,4 +410,19 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertFalse(a.get(0).isNavigable());
 	}
 	
+	// Associations Tests END //TODO Move from here
+
+	@Test
+	public void shouldLoadGeneralization() throws Exception{
+		String uriToArchitecture = getUrlToModel("generalizationArch");
+		Architecture architecture4 = new ArchitectureBuilder().create(uriToArchitecture);
+		List<InterClassRelationship> r = architecture4.getInterClassRelationships();
+		
+		assertEquals(1, architecture4.getInterClassRelationships().size());
+		
+		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) r.get(0);
+		assertNotNull(generalization);
+		assertEquals("Student", generalization.getChild().getName());
+		assertEquals("Person", generalization.getParent().getName());
+	}
 }

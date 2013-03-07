@@ -14,6 +14,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
@@ -94,7 +95,7 @@ public class ModelHelperTest extends TestHelper {
 	@Test
 	public void shouldReturnAllGeneralizations() throws ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		Package content = modelHelper.getModel(getUrlToModel("generalization"));
-		List<EList<Classifier>> generalizations = modelHelper.getAllGeneralizations(content);
+		List<EList<Generalization>> generalizations = modelHelper.getAllGeneralizations(content);
 		assertEquals(3, generalizations.size());
 	}
 	
