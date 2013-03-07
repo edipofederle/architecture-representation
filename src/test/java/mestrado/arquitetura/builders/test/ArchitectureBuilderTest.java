@@ -373,4 +373,39 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("1..*", aggregation.getParticipants().get(0).getMultiplicity().toString());	
 	}
 	
+	@Test
+	public void testAssociationWithThreeClasses() throws Exception{
+		String uriToArchitecture = getUrlToModel("complexAssociation");
+		Architecture architecture3 = new ArchitectureBuilder().create(uriToArchitecture);
+		List<InterClassRelationship> r = architecture3.getInterClassRelationships();
+		
+		assertNotNull(architecture3);
+		assertEquals("Should Contains Two Relationships", 2, r.size());
+		assertEquals("Should Contains Three Classes", 3, architecture3.getClasses().size());
+		
+		AssociationInterClassRelationship association1 = (AssociationInterClassRelationship) r.get(0);
+		AssociationInterClassRelationship association2 = (AssociationInterClassRelationship) r.get(1);
+		
+		assertNotNull(association1);
+		assertNotNull(association2);
+		
+		assertEquals(2,association1.getParticipants().size());
+		assertEquals(2, association2.getParticipants().size());
+		
+		List<AssociationEnd> a = association1.getParticipants();
+		List<AssociationEnd> b = association2.getParticipants();
+		Class klass3 = a.get(0).getCLSClass();
+		Class klass2 = a.get(1).getCLSClass();
+		
+		Class klass1 = b.get(1).getCLSClass();
+		Class kllass2a = b.get(0).getCLSClass();
+		
+		assertEquals("Class1", klass1.getName());
+		assertEquals("Class2", kllass2a.getName());
+		assertEquals("Class3", klass3.getName());
+		assertEquals("Class2", klass2.getName());
+		assertTrue(a.get(1).isNavigable());
+		assertFalse(a.get(0).isNavigable());
+	}
+	
 }
