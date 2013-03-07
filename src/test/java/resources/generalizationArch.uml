@@ -4,8 +4,9 @@
   <packagedElement xmi:type="uml:Class" xmi:id="_9mW7QIcoEeKyMIl1Rwy2HQ" name="Student">
     <generalization xmi:id="_IQrI4IcpEeKyMIl1Rwy2HQ" general="_oXwPgIcoEeKyMIl1Rwy2HQ"/>
   </packagedElement>
-  <profileApplication xmi:id="_HB99QIctEeKZyvMPi8ed6A">
-    <eAnnotations xmi:id="_HB99QYctEeKZyvMPi8ed6A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+  <packagedElement xmi:type="uml:Class" xmi:id="_-LNtQIdTEeKu-oCgHgQHzA" name="Professor"/>
+  <profileApplication xmi:id="_JmSCYIdUEeKZyvMPi8ed6A">
+    <eAnnotations xmi:id="_JmSCYYdUEeKZyvMPi8ed6A" source="http://www.eclipse.org/uml2/2.0.0/UML">
       <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_OaSVgIEVEeKfhKWYalU4oQ"/>
     </eAnnotations>
     <appliedProfile href="smarty.profile.uml#_pWQg0HnPEeKAopGwrqrm1w"/>

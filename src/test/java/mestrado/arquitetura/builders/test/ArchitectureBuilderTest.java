@@ -29,8 +29,8 @@ public class ArchitectureBuilderTest extends TestHelper {
 	
 	private Architecture architecture;
 	private Architecture architecture2;
+	private Architecture architecture4;
 	private Package package1;
-	
 	
 	@Before
 	public void setUp() throws Exception{
@@ -40,6 +40,10 @@ public class ArchitectureBuilderTest extends TestHelper {
 		
 		String uriToArchitecture2 = getUrlToModel("association");
 		architecture2 = new ArchitectureBuilder().create(uriToArchitecture2);
+		
+		String uriToArchitecture4 = getUrlToModel("generalizationArch");
+		architecture4 = new ArchitectureBuilder().create(uriToArchitecture4);
+		
 	}
 	
 	@Test
@@ -412,17 +416,49 @@ public class ArchitectureBuilderTest extends TestHelper {
 	
 	// Associations Tests END //TODO Move from here
 
+	// Generalization Tests
+
+	
 	@Test
 	public void shouldLoadGeneralization() throws Exception{
-		String uriToArchitecture = getUrlToModel("generalizationArch");
-		Architecture architecture4 = new ArchitectureBuilder().create(uriToArchitecture);
-		List<InterClassRelationship> r = architecture4.getInterClassRelationships();
+		List<InterClassRelationship> relations = architecture4.getInterClassRelationships();
+		assertEquals("Should contains three classes", 3, architecture4.getClasses().size());
 		
 		assertEquals(1, architecture4.getInterClassRelationships().size());
 		
-		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) r.get(0);
+		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) relations.get(0);
 		assertNotNull(generalization);
 		assertEquals("Student", generalization.getChild().getName());
 		assertEquals("Person", generalization.getParent().getName());
+	}
+	
+	@Test
+	public void shouldReplaceAParentClass() throws Exception{
+		
+		List<InterClassRelationship> relations = architecture4.getInterClassRelationships();
+		Element professorKlass = architecture4.findElementByName("Professor");
+		assertNotNull(professorKlass);
+		assertEquals("Professor", professorKlass.getName());
+		
+		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) relations.get(0);
+		
+		assertEquals("Student", generalization.getChild().getName());
+		generalization.replaceChild((Class) professorKlass);
+		assertEquals("Professor", generalization.getChild().getName());
+		
+	}
+	
+	@Test
+	public void shouldReplaceChildClass() throws Exception{
+		List<InterClassRelationship> relations = architecture4.getInterClassRelationships();
+		Element professorKlass = architecture4.findElementByName("Professor");
+		assertNotNull(professorKlass);
+		assertEquals("Professor", professorKlass.getName());
+		
+		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) relations.get(0);
+		
+		assertEquals("Person", generalization.getParent().getName());
+		generalization.replaceParent((Class) professorKlass);
+		assertEquals("Professor", generalization.getParent().getName());
 	}
 }
