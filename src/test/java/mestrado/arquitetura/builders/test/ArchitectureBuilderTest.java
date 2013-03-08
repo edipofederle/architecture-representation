@@ -31,6 +31,8 @@ public class ArchitectureBuilderTest extends TestHelper {
 	private Architecture architecture;
 	private Architecture architecture2;
 	private Architecture architecture4;
+	private Architecture architecture5;
+	
 	private Package package1;
 	
 	@Before
@@ -45,6 +47,8 @@ public class ArchitectureBuilderTest extends TestHelper {
 		String uriToArchitecture4 = getUrlToModel("generalizationArch");
 		architecture4 = new ArchitectureBuilder().create(uriToArchitecture4);
 		
+		String uriToArchitecture5 = getUrlToModel("dependency");
+		architecture5 = new ArchitectureBuilder().create(uriToArchitecture5);
 	}
 	
 	@Test
@@ -476,10 +480,6 @@ public class ArchitectureBuilderTest extends TestHelper {
 	
 	@Test
 	public void shouldLoadDependency() throws Exception{
-		String uriToArchitecture5 = getUrlToModel("dependency");
-		Architecture architecture5 = new ArchitectureBuilder().create(uriToArchitecture5);
-		assertNotNull(architecture5);
-		
 		List<InterClassRelationship> relations = architecture5.getInterClassRelationships();
 		DependencyInterClassRelationship dependency = (DependencyInterClassRelationship) relations.get(0);
 		
@@ -491,8 +491,6 @@ public class ArchitectureBuilderTest extends TestHelper {
 	
 	@Test
 	public void shouldDependencyNameBeEmptyWhenNull() throws Exception{
-		String uriToArchitecture5 = getUrlToModel("dependency");
-		Architecture architecture5 = new ArchitectureBuilder().create(uriToArchitecture5);
 		assertNotNull(architecture5);
 		
 		List<InterClassRelationship> relations = architecture5.getInterClassRelationships();
@@ -503,8 +501,6 @@ public class ArchitectureBuilderTest extends TestHelper {
 	
 	@Test
 	public void shouldDependencyContainsTwoClients() throws Exception{
-		String uriToArchitecture5 = getUrlToModel("dependency");
-		Architecture architecture5 = new ArchitectureBuilder().create(uriToArchitecture5);
 		
 		List<InterClassRelationship> relations = architecture5.getInterClassRelationships();
 		
@@ -520,8 +516,6 @@ public class ArchitectureBuilderTest extends TestHelper {
 	
 	@Test
 	public void shouldDependencyContainsTwoSuppliers() throws Exception{
-		String uriToArchitecture5 = getUrlToModel("dependency");
-		Architecture architecture5 = new ArchitectureBuilder().create(uriToArchitecture5);
 		
 		List<InterClassRelationship> relations = architecture5.getInterClassRelationships();
 		
@@ -540,9 +534,6 @@ public class ArchitectureBuilderTest extends TestHelper {
 	
 	@Test
 	public void shouldReplaceClienteDependency() throws Exception{
-		String uriToArchitecture5 = getUrlToModel("dependency");
-		Architecture architecture5 = new ArchitectureBuilder().create(uriToArchitecture5);
-		
 		List<InterClassRelationship> relations = architecture5.getInterClassRelationships();
 		
 		Class klass = (Class) architecture5.findElementByName("replaceClass");
@@ -556,11 +547,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	}
 	@Test
 	public void shouldReplaceSupplierDependency() throws Exception{
-		String uriToArchitecture5 = getUrlToModel("dependency");
-		Architecture architecture5 = new ArchitectureBuilder().create(uriToArchitecture5);
-		
 		List<InterClassRelationship> relations = architecture5.getInterClassRelationships();
-		
 		Class klass = (Class) architecture5.findElementByName("replaceClass");
 		
 		DependencyInterClassRelationship dependency = (DependencyInterClassRelationship) relations.get(0);
@@ -571,6 +558,4 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("replaceClass", dependency.getSupplier().getName());
 	}
 
-
-	
 }
