@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Comment;
+import org.eclipse.uml2.uml.Dependency;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
@@ -84,7 +85,7 @@ public class ModelHelper extends ElementHelper {
 		return getAllElementsByType(model, ASSOCIATION);
 	}
 
-	public List<Classifier> getAllDependencies(NamedElement model) {
+	public List<Dependency> getAllDependencies(NamedElement model) {
 		return getAllElementsByType(model, DEPENDENCY);
 	}
 

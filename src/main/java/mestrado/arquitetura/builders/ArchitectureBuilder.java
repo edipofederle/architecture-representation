@@ -22,6 +22,7 @@ import mestrado.arquitetura.representation.Variability;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Dependency;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
@@ -43,6 +44,7 @@ public class ArchitectureBuilder {
 	
 	private AssociationInterClassRelationshipBuilder associationInterClassRelationshipBuilder;
 	private GeneralizationInterClassRelationshipBuilder generalizationInterClassRelationshipBuilder;
+	private DependencyInterClassRelationshipBuilder dependencyInterClassRelationshipBuilder;
 	
 	/**
 	 *  Construtor. Initializa helpers.
@@ -84,7 +86,17 @@ public class ArchitectureBuilder {
 		List<InterClassRelationship> relationships = new ArrayList<InterClassRelationship>();
 		relationships.addAll(loadGeneralizations());
 		relationships.addAll(loadAssociations());
+		relationships.addAll(loadInterClassDependencies());
 		return relationships;
+	}
+
+	private List<? extends InterClassRelationship> loadInterClassDependencies() {
+		List<InterClassRelationship> interClassRelationships = new ArrayList<InterClassRelationship>();
+		List<Dependency> dependencies = modelHelper.getAllDependencies(model);
+		for (Dependency dependency : dependencies) {
+			interClassRelationships.add(dependencyInterClassRelationshipBuilder.create(dependency));
+		}
+		return interClassRelationships;
 	}
 
 	private List<? extends InterClassRelationship> loadGeneralizations() {
@@ -97,7 +109,7 @@ public class ArchitectureBuilder {
 				interClassRelationships.add(generalizationInterClassRelationshipBuilder.create(generalization));
 			}
 		}
-		
+
 		return interClassRelationships;
 	}
 
@@ -162,6 +174,7 @@ public class ArchitectureBuilder {
 		
 		associationInterClassRelationshipBuilder = new AssociationInterClassRelationshipBuilder(classBuilder);
 		generalizationInterClassRelationshipBuilder = new GeneralizationInterClassRelationshipBuilder(classBuilder);
+		dependencyInterClassRelationshipBuilder = new DependencyInterClassRelationshipBuilder(classBuilder, architecture);
 		
 	}
 	

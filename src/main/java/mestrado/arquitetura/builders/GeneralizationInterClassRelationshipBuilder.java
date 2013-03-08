@@ -14,7 +14,6 @@ public class GeneralizationInterClassRelationshipBuilder {
 	
 	
 	private static ModelHelper modelHelper;
-
 	/**
 	 *  Construtor. Initializa helpers.
 	 */

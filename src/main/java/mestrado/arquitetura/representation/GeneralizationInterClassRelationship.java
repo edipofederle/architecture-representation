@@ -1,9 +1,12 @@
 package mestrado.arquitetura.representation;
 
+import java.util.List;
+
 public class GeneralizationInterClassRelationship extends InterClassRelationship {
 
 	private Class parent;
 	private Class child;
+	private List<Class> childreen;
 	
 	public GeneralizationInterClassRelationship(Class parentClass, Class childClass) {
 		setParent(parentClass);
@@ -20,6 +23,15 @@ public class GeneralizationInterClassRelationship extends InterClassRelationship
 
 	public Class getChild() {
 		return child;
+	}
+	
+
+	public List<Class> getChildreen() {
+		return childreen;
+	}
+
+	public void setChildreen(List<Class> childreen) {
+		this.childreen = childreen;
 	}
 
 	private void setChild(Class child) {

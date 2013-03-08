@@ -5,8 +5,15 @@
     <generalization xmi:id="_IQrI4IcpEeKyMIl1Rwy2HQ" general="_oXwPgIcoEeKyMIl1Rwy2HQ"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_-LNtQIdTEeKu-oCgHgQHzA" name="Professor"/>
-  <profileApplication xmi:id="_JmSCYIdUEeKZyvMPi8ed6A">
-    <eAnnotations xmi:id="_JmSCYYdUEeKZyvMPi8ed6A" source="http://www.eclipse.org/uml2/2.0.0/UML">
+  <packagedElement xmi:type="uml:Class" xmi:id="_H6hR4IdZEeKu-oCgHgQHzA" name="Parent"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_IQQ4YIdZEeKu-oCgHgQHzA" name="Child1">
+    <generalization xmi:id="_MzDHEIdZEeKu-oCgHgQHzA" general="_H6hR4IdZEeKu-oCgHgQHzA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Ig5VYIdZEeKu-oCgHgQHzA" name="Child2">
+    <generalization xmi:id="_OxP5IIdZEeKu-oCgHgQHzA" general="_H6hR4IdZEeKu-oCgHgQHzA"/>
+  </packagedElement>
+  <profileApplication xmi:id="_ToacYIdZEeKZyvMPi8ed6A">
+    <eAnnotations xmi:id="_ToacYYdZEeKZyvMPi8ed6A" source="http://www.eclipse.org/uml2/2.0.0/UML">
       <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_OaSVgIEVEeKfhKWYalU4oQ"/>
     </eAnnotations>
     <appliedProfile href="smarty.profile.uml#_pWQg0HnPEeKAopGwrqrm1w"/>

@@ -14,6 +14,7 @@ import mestrado.arquitetura.representation.AssociationEnd;
 import mestrado.arquitetura.representation.AssociationInterClassRelationship;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Concern;
+import mestrado.arquitetura.representation.DependencyInterClassRelationship;
 import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.GeneralizationInterClassRelationship;
 import mestrado.arquitetura.representation.InterClassRelationship;
@@ -422,9 +423,9 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void shouldLoadGeneralization() throws Exception{
 		List<InterClassRelationship> relations = architecture4.getInterClassRelationships();
-		assertEquals("Should contains three classes", 3, architecture4.getClasses().size());
+		assertEquals("Should contains six classes", 6, architecture4.getClasses().size());
 		
-		assertEquals(1, architecture4.getInterClassRelationships().size());
+		assertEquals(3, architecture4.getInterClassRelationships().size());
 		
 		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) relations.get(0);
 		assertNotNull(generalization);
@@ -461,4 +462,115 @@ public class ArchitectureBuilderTest extends TestHelper {
 		generalization.replaceParent((Class) professorKlass);
 		assertEquals("Professor", generalization.getParent().getName());
 	}
+	
+	@Test
+	public void shouldLoadGeneralizationWithTwoChildreen(){
+		List<InterClassRelationship> relations = architecture4.getInterClassRelationships();
+		assertEquals(3, relations.size());
+		assertEquals("Parent", ((GeneralizationInterClassRelationship)relations.get(1)).getParent().getName());
+		assertEquals("Child1", ((GeneralizationInterClassRelationship)relations.get(1)).getChild().getName());
+		assertEquals("Child2", ((GeneralizationInterClassRelationship)relations.get(2)).getChild().getName());
+	}
+	
+	// Generalization Tests End
+	
+	@Test
+	public void shouldLoadDependency() throws Exception{
+		String uriToArchitecture5 = getUrlToModel("dependency");
+		Architecture architecture5 = new ArchitectureBuilder().create(uriToArchitecture5);
+		assertNotNull(architecture5);
+		
+		List<InterClassRelationship> relations = architecture5.getInterClassRelationships();
+		DependencyInterClassRelationship dependency = (DependencyInterClassRelationship) relations.get(0);
+		
+		assertNotNull(dependency);
+		assertEquals("Supplier Should be Class1", "Class1", dependency.getSupplier().getName());
+		assertEquals("Client Should be Class2", "Class2", dependency.getAllClientsForSupplierClass().get(0).getName());
+		assertEquals("Dependency name should be Dependency1", "Dependency1", dependency.getName());
+	}
+	
+	@Test
+	public void shouldDependencyNameBeEmptyWhenNull() throws Exception{
+		String uriToArchitecture5 = getUrlToModel("dependency");
+		Architecture architecture5 = new ArchitectureBuilder().create(uriToArchitecture5);
+		assertNotNull(architecture5);
+		
+		List<InterClassRelationship> relations = architecture5.getInterClassRelationships();
+		DependencyInterClassRelationship dependency = (DependencyInterClassRelationship) relations.get(0);
+		dependency.setName(null);
+		assertEquals("Dependency name should be empty", "", dependency.getName());
+	}
+	
+	@Test
+	public void shouldDependencyContainsTwoClients() throws Exception{
+		String uriToArchitecture5 = getUrlToModel("dependency");
+		Architecture architecture5 = new ArchitectureBuilder().create(uriToArchitecture5);
+		
+		List<InterClassRelationship> relations = architecture5.getInterClassRelationships();
+		
+		DependencyInterClassRelationship d2 = ((DependencyInterClassRelationship)relations.get(1));
+		DependencyInterClassRelationship d3 = ((DependencyInterClassRelationship)relations.get(2));
+
+		assertEquals("Dependency2", d2.getName());
+		assertEquals("Dependency3", d3.getName());
+		assertEquals(2, d3.getAllClientsForSupplierClass().size());
+		assertEquals("Class4", d3.getAllClientsForSupplierClass().get(0).getName());
+		assertEquals("Class5", d3.getAllClientsForSupplierClass().get(1).getName());
+	}
+	
+	@Test
+	public void shouldDependencyContainsTwoSuppliers() throws Exception{
+		String uriToArchitecture5 = getUrlToModel("dependency");
+		Architecture architecture5 = new ArchitectureBuilder().create(uriToArchitecture5);
+		
+		List<InterClassRelationship> relations = architecture5.getInterClassRelationships();
+		
+		DependencyInterClassRelationship d4 = ((DependencyInterClassRelationship)relations.get(3));
+		DependencyInterClassRelationship d5 = ((DependencyInterClassRelationship)relations.get(4));
+
+		assertEquals("Dependency4", d4.getName());
+		assertEquals("Dependency5", d5.getName());
+		
+		assertEquals(2,d4.getAllSuppliersForClientClass().size());
+		assertEquals("Class7", d4.getAllSuppliersForClientClass().get(0).getName());
+		assertEquals("Class8", d4.getAllSuppliersForClientClass().get(1).getName());
+		assertEquals("Class7", d5.getAllSuppliersForClientClass().get(0).getName());
+		assertEquals("Class8", d5.getAllSuppliersForClientClass().get(1).getName());
+	}
+	
+	@Test
+	public void shouldReplaceClienteDependency() throws Exception{
+		String uriToArchitecture5 = getUrlToModel("dependency");
+		Architecture architecture5 = new ArchitectureBuilder().create(uriToArchitecture5);
+		
+		List<InterClassRelationship> relations = architecture5.getInterClassRelationships();
+		
+		Class klass = (Class) architecture5.findElementByName("replaceClass");
+		
+		DependencyInterClassRelationship dependency = (DependencyInterClassRelationship) relations.get(0);
+		assertEquals("Class2", dependency.getClient().getName());
+		
+		dependency.replaceClient(klass);
+		
+		assertEquals("replaceClass", dependency.getClient().getName());
+	}
+	@Test
+	public void shouldReplaceSupplierDependency() throws Exception{
+		String uriToArchitecture5 = getUrlToModel("dependency");
+		Architecture architecture5 = new ArchitectureBuilder().create(uriToArchitecture5);
+		
+		List<InterClassRelationship> relations = architecture5.getInterClassRelationships();
+		
+		Class klass = (Class) architecture5.findElementByName("replaceClass");
+		
+		DependencyInterClassRelationship dependency = (DependencyInterClassRelationship) relations.get(0);
+		assertEquals("Class1", dependency.getSupplier().getName());
+		
+		dependency.replaceSupplier(klass);
+		
+		assertEquals("replaceClass", dependency.getSupplier().getName());
+	}
+
+
+	
 }
