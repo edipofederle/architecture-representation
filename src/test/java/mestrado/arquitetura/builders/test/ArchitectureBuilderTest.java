@@ -20,6 +20,7 @@ import mestrado.arquitetura.representation.GeneralizationInterClassRelationship;
 import mestrado.arquitetura.representation.InterClassRelationship;
 import mestrado.arquitetura.representation.Method;
 import mestrado.arquitetura.representation.Package;
+import mestrado.arquitetura.representation.RealizationInterClassRelationship;
 import mestrado.arquitetura.representation.Variability;
 
 import org.junit.Before;
@@ -478,6 +479,8 @@ public class ArchitectureBuilderTest extends TestHelper {
 	
 	// Generalization Tests End
 	
+	// Dependency Tests 
+	
 	@Test
 	public void shouldLoadDependency() throws Exception{
 		List<InterClassRelationship> relations = architecture5.getInterClassRelationships();
@@ -556,6 +559,23 @@ public class ArchitectureBuilderTest extends TestHelper {
 		dependency.replaceSupplier(klass);
 		
 		assertEquals("replaceClass", dependency.getSupplier().getName());
+	}
+	
+	// Dependency Tests End
+	
+	@Test
+	public void shouldLoadRealizations() throws Exception{
+		String uriToArchitecture6 = getUrlToModel("realization");
+		Architecture architecture6 = new ArchitectureBuilder().create(uriToArchitecture6);
+		assertNotNull(architecture6);
+		
+		List<InterClassRelationship> relations = architecture6.getInterClassRelationships();
+		RealizationInterClassRelationship realization = (RealizationInterClassRelationship) relations.get(0);
+		
+		assertNotNull(realization);
+		
+		assertEquals("Source Element should be Class2", "Class2", realization.getSourceElement().getName());
+		assertEquals("Specific Element should be Class1", "Class1", realization.getSpecificElement().getName());
 	}
 
 }

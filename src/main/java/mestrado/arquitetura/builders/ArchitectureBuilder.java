@@ -26,6 +26,7 @@ import org.eclipse.uml2.uml.Dependency;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.Realization;
 
 /**
  * Builder resposável por criar a arquitetura.
@@ -45,6 +46,7 @@ public class ArchitectureBuilder {
 	private AssociationInterClassRelationshipBuilder associationInterClassRelationshipBuilder;
 	private GeneralizationInterClassRelationshipBuilder generalizationInterClassRelationshipBuilder;
 	private DependencyInterClassRelationshipBuilder dependencyInterClassRelationshipBuilder;
+	private RealizationInterClassRelationshipBuilder realizationInterClassRelationshipBuilder;
 	
 	/**
 	 *  Construtor. Initializa helpers.
@@ -87,35 +89,43 @@ public class ArchitectureBuilder {
 		relationships.addAll(loadGeneralizations());
 		relationships.addAll(loadAssociations());
 		relationships.addAll(loadInterClassDependencies());
+		relationships.addAll(loadRealizations());
 		return relationships;
+	}
+
+	private List<? extends InterClassRelationship> loadRealizations() {
+		List<InterClassRelationship> interClassRelationships = new ArrayList<InterClassRelationship>();
+		List<Realization> realizations = modelHelper.loadRealizations(model);
+		
+		for (Realization realization : realizations)
+			interClassRelationships.add(realizationInterClassRelationshipBuilder.create(realization));
+		
+		return interClassRelationships;
 	}
 
 	private List<? extends InterClassRelationship> loadInterClassDependencies() {
 		List<InterClassRelationship> interClassRelationships = new ArrayList<InterClassRelationship>();
 		List<Dependency> dependencies = modelHelper.getAllDependencies(model);
-		for (Dependency dependency : dependencies) {
+		
+		for (Dependency dependency : dependencies) 
 			interClassRelationships.add(dependencyInterClassRelationshipBuilder.create(dependency));
-		}
+
 		return interClassRelationships;
 	}
 
 	private List<? extends InterClassRelationship> loadGeneralizations() {
 		List<InterClassRelationship> interClassRelationships = new ArrayList<InterClassRelationship>();
-		
 		List<EList<Generalization>> generalizations = modelHelper.getAllGeneralizations(model);
 		
-		for (EList<Generalization> eList : generalizations) {
-			for (Generalization generalization : eList) {
+		for (EList<Generalization> eList : generalizations)
+			for (Generalization generalization : eList) 
 				interClassRelationships.add(generalizationInterClassRelationshipBuilder.create(generalization));
-			}
-		}
 
 		return interClassRelationships;
 	}
 
 	private List<InterClassRelationship> loadAssociations() {
 		List<InterClassRelationship> interClassRelationships = new ArrayList<InterClassRelationship>();
-		
 		List<Association> associations = modelHelper.getAllAssociations(model);
 		
 		for (Association association : associations) 
@@ -126,8 +136,8 @@ public class ArchitectureBuilder {
 
 	private List<Variability> loadVariability() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
 		List<Variability> variabilities = new ArrayList<Variability>();
-		
 		List<Classifier> variabilitiesTemp = modelHelper.getAllClasses(model);
+		
 		for (Classifier classifier : variabilitiesTemp) 
 			if(StereotypeHelper.isVariability(classifier))
 				variabilities.add(variabilityBuilder.create(classifier));
@@ -140,6 +150,7 @@ public class ArchitectureBuilder {
 	private Collection<? extends Element> loadClasses() {
 		List<Class> listOfClasses = new ArrayList<Class>();
 		List<Classifier> classes = modelHelper.getAllClasses(model);
+		
 		for (NamedElement element : classes)
 			listOfClasses.add(classBuilder.create(element, null));
 		
@@ -153,6 +164,7 @@ public class ArchitectureBuilder {
 	private Collection<mestrado.arquitetura.representation.Package> loadPackages() {
 		Set<mestrado.arquitetura.representation.Package> packages = new HashSet<mestrado.arquitetura.representation.Package>();
 		List<Classifier> packagess = modelHelper.getAllPackages(model);
+		
 		for (NamedElement pkg : packagess)
 			packages.add(packageBuilder.create(pkg, NO_PARENT));
 		
@@ -175,6 +187,7 @@ public class ArchitectureBuilder {
 		associationInterClassRelationshipBuilder = new AssociationInterClassRelationshipBuilder(classBuilder);
 		generalizationInterClassRelationshipBuilder = new GeneralizationInterClassRelationshipBuilder(classBuilder);
 		dependencyInterClassRelationshipBuilder = new DependencyInterClassRelationshipBuilder(classBuilder, architecture);
+		realizationInterClassRelationshipBuilder = new RealizationInterClassRelationshipBuilder(classBuilder);
 		
 	}
 	

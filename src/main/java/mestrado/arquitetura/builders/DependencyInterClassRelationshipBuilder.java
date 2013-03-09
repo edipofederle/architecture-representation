@@ -28,8 +28,7 @@ public class DependencyInterClassRelationshipBuilder {
 		}
 	}
 
-	public DependencyInterClassRelationshipBuilder(ClassBuilder classBuilder,
-			Architecture architecture) {
+	public DependencyInterClassRelationshipBuilder(ClassBuilder classBuilder, Architecture architecture) {
 		this.classBuilder = classBuilder;
 		this.architecture = architecture;
 	}
@@ -39,11 +38,11 @@ public class DependencyInterClassRelationshipBuilder {
 		EList<NamedElement> suppliers = element.getSuppliers();
 		EList<NamedElement> clieents = element.getClients();
 
-		Class c = classBuilder.getElementByXMIID(modelHelper.getXmiId(clieents.get(0)));
-		Class s = classBuilder.getElementByXMIID(modelHelper.getXmiId(suppliers.get(0)));
+		Class client = classBuilder.getElementByXMIID(modelHelper.getXmiId(clieents.get(0)));
+		Class supplier = classBuilder.getElementByXMIID(modelHelper.getXmiId(suppliers.get(0)));
 
-		return new DependencyInterClassRelationship(s,
-				c, element.getName(), architecture);
+		return new DependencyInterClassRelationship(supplier, client, element.getName(), architecture);
 	}
 
 }
+

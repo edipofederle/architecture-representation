@@ -11,5 +11,6 @@ public class ElementsTypes {
 	public static final String COMMENT = "comment";
 	public static final String PROPERTY = "property";
 	public static final String OPERATION = "operation";
+	public static final String REALIZATION = "realization";
 
 }

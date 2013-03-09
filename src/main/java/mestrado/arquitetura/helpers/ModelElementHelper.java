@@ -58,7 +58,7 @@ public class ModelElementHelper {
 	/**
 	 * Verifica se elemento é uma classe
 	 * @param klass
-	 * @return
+	 * @return {@link boolean}
 	 */
 	public static boolean isClass(NamedElement klass) {
 		if (isInterface(klass))	return false;
