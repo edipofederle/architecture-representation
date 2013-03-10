@@ -26,6 +26,7 @@ public abstract class ElementHelper {
 		types.put("operation", UMLPackage.Literals.OPERATION);
 		types.put("package", UMLPackage.Literals.PACKAGE);
 		types.put("realization", UMLPackage.Literals.REALIZATION);
+		types.put("abstraction", UMLPackage.Literals.ABSTRACTION);
 	}
 		
 	@SuppressWarnings("unchecked")

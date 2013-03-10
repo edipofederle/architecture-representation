@@ -9,6 +9,7 @@ import static mestrado.arquitetura.helpers.ElementsTypes.INTERFACE;
 import static mestrado.arquitetura.helpers.ElementsTypes.OPERATION;
 import static mestrado.arquitetura.helpers.ElementsTypes.PACKAGE;
 import static mestrado.arquitetura.helpers.ElementsTypes.REALIZATION;
+import static mestrado.arquitetura.helpers.ElementsTypes.ABSTRACTION;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.uml2.uml.Abstraction;
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Comment;
@@ -89,6 +91,10 @@ public class ModelHelper extends ElementHelper {
 
 	public List<Dependency> getAllDependencies(NamedElement model) {
 		return getAllElementsByType(model, DEPENDENCY);
+	}
+	
+	public List<Abstraction> getAllAbstractions(Package model) {
+		return getAllElementsByType(model, ABSTRACTION);
 	}
 
 	public List<Classifier> getAllPackages(NamedElement model) {
@@ -188,7 +194,6 @@ public class ModelHelper extends ElementHelper {
 		if (xmiResource == null ) return null;
 		return ((XMLResource) xmiResource).getID(eObject);
 	}
-
 
 
 }

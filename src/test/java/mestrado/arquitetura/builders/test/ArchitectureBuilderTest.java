@@ -9,6 +9,7 @@ import java.util.List;
 
 import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.helpers.test.TestHelper;
+import mestrado.arquitetura.representation.AbstractionInterElementRelationship;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.AssociationEnd;
 import mestrado.arquitetura.representation.AssociationInterClassRelationship;
@@ -18,6 +19,7 @@ import mestrado.arquitetura.representation.DependencyInterClassRelationship;
 import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.GeneralizationInterClassRelationship;
 import mestrado.arquitetura.representation.InterClassRelationship;
+import mestrado.arquitetura.representation.InterElementRelationship;
 import mestrado.arquitetura.representation.Method;
 import mestrado.arquitetura.representation.Package;
 import mestrado.arquitetura.representation.RealizationInterClassRelationship;
@@ -576,6 +578,23 @@ public class ArchitectureBuilderTest extends TestHelper {
 		
 		assertEquals("Source Element should be Class2", "Class2", realization.getSourceElement().getName());
 		assertEquals("Specific Element should be Class1", "Class1", realization.getSpecificElement().getName());
+		
+	}
+	
+	@Test
+	public void shouldLoadAbstractionInterElement() throws Exception{
+		String uriToArchitecture7 = getUrlToModel("abstractionInterElement");
+		Architecture architecture7 = new ArchitectureBuilder().create(uriToArchitecture7);
+		
+		assertNotNull(architecture7);
+		
+		List<InterElementRelationship> relations = architecture7.getInterElementRelationships();
+		AbstractionInterElementRelationship abstractionInterElement = (AbstractionInterElementRelationship) relations.get(0);
+		
+		assertNotNull(abstractionInterElement);
+		assertEquals("Supplier should be Package1Supplier", "Package1Supplier", abstractionInterElement.getChild().getName());
+		assertEquals("Supplier should be myInterfaceClient", "myInterfaceClient", abstractionInterElement.getParent().getName());
+		//TODO somente entre pacote e interface???
 	}
 
 }

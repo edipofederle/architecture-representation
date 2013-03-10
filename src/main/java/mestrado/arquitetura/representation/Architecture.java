@@ -1,6 +1,7 @@
 package mestrado.arquitetura.representation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,6 +12,7 @@ public class Architecture {
 	private List<Variability> variabilities = new ArrayList<Variability>();
 	
 	private List<InterClassRelationship> interClassRelationships = new ArrayList<InterClassRelationship>();
+	private List<InterElementRelationship> interElementRelationships = new ArrayList<InterElementRelationship>();
 	
 	private String name;
 	
@@ -36,6 +38,7 @@ public class Architecture {
 			concern = new Concern(name);
 			concerns.put(name.toLowerCase(), concern);
 		}
+		
 		return concern;
 	}
 
@@ -45,20 +48,24 @@ public class Architecture {
 
 	public List<Package> getPackages() {
 		List<Package> paks = new ArrayList<Package>();
-		for (Element element : elements) {
+		
+		for (Element element : elements) 
 			if(element.getTypeElement().equals("package"))
 				paks.add(((Package)element));
-		}
+		
+		if(paks.isEmpty()) return Collections.emptyList();
 		return paks;
 	}
 
 	public List<Class> getClasses(){
-		List<Class> paks = new ArrayList<Class>();
-		for (Element element : elements) {
+		List<Class> klasses = new ArrayList<Class>();
+		
+		for (Element element : elements) 
 			if(element.getTypeElement().equals("klass"))
-				paks.add(((Class)element));
-		}
-		return paks;
+				klasses.add(((Class)element));
+
+		if(klasses.isEmpty()) return Collections.emptyList();
+		return klasses;
 	}
 	
 	public List<Variability> getVariability() {
@@ -77,11 +84,14 @@ public class Architecture {
 	//TODO refatorar para buscar todo tipo de elemento
 	public Element findElementByName(String name) {
 		List<Class> klasses = getClasses();
-		for (Class klass : klasses) {
+		for (Class klass : klasses)
 			if(name.equalsIgnoreCase(klass.getName()))
 				return klass;
-		}
 		
 		return null; //TODO Verifica Null
+	}
+
+	public List<InterElementRelationship> getInterElementRelationships() {
+		return interElementRelationships;
 	}
 }

@@ -17,9 +17,11 @@ import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.InterClassRelationship;
+import mestrado.arquitetura.representation.InterElementRelationship;
 import mestrado.arquitetura.representation.Variability;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.uml2.uml.Abstraction;
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Dependency;
@@ -47,6 +49,7 @@ public class ArchitectureBuilder {
 	private GeneralizationInterClassRelationshipBuilder generalizationInterClassRelationshipBuilder;
 	private DependencyInterClassRelationshipBuilder dependencyInterClassRelationshipBuilder;
 	private RealizationInterClassRelationshipBuilder realizationInterClassRelationshipBuilder;
+	private AbstractionInterElementRelationshipBuilder abstractionInterElementRelationshipBuilder; 
 	
 	/**
 	 *  Construtor. Initializa helpers.
@@ -79,9 +82,30 @@ public class ArchitectureBuilder {
 		architecture.getVariability().addAll(loadVariability());
 		
 		architecture.getInterClassRelationships().addAll(loadInterClassRelationships());
-		
+		architecture.getInterElementRelationships().addAll(loadInterElementRelationships());
 		
 		return architecture;
+	}
+
+	private List<? extends InterElementRelationship> loadInterElementRelationships() {
+		List<InterElementRelationship> relationships = new ArrayList<InterElementRelationship>();
+		//relationships.addAll(loadInterElementDependencies());
+		relationships.addAll(loadAbstractions());
+		
+		if (relationships.isEmpty()) return Collections.emptyList();
+		return relationships;
+	}
+
+	private List<? extends InterElementRelationship> loadAbstractions() {
+		List<Abstraction> abstractions = modelHelper.getAllAbstractions(model);
+		List<InterElementRelationship> interElementRelationships = new ArrayList<InterElementRelationship>();
+		
+		for (Abstraction abstraction : abstractions) {
+			interElementRelationships.add(abstractionInterElementRelationshipBuilder.create(abstraction));
+		}
+		
+		if (interElementRelationships.isEmpty()) return Collections.emptyList();
+		return interElementRelationships;
 	}
 
 	private List<InterClassRelationship> loadInterClassRelationships() {
@@ -90,6 +114,7 @@ public class ArchitectureBuilder {
 		relationships.addAll(loadAssociations());
 		relationships.addAll(loadInterClassDependencies());
 		relationships.addAll(loadRealizations());
+		
 		return relationships;
 	}
 
@@ -131,6 +156,7 @@ public class ArchitectureBuilder {
 		for (Association association : associations) 
 			interClassRelationships.add(associationInterClassRelationshipBuilder.create(association));
 		
+		if (!interClassRelationships.isEmpty()) return interClassRelationships;
 		return interClassRelationships;
 	}
 
@@ -143,17 +169,17 @@ public class ArchitectureBuilder {
 				variabilities.add(variabilityBuilder.create(classifier));
 		
 		if (!variabilities.isEmpty()) return variabilities;
-		
 		return Collections.emptyList();
 	}
 
-	private Collection<? extends Element> loadClasses() {
+	private List<? extends Element> loadClasses() {
 		List<Class> listOfClasses = new ArrayList<Class>();
 		List<Classifier> classes = modelHelper.getAllClasses(model);
 		
 		for (NamedElement element : classes)
 			listOfClasses.add(classBuilder.create(element, null));
 		
+		if (!listOfClasses.isEmpty()) return listOfClasses;
 		return listOfClasses;
 	}
 
@@ -161,13 +187,14 @@ public class ArchitectureBuilder {
 	 * Retornar todos os pacotes
 	 * @return {@link Collection<mestrado.arquitetura.representation.Package>}
 	 */
-	private Collection<mestrado.arquitetura.representation.Package> loadPackages() {
-		Set<mestrado.arquitetura.representation.Package> packages = new HashSet<mestrado.arquitetura.representation.Package>();
+	private List<mestrado.arquitetura.representation.Package> loadPackages() {
+		List<mestrado.arquitetura.representation.Package> packages = new ArrayList<mestrado.arquitetura.representation.Package>();
 		List<Classifier> packagess = modelHelper.getAllPackages(model);
 		
 		for (NamedElement pkg : packagess)
 			packages.add(packageBuilder.create(pkg, NO_PARENT));
 		
+		if (!packages.isEmpty()) return packages;
 		return packages;
 	}
 
@@ -188,7 +215,7 @@ public class ArchitectureBuilder {
 		generalizationInterClassRelationshipBuilder = new GeneralizationInterClassRelationshipBuilder(classBuilder);
 		dependencyInterClassRelationshipBuilder = new DependencyInterClassRelationshipBuilder(classBuilder, architecture);
 		realizationInterClassRelationshipBuilder = new RealizationInterClassRelationshipBuilder(classBuilder);
-		
+		abstractionInterElementRelationshipBuilder = new AbstractionInterElementRelationshipBuilder(packageBuilder, classBuilder);
 	}
 	
 }
