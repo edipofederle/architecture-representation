@@ -39,7 +39,14 @@ public class Class extends Element {
 	public List<Method> getMethods() {
 		return methods;
 	}
-
+	
+	/**
+	 * True se a classe é uma interface, caso contrário False.
+	 * 
+	 * Uma classe é considerada uma interface se a mesma contém o estreótipo << interface >>
+	 * 
+	 * @return boolean
+	 */
 	public boolean isInterface() {
 		return interfacee;
 	}

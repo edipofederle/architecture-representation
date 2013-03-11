@@ -8,8 +8,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import mestrado.arquitetura.builders.ArchitectureBuilder;
-import mestrado.arquitetura.helpers.ModelElementHelper;
-import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.AbstractionInterElementRelationship;
 import mestrado.arquitetura.representation.Architecture;
@@ -581,7 +579,6 @@ public class ArchitectureBuilderTest extends TestHelper {
 		
 		assertEquals("Source Element should be Class2", "Class2", realization.getSourceElement().getName());
 		assertEquals("Specific Element should be Class1", "Class1", realization.getSpecificElement().getName());
-		
 	}
 	
 	@Test
@@ -599,7 +596,6 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("Supplier should be myInterfaceClient", "myInterfaceClient", abstractionInterElement.getParent().getName());
 		//TODO somente entre pacote e interface???
 	}
-	
 	
 	@Test
 	public void shouldLoadInterElementDependency() throws Exception{

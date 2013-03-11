@@ -96,7 +96,6 @@ public class ArchitectureBuilder {
 
 	private List<? extends InterElementRelationship> loadInterElementDependencies() {
 		List<InterElementRelationship> relationships = new ArrayList<InterElementRelationship>();
-		List<Dependency> elements = modelHelper.getAllDependencies(model);
 		
 		List<Package> packages = modelHelper.getAllPackages(model);
 		
@@ -105,10 +104,7 @@ public class ArchitectureBuilder {
 				if(!pack.getClientDependencies().get(0).getClients().isEmpty())
 					relationships.add(dependencyComponentInterfaceRelationshipBuilder.create(pack.getClientDependencies().get(0)));
 		
-		for (Dependency dependency : elements) {
- 			System.out.println(dependency);
-		}	
-		
+		if (relationships.isEmpty()) return Collections.emptyList();
 		return relationships;
 	}
 
@@ -116,9 +112,8 @@ public class ArchitectureBuilder {
 		List<Abstraction> abstractions = modelHelper.getAllAbstractions(model);
 		List<InterElementRelationship> interElementRelationships = new ArrayList<InterElementRelationship>();
 		
-		for (Abstraction abstraction : abstractions) {
+		for (Abstraction abstraction : abstractions)
 			interElementRelationships.add(abstractionInterElementRelationshipBuilder.create(abstraction));
-		}
 		
 		if (interElementRelationships.isEmpty()) return Collections.emptyList();
 		return interElementRelationships;
@@ -131,6 +126,7 @@ public class ArchitectureBuilder {
 		relationships.addAll(loadInterClassDependencies());
 		relationships.addAll(loadRealizations());
 		
+		if (relationships.isEmpty()) return Collections.emptyList();
 		return relationships;
 	}
 
@@ -141,6 +137,7 @@ public class ArchitectureBuilder {
 		for (Realization realization : realizations)
 			interClassRelationships.add(realizationInterClassRelationshipBuilder.create(realization));
 		
+		if (interClassRelationships.isEmpty()) return Collections.emptyList();
 		return interClassRelationships;
 	}
 
@@ -151,6 +148,7 @@ public class ArchitectureBuilder {
 		for (Dependency dependency : dependencies) 
 			interClassRelationships.add(dependencyInterClassRelationshipBuilder.create(dependency));
 
+		if (interClassRelationships.isEmpty()) return Collections.emptyList();
 		return interClassRelationships;
 	}
 
@@ -162,6 +160,7 @@ public class ArchitectureBuilder {
 			for (Generalization generalization : eList) 
 				interClassRelationships.add(generalizationInterClassRelationshipBuilder.create(generalization));
 
+		if (interClassRelationships.isEmpty()) return Collections.emptyList();
 		return interClassRelationships;
 	}
 
