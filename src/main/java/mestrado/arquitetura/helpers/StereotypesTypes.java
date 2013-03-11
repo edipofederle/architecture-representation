@@ -1,6 +1,10 @@
 package mestrado.arquitetura.helpers;
 
-
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class StereotypesTypes {
 	
 	public static final String INTERFACE = "interface";

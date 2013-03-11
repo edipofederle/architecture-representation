@@ -8,6 +8,11 @@ import mestrado.arquitetura.helpers.Uml2HelperFactory;
 
 import org.junit.Test;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class Uml2HelperFactoryTest {
 	
 	@Test

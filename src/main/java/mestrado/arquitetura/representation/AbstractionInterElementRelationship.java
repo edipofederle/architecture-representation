@@ -1,5 +1,10 @@
 package mestrado.arquitetura.representation;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class AbstractionInterElementRelationship extends InterElementRelationship{
 	
 	private Class parent;

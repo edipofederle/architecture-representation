@@ -8,6 +8,11 @@ import mestrado.arquitetura.helpers.ModelHelperFactory;
 
 import org.junit.Test;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class ModelHelperFactoryTest {
 	
 	@Test

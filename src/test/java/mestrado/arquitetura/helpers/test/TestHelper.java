@@ -16,11 +16,15 @@ import mestrado.arquitetura.helpers.Uml2HelperFactory;
 import mestrado.arquitetura.representation.Class;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Stereotype;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public abstract class TestHelper {
 
 	protected static Uml2Helper uml2Helper;
@@ -56,7 +60,7 @@ public abstract class TestHelper {
 
 	public static NamedElement givenAClass() throws ModelNotFoundException  , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		Package content = givenAModel("ExtendedPO2");
-		List<Classifier> elementsClass = modelHelper.getAllClasses(content);
+		List<org.eclipse.uml2.uml.Class> elementsClass = modelHelper.getAllClasses(content);
 		return elementsClass.get(0);
 	}
 	/**

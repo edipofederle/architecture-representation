@@ -29,7 +29,11 @@ import mestrado.arquitetura.representation.Variability;
 import org.junit.Before;
 import org.junit.Test;
 
-
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class ArchitectureBuilderTest extends TestHelper {
 	
 	private Architecture architecture;

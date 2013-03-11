@@ -1,5 +1,10 @@
 package mestrado.arquitetura.helpers;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class UtilResources {
 	
 	public static String getUrlToModel(String modelName) {

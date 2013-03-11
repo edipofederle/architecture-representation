@@ -5,6 +5,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class Architecture {
 	
 	private List<Element> elements = new ArrayList<Element>();

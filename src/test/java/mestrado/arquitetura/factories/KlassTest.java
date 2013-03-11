@@ -8,7 +8,11 @@ import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 
 import org.eclipse.uml2.uml.Classifier;
 import org.junit.Test;
-
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class KlassTest {
 	
 	

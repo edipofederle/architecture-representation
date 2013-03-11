@@ -18,6 +18,11 @@ import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Stereotype;
 import org.junit.Test;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class ModelElementHelperTest extends TestHelper {
 
 	@Test

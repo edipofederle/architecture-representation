@@ -2,6 +2,11 @@ package mestrado.arquitetura.representation;
 
 import java.util.List;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class GeneralizationInterClassRelationship extends InterClassRelationship {
 
 	private Class parent;

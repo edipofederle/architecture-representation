@@ -1,5 +1,10 @@
 package mestrado.arquitetura.representation;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class Concern {
 
 	private final String name;

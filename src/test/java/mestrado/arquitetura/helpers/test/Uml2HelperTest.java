@@ -1,6 +1,7 @@
 package mestrado.arquitetura.helpers.test;
 
 import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import mestrado.arquitetura.exceptions.EnumerationNotFoundException;
@@ -21,7 +22,11 @@ import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.junit.Before;
 import org.junit.Test;
- 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class Uml2HelperTest  extends TestHelper{
 	
 	private static Uml2Helper uml2Helper;

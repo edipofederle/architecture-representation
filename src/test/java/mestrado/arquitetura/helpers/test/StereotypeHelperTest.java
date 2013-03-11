@@ -24,6 +24,11 @@ import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.junit.Test;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class StereotypeHelperTest extends TestHelper {
 
 	@Test
@@ -61,7 +66,7 @@ public class StereotypeHelperTest extends TestHelper {
 	public void shouldHaveAConcern() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, ConcernNotFoundException{
 		String uri = getUrlToModel("concerns");
 		Package model = uml2Helper.load(uri);
-		List<Classifier> c = modelHelper.getAllClasses(model);
+		List<org.eclipse.uml2.uml.Class> c = modelHelper.getAllClasses(model);
 		assertNotNull(c.get(0));
 		assertEquals("Foo", c.get(0).getName());
 		assertEquals(2, ModelElementHelper.getAllStereotypes(c.get(0)).size());
@@ -73,7 +78,7 @@ public class StereotypeHelperTest extends TestHelper {
 	public void shouldNotHaveAConcern() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
 		String uri = getUrlToModel("concerns");
 		Package model = uml2Helper.load(uri);
-		List<Classifier> c = modelHelper.getAllClasses(model);
+		List<org.eclipse.uml2.uml.Class> c = modelHelper.getAllClasses(model);
 		assertNotNull(c.get(1));
 		assertEquals("Bar", c.get(1).getName());
 		assertFalse(StereotypeHelper.hasConcern(c.get(1)));
@@ -83,7 +88,7 @@ public class StereotypeHelperTest extends TestHelper {
 	public void shouldReturnExceptionWhenTryGetNameOfNonStereotype() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, ConcernNotFoundException{
 		String uri = getUrlToModel("concerns");
 		Package model = uml2Helper.load(uri);
-		List<Classifier> c = modelHelper.getAllClasses(model);
+		List<org.eclipse.uml2.uml.Class> c = modelHelper.getAllClasses(model);
 		assertNotNull(c.get(1));
 		assertEquals("Bar", c.get(1).getName());
 		assertFalse(StereotypeHelper.hasConcern(c.get(1)));
@@ -119,10 +124,10 @@ public class StereotypeHelperTest extends TestHelper {
 		String absolutePath = new File(uri).getAbsolutePath();
 		Package model = uml2Helper.load(absolutePath);
 
-		NamedElement klass = modelHelper.getAllClasses(model).get(0);
+		org.eclipse.uml2.uml.Class klass = modelHelper.getAllClasses(model).get(0);
 		assertNotNull(klass);
 		
-		assertEquals("Class1", ((Class)klass).getName());
+		assertEquals("Class1",klass.getName());
 		assertFalse(StereotypeHelper.isVariability(klass));
 	}
 	
@@ -150,7 +155,7 @@ public class StereotypeHelperTest extends TestHelper {
 		Package model = uml2Helper.load(uri);
 		List<Package> p = modelHelper.getAllPackages(model);
 		
-		List<Classifier> c = modelHelper.getAllClasses(((Package)p.get(0)));
+		List<org.eclipse.uml2.uml.Class> c = modelHelper.getAllClasses(((Package)p.get(0)));
 		assertNotNull(c);
 		assertNotNull(ModelElementHelper.getAllStereotypes(c.get(0)));
 	}

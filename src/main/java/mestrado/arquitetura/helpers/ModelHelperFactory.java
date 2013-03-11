@@ -3,6 +3,11 @@ package mestrado.arquitetura.helpers;
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class ModelHelperFactory {
 	
 	private static ModelHelper instance;

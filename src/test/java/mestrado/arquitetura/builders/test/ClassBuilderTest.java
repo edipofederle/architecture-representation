@@ -1,5 +1,8 @@
 package mestrado.arquitetura.builders.test;
 
-public class ClassBuilderTest {
-
-}
+/**
+ * 
+ * @author edipofederle
+ *
+ */
+public class ClassBuilderTest {}

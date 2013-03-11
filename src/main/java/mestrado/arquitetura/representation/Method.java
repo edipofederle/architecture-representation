@@ -3,6 +3,11 @@ package mestrado.arquitetura.representation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class Method extends Element{
 	
 	private String returnType;

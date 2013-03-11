@@ -26,6 +26,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class HelperTest extends TestHelper {
 	
 	private Uml2Helper uml2Helper;

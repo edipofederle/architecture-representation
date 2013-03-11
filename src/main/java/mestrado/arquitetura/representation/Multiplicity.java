@@ -1,5 +1,10 @@
 package mestrado.arquitetura.representation;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class Multiplicity {
 	
 	private String lowerValue;

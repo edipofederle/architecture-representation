@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class Variability {
 
 	private String name;

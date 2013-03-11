@@ -3,6 +3,11 @@ package mestrado.arquitetura.representation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class AssociationInterClassRelationship extends InterClassRelationship {
 
 	private final List<AssociationEnd> participants = new ArrayList<AssociationEnd>();

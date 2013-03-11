@@ -48,10 +48,8 @@ public class Uml2Helper extends Base {
 	private static Package profile;
 	private static Uml2Helper instance;
 
-	public static Uml2Helper getInstance() throws ModelNotFoundException,
-			ModelIncompleteException {
-		if (instance == null)
-			instance = new Uml2Helper();
+	public static Uml2Helper getInstance() throws ModelNotFoundException, ModelIncompleteException {
+		if (instance == null) instance = new Uml2Helper();
 		return instance;
 	}
 
@@ -64,11 +62,9 @@ public class Uml2Helper extends Base {
 		return profile;
 	}
 
-	public void saveResources(org.eclipse.uml2.uml.Package package_, URI uri)
-			throws IOException {
+	public void saveResources(org.eclipse.uml2.uml.Package package_, URI uri) throws IOException {
 		ArrayList<EObject> contents = new ArrayList<EObject>();
 		contents.add(package_);
-
 		save(contents, uri);
 	}
 
@@ -80,8 +76,7 @@ public class Uml2Helper extends Base {
 		resource.save(null);
 	}
 
-	public org.eclipse.uml2.uml.Generalization createGeneralization(
-			Classifier child, Classifier parent) {
+	public org.eclipse.uml2.uml.Generalization createGeneralization(Classifier child, Classifier parent) {
 		return child.createGeneralization(parent);
 	}
 
@@ -94,9 +89,7 @@ public class Uml2Helper extends Base {
 	 *            Opcional.
 	 * @return
 	 */
-	public org.eclipse.uml2.uml.Class createClass(
-			org.eclipse.uml2.uml.Package nestingPackage, String name,
-			boolean... isAbstract) {
+	public org.eclipse.uml2.uml.Class createClass(org.eclipse.uml2.uml.Package nestingPackage, String name,	boolean... isAbstract) {
 		boolean abstractClass = false;
 		if (isAbstract.length > 0) {
 			abstractClass = isAbstract[0];
@@ -251,65 +244,49 @@ public class Uml2Helper extends Base {
 		return attribute;
 	}
 
-	public Enumeration createEnumeration(org.eclipse.uml2.uml.Package package_,
-			String name) {
-
-		Enumeration enumeration = (Enumeration) package_
-				.createOwnedEnumeration(name);
-		printLog("Enumeration '" + enumeration.getQualifiedName()
-				+ "' created.");
-
+	public Enumeration createEnumeration(org.eclipse.uml2.uml.Package pkg,	String name) {
+		Enumeration enumeration = (Enumeration) pkg.createOwnedEnumeration(name);
+		printLog("Enumeration '" + enumeration.getQualifiedName() + "' created.");
 		return enumeration;
 	}
 
-	public EnumerationLiteral createEnumerationLiteral(Enumeration enumeration,
-			String name) {
-		EnumerationLiteral enumerationLiteral = enumeration
-				.createOwnedLiteral(name);
+	public EnumerationLiteral createEnumerationLiteral(Enumeration enumeration,	String name) {
+		EnumerationLiteral enumerationLiteral = enumeration.createOwnedLiteral(name);
 
-		printLog("Enumeration literal '"
-				+ enumerationLiteral.getQualifiedName() + "' created.");
+		printLog("Enumeration literal '" + enumerationLiteral.getQualifiedName() + "' created.");
 
 		return enumerationLiteral;
 	}
 
-	public org.eclipse.uml2.uml.Package load(String pathAbsolute)
-			throws ModelNotFoundException, ModelIncompleteException,
-			SMartyProfileNotAppliedToModelExcepetion {
+	public org.eclipse.uml2.uml.Package load(String pathAbsolute)throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
 
 		File file = new File(pathAbsolute);
 		FilenameFilter filter = new OnlyCompleteResources();
 
 		if (fileExists(file)) {
 			File dir = file.getParentFile();
-			String resourcesName = pathAbsolute.substring(
-					pathAbsolute.lastIndexOf("/") + 1,
-					pathAbsolute.length() - 4);
+			String resourcesName = pathAbsolute.substring(pathAbsolute.lastIndexOf("/") + 1, pathAbsolute.length() - 4);
 
 			if (isCompleteResources(filter, dir, resourcesName))
 				throw new ModelIncompleteException("Modelo Incompleto");
 
 			Package model = getExternalResources(pathAbsolute);
 
-			if (hasSMartyProfile(model))
-				return model;
+			if (hasSMartyProfile(model)) return model;
 
 			if (model.eClass().equals(UMLPackage.Literals.PROFILE)) {
 				if (!((Profile) model).isDefined())
 					((Profile) model).define();
-
 				return model;
 			}
 
 			throw new SMartyProfileNotAppliedToModelExcepetion(
-					"Profile SMarty Nao incluido no modelo.");
+					"Profile SMarty não aplicado ao modelo");
 		}
 
-		throw new ModelNotFoundException("Nao encontrado");
+		throw new ModelNotFoundException("Model " + pathAbsolute + " não encontrado.");
 	}
 
-	// TODO Refatorar. Considera um modelo com um único perfil
-	// e o mesmo como sendo o SMArty.
 	private boolean hasSMartyProfile(Package model) {
 		EList<Profile> profiles = model.getAppliedProfiles();
 		for (Profile profile : profiles)
@@ -319,13 +296,10 @@ public class Uml2Helper extends Base {
 		return false;
 	}
 
-	public PackageableElement getEnumerationByName(Profile profile, String name)
-			throws EnumerationNotFoundException {
+	public PackageableElement getEnumerationByName(Profile profile, String name) throws EnumerationNotFoundException {
 		EList<PackageableElement> a = profile.getPackagedElements();
 		for (PackageableElement packageableElement : a) {
-			if (packageableElement.eClass().equals(
-					UMLPackage.Literals.ENUMERATION)
-					&& packageableElement.getName().equalsIgnoreCase(name))
+			if (packageableElement.eClass().equals(UMLPackage.Literals.ENUMERATION)	&& packageableElement.getName().equalsIgnoreCase(name))
 				return packageableElement;
 		}
 
@@ -333,38 +307,29 @@ public class Uml2Helper extends Base {
 	}
 
 	public Type getPrimitiveType(String typeName) throws ModelNotFoundException {
-		Package umlPrimitiveTypes = getInternalResources(URI
-				.createURI(UMLResource.UML_PRIMITIVE_TYPES_LIBRARY_URI));
-
-		return umlPrimitiveTypes.getOwnedType(UtilResources
-				.capitalize(typeName));
+		Package umlPrimitiveTypes = getInternalResources(URI.createURI(UMLResource.UML_PRIMITIVE_TYPES_LIBRARY_URI));
+		return umlPrimitiveTypes.getOwnedType(UtilResources.capitalize(typeName));
 	}
 
-	public Stereotype createStereotype(Profile prof, String name,
-			boolean isAbstract) {
+	public Stereotype createStereotype(Profile prof, String name, boolean isAbstract) {
 		Stereotype stereotype = prof.createOwnedStereotype(name, isAbstract);
-
 		return stereotype;
 	}
 
-	public PackageableElement getStereotypeByName(Profile prof, String name)
-			throws StereotypeNotFoundException {
+	public PackageableElement getStereotypeByName(Profile prof, String name) throws StereotypeNotFoundException {
 		EList<PackageableElement> a = prof.getPackagedElements();
-		for (PackageableElement packageableElement : a) {
-			if (packageableElement instanceof Stereotype
-					&& packageableElement.getName().equals(name))
+		for (PackageableElement packageableElement : a)
+			if (packageableElement instanceof Stereotype && packageableElement.getName().equals(name))
 				return packageableElement;
-		}
 
 		throw new StereotypeNotFoundException(name);
 	}
 
-	public void applyProfile(org.eclipse.uml2.uml.Package package_,
-			Profile profile) {
+	public void applyProfile(org.eclipse.uml2.uml.Package pkg,	Profile profile) {
 		try {
-			package_.applyProfile(profile);
+			pkg.applyProfile(profile);
 			printLog("Profile '" + profile.getQualifiedName()
-					+ "' applied to package '" + package_.getQualifiedName()
+					+ "' applied to package '" + pkg.getQualifiedName()
 					+ "'.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -376,8 +341,7 @@ public class Uml2Helper extends Base {
 	}
 
 	private void printLog(String message) {
-		if (PRINT_LOGS)
-			System.out.println(message);
+		if (PRINT_LOGS) System.out.println(message);
 	}
 
 	/**
@@ -394,24 +358,20 @@ public class Uml2Helper extends Base {
 				resource.getContents(), UMLPackage.Literals.PACKAGE);
 	}
 
-	private static boolean isCompleteResources(FilenameFilter filter, File dir,
-			String resourcesName) {
+	private static boolean isCompleteResources(FilenameFilter filter, File dir, 	String resourcesName) {
 		return !filter.accept(dir, resourcesName);
 	}
 
 	public org.eclipse.uml2.uml.Package getExternalResources(String uri) {
 		org.eclipse.uml2.uml.Package package_;
 
-		Resource resource = getResources().getResource(URI.createFileURI(uri),
-				true);
-		package_ = (org.eclipse.uml2.uml.Package) EcoreUtil.getObjectByType(
-				resource.getContents(), UMLPackage.Literals.PACKAGE);
+		Resource resource = getResources().getResource(URI.createFileURI(uri), true);
+		package_ = (org.eclipse.uml2.uml.Package) EcoreUtil.getObjectByType(resource.getContents(), UMLPackage.Literals.PACKAGE);
 		return package_;
 	}
 
 	// TODO READ FROM CONFIGURATION FILE
-	private Profile loadSMartyProfile() throws ModelNotFoundException,
-			ModelIncompleteException {
+	private Profile loadSMartyProfile() throws ModelNotFoundException,	ModelIncompleteException {
 		return (Profile) getExternalResources("src/test/java/resources/smarty.profile.uml");
 	}
 
@@ -419,24 +379,17 @@ public class Uml2Helper extends Base {
 		return (Profile) profile;
 	}
 
-	public void setSMartyProfile() throws ModelNotFoundException,
-			ModelIncompleteException {
+	public void setSMartyProfile() throws ModelNotFoundException, ModelIncompleteException {
 		profile = loadSMartyProfile();
 	}
 
-	public EnumerationLiteral getLiteralEnumeration(String name)
-			throws EnumerationNotFoundException {
-		Enumeration a = (Enumeration) getEnumerationByName((Profile) profile,
-				"BindingTime");
-
+	public EnumerationLiteral getLiteralEnumeration(String name)throws EnumerationNotFoundException {
+		Enumeration a = (Enumeration) getEnumerationByName((Profile) profile, "BindingTime");
 		return a.getOwnedLiteral(name);
 	}
 
-	public Operation createOperation(Classifier klass, String methodName,
-			EList<String> parameterNames, EList<Type> parameterTypes,
-			Type returnType) {
+	public Operation createOperation(Classifier klass, String methodName, EList<String> parameterNames, EList<Type> parameterTypes,	Type returnType) {
 		org.eclipse.uml2.uml.Class k = (org.eclipse.uml2.uml.Class) klass;
-		return k.createOwnedOperation(methodName, parameterNames,
-				parameterTypes, returnType);
+		return k.createOwnedOperation(methodName, parameterNames, parameterTypes, returnType);
 	}
 }

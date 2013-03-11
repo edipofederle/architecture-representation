@@ -1,6 +1,11 @@
 package mestrado.arquitetura.helpers;
 
-
+/**
+ * 
+ * 
+ * @author edipofederle
+ *
+ */
 public class ElementsTypes {
 
 	public static final String CLASS = "class";

@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class DependencyInterClassRelationship extends InterClassRelationship {
 
 	private Class client;

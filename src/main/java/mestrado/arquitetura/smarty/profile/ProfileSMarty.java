@@ -16,6 +16,11 @@ import org.eclipse.uml2.uml.Profile;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.UMLPackage;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class ProfileSMarty {
 	
 	

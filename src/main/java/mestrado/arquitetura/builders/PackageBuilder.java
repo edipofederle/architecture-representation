@@ -12,7 +12,6 @@ import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.Package;
 
-import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.NamedElement;
 
 /**
@@ -68,7 +67,7 @@ public class PackageBuilder extends ElementBuilder<Package> {
 	 */
 	private List<Class> getClasses(NamedElement modelElement, Package pkg) {
 		List<Class> listOfClasses = new ArrayList<Class>();
-		List<Classifier> classes = modelHelper.getAllClasses(((org.eclipse.uml2.uml.Package) modelElement));
+		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getAllClasses(((org.eclipse.uml2.uml.Package) modelElement));
 
 		for (NamedElement element : classes)
 			listOfClasses.add(classBuilder.create(element, pkg));

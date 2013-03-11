@@ -6,6 +6,11 @@ import mestrado.arquitetura.base.InitializeResources;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.junit.Test;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class InitializeResourcesTestSingleton {
 	
 	

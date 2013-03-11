@@ -9,7 +9,11 @@ import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.Profile;
 
-
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class Klass extends TestHelper {
 
 		private static Classifier klasse;

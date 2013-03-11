@@ -5,6 +5,7 @@ package mestrado.arquitetura.representation;
  * An association end specifies the role that the object at one end of a relationship performs. 
  * Each end of a relationship has properties that specify the role of the association end,
  * its multiplicity, visibility, navigability, and constraints.
+ * 
  * @author edipofederle
  *
  */

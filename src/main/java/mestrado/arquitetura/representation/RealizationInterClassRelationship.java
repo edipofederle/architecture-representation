@@ -1,6 +1,10 @@
 package mestrado.arquitetura.representation;
 
-
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class RealizationInterClassRelationship extends InterClassRelationship {
 	
 	private String name;

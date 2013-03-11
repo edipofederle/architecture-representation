@@ -24,12 +24,17 @@ import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 import org.junit.Test;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class ModelHelperTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllClasses() throws ModelNotFoundException , ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
 		Package content = modelHelper.getModel(getUrlToModel("ExtendedPO2"));
-		List<Classifier> elementsClass = modelHelper.getAllClasses(content);
+		List<org.eclipse.uml2.uml.Class> elementsClass = modelHelper.getAllClasses(content);
 		assertEquals(10, elementsClass.size());
 	}
 	
@@ -78,7 +83,7 @@ public class ModelHelperTest extends TestHelper {
 		List<Package> packages = modelHelper.getAllPackages(p);
 		assertEquals("Package1", ((Package)packages.get(0)).getName());
 		Package p1 = (Package) packages.get(0);
-		List<Classifier> classesForPackage = modelHelper.getAllClasses(p1);
+		List<org.eclipse.uml2.uml.Class> classesForPackage = modelHelper.getAllClasses(p1);
 		assertEquals(2, classesForPackage.size());
 		ClassImpl class1 = (ClassImpl) classesForPackage.get(0);
 		ClassImpl class2 = (ClassImpl) classesForPackage.get(1);
@@ -138,7 +143,7 @@ public class ModelHelperTest extends TestHelper {
 				p = (PackageImpl) a.get(i);
 		
 		assertEquals(2, a.size());
-		List<Classifier> c = modelHelper.getAllClasses(p);
+		List<org.eclipse.uml2.uml.Class> c = modelHelper.getAllClasses(p);
 		assertEquals("Bar", c.get(2).getName());
 		assertTrue(c.get(2).isAbstract());
 	}

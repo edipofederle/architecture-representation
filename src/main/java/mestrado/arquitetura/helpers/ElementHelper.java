@@ -1,6 +1,7 @@
 package mestrado.arquitetura.helpers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,11 @@ import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.UMLPackage;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public abstract class ElementHelper {
 	
 	
@@ -28,16 +34,22 @@ public abstract class ElementHelper {
 		types.put("realization", UMLPackage.Literals.REALIZATION);
 		types.put("abstraction", UMLPackage.Literals.ABSTRACTION);
 	}
-		
+	/**
+	 * Retorna todos os elemento do um dado tipo.
+	 * 
+	 * @param model
+	 * @param type
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	protected static <T> List<T> getAllElementsByType(NamedElement element, String type) {
-		EList<Element> ownedElements = element.getOwnedElements();
+	protected static <T> List<T> getAllElementsByType(NamedElement model, String type) {
+		EList<Element> ownedElements = model.getOwnedElements();
 		List<T> elements = new ArrayList<T>();
-		for (Element e : ownedElements) {
+		for (Element e : ownedElements)
 			if (e.eClass().equals(getLiteralType(type)))
 				elements.add((T) e);
-		}
 		
+		if(elements.isEmpty()) return Collections.emptyList();
 		return (List<T>) elements;
 	}
 

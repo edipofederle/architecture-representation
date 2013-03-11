@@ -69,7 +69,7 @@ public class StereotypeHelper extends TestHelper {
 
 	/**
 	 * Verifica se um elemento é uma variabilidade.
-	 * 
+	 * Caso Variability não for encontrada retorna null.
 	 * @param element
 	 * @return boolean
 	 */
@@ -110,14 +110,12 @@ public class StereotypeHelper extends TestHelper {
 	 */
 	public static boolean hasConcern(NamedElement element) {
 		try {
-			if(element instanceof ClassImpl)
-				if (searchForConcernsStereotypes(element) != null) return true;
+			if(element instanceof ClassImpl) if (searchForConcernsStereotypes(element) != null) return true;
+			
 			if (element instanceof StereotypeImpl) 
 				if (((Classifier) element).getGeneralizations().get(0).getGeneral().getName().equalsIgnoreCase(StereotypesTypes.CONCERN))
 					return true;
-		} catch (Exception e) {
-			return hasStereotype(element, StereotypesTypes.CONCERN);
-		}
+		} catch (Exception e) { return hasStereotype(element, StereotypesTypes.CONCERN); }
 		
 		return false;
 	}
@@ -139,7 +137,6 @@ public class StereotypeHelper extends TestHelper {
 		}
 		
 		return (String) element.getValue(variability, attrName).toString();
-		
 	}
 
 	/**
@@ -147,7 +144,7 @@ public class StereotypeHelper extends TestHelper {
 	 * 
 	 * @param c
 	 * @return
-	 * @throws ConcernNotFoundException 
+	 * @throws ConcernNotFoundException se concern não for encontrado
 	 */
 	public static String getConcernName(NamedElement c) throws ConcernNotFoundException {
 		if (hasConcern(c))
@@ -155,10 +152,18 @@ public class StereotypeHelper extends TestHelper {
 				return searchForConcernsStereotypes(c).getName();
 		
 		throw new ConcernNotFoundException("There is not concern in element " + c );
-		
 	}
 	
-
+	/**
+	 * 
+	 * Retorna um {@link Map} contendo os atributos/valores para atributos de um variabilidade.
+	 * 
+	 * @param klass
+	 * @return {@link Map}
+	 * @throws ModelNotFoundException
+	 * @throws ModelIncompleteException
+	 * @throws SMartyProfileNotAppliedToModelExcepetion
+	 */
 	public static Map<String, String> getVariabilityAttributes(NamedElement klass) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
 		Comment commentVariability  = getCommentVariability(klass);
 		if(commentVariability != null){
@@ -186,6 +191,14 @@ public class StereotypeHelper extends TestHelper {
 		return Collections.emptyMap();
 	}
 
+	/**
+	 * Dada um elemento e um nome de estereótipo retorna o estreótipo caso o mesmo exista no elemento.
+	 * Retorna null caso o estereótipo não exista.
+	 * 
+	 * @param element
+	 * @param stereotypeName
+	 * @return
+	 */
 	private static Stereotype getStereotypeByName(NamedElement element, String stereotypeName) {
 		List<Stereotype> stereotypes = ModelElementHelper.getAllStereotypes(element);
 		for (Stereotype stereotype : stereotypes) {
@@ -202,7 +215,7 @@ public class StereotypeHelper extends TestHelper {
 	
 	/**
 	 * Busca por concern em todos os estereótipos aplicados em um elemento.
-	 * 
+	 * Retorna null caso náo exista.
 	 * @param element
 	 * @return {@link Stereotype}
 	 */

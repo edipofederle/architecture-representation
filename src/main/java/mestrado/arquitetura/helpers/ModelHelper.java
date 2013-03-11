@@ -56,12 +56,18 @@ public class ModelHelper extends ElementHelper {
 	 * @param model
 	 * @return
 	 */
-	public List<Classifier> getClasses(NamedElement model) {
+	public List<org.eclipse.uml2.uml.Class> getClasses(NamedElement model) {
 		return getAllElementsByType(model, CLASS);
 	}
 	
-	public List<Classifier> getAllClasses(NamedElement model) {
-		List<Classifier> classes = new ArrayList<Classifier>();
+	/**
+	 * Retorna todas as classes de um modelo.
+	 * 
+	 * @param model
+	 * @return {@link List}
+	 */
+	public List<org.eclipse.uml2.uml.Class> getAllClasses(NamedElement model) {
+		List<org.eclipse.uml2.uml.Class> classes = new ArrayList<org.eclipse.uml2.uml.Class>();
 		
 		List<Package> pacotes  = getAllPackages(model);
 		
@@ -70,6 +76,7 @@ public class ModelHelper extends ElementHelper {
 		for (int i = 0; i < pacotes.size(); i++)
 			classes.addAll(getAllClassesOfPackage((Package)pacotes.get(i)));
 		
+		if(classes.isEmpty()) return Collections.emptyList();
 		return classes;
 	}
 	
@@ -78,6 +85,7 @@ public class ModelHelper extends ElementHelper {
 		List<Property> allPropertys = new ArrayList<Property>();
 		allPropertys = getAllElementsByType(aClass, ElementsTypes.PROPERTY);
 		
+		if(allPropertys.isEmpty()) return Collections.emptyList();
 		return allPropertys;
 	}
 	
@@ -111,7 +119,7 @@ public class ModelHelper extends ElementHelper {
 
 	public List<EList<Generalization>> getAllGeneralizations(NamedElement model) {
 		
-		List<Classifier> allClasses = getAllClasses(model);
+		List<org.eclipse.uml2.uml.Class> allClasses = getAllClasses(model);
 		List<EList<Generalization>> lista = new ArrayList<EList<Generalization>>() ;
 		
 		for (NamedElement classImpl : allClasses) {
@@ -159,7 +167,7 @@ public class ModelHelper extends ElementHelper {
 	 */
 	public List<Comment> getAllVariabilities(Package model) {
 		List<Comment> variabilities = new ArrayList<Comment>();
-		List<Classifier> classes = new ArrayList<Classifier>();
+		List<org.eclipse.uml2.uml.Class> classes = new ArrayList<org.eclipse.uml2.uml.Class>();
 		
 		classes = getAllClasses(model);
 		
@@ -178,8 +186,8 @@ public class ModelHelper extends ElementHelper {
 	 * @param pacote
 	 * @return
 	 */
-	private List<Classifier> getAllClassesOfPackage(Package pacote) {
-		List<Classifier> classes = new ArrayList<Classifier>();
+	private List<org.eclipse.uml2.uml.Class> getAllClassesOfPackage(Package pacote) {
+		List<org.eclipse.uml2.uml.Class> classes = new ArrayList<org.eclipse.uml2.uml.Class>();
 		
 		classes.addAll(getClasses(pacote));
 		List<Package> a = getAllPackages((Package)pacote);
@@ -189,6 +197,11 @@ public class ModelHelper extends ElementHelper {
 		return classes;
 	}
 
+	/**
+	 * Retorna o XMIID de um elemento
+	 * @param eObject
+	 * @return {@link String}
+	 */
 	public String getXmiId (EObject eObject) {
 		Resource xmiResource = eObject.eResource();
 		if (xmiResource == null ) return null;

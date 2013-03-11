@@ -6,7 +6,8 @@ import java.util.List;
 /**
  * Classe resposável por abstrair as propriedades comuns a todos os elementos
  * da arquitetura.
- *
+ * 
+ * @author edipofederle
  */
 public abstract class Element {
 
