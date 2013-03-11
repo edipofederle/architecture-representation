@@ -85,13 +85,17 @@ public abstract class TestHelper {
 	
 	//Custom asserts
 	
-	protected <T> void assertContains(List<T> list, String expected) {
+	protected <T> void assertContains(List<T> list, String ... expected) {
 		for (T t : list) {
-			if(list.get(0) instanceof mestrado.arquitetura.representation.Package){
-				String name = ((mestrado.arquitetura.representation.Package) t).getName();
-				if(expected.equalsIgnoreCase(name))
-					return ;
-			}
+			String name = "";
+			if(list.get(0) instanceof mestrado.arquitetura.representation.Package)
+				name = ((mestrado.arquitetura.representation.Package) t).getName();
+				for (String str : expected) if(str.equalsIgnoreCase(name)) return ;
+			
+			if(list.get(0) instanceof mestrado.arquitetura.representation.Class)
+				name = ((mestrado.arquitetura.representation.Class) t).getName();
+				for (String str : expected) if(str.equalsIgnoreCase(name)) return ;
+			
 		}
 		Assert.fail("list there is no element called " + expected);
 	}

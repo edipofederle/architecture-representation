@@ -108,4 +108,17 @@ public class Architecture {
 	public List<InterElementRelationship> getInterElementRelationships() {
 		return interElementRelationships;
 	}
+
+	public List<Class> getAllInterfaces() {
+		List<Class> klasses = new ArrayList<Class>();
+		
+		for (Element element : elements) 
+			if(element.getTypeElement().equals("klass"))
+				if(((Class)element).isInterface())
+					klasses.add(((Class)element));
+
+		if(klasses.isEmpty()) return Collections.emptyList();
+		return klasses;
+		
+	}
 }

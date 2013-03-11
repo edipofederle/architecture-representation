@@ -15,6 +15,16 @@ public class Class extends Element {
 	private final List<Method> methods = new ArrayList<Method>();
 	private boolean interfacee;
 	
+	/**
+	 * 
+	 * @param architecture
+	 * @param name
+	 * @param isVariationPoint
+	 * @param variantType
+	 * @param isAbstract 
+	 * @param parent null if not exist
+	 * @param interfacee Is Class a interface?
+	 */
 	public Class(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, boolean isAbstract, Element parent, boolean interfacee) {
 		super(architecture, name, isVariationPoint, variantType, "klass", parent);
 		setAbstract(isAbstract);

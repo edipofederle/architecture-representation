@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Concern;
@@ -20,7 +21,7 @@ import mestrado.arquitetura.representation.VariantType;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ArchitectureTest {
+public class ArchitectureTest extends TestHelper {
 	
 	private Architecture arch;
 	
@@ -125,5 +126,20 @@ public class ArchitectureTest {
 		assertEquals("Pacote", pkg.getName());
 	}
 	
+	@Test
+	public void shouldReturnAllInterfaces(){
+		arch.getElements().add(new Class(arch, "Klass1", false,  VariantType.MANDATORY, false, null, false));
+		arch.getElements().add(new Class(arch, "Interface1", false,  VariantType.MANDATORY, false, null, true));
+		arch.getElements().add(new Class(arch, "Interface2", false,  VariantType.MANDATORY, false, null, true));
+		
+		assertEquals(2,arch.getAllInterfaces().size());
+		
+		assertContains(arch.getAllInterfaces(), "Interface1", "Interface2");
+	}
+	
+	@Test
+	public void shouldReturnEmptyListWhenNoInterfaces(){
+		assertEquals(Collections.emptyList(), arch.getAllInterfaces());
+	}
 	
 }
