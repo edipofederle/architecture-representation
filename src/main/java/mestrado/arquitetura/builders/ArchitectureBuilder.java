@@ -77,7 +77,7 @@ public class ArchitectureBuilder {
 		
 		architecture.getElements().addAll(loadPackages()); // Classes que possuem pacotes são carregadas juntamente com seus pacotes
 		architecture.getElements().addAll(loadClasses()); // Classes que nao possuem pacotes
-		architecture.getVariability().addAll(loadVariability());
+		architecture.getVariabilities().addAll(loadVariability());
 		
 		architecture.getInterClassRelationships().addAll(loadInterClassRelationships());
 		architecture.getInterElementRelationships().addAll(loadInterElementRelationships());

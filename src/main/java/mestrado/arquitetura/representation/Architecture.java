@@ -26,7 +26,7 @@ public class Architecture {
 	}
 	
 	public void setName(String name) {
-		this.name = name;
+		this.name= name != null ? name : "";
 	}
 	
 	public String getName(){
@@ -73,10 +73,9 @@ public class Architecture {
 		return klasses;
 	}
 	
-	public List<Variability> getVariability() {
+	public List<Variability> getVariabilities() {
 		return variabilities;
 	}
-	
 	
 	public List<InterClassRelationship> getInterClassRelationships() {
 		return interClassRelationships;
@@ -89,11 +88,21 @@ public class Architecture {
 	//TODO refatorar para buscar todo tipo de elemento
 	public Element findElementByName(String name) {
 		List<Class> klasses = getClasses();
+		List<Package> packages = getPackages();
+		
 		for (Class klass : klasses)
-			if(name.equalsIgnoreCase(klass.getName()))
+			if(foundElement(name, klass))
 				return klass;
 		
+		for (Package package1 : packages)
+			if(foundElement(name, package1))
+				return package1;
+			
 		return null; //TODO Verifica Null
+	}
+
+	private <T> boolean foundElement(String name, Element element) {
+		return name.equalsIgnoreCase(element.getName());
 	}
 
 	public List<InterElementRelationship> getInterElementRelationships() {
