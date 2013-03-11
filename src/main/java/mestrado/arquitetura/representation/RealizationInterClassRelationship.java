@@ -1,6 +1,5 @@
 package mestrado.arquitetura.representation;
 
-import mestrado.arquitetura.builders.ClassBuilder;
 
 public class RealizationInterClassRelationship extends InterClassRelationship {
 	
@@ -8,12 +7,19 @@ public class RealizationInterClassRelationship extends InterClassRelationship {
 	private Class sourceElement;
 	private Class specificElement;
 	
-	private ClassBuilder classBuilder;
 	
-	public RealizationInterClassRelationship(ClassBuilder classBuilder, Class sourceElement, Class specificElement){
-		this.classBuilder = classBuilder;
+	public RealizationInterClassRelationship(Class sourceElement, Class specificElement, String name){
 		setSpecificElement(specificElement);
 		setSourceElement(sourceElement);
+		setName(name);
+	}
+
+	private void setName(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	private void setSourceElement(Class sourceElement) {

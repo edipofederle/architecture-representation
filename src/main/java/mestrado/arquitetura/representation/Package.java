@@ -17,6 +17,7 @@ public class Package extends Element {
 
 	private List<Element> elements = new ArrayList<Element>();
 	private final List<Class> implementedInterfaces = new ArrayList<Class>();
+	private final List<Class> requiredInterfaces = new ArrayList<Class>();
 	
 	/**
 	 * Construtor Para um Elemento do Tipo Pacote
@@ -75,5 +76,9 @@ public class Package extends Element {
 
 	public void addImplementedInterface(Class interfacee) {
 		implementedInterfaces.add(interfacee);
+	}
+
+	public void addRequiredInterface(Class interfacee) {
+		requiredInterfaces.add(interfacee);
 	}
 }

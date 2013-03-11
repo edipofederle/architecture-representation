@@ -8,13 +8,18 @@ public class Class extends Element {
 	private boolean isAbstract;
 	private final List<Attribute> attributes = new ArrayList<Attribute>();
 	private final List<Method> methods = new ArrayList<Method>();
+	private boolean interfacee;
 	
-	public Class(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, boolean isAbstract, Element parent) {
+	public Class(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, boolean isAbstract, Element parent, boolean interfacee) {
 		super(architecture, name, isVariationPoint, variantType, "klass", parent);
 		setAbstract(isAbstract);
+		setIsInterface(interfacee);
 	}
 
-	
+	private void setIsInterface(boolean interfacee2) {
+		this.interfacee = interfacee2;
+	}
+
 	public void setAttribute(Attribute attr){
 		this.attributes.add(attr);
 	}
@@ -33,6 +38,10 @@ public class Class extends Element {
 	
 	public List<Method> getMethods() {
 		return methods;
+	}
+
+	public boolean isInterface() {
+		return interfacee;
 	}
 
 	

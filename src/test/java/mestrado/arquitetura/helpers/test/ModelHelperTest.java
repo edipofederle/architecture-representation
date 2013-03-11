@@ -68,14 +68,14 @@ public class ModelHelperTest extends TestHelper {
 	@Test
 	public void shouldReturnAllPackages() throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		Package content = modelHelper.getModel(getUrlToModel("ExtendedPO2"));
-		List<Classifier> packages = modelHelper.getAllPackages(content);
+		List<Package> packages = modelHelper.getAllPackages(content);
 		assertEquals(1, packages.size());
 	}
 	
 	@Test
 	public void shouldReturnTwoClassesForAPackage() throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		Package p = modelHelper.getModel(getUrlToModel("package"));
-		List<Classifier> packages = modelHelper.getAllPackages(p);
+		List<Package> packages = modelHelper.getAllPackages(p);
 		assertEquals("Package1", ((Package)packages.get(0)).getName());
 		Package p1 = (Package) packages.get(0);
 		List<Classifier> classesForPackage = modelHelper.getAllClasses(p1);
@@ -130,7 +130,7 @@ public class ModelHelperTest extends TestHelper {
 	public void shouldBeAbastractClass() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
 		Package model = givenAModel("testArch"); // Classes estao em pacotes
 		assertNotNull(model);
-		List<Classifier> a = modelHelper.getAllPackages(model);
+		List<Package> a = modelHelper.getAllPackages(model);
 		PackageImpl p = null;
 		
 		for(int i =0; i < a.size(); i++)

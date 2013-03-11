@@ -148,7 +148,7 @@ public class StereotypeHelperTest extends TestHelper {
 		String uri = getUrlToModel("testArch");
 	
 		Package model = uml2Helper.load(uri);
-		List<Classifier> p = modelHelper.getAllPackages(model);
+		List<Package> p = modelHelper.getAllPackages(model);
 		
 		List<Classifier> c = modelHelper.getAllClasses(((Package)p.get(0)));
 		assertNotNull(c);

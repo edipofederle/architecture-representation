@@ -1,11 +1,8 @@
 package mestrado.arquitetura.builders;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
@@ -50,6 +47,7 @@ public class ArchitectureBuilder {
 	private DependencyInterClassRelationshipBuilder dependencyInterClassRelationshipBuilder;
 	private RealizationInterClassRelationshipBuilder realizationInterClassRelationshipBuilder;
 	private AbstractionInterElementRelationshipBuilder abstractionInterElementRelationshipBuilder; 
+	private DependencyComponentInterfaceRelationshipBuilder dependencyComponentInterfaceRelationshipBuilder;
 	
 	/**
 	 *  Construtor. Initializa helpers.
@@ -89,10 +87,28 @@ public class ArchitectureBuilder {
 
 	private List<? extends InterElementRelationship> loadInterElementRelationships() {
 		List<InterElementRelationship> relationships = new ArrayList<InterElementRelationship>();
-		//relationships.addAll(loadInterElementDependencies());
+		relationships.addAll(loadInterElementDependencies());
 		relationships.addAll(loadAbstractions());
 		
 		if (relationships.isEmpty()) return Collections.emptyList();
+		return relationships;
+	}
+
+	private List<? extends InterElementRelationship> loadInterElementDependencies() {
+		List<InterElementRelationship> relationships = new ArrayList<InterElementRelationship>();
+		List<Dependency> elements = modelHelper.getAllDependencies(model);
+		
+		List<Package> packages = modelHelper.getAllPackages(model);
+		
+		for (Package pack : packages)
+			if(!pack.getClientDependencies().isEmpty())
+				if(!pack.getClientDependencies().get(0).getClients().isEmpty())
+					relationships.add(dependencyComponentInterfaceRelationshipBuilder.create(pack.getClientDependencies().get(0)));
+		
+		for (Dependency dependency : elements) {
+ 			System.out.println(dependency);
+		}	
+		
 		return relationships;
 	}
 
@@ -189,7 +205,7 @@ public class ArchitectureBuilder {
 	 */
 	private List<mestrado.arquitetura.representation.Package> loadPackages() {
 		List<mestrado.arquitetura.representation.Package> packages = new ArrayList<mestrado.arquitetura.representation.Package>();
-		List<Classifier> packagess = modelHelper.getAllPackages(model);
+		List<Package> packagess = modelHelper.getAllPackages(model);
 		
 		for (NamedElement pkg : packagess)
 			packages.add(packageBuilder.create(pkg, NO_PARENT));
@@ -216,6 +232,7 @@ public class ArchitectureBuilder {
 		dependencyInterClassRelationshipBuilder = new DependencyInterClassRelationshipBuilder(classBuilder, architecture);
 		realizationInterClassRelationshipBuilder = new RealizationInterClassRelationshipBuilder(classBuilder);
 		abstractionInterElementRelationshipBuilder = new AbstractionInterElementRelationshipBuilder(packageBuilder, classBuilder);
+		dependencyComponentInterfaceRelationshipBuilder = new DependencyComponentInterfaceRelationshipBuilder(packageBuilder, classBuilder);
 	}
 	
 }

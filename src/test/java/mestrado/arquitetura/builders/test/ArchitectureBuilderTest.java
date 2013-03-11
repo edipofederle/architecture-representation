@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import mestrado.arquitetura.builders.ArchitectureBuilder;
+import mestrado.arquitetura.helpers.ModelElementHelper;
+import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.AbstractionInterElementRelationship;
 import mestrado.arquitetura.representation.Architecture;
@@ -15,6 +17,7 @@ import mestrado.arquitetura.representation.AssociationEnd;
 import mestrado.arquitetura.representation.AssociationInterClassRelationship;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Concern;
+import mestrado.arquitetura.representation.DependencyComponentInterfaceRelationship;
 import mestrado.arquitetura.representation.DependencyInterClassRelationship;
 import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.GeneralizationInterClassRelationship;
@@ -595,6 +598,25 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("Supplier should be Package1Supplier", "Package1Supplier", abstractionInterElement.getChild().getName());
 		assertEquals("Supplier should be myInterfaceClient", "myInterfaceClient", abstractionInterElement.getParent().getName());
 		//TODO somente entre pacote e interface???
+	}
+	
+	
+	@Test
+	public void shouldLoadInterElementDependency() throws Exception{
+		String uriToArchitecture8 = getUrlToModel("dependency2");
+		Architecture architecture8 = new ArchitectureBuilder().create(uriToArchitecture8);
+		
+		List<InterElementRelationship> relations = architecture8.getInterElementRelationships();
+		DependencyComponentInterfaceRelationship dependencyInterElement = (DependencyComponentInterfaceRelationship) relations.get(0);
+		
+		assertNotNull(dependencyInterElement);
+		
+		assertNotNull(dependencyInterElement.getInterface());
+		assertEquals("Class1", dependencyInterElement.getInterface().getName());
+		Class intefacee = dependencyInterElement.getInterface();
+		assertTrue(intefacee.isInterface());
+		assertNotNull(dependencyInterElement.getPackage());
+		assertEquals("Package1", dependencyInterElement.getPackage().getName());
 	}
 
 }

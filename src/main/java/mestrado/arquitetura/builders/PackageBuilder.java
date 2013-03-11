@@ -1,7 +1,6 @@
 package mestrado.arquitetura.builders;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
@@ -52,9 +51,9 @@ public class PackageBuilder extends ElementBuilder<Package> {
 		return pkg;
 	}
 	
-	private Collection<? extends Element> getNestedPackages(NamedElement modelElement, Object object) {
+	private List<? extends Element> getNestedPackages(NamedElement modelElement, Object object) {
 		List<Package> listOfPackes = new ArrayList<Package>();
-		List<Classifier> paks = modelHelper.getAllPackages(modelElement);
+		List<org.eclipse.uml2.uml.Package> paks = modelHelper.getAllPackages(modelElement);
 		
 		for (NamedElement element : paks)
 			listOfPackes.add(this.create(element, null));

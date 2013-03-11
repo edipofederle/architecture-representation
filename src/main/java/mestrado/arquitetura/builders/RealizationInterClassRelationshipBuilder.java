@@ -36,7 +36,9 @@ public class RealizationInterClassRelationshipBuilder {
 		Class sourceElement = classBuilder.getElementByXMIID(idSource);
 		Class specificElement = classBuilder.getElementByXMIID(idSpecific);
 		
-		return new RealizationInterClassRelationship(classBuilder, sourceElement, specificElement);
+		String name = realization.getName() != null ? realization.getName() : "";
+		
+		return new RealizationInterClassRelationship(sourceElement, specificElement, name);
 	}
 	
 }

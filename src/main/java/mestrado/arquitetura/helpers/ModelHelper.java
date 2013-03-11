@@ -63,7 +63,7 @@ public class ModelHelper extends ElementHelper {
 	public List<Classifier> getAllClasses(NamedElement model) {
 		List<Classifier> classes = new ArrayList<Classifier>();
 		
-		List<Classifier> pacotes  = getAllPackages(model);
+		List<Package> pacotes  = getAllPackages(model);
 		
 		classes.addAll(getClasses(model));
 		
@@ -97,7 +97,7 @@ public class ModelHelper extends ElementHelper {
 		return getAllElementsByType(model, ABSTRACTION);
 	}
 
-	public List<Classifier> getAllPackages(NamedElement model) {
+	public List<Package> getAllPackages(NamedElement model) {
 		return getAllElementsByType(model, PACKAGE);
 	}
 
@@ -182,7 +182,7 @@ public class ModelHelper extends ElementHelper {
 		List<Classifier> classes = new ArrayList<Classifier>();
 		
 		classes.addAll(getClasses(pacote));
-		List<Classifier> a = getAllPackages((Package)pacote);
+		List<Package> a = getAllPackages((Package)pacote);
 		for (int i = 0; i < a.size(); i++) 
 			classes.addAll(getAllClassesOfPackage((Package)a.get(i)));
 		
