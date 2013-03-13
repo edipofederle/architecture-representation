@@ -9,6 +9,11 @@ public class VariationPoint {
 	private final Element variationPointElement;
 	private final List<Element> variants;
 
+	/**
+	 * 
+	 * @param variationPointElement {@link Element}
+	 * @param variants {@link List}<{@link Element}>
+	 */
 	public VariationPoint(Element variationPointElement, List<Element> variants) {
 		if (variationPointElement == null)
 			throw new InvalidParameterException("A variation point must have an element");

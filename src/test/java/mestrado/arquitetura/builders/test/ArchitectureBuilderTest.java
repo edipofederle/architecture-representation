@@ -11,6 +11,7 @@ import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.AbstractionInterElementRelationship;
 import mestrado.arquitetura.representation.Architecture;
+import mestrado.arquitetura.representation.AssociationClassInterClassRelationship;
 import mestrado.arquitetura.representation.AssociationEnd;
 import mestrado.arquitetura.representation.AssociationInterClassRelationship;
 import mestrado.arquitetura.representation.Class;
@@ -106,6 +107,12 @@ public class ArchitectureBuilderTest extends TestHelper {
 	}
 	
 	@Test
+	public void shouldClassHaveNamespace(){
+		Class class1 = package1.getClasses().get(0);
+		assertNotNull(class1.getNamespace());
+	}
+	
+	@Test
 	public void shouldHaveAClassBarWithOneAttribute(){
 		 Class barKlass = package1.getClasses().get(2);
 		 assertEquals("String",barKlass.getAttributes().get(0).getType());
@@ -197,14 +204,6 @@ public class ArchitectureBuilderTest extends TestHelper {
 		Class fooKlass = architecture.getClasses().get(0);
 		
 		assertEquals(null, fooKlass.getParent());
-	}
-	
-	@Test
-	public void shouldMethodHaveAParentClass(){
-		Class class1 = package1.getClasses().get(0);
-		assertNotNull(class1.getMethods().get(0));
-		assertNotNull(class1.getParent());
-		assertEquals("Class1", class1.getMethods().get(0).getParent().getName());
 	}
 	
 	@Test
@@ -618,5 +617,46 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertNotNull(dependencyInterElement.getPackage());
 		assertEquals("Package1", dependencyInterElement.getPackage().getName());
 	}
+	
+	//AssociationClass 
+	
+	@Test
+	public void shouldLoadAssociationClassAssociation() throws Exception{
+		String uriToArchitecture8 = getUrlToModel("associationClass");
+		Architecture architecture8 = new ArchitectureBuilder().create(uriToArchitecture8);
+		
+		List<InterClassRelationship> relations = architecture8.getInterClassRelationships();
+		assertEquals(2, relations.size());
+		
+		AssociationClassInterClassRelationship associationClass = (AssociationClassInterClassRelationship) relations.get(1);
+		
+		
+		assertEquals("Should return three classes", 3, architecture8.getClasses().size());
+		assertEquals(2, associationClass.getMemebersEnd().size());
+		assertEquals("Employee", associationClass.getMemebersEnd().get(0).getName());
+		assertEquals("Class1", associationClass.getMemebersEnd().get(1).getName());
+		assertEquals("Employee", associationClass.getOwnedEnd().getName());
+		assertTrue(associationClass.getOwnedEnd() instanceof Class);
+		assertEquals("AssociationClass1", associationClass.getName());
+	}
+	
+	@Test
+	public void shouldLoadSimpleAssociationOnModelWithAssociationClassRelationship() throws Exception{
+		String uriToArchitecture8 = getUrlToModel("associationClass");
+		Architecture architecture8 = new ArchitectureBuilder().create(uriToArchitecture8);
+		
+		List<InterClassRelationship> relations = architecture8.getInterClassRelationships();
+		
+		AssociationInterClassRelationship association = (AssociationInterClassRelationship) relations.get(0);
+		
+		assertNotNull(association);
+		assertEquals(2,association.getParticipants().size());
+		assertEquals("Employee", association.getParticipants().get(0).getCLSClass().getName());
+		assertEquals("Class2", association.getParticipants().get(1).getCLSClass().getName());
+		
+	}
+	
+	
+	//AssociationClass
 
 }

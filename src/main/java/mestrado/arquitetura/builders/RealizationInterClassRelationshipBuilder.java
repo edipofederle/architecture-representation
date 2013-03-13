@@ -9,6 +9,11 @@ import mestrado.arquitetura.representation.RealizationInterClassRelationship;
 
 import org.eclipse.uml2.uml.Realization;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class RealizationInterClassRelationshipBuilder {
 
 	private ClassBuilder classBuilder;

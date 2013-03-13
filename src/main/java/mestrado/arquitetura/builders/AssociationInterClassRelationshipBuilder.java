@@ -17,6 +17,11 @@ import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Type;
 
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class AssociationInterClassRelationshipBuilder {
 	
 	private final AssociationEndBuilder associationEndBuilder;

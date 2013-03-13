@@ -10,12 +10,19 @@ import mestrado.arquitetura.representation.Package;
 import org.eclipse.uml2.uml.Abstraction;
 import org.eclipse.uml2.uml.NamedElement;
 
+/**
+ * Builder Responsável por criar relacionamentos entre Pacote e Classe.
+ * 
+ * @author edipofederle
+ *
+ */
 public class AbstractionInterElementRelationshipBuilder {
 
 	private PackageBuilder packageBuilder;
 	/*
 	 * Aqui a relação é Pacote -> interface. Mas como não temos interfaces
 	 * propriamente ditas, mas sim classes com o estereótipo <<interface>>.
+	 * 
 	 */
 	private ClassBuilder classBuilder;
 
@@ -36,6 +43,12 @@ public class AbstractionInterElementRelationshipBuilder {
 		this.classBuilder = classBuilder;
 	}
 
+	/**
+	 * Cria o elemento AbstractionInterElementRelationship
+	 * 
+	 * @param modelElement
+	 * @return
+	 */
 	public AbstractionInterElementRelationship create(Abstraction modelElement) {
 
 		NamedElement modelParent = modelElement.getSuppliers().get(0);

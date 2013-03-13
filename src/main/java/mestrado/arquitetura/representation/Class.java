@@ -14,6 +14,7 @@ public class Class extends Element {
 	private final List<Attribute> attributes = new ArrayList<Attribute>();
 	private final List<Method> methods = new ArrayList<Method>();
 	private boolean interfacee;
+	private String namespace;
 	
 	/**
 	 * 
@@ -24,11 +25,22 @@ public class Class extends Element {
 	 * @param isAbstract 
 	 * @param parent null if not exist
 	 * @param interfacee Is Class a interface?
+	 * @param packageName 
 	 */
-	public Class(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, boolean isAbstract, Element parent, boolean interfacee) {
+	public Class(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, boolean isAbstract, Element parent, boolean interfacee, String packageName) {
 		super(architecture, name, isVariationPoint, variantType, "klass", parent);
 		setAbstract(isAbstract);
 		setIsInterface(interfacee);
+		setNamespace(packageName);
+	}
+
+	private void setNamespace(String packageName) {
+		this.namespace = packageName;
+	}
+	
+
+	public String getNamespace() {
+		return namespace;
 	}
 
 	private void setIsInterface(boolean interfacee2) {
@@ -56,7 +68,7 @@ public class Class extends Element {
 	}
 	
 	/**
-	 * True se a classe é uma interface, caso contrário False.
+	 * True se a classe é uma interface. Caso contrário False.
 	 * 
 	 * Uma classe é considerada uma interface se a mesma contém o estreótipo << interface >>
 	 * 
@@ -66,5 +78,6 @@ public class Class extends Element {
 		return interfacee;
 	}
 
+	
 	
 }

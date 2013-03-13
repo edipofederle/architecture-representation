@@ -65,14 +65,17 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 			isAbstract = ((org.eclipse.uml2.uml.Classifier)modelElement).isAbstract();
 		
 		isInterface = ModelElementHelper.isInterface(modelElement);
+		String packageName = ((NamedElement)modelElement).getNamespace().getQualifiedName();
+		packageName = packageName !=null ? packageName : "";
 		
-		klass = new Class(architecture, name, isVariationPoint, variantType, isAbstract, parent,isInterface);
+		klass = new Class(architecture, name, isVariationPoint, variantType, isAbstract, parent,isInterface, packageName);
 		klass.getAttributes().addAll(getAttributes(modelElement, klass));
 		klass.getMethods().addAll(getMethods(modelElement, klass));
 		
 		return klass;
 	}
 	
+
 	/**
 	 * Retorna todos atributos de uma Class.
 	 * @param modelElement

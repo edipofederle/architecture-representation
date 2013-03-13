@@ -16,6 +16,11 @@ import mestrado.arquitetura.representation.VariationPoint;
 
 import org.eclipse.uml2.uml.Classifier;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class VariabilityBuilder {
 	
 	private Architecture architecture;

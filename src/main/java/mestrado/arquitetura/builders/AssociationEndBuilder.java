@@ -6,6 +6,12 @@ import mestrado.arquitetura.representation.Multiplicity;
 
 import org.eclipse.uml2.uml.Property;
 
+/**
+ * Representa uma AssociationEnd numa associação.
+ * 
+ * @author edipofederle
+ *
+ */
 public class AssociationEndBuilder {
 	
 

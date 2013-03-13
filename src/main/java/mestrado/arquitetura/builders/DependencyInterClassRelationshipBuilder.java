@@ -12,6 +12,11 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Dependency;
 import org.eclipse.uml2.uml.NamedElement;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class DependencyInterClassRelationshipBuilder {
 
 	private ClassBuilder classBuilder;

@@ -14,6 +14,7 @@ import mestrado.arquitetura.helpers.ModelHelperFactory;
 import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
 import mestrado.arquitetura.representation.Class;
+import mestrado.arquitetura.representation.Element;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.uml2.uml.NamedElement;
@@ -85,21 +86,13 @@ public abstract class TestHelper {
 	
 	//Custom asserts
 	
-	protected <T> void assertContains(List<T> list, String ... expected) {
-		for (T t : list) {
-			String name = "";
-			if(list.get(0) instanceof mestrado.arquitetura.representation.Package)
-				name = ((mestrado.arquitetura.representation.Package) t).getName();
-				for (String str : expected) if(str.equalsIgnoreCase(name)) return ;
-			
-			if(list.get(0) instanceof mestrado.arquitetura.representation.Class)
-				name = ((mestrado.arquitetura.representation.Class) t).getName();
-				for (String str : expected) if(str.equalsIgnoreCase(name)) return ;
-			
+	protected <T extends Element> void assertContains(List<T> list, String... expected) {
+		requiredElements: for (String requiredElementName : expected)  {
+				for (Element element : list)
+					if (requiredElementName.equalsIgnoreCase(element.getName())) continue requiredElements;
+				Assert.fail("list there is no element called " + requiredElementName);
+			}
 		}
-		Assert.fail("list there is no element called " + expected);
-	}
-	
 	protected void hasClassesNames(mestrado.arquitetura.representation.Package pkg, String ... names){
 		List<Class> klasses = pkg.getClasses();	
 		List<String> namesKlasses = new ArrayList<String>();

@@ -25,6 +25,15 @@ public class Variability {
 	private final List<VariationPoint> variationPoints = new ArrayList<VariationPoint>();
 	private final Map<String, String> attributes = new HashMap<String, String>();
 	
+	/**
+	 * 
+	 * @param name
+	 * @param minSelection
+	 * @param maxSelection
+	 * @param allowsAddingVar
+	 * @param attributes
+	 * @param elementOwner
+	 */
 	public Variability(String name, String minSelection, String maxSelection, boolean allowsAddingVar, Map<String, String> attributes, String elementOwner) {
 		setName(name);
 		setMinSelection(minSelection);

@@ -10,6 +10,11 @@ import mestrado.arquitetura.representation.InterClassRelationship;
 
 import org.eclipse.uml2.uml.Generalization;
 
+/**
+ * 
+ * @author edipofederle
+ *
+ */
 public class GeneralizationInterClassRelationshipBuilder {
 	
 	

@@ -1,7 +1,9 @@
 package mestrado.arquitetura.helpers;
 
 
+import static mestrado.arquitetura.helpers.ElementsTypes.ABSTRACTION;
 import static mestrado.arquitetura.helpers.ElementsTypes.ASSOCIATION;
+import static mestrado.arquitetura.helpers.ElementsTypes.ASSOCIATIONCLASS;
 import static mestrado.arquitetura.helpers.ElementsTypes.CLASS;
 import static mestrado.arquitetura.helpers.ElementsTypes.COMMENT;
 import static mestrado.arquitetura.helpers.ElementsTypes.DEPENDENCY;
@@ -9,7 +11,6 @@ import static mestrado.arquitetura.helpers.ElementsTypes.INTERFACE;
 import static mestrado.arquitetura.helpers.ElementsTypes.OPERATION;
 import static mestrado.arquitetura.helpers.ElementsTypes.PACKAGE;
 import static mestrado.arquitetura.helpers.ElementsTypes.REALIZATION;
-import static mestrado.arquitetura.helpers.ElementsTypes.ABSTRACTION;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.uml2.uml.Abstraction;
 import org.eclipse.uml2.uml.Association;
+import org.eclipse.uml2.uml.AssociationClass;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.Dependency;
@@ -68,11 +70,10 @@ public class ModelHelper extends ElementHelper {
 	 */
 	public List<org.eclipse.uml2.uml.Class> getAllClasses(NamedElement model) {
 		List<org.eclipse.uml2.uml.Class> classes = new ArrayList<org.eclipse.uml2.uml.Class>();
-		
 		List<Package> pacotes  = getAllPackages(model);
 		
 		classes.addAll(getClasses(model));
-		
+	
 		for (int i = 0; i < pacotes.size(); i++)
 			classes.addAll(getAllClassesOfPackage((Package)pacotes.get(i)));
 		
@@ -96,9 +97,27 @@ public class ModelHelper extends ElementHelper {
 	public List<Association> getAllAssociations(NamedElement model) {
 		return getAllElementsByType(model, ASSOCIATION);
 	}
+	
+	public List<AssociationClass> getAllAssociationsClass(NamedElement model) {
+		return getAllElementsByType(model, ASSOCIATIONCLASS);
+	}
+
 
 	public List<Dependency> getAllDependencies(NamedElement model) {
-		return getAllElementsByType(model, DEPENDENCY);
+		
+		List<Dependency> relationsDependencies = new ArrayList<Dependency>();
+		relationsDependencies = getAllElementsByType(model, DEPENDENCY);
+		List<Dependency> r = new ArrayList<Dependency>();
+		
+		List<Package> paks = getAllPackages(model);
+		for (Package pack : paks) {
+			EList<org.eclipse.uml2.uml.Element> a = pack.getOwnedElements();
+			for (org.eclipse.uml2.uml.Element element : a)
+					if(element instanceof Dependency)
+						r.add(((Dependency)element));
+		}
+		for (Dependency d : relationsDependencies)	r.add(d);
+		return r;
 	}
 	
 	public List<Abstraction> getAllAbstractions(Package model) {
@@ -207,6 +226,5 @@ public class ModelHelper extends ElementHelper {
 		if (xmiResource == null ) return null;
 		return ((XMLResource) xmiResource).getID(eObject);
 	}
-
 
 }

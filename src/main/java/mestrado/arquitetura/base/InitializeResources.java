@@ -14,7 +14,7 @@ import org.eclipse.uml2.uml.resource.XMI2UMLResource;
 import org.eclipse.uml2.uml.resources.util.UMLResourcesUtil;
 
 /**
- * inicialização dos recursos necessários.
+ * Inicialização dos recursos necessários.
  * 
  * @author edipofederle
  *

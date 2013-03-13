@@ -98,7 +98,7 @@ public abstract class Element {
 	 * @return {@link Element}
 	 */
 	public Element getParent(){
-		return this.parent != null ? this.parent : null; // Eu nao queria retorna null :(
+		return this.parent != null ? this.parent : null;
 	}
 	
 }

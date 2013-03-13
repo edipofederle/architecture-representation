@@ -7,6 +7,7 @@ import java.util.List;
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import mestrado.arquitetura.helpers.ModelElementHelper;
 import mestrado.arquitetura.helpers.ModelHelper;
 import mestrado.arquitetura.helpers.ModelHelperFactory;
 import mestrado.arquitetura.helpers.StereotypeHelper;
@@ -20,6 +21,7 @@ import mestrado.arquitetura.representation.Variability;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Abstraction;
 import org.eclipse.uml2.uml.Association;
+import org.eclipse.uml2.uml.AssociationClass;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Dependency;
 import org.eclipse.uml2.uml.Generalization;
@@ -28,7 +30,7 @@ import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Realization;
 
 /**
- * Builder resposável por criar a arquitetura.
+ * Builder responsável por criar a arquitetura.
  * 
  * @author edipofederle
  *
@@ -47,7 +49,8 @@ public class ArchitectureBuilder {
 	private DependencyInterClassRelationshipBuilder dependencyInterClassRelationshipBuilder;
 	private RealizationInterClassRelationshipBuilder realizationInterClassRelationshipBuilder;
 	private AbstractionInterElementRelationshipBuilder abstractionInterElementRelationshipBuilder; 
-	private DependencyComponentInterfaceRelationshipBuilder dependencyComponentInterfaceRelationshipBuilder;
+	private DependencyPackageInterfaceRelationshipBuilder dependencyPackageInterfaceRelationshipBuilder;
+	private AssociationClassInterClassRelationshipBuilder associationClassInterClassRelationshipBuilder;
 	
 	/**
 	 *  Construtor. Initializa helpers.
@@ -63,8 +66,25 @@ public class ArchitectureBuilder {
 	}
 	
 	/**
-	 * Cria a arquitetura.
+	 * Cria a arquitetura. Primeiramente é carregado o model (arquivo .uml), após isso é instanciado o objeto {@link Architecture}. <br/>
+	 * Feito isso, é chamado método "initialize", neste método é crializada a criação dos Builders. <br/>
 	 * 
+	 * Em seguida, é carregado as os pacotes e suas classes. Também é carrega as classes que não pertencem a pacotes. <br/>
+	 * Após isso são carregadas as variabilidade. <br/><br/>
+	 * 
+	 * InterClassRelationships </br>
+	 *  
+	 *  	<li>loadGeneralizations</li>
+	 *		<li>loadAssociations</li>
+	 *	    <li>loadInterClassDependencies</li>
+	 *	    <li>loadRealizations</li>
+	 *<br/>
+	 *
+	 *  InterElementRelationships </br>
+	 *     <li>loadInterElementDependencies</li>
+	 *	   <li>loadAbstractions</li>
+	 * 
+	 * <br><br/>
 	 * @param xmiFilePath - arquivo da arquitetura (.uml)
 	 * @return {@link Architecture}
 	 * @throws Exception
@@ -102,7 +122,9 @@ public class ArchitectureBuilder {
 		for (Package pack : packages)
 			if(!pack.getClientDependencies().isEmpty())
 				if(!pack.getClientDependencies().get(0).getClients().isEmpty())
-					relationships.add(dependencyComponentInterfaceRelationshipBuilder.create(pack.getClientDependencies().get(0)));
+					if(ModelElementHelper.isInterface(pack.getClientDependencies().get(0).getSuppliers().get(0)))
+					relationships.add(dependencyPackageInterfaceRelationshipBuilder.create(pack.getClientDependencies().get(0)));
+			
 		
 		if (relationships.isEmpty()) return Collections.emptyList();
 		return relationships;
@@ -123,11 +145,24 @@ public class ArchitectureBuilder {
 		List<InterClassRelationship> relationships = new ArrayList<InterClassRelationship>();
 		relationships.addAll(loadGeneralizations());
 		relationships.addAll(loadAssociations());
+		relationships.addAll(loadAssociationClassAssociation());
 		relationships.addAll(loadInterClassDependencies());
 		relationships.addAll(loadRealizations());
 		
 		if (relationships.isEmpty()) return Collections.emptyList();
 		return relationships;
+	}
+
+	private List<? extends InterClassRelationship> loadAssociationClassAssociation() {
+		List<InterClassRelationship> associationClasses = new ArrayList<InterClassRelationship>();
+		List<AssociationClass> associationsClass = modelHelper.getAllAssociationsClass(model);
+		
+		for (AssociationClass associationClass : associationsClass) {
+			associationClasses.add(associationClassInterClassRelationshipBuilder.create(associationClass));
+		}
+		
+		if(associationClasses.isEmpty()) return Collections.emptyList();
+		return associationClasses;
 	}
 
 	private List<? extends InterClassRelationship> loadRealizations() {
@@ -147,6 +182,8 @@ public class ArchitectureBuilder {
 		
 		for (Dependency dependency : dependencies) 
 			interClassRelationships.add(dependencyInterClassRelationshipBuilder.create(dependency));
+		
+		
 
 		if (interClassRelationships.isEmpty()) return Collections.emptyList();
 		return interClassRelationships;
@@ -231,7 +268,8 @@ public class ArchitectureBuilder {
 		dependencyInterClassRelationshipBuilder = new DependencyInterClassRelationshipBuilder(classBuilder, architecture);
 		realizationInterClassRelationshipBuilder = new RealizationInterClassRelationshipBuilder(classBuilder);
 		abstractionInterElementRelationshipBuilder = new AbstractionInterElementRelationshipBuilder(packageBuilder, classBuilder);
-		dependencyComponentInterfaceRelationshipBuilder = new DependencyComponentInterfaceRelationshipBuilder(packageBuilder, classBuilder);
+		dependencyPackageInterfaceRelationshipBuilder = new DependencyPackageInterfaceRelationshipBuilder(packageBuilder, classBuilder);
+		associationClassInterClassRelationshipBuilder = new AssociationClassInterClassRelationshipBuilder(classBuilder);
 	}
 	
 }
