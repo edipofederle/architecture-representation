@@ -25,6 +25,7 @@ import mestrado.arquitetura.representation.InterElementRelationship;
 import mestrado.arquitetura.representation.Method;
 import mestrado.arquitetura.representation.Package;
 import mestrado.arquitetura.representation.RealizationInterClassRelationship;
+import mestrado.arquitetura.representation.UsageInterClassRelationship;
 import mestrado.arquitetura.representation.Variability;
 
 import org.junit.Before;
@@ -656,7 +657,28 @@ public class ArchitectureBuilderTest extends TestHelper {
 		
 	}
 	
-	
 	//AssociationClass
+	
+	@Test
+	public void shouldLoadUsageClassBetweenClass() throws Exception{
+		
+		String uriToArchitecture8 = getUrlToModel("classUsageClass");
+		Architecture architecture8 = new ArchitectureBuilder().create(uriToArchitecture8);
+		
+		assertNotNull(architecture8);
+		
+		List<InterClassRelationship> relations = architecture8.getInterClassRelationships();
+		
+		assertNotNull(relations);
+		assertEquals(1, relations.size());
+		
+		UsageInterClassRelationship usage = (UsageInterClassRelationship) relations.get(0);
+		
+		assertNotNull(usage);
+		assertEquals("Usage1", usage.getName());
+		assertEquals("Class1", usage.getClient().getName());
+		assertEquals("Class2", usage.getSupplier().getName());
+		
+	}
 
 }

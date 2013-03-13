@@ -19,5 +19,6 @@ public class ElementsTypes {
 	public static final String REALIZATION = "realization";
 	public static final String ABSTRACTION = "abstraction";
 	public static final String ASSOCIATIONCLASS = "AssociationClass";
+	public static final String USAGE = "usage";
 
 }

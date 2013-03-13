@@ -34,7 +34,9 @@ public abstract class ElementHelper {
 		types.put("realization", UMLPackage.Literals.REALIZATION);
 		types.put("abstraction", UMLPackage.Literals.ABSTRACTION);
 		types.put("AssociationClass", UMLPackage.Literals.ASSOCIATION_CLASS);
+		types.put("usage", UMLPackage.Literals.USAGE);
 	}
+	
 	/**
 	 * Retorna todos os elemento do um dado tipo.
 	 * 

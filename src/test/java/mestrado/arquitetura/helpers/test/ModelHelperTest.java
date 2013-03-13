@@ -21,6 +21,7 @@ import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Property;
+import org.eclipse.uml2.uml.Usage;
 import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 import org.junit.Test;
@@ -73,6 +74,17 @@ public class ModelHelperTest extends TestHelper {
 	
 	}
 	
+	@Test
+	public void shouldReturnAllUsageRelationship() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+		Package content = modelHelper.getModel(getUrlToModel("classUsageClass"));
+		List<Usage> usages = modelHelper.getAllUsage(content);
+		assertEquals(1, usages.size());
+		
+		assertEquals(1, usages.get(0).getSuppliers().size());
+		assertEquals(1, usages.get(0).getClients().size());
+	}
+	
+		
 	@Test
 	public void shouldReturnAllDependency() throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		Package content = modelHelper.getModel(getUrlToModel("ExtendedPO2"));

@@ -11,6 +11,7 @@ import static mestrado.arquitetura.helpers.ElementsTypes.INTERFACE;
 import static mestrado.arquitetura.helpers.ElementsTypes.OPERATION;
 import static mestrado.arquitetura.helpers.ElementsTypes.PACKAGE;
 import static mestrado.arquitetura.helpers.ElementsTypes.REALIZATION;
+import static mestrado.arquitetura.helpers.ElementsTypes.USAGE;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Realization;
+import org.eclipse.uml2.uml.Usage;
 
 /**
  * Helper para atuar sobre um model ( arquitetura ).
@@ -92,6 +94,10 @@ public class ModelHelper extends ElementHelper {
 	
 	public List<Classifier> getAllInterfaces(NamedElement model) {
 		return getAllElementsByType(model, INTERFACE);
+	}
+	
+	public List<Usage> getAllUsage(Package model) {
+		return getAllElementsByType(model, USAGE);
 	}
 
 	public List<Association> getAllAssociations(NamedElement model) {
@@ -226,5 +232,6 @@ public class ModelHelper extends ElementHelper {
 		if (xmiResource == null ) return null;
 		return ((XMLResource) xmiResource).getID(eObject);
 	}
+
 
 }

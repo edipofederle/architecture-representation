@@ -28,6 +28,7 @@ import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Realization;
+import org.eclipse.uml2.uml.Usage;
 
 /**
  * Builder responsável por criar a arquitetura.
@@ -51,6 +52,7 @@ public class ArchitectureBuilder {
 	private AbstractionInterElementRelationshipBuilder abstractionInterElementRelationshipBuilder; 
 	private DependencyPackageInterfaceRelationshipBuilder dependencyPackageInterfaceRelationshipBuilder;
 	private AssociationClassInterClassRelationshipBuilder associationClassInterClassRelationshipBuilder;
+	private UsageInterClassRelationshipBuilder usageInterClassRelationshipBuilder;
 	
 	/**
 	 *  Construtor. Initializa helpers.
@@ -148,9 +150,22 @@ public class ArchitectureBuilder {
 		relationships.addAll(loadAssociationClassAssociation());
 		relationships.addAll(loadInterClassDependencies());
 		relationships.addAll(loadRealizations());
+		relationships.addAll(loadUsage());
 		
 		if (relationships.isEmpty()) return Collections.emptyList();
 		return relationships;
+	}
+
+	private List<? extends InterClassRelationship> loadUsage() {
+		List<InterClassRelationship> usageClass = new ArrayList<InterClassRelationship>();
+		List<Usage> usages = modelHelper.getAllUsage(model);
+		
+		for (Usage usage : usages) {
+			usageClass.add(usageInterClassRelationshipBuilder.create(usage));
+		}
+		
+		if (usageClass.isEmpty()) return Collections.emptyList();
+		return usageClass;
 	}
 
 	private List<? extends InterClassRelationship> loadAssociationClassAssociation() {
@@ -270,6 +285,7 @@ public class ArchitectureBuilder {
 		abstractionInterElementRelationshipBuilder = new AbstractionInterElementRelationshipBuilder(packageBuilder, classBuilder);
 		dependencyPackageInterfaceRelationshipBuilder = new DependencyPackageInterfaceRelationshipBuilder(packageBuilder, classBuilder);
 		associationClassInterClassRelationshipBuilder = new AssociationClassInterClassRelationshipBuilder(classBuilder);
+		usageInterClassRelationshipBuilder = new UsageInterClassRelationshipBuilder(classBuilder);
 	}
 	
 }
