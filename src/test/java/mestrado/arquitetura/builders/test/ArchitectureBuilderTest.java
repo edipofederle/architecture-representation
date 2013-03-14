@@ -637,7 +637,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertNotNull(abstractionInterElement);
 		assertEquals("Supplier should be Package1Supplier", "Package1Supplier", abstractionInterElement.getChild().getName());
 		assertEquals("Supplier should be myInterfaceClient", "myInterfaceClient", abstractionInterElement.getParent().getName());
-		//TODO somente entre pacote e interface???
+		assertTrue(abstractionInterElement.getParent().isInterface());
 	}
 	
 	@Test
