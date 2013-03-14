@@ -212,7 +212,6 @@ public class ArchitectureBuilder {
 		List<GeneralizationInterClassRelationship> a  = new ArrayList<GeneralizationInterClassRelationship>();
 		
 		for (EList<Generalization> eList : generalizations){
-			boolean flag = true;
 			teste:for (Generalization generalization : eList) {
 				String general = generalization.getGeneral().getName();
 				for (GeneralizationInterClassRelationship generalizationInterClassRelationship : a) {

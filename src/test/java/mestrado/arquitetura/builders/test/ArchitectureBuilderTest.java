@@ -29,7 +29,6 @@ import mestrado.arquitetura.representation.UsageInterClassRelationship;
 import mestrado.arquitetura.representation.Variability;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -501,10 +500,10 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertNotNull(student);
 		assertEquals("Parent", parentKlass.getName());
 		
-//		GeneralizationInterClassRelationship r = ((GeneralizationInterClassRelationship)relations.get(1));
-//		assertEquals(2,r.getChildreen().size());
-//		assertContains(r.getChildreen(), "Child1", "Child2");
-//		assertTrue("Children of " + r.getParent() + " should NOT contain Sudent Class", !r.getChildreen().contains(student));
+		GeneralizationInterClassRelationship r = ((GeneralizationInterClassRelationship)relations.get(1));
+		assertEquals(2,r.getChildreen().size());
+		assertContains(r.getChildreen(), "Child1", "Child2");
+		assertTrue("Children of " + r.getParent() + " should NOT contain Sudent Class", !r.getChildreen().contains(student));
 	}
 	
 	@Test
@@ -514,9 +513,13 @@ public class ArchitectureBuilderTest extends TestHelper {
 		
 		List<InterClassRelationship> relations = arch.getInterClassRelationships();
 		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) relations.get(0);
-		GeneralizationInterClassRelationship generalization1 = (GeneralizationInterClassRelationship) relations.get(0);
+		GeneralizationInterClassRelationship generalization1 = (GeneralizationInterClassRelationship) relations.get(1);
 		
 		assertEquals("Class1", generalization.getParent().getName());
+		assertContains(generalization.getChildreen(), "Class3", "Class2");
+		
+		assertEquals("Class2", generalization1.getParent().getName());
+		assertContains(generalization1.getChildreen(), "Class4", "Class5");
 		assertNotNull(arch);
 	}
 	
