@@ -14,6 +14,7 @@ import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Element;
+import mestrado.arquitetura.representation.GeneralizationInterClassRelationship;
 import mestrado.arquitetura.representation.InterClassRelationship;
 import mestrado.arquitetura.representation.InterElementRelationship;
 import mestrado.arquitetura.representation.Variability;
@@ -208,12 +209,37 @@ public class ArchitectureBuilder {
 		List<InterClassRelationship> interClassRelationships = new ArrayList<InterClassRelationship>();
 		List<EList<Generalization>> generalizations = modelHelper.getAllGeneralizations(model);
 		
-		for (EList<Generalization> eList : generalizations)
-			for (Generalization generalization : eList) 
+		List<GeneralizationInterClassRelationship> a  = new ArrayList<GeneralizationInterClassRelationship>();
+		
+		for (EList<Generalization> eList : generalizations){
+			boolean flag = true;
+			teste:for (Generalization generalization : eList) {
+				String general = generalization.getGeneral().getName();
+				for (GeneralizationInterClassRelationship generalizationInterClassRelationship : a) {
+					if (generalizationInterClassRelationship.getParent().getName().equalsIgnoreCase(general)){
+						int index = interClassRelationships.indexOf(generalizationInterClassRelationship);
+						GeneralizationInterClassRelationship genera = (GeneralizationInterClassRelationship) interClassRelationships.get(index);
+						String specificKlassId = modelHelper.getXmiId(generalization.getSpecific());
+						Class specificKlass = classBuilder.getElementByXMIID(specificKlassId);
+						genera.setChildreen(specificKlass);
+						continue teste;
+					}
+				}
 				interClassRelationships.add(generalizationInterClassRelationshipBuilder.create(generalization));
-
+				a = getGeneralizations(interClassRelationships);
+			}
+		}
 		if (interClassRelationships.isEmpty()) return Collections.emptyList();
 		return interClassRelationships;
+	}
+
+	private List<GeneralizationInterClassRelationship> getGeneralizations(List<InterClassRelationship> interClassRelationships) {
+		List<GeneralizationInterClassRelationship> temp = new ArrayList<GeneralizationInterClassRelationship>();
+		for (InterClassRelationship g : interClassRelationships) {
+			if(g instanceof GeneralizationInterClassRelationship)
+				temp.add(((GeneralizationInterClassRelationship)g));
+		}
+		return temp;
 	}
 
 	private List<InterClassRelationship> loadAssociations() {
@@ -279,7 +305,7 @@ public class ArchitectureBuilder {
 		variabilityBuilder = new VariabilityBuilder(architecture);
 		
 		associationInterClassRelationshipBuilder = new AssociationInterClassRelationshipBuilder(classBuilder);
-		generalizationInterClassRelationshipBuilder = new GeneralizationInterClassRelationshipBuilder(classBuilder);
+		generalizationInterClassRelationshipBuilder = new GeneralizationInterClassRelationshipBuilder(classBuilder, architecture);
 		dependencyInterClassRelationshipBuilder = new DependencyInterClassRelationshipBuilder(classBuilder, architecture);
 		realizationInterClassRelationshipBuilder = new RealizationInterClassRelationshipBuilder(classBuilder);
 		abstractionInterElementRelationshipBuilder = new AbstractionInterElementRelationshipBuilder(packageBuilder, classBuilder);

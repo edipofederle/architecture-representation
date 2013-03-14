@@ -29,6 +29,7 @@ import mestrado.arquitetura.representation.UsageInterClassRelationship;
 import mestrado.arquitetura.representation.Variability;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -437,34 +438,37 @@ public class ArchitectureBuilderTest extends TestHelper {
 		List<InterClassRelationship> relations = architecture4.getInterClassRelationships();
 		assertEquals("Should contains six classes", 6, architecture4.getClasses().size());
 		
-		assertEquals(3, architecture4.getInterClassRelationships().size());
+		assertEquals(2, architecture4.getInterClassRelationships().size());
 		
 		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) relations.get(0);
 		assertNotNull(generalization);
-		assertEquals("Student", generalization.getChild().getName());
 		assertEquals("Person", generalization.getParent().getName());
-	}
-	
-	@Test
-	public void shouldReplaceAParentClass() throws Exception{
-		
-		List<InterClassRelationship> relations = architecture4.getInterClassRelationships();
-		Element professorKlass = architecture4.findElementByName("Professor");
-		assertNotNull(professorKlass);
-		assertEquals("Professor", professorKlass.getName());
-		
-		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) relations.get(0);
-		
-		assertEquals("Student", generalization.getChild().getName());
-		generalization.replaceChild((Class) professorKlass);
-		assertEquals("Professor", generalization.getChild().getName());
-		
+		assertEquals(1,generalization.getChildreen().size());
+		assertContains(generalization.getChildreen(), "Student");
 	}
 	
 	@Test
 	public void shouldReplaceChildClass() throws Exception{
 		List<InterClassRelationship> relations = architecture4.getInterClassRelationships();
-		Element professorKlass = architecture4.findElementByName("Professor");
+		Class professorKlass = (Class) architecture4.findElementByName("Professor");
+		Class class1 = (Class) architecture4.findElementByName("Child1");
+		assertNotNull(class1);
+		
+		assertNotNull(professorKlass);
+		assertEquals("Professor", professorKlass.getName());
+		
+		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) relations.get(1);
+		
+		generalization.replaceChild(class1, professorKlass);
+		assertEquals(2,generalization.getChildreen().size());
+		assertContains(generalization.getChildreen(), "Professor", "Child2");
+	}
+	
+	
+	@Test
+	public void shouldReplaceAParentClass() throws Exception{
+		List<InterClassRelationship> relations = architecture4.getInterClassRelationships();
+		Class professorKlass = (Class) architecture4.findElementByName("Professor");
 		assertNotNull(professorKlass);
 		assertEquals("Professor", professorKlass.getName());
 		
@@ -478,10 +482,42 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void shouldLoadGeneralizationWithTwoChildreen(){
 		List<InterClassRelationship> relations = architecture4.getInterClassRelationships();
-		assertEquals(3, relations.size());
+		assertEquals(2, relations.size());
 		assertEquals("Parent", ((GeneralizationInterClassRelationship)relations.get(1)).getParent().getName());
-		assertEquals("Child1", ((GeneralizationInterClassRelationship)relations.get(1)).getChild().getName());
-		assertEquals("Child2", ((GeneralizationInterClassRelationship)relations.get(2)).getChild().getName());
+		List<Class> ch = ((GeneralizationInterClassRelationship)relations.get(1)).getChildreen();
+		assertEquals(2, ch.size());
+		assertContains(ch, "Child1", "Child2");
+	}
+	
+	@Test
+	public void givenAParentClassShouldReturnAllChildren(){
+		List<Class> classes = architecture4.getClasses();
+		assertEquals(6, classes.size());
+		List<InterClassRelationship> relations = architecture4.getInterClassRelationships();
+		
+		Element parentKlass = architecture4.findElementByName("Parent");
+		Class student = (Class) architecture4.findElementByName("Student");
+		assertNotNull(parentKlass);
+		assertNotNull(student);
+		assertEquals("Parent", parentKlass.getName());
+		
+//		GeneralizationInterClassRelationship r = ((GeneralizationInterClassRelationship)relations.get(1));
+//		assertEquals(2,r.getChildreen().size());
+//		assertContains(r.getChildreen(), "Child1", "Child2");
+//		assertTrue("Children of " + r.getParent() + " should NOT contain Sudent Class", !r.getChildreen().contains(student));
+	}
+	
+	@Test
+	public void resursiveGeneralization() throws Exception{
+		String uriToArchitecture = getUrlToModel("generalizationRecur");
+		Architecture arch = new ArchitectureBuilder().create(uriToArchitecture);
+		
+		List<InterClassRelationship> relations = arch.getInterClassRelationships();
+		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) relations.get(0);
+		GeneralizationInterClassRelationship generalization1 = (GeneralizationInterClassRelationship) relations.get(0);
+		
+		assertEquals("Class1", generalization.getParent().getName());
+		assertNotNull(arch);
 	}
 	
 	// Generalization Tests End
