@@ -47,7 +47,6 @@ public class RelationshipUsageClassPackageTest extends TestHelper {
 		
 		assertEquals("Package1", relation2.getClient().getName());
 		assertEquals("Class1", relation2.getSupplier().getName());
-		
 	}
 
 }

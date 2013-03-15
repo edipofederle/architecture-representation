@@ -539,6 +539,43 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("Dependency name should be Dependency1", "Dependency1", dependency.getName());
 	}
 	
+	/**
+	 * @see <a href="http://d.pr/i/q4QO">Modelo usado no teste (Imagem)</a> 
+	 * @throws Exception
+	 */
+	@Test
+	public void shouldLoadDependencyClassInsidePackageToClassOutsidePackage() throws Exception{
+		String uriToArchitecture2 = getUrlToModel("classPacote");
+		Architecture a = new ArchitectureBuilder().create(uriToArchitecture2);
+		
+		assertNotNull(a);
+		Class class1 = a.getAllDependencyInterClass().get(0).getClient();
+		Class class2 = a.getAllDependencyInterClass().get(0).getSupplier();
+		assertEquals("Class1", class1.getName());
+		assertEquals("Class2", class2.getName() );
+	}
+	
+
+		
+	/**
+	 * @see <a href="http://d.pr/i/uVOY">Modelo usado no teste (Imagem)</a> 
+	 * @throws Exception
+	 */
+	@Test
+	public void shouldLoadDependencyClassOutsidePackageToClassInsidePackage() throws Exception{
+		String uriToArchitecture2 = getUrlToModel("dependencyClassOutsidePackageToClassInside");
+		Architecture a = new ArchitectureBuilder().create(uriToArchitecture2);
+		
+		assertNotNull(a);
+		
+		assertEquals(1,a.getAllDependencyInterClass().size());
+		assertEquals("Class1", a.getAllDependencyInterClass().get(0).getClient().getName());
+		assertEquals("model", a.getAllDependencyInterClass().get(0).getClient().getNamespace());
+		assertEquals("Class2", a.getAllDependencyInterClass().get(0).getSupplier().getName());
+		assertEquals("model::Package1", a.getAllDependencyInterClass().get(0).getSupplier().getNamespace());
+		
+	}
+	
 	@Test
 	public void shouldDependencyNameBeEmptyWhenNull() throws Exception{
 		assertNotNull(architecture5);
