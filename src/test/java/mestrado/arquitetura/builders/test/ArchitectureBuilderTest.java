@@ -16,8 +16,8 @@ import mestrado.arquitetura.representation.AssociationEnd;
 import mestrado.arquitetura.representation.AssociationInterClassRelationship;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Concern;
-import mestrado.arquitetura.representation.DependencyComponentInterfaceRelationship;
 import mestrado.arquitetura.representation.DependencyInterClassRelationship;
+import mestrado.arquitetura.representation.DependencyPackageInterfaceRelationship;
 import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.GeneralizationInterClassRelationship;
 import mestrado.arquitetura.representation.InterClassRelationship;
@@ -437,13 +437,13 @@ public class ArchitectureBuilderTest extends TestHelper {
 		List<InterClassRelationship> relations = architecture4.getInterClassRelationships();
 		assertEquals("Should contains six classes", 6, architecture4.getClasses().size());
 		
-		assertEquals(2, architecture4.getInterClassRelationships().size());
+		assertEquals(3, architecture4.getInterClassRelationships().size());
 		
 		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) relations.get(0);
 		assertNotNull(generalization);
 		assertEquals("Person", generalization.getParent().getName());
-		assertEquals(1,generalization.getChildreen().size());
-		assertContains(generalization.getChildreen(), "Student");
+		assertEquals(1, generalization.gelAllChildrenForGeneralClass().size());
+		assertContains(generalization.gelAllChildrenForGeneralClass(), "Student");
 	}
 	
 	@Test
@@ -458,9 +458,10 @@ public class ArchitectureBuilderTest extends TestHelper {
 		
 		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) relations.get(1);
 		
-		generalization.replaceChild(class1, professorKlass);
-		assertEquals(2,generalization.getChildreen().size());
-		assertContains(generalization.getChildreen(), "Professor", "Child2");
+		assertContains(generalization.gelAllChildrenForGeneralClass(), "Child2");
+		generalization.replaceChild(professorKlass);
+		assertEquals(2,generalization.gelAllChildrenForGeneralClass().size());
+		assertContains(generalization.gelAllChildrenForGeneralClass(), "Professor", "Child2");
 	}
 	
 	
@@ -481,9 +482,9 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void shouldLoadGeneralizationWithTwoChildreen(){
 		List<InterClassRelationship> relations = architecture4.getInterClassRelationships();
-		assertEquals(2, relations.size());
+		assertEquals(3, relations.size());
 		assertEquals("Parent", ((GeneralizationInterClassRelationship)relations.get(1)).getParent().getName());
-		List<Class> ch = ((GeneralizationInterClassRelationship)relations.get(1)).getChildreen();
+		List<Class> ch = ((GeneralizationInterClassRelationship)relations.get(1)).gelAllChildrenForGeneralClass();
 		assertEquals(2, ch.size());
 		assertContains(ch, "Child1", "Child2");
 	}
@@ -501,9 +502,9 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("Parent", parentKlass.getName());
 		
 		GeneralizationInterClassRelationship r = ((GeneralizationInterClassRelationship)relations.get(1));
-		assertEquals(2,r.getChildreen().size());
-		assertContains(r.getChildreen(), "Child1", "Child2");
-		assertTrue("Children of " + r.getParent() + " should NOT contain Sudent Class", !r.getChildreen().contains(student));
+		assertEquals(2,r.gelAllChildrenForGeneralClass().size());
+		assertContains(r.gelAllChildrenForGeneralClass(), "Child1", "Child2");
+		assertTrue("Children of " + r.getParent() + " should NOT contain Sudent Class", !r.gelAllChildrenForGeneralClass().contains(student));
 	}
 	
 	@Test
@@ -513,13 +514,13 @@ public class ArchitectureBuilderTest extends TestHelper {
 		
 		List<InterClassRelationship> relations = arch.getInterClassRelationships();
 		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) relations.get(0);
-		GeneralizationInterClassRelationship generalization1 = (GeneralizationInterClassRelationship) relations.get(1);
+		GeneralizationInterClassRelationship generalization1 = (GeneralizationInterClassRelationship) relations.get(3);
 		
 		assertEquals("Class1", generalization.getParent().getName());
-		assertContains(generalization.getChildreen(), "Class3", "Class2");
+		assertContains(generalization.gelAllChildrenForGeneralClass(), "Class3", "Class2");
 		
 		assertEquals("Class2", generalization1.getParent().getName());
-		assertContains(generalization1.getChildreen(), "Class4", "Class5");
+		assertContains(generalization1.gelAllChildrenForGeneralClass(), "Class4", "Class5");
 		assertNotNull(arch);
 	}
 	
@@ -582,7 +583,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldReplaceClienteDependency() throws Exception{
+	public void shouldReplaceClientDependency() throws Exception{
 		List<InterClassRelationship> relations = architecture5.getInterClassRelationships();
 		
 		Class klass = (Class) architecture5.findElementByName("replaceClass");
@@ -646,7 +647,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 		Architecture architecture8 = new ArchitectureBuilder().create(uriToArchitecture8);
 		
 		List<InterElementRelationship> relations = architecture8.getInterElementRelationships();
-		DependencyComponentInterfaceRelationship dependencyInterElement = (DependencyComponentInterfaceRelationship) relations.get(0);
+		DependencyPackageInterfaceRelationship dependencyInterElement = (DependencyPackageInterfaceRelationship) relations.get(0);
 		
 		assertNotNull(dependencyInterElement);
 		
@@ -680,8 +681,15 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("AssociationClass1", associationClass.getName());
 	}
 	
+	/**
+	 * @see <a href="http://d.pr/i/DLKa">Modelo usado no teste</a>
+	 * 
+	 * @throws Exception
+	 */
 	@Test
 	public void shouldLoadSimpleAssociationOnModelWithAssociationClassRelationship() throws Exception{
+		
+		
 		String uriToArchitecture8 = getUrlToModel("associationClass");
 		Architecture architecture8 = new ArchitectureBuilder().create(uriToArchitecture8);
 		
@@ -697,7 +705,6 @@ public class ArchitectureBuilderTest extends TestHelper {
 	}
 	
 	//AssociationClass
-	
 	@Test
 	public void shouldLoadUsageClassBetweenClass() throws Exception{
 		
@@ -706,12 +713,12 @@ public class ArchitectureBuilderTest extends TestHelper {
 		
 		assertNotNull(architecture8);
 		
-		List<InterClassRelationship> relations = architecture8.getInterClassRelationships();
+		List<InterClassRelationship> relations2 = architecture8.getInterClassRelationships();
 		
-		assertNotNull(relations);
-		assertEquals(1, relations.size());
+		assertNotNull(relations2);
+		assertEquals(2, relations2.size());
 		
-		UsageInterClassRelationship usage = (UsageInterClassRelationship) relations.get(0);
+		UsageInterClassRelationship usage = (UsageInterClassRelationship) relations2.get(0);
 		
 		assertNotNull(usage);
 		assertEquals("Usage1", usage.getName());

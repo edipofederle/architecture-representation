@@ -5,7 +5,7 @@ import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.helpers.ModelHelper;
 import mestrado.arquitetura.helpers.ModelHelperFactory;
 import mestrado.arquitetura.representation.Class;
-import mestrado.arquitetura.representation.DependencyComponentInterfaceRelationship;
+import mestrado.arquitetura.representation.DependencyPackageInterfaceRelationship;
 import mestrado.arquitetura.representation.InterElementRelationship;
 import mestrado.arquitetura.representation.Package;
 
@@ -48,7 +48,7 @@ public class DependencyPackageInterfaceRelationshipBuilder {
 		Package client = packageBuilder.getElementByXMIID(clientId);
 		Class supplier = classBuilder.getElementByXMIID(supplierId);
 				
-		return new DependencyComponentInterfaceRelationship(supplier, client);
+		return new DependencyPackageInterfaceRelationship(supplier, client);
 	}
 
 }

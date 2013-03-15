@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
@@ -24,10 +25,14 @@ import org.junit.Test;
 public class ArchitectureTest extends TestHelper {
 	
 	private Architecture arch;
+	private Architecture architecture;
 	
 	@Before
-	public void setUp(){
+	public void setUp() throws Exception{
 		arch = new Architecture("arquitetura");
+		
+		String uriToArchitecture = getUrlToModel("generico");
+		architecture = new ArchitectureBuilder().create(uriToArchitecture);
 	}
 	
 	@Test
@@ -141,5 +146,53 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldReturnEmptyListWhenNoInterfaces(){
 		assertEquals(Collections.emptyList(), arch.getAllInterfaces());
 	}
+	
+	@Test
+	public void shouldReturnAllGeneralizations() throws Exception{
+		assertEquals(3, architecture.getInterClassRelationships().size());
+		
+		assertNotNull(architecture.getAllGeneralizations());
+		assertEquals(1, architecture.getAllGeneralizations().size());
+	}
+	
+	@Test
+	public void shouldReturnAllAssociations(){
+		assertEquals(1, architecture.getAllAssociations().size());
+	}
+	
+	@Test
+	public void shouldReturnAllUsageClassPackage(){
+		assertEquals(1, architecture.getAllUsageInterClassPackage().size());
+	}
+	
+	@Test
+	public void shouldReturnAllUsageClass() throws Exception{
+		String uriToArchitecture = getUrlToModel("classUsageClass");
+		Architecture a = new ArchitectureBuilder().create(uriToArchitecture);
+		assertEquals(2, a.getAllUsageClass().size());
+	}
+	
+	@Test
+	public void shouldReturnAllDependency() throws Exception{
+		String uriToArchitecture = getUrlToModel("dependency");
+		Architecture a = new ArchitectureBuilder().create(uriToArchitecture);
+		assertEquals(5, a.getAllDependencyInterClass().size());
+	}	
+	
+	@Test
+	public void shouldReturnAllDependencyClassPackage() throws Exception{
+		String uriToArchitecture = getUrlToModel("dependency");
+		Architecture a = new ArchitectureBuilder().create(uriToArchitecture);
+		assertEquals(5, a.getAllDependencyInterClass().size());
+	}
+	
+	@Test
+	public void teste() throws Exception{
+		String uriToArchitecture = getUrlToModel("dependency2");
+		Architecture a = new ArchitectureBuilder().create(uriToArchitecture);
+		assertEquals(1, a.getAllDependencyPackageInterface().size());
+		
+	}
+	
 	
 }

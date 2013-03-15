@@ -14,7 +14,6 @@ import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Element;
-import mestrado.arquitetura.representation.GeneralizationInterClassRelationship;
 import mestrado.arquitetura.representation.InterClassRelationship;
 import mestrado.arquitetura.representation.InterElementRelationship;
 import mestrado.arquitetura.representation.Variability;
@@ -30,6 +29,8 @@ import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Realization;
 import org.eclipse.uml2.uml.Usage;
+import org.eclipse.uml2.uml.internal.impl.ClassImpl;
+import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 
 /**
  * Builder responsável por criar a arquitetura.
@@ -54,7 +55,7 @@ public class ArchitectureBuilder {
 	private DependencyPackageInterfaceRelationshipBuilder dependencyPackageInterfaceRelationshipBuilder;
 	private AssociationClassInterClassRelationshipBuilder associationClassInterClassRelationshipBuilder;
 	private UsageInterClassRelationshipBuilder usageInterClassRelationshipBuilder;
-	
+	private UsageInterClassPackageRelationshipBuilder usageInterClassPackageRelationshipBuilder;
 	/**
 	 *  Construtor. Initializa helpers.
 	 */
@@ -151,23 +152,41 @@ public class ArchitectureBuilder {
 		relationships.addAll(loadAssociationClassAssociation());
 		relationships.addAll(loadInterClassDependencies());
 		relationships.addAll(loadRealizations());
-		relationships.addAll(loadUsage());
+		relationships.addAll(loadUsageInterClassPackage());
+		relationships.addAll(loadUsageInterClass());
 		
 		if (relationships.isEmpty()) return Collections.emptyList();
 		return relationships;
 	}
 
-	private List<? extends InterClassRelationship> loadUsage() {
+	private List<? extends InterClassRelationship> loadUsageInterClass() {
 		List<InterClassRelationship> usageClass = new ArrayList<InterClassRelationship>();
 		List<Usage> usages = modelHelper.getAllUsage(model);
-		
 		for (Usage usage : usages) {
-			usageClass.add(usageInterClassRelationshipBuilder.create(usage));
+			if((usage.getClients().get(0) instanceof ClassImpl) &&  (usage.getSuppliers().get(0) instanceof ClassImpl))
+				usageClass.add(usageInterClassRelationshipBuilder.create(usage));
 		}
 		
 		if (usageClass.isEmpty()) return Collections.emptyList();
 		return usageClass;
 	}
+
+	private List<? extends InterClassRelationship> loadUsageInterClassPackage() {
+		List<InterClassRelationship> usageClass = new ArrayList<InterClassRelationship>();
+		List<Usage> usages = modelHelper.getAllUsage(model);
+		List<Dependency> dependencies = modelHelper.getAllDependencies(model);
+		
+		for (Dependency depe : dependencies)
+			if(depe instanceof Usage )
+				usageClass.add(usageInterClassPackageRelationshipBuilder.create((Usage)depe));
+		for (Usage usage : usages)
+			if(((usage.getClients().get(0) instanceof ClassImpl)) &&  ((usage.getSuppliers().get(0) instanceof PackageImpl)))
+				usageClass.add(usageInterClassPackageRelationshipBuilder.create(usage));
+		
+		if (usageClass.isEmpty()) return Collections.emptyList();
+		return usageClass;
+	}
+
 
 	private List<? extends InterClassRelationship> loadAssociationClassAssociation() {
 		List<InterClassRelationship> associationClasses = new ArrayList<InterClassRelationship>();
@@ -197,7 +216,8 @@ public class ArchitectureBuilder {
 		List<Dependency> dependencies = modelHelper.getAllDependencies(model);
 		
 		for (Dependency dependency : dependencies) 
-			interClassRelationships.add(dependencyInterClassRelationshipBuilder.create(dependency));
+			if(!(dependency instanceof Usage))
+				interClassRelationships.add(dependencyInterClassRelationshipBuilder.create(dependency));
 		
 		
 
@@ -209,36 +229,12 @@ public class ArchitectureBuilder {
 		List<InterClassRelationship> interClassRelationships = new ArrayList<InterClassRelationship>();
 		List<EList<Generalization>> generalizations = modelHelper.getAllGeneralizations(model);
 		
-		List<GeneralizationInterClassRelationship> a  = new ArrayList<GeneralizationInterClassRelationship>();
-		
-		for (EList<Generalization> eList : generalizations){
-			teste:for (Generalization generalization : eList) {
-				String general = generalization.getGeneral().getName();
-				for (GeneralizationInterClassRelationship generalizationInterClassRelationship : a) {
-					if (generalizationInterClassRelationship.getParent().getName().equalsIgnoreCase(general)){
-						int index = interClassRelationships.indexOf(generalizationInterClassRelationship);
-						GeneralizationInterClassRelationship genera = (GeneralizationInterClassRelationship) interClassRelationships.get(index);
-						String specificKlassId = modelHelper.getXmiId(generalization.getSpecific());
-						Class specificKlass = classBuilder.getElementByXMIID(specificKlassId);
-						genera.setChildreen(specificKlass);
-						continue teste;
-					}
-				}
+		for (EList<Generalization> eList : generalizations)
+			for (Generalization generalization : eList) 
 				interClassRelationships.add(generalizationInterClassRelationshipBuilder.create(generalization));
-				a = getGeneralizations(interClassRelationships);
-			}
-		}
+		
 		if (interClassRelationships.isEmpty()) return Collections.emptyList();
 		return interClassRelationships;
-	}
-
-	private List<GeneralizationInterClassRelationship> getGeneralizations(List<InterClassRelationship> interClassRelationships) {
-		List<GeneralizationInterClassRelationship> temp = new ArrayList<GeneralizationInterClassRelationship>();
-		for (InterClassRelationship g : interClassRelationships) {
-			if(g instanceof GeneralizationInterClassRelationship)
-				temp.add(((GeneralizationInterClassRelationship)g));
-		}
-		return temp;
 	}
 
 	private List<InterClassRelationship> loadAssociations() {
@@ -311,6 +307,7 @@ public class ArchitectureBuilder {
 		dependencyPackageInterfaceRelationshipBuilder = new DependencyPackageInterfaceRelationshipBuilder(packageBuilder, classBuilder);
 		associationClassInterClassRelationshipBuilder = new AssociationClassInterClassRelationshipBuilder(classBuilder);
 		usageInterClassRelationshipBuilder = new UsageInterClassRelationshipBuilder(classBuilder);
+		usageInterClassPackageRelationshipBuilder = new UsageInterClassPackageRelationshipBuilder(classBuilder, packageBuilder);
 	}
 	
 }

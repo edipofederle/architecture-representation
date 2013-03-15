@@ -21,7 +21,6 @@ public class ModelHelperFactoryTest {
 		ModelHelper modelHelper2 = ModelHelperFactory.getModelHelper();
 		
 		assertSame(modelHelper1, modelHelper2);
-		
 	}
 
 }

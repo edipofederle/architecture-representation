@@ -78,7 +78,7 @@ public class ModelHelperTest extends TestHelper {
 	public void shouldReturnAllUsageRelationship() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
 		Package content = modelHelper.getModel(getUrlToModel("classUsageClass"));
 		List<Usage> usages = modelHelper.getAllUsage(content);
-		assertEquals(1, usages.size());
+		assertEquals(2, usages.size());
 		
 		assertEquals(1, usages.get(0).getSuppliers().size());
 		assertEquals(1, usages.get(0).getClients().size());

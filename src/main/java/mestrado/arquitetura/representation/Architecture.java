@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import mestrado.arquitetura.helpers.Predicate;
+import mestrado.arquitetura.helpers.UtilResources;
+
 /**
  * 
  * @author edipofederle
@@ -121,5 +124,84 @@ public class Architecture {
 		return klasses;
 		
 	}
+	
+	public List<GeneralizationInterClassRelationship> getAllGeneralizations(){
+		Predicate<InterClassRelationship> isAuthorized = new Predicate<InterClassRelationship>() {
+			
+			public boolean apply(InterClassRelationship parent) {
+				return GeneralizationInterClassRelationship.class.isInstance(parent);
+			}
+		};
+		
+		List<GeneralizationInterClassRelationship> authorizedUsers = UtilResources.filter(interClassRelationships, isAuthorized);
+		return authorizedUsers;
+	}
 
+
+	public List<AssociationInterClassRelationship>  getAllAssociations() {
+		Predicate<InterClassRelationship> isAuthorized = new Predicate<InterClassRelationship>() {
+
+			public boolean apply(InterClassRelationship parent) {
+				return AssociationInterClassRelationship.class.isInstance(parent);
+			}
+		};
+
+		List<AssociationInterClassRelationship> authorizedUsers = UtilResources.filter(interClassRelationships, isAuthorized);
+		return authorizedUsers;
+		
+	}
+
+	public List<UsageInterClassPackageRelationship> getAllUsageInterClassPackage() {
+		Predicate<InterClassRelationship> isAuthorized = new Predicate<InterClassRelationship>() {
+			
+			public boolean apply(InterClassRelationship parent) {
+				return UsageInterClassPackageRelationship.class.isInstance(parent);
+			}
+		};
+		
+		List<UsageInterClassPackageRelationship> authorizedUsers = UtilResources.filter(interClassRelationships, isAuthorized);
+		return authorizedUsers;
+	}
+
+	public List<UsageInterClassRelationship> getAllUsageClass() {
+		Predicate<InterClassRelationship> isAuthorized = new Predicate<InterClassRelationship>() {
+			
+			public boolean apply(InterClassRelationship parent) {
+				return UsageInterClassRelationship.class.isInstance(parent);
+			}
+		};
+		
+		List<UsageInterClassRelationship> authorizedUsers = UtilResources.filter(interClassRelationships, isAuthorized);
+		return authorizedUsers;
+	}
+
+	public List<DependencyInterClassRelationship> getAllDependencyInterClass() {
+		Predicate<InterClassRelationship> isAuthorized = new Predicate<InterClassRelationship>() {
+			
+			public boolean apply(InterClassRelationship parent) {
+				return DependencyInterClassRelationship.class.isInstance(parent);
+			}
+		};
+		
+		List<DependencyInterClassRelationship> authorizedUsers = UtilResources.filter(interClassRelationships, isAuthorized);
+		return authorizedUsers;
+	}
+	
+	public List<DependencyPackageInterfaceRelationship> getAllDependencyPackageInterface() {
+		Predicate<InterElementRelationship> isAuthorized = new Predicate<InterElementRelationship>() {
+			
+			public boolean apply(InterElementRelationship parent) {
+				return DependencyPackageInterfaceRelationship.class.isInstance(parent);
+			}
+		};
+		
+		List<DependencyPackageInterfaceRelationship> authorizedUsers = UtilResources.filter(interElementRelationships, isAuthorized);
+		return authorizedUsers;
+	}
+	
+	
+	
+	
+	
+	
 }

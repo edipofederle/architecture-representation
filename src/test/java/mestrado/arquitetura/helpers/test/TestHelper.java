@@ -21,6 +21,8 @@ import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Stereotype;
 
+
+
 /**
  * 
  * @author edipofederle
@@ -102,4 +104,5 @@ public abstract class TestHelper {
 		Assert.assertTrue(namesKlasses.containsAll(Arrays.asList(names)));
 	}
 
+	
 }

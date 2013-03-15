@@ -11,12 +11,31 @@ import java.util.List;
 public class GeneralizationInterClassRelationship extends InterClassRelationship {
 
 	private Class parent;
-	private List<Class> childreen = new ArrayList<Class>();
+	private Architecture architecture;
+	private Class child;
 	
 	public GeneralizationInterClassRelationship(Class parentClass, Class childClass, Architecture architecture) {
 		setParent(parentClass);
-		setChildreen(childClass);
+		setChild(childClass);
+		this.architecture = architecture;
 	}
+	
+
+	/**
+	 * @return the child
+	 */
+	public Class getChild() {
+		return child;
+	}
+
+	/**
+	 * @param child the child to set
+	 */
+	public void setChild(Class child) {
+		this.child = child;
+	}
+
+
 
 	public Class getParent() {
 		return parent;
@@ -26,22 +45,29 @@ public class GeneralizationInterClassRelationship extends InterClassRelationship
 		this.parent = parent;
 	}
 
-	public List<Class> getChildreen() {
+	/**
+	 * 
+	 * Método que retorna todas as classes filhas para a parent class (general)
+	 * 
+	 * @return
+	 */
+	public List<Class> gelAllChildrenForGeneralClass() {
+		List<GeneralizationInterClassRelationship> generalizations = architecture.getAllGeneralizations();
+		List<Class> childreen = new ArrayList<Class>();
+		
+		String general = this.parent.getName();
+		
+		for (GeneralizationInterClassRelationship generalization : generalizations)
+			if(generalization.getParent().getName().equalsIgnoreCase(general))
+				childreen.add(generalization.getChild());
+		
 		return childreen;
+
 	}
 
-	public void setChildreen(List<Class> childreen) {
-		this.childreen = childreen;
-	}
 
-	public void setChildreen(Class childreen) {
-		this.childreen.add(childreen);
-	}
-
-	public void replaceChild(Class newChild, Class childSubistitute){
-		int index = childreen.indexOf(newChild);
-		childreen.remove(index);
-		childreen.add(childSubistitute);
+	public void replaceChild(Class newChild){
+		this.child = newChild;
 	}
 	
 	public void replaceParent(Class parent){
