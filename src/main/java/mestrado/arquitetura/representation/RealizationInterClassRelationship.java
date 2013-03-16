@@ -8,13 +8,13 @@ package mestrado.arquitetura.representation;
 public class RealizationInterClassRelationship extends InterClassRelationship {
 	
 	private String name;
-	private Class sourceElement;
-	private Class specificElement;
+	private Element clientElement;
+	private Element supplierElement;
 	
 	
-	public RealizationInterClassRelationship(Class sourceElement, Class specificElement, String name){
-		setSpecificElement(specificElement);
-		setSourceElement(sourceElement);
+	public RealizationInterClassRelationship(Element clientElement, Element supplierElement, String name){
+		setClientElement(clientElement);
+		setSupplierElement(supplierElement);
 		setName(name);
 	}
 
@@ -26,20 +26,34 @@ public class RealizationInterClassRelationship extends InterClassRelationship {
 		return name;
 	}
 
-	private void setSourceElement(Class sourceElement) {
-		this.sourceElement = sourceElement;
+	private void setClientElement(Element clientElement) {
+		this.clientElement = clientElement;
 	}
 
-	private void setSpecificElement(Class specificElement) {
-		this.specificElement = specificElement;
+	public Element setSupplierElement() {
+		return clientElement;
 	}
 
-	public Class getSourceElement() {
-		return sourceElement;
+	/**
+	 * @return the supplierElement
+	 */
+	public Element getSupplierElement() {
+		return supplierElement;
 	}
 
-	public Class getSpecificElement() {
-		return specificElement;
+	/**
+	 * @param supplierElement the supplierElement to set
+	 */
+	public void setSupplierElement(Element supplierElement) {
+		this.supplierElement = supplierElement;
 	}
+
+	/**
+	 * @return the clientElement
+	 */
+	public Element getClientElement() {
+		return clientElement;
+	}
+	
 	
 }

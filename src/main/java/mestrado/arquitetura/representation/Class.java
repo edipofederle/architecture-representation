@@ -22,13 +22,14 @@ public class Class extends Element {
 	 * @param name
 	 * @param isVariationPoint
 	 * @param variantType
-	 * @param isAbstract 
-	 * @param parent null if not exist
-	 * @param interfacee Is Class a interface?
-	 * @param packageName 
+	 * @param isAbstract
+	 * @param parent
+	 * @param interfacee
+	 * @param packageName
+	 * @param namespace
 	 */
-	public Class(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, boolean isAbstract, Element parent, boolean interfacee, String packageName) {
-		super(architecture, name, isVariationPoint, variantType, "klass", parent);
+	public Class(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, boolean isAbstract, Element parent, boolean interfacee, String packageName, String namespace) {
+		super(architecture, name, isVariationPoint, variantType, "klass", parent, namespace);
 		setAbstract(isAbstract);
 		setIsInterface(interfacee);
 		setNamespace(packageName);

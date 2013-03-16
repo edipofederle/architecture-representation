@@ -40,6 +40,7 @@ import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Realization;
 import org.eclipse.uml2.uml.Usage;
+import org.eclipse.uml2.uml.internal.impl.DependencyImpl;
 
 /**
  * Helper para atuar sobre um model ( arquitetura ).
@@ -109,7 +110,7 @@ public class ModelHelper extends ElementHelper {
 	}
 
 
-	public List<Dependency> getAllDependencies(NamedElement model) {
+	private List<Dependency> getDependencies(NamedElement model) {
 		
 		List<Dependency> relationsDependencies = new ArrayList<Dependency>();
 		relationsDependencies = getAllElementsByType(model, DEPENDENCY);
@@ -120,11 +121,25 @@ public class ModelHelper extends ElementHelper {
 			EList<org.eclipse.uml2.uml.Element> a = pack.getOwnedElements();
 			for (org.eclipse.uml2.uml.Element element : a)
 					if(element instanceof Dependency)
-						r.add(((Dependency)element));
+						r.add(((Dependency) element));
 		}
-		for (Dependency d : relationsDependencies)	r.add(d);
+		for (Dependency d : relationsDependencies){
+				r.add(d);
+		}
 		return r;
 	}
+	
+
+	public List<Dependency> getAllDependencies(Package model) {
+		List<Dependency> dependencies = getDependencies(model);
+		List<Dependency> allDependencies = new ArrayList<Dependency>();
+		for (Dependency dependency : dependencies) {
+			if(dependency.getClass().equals(DependencyImpl.class))
+				allDependencies.add(dependency);
+		}
+		return allDependencies;
+	}
+
 	
 	public List<Abstraction> getAllAbstractions(Package model) {
 		return getAllElementsByType(model, ABSTRACTION);
@@ -138,8 +153,21 @@ public class ModelHelper extends ElementHelper {
 		return getAllElementsByType(model, COMMENT);
 	}
 	
-	public List<Realization> loadRealizations(Package model) {
-		return getAllElementsByType(model, REALIZATION);
+	public List<Realization> getAllRealizations(Package model) {
+		List<Realization> realizations = new ArrayList<Realization>();
+		List<Dependency> dependencies = getDependencies(model);
+		
+		
+		for (Dependency dependency : dependencies) {
+			if(dependency instanceof Realization){
+				realizations.add(((Realization)dependency));
+			}
+		}
+		
+		for(Object  r : getAllElementsByType(model, REALIZATION) )
+			realizations.add((Realization)r);
+		
+		return realizations;
 	}
 
 	public List<EList<Generalization>> getAllGeneralizations(NamedElement model) {
@@ -232,6 +260,5 @@ public class ModelHelper extends ElementHelper {
 		if (xmiResource == null ) return null;
 		return ((XMLResource) xmiResource).getID(eObject);
 	}
-
 
 }

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import junitx.framework.Assert;
+import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
@@ -13,6 +14,7 @@ import mestrado.arquitetura.helpers.ModelHelper;
 import mestrado.arquitetura.helpers.ModelHelperFactory;
 import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
+import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Element;
 
@@ -84,6 +86,12 @@ public abstract class TestHelper {
 	public static Stereotype getStereotypeByName(String name) throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		Package perfil = givenAModel("smartyProfile");
 		return  perfil.getOwnedStereotype(name);
+	}
+	
+	protected Architecture givenAArchitecture(String name) throws Exception {
+		String uriToArchitecture6 = getUrlToModel(name);
+		Architecture architecture6 = new ArchitectureBuilder().create(uriToArchitecture6);
+		return architecture6;
 	}
 	
 	//Custom asserts

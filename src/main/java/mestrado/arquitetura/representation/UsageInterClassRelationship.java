@@ -3,10 +3,10 @@ package mestrado.arquitetura.representation;
 public class UsageInterClassRelationship extends InterClassRelationship {
 	
 	private String name;
-	private Class supplier;
-	private Class client;
+	private Element supplier;
+	private Element client;
 	
-	public UsageInterClassRelationship(String name, Class supplier, Class client) {
+	public UsageInterClassRelationship(String name, Element supplier, Element client) {
 		super();
 		this.name = name;
 		this.supplier = supplier;
@@ -19,13 +19,13 @@ public class UsageInterClassRelationship extends InterClassRelationship {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Class getSupplier() {
+	public Element getSupplier() {
 		return supplier;
 	}
-	public void setSupplier(Class supplier) {
+	public void setSupplier(Element supplier) {
 		this.supplier = supplier;
 	}
-	public Class getClient() {
+	public Element getClient() {
 		return client;
 	}
 	public void setClient(Class client) {

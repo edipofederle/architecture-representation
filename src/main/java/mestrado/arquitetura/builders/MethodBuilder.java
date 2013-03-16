@@ -42,8 +42,10 @@ public class MethodBuilder extends ElementBuilder<Method> {
 		EList<Parameter> params = method.getOwnedParameters();
 		for (Parameter parameter : params)
 			parameterMethodReceives.add(new ParameterMethod(parameter.getName(), parameter.getType().getName()));
+		
+		String namespace = modelElement.getNamespace().getQualifiedName();
 			
-		Method m = new Method(architecture, name, isVariationPoint, variantType, type, isAbstract, parameterMethodReceives, parent);
+		Method m = new Method(architecture, name, isVariationPoint, variantType, type, isAbstract, parameterMethodReceives, parent, namespace);
 		
 		return m;
 	}

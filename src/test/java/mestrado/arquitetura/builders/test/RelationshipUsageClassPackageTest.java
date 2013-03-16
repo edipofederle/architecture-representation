@@ -9,7 +9,7 @@ import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.InterClassRelationship;
-import mestrado.arquitetura.representation.UsageInterClassPackageRelationship;
+import mestrado.arquitetura.representation.UsageInterClassRelationship;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class RelationshipUsageClassPackageTest extends TestHelper {
 	@Test
 	public void shouldLoadUsageInterClassPackage() throws Exception{
 		assertNotNull(architecture);
-		UsageInterClassPackageRelationship relation = (UsageInterClassPackageRelationship)relations.get(0);
+		UsageInterClassRelationship relation = (UsageInterClassRelationship)relations.get(0);
 		assertNotNull(relation);
 		
 		assertEquals("Class1", relation.getClient().getName());
@@ -42,7 +42,7 @@ public class RelationshipUsageClassPackageTest extends TestHelper {
 		String uriToArchitecture = getUrlToModel("PackageClassUsage");
 		Architecture architecture2 = new ArchitectureBuilder().create(uriToArchitecture);
 		List<InterClassRelationship> relations2 = architecture2.getInterClassRelationships();
-		UsageInterClassPackageRelationship relation2 = (UsageInterClassPackageRelationship)relations2.get(0);
+		UsageInterClassRelationship relation2 = (UsageInterClassRelationship)relations2.get(0);
 		assertNotNull(relations2);
 		
 		assertEquals("Package1", relation2.getClient().getName());

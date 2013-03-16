@@ -14,8 +14,8 @@ public class Method extends Element{
 	private final List<ParameterMethod> parameters = new ArrayList<ParameterMethod>();
 	private boolean isAbstract;
 
-	public Method(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, Element parent) {
-		super(architecture, name, isVariationPoint, variantType, "method", parent);
+	public Method(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, Element parent, String namespace) {
+		super(architecture, name, isVariationPoint, variantType, "method", parent, namespace);
 		setReturnType(returnType);
 		setAbstract(isAbstract);
 		setParams(paramsMethod);
@@ -25,8 +25,8 @@ public class Method extends Element{
 		parameters.addAll(paramsMethod);
 	}
 
-	public Method(Architecture architecture, String name, Boolean isVariationPoint, VariantType variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, Element parent) {
-		this(architecture, name, false, VariantType.NONE, returnType, isAbstract, paramsMethod, parent);
+	public Method(Architecture architecture, String name, Boolean isVariationPoint, VariantType variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, Element parent, String namespace) {
+		this(architecture, name, false, VariantType.NONE, returnType, isAbstract, paramsMethod, parent, namespace);
 	}
 
 	public void setAbstract(boolean isAbstract) {

@@ -49,7 +49,6 @@ public class UsageInterClassPackageRelationshipBuilder {
 			supplier = classBuilder.getElementByXMIID(modelHelper.getXmiId(suppliers.get(0)));
 		}
 
-		return new UsageInterClassPackageRelationship(element.getName(),
-				supplier, client);
+		return new UsageInterClassPackageRelationship(element.getName(),supplier, client);
 	}
 }

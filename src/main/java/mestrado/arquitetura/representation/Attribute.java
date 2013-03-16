@@ -10,13 +10,13 @@ public class Attribute extends Element {
 
 	private String type;
 
-	public Attribute(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String type,  Element parent) {
-		super(architecture, name, isVariationPoint, variantType, "attribute", parent);
+	public Attribute(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String type,  Element parent, String namesapce) {
+		super(architecture, name, isVariationPoint, variantType, "attribute", parent, namesapce);
 		setType(type);
 	}
 
-	public Attribute(Architecture architecture, String name, String type, Element parent) {
-		this(architecture, name, false, VariantType.NONE, type, parent);
+	public Attribute(Architecture architecture, String name, String type, Element parent, String namespace) {
+		this(architecture, name, false, VariantType.NONE, type, parent, namespace);
 	}
 
 	public String getType() {

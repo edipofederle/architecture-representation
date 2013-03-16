@@ -4,7 +4,7 @@ import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.helpers.ModelHelper;
 import mestrado.arquitetura.helpers.ModelHelperFactory;
-import mestrado.arquitetura.representation.Class;
+import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.RealizationInterClassRelationship;
 
 import org.eclipse.uml2.uml.Realization;
@@ -17,6 +17,7 @@ import org.eclipse.uml2.uml.Realization;
 public class RealizationInterClassRelationshipBuilder {
 
 	private ClassBuilder classBuilder;
+	private PackageBuilder packageBuilder;
 	private static ModelHelper modelHelper;
 	
 	static {
@@ -29,21 +30,31 @@ public class RealizationInterClassRelationshipBuilder {
 		}
 	}
 
-	public RealizationInterClassRelationshipBuilder(ClassBuilder classBuilder) {
+	public RealizationInterClassRelationshipBuilder(ClassBuilder classBuilder, PackageBuilder packageBuilder) {
 		this.classBuilder = classBuilder;
+		this.packageBuilder = packageBuilder;
 	}
 
 	public RealizationInterClassRelationship create(Realization realization) {
 		
-		String idSource = modelHelper.getXmiId(realization.getSources().get(0));
-		String idSpecific = modelHelper.getXmiId(realization.getSuppliers().get(0));
+		String idClient = modelHelper.getXmiId(realization.getClients().get(0));
+		String idSupplier = modelHelper.getXmiId(realization.getSuppliers().get(0));
 		
-		Class sourceElement = classBuilder.getElementByXMIID(idSource);
-		Class specificElement = classBuilder.getElementByXMIID(idSpecific);
+		Element clientElement;
+		Element supplierElement;
+		
+		clientElement = classBuilder.getElementByXMIID(idClient);
+		supplierElement = classBuilder.getElementByXMIID(idSupplier);
+		
+		if( (supplierElement == null) && (clientElement != null)){
+			supplierElement = packageBuilder.getElementByXMIID(idSupplier);
+		}else if((clientElement == null) && (supplierElement != null)){
+			clientElement = packageBuilder.getElementByXMIID(idClient);
+		}
 		
 		String name = realization.getName() != null ? realization.getName() : "";
 		
-		return new RealizationInterClassRelationship(sourceElement, specificElement, name);
+		return new RealizationInterClassRelationship(clientElement, supplierElement, name);
 	}
 	
 }

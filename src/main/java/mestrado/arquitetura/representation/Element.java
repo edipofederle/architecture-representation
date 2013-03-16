@@ -18,14 +18,20 @@ public abstract class Element {
 	private Architecture architecture;
 	private String typeElement;
 	private Element parent;
+	private String namespace;
 	
-	public Element(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String typeString, Element parent) {
+	public Element(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String typeString, Element parent, String namespace) {
 		setArchitecture(architecture);
 		setName(name);
 		setIsVariationPoint(isVariationPoint);
 		setVariantType(variantType);
 		setTypeElement(typeString);
 		setParent(parent);
+		setNamespace(namespace);
+	}
+
+	private void setNamespace(String namespace) {
+		this.namespace = namespace;
 	}
 
 	private void setParent(Element parent) {
@@ -100,5 +106,13 @@ public abstract class Element {
 	public Element getParent(){
 		return this.parent != null ? this.parent : null;
 	}
+
+	/**
+	 * @return the namespace
+	 */
+	public String getNamespace() {
+		return namespace;
+	}
+
 	
 }

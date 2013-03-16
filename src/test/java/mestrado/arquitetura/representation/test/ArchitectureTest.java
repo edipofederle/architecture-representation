@@ -66,7 +66,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllPackages(){
-		Package pkg = new Package(arch, "Pacote", false, VariantType.MANDATORY, null);
+		Package pkg = new Package(arch, "Pacote", false, VariantType.MANDATORY, null, "");
 		arch.getElements().add(pkg);
 		
 		assertEquals(1, arch.getPackages().size());
@@ -80,7 +80,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllClasses(){
-		Class klass = new Class(arch, "Klass", false,  VariantType.MANDATORY, false, null, false, "namespace");
+		Class klass = new Class(arch, "Klass", false,  VariantType.MANDATORY, false, null, false, "namespace", "");
 		arch.getElements().add(klass);
 		
 		assertEquals(1, arch.getClasses().size());
@@ -115,7 +115,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnElementClassByName(){
-		arch.getElements().add(new Class(arch, "Klass", false,  VariantType.MANDATORY, false, null, false, "namespace"));
+		arch.getElements().add(new Class(arch, "Klass", false,  VariantType.MANDATORY, false, null, false, "namespace", ""));
 		Element klass = arch.findElementByName("klass");
 		
 		assertNotNull(klass);
@@ -124,7 +124,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnElementPackageByName(){
-		arch.getElements().add( new Package(arch, "Pacote", false, VariantType.MANDATORY, null));
+		arch.getElements().add( new Package(arch, "Pacote", false, VariantType.MANDATORY, null, ""));
 		Element pkg = arch.findElementByName("Pacote");
 		
 		assertNotNull(pkg);
@@ -133,9 +133,9 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllInterfaces(){
-		arch.getElements().add(new Class(arch, "Klass1", false,  VariantType.MANDATORY, false, null, false, "namespace"));
-		arch.getElements().add(new Class(arch, "Interface1", false,  VariantType.MANDATORY, false, null, true, "namespace"));
-		arch.getElements().add(new Class(arch, "Interface2", false,  VariantType.MANDATORY, false, null, true, "namespace"));
+		arch.getElements().add(new Class(arch, "Klass1", false,  VariantType.MANDATORY, false, null, false, "namespace", ""));
+		arch.getElements().add(new Class(arch, "Interface1", false,  VariantType.MANDATORY, false, null, true, "namespace", ""));
+		arch.getElements().add(new Class(arch, "Interface2", false,  VariantType.MANDATORY, false, null, true, "namespace", ""));
 		
 		assertEquals(2,arch.getAllInterfaces().size());
 		
@@ -162,15 +162,9 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllUsageClassPackage(){
-		assertEquals(1, architecture.getAllUsageInterClassPackage().size());
+		assertEquals(1, architecture.getAllUsage().size());
 	}
 	
-	@Test
-	public void shouldReturnAllUsageClass() throws Exception{
-		String uriToArchitecture = getUrlToModel("classUsageClass");
-		Architecture a = new ArchitectureBuilder().create(uriToArchitecture);
-		assertEquals(2, a.getAllUsageClass().size());
-	}
 	
 	@Test
 	public void shouldReturnAllDependency() throws Exception{

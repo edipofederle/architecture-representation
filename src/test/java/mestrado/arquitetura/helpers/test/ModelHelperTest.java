@@ -182,4 +182,13 @@ public class ModelHelperTest extends TestHelper {
 		assertEquals(6, modelHelper.getAllClasses(model).size());
 	}
 	
+	@Test
+	public void testRecursividade() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+		Package model = givenAModel("realizationPackageClass");
+		
+		assertEquals(0,modelHelper.getAllDependencies(model).size());
+		assertEquals(1, modelHelper.getAllRealizations(model).size());
+		
+	}
+	
 }

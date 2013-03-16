@@ -68,7 +68,9 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 		String packageName = ((NamedElement)modelElement).getNamespace().getQualifiedName();
 		packageName = packageName !=null ? packageName : "";
 		
-		klass = new Class(architecture, name, isVariationPoint, variantType, isAbstract, parent,isInterface, packageName);
+		String namesapce = modelElement.getNamespace().getQualifiedName();
+		
+		klass = new Class(architecture, name, isVariationPoint, variantType, isAbstract, parent,isInterface, packageName, namesapce);
 		klass.getAttributes().addAll(getAttributes(modelElement, klass));
 		klass.getMethods().addAll(getMethods(modelElement, klass));
 		
