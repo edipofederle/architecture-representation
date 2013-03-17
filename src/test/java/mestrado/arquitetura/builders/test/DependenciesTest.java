@@ -3,6 +3,9 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
@@ -13,11 +16,16 @@ import mestrado.arquitetura.representation.Element;
 import org.junit.Before;
 import org.junit.Test;
 
+
+/**
+ * @see <a href="https://dl.dropbox.com/u/6730822/d3.png"> Modelo (arch) usado nos testes</a>
+ */
 public class DependenciesTest extends TestHelper {
 	
 	
+
 	private Architecture arch;
-	
+
 	@Before
 	public void setUp() throws Exception{
 		arch = givenAArchitecture("dependency");
@@ -134,11 +142,15 @@ public class DependenciesTest extends TestHelper {
 		assertEquals("replaceClass", dependency.getSupplier().getName());
 	}
 	
+	
+	/**
+	 * @see <a href="https://dl.dropbox.com/u/6730822/dependencyPcakgeClass.png">Modelo usado no teste (Imagem)</a>
+	 * @throws Exception
+	 */
 	@Test
 	public void shouldLoadInterElementDependency() throws Exception {
 		String uriToArchitecture8 = getUrlToModel("dependency2");
-		Architecture architecture8 = new ArchitectureBuilder()
-				.create(uriToArchitecture8);
+		Architecture architecture8 = new ArchitectureBuilder().create(uriToArchitecture8);
 
 		DependencyInterClassRelationship dependencyInterElement = architecture8.getAllDependencyInterClass().get(0);
 
@@ -152,8 +164,10 @@ public class DependenciesTest extends TestHelper {
 	}
 
 	
-
-	
+	/**
+	 * @see <a href="https://dl.dropbox.com/u/6730822/d2.png>Modelo usado no teste (Imagem)</a>
+	 * @throws Exception
+	 */
 	@Test
 	public void shouldLoadDependencyClassPackage() throws Exception{
 		Architecture a = givenAArchitecture("classPackageDependency");
@@ -161,11 +175,22 @@ public class DependenciesTest extends TestHelper {
 		DependencyInterClassRelationship dependencyInterElement = a.getAllDependencyInterClass().get(0);
 
 		assertNotNull(dependencyInterElement);
-		
 		assertEquals("Class2", dependencyInterElement.getClient().getName());
 		assertEquals("Package1", dependencyInterElement.getSupplier().getName());
+	}
+	
+	@Test
+	public void shouldLoadDependencyPackagePackage() throws Exception{
+		Architecture a = givenAArchitecture("dependencyPackagePackage");
+		
+		
+		List<DependencyInterClassRelationship> dependency = a.getAllDependencyInterClass();
+
+		assertNotNull(dependency);
+		assertEquals(1, dependency.size());
+		assertEquals("Package1", dependency.get(0).getClient().getName());
 		
 	}
-
+	
 
 }

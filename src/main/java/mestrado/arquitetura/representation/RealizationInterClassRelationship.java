@@ -8,52 +8,64 @@ package mestrado.arquitetura.representation;
 public class RealizationInterClassRelationship extends InterClassRelationship {
 	
 	private String name;
-	private Element clientElement;
-	private Element supplierElement;
+	private Element client;
+	private Element supplier;
 	
 	
-	public RealizationInterClassRelationship(Element clientElement, Element supplierElement, String name){
-		setClientElement(clientElement);
-		setSupplierElement(supplierElement);
+	public RealizationInterClassRelationship(Element client, Element supplier, String name){
+		setClient(client);
+		setSupplier(supplier);
 		setName(name);
 	}
 
-	private void setName(String name) {
-		this.name = name;
-	}
 
+	/**
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
-	private void setClientElement(Element clientElement) {
-		this.clientElement = clientElement;
-	}
-
-	public Element setSupplierElement() {
-		return clientElement;
-	}
 
 	/**
-	 * @return the supplierElement
+	 * @param name the name to set
 	 */
-	public Element getSupplierElement() {
-		return supplierElement;
+	private void setName(String name) {
+		this.name = name;
 	}
 
-	/**
-	 * @param supplierElement the supplierElement to set
-	 */
-	public void setSupplierElement(Element supplierElement) {
-		this.supplierElement = supplierElement;
-	}
 
 	/**
-	 * @return the clientElement
+	 * @return the client
 	 */
-	public Element getClientElement() {
-		return clientElement;
+	public Element getClient() {
+		return client;
 	}
-	
+
+
+	/**
+	 * @param client the client to set
+	 */
+	private void setClient(Element client) {
+		this.client = client;
+	}
+
+
+	/**
+	 * @return the supplier
+	 */
+	public Element getSupplier() {
+		return supplier;
+	}
+
+
+	/**
+	 * @param supplier the supplier to set
+	 */
+	private void setSupplier(Element supplier) {
+		this.supplier = supplier;
+	}
+
+
 	
 }

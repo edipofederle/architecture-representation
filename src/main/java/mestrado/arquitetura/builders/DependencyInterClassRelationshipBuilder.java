@@ -55,6 +55,9 @@ public class DependencyInterClassRelationshipBuilder {
 			client = packageBuilder.getElementByXMIID(modelHelper.getXmiId(clieents.get(0)));;
 		}else if ((supplier == null) && (client != null)){
 			supplier = packageBuilder.getElementByXMIID(modelHelper.getXmiId(suppliers.get(0)));;
+		}else if((supplier == null) && (client == null)){
+			client = packageBuilder.getElementByXMIID(modelHelper.getXmiId(clieents.get(0)));
+			supplier = packageBuilder.getElementByXMIID(modelHelper.getXmiId(suppliers.get(0)));
 		}
 		
 		return new DependencyInterClassRelationship(supplier, client, element.getName(), architecture);

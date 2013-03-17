@@ -50,6 +50,9 @@ public class RealizationInterClassRelationshipBuilder {
 			supplierElement = packageBuilder.getElementByXMIID(idSupplier);
 		}else if((clientElement == null) && (supplierElement != null)){
 			clientElement = packageBuilder.getElementByXMIID(idClient);
+		}else if((clientElement == null) && (supplierElement == null)){
+			clientElement = packageBuilder.getElementByXMIID(idClient);
+			supplierElement = packageBuilder.getElementByXMIID(idSupplier);
 		}
 		
 		String name = realization.getName() != null ? realization.getName() : "";
