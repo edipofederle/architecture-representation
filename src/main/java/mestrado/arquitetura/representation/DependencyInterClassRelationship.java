@@ -11,12 +11,12 @@ import java.util.List;
  */
 public class DependencyInterClassRelationship extends InterClassRelationship {
 
-	private Class client;
-	private Class supplier;
+	private Element client;
+	private Element supplier;
 	private Architecture architecture;
 	String  name;
 	
-	public DependencyInterClassRelationship(Class supplier, Class client, String name, Architecture architecture) {
+	public DependencyInterClassRelationship(Element supplier, Element client, String name, Architecture architecture) {
 		setSupplier(supplier);
 		setClient(client);
 		setName(name);
@@ -27,27 +27,27 @@ public class DependencyInterClassRelationship extends InterClassRelationship {
 		this.name = name;
 	}
 
-	public Class getClient() {
+	public Element getClient() {
 		return client;
 	}
 
-	private void setClient(Class client) {
+	private void setClient(Element client) {
 		this.client = client;
 	}
 
-	public Class getSupplier() {
+	public Element getSupplier() {
 		return supplier;
 	}
 
-	private void setSupplier(Class supplier) {
+	private void setSupplier(Element supplier) {
 		this.supplier = supplier;
 	}
 	
-	public void replaceSupplier(Class supplier){
+	public void replaceSupplier(Element supplier){
 		setSupplier(supplier);
 	}
 	
-	public void replaceClient(Class client){
+	public void replaceClient(Element client){
 		setClient (client);
 	}
 
@@ -69,7 +69,7 @@ public class DependencyInterClassRelationship extends InterClassRelationship {
 	 * 
 	 * @return
 	 */
-	public List<Class> getAllClientsForSupplierClass() {
+	public List<Element> getAllClientsForSupplierClass() {
 	 return getClassesForSpecificTypePartOfDependency("client");
 	}
 
@@ -78,15 +78,15 @@ public class DependencyInterClassRelationship extends InterClassRelationship {
 	 * 
 	 * @return
 	 */
-	public List<Class> getAllSuppliersForClientClass() {
+	public List<Element> getAllSuppliersForClientClass() {
 		return getClassesForSpecificTypePartOfDependency("supplier");
 	}
 
-	private List<Class> getClassesForSpecificTypePartOfDependency(String type) {
+	private List<Element> getClassesForSpecificTypePartOfDependency(String type) {
 		List<InterClassRelationship> relations = architecture.getInterClassRelationships();
 		List<DependencyInterClassRelationship> dependencies = new ArrayList<DependencyInterClassRelationship>();
 		
-		List<Class> dependenciesTemp = new ArrayList<Class>();
+		List<Element> dependenciesTemp = new ArrayList<Element>();
 		
 		for (InterClassRelationship interClassRelationship : relations)
 			if(interClassRelationship instanceof DependencyInterClassRelationship)

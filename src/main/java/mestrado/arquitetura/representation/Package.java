@@ -16,8 +16,8 @@ import java.util.List;
 public class Package extends Element {
 
 	private List<Element> elements = new ArrayList<Element>();
-	private final List<Class> implementedInterfaces = new ArrayList<Class>();
-	private final List<Class> requiredInterfaces = new ArrayList<Class>();
+	private final List<Element> implementedInterfaces = new ArrayList<Element>();
+	private final List<Element> requiredInterfaces = new ArrayList<Element>();
 	
 	/**
 	 * Construtor Para um Elemento do Tipo Pacote
@@ -29,7 +29,7 @@ public class Package extends Element {
 	 * @param parent - Qual o {@link Element} pai
 	 */
 	public Package(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, Element parent, String namespace) {
-		super(architecture, name, isVariationPoint, variantType, "package", parent, namespace);
+		super(architecture, name, isVariationPoint, variantType, "package", parent, namespace, false);
 	}
 	
 	/**
@@ -74,7 +74,7 @@ public class Package extends Element {
 		return paks;
 	}
 
-	public void addImplementedInterface(Class interfacee) {
+	public void addImplementedInterface(Element interfacee) {
 		implementedInterfaces.add(interfacee);
 	}
 

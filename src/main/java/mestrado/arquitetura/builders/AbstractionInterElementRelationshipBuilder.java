@@ -4,7 +4,7 @@ import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.helpers.ModelHelper;
 import mestrado.arquitetura.helpers.ModelHelperFactory;
-import mestrado.arquitetura.representation.AbstractionInterElementRelationship;
+import mestrado.arquitetura.representation.AbstractionRelationship;
 import mestrado.arquitetura.representation.Package;
 
 import org.eclipse.uml2.uml.Abstraction;
@@ -49,7 +49,7 @@ public class AbstractionInterElementRelationshipBuilder {
 	 * @param modelElement
 	 * @return
 	 */
-	public AbstractionInterElementRelationship create(Abstraction modelElement) {
+	public AbstractionRelationship create(Abstraction modelElement) {
 
 		NamedElement modelParent = modelElement.getSuppliers().get(0);
 		NamedElement modelChild = modelElement.getClients().get(0);
@@ -57,7 +57,7 @@ public class AbstractionInterElementRelationshipBuilder {
 		mestrado.arquitetura.representation.Class parent = classBuilder.getElementByXMIID(modelHelper.getXmiId(modelChild));
 		Package child = packageBuilder.getElementByXMIID(modelHelper.getXmiId(modelParent));
 		
-		return new AbstractionInterElementRelationship(parent, child);
+		return new AbstractionRelationship(parent, child);
 	}
 
 }

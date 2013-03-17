@@ -20,7 +20,6 @@ public class Architecture {
 	private List<Variability> variabilities = new ArrayList<Variability>();
 	
 	private List<InterClassRelationship> interClassRelationships = new ArrayList<InterClassRelationship>();
-	private List<InterElementRelationship> interElementRelationships = new ArrayList<InterElementRelationship>();
 	
 	private String name;
 	
@@ -108,10 +107,6 @@ public class Architecture {
 		return name.equalsIgnoreCase(element.getName());
 	}
 
-	public List<InterElementRelationship> getInterElementRelationships() {
-		return interElementRelationships;
-	}
-
 	public List<Class> getAllInterfaces() {
 		List<Class> klasses = new ArrayList<Class>();
 		
@@ -127,7 +122,6 @@ public class Architecture {
 	
 	public List<GeneralizationInterClassRelationship> getAllGeneralizations(){
 		Predicate<InterClassRelationship> isAuthorized = new Predicate<InterClassRelationship>() {
-			
 			public boolean apply(InterClassRelationship parent) {
 				return GeneralizationInterClassRelationship.class.isInstance(parent);
 			}
@@ -140,7 +134,6 @@ public class Architecture {
 
 	public List<AssociationInterClassRelationship>  getAllAssociations() {
 		Predicate<InterClassRelationship> isAuthorized = new Predicate<InterClassRelationship>() {
-
 			public boolean apply(InterClassRelationship parent) {
 				return AssociationInterClassRelationship.class.isInstance(parent);
 			}
@@ -153,7 +146,6 @@ public class Architecture {
 
 	public List<UsageInterClassRelationship> getAllUsage() {
 		Predicate<InterClassRelationship> isAuthorized = new Predicate<InterClassRelationship>() {
-			
 			public boolean apply(InterClassRelationship parent) {
 				return UsageInterClassRelationship.class.isInstance(parent);
 			}
@@ -165,7 +157,6 @@ public class Architecture {
 
 	public List<DependencyInterClassRelationship> getAllDependencyInterClass() {
 		Predicate<InterClassRelationship> isAuthorized = new Predicate<InterClassRelationship>() {
-			
 			public boolean apply(InterClassRelationship parent) {
 				return DependencyInterClassRelationship.class.isInstance(parent);
 			}
@@ -174,28 +165,26 @@ public class Architecture {
 		List<DependencyInterClassRelationship> authorizedUsers = UtilResources.filter(interClassRelationships, isAuthorized);
 		return authorizedUsers;
 	}
-	
-	public List<DependencyPackageInterfaceRelationship> getAllDependencyPackageInterface() {
-		Predicate<InterElementRelationship> isAuthorized = new Predicate<InterElementRelationship>() {
-			
-			public boolean apply(InterElementRelationship parent) {
-				return DependencyPackageInterfaceRelationship.class.isInstance(parent);
-			}
-		};
-		
-		List<DependencyPackageInterfaceRelationship> authorizedUsers = UtilResources.filter(interElementRelationships, isAuthorized);
-		return authorizedUsers;
-	}
 
 	public List<RealizationInterClassRelationship> getAllRealizations() {
 		Predicate<InterClassRelationship> realizations = new Predicate<InterClassRelationship>() {
-			
 			public boolean apply(InterClassRelationship parent) {
 				return RealizationInterClassRelationship.class.isInstance(parent);
 			}
 		};
 		
 		List<RealizationInterClassRelationship> alRealizations = UtilResources.filter(interClassRelationships, realizations);
+		return alRealizations;
+	}
+
+	public List<AbstractionRelationship> getAllAbstractions() {
+		Predicate<InterClassRelationship> realizations = new Predicate<InterClassRelationship>() {
+			public boolean apply(InterClassRelationship parent) {
+				return AbstractionRelationship.class.isInstance(parent);
+			}
+		};
+		
+		List<AbstractionRelationship> alRealizations = UtilResources.filter(interClassRelationships, realizations);
 		return alRealizations;
 	}
 	

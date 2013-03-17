@@ -9,19 +9,14 @@ import java.util.List;
 
 import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.AbstractionInterElementRelationship;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.AssociationClassInterClassRelationship;
-import mestrado.arquitetura.representation.AssociationEnd;
 import mestrado.arquitetura.representation.AssociationInterClassRelationship;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Concern;
 import mestrado.arquitetura.representation.DependencyInterClassRelationship;
-import mestrado.arquitetura.representation.DependencyPackageInterfaceRelationship;
 import mestrado.arquitetura.representation.Element;
-import mestrado.arquitetura.representation.GeneralizationInterClassRelationship;
 import mestrado.arquitetura.representation.InterClassRelationship;
-import mestrado.arquitetura.representation.InterElementRelationship;
 import mestrado.arquitetura.representation.Method;
 import mestrado.arquitetura.representation.Package;
 import mestrado.arquitetura.representation.Variability;
@@ -37,9 +32,6 @@ import org.junit.Test;
 public class ArchitectureBuilderTest extends TestHelper {
 
 	private Architecture architecture;
-	private Architecture architecture2;
-	private Architecture architecture4;
-	private Architecture architecture5;
 
 	private Package package1;
 
@@ -48,15 +40,6 @@ public class ArchitectureBuilderTest extends TestHelper {
 		String uriToArchitecture = getUrlToModel("testArch");
 		architecture = new ArchitectureBuilder().create(uriToArchitecture);
 		package1 = getPackageByName("Package1");
-
-		String uriToArchitecture2 = getUrlToModel("association");
-		architecture2 = new ArchitectureBuilder().create(uriToArchitecture2);
-
-		String uriToArchitecture4 = getUrlToModel("generalizationArch");
-		architecture4 = new ArchitectureBuilder().create(uriToArchitecture4);
-
-		String uriToArchitecture5 = getUrlToModel("dependency");
-		architecture5 = new ArchitectureBuilder().create(uriToArchitecture5);
 	}
 
 	@Test
@@ -290,485 +273,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 				.toString());
 	}
 
-	// Associations Tests //TODO Move from here
 
-	@Test
-	public void shouldHaveTwoAssociations() {
-		List<InterClassRelationship> relationships = architecture2
-				.getInterClassRelationships();
-		int associationCount = 0;
-		for (InterClassRelationship interClassRelationship : relationships) {
-			if (interClassRelationship instanceof AssociationInterClassRelationship)
-				associationCount++;
-		}
-		assertEquals("Architecture should contain 4 associations", 4,
-				associationCount);
-	}
-
-	@Test
-	public void testAssociations() throws Exception {
-
-		assertNotNull(architecture2);
-
-		List<InterClassRelationship> r = architecture2
-				.getInterClassRelationships();
-		assertNotNull(r);
-		assertTrue(r.get(0) instanceof AssociationInterClassRelationship);
-
-		AssociationInterClassRelationship association = (AssociationInterClassRelationship) r
-				.get(0);
-		List<AssociationEnd> participants = association.getParticipants();
-
-		assertEquals(2, participants.size());
-
-		assertNotNull(association.getParticipants());
-		assertEquals("none", association.getParticipants().get(0)
-				.getAggregation());
-		assertFalse(association.getParticipants().get(0).isNavigable());
-		assertEquals("Class2", participants.get(0).getCLSClass().getName());
-
-		assertEquals("none", association.getParticipants().get(1)
-				.getAggregation());
-		assertTrue(association.getParticipants().get(1).isNavigable());
-		assertEquals("Class1", participants.get(1).getCLSClass().getName());
-	}
-
-	@Test
-	public void testAssociation2() {
-		List<InterClassRelationship> r = architecture2
-				.getInterClassRelationships();
-		AssociationInterClassRelationship association = (AssociationInterClassRelationship) r
-				.get(1);
-		List<AssociationEnd> participants = association.getParticipants();
-
-		assertNotNull(association);
-
-		assertEquals(2, participants.size());
-
-		assertEquals("none", association.getParticipants().get(0)
-				.getAggregation());
-		assertFalse(association.getParticipants().get(0).isNavigable());
-		assertEquals("Class3", participants.get(0).getCLSClass().getName());
-
-		assertEquals("none", association.getParticipants().get(1)
-				.getAggregation());
-		assertTrue(association.getParticipants().get(1).isNavigable());
-		assertEquals("Class4", participants.get(1).getCLSClass().getName());
-
-	}
-
-	@Test
-	public void testMultiplicityAssociationRelationship() {
-		List<InterClassRelationship> r = architecture2
-				.getInterClassRelationships();
-		AssociationInterClassRelationship association = (AssociationInterClassRelationship) r
-				.get(1);
-
-		assertEquals("1", association.getParticipants().get(1)
-				.getMultiplicity().getLowerValue());
-		assertEquals("*", association.getParticipants().get(1)
-				.getMultiplicity().getUpperValue());
-		assertEquals("1..*", association.getParticipants().get(1)
-				.getMultiplicity().toString());
-	}
-
-	@Test
-	public void testMultiplicityAssociationRelationship2() {
-		List<InterClassRelationship> r = architecture2
-				.getInterClassRelationships();
-		AssociationInterClassRelationship association = (AssociationInterClassRelationship) r
-				.get(0);
-
-		assertEquals("1", association.getParticipants().get(0)
-				.getMultiplicity().getLowerValue());
-		assertEquals("1", association.getParticipants().get(0)
-				.getMultiplicity().getUpperValue());
-		assertEquals("1..1", association.getParticipants().get(0)
-				.getMultiplicity().toString());
-	}
-
-	@Test
-	public void shouldContainCompositeAssociation() throws Exception {
-		List<InterClassRelationship> r = architecture2
-				.getInterClassRelationships();
-		AssociationInterClassRelationship associationComposite = (AssociationInterClassRelationship) r
-				.get(2);
-		List<AssociationEnd> participants = associationComposite
-				.getParticipants();
-
-		assertFalse(associationComposite.getParticipants().get(0).isNavigable());
-		assertEquals("Class5", participants.get(0).getCLSClass().getName());
-
-		assertEquals("composite", associationComposite.getParticipants().get(1)
-				.getAggregation());
-		assertFalse(associationComposite.getParticipants().get(1).isNavigable());
-		assertEquals("Class6", participants.get(1).getCLSClass().getName());
-		assertEquals("none", associationComposite.getParticipants().get(0)
-				.getAggregation()); // TODO rever nome do metodo getAggregation
-									// para getTypeAssociation?
-
-		assertEquals("0..*", associationComposite.getParticipants().get(0)
-				.getMultiplicity().toString());
-		assertEquals("1..1", associationComposite.getParticipants().get(1)
-				.getMultiplicity().toString());
-	}
-
-	@Test
-	public void shouldContainAggregationAssociation() {
-		List<InterClassRelationship> r = architecture2
-				.getInterClassRelationships();
-		AssociationInterClassRelationship aggregation = (AssociationInterClassRelationship) r
-				.get(3);
-		List<AssociationEnd> participants = aggregation.getParticipants();
-
-		assertFalse(aggregation.getParticipants().get(0).isNavigable());
-		assertEquals("Class7", participants.get(0).getCLSClass().getName());
-
-		assertFalse(aggregation.getParticipants().get(1).isNavigable());
-		assertEquals("Class8", participants.get(1).getCLSClass().getName());
-
-		assertEquals("Aggregation", aggregation.getParticipants().get(0)
-				.getAggregation());
-		assertFalse(aggregation.getParticipants().get(1).isNavigable());
-
-		assertEquals("1..1", aggregation.getParticipants().get(1)
-				.getMultiplicity().toString());
-		assertEquals("1..*", aggregation.getParticipants().get(0)
-				.getMultiplicity().toString());
-	}
-
-	@Test
-	public void testAssociationWithThreeClasses() throws Exception {
-		String uriToArchitecture = getUrlToModel("complexAssociation");
-		Architecture architecture3 = new ArchitectureBuilder()
-				.create(uriToArchitecture);
-		List<InterClassRelationship> r = architecture3
-				.getInterClassRelationships();
-
-		assertNotNull(architecture3);
-		assertEquals("Should Contains Two Relationships", 2, r.size());
-		assertEquals("Should Contains Three Classes", 3, architecture3
-				.getClasses().size());
-
-		AssociationInterClassRelationship association1 = (AssociationInterClassRelationship) r
-				.get(0);
-		AssociationInterClassRelationship association2 = (AssociationInterClassRelationship) r
-				.get(1);
-
-		assertNotNull(association1);
-		assertNotNull(association2);
-
-		assertEquals(2, association1.getParticipants().size());
-		assertEquals(2, association2.getParticipants().size());
-
-		List<AssociationEnd> a = association1.getParticipants();
-		List<AssociationEnd> b = association2.getParticipants();
-		Class klass3 = a.get(0).getCLSClass();
-		Class klass2 = a.get(1).getCLSClass();
-
-		Class klass1 = b.get(1).getCLSClass();
-		Class kllass2a = b.get(0).getCLSClass();
-
-		assertEquals("Class1", klass1.getName());
-		assertEquals("Class2", kllass2a.getName());
-		assertEquals("Class3", klass3.getName());
-		assertEquals("Class2", klass2.getName());
-		assertTrue(a.get(1).isNavigable());
-		assertFalse(a.get(0).isNavigable());
-	}
-
-	// Associations Tests END //TODO Move from here
-
-	// Generalization Tests
-
-	@Test
-	public void shouldLoadGeneralization() throws Exception {
-		List<InterClassRelationship> relations = architecture4
-				.getInterClassRelationships();
-		assertEquals("Should contains six classes", 6, architecture4
-				.getClasses().size());
-
-		assertEquals(3, architecture4.getInterClassRelationships().size());
-
-		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) relations
-				.get(0);
-		assertNotNull(generalization);
-		assertEquals("Person", generalization.getParent().getName());
-		assertEquals(1, generalization.gelAllChildrenForGeneralClass().size());
-		assertContains(generalization.gelAllChildrenForGeneralClass(),
-				"Student");
-	}
-
-	@Test
-	public void shouldReplaceChildClass() throws Exception {
-		List<InterClassRelationship> relations = architecture4
-				.getInterClassRelationships();
-		Class professorKlass = (Class) architecture4
-				.findElementByName("Professor");
-		Class class1 = (Class) architecture4.findElementByName("Child1");
-		assertNotNull(class1);
-
-		assertNotNull(professorKlass);
-		assertEquals("Professor", professorKlass.getName());
-
-		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) relations
-				.get(1);
-
-		assertContains(generalization.gelAllChildrenForGeneralClass(), "Child2");
-		generalization.replaceChild(professorKlass);
-		assertEquals(2, generalization.gelAllChildrenForGeneralClass().size());
-		assertContains(generalization.gelAllChildrenForGeneralClass(),
-				"Professor", "Child2");
-	}
-
-	@Test
-	public void shouldReplaceAParentClass() throws Exception {
-		List<InterClassRelationship> relations = architecture4
-				.getInterClassRelationships();
-		Class professorKlass = (Class) architecture4
-				.findElementByName("Professor");
-		assertNotNull(professorKlass);
-		assertEquals("Professor", professorKlass.getName());
-
-		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) relations
-				.get(0);
-
-		assertEquals("Person", generalization.getParent().getName());
-		generalization.replaceParent((Class) professorKlass);
-		assertEquals("Professor", generalization.getParent().getName());
-	}
-
-	@Test
-	public void shouldLoadGeneralizationWithTwoChildreen() {
-		List<InterClassRelationship> relations = architecture4
-				.getInterClassRelationships();
-		assertEquals(3, relations.size());
-		assertEquals("Parent",
-				((GeneralizationInterClassRelationship) relations.get(1))
-						.getParent().getName());
-		List<Class> ch = ((GeneralizationInterClassRelationship) relations
-				.get(1)).gelAllChildrenForGeneralClass();
-		assertEquals(2, ch.size());
-		assertContains(ch, "Child1", "Child2");
-	}
-
-	@Test
-	public void givenAParentClassShouldReturnAllChildren() {
-		List<Class> classes = architecture4.getClasses();
-		assertEquals(6, classes.size());
-		List<InterClassRelationship> relations = architecture4
-				.getInterClassRelationships();
-
-		Element parentKlass = architecture4.findElementByName("Parent");
-		Class student = (Class) architecture4.findElementByName("Student");
-		assertNotNull(parentKlass);
-		assertNotNull(student);
-		assertEquals("Parent", parentKlass.getName());
-
-		GeneralizationInterClassRelationship r = ((GeneralizationInterClassRelationship) relations
-				.get(1));
-		assertEquals(2, r.gelAllChildrenForGeneralClass().size());
-		assertContains(r.gelAllChildrenForGeneralClass(), "Child1", "Child2");
-		assertTrue("Children of " + r.getParent()
-				+ " should NOT contain Sudent Class", !r
-				.gelAllChildrenForGeneralClass().contains(student));
-	}
-
-	@Test
-	public void resursiveGeneralization() throws Exception {
-		String uriToArchitecture = getUrlToModel("generalizationRecur");
-		Architecture arch = new ArchitectureBuilder().create(uriToArchitecture);
-
-		List<InterClassRelationship> relations = arch
-				.getInterClassRelationships();
-		GeneralizationInterClassRelationship generalization = (GeneralizationInterClassRelationship) relations
-				.get(0);
-		GeneralizationInterClassRelationship generalization1 = (GeneralizationInterClassRelationship) relations
-				.get(3);
-
-		assertEquals("Class1", generalization.getParent().getName());
-		assertContains(generalization.gelAllChildrenForGeneralClass(),
-				"Class3", "Class2");
-
-		assertEquals("Class2", generalization1.getParent().getName());
-		assertContains(generalization1.gelAllChildrenForGeneralClass(),
-				"Class4", "Class5");
-		assertNotNull(arch);
-	}
-
-	// Generalization Tests End
-
-	// Dependency Tests
-
-	@Test
-	public void shouldLoadDependency() throws Exception {
-		List<InterClassRelationship> relations = architecture5
-				.getInterClassRelationships();
-		DependencyInterClassRelationship dependency = (DependencyInterClassRelationship) relations
-				.get(0);
-
-		assertNotNull(dependency);
-		assertEquals("Supplier Should be Class1", "Class1", dependency
-				.getSupplier().getName());
-		assertEquals("Client Should be Class2", "Class2", dependency
-				.getAllClientsForSupplierClass().get(0).getName());
-		assertEquals("Dependency name should be Dependency1", "Dependency1",
-				dependency.getName());
-	}
-
-	/**
-	 * @see <a href="http://d.pr/i/q4QO">Modelo usado no teste (Imagem)</a>
-	 * @throws Exception
-	 */
-	@Test
-	public void shouldLoadDependencyClassInsidePackageToClassOutsidePackage()
-			throws Exception {
-		String uriToArchitecture2 = getUrlToModel("classPacote");
-		Architecture a = new ArchitectureBuilder().create(uriToArchitecture2);
-
-		assertNotNull(a);
-		Class class1 = a.getAllDependencyInterClass().get(0).getClient();
-		Class class2 = a.getAllDependencyInterClass().get(0).getSupplier();
-		assertEquals("Class1", class1.getName());
-		assertEquals("Class2", class2.getName());
-	}
-
-	/**
-	 * @see <a href="http://d.pr/i/uVOY">Modelo usado no teste (Imagem)</a>
-	 * @throws Exception
-	 */
-	@Test
-	public void shouldLoadDependencyClassOutsidePackageToClassInsidePackage()
-			throws Exception {
-		String uriToArchitecture2 = getUrlToModel("dependencyClassOutsidePackageToClassInside");
-		Architecture a = new ArchitectureBuilder().create(uriToArchitecture2);
-
-		assertNotNull(a);
-
-		assertEquals(1, a.getAllDependencyInterClass().size());
-		assertEquals("Class1", a.getAllDependencyInterClass().get(0)
-				.getClient().getName());
-		assertEquals("model", a.getAllDependencyInterClass().get(0).getClient()
-				.getNamespace());
-		assertEquals("Class2", a.getAllDependencyInterClass().get(0)
-				.getSupplier().getName());
-		assertEquals("model::Package1", a.getAllDependencyInterClass().get(0)
-				.getSupplier().getNamespace());
-
-	}
-
-	@Test
-	public void shouldDependencyNameBeEmptyWhenNull() throws Exception {
-		assertNotNull(architecture5);
-
-		List<InterClassRelationship> relations = architecture5
-				.getInterClassRelationships();
-		DependencyInterClassRelationship dependency = (DependencyInterClassRelationship) relations
-				.get(0);
-		dependency.setName(null);
-		assertEquals("Dependency name should be empty", "",
-				dependency.getName());
-	}
-
-	@Test
-	public void shouldDependencyContainsTwoClients() throws Exception {
-
-		List<InterClassRelationship> relations = architecture5
-				.getInterClassRelationships();
-
-		DependencyInterClassRelationship d2 = ((DependencyInterClassRelationship) relations
-				.get(1));
-		DependencyInterClassRelationship d3 = ((DependencyInterClassRelationship) relations
-				.get(2));
-
-		assertEquals("Dependency2", d2.getName());
-		assertEquals("Dependency3", d3.getName());
-		assertEquals(2, d3.getAllClientsForSupplierClass().size());
-		assertEquals("Class4", d3.getAllClientsForSupplierClass().get(0)
-				.getName());
-		assertEquals("Class5", d3.getAllClientsForSupplierClass().get(1)
-				.getName());
-	}
-
-	@Test
-	public void shouldDependencyContainsTwoSuppliers() throws Exception {
-
-		List<InterClassRelationship> relations = architecture5
-				.getInterClassRelationships();
-
-		DependencyInterClassRelationship d4 = ((DependencyInterClassRelationship) relations
-				.get(3));
-		DependencyInterClassRelationship d5 = ((DependencyInterClassRelationship) relations
-				.get(4));
-
-		assertEquals("Dependency4", d4.getName());
-		assertEquals("Dependency5", d5.getName());
-
-		assertEquals(2, d4.getAllSuppliersForClientClass().size());
-		assertEquals("Class7", d4.getAllSuppliersForClientClass().get(0)
-				.getName());
-		assertEquals("Class8", d4.getAllSuppliersForClientClass().get(1)
-				.getName());
-		assertEquals("Class7", d5.getAllSuppliersForClientClass().get(0)
-				.getName());
-		assertEquals("Class8", d5.getAllSuppliersForClientClass().get(1)
-				.getName());
-	}
-
-	@Test
-	public void shouldReplaceClientDependency() throws Exception {
-		List<InterClassRelationship> relations = architecture5
-				.getInterClassRelationships();
-
-		Class klass = (Class) architecture5.findElementByName("replaceClass");
-
-		DependencyInterClassRelationship dependency = (DependencyInterClassRelationship) relations
-				.get(0);
-		assertEquals("Class2", dependency.getClient().getName());
-
-		dependency.replaceClient(klass);
-
-		assertEquals("replaceClass", dependency.getClient().getName());
-	}
-
-	@Test
-	public void shouldReplaceSupplierDependency() throws Exception {
-		List<InterClassRelationship> relations = architecture5
-				.getInterClassRelationships();
-		Class klass = (Class) architecture5.findElementByName("replaceClass");
-
-		DependencyInterClassRelationship dependency = (DependencyInterClassRelationship) relations
-				.get(0);
-		assertEquals("Class1", dependency.getSupplier().getName());
-
-		dependency.replaceSupplier(klass);
-
-		assertEquals("replaceClass", dependency.getSupplier().getName());
-	}
-
-	// Dependency Tests End
-
-	@Test
-	public void shouldLoadAbstractionInterElement() throws Exception {
-		String uriToArchitecture7 = getUrlToModel("abstractionInterElement");
-		Architecture architecture7 = new ArchitectureBuilder()
-				.create(uriToArchitecture7);
-
-		assertNotNull(architecture7);
-
-		List<InterElementRelationship> relations = architecture7
-				.getInterElementRelationships();
-		AbstractionInterElementRelationship abstractionInterElement = (AbstractionInterElementRelationship) relations
-				.get(0);
-
-		assertNotNull(abstractionInterElement);
-		assertEquals("Supplier should be Package1Supplier", "Package1Supplier",
-				abstractionInterElement.getChild().getName());
-		assertEquals("Supplier should be myInterfaceClient",
-				"myInterfaceClient", abstractionInterElement.getParent()
-						.getName());
-		assertTrue(abstractionInterElement.getParent().isInterface());
-	}
 
 	@Test
 	public void shouldLoadInterElementDependency() throws Exception {
@@ -776,19 +281,12 @@ public class ArchitectureBuilderTest extends TestHelper {
 		Architecture architecture8 = new ArchitectureBuilder()
 				.create(uriToArchitecture8);
 
-		List<InterElementRelationship> relations = architecture8
-				.getInterElementRelationships();
-		DependencyPackageInterfaceRelationship dependencyInterElement = (DependencyPackageInterfaceRelationship) relations
-				.get(0);
+		DependencyInterClassRelationship dependencyInterElement = architecture8.getAllDependencyInterClass().get(0);
 
 		assertNotNull(dependencyInterElement);
+		
+		assertEquals("Package1", dependencyInterElement.getClient().getName());
 
-		assertNotNull(dependencyInterElement.getInterface());
-		assertEquals("Class1", dependencyInterElement.getInterface().getName());
-		Class intefacee = dependencyInterElement.getInterface();
-		assertTrue(intefacee.isInterface());
-		assertNotNull(dependencyInterElement.getPackage());
-		assertEquals("Package1", dependencyInterElement.getPackage().getName());
 	}
 
 	// AssociationClass
@@ -845,8 +343,6 @@ public class ArchitectureBuilderTest extends TestHelper {
 				.getCLSClass().getName());
 
 	}
-
-	// AssociationClass
 
 
 }
