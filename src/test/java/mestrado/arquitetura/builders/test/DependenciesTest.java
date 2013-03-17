@@ -151,6 +151,21 @@ public class DependenciesTest extends TestHelper {
 		assertEquals("Package1", dependencyInterElement.getClient().getName());
 	}
 
+	
+
+	
+	@Test
+	public void shouldLoadDependencyClassPackage() throws Exception{
+		Architecture a = givenAArchitecture("classPackageDependency");
+		
+		DependencyInterClassRelationship dependencyInterElement = a.getAllDependencyInterClass().get(0);
+
+		assertNotNull(dependencyInterElement);
+		
+		assertEquals("Class2", dependencyInterElement.getClient().getName());
+		assertEquals("Package1", dependencyInterElement.getSupplier().getName());
+		
+	}
 
 
 }
