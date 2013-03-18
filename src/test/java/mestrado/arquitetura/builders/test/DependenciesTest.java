@@ -2,7 +2,6 @@
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -158,7 +157,6 @@ public class DependenciesTest extends TestHelper {
 
 		assertEquals("Class1", dependencyInterElement.getSupplier().getName());
 		Element intefacee = dependencyInterElement.getSupplier();
-		assertTrue(intefacee.isInterface());
 		assertNotNull(dependencyInterElement.getClient());
 		assertEquals("Package1", dependencyInterElement.getClient().getName());
 	}

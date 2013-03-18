@@ -19,22 +19,22 @@ public abstract class Element {
 	private String typeElement;
 	private Element parent;
 	private String namespace;
-	private boolean interfacee;
+	//private boolean interfacee;
 	
-	public Element(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String typeString, Element parent, String namespace, boolean interfacee) {
+	public Element(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String typeElement, Element parent, String namespace) {
 		setArchitecture(architecture);
 		setName(name);
 		setIsVariationPoint(isVariationPoint);
 		setVariantType(variantType);
-		setTypeElement(typeString);
+		setTypeElement(typeElement);
 		setParent(parent);
 		setNamespace(namespace);
-		setIsInterface(interfacee);
+		//setIsInterface(interfacee);
 	}
 
-	private void setIsInterface(boolean interfacee) {
-		this.interfacee = interfacee;
-	}
+//	private void setIsInterface(boolean interfacee) {
+//		this.interfacee = interfacee;
+//	}
 
 	private void setNamespace(String namespace) {
 		this.namespace = namespace;
@@ -120,16 +120,16 @@ public abstract class Element {
 		return namespace;
 	}
 	
-	/**
-	 * True se a classe é uma interface. Caso contrário False.
-	 * 
-	 * Uma classe é considerada uma interface se a mesma contém o estreótipo << interface >>
-	 * 
-	 * @return boolean
-	 */
-	public boolean isInterface() {
-		return interfacee;
-	}
+//	/**
+//	 * True se a classe é uma interface. Caso contrário False.
+//	 * 
+//	 * Uma classe é considerada uma interface se a mesma contém o estreótipo << interface >>
+//	 * 
+//	 * @return boolean
+//	 */
+//	public boolean isInterface() {
+//		return interfacee;
+//	}
 
 
 	

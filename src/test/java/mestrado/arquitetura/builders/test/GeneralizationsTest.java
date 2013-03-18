@@ -26,7 +26,7 @@ public class GeneralizationsTest extends TestHelper {
 	
 	@Test
 	public void shouldLoadGeneralization() throws Exception {
-		assertEquals("Should contains six classes", 6, arch.getClasses().size());
+		assertEquals("Should contains six classes", 6, arch.getAllClasses().size());
 
 		assertEquals(3, arch.getAllGeneralizations().size());
 
@@ -79,7 +79,7 @@ public class GeneralizationsTest extends TestHelper {
 	
 	@Test
 	public void givenAParentClassShouldReturnAllChildren() {
-		assertEquals(6, arch.getClasses().size());
+		assertEquals(6, arch.getAllClasses().size());
 
 		Element parentKlass = arch.findElementByName("Parent");
 		Class student = (Class) arch.findElementByName("Student");

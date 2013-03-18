@@ -8,10 +8,12 @@ import mestrado.arquitetura.base.RelationshipBase;
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import mestrado.arquitetura.helpers.ModelElementHelper;
 import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Element;
+import mestrado.arquitetura.representation.Interface;
 import mestrado.arquitetura.representation.Variability;
 import mestrado.arquitetura.representation.relationship.Relationship;
 
@@ -39,6 +41,7 @@ public class ArchitectureBuilder extends RelationshipBase {
 	private Package model;
 	private PackageBuilder packageBuilder;
 	private ClassBuilder classBuilder;
+	private InterfaceBuilder intefaceBuilder;
 	private VariabilityBuilder variabilityBuilder;
 	private AssociationRelationshipBuilder associationRelationshipBuilder;
 	private AssociationClassRelationshipBuilder associationClassRelationshipBuilder;
@@ -81,13 +84,13 @@ public class ArchitectureBuilder extends RelationshipBase {
 		
 		architecture.getElements().addAll(loadPackages()); // Classes que possuem pacotes são carregadas juntamente com seus pacotes
 		architecture.getElements().addAll(loadClasses()); // Classes que nao possuem pacotes
+		architecture.getElements().addAll(loadInterfaces());
 		architecture.getVariabilities().addAll(loadVariability());
 		
 		architecture.getInterClassRelationships().addAll(loadInterClassRelationships());
 		
 		return architecture;
 	}
-
 
 	private List<? extends Relationship> loadAbstractions() {
 		List<Abstraction> abstractions = getModelHelper().getAllAbstractions(model);
@@ -158,11 +161,9 @@ public class ArchitectureBuilder extends RelationshipBase {
 		//destes dentro de dependencies.
 		List<Dependency> depdencies = getModelHelper().getAllDependencies(model);
 		
-		for (Dependency dependency : depdencies) {
-			if(dependency instanceof Realization){
+		for (Dependency dependency : depdencies) 
+			if(dependency instanceof Realization)
 				relationships.add(realizationRelationshipBuilder.create((Realization)dependency));
-			}
-		}
 		
 		for (Realization realization : realizations)
 			relationships.add(realizationRelationshipBuilder.create(realization));
@@ -231,10 +232,21 @@ public class ArchitectureBuilder extends RelationshipBase {
 		List<org.eclipse.uml2.uml.Class> classes = getModelHelper().getAllClasses(model);
 		
 		for (NamedElement element : classes)
-			listOfClasses.add(classBuilder.create(element, null));
+			listOfClasses.add(classBuilder.create(element, null)); //TODO verificar parent ( owner )
 		
 		if (!listOfClasses.isEmpty()) return listOfClasses;
 		return listOfClasses;
+	}
+	
+	private List<? extends Element> loadInterfaces() {
+		List<Interface> listOfInterfaces = new ArrayList<Interface>();
+		List<org.eclipse.uml2.uml.Class> classes = getModelHelper().getAllClasses(model);
+		
+		for (org.eclipse.uml2.uml.Class class1 : classes) 
+			if(ModelElementHelper.isInterface((NamedElement)class1))
+				listOfInterfaces.add(intefaceBuilder.create(class1, null));
+		
+		return listOfInterfaces;
 	}
 
 	/**
@@ -272,6 +284,7 @@ public class ArchitectureBuilder extends RelationshipBase {
 		abstractionRelationshipBuilder = new AbstractionRelationshipBuilder(packageBuilder, classBuilder);
 		associationClassRelationshipBuilder = new AssociationClassRelationshipBuilder(classBuilder);
 		usageRelationshipBuilder = new UsageRelationshipBuilder(classBuilder, packageBuilder);
+		intefaceBuilder = new InterfaceBuilder(architecture);
 	}
 	
 }

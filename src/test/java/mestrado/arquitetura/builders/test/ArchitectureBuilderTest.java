@@ -167,8 +167,8 @@ public class ArchitectureBuilderTest extends TestHelper {
 		String uriToArchitecture = getUrlToModel("semPacote");
 		architecture = new ArchitectureBuilder().create(uriToArchitecture);
 		assertNotNull(architecture);
-		assertEquals(2, architecture.getClasses().size());
-		assertEquals("Foo", architecture.getClasses().get(0).getName());
+		assertEquals(2, architecture.getAllClasses().size());
+		assertEquals("Foo", architecture.getAllClasses().get(0).getName());
 
 		assertEquals(1, architecture.getAllPackages().size());
 		assertEquals("pacote1", architecture.getAllPackages().get(0).getName());
@@ -191,7 +191,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 			throws Exception {
 		String uriToArchitecture = getUrlToModel("semPacote");
 		architecture = new ArchitectureBuilder().create(uriToArchitecture);
-		Class fooKlass = architecture.getClasses().get(0);
+		Class fooKlass = architecture.getAllClasses().get(0);
 
 		assertEquals(null, fooKlass.getParent());
 	}
@@ -302,7 +302,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 				.get(1);
 
 		assertEquals("Should return three classes", 3, architecture8
-				.getClasses().size());
+				.getAllClasses().size());
 		assertEquals(2, associationClass.getMemebersEnd().size());
 		assertEquals("Employee", associationClass.getMemebersEnd().get(0)
 				.getName());

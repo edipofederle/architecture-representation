@@ -2,7 +2,6 @@ package mestrado.arquitetura.builders.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class AbstratictionsTest  extends TestHelper{
 		assertNotNull(abstractionInterElement);
 		assertEquals("Client should be myInterfaceSupplier", "myInterfaceClient",	abstractionInterElement.getClient().getName());
 		assertEquals("Supplier should be Package1Supplier", "Package1Supplier", abstractionInterElement.getSupplier().getName());
-		assertTrue(abstractionInterElement.getClient().isInterface());
+		//assertTrue(abstractionInterElement.getClient().isInterface());
 	}
 	
 	@Test

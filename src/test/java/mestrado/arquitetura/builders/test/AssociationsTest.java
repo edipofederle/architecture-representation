@@ -133,7 +133,7 @@ public class AssociationsTest extends TestHelper {
 
 		assertNotNull(architecture3);
 		assertEquals("Should Contains Two Relationships", 2, r.size());
-		assertEquals("Should Contains Three Classes", 3, architecture3.getClasses().size());
+		assertEquals("Should Contains Three Classes", 3, architecture3.getAllClasses().size());
 
 		AssociationRelationship association1 = architecture3.getAllAssociations().get(0);
 		AssociationRelationship association2 = architecture3.getAllAssociations().get(1);

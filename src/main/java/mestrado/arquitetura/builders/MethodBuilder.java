@@ -40,8 +40,12 @@ public class MethodBuilder extends ElementBuilder<Method> {
 		
 		isAbstract = method.isAbstract();
 		EList<Parameter> params = method.getOwnedParameters();
-		for (Parameter parameter : params)
+		for (Parameter parameter : params){
+			if(parameter.getDirection().getName().equals("out")){
+				type = parameter.getType().getName();
+			}
 			parameterMethodReceives.add(new ParameterMethod(parameter.getName(), parameter.getType().getName()));
+		}
 		
 		String namespace = modelElement.getNamespace().getQualifiedName();
 			

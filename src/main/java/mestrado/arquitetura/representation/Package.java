@@ -29,9 +29,13 @@ public class Package extends Element {
 	 * @param parent - Qual o {@link Element} pai
 	 */
 	public Package(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, Element parent, String namespace) {
-		super(architecture, name, isVariationPoint, variantType, "package", parent, namespace, false);
+		super(architecture, name, isVariationPoint, variantType, "package", parent, namespace);
 	}
 	
+	public Package(Architecture architecture, String name) {
+		this(architecture, name, false, VariantType.NONE, null, "");
+	}
+
 	/**
 	 * 
 	 * Retorna todos os elementos que pertencem a um Pacote.

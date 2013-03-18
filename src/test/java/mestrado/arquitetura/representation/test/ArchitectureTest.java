@@ -7,6 +7,7 @@ import static org.junit.Assert.assertSame;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import mestrado.arquitetura.builders.ArchitectureBuilder;
@@ -18,6 +19,7 @@ import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Concern;
 import mestrado.arquitetura.representation.Element;
+import mestrado.arquitetura.representation.Interface;
 import mestrado.arquitetura.representation.Package;
 import mestrado.arquitetura.representation.Variability;
 import mestrado.arquitetura.representation.VariantType;
@@ -91,16 +93,16 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllClasses(){
-		Class klass = new Class(arch, "Klass", false,  VariantType.MANDATORY, false, null, "", "namespace", false);
+		Class klass = new Class(arch, "Klass", false,  VariantType.MANDATORY, false, null, "", "namespace");
 		arch.getElements().add(klass);
 		
-		assertEquals(1, arch.getClasses().size());
-		assertEquals("Klass", arch.getClasses().get(0).getName());
+		assertEquals(1, arch.getAllClasses().size());
+		assertEquals("Klass", arch.getAllClasses().get(0).getName());
 	}
 	
 	@Test
 	public void shouldReturnEmptyListWhenNoClasses(){
-		assertEquals(Collections.emptyList(), arch.getClasses());
+		assertEquals(Collections.emptyList(), arch.getAllClasses());
 	}
 	
 	@Test
@@ -126,7 +128,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnElementClassByName(){
-		arch.getElements().add(new Class(arch, "Klass", false,  VariantType.MANDATORY, false, null, "", "namespace", false));
+		arch.getElements().add(new Class(arch, "Klass", false,  VariantType.MANDATORY, false, null, "", "namespace"));
 		Element klass = arch.findElementByName("klass");
 		
 		assertNotNull(klass);
@@ -144,9 +146,9 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllInterfaces(){
-		arch.getElements().add(new Class(arch, "Klass1", false,  VariantType.MANDATORY, false, null, "", "namespace", false));
-		arch.getElements().add(new Class(arch, "Interface1", false,  VariantType.MANDATORY, false, null, "", "namespace", true));
-		arch.getElements().add(new Class(arch, "Interface2", false,  VariantType.MANDATORY, false, null, "", "namespace", true));
+		arch.getElements().add(new Class(arch, "Klass1", false,  VariantType.MANDATORY, false, null, "", "namespace"));
+		arch.getElements().add(new Interface(arch, "Interface1", false, VariantType.MANDATORY, null, "namesapce"));
+		arch.getElements().add(new Interface(arch, "Interface2", false, VariantType.MANDATORY, null, "namesapce"));
 		
 		assertEquals(2,arch.getAllInterfaces().size());
 		assertContains(arch.getAllInterfaces(), "Interface1", "Interface2");
@@ -240,7 +242,7 @@ public class ArchitectureTest extends TestHelper {
 		Architecture a = givenAArchitecture("association");
 		AssociationRelationship as = a.getAllAssociations().get(0);
 		assertEquals("Architecture should contain 4 associations", 4, a.getAllAssociations().size());
-		assertEquals(8, a.getClasses().size());
+		assertEquals(8, a.getAllClasses().size());
 		a.removeAssociationRelationship(as);
 		assertEquals("Architecture should contain 3 associations", 3, a.getAllAssociations().size());
 	}
@@ -337,5 +339,90 @@ public class ArchitectureTest extends TestHelper {
 		a.removeAbstractionRelationship(null);
 		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
 	}
+	
+	@Test
+	public void shouldAddConcerns(){
+		List<Package> packages = architecture.getAllPackages();
+		assertEquals("Number of concerns should be 0", 0, architecture.getConcerns().size());
+		
+		packages.get(0).addConcern("concern1");
+		assertNotNull(architecture.getOrCreateConcernByName("concern1"));
+		assertEquals("Number of concerns should be 1", 1, architecture.getConcerns().size());
+		
+		architecture.getAllClasses().get(0).addConcern("teste1");
+		architecture.getAllClasses().get(1).addConcern("teste2");
+		
+		assertEquals("Number of concerns should be 3", 3 , architecture.getConcerns().size());
+		assertNotNull(architecture.getOrCreateConcernByName("teste1"));
+		assertNotNull(architecture.getOrCreateConcernByName("teste2"));
+	}
+	
+	@Test
+	public void shouldCreateAPackage(){
+		assertEquals(1,architecture.getAllPackages().size());
+		
+		Package packageTest = architecture.createPackage("myPackage");
+		
+		assertEquals(2,architecture.getAllPackages().size());
+		assertSame(packageTest, architecture.getAllPackages().get(1));
+	}
+	
+	@Test
+	public void shouldRemoveAPackage() throws PackageNotFound{
+		assertEquals(1,architecture.getAllPackages().size());
+		
+		Package p = architecture.findPackageByName("Package1");
+		assertNotNull(p);
+		
+		architecture.removePackage(p);
+		assertEquals(0,architecture.getAllPackages().size());
+	}
+	
+	@Test
+	public void shouldCreateInterface() throws InterfaceNotFound{
+		assertEquals(0, architecture.getAllInterfaces().size());
+		Interface interfacee = architecture.createInterface("myInterface");
+		
+		assertNotNull(interfacee);
+		assertEquals(1, architecture.getAllInterfaces().size());
+		assertEquals(interfacee, architecture.findInterfaceByName("myInterface"));
+	}
+	
+	@Test
+	public void shouldRemoveInterface(){
+		Interface interfacee = architecture.createInterface("myInterface");
+		
+		assertEquals(1, architecture.getAllInterfaces().size());
+		
+		architecture.removeInterface(interfacee); 
+		
+		assertEquals(0, architecture.getAllInterfaces().size());
+	}
+	
+	@Test
+	public void shouldCreateClass() throws ClassNotFound{
+		assertEquals(3, architecture.getAllClasses().size());
+		
+		Class klass = architecture.createClass("Bar");
+		
+		assertEquals(4, architecture.getAllClasses().size());
+		
+		assertEquals(klass, architecture.findClassByName("Bar"));
+	}
+	
+	@Test
+	public void shouldRemoveClas(){
+		assertEquals(3, architecture.getAllClasses().size());
+		Class klass = architecture.getAllClasses().get(0);
+		
+		architecture.removeClass(klass);
+		assertEquals(2, architecture.getAllClasses().size());
+	}
+	
+	@Test
+	public void shouldCreateOperationInterface(){
+		
+	}
+	
 	
 }

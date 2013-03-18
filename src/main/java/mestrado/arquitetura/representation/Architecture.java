@@ -79,7 +79,7 @@ public class Architecture {
 		return paks;
 	}
 
-	public List<Class> getClasses() {
+	public List<Class> getAllClasses() {
 		List<Class> klasses = new ArrayList<Class>();
 
 		for (Element element : elements)
@@ -105,7 +105,7 @@ public class Architecture {
 
 	// TODO refatorar para buscar todo tipo de elemento
 	public Element findElementByName(String name) {
-		List<Class> klasses = getClasses();
+		List<Class> klasses = getAllClasses();
 		List<Package> packages = getAllPackages();
 
 		for (Class klass : klasses)
@@ -123,13 +123,13 @@ public class Architecture {
 		return name.equalsIgnoreCase(element.getName());
 	}
 
-	public List<Class> getAllInterfaces() {
-		List<Class> klasses = new ArrayList<Class>();
+	public List<Interface> getAllInterfaces() {
+		List<Interface> klasses = new ArrayList<Interface>();
 
 		for (Element element : elements)
-			if (element.getTypeElement().equals("klass"))
-				if (((Class) element).isInterface())
-					klasses.add(((Class) element));
+			if (element.getTypeElement().equals("interface"))
+			//	if (((Class) element).isInterface())
+					klasses.add(((Interface) element));
 
 		if (klasses.isEmpty())
 			return Collections.emptyList();
@@ -230,17 +230,18 @@ public class Architecture {
 	 * @throws ClassNotFound se classe não encontrada
 	 */
 	public Class findClassByName(String className) throws ClassNotFound {
-		for (Class klass : getClasses()) 
+		for (Class klass : getAllClasses()) 
 			if(className.equalsIgnoreCase(klass.getName()))
 				return klass;
 		
 		throw new ClassNotFound("Class " + className + " can not found.");
 	}
 
-	public Class findInterfaceByName(String interfaceName) throws InterfaceNotFound {
-		for (Class klass : getClasses())
-			if(interfaceName.equalsIgnoreCase(klass.getName()) && klass.isInterface())
-				return klass;
+	public Interface findInterfaceByName(String interfaceName) throws InterfaceNotFound {
+		for (Interface interfacee : getAllInterfaces())
+			//if(interfaceName.equalsIgnoreCase(klass.getName()) && klass.isInterface())
+			if(interfaceName.equalsIgnoreCase(interfacee.getName()))
+				return interfacee;
 		
 		throw new InterfaceNotFound("Interface " + interfaceName + " can not found.");
 	}
@@ -285,6 +286,40 @@ public class Architecture {
 	public void removeAbstractionRelationship(AbstractionRelationship ab) {
 		if (!relationships.remove(ab))
 			LOGGER.info("Cannot remove Abstraction " + ab + ".");
+		
+	}
+
+	public Package createPackage(String packageName) {
+		Package pkg = new Package(this, packageName);
+		elements.add(pkg);
+		return pkg;
+	}
+
+	public void removePackage(Package p) {
+		if (!elements.remove(p))
+			LOGGER.info("Cannot remove Package " + p + ".");
+	}
+
+	public Interface createInterface(String interfaceName) {
+		Interface interfacee = new Interface(this, interfaceName);
+		elements.add(interfacee);
+		return interfacee;
+	}
+
+	public void removeInterface(Interface interfacee) {
+		if (!elements.remove(interfacee))
+			LOGGER.info("Cannot remove Interface " + interfacee + ".");
+	}
+
+	public Class createClass(String klassName) {
+		Class klass = new Class(this, klassName);
+		elements.add(klass);
+		return klass;
+	}
+
+	public void removeClass(Class klass) {
+		if (!elements.remove(klass))
+			LOGGER.info("Cannot remove Class " + klass + ".");
 		
 	}
 

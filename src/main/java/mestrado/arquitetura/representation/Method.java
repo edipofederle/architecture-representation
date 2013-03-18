@@ -15,7 +15,7 @@ public class Method extends Element{
 	private boolean isAbstract;
 
 	public Method(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, Element parent, String namespace) {
-		super(architecture, name, isVariationPoint, variantType, "method", parent, namespace, false);
+		super(architecture, name, isVariationPoint, variantType, "method", parent, namespace);
 		setReturnType(returnType);
 		setAbstract(isAbstract);
 		setParams(paramsMethod);
