@@ -7,8 +7,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.AbstractionRelationship;
 import mestrado.arquitetura.representation.Architecture;
+import mestrado.arquitetura.representation.relationship.AbstractionRelationship;
 
 import org.junit.Test;
 

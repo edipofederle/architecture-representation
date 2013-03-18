@@ -9,8 +9,8 @@ import java.util.List;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Relationship;
-import mestrado.arquitetura.representation.RealizationRelationship;
+import mestrado.arquitetura.representation.relationship.RealizationRelationship;
+import mestrado.arquitetura.representation.relationship.Relationship;
 
 import org.junit.Test;
 

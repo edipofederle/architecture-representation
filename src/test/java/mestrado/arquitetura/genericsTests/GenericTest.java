@@ -11,7 +11,7 @@ import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.DependencyRelationship;
+import mestrado.arquitetura.representation.relationship.DependencyRelationship;
 
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;

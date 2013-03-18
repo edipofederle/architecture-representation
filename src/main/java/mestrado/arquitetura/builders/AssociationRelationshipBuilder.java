@@ -3,9 +3,10 @@ package mestrado.arquitetura.builders;
 import java.util.ArrayList;
 import java.util.List;
 
-import mestrado.arquitetura.representation.AssociationEnd;
-import mestrado.arquitetura.representation.AssociationRelationship;
+import mestrado.arquitetura.base.RelationshipBase;
 import mestrado.arquitetura.representation.Class;
+import mestrado.arquitetura.representation.relationship.AssociationEnd;
+import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Association;

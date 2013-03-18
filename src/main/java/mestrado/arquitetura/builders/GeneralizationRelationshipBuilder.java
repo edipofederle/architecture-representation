@@ -1,9 +1,10 @@
 package mestrado.arquitetura.builders;
 
+import mestrado.arquitetura.base.RelationshipBase;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
-import mestrado.arquitetura.representation.GeneralizationRelationship;
-import mestrado.arquitetura.representation.Relationship;
+import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
+import mestrado.arquitetura.representation.relationship.Relationship;
 
 import org.eclipse.uml2.uml.Generalization;
 

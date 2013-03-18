@@ -1,7 +1,10 @@
-package mestrado.arquitetura.representation;
+package mestrado.arquitetura.representation.relationship;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import mestrado.arquitetura.representation.Architecture;
+import mestrado.arquitetura.representation.Class;
 
 /**
  * 

@@ -1,7 +1,8 @@
 package mestrado.arquitetura.builders;
 
-import mestrado.arquitetura.representation.AbstractionRelationship;
+import mestrado.arquitetura.base.RelationshipBase;
 import mestrado.arquitetura.representation.Element;
+import mestrado.arquitetura.representation.relationship.AbstractionRelationship;
 
 import org.eclipse.uml2.uml.Abstraction;
 import org.eclipse.uml2.uml.NamedElement;
@@ -54,8 +55,6 @@ public class AbstractionRelationshipBuilder extends RelationshipBase {
 			client = packageBuilder.getElementByXMIID(getModelHelper().getXmiId(clientElement));
 		}
 		
-		
-
 		return new AbstractionRelationship(client,supplier );
 	}
 

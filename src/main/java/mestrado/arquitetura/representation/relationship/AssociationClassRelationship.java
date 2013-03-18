@@ -1,17 +1,17 @@
-package mestrado.arquitetura.representation;
+package mestrado.arquitetura.representation.relationship;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import mestrado.arquitetura.representation.Class;
 
-public class AssociationClassInterClassRelationship extends	InterClassRelationship {
+public class AssociationClassRelationship extends	Relationship {
 
 	public String name;
 	public List<Class> memebersEnd = new ArrayList<Class>();
 	private Class ownedEnd;
 
-	public AssociationClassInterClassRelationship(String name, List<Class> ends, Class ownedEnd) {
+	public AssociationClassRelationship(String name, List<Class> ends, Class ownedEnd) {
 		super();
 		this.name = name;
 		this.memebersEnd = ends;

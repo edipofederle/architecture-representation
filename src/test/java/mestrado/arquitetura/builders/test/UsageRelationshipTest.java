@@ -8,8 +8,8 @@ import java.util.List;
 import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.helpers.test.HelperTest;
 import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Relationship;
-import mestrado.arquitetura.representation.UsageRelationship;
+import mestrado.arquitetura.representation.relationship.Relationship;
+import mestrado.arquitetura.representation.relationship.UsageRelationship;
 
 import org.junit.Test;
 

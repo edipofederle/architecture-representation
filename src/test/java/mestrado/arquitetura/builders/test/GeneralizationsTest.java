@@ -10,7 +10,7 @@ import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Element;
-import mestrado.arquitetura.representation.GeneralizationRelationship;
+import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
 
 import org.junit.Before;
 import org.junit.Test;

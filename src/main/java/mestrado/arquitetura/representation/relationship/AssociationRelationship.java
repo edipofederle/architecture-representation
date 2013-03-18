@@ -1,20 +1,22 @@
-package mestrado.arquitetura.representation;
+package mestrado.arquitetura.representation.relationship;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import mestrado.arquitetura.representation.Class;
 
 /**
  * 
  * @author edipofederle
  *
  */
-public class AssociationInterClassRelationship extends InterClassRelationship {
+public class AssociationRelationship extends Relationship {
 
 	private final List<AssociationEnd> participants = new ArrayList<AssociationEnd>();
 	
-	public AssociationInterClassRelationship() { }
+	public AssociationRelationship() { }
 	
-	public AssociationInterClassRelationship(Class class1, Class class2) {
+	public AssociationRelationship(Class class1, Class class2) {
 		getParticipants().add(new AssociationEnd(class1));
 		getParticipants().add(new AssociationEnd(class2));
 	}

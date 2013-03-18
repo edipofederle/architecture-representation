@@ -1,12 +1,15 @@
-package mestrado.arquitetura.representation;
+package mestrado.arquitetura.representation.relationship;
 
-public class UsageInterClassRelationship extends InterClassRelationship {
+import mestrado.arquitetura.representation.Class;
+import mestrado.arquitetura.representation.Element;
+
+public class UsageRelationship extends Relationship {
 	
 	private String name;
 	private Element supplier;
 	private Element client;
 	
-	public UsageInterClassRelationship(String name, Element supplier, Element client) {
+	public UsageRelationship(String name, Element supplier, Element client) {
 		super();
 		this.name = name;
 		this.supplier = supplier;

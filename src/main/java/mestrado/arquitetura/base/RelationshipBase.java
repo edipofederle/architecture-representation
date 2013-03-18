@@ -1,4 +1,4 @@
-package mestrado.arquitetura.builders;
+package mestrado.arquitetura.base;
 
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import mestrado.arquitetura.base.RelationshipBase;
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
@@ -11,8 +12,8 @@ import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Element;
-import mestrado.arquitetura.representation.Relationship;
 import mestrado.arquitetura.representation.Variability;
+import mestrado.arquitetura.representation.relationship.Relationship;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Abstraction;

@@ -1,4 +1,4 @@
-package mestrado.arquitetura.representation;
+package mestrado.arquitetura.representation.relationship;
 
 /**
  * 

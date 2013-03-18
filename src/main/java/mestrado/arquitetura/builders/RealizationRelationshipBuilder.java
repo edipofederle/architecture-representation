@@ -1,7 +1,8 @@
 package mestrado.arquitetura.builders;
 
+import mestrado.arquitetura.base.RelationshipBase;
 import mestrado.arquitetura.representation.Element;
-import mestrado.arquitetura.representation.RealizationRelationship;
+import mestrado.arquitetura.representation.relationship.RealizationRelationship;
 
 import org.eclipse.uml2.uml.Realization;
 

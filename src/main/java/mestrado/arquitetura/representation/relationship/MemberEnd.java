@@ -1,4 +1,6 @@
-package mestrado.arquitetura.representation;
+package mestrado.arquitetura.representation.relationship;
+
+import mestrado.arquitetura.representation.Class;
 
 /**
  * MemberEnd usada nas associações do tipo AssociationClass

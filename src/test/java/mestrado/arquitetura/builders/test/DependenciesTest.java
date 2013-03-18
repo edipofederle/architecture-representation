@@ -10,8 +10,8 @@ import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
-import mestrado.arquitetura.representation.DependencyRelationship;
 import mestrado.arquitetura.representation.Element;
+import mestrado.arquitetura.representation.relationship.DependencyRelationship;
 
 import org.junit.Before;
 import org.junit.Test;

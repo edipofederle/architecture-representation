@@ -1,7 +1,8 @@
 package mestrado.arquitetura.builders;
 
+import mestrado.arquitetura.base.RelationshipBase;
 import mestrado.arquitetura.representation.Element;
-import mestrado.arquitetura.representation.UsageRelationship;
+import mestrado.arquitetura.representation.relationship.UsageRelationship;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.NamedElement;

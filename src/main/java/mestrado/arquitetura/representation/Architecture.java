@@ -7,6 +7,13 @@ import java.util.List;
 
 import mestrado.arquitetura.helpers.Predicate;
 import mestrado.arquitetura.helpers.UtilResources;
+import mestrado.arquitetura.representation.relationship.AbstractionRelationship;
+import mestrado.arquitetura.representation.relationship.AssociationRelationship;
+import mestrado.arquitetura.representation.relationship.DependencyRelationship;
+import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
+import mestrado.arquitetura.representation.relationship.RealizationRelationship;
+import mestrado.arquitetura.representation.relationship.Relationship;
+import mestrado.arquitetura.representation.relationship.UsageRelationship;
 
 /**
  * 

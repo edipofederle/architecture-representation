@@ -1,8 +1,8 @@
 package mestrado.arquitetura.builders;
 
-import mestrado.arquitetura.representation.AssociationEnd;
 import mestrado.arquitetura.representation.Class;
-import mestrado.arquitetura.representation.Multiplicity;
+import mestrado.arquitetura.representation.relationship.AssociationEnd;
+import mestrado.arquitetura.representation.relationship.Multiplicity;
 
 import org.eclipse.uml2.uml.Property;
 

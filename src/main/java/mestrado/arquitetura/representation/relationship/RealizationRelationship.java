@@ -1,23 +1,24 @@
-package mestrado.arquitetura.representation;
+package mestrado.arquitetura.representation.relationship;
+
+import mestrado.arquitetura.representation.Element;
 
 /**
  * 
  * @author edipofederle
  *
  */
-public class RealizationInterClassRelationship extends InterClassRelationship {
+public class RealizationRelationship extends Relationship {
 	
 	private String name;
 	private Element client;
 	private Element supplier;
 	
 	
-	public RealizationInterClassRelationship(Element client, Element supplier, String name){
+	public RealizationRelationship(Element client, Element supplier, String name){
 		setClient(client);
 		setSupplier(supplier);
 		setName(name);
 	}
-
 
 	/**
 	 * @return the name
