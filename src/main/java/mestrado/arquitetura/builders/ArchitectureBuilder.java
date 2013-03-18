@@ -40,18 +40,12 @@ public class ArchitectureBuilder extends RelationshipBase {
 	private PackageBuilder packageBuilder;
 	private ClassBuilder classBuilder;
 	private VariabilityBuilder variabilityBuilder;
-	
 	private AssociationRelationshipBuilder associationRelationshipBuilder;
 	private AssociationClassRelationshipBuilder associationClassRelationshipBuilder;
-	
 	private GeneralizationRelationshipBuilder generalizationRelationshipBuilder;
-	
 	private DependencyRelationshipBuilder dependencyRelationshipBuilder;
-	
 	private RealizationRelationshipBuilder realizationRelationshipBuilder;
 	private AbstractionRelationshipBuilder abstractionRelationshipBuilder; 
-
-	
 	private UsageRelationshipBuilder usageRelationshipBuilder;
 
 	
@@ -102,9 +96,8 @@ public class ArchitectureBuilder extends RelationshipBase {
 		
 		for (Package package1 : pacakges) {
 			List<Abstraction> abs = getModelHelper().getAllAbstractions(package1);
-			for (Abstraction abstraction : abs) {
+			for (Abstraction abstraction : abs)
 				relations.add(abstractionRelationshipBuilder.create(abstraction));
-			}
 		}
 		
 		for (Abstraction abstraction : abstractions)
@@ -133,10 +126,9 @@ public class ArchitectureBuilder extends RelationshipBase {
 		List<Usage> usages = getModelHelper().getAllUsage(model);
 		
 		List<Package> pacotes = getModelHelper().getAllPackages(model);
-		for (Package package1 : pacotes) {
+		for (Package package1 : pacotes)
 			for(Usage u : getModelHelper().getAllUsage(package1))
 				usageClass.add(usageRelationshipBuilder.create(u));
-		}
 		
 		for (Usage usage : usages) 
 				usageClass.add(usageRelationshipBuilder.create(usage));

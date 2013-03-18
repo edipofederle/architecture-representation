@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import mestrado.arquitetura.builders.ArchitectureBuilder;
+import mestrado.arquitetura.exceptions.ClassNotFound;
+import mestrado.arquitetura.exceptions.InterfaceNotFound;
+import mestrado.arquitetura.exceptions.PackageNotFound;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
@@ -18,6 +21,12 @@ import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.Package;
 import mestrado.arquitetura.representation.Variability;
 import mestrado.arquitetura.representation.VariantType;
+import mestrado.arquitetura.representation.relationship.AbstractionRelationship;
+import mestrado.arquitetura.representation.relationship.AssociationClassRelationship;
+import mestrado.arquitetura.representation.relationship.AssociationRelationship;
+import mestrado.arquitetura.representation.relationship.DependencyRelationship;
+import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
+import mestrado.arquitetura.representation.relationship.UsageRelationship;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +36,10 @@ public class ArchitectureTest extends TestHelper {
 	private Architecture arch;
 	private Architecture architecture;
 	
+	/**
+	 * @see <a href="https://dl.dropbox.com/u/6730822/generico.png">Modelo usado para architecture (Imagem)</a>
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception{
 		arch = new Architecture("arquitetura");
@@ -43,7 +56,6 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldArchitectureHaveAEmptyNameWhenNull(){
 		arch.setName(null);
-		
 		assertEquals("", arch.getName());
 	}
 	
@@ -60,7 +72,6 @@ public class ArchitectureTest extends TestHelper {
 		assertEquals(1, arch.getConcerns().size());
 		
 		Concern concern = arch.getOrCreateConcernByName("core");
-		
 		assertSame(arch.getConcerns().get("core"), concern);
 	}
 	
@@ -69,13 +80,13 @@ public class ArchitectureTest extends TestHelper {
 		Package pkg = new Package(arch, "Pacote", false, VariantType.MANDATORY, null, "");
 		arch.getElements().add(pkg);
 		
-		assertEquals(1, arch.getPackages().size());
-		assertEquals("Pacote", arch.getPackages().get(0).getName());
+		assertEquals(1, arch.getAllPackages().size());
+		assertEquals("Pacote", arch.getAllPackages().get(0).getName());
 	}
 	
 	@Test
 	public void shouldReturnEmptyListWhenNoPackages(){
-		assertEquals(Collections.emptyList(), arch.getPackages());
+		assertEquals(Collections.emptyList(), arch.getAllPackages());
 	}
 	
 	@Test
@@ -138,7 +149,6 @@ public class ArchitectureTest extends TestHelper {
 		arch.getElements().add(new Class(arch, "Interface2", false,  VariantType.MANDATORY, false, null, "", "namespace", true));
 		
 		assertEquals(2,arch.getAllInterfaces().size());
-		
 		assertContains(arch.getAllInterfaces(), "Interface1", "Interface2");
 	}
 	
@@ -165,7 +175,6 @@ public class ArchitectureTest extends TestHelper {
 		assertEquals(1, architecture.getAllUsage().size());
 	}
 	
-	
 	@Test
 	public void shouldReturnAllDependency() throws Exception{
 		String uriToArchitecture = getUrlToModel("dependency");
@@ -180,13 +189,153 @@ public class ArchitectureTest extends TestHelper {
 		assertEquals(5, a.getAllDependencies().size());
 	}
 	
+	/**
+	 * @see <a href="https://dl.dropbox.com/u/6730822/d5.png"> Modelo usado no teste (imagem)</a>
+	 * @throws Exception
+	 */
 	@Test
-	public void teste() throws Exception{
+	public void shouldLoadDependencyPackageClass() throws Exception{
 		String uriToArchitecture = getUrlToModel("dependency2");
 		Architecture a = new ArchitectureBuilder().create(uriToArchitecture);
 		assertEquals(1, a.getAllDependencies().size());
-		
 	}
 	
+	@Test
+	public void shouldFindClassByName() throws Exception{
+		assertNotNull(architecture.findClassByName("Class3"));
+		assertEquals("Class3", architecture.findElementByName("CLass3").getName());
+	}
+	
+	@Test(expected=ClassNotFound.class)
+	public void shouldRaiseClassNotFoundExceptionWhenClassNotFound() throws ClassNotFound{
+		architecture.findClassByName("noClass");
+	}
+	
+	@Test
+	public void shouldFindInterfaceByName() throws Exception{
+		Architecture a = givenAArchitecture("classes");
+		assertNotNull(a.findInterfaceByName("interface"));
+		assertEquals("Interface", a.findInterfaceByName("interface").getName());
+	}
+	
+	@Test(expected=InterfaceNotFound.class)
+	public void shouldRaiseInterfaceNotFoundExceptionWhenInterfaceNotFound() throws InterfaceNotFound{
+		architecture.findInterfaceByName("noInterface");
+	}
+	
+	@Test
+	public void shouldFindPackageByName() throws PackageNotFound{
+		Package pkg = architecture.findPackageByName("Package1");
+		assertNotNull(pkg);
+		assertEquals("Package1", pkg.getName());
+	}
+	
+	@Test(expected=PackageNotFound.class)
+	public void shouldRaisePackageNotFoundExceptionWhenPackageNotFound() throws PackageNotFound{
+		architecture.findPackageByName("noPackage");
+	}
+	
+	@Test
+	public void shouldRemoveAssociationRelationship() throws Exception{
+		Architecture a = givenAArchitecture("association");
+		AssociationRelationship as = a.getAllAssociations().get(0);
+		assertEquals("Architecture should contain 4 associations", 4, a.getAllAssociations().size());
+		assertEquals(8, a.getClasses().size());
+		a.removeAssociationRelationship(as);
+		assertEquals("Architecture should contain 3 associations", 3, a.getAllAssociations().size());
+	}
+	
+	@Test
+	public void shouldNotChangeListWhenTryRemoveAssociationRelationshipNotExist() throws Exception{
+		Architecture a = givenAArchitecture("association");
+		assertEquals("Architecture should contain 4 associations", 4,	a.getAllAssociations().size());
+		a.removeAssociationRelationship(null);
+		assertEquals("Architecture should contain 4 associations", 4,	a.getAllAssociations().size());
+	}
+	
+	@Test
+	public void shouldRemoveDependecyRelationship() throws Exception{
+		Architecture a = givenAArchitecture("dependency");
+		DependencyRelationship dp = a.getAllDependencies().get(0);
+		assertEquals("Architecture should contain 5 dependency", 5,	a.getAllDependencies().size());
+		a.removeDependencyRelationship(dp);
+		assertEquals("Architecture should contain 4 dependency", 4,	a.getAllDependencies().size());
+	}
+	
+	@Test
+	public void shouldNotChangeListWhenTryRemoveDependencyRelationshipNotExist() throws Exception{
+		Architecture a = givenAArchitecture("dependency");
+		assertEquals("Architecture should contain 5 dependency", 5,	a.getAllDependencies().size());
+		a.removeDependencyRelationship(null);
+		assertEquals("Architecture should contain 4 dependency", 5,	a.getAllDependencies().size());
+	}
+	
+	@Test
+	public void shouldRemoveUsageRelationship() throws Exception{
+		Architecture a = givenAArchitecture("usage3");
+		UsageRelationship usage = a.getAllUsage().get(0);
+		assertEquals("Architecture should contain 1 usage", 1,	a.getAllUsage().size());
+		a.removeUsageRelationship(usage);
+		assertEquals("Architecture should contain 0 usage", 0,	a.getAllUsage().size());
+	}
+	
+	@Test
+	public void shouldNotChangeListWhenTryRemoveUsageRelationshipNotExist() throws Exception{
+		Architecture a = givenAArchitecture("usage3");
+		assertEquals("Architecture should contain 1 usage", 1,	a.getAllUsage().size());
+		a.removeUsageRelationship(null);
+		assertEquals("Architecture should contain 0 usage", 1,	a.getAllUsage().size());
+	}
+	
+	@Test
+	public void shouldRemoveAssociationClassRelationship() throws Exception{
+		Architecture a = givenAArchitecture("associationClass");
+		AssociationClassRelationship associationClass = a.getAllAssociationsClass().get(0);
+		assertEquals("Architecture should contain 1 AssociationClass", 1,	a.getAllAssociationsClass().size());
+		a.removeAssociationClass(associationClass);
+		assertEquals("Architecture should contain 0 AssociationClass", 0,	a.getAllAssociationsClass().size());
+	}
+	
+	@Test
+	public void shouldNotChangeListWhenTryRemoveAssociationClassRelationshipNotExist() throws Exception{
+		Architecture a = givenAArchitecture("associationClass");
+		assertEquals("Architecture should contain 1 AssociationClass", 1,	a.getAllAssociationsClass().size());
+		a.removeAssociationClass(null);
+		assertEquals("Architecture should contain 0 AssociationClass", 1,	a.getAllAssociationsClass().size());
+	}
+	
+	@Test
+	public void shouldRemoveGeneralizationRelationship() throws Exception{
+		Architecture a = givenAArchitecture("generalizationArch");
+		GeneralizationRelationship g = a.getAllGeneralizations().get(0);
+		assertEquals("Architecture should contain 3 generalization", 3,	a.getAllGeneralizations().size());
+		a.removeGeneralizationRelationship(g);
+		assertEquals("Architecture should contain 2 generalization", 2,	a.getAllGeneralizations().size());
+	}
+	
+	@Test
+	public void shouldNotChangeListWhenTryRemoveGeneralizationRelationshipNotExist() throws Exception{
+		Architecture a = givenAArchitecture("generalizationArch");
+		assertEquals("Architecture should contain 3 generalization", 3,	a.getAllGeneralizations().size());
+		a.removeGeneralizationRelationship(null);
+		assertEquals("Architecture should contain 2 generalization", 3,	a.getAllGeneralizations().size());
+	}
+	
+	@Test
+	public void shouldRemoveAbstractionRelationship() throws Exception{
+		Architecture a = givenAArchitecture("abstractionInterElement");
+		AbstractionRelationship ab = a.getAllAbstractions().get(0);
+		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
+		a.removeAbstractionRelationship(ab);
+		assertEquals("Architecture should contain 0 Abstraction", 0,	a.getAllAbstractions().size());
+	}
+	
+	@Test
+	public void  shouldNotChangeListWhenTryRemoveAbstractionRelationshipNotExist() throws Exception{
+		Architecture a = givenAArchitecture("abstractionInterElement");
+		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
+		a.removeAbstractionRelationship(null);
+		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
+	}
 	
 }

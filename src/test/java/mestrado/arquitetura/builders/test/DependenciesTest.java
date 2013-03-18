@@ -189,8 +189,6 @@ public class DependenciesTest extends TestHelper {
 		assertNotNull(dependency);
 		assertEquals(1, dependency.size());
 		assertEquals("Package1", dependency.get(0).getClient().getName());
-		
 	}
-	
 
 }
