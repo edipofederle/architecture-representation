@@ -5,17 +5,34 @@ package mestrado.arquitetura.representation;
  * @author edipofederle
  *
  */
-public class AbstractionRelationship extends Relationship{
+public class RealizationRelationship extends Relationship {
 	
+	private String name;
 	private Element client;
 	private Element supplier;
-
-	public AbstractionRelationship(Element client, Element supplier) {
+	
+	
+	public RealizationRelationship(Element client, Element supplier, String name){
 		setClient(client);
 		setSupplier(supplier);
-		if(client instanceof Package)
-			((Package) client).addImplementedInterface(client);
+		setName(name);
 	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+
+	/**
+	 * @param name the name to set
+	 */
+	private void setName(String name) {
+		this.name = name;
+	}
+
 
 	/**
 	 * @return the client
@@ -24,12 +41,14 @@ public class AbstractionRelationship extends Relationship{
 		return client;
 	}
 
+
 	/**
 	 * @param client the client to set
 	 */
-	public void setClient(Element client) {
+	private void setClient(Element client) {
 		this.client = client;
 	}
+
 
 	/**
 	 * @return the supplier
@@ -38,13 +57,14 @@ public class AbstractionRelationship extends Relationship{
 		return supplier;
 	}
 
+
 	/**
 	 * @param supplier the supplier to set
 	 */
-	public void setSupplier(Element supplier) {
+	private void setSupplier(Element supplier) {
 		this.supplier = supplier;
 	}
 
 
-
+	
 }

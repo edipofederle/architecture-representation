@@ -9,8 +9,8 @@ import java.util.List;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.InterClassRelationship;
-import mestrado.arquitetura.representation.RealizationInterClassRelationship;
+import mestrado.arquitetura.representation.Relationship;
+import mestrado.arquitetura.representation.RealizationRelationship;
 
 import org.junit.Test;
 
@@ -26,8 +26,8 @@ public class RealizationsTest extends TestHelper {
 		Architecture architecture6 = givenAArchitecture("realization");
 		assertNotNull(architecture6);
 		
-		List<InterClassRelationship> relations = architecture6.getInterClassRelationships();
-		RealizationInterClassRelationship realization = (RealizationInterClassRelationship) relations.get(0);
+		List<Relationship> relations = architecture6.getInterClassRelationships();
+		RealizationRelationship realization = (RealizationRelationship) relations.get(0);
 		
 		assertNotNull(realization);
 		

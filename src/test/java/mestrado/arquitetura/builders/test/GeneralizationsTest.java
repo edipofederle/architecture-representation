@@ -10,7 +10,7 @@ import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Element;
-import mestrado.arquitetura.representation.GeneralizationInterClassRelationship;
+import mestrado.arquitetura.representation.GeneralizationRelationship;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class GeneralizationsTest extends TestHelper {
 
 		assertEquals(3, arch.getAllGeneralizations().size());
 
-		GeneralizationInterClassRelationship generalization = arch.getAllGeneralizations().get(0);
+		GeneralizationRelationship generalization = arch.getAllGeneralizations().get(0);
 		assertNotNull(generalization);
 		assertEquals("Person", generalization.getParent().getName());
 		assertEquals(1, generalization.gelAllChildrenForGeneralClass().size());
@@ -46,7 +46,7 @@ public class GeneralizationsTest extends TestHelper {
 		assertNotNull(professorKlass);
 		assertEquals("Professor", professorKlass.getName());
 
-		GeneralizationInterClassRelationship generalization = arch.getAllGeneralizations().get(1);
+		GeneralizationRelationship generalization = arch.getAllGeneralizations().get(1);
 
 		assertContains(generalization.gelAllChildrenForGeneralClass(), "Child2");
 		generalization.replaceChild(professorKlass);
@@ -61,7 +61,7 @@ public class GeneralizationsTest extends TestHelper {
 		assertNotNull(professorKlass);
 		assertEquals("Professor", professorKlass.getName());
 
-		GeneralizationInterClassRelationship generalization = arch.getAllGeneralizations().get(0);
+		GeneralizationRelationship generalization = arch.getAllGeneralizations().get(0);
 
 		assertEquals("Person", generalization.getParent().getName());
 		generalization.replaceParent((Class) professorKlass);
@@ -87,7 +87,7 @@ public class GeneralizationsTest extends TestHelper {
 		assertNotNull(student);
 		assertEquals("Parent", parentKlass.getName());
 
-		GeneralizationInterClassRelationship r = arch.getAllGeneralizations().get(1);
+		GeneralizationRelationship r = arch.getAllGeneralizations().get(1);
 		assertEquals(2, r.gelAllChildrenForGeneralClass().size());
 		assertContains(r.gelAllChildrenForGeneralClass(), "Child1", "Child2");
 		assertTrue("Children of " + r.getParent() + " should NOT contain Sudent Class", !r
@@ -98,8 +98,8 @@ public class GeneralizationsTest extends TestHelper {
 	public void resursiveGeneralization() throws Exception {
 		Architecture arch = givenAArchitecture("generalizationRecur");
 
-		GeneralizationInterClassRelationship generalization = arch.getAllGeneralizations().get(0);
-		GeneralizationInterClassRelationship generalization1 = arch.getAllGeneralizations().get(3);
+		GeneralizationRelationship generalization = arch.getAllGeneralizations().get(0);
+		GeneralizationRelationship generalization1 = arch.getAllGeneralizations().get(3);
 		assertEquals("Class1", generalization.getParent().getName());
 		assertContains(generalization.gelAllChildrenForGeneralClass(),"Class3", "Class2");
 

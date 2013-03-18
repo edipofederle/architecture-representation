@@ -9,7 +9,6 @@ import static mestrado.arquitetura.helpers.ElementsTypes.COMMENT;
 import static mestrado.arquitetura.helpers.ElementsTypes.DEPENDENCY;
 import static mestrado.arquitetura.helpers.ElementsTypes.INTERFACE;
 import static mestrado.arquitetura.helpers.ElementsTypes.OPERATION;
-import static mestrado.arquitetura.helpers.ElementsTypes.PACKAGE;
 import static mestrado.arquitetura.helpers.ElementsTypes.REALIZATION;
 import static mestrado.arquitetura.helpers.ElementsTypes.USAGE;
 
@@ -33,6 +32,7 @@ import org.eclipse.uml2.uml.AssociationClass;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.Dependency;
+import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
@@ -41,6 +41,8 @@ import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Realization;
 import org.eclipse.uml2.uml.Usage;
 import org.eclipse.uml2.uml.internal.impl.DependencyImpl;
+import org.eclipse.uml2.uml.internal.impl.ModelImpl;
+import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 
 /**
  * Helper para atuar sobre um model ( arquitetura ).
@@ -123,9 +125,8 @@ public class ModelHelper extends ElementHelper {
 					if(element instanceof Dependency)
 						r.add(((Dependency) element));
 		}
-		for (Dependency d : relationsDependencies){
-				r.add(d);
-		}
+		for (Dependency d : relationsDependencies)	r.add(d);
+		
 		return r;
 	}
 	
@@ -146,7 +147,18 @@ public class ModelHelper extends ElementHelper {
 	}
 
 	public List<Package> getAllPackages(NamedElement model) {
-		return getAllElementsByType(model, PACKAGE);
+		List<Package> pks = new ArrayList<Package>();
+		searchPeackages(model, pks);
+		return pks;
+	}
+
+	private void searchPeackages(NamedElement model, List<Package> pks) {
+		for (Element package1 : model.getOwnedElements()) {
+			if ((package1 instanceof PackageImpl) && !(package1 instanceof ModelImpl )){
+				pks.add((Package)package1);
+				searchPeackages((Package)package1, pks);
+			}
+		}
 	}
 
 	public List<Classifier> getAllComments(NamedElement model) {
@@ -157,12 +169,9 @@ public class ModelHelper extends ElementHelper {
 		List<Realization> realizations = new ArrayList<Realization>();
 		List<Dependency> dependencies = getDependencies(model);
 		
-		
-		for (Dependency dependency : dependencies) {
-			if(dependency instanceof Realization){
+		for (Dependency dependency : dependencies)
+			if(dependency instanceof Realization)
 				realizations.add(((Realization)dependency));
-			}
-		}
 		
 		for(Object  r : getAllElementsByType(model, REALIZATION) )
 			realizations.add((Realization)r);
@@ -224,29 +233,17 @@ public class ModelHelper extends ElementHelper {
 		
 		classes = getAllClasses(model);
 		
-		for (int i = 0; i < classes.size(); i++) {
+		for (int i = 0; i < classes.size(); i++) 
 			if(StereotypeHelper.isVariability(classes.get(i)))
 				variabilities.add(StereotypeHelper.getCommentVariability(classes.get(i)));
-		}
-		
+
 		if(!variabilities.isEmpty()) return variabilities;
 		return Collections.emptyList();
 	}
-	
-	/**
-	 * Método recursivo que recuperar todas as classes de todos os pacotes e subpacotes.
-	 * 
-	 * @param pacote
-	 * @return
-	 */
+
 	private List<org.eclipse.uml2.uml.Class> getAllClassesOfPackage(Package pacote) {
 		List<org.eclipse.uml2.uml.Class> classes = new ArrayList<org.eclipse.uml2.uml.Class>();
-		
 		classes.addAll(getClasses(pacote));
-		List<Package> a = getAllPackages((Package)pacote);
-		for (int i = 0; i < a.size(); i++) 
-			classes.addAll(getAllClassesOfPackage((Package)a.get(i)));
-		
 		return classes;
 	}
 

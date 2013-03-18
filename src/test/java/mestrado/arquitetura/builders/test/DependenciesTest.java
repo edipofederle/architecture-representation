@@ -10,7 +10,7 @@ import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
-import mestrado.arquitetura.representation.DependencyInterClassRelationship;
+import mestrado.arquitetura.representation.DependencyRelationship;
 import mestrado.arquitetura.representation.Element;
 
 import org.junit.Before;
@@ -33,7 +33,7 @@ public class DependenciesTest extends TestHelper {
 
 	@Test
 	public void shouldLoadDependency() throws Exception {
-		DependencyInterClassRelationship dependency = arch.getAllDependencyInterClass().get(0);
+		DependencyRelationship dependency = arch.getAllDependencies().get(0);
 
 		assertNotNull(dependency);
 		assertEquals("Supplier Should be Class1", "Class1", dependency.getSupplier().getName());
@@ -51,8 +51,8 @@ public class DependenciesTest extends TestHelper {
 		Architecture a = new ArchitectureBuilder().create(uriToArchitecture2);
 
 		assertNotNull(a);
-		Element class1 = a.getAllDependencyInterClass().get(0).getClient();
-		Element class2 = a.getAllDependencyInterClass().get(0).getSupplier();
+		Element class1 = a.getAllDependencies().get(0).getClient();
+		Element class2 = a.getAllDependencies().get(0).getSupplier();
 		assertEquals("Class1", class1.getName());
 		assertEquals("Class2", class2.getName());
 	}
@@ -67,18 +67,18 @@ public class DependenciesTest extends TestHelper {
 
 		assertNotNull(a);
 
-		assertEquals(1, a.getAllDependencyInterClass().size());
-		assertEquals("Class1", a.getAllDependencyInterClass().get(0).getClient().getName());
-		assertEquals("model", a.getAllDependencyInterClass().get(0).getClient().getNamespace());
-		assertEquals("Class2", a.getAllDependencyInterClass().get(0).getSupplier().getName());
-		assertEquals("model::Package1", a.getAllDependencyInterClass().get(0).getSupplier().getNamespace());
+		assertEquals(1, a.getAllDependencies().size());
+		assertEquals("Class1", a.getAllDependencies().get(0).getClient().getName());
+		assertEquals("model", a.getAllDependencies().get(0).getClient().getNamespace());
+		assertEquals("Class2", a.getAllDependencies().get(0).getSupplier().getName());
+		assertEquals("model::Package1", a.getAllDependencies().get(0).getSupplier().getNamespace());
 
 	}
 
 	@Test
 	public void shouldDependencyNameBeEmptyWhenNull() throws Exception {
 
-		DependencyInterClassRelationship dependency = arch.getAllDependencyInterClass().get(0);
+		DependencyRelationship dependency = arch.getAllDependencies().get(0);
 		dependency.setName(null);
 		assertEquals("Dependency name should be empty", "",	dependency.getName());
 	}
@@ -88,8 +88,8 @@ public class DependenciesTest extends TestHelper {
 	public void shouldDependencyContainsTwoClients() throws Exception {
 
 
-		DependencyInterClassRelationship d2 = arch.getAllDependencyInterClass().get(1);
-		DependencyInterClassRelationship d3 = arch.getAllDependencyInterClass().get(2);
+		DependencyRelationship d2 = arch.getAllDependencies().get(1);
+		DependencyRelationship d3 = arch.getAllDependencies().get(2);
 
 		assertEquals("Dependency2", d2.getName());
 		assertEquals("Dependency3", d3.getName());
@@ -102,8 +102,8 @@ public class DependenciesTest extends TestHelper {
 	public void shouldDependencyContainsTwoSuppliers() throws Exception {
 
 
-		DependencyInterClassRelationship d4 = arch.getAllDependencyInterClass().get(3);
-		DependencyInterClassRelationship d5 = arch.getAllDependencyInterClass().get(4);
+		DependencyRelationship d4 = arch.getAllDependencies().get(3);
+		DependencyRelationship d5 = arch.getAllDependencies().get(4);
 
 		assertEquals("Dependency4", d4.getName());
 		assertEquals("Dependency5", d5.getName());
@@ -122,7 +122,7 @@ public class DependenciesTest extends TestHelper {
 
 		Class klass = (Class) arch.findElementByName("replaceClass");
 
-		DependencyInterClassRelationship dependency = arch.getAllDependencyInterClass().get(0);
+		DependencyRelationship dependency = arch.getAllDependencies().get(0);
 		assertEquals("Class2", dependency.getClient().getName());
 
 		dependency.replaceClient(klass);
@@ -134,7 +134,7 @@ public class DependenciesTest extends TestHelper {
 	public void shouldReplaceSupplierDependency() throws Exception {
 		Class klass = (Class) arch.findElementByName("replaceClass");
 
-		DependencyInterClassRelationship dependency = arch.getAllDependencyInterClass().get(0);
+		DependencyRelationship dependency = arch.getAllDependencies().get(0);
 		assertEquals("Class1", dependency.getSupplier().getName());
 
 		dependency.replaceSupplier(klass);
@@ -152,7 +152,7 @@ public class DependenciesTest extends TestHelper {
 		String uriToArchitecture8 = getUrlToModel("dependency2");
 		Architecture architecture8 = new ArchitectureBuilder().create(uriToArchitecture8);
 
-		DependencyInterClassRelationship dependencyInterElement = architecture8.getAllDependencyInterClass().get(0);
+		DependencyRelationship dependencyInterElement = architecture8.getAllDependencies().get(0);
 
 		assertNotNull(dependencyInterElement);
 
@@ -172,7 +172,7 @@ public class DependenciesTest extends TestHelper {
 	public void shouldLoadDependencyClassPackage() throws Exception{
 		Architecture a = givenAArchitecture("classPackageDependency");
 		
-		DependencyInterClassRelationship dependencyInterElement = a.getAllDependencyInterClass().get(0);
+		DependencyRelationship dependencyInterElement = a.getAllDependencies().get(0);
 
 		assertNotNull(dependencyInterElement);
 		assertEquals("Class2", dependencyInterElement.getClient().getName());
@@ -184,7 +184,7 @@ public class DependenciesTest extends TestHelper {
 		Architecture a = givenAArchitecture("dependencyPackagePackage");
 		
 		
-		List<DependencyInterClassRelationship> dependency = a.getAllDependencyInterClass();
+		List<DependencyRelationship> dependency = a.getAllDependencies();
 
 		assertNotNull(dependency);
 		assertEquals(1, dependency.size());

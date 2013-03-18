@@ -19,7 +19,7 @@ public class Architecture {
 	private HashMap<String, Concern> concerns = new HashMap<String, Concern>();
 	private List<Variability> variabilities = new ArrayList<Variability>();
 	
-	private List<InterClassRelationship> interClassRelationships = new ArrayList<InterClassRelationship>();
+	private List<Relationship> relationships = new ArrayList<Relationship>();
 	
 	private String name;
 	
@@ -79,12 +79,12 @@ public class Architecture {
 		return variabilities;
 	}
 	
-	public List<InterClassRelationship> getInterClassRelationships() {
-		return interClassRelationships;
+	public List<Relationship> getInterClassRelationships() {
+		return relationships;
 	}
 
-	public void setInterClassRelationships(List<InterClassRelationship> interClassRelationships) {
-		this.interClassRelationships = interClassRelationships;
+	public void setInterClassRelationships(List<Relationship> relationships) {
+		this.relationships = relationships;
 	}
 
 	//TODO refatorar para buscar todo tipo de elemento
@@ -120,71 +120,71 @@ public class Architecture {
 		
 	}
 	
-	public List<GeneralizationInterClassRelationship> getAllGeneralizations(){
-		Predicate<InterClassRelationship> isAuthorized = new Predicate<InterClassRelationship>() {
-			public boolean apply(InterClassRelationship parent) {
-				return GeneralizationInterClassRelationship.class.isInstance(parent);
+	public List<GeneralizationRelationship> getAllGeneralizations(){
+		Predicate<Relationship> isAuthorized = new Predicate<Relationship>() {
+			public boolean apply(Relationship parent) {
+				return GeneralizationRelationship.class.isInstance(parent);
 			}
 		};
 		
-		List<GeneralizationInterClassRelationship> authorizedUsers = UtilResources.filter(interClassRelationships, isAuthorized);
+		List<GeneralizationRelationship> authorizedUsers = UtilResources.filter(relationships, isAuthorized);
 		return authorizedUsers;
 	}
 
 
-	public List<AssociationInterClassRelationship>  getAllAssociations() {
-		Predicate<InterClassRelationship> isAuthorized = new Predicate<InterClassRelationship>() {
-			public boolean apply(InterClassRelationship parent) {
-				return AssociationInterClassRelationship.class.isInstance(parent);
+	public List<AssociationRelationship>  getAllAssociations() {
+		Predicate<Relationship> isAuthorized = new Predicate<Relationship>() {
+			public boolean apply(Relationship parent) {
+				return AssociationRelationship.class.isInstance(parent);
 			}
 		};
 
-		List<AssociationInterClassRelationship> authorizedUsers = UtilResources.filter(interClassRelationships, isAuthorized);
+		List<AssociationRelationship> authorizedUsers = UtilResources.filter(relationships, isAuthorized);
 		return authorizedUsers;
 		
 	}
 
-	public List<UsageInterClassRelationship> getAllUsage() {
-		Predicate<InterClassRelationship> isAuthorized = new Predicate<InterClassRelationship>() {
-			public boolean apply(InterClassRelationship parent) {
-				return UsageInterClassRelationship.class.isInstance(parent);
+	public List<UsageRelationship> getAllUsage() {
+		Predicate<Relationship> isAuthorized = new Predicate<Relationship>() {
+			public boolean apply(Relationship parent) {
+				return UsageRelationship.class.isInstance(parent);
 			}
 		};
 		
-		List<UsageInterClassRelationship> authorizedUsers = UtilResources.filter(interClassRelationships, isAuthorized);
+		List<UsageRelationship> authorizedUsers = UtilResources.filter(relationships, isAuthorized);
 		return authorizedUsers;
 	}
 
-	public List<DependencyInterClassRelationship> getAllDependencyInterClass() {
-		Predicate<InterClassRelationship> isAuthorized = new Predicate<InterClassRelationship>() {
-			public boolean apply(InterClassRelationship parent) {
-				return DependencyInterClassRelationship.class.isInstance(parent);
+	public List<DependencyRelationship> getAllDependencies() {
+		Predicate<Relationship> isAuthorized = new Predicate<Relationship>() {
+			public boolean apply(Relationship parent) {
+				return DependencyRelationship.class.isInstance(parent);
 			}
 		};
 		
-		List<DependencyInterClassRelationship> authorizedUsers = UtilResources.filter(interClassRelationships, isAuthorized);
+		List<DependencyRelationship> authorizedUsers = UtilResources.filter(relationships, isAuthorized);
 		return authorizedUsers;
 	}
 
-	public List<RealizationInterClassRelationship> getAllRealizations() {
-		Predicate<InterClassRelationship> realizations = new Predicate<InterClassRelationship>() {
-			public boolean apply(InterClassRelationship parent) {
-				return RealizationInterClassRelationship.class.isInstance(parent);
+	public List<RealizationRelationship> getAllRealizations() {
+		Predicate<Relationship> realizations = new Predicate<Relationship>() {
+			public boolean apply(Relationship parent) {
+				return RealizationRelationship.class.isInstance(parent);
 			}
 		};
 		
-		List<RealizationInterClassRelationship> alRealizations = UtilResources.filter(interClassRelationships, realizations);
+		List<RealizationRelationship> alRealizations = UtilResources.filter(relationships, realizations);
 		return alRealizations;
 	}
 
 	public List<AbstractionRelationship> getAllAbstractions() {
-		Predicate<InterClassRelationship> realizations = new Predicate<InterClassRelationship>() {
-			public boolean apply(InterClassRelationship parent) {
+		Predicate<Relationship> realizations = new Predicate<Relationship>() {
+			public boolean apply(Relationship parent) {
 				return AbstractionRelationship.class.isInstance(parent);
 			}
 		};
 		
-		List<AbstractionRelationship> alRealizations = UtilResources.filter(interClassRelationships, realizations);
+		List<AbstractionRelationship> alRealizations = UtilResources.filter(relationships, realizations);
 		return alRealizations;
 	}
 	

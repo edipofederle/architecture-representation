@@ -10,4 +10,10 @@
     </eAnnotations>
     <appliedProfile href="smarty.profile.uml#_A5PhMHCUEeKmAIR_nY6Zhg"/>
   </profileApplication>
+  <profileApplication xmi:id="_C_RpMI9XEeKRZ8ZWnppyHA">
+    <eAnnotations xmi:id="_C_RpMY9XEeKRZ8ZWnppyHA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_OaSVgIEVEeKfhKWYalU4oQ"/>
+    </eAnnotations>
+    <appliedProfile href="smarty.profile.uml#_pWQg0HnPEeKAopGwrqrm1w"/>
+  </profileApplication>
 </uml:Model>

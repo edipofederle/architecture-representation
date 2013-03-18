@@ -164,7 +164,7 @@ public class ModelHelperTest extends TestHelper {
 			if("Package1".equalsIgnoreCase(((PackageImpl)a.get(i)).getName()))
 				p = (PackageImpl) a.get(i);
 		
-		assertEquals(2, a.size());
+		assertEquals(4, a.size());
 		List<org.eclipse.uml2.uml.Class> c = modelHelper.getAllClasses(p);
 		assertEquals("Bar", c.get(2).getName());
 		assertTrue(c.get(2).isAbstract());
@@ -188,7 +188,15 @@ public class ModelHelperTest extends TestHelper {
 		
 		assertEquals(0,modelHelper.getAllDependencies(model).size());
 		assertEquals(1, modelHelper.getAllRealizations(model).size());
-		
+	}
+	
+	@Test
+	public void shouldLoadaPackagesRecursively() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+		Package model = givenAModel("pacotes");
+		assertEquals(3, modelHelper.getAllPackages(model).size());
+		assertEquals("Package1", modelHelper.getAllPackages(model).get(0).getName() );
+		assertEquals("Package2", modelHelper.getAllPackages(model).get(1).getName() );
+		assertEquals("Package3", modelHelper.getAllPackages(model).get(2).getName() );
 	}
 	
 }

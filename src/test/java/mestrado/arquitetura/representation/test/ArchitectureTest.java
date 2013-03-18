@@ -170,21 +170,21 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldReturnAllDependency() throws Exception{
 		String uriToArchitecture = getUrlToModel("dependency");
 		Architecture a = new ArchitectureBuilder().create(uriToArchitecture);
-		assertEquals(5, a.getAllDependencyInterClass().size());
+		assertEquals(5, a.getAllDependencies().size());
 	}	
 	
 	@Test
 	public void shouldReturnAllDependencyClassPackage() throws Exception{
 		String uriToArchitecture = getUrlToModel("dependency");
 		Architecture a = new ArchitectureBuilder().create(uriToArchitecture);
-		assertEquals(5, a.getAllDependencyInterClass().size());
+		assertEquals(5, a.getAllDependencies().size());
 	}
 	
 	@Test
 	public void teste() throws Exception{
 		String uriToArchitecture = getUrlToModel("dependency2");
 		Architecture a = new ArchitectureBuilder().create(uriToArchitecture);
-		assertEquals(1, a.getAllDependencyInterClass().size());
+		assertEquals(1, a.getAllDependencies().size());
 		
 	}
 	

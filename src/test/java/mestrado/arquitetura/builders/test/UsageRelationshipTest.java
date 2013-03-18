@@ -8,8 +8,8 @@ import java.util.List;
 import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.helpers.test.HelperTest;
 import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.InterClassRelationship;
-import mestrado.arquitetura.representation.UsageInterClassRelationship;
+import mestrado.arquitetura.representation.Relationship;
+import mestrado.arquitetura.representation.UsageRelationship;
 
 import org.junit.Test;
 
@@ -29,7 +29,7 @@ public class UsageRelationshipTest extends HelperTest {
 		assertEquals(1, a.getAllUsage().size());
 		assertEquals(1, a.getInterClassRelationships().size());
 		
-		 UsageInterClassRelationship u = a.getAllUsage().get(0);
+		 UsageRelationship u = a.getAllUsage().get(0);
 		 assertEquals("Class2", u.getClient().getName());
 		 assertEquals("model::Package1", u.getClient().getNamespace());
 		 
@@ -58,12 +58,12 @@ public class UsageRelationshipTest extends HelperTest {
 
 		assertNotNull(architecture8);
 
-		List<InterClassRelationship> relations2 = architecture8.getInterClassRelationships();
+		List<Relationship> relations2 = architecture8.getInterClassRelationships();
 
 		assertNotNull(relations2);
 		assertEquals(2, relations2.size());
 
-		UsageInterClassRelationship usage = (UsageInterClassRelationship) relations2.get(0);
+		UsageRelationship usage = (UsageRelationship) relations2.get(0);
 
 		assertNotNull(usage);
 		assertEquals("Usage1", usage.getName());
@@ -83,11 +83,11 @@ public class UsageRelationshipTest extends HelperTest {
 
 		assertNotNull(architecture8);
 
-		List<InterClassRelationship> relations2 = architecture8.getInterClassRelationships();
+		List<Relationship> relations2 = architecture8.getInterClassRelationships();
 		assertEquals(1,relations2.size());
 		
 		
-		 UsageInterClassRelationship u = architecture8.getAllUsage().get(0);
+		 UsageRelationship u = architecture8.getAllUsage().get(0);
 		 assertEquals("Class1", u.getClient().getName());
 		 assertEquals("model::Package2", u.getClient().getNamespace());
 		 
@@ -103,9 +103,9 @@ public class UsageRelationshipTest extends HelperTest {
 	@Test
 	public void shouldLoadUsageInterClassPackage() throws Exception{
 		Architecture a = givenAArchitecture("usageClassPackage");
-		List<InterClassRelationship> relations = a.getInterClassRelationships();
+		List<Relationship> relations = a.getInterClassRelationships();
 		assertNotNull(a);
-		UsageInterClassRelationship relation = (UsageInterClassRelationship)relations.get(0);
+		UsageRelationship relation = (UsageRelationship)relations.get(0);
 		assertNotNull(relation);
 		
 		assertEquals("Class1", relation.getClient().getName());
@@ -117,8 +117,8 @@ public class UsageRelationshipTest extends HelperTest {
 	public void shouldLoadUsageInterPackageClass() throws Exception{
 		String uriToArchitecture = getUrlToModel("PackageClassUsage");
 		Architecture architecture2 = new ArchitectureBuilder().create(uriToArchitecture);
-		List<InterClassRelationship> relations2 = architecture2.getInterClassRelationships();
-		UsageInterClassRelationship relation2 = (UsageInterClassRelationship)relations2.get(0);
+		List<Relationship> relations2 = architecture2.getInterClassRelationships();
+		UsageRelationship relation2 = (UsageRelationship)relations2.get(0);
 		assertNotNull(relations2);
 		
 		assertEquals("Package1", relation2.getClient().getName());

@@ -11,7 +11,7 @@ import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.DependencyInterClassRelationship;
+import mestrado.arquitetura.representation.DependencyRelationship;
 
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
@@ -59,7 +59,7 @@ public class GenericTest extends TestHelper {
 		assertEquals(2, architecture.getClasses().size());
 		assertEquals(1, architecture.getInterClassRelationships().size());
 		
-		DependencyInterClassRelationship r = (DependencyInterClassRelationship) architecture.getInterClassRelationships().get(0);
+		DependencyRelationship r = architecture.getAllDependencies().get(0);
 		
 		assertNotNull(r);
 		assertEquals("Class1", r.getClient().getName());

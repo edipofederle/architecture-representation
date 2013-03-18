@@ -10,15 +10,15 @@ import java.util.List;
 import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.AssociationClassInterClassRelationship;
-import mestrado.arquitetura.representation.AssociationInterClassRelationship;
+import mestrado.arquitetura.representation.AssociationClassRelationship;
+import mestrado.arquitetura.representation.AssociationRelationship;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Concern;
-import mestrado.arquitetura.representation.DependencyInterClassRelationship;
+import mestrado.arquitetura.representation.DependencyRelationship;
 import mestrado.arquitetura.representation.Element;
-import mestrado.arquitetura.representation.InterClassRelationship;
 import mestrado.arquitetura.representation.Method;
 import mestrado.arquitetura.representation.Package;
+import mestrado.arquitetura.representation.Relationship;
 import mestrado.arquitetura.representation.Variability;
 
 import org.junit.Before;
@@ -62,8 +62,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void shouldHaveLoadPackages() throws Exception {
 		assertNotNull(architecture.getPackages());
-		assertEquals("Architecture should have two package", 2, architecture
-				.getPackages().size());
+		assertEquals("Architecture should have two package", 4, architecture.getPackages().size());
 	}
 
 	@Test
@@ -281,7 +280,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 		Architecture architecture8 = new ArchitectureBuilder()
 				.create(uriToArchitecture8);
 
-		DependencyInterClassRelationship dependencyInterElement = architecture8.getAllDependencyInterClass().get(0);
+		DependencyRelationship dependencyInterElement = architecture8.getAllDependencies().get(0);
 
 		assertNotNull(dependencyInterElement);
 		
@@ -294,14 +293,13 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void shouldLoadAssociationClassAssociation() throws Exception {
 		String uriToArchitecture8 = getUrlToModel("associationClass");
-		Architecture architecture8 = new ArchitectureBuilder()
-				.create(uriToArchitecture8);
+		Architecture architecture8 = new ArchitectureBuilder().create(uriToArchitecture8);
 
-		List<InterClassRelationship> relations = architecture8
+		List<Relationship> relations = architecture8
 				.getInterClassRelationships();
 		assertEquals(2, relations.size());
 
-		AssociationClassInterClassRelationship associationClass = (AssociationClassInterClassRelationship) relations
+		AssociationClassRelationship associationClass = (AssociationClassRelationship) relations
 				.get(1);
 
 		assertEquals("Should return three classes", 3, architecture8
@@ -329,18 +327,16 @@ public class ArchitectureBuilderTest extends TestHelper {
 		Architecture architecture8 = new ArchitectureBuilder()
 				.create(uriToArchitecture8);
 
-		List<InterClassRelationship> relations = architecture8
+		List<Relationship> relations = architecture8
 				.getInterClassRelationships();
 
-		AssociationInterClassRelationship association = (AssociationInterClassRelationship) relations
+		AssociationRelationship association = (AssociationRelationship) relations
 				.get(0);
 
 		assertNotNull(association);
 		assertEquals(2, association.getParticipants().size());
-		assertEquals("Employee", association.getParticipants().get(0)
-				.getCLSClass().getName());
-		assertEquals("Class2", association.getParticipants().get(1)
-				.getCLSClass().getName());
+		assertEquals("Employee", association.getParticipants().get(0).getCLSClass().getName());
+		assertEquals("Class2", association.getParticipants().get(1).getCLSClass().getName());
 
 	}
 
