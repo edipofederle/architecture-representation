@@ -9,7 +9,7 @@ import java.util.List;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Class;
+import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.relationship.AssociationEnd;
 import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 import mestrado.arquitetura.representation.relationship.Relationship;
@@ -59,11 +59,11 @@ public class AssociationsTest extends TestHelper {
 		assertEquals(2, participants.size());
 
 		assertEquals("none", association.getParticipants().get(0).getAggregation());
-		assertFalse(association.getParticipants().get(0).isNavigable());
+		assertTrue(association.getParticipants().get(0).isNavigable());
 		assertEquals("Class3", participants.get(0).getCLSClass().getName());
 
 		assertEquals("none", association.getParticipants().get(1).getAggregation());
-		assertTrue(association.getParticipants().get(1).isNavigable());
+		assertFalse(association.getParticipants().get(1).isNavigable());
 		assertEquals("Class4", participants.get(1).getCLSClass().getName());
 	}
 	
@@ -73,10 +73,9 @@ public class AssociationsTest extends TestHelper {
 		Architecture architecture2 = givenAArchitecture("association");
 		AssociationRelationship association = architecture2.getAllAssociations().get(1);
 		assertEquals("1", association.getParticipants().get(1).getMultiplicity().getLowerValue());
-		assertEquals("*", association.getParticipants().get(1).getMultiplicity().getUpperValue());
-		assertEquals("1..*", association.getParticipants().get(1).getMultiplicity().toString());
+		assertEquals("1", association.getParticipants().get(1).getMultiplicity().getUpperValue());
+		assertEquals("1..1", association.getParticipants().get(1).getMultiplicity().toString());
 	}
-	
 
 	@Test
 	public void testMultiplicityAssociationRelationship2() throws Exception {
@@ -146,11 +145,11 @@ public class AssociationsTest extends TestHelper {
 
 		List<AssociationEnd> a = association1.getParticipants();
 		List<AssociationEnd> b = association2.getParticipants();
-		Class klass3 = a.get(0).getCLSClass();
-		Class klass2 = a.get(1).getCLSClass();
+		Element klass3 = a.get(0).getCLSClass();
+		Element klass2 = a.get(1).getCLSClass();
 
-		Class klass1 = b.get(1).getCLSClass();
-		Class kllass2a = b.get(0).getCLSClass();
+		Element klass1 = b.get(1).getCLSClass();
+		Element kllass2a = b.get(0).getCLSClass();
 
 		assertEquals("Class1", klass1.getName());
 		assertEquals("Class2", kllass2a.getName());
@@ -158,6 +157,21 @@ public class AssociationsTest extends TestHelper {
 		assertEquals("Class2", klass2.getName());
 		assertTrue(a.get(1).isNavigable());
 		assertFalse(a.get(0).isNavigable());
+	}
+	
+	
+	@Test
+	public void test() throws Exception{
+		Architecture a = givenAArchitecture("associacoa1");
+		
+		assertEquals(1, a.getAllAssociations().size());
+		
+		AssociationRelationship as = a.getAllAssociations().get(0);
+		
+		assertEquals(2, as.getParticipants().size());
+		assertEquals("Class2", as.getParticipants().get(0).getCLSClass().getName());
+		assertEquals("1..*", as.getParticipants().get(0).getMultiplicity().toString());
+		assertEquals("0..1", as.getParticipants().get(1).getMultiplicity().toString());
 	}
 
 }

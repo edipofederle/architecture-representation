@@ -60,7 +60,7 @@ public class AbstractionRelationshipBuilder extends RelationshipBase {
 				client = interfaceBuilder.getElementByXMIID(getModelHelper().getXmiId(clientElement));
 		}
 		
-		return new AbstractionRelationship(client,supplier );
+		return new AbstractionRelationship(client,supplier, getModelHelper().getXmiId(modelElement));
 	}
 
 }

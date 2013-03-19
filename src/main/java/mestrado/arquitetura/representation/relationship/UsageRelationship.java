@@ -9,11 +9,12 @@ public class UsageRelationship extends Relationship {
 	private Element supplier;
 	private Element client;
 	
-	public UsageRelationship(String name, Element supplier, Element client) {
+	public UsageRelationship(String name, Element supplier, Element client, String id) {
 		super();
 		this.name = name;
 		this.supplier = supplier;
 		this.client = client;
+		setId(id);
 	}
 	
 	public String getName() {

@@ -14,10 +14,11 @@ public class RealizationRelationship extends Relationship {
 	private Element supplier;
 	
 	
-	public RealizationRelationship(Element client, Element supplier, String name){
+	public RealizationRelationship(Element client, Element supplier, String name, String id){
 		setClient(client);
 		setSupplier(supplier);
 		setName(name);
+		setId(id);
 	}
 
 	/**

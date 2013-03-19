@@ -32,7 +32,7 @@ public class GeneralizationRelationshipBuilder extends RelationshipBase {
 		Class generalKlass = classBuilder.getElementByXMIID(generalKlassId);
 		Class specificKlass = classBuilder.getElementByXMIID(specificKlassId);
 		
-		return new GeneralizationRelationship(generalKlass, specificKlass, architecture);
+		return new GeneralizationRelationship(generalKlass, specificKlass, architecture, getModelHelper().getXmiId(generalization));
 	}
 
 }

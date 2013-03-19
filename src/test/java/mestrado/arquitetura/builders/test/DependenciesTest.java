@@ -179,7 +179,6 @@ public class DependenciesTest extends TestHelper {
 	public void shouldLoadDependencyPackagePackage() throws Exception{
 		Architecture a = givenAArchitecture("dependencyPackagePackage");
 		
-		
 		List<DependencyRelationship> dependency = a.getAllDependencies();
 
 		assertNotNull(dependency);

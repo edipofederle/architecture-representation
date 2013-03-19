@@ -43,7 +43,7 @@ public class RealizationRelationshipBuilder extends RelationshipBase {
 		
 		String name = realization.getName() != null ? realization.getName() : "";
 		
-		return new RealizationRelationship(clientElement, supplierElement, name);
+		return new RealizationRelationship(clientElement, supplierElement, name, getModelHelper().getXmiId(realization));
 	}
 	
 }

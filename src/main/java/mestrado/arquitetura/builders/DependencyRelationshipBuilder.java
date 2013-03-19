@@ -50,7 +50,7 @@ public class DependencyRelationshipBuilder  extends RelationshipBase{
 				supplier = interfaceBuilder.getElementByXMIID(getModelHelper().getXmiId(suppliers.get(0)));
 		}
 		
-		return new DependencyRelationship(supplier, client, element.getName(), architecture);
+		return new DependencyRelationship(supplier, client, element.getName(), architecture, getModelHelper().getXmiId(element));
 	}
 
 }

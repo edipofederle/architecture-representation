@@ -17,10 +17,11 @@ public class GeneralizationRelationship extends Relationship {
 	private Architecture architecture;
 	private Class child;
 	
-	public GeneralizationRelationship(Class parentClass, Class childClass, Architecture architecture) {
+	public GeneralizationRelationship(Class parentClass, Class childClass, Architecture architecture, String id) {
 		setParent(parentClass);
 		setChild(childClass);
 		this.architecture = architecture;
+		setId(id);
 	}
 	
 

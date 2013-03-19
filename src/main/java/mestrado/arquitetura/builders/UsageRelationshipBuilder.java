@@ -39,7 +39,7 @@ public class UsageRelationshipBuilder extends RelationshipBase {
 			supplier = packageBuilder.getElementByXMIID(getModelHelper().getXmiId(suppliers.get(0)));
 		}
 		
-		return new UsageRelationship(element.getName(), supplier, client);
+		return new UsageRelationship(element.getName(), supplier, client, getModelHelper().getXmiId(element));
 	}
 
 }

@@ -13,11 +13,12 @@ public class AbstractionRelationship extends Relationship{
 	private Element client;
 	private Element supplier;
 
-	public AbstractionRelationship(Element client, Element supplier) {
+	public AbstractionRelationship(Element client, Element supplier, String id) {
 		setClient(client);
 		setSupplier(supplier);
 		if(client instanceof Package)
 			((Package) client).addImplementedInterface(client);
+		setId(id);
 	}
 
 	/**

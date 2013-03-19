@@ -2,6 +2,10 @@ package mestrado.arquitetura.helpers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import mestrado.arquitetura.representation.Class;
 
 /**
  * 
@@ -30,6 +34,21 @@ public class UtilResources {
 			}
 		}
 		return result;
+	}
+
+	/**
+	 * Retorna somente o nome do elemento dado o namesapce
+	 * 
+	 * Ex: model::Package1, reotnra Package1
+	 * @param klass
+	 * @return
+	 */
+	public static String extractPackageName(String namespace) {
+		final Matcher matcher = Pattern.compile("::").matcher(namespace);
+		if(matcher.find()){
+		    return namespace.substring(matcher.end()).trim();
+		}
+		return "";
 	}
 
 

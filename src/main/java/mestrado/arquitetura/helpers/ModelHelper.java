@@ -104,7 +104,23 @@ public class ModelHelper extends ElementHelper {
 	}
 
 	public List<Association> getAllAssociations(NamedElement model) {
-		return getAllElementsByType(model, ASSOCIATION);
+		List<Association> associations =  new ArrayList<Association>();
+		associations = getAllElementsByType(model, ASSOCIATION);
+		
+		List<Association> r = new ArrayList<Association>();
+		
+		List<Package> paks = getAllPackages(model);
+		for (Package pack : paks) {
+			EList<org.eclipse.uml2.uml.Element> a = pack.getOwnedElements();
+			for (org.eclipse.uml2.uml.Element element : a)
+					if(element instanceof Association)
+						r.add(((Association) element));
+		}
+		for (Association d : associations)	r.add(d);
+		
+		return r;
+		
+		
 	}
 	
 	public List<AssociationClass> getAllAssociationsClass(NamedElement model) {

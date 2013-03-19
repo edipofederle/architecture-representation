@@ -11,11 +11,12 @@ public class AssociationClassRelationship extends	Relationship {
 	public List<Class> memebersEnd = new ArrayList<Class>();
 	private Class ownedEnd;
 
-	public AssociationClassRelationship(String name, List<Class> ends, Class ownedEnd) {
+	public AssociationClassRelationship(String name, List<Class> ends, Class ownedEnd, String id) {
 		super();
 		this.name = name;
 		this.memebersEnd = ends;
 		this.ownedEnd = ownedEnd;
+		setId(id);
 	}
 
 	public String getName() {

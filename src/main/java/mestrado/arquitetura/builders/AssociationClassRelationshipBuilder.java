@@ -26,7 +26,7 @@ public class AssociationClassRelationshipBuilder extends RelationshipBase {
 		Type ownedEnd = associationClass.getOwnedEnds().get(0).getType();
 		mestrado.arquitetura.representation.Class onewd = classBuilder.getElementByXMIID(getModelHelper().getXmiId(ownedEnd));
 		
-		return new AssociationClassRelationship(associationClass.getName(), membersEnd, onewd);
+		return new AssociationClassRelationship(associationClass.getName(), membersEnd, onewd, getModelHelper().getXmiId(associationClass));
 	}
 	
 }

@@ -20,7 +20,6 @@ import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Concern;
 import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.Interface;
-import mestrado.arquitetura.representation.Method;
 import mestrado.arquitetura.representation.Package;
 import mestrado.arquitetura.representation.Variability;
 import mestrado.arquitetura.representation.VariantType;
@@ -304,7 +303,6 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldNotChangeListWhenTryRemoveAssociationClassRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("associationClass");
 		assertEquals("Architecture should contain 1 AssociationClass", 1,	a.getAllAssociationsClass().size());
-		a.removeAssociationClass(null);
 		assertEquals("Architecture should contain 0 AssociationClass", 1,	a.getAllAssociationsClass().size());
 	}
 	
@@ -381,6 +379,48 @@ public class ArchitectureTest extends TestHelper {
 	}
 	
 	@Test
+	public void shouldRemoveAllElementRelatedWithPackageWhenPackageRemove1() throws Exception{
+		Architecture a = givenAArchitecture("testePackageRemove");
+		
+		assertEquals(1,a.getAllClasses().size());
+		assertEquals(0, a.getAllInterfaces().size());
+		
+		a.removePackage(a.getAllPackages().get(0));
+		assertEquals(0, a.getAllClasses().size());
+		assertEquals(0, a.getAllClasses().size());
+	}
+	
+	@Test
+	public void shouldRemoveAllElementRelatedWithPackageWhenPackageRemove2() throws Exception{
+		Architecture a = givenAArchitecture("removePacoteTeste2");
+		
+		assertEquals(2, a.getAllClasses().size());
+		assertEquals(1, a.getAllAssociations().size());
+		
+		a.removePackage(a.getAllPackages().get(0));
+		
+		assertEquals(1, a.getAllClasses().size());
+		assertEquals(0, a.getAllAssociations().size());
+	}
+	
+	@Test
+	public void shouldRemoveAllElementRelatedWithPackageWhenPackageRemove3() throws Exception{
+		Architecture a = givenAArchitecture("removePacote3");
+		
+		assertEquals(3,a.getAllClasses().size());
+		assertEquals(2, a.getAllAssociations().size());
+		
+		assertEquals(2, a.getAllAssociations().get(1).getParticipants().size());
+		
+		a.removePackage(a.getAllPackages().get(0));
+		
+		assertEquals(1, a.getAllClasses().size());
+		assertEquals(0, a.getAllAssociations().size());
+		
+	}
+	
+	
+	@Test
 	public void shouldCreateInterface() throws InterfaceNotFound{
 		assertEquals(0, architecture.getAllInterfaces().size());
 		Interface interfacee = architecture.createInterface("myInterface");
@@ -420,73 +460,5 @@ public class ArchitectureTest extends TestHelper {
 		architecture.removeClass(klass);
 		assertEquals(2, architecture.getAllClasses().size());
 	}
-	
-	@Test
-	public void shouldCreateOperationInterface() throws Exception{
-		Interface interfacee = architecture.createInterface("myInterface");
-		assertNotNull(interfacee);
-		
-		assertEquals(0, interfacee.getOperations().size());
-		assertNotNull(interfacee.createOperation("myOperation"));
-		assertEquals(1, interfacee.getOperations().size());
-	}
-	
-	@Test
-	public void shouldRemoveOperationFromInterface() throws Exception{
-		Architecture a = givenAArchitecture("interface");
-		assertEquals(1, a.getAllInterfaces().size());
-		
-		Interface i = a.getAllInterfaces().get(0);
-		assertNotNull(i);
-		
-		Method o = i.getOperations().get(0);
-		assertNotNull(o);
-		assertEquals(1,i.getOperations().size());
-		
-		i.removeOperation(o);
-		assertEquals(0, i.getOperations().size());
-	}
-	
-	@Test
-	public void shouldMoveOperationFromOneInterfaceToOther() throws Exception{
-		Architecture a = givenAArchitecture("interface");
-		Interface i = a.getAllInterfaces().get(0);
-		Interface i2 = a.createInterface("fooInterface");
-		
-		Method m = i2.createOperation("myOperation");
-		
-		assertEquals(1, i2.getOperations().size());
-		assertEquals(1, i.getOperations().size());
-		
-		i2.moveOperationToInterface(m, i);
-		assertEquals(2, i.getOperations().size());
-		assertEquals(0, i2.getOperations().size());
-	}
-	
-	@Test
-	public void shouldGetImplementors() throws Exception{
-		Architecture a = givenAArchitecture("abstractionInterElement");
-		Interface i = a.findInterfaceByName("myInterfaceClient");
-		
-		assertNotNull(i);
-		assertEquals(1, i.getImplementors().size());
-	}
-	
-	/**
-	 * 
-	 * @see <a href="https://dl.dropbox.com/u/6730822/dependencyPackageInterface.png"> Modelo usado no teste (imagem)</a>
-	 * @throws Exception
-	 */
-	@Test
-	public void shouldshouldGetImplementors() throws Exception{
-		Architecture a = givenAArchitecture("dependencyPackageInterface");
-		Interface i = a.findInterfaceByName("class1");
-		assertNotNull(i);
-		
-		assertEquals(1,i.getDependents().size());
-		
-	}
-	
-	
 	
 }

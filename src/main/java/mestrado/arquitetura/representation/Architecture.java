@@ -3,6 +3,7 @@ package mestrado.arquitetura.representation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -296,9 +297,27 @@ public class Architecture {
 	}
 
 	public void removePackage(Package p) {
+		List<Class> klasses = getAllClasses();
+		List<String> ids  = new ArrayList<String>();
+		
+		for (Class klass : klasses) {
+			String packageName = UtilResources.extractPackageName(klass.getNamespace());
+			if(packageName.equalsIgnoreCase(p.getName())){
+				ids.addAll(klass.getIdsRelationships());
+				removeClass(klass);
+			}
+		}
+		
+		for (Iterator<Relationship> i = relationships.iterator(); i.hasNext();) {
+			Relationship next = i.next();
+			if (ids.contains(next.getId()))
+				i.remove();
+		}
+		
 		if (!elements.remove(p))
 			LOGGER.info("Cannot remove Package " + p + ".");
 	}
+
 
 	public Interface createInterface(String interfaceName) {
 		Interface interfacee = new Interface(this, interfaceName);
@@ -320,7 +339,6 @@ public class Architecture {
 	public void removeClass(Class klass) {
 		if (!elements.remove(klass))
 			LOGGER.info("Cannot remove Class " + klass + ".");
-		
 	}
 
 }
