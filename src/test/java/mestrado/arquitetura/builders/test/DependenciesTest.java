@@ -20,8 +20,6 @@ import org.junit.Test;
  * @see <a href="https://dl.dropbox.com/u/6730822/d3.png"> Modelo (arch) usado nos testes</a>
  */
 public class DependenciesTest extends TestHelper {
-	
-	
 
 	private Architecture arch;
 

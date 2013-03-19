@@ -272,8 +272,6 @@ public class ArchitectureBuilderTest extends TestHelper {
 				.toString());
 	}
 
-
-
 	@Test
 	public void shouldLoadInterElementDependency() throws Exception {
 		String uriToArchitecture8 = getUrlToModel("dependency2");

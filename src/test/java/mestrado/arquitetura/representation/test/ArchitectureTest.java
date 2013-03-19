@@ -20,6 +20,7 @@ import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Concern;
 import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.Interface;
+import mestrado.arquitetura.representation.Method;
 import mestrado.arquitetura.representation.Package;
 import mestrado.arquitetura.representation.Variability;
 import mestrado.arquitetura.representation.VariantType;
@@ -150,7 +151,8 @@ public class ArchitectureTest extends TestHelper {
 		arch.getElements().add(new Interface(arch, "Interface1", false, VariantType.MANDATORY, null, "namesapce"));
 		arch.getElements().add(new Interface(arch, "Interface2", false, VariantType.MANDATORY, null, "namesapce"));
 		
-		assertEquals(2,arch.getAllInterfaces().size());
+		assertEquals(2, arch.getAllInterfaces().size());
+		assertEquals(1, arch.getAllClasses().size());
 		assertContains(arch.getAllInterfaces(), "Interface1", "Interface2");
 	}
 	
@@ -411,7 +413,7 @@ public class ArchitectureTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldRemoveClas(){
+	public void shouldRemoveClass(){
 		assertEquals(3, architecture.getAllClasses().size());
 		Class klass = architecture.getAllClasses().get(0);
 		
@@ -420,9 +422,71 @@ public class ArchitectureTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldCreateOperationInterface(){
+	public void shouldCreateOperationInterface() throws Exception{
+		Interface interfacee = architecture.createInterface("myInterface");
+		assertNotNull(interfacee);
+		
+		assertEquals(0, interfacee.getOperations().size());
+		assertNotNull(interfacee.createOperation("myOperation"));
+		assertEquals(1, interfacee.getOperations().size());
+	}
+	
+	@Test
+	public void shouldRemoveOperationFromInterface() throws Exception{
+		Architecture a = givenAArchitecture("interface");
+		assertEquals(1, a.getAllInterfaces().size());
+		
+		Interface i = a.getAllInterfaces().get(0);
+		assertNotNull(i);
+		
+		Method o = i.getOperations().get(0);
+		assertNotNull(o);
+		assertEquals(1,i.getOperations().size());
+		
+		i.removeOperation(o);
+		assertEquals(0, i.getOperations().size());
+	}
+	
+	@Test
+	public void shouldMoveOperationFromOneInterfaceToOther() throws Exception{
+		Architecture a = givenAArchitecture("interface");
+		Interface i = a.getAllInterfaces().get(0);
+		Interface i2 = a.createInterface("fooInterface");
+		
+		Method m = i2.createOperation("myOperation");
+		
+		assertEquals(1, i2.getOperations().size());
+		assertEquals(1, i.getOperations().size());
+		
+		i2.moveOperationToInterface(m, i);
+		assertEquals(2, i.getOperations().size());
+		assertEquals(0, i2.getOperations().size());
+	}
+	
+	@Test
+	public void shouldGetImplementors() throws Exception{
+		Architecture a = givenAArchitecture("abstractionInterElement");
+		Interface i = a.findInterfaceByName("myInterfaceClient");
+		
+		assertNotNull(i);
+		assertEquals(1, i.getImplementors().size());
+	}
+	
+	/**
+	 * 
+	 * @see <a href="https://dl.dropbox.com/u/6730822/dependencyPackageInterface.png"> Modelo usado no teste (imagem)</a>
+	 * @throws Exception
+	 */
+	@Test
+	public void shouldshouldGetImplementors() throws Exception{
+		Architecture a = givenAArchitecture("dependencyPackageInterface");
+		Interface i = a.findInterfaceByName("class1");
+		assertNotNull(i);
+		
+		assertEquals(1,i.getDependents().size());
 		
 	}
+	
 	
 	
 }

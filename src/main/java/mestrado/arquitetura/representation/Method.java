@@ -22,7 +22,8 @@ public class Method extends Element{
 	}
 	
 	private void setParams(List<ParameterMethod> paramsMethod) {
-		parameters.addAll(paramsMethod);
+		if(paramsMethod != null)
+			parameters.addAll(paramsMethod);
 	}
 
 	public Method(Architecture architecture, String name, Boolean isVariationPoint, VariantType variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, Element parent, String namespace) {

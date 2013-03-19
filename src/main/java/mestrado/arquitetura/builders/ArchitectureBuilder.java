@@ -232,7 +232,8 @@ public class ArchitectureBuilder extends RelationshipBase {
 		List<org.eclipse.uml2.uml.Class> classes = getModelHelper().getAllClasses(model);
 		
 		for (NamedElement element : classes)
-			listOfClasses.add(classBuilder.create(element, null)); //TODO verificar parent ( owner )
+			if(!ModelElementHelper.isInterface(element))
+				listOfClasses.add(classBuilder.create(element, null)); //TODO verificar parent ( owner )
 		
 		if (!listOfClasses.isEmpty()) return listOfClasses;
 		return listOfClasses;
@@ -274,17 +275,18 @@ public class ArchitectureBuilder extends RelationshipBase {
 	 */
 	private void initialize(Architecture architecture) throws ModelNotFoundException, ModelIncompleteException {
 		classBuilder = new ClassBuilder(architecture);
+		intefaceBuilder = new InterfaceBuilder(architecture);
 		packageBuilder = new PackageBuilder(architecture, classBuilder);
 		variabilityBuilder = new VariabilityBuilder(architecture);
 		
 		associationRelationshipBuilder = new AssociationRelationshipBuilder(classBuilder);
 		generalizationRelationshipBuilder = new GeneralizationRelationshipBuilder(classBuilder, architecture);
-		dependencyRelationshipBuilder = new DependencyRelationshipBuilder(classBuilder, architecture, packageBuilder);
+		dependencyRelationshipBuilder = new DependencyRelationshipBuilder(classBuilder, architecture, packageBuilder, intefaceBuilder);
 		realizationRelationshipBuilder = new RealizationRelationshipBuilder(classBuilder, packageBuilder);
-		abstractionRelationshipBuilder = new AbstractionRelationshipBuilder(packageBuilder, classBuilder);
+		abstractionRelationshipBuilder = new AbstractionRelationshipBuilder(packageBuilder, classBuilder, intefaceBuilder);
 		associationClassRelationshipBuilder = new AssociationClassRelationshipBuilder(classBuilder);
 		usageRelationshipBuilder = new UsageRelationshipBuilder(classBuilder, packageBuilder);
-		intefaceBuilder = new InterfaceBuilder(architecture);
+		
 	}
 	
 }

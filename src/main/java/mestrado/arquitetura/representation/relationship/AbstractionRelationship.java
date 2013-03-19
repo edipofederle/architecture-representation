@@ -48,6 +48,4 @@ public class AbstractionRelationship extends Relationship{
 		this.supplier = supplier;
 	}
 
-
-
 }

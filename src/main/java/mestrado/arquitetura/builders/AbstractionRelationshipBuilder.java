@@ -22,11 +22,13 @@ public class AbstractionRelationshipBuilder extends RelationshipBase {
 	 * 
 	 */
 	private ClassBuilder classBuilder;
+	private InterfaceBuilder interfaceBuilder;
 
 
-	public AbstractionRelationshipBuilder(PackageBuilder packageBuilder, ClassBuilder classBuilder) {
+	public AbstractionRelationshipBuilder(PackageBuilder packageBuilder, ClassBuilder classBuilder, InterfaceBuilder intefaceBuilder) {
 		this.packageBuilder = packageBuilder;
 		this.classBuilder = classBuilder;
+		this.interfaceBuilder = intefaceBuilder;
 	}
 
 	/**
@@ -46,6 +48,7 @@ public class AbstractionRelationshipBuilder extends RelationshipBase {
 		client = classBuilder.getElementByXMIID(getModelHelper().getXmiId(clientElement));
 		supplier = classBuilder.getElementByXMIID(getModelHelper().getXmiId(supplierElement));
 		
+		
 		if ((client == null) && (supplier != null)){
 			client = packageBuilder.getElementByXMIID(getModelHelper().getXmiId(clientElement));
 		}else if ((supplier == null) && (client != null)){
@@ -53,6 +56,8 @@ public class AbstractionRelationshipBuilder extends RelationshipBase {
 		}else if((client == null) && (supplier == null)){
 			supplier = packageBuilder.getElementByXMIID(getModelHelper().getXmiId(supplierElement));
 			client = packageBuilder.getElementByXMIID(getModelHelper().getXmiId(clientElement));
+			if(client == null)
+				client = interfaceBuilder.getElementByXMIID(getModelHelper().getXmiId(clientElement));
 		}
 		
 		return new AbstractionRelationship(client,supplier );

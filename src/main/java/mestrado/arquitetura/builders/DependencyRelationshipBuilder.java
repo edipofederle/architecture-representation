@@ -19,11 +19,13 @@ public class DependencyRelationshipBuilder  extends RelationshipBase{
 	private ClassBuilder classBuilder;
 	private PackageBuilder packageBuilder;
 	private Architecture architecture;
+	private InterfaceBuilder interfaceBuilder;
 
-	public DependencyRelationshipBuilder(ClassBuilder classBuilder, Architecture architecture, PackageBuilder packageBuilder) {
+	public DependencyRelationshipBuilder(ClassBuilder classBuilder, Architecture architecture, PackageBuilder packageBuilder, InterfaceBuilder interfaceBuilder) {
 		this.classBuilder = classBuilder;
 		this.architecture = architecture;
 		this.packageBuilder = packageBuilder;
+		this.interfaceBuilder = interfaceBuilder;
 	}
 
 	public DependencyRelationship create(Dependency element) {
@@ -44,6 +46,8 @@ public class DependencyRelationshipBuilder  extends RelationshipBase{
 		}else if((supplier == null) && (client == null)){
 			client = packageBuilder.getElementByXMIID(getModelHelper().getXmiId(clieents.get(0)));
 			supplier = packageBuilder.getElementByXMIID(getModelHelper().getXmiId(suppliers.get(0)));
+			if(supplier == null)
+				supplier = interfaceBuilder.getElementByXMIID(getModelHelper().getXmiId(suppliers.get(0)));
 		}
 		
 		return new DependencyRelationship(supplier, client, element.getName(), architecture);

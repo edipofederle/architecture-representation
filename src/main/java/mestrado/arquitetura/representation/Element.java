@@ -120,6 +120,10 @@ public abstract class Element {
 		return namespace;
 	}
 	
+	public Architecture getArchitecture(){
+		return this.architecture;
+	}
+	
 //	/**
 //	 * True se a classe é uma interface. Caso contrário False.
 //	 * 
