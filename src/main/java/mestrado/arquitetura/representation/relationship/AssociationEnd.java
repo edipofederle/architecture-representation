@@ -1,6 +1,7 @@
 package mestrado.arquitetura.representation.relationship;
 
 import mestrado.arquitetura.representation.Class;
+import mestrado.arquitetura.representation.Element;
 
 
 /**
@@ -13,12 +14,12 @@ import mestrado.arquitetura.representation.Class;
  */
 public class AssociationEnd {
 
-	private Class klass;
+	private Element klass;
 	private boolean isNavigable;
 	private String aggregation;
 	private Multiplicity multiplicity;
 
-	public AssociationEnd(Class klass, boolean isNavigable, String aggregation, Multiplicity multiplicity) {
+	public AssociationEnd(Element klass, boolean isNavigable, String aggregation, Multiplicity multiplicity) {
 		setCLSClass(klass);
 		setNavigable(isNavigable);
 		setAggregation(aggregation);
@@ -29,15 +30,15 @@ public class AssociationEnd {
 		this.multiplicity = multiplicity;
 	}
 
-	public AssociationEnd(Class klass) {
+	public AssociationEnd(Element klass) {
 		this(klass, false, "", null);
 	}
 
-	public Class getCLSClass() {
+	public Element getCLSClass() {
 		return klass;
 	}
 
-	public void setCLSClass(Class c) {
+	public void setCLSClass(Element c) {
 		this.klass = c;
 	}
 

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mestrado.arquitetura.base.RelationshipBase;
-import mestrado.arquitetura.representation.Class;
+import mestrado.arquitetura.representation.Architecture;
+import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.relationship.AssociationClassRelationship;
 import mestrado.arquitetura.representation.relationship.Relationship;
 
@@ -13,20 +14,20 @@ import org.eclipse.uml2.uml.Type;
 
 public class AssociationClassRelationshipBuilder extends RelationshipBase {
 	
-	private ClassBuilder classBuilder;
+	private Architecture architecture;
 
-	public AssociationClassRelationshipBuilder(ClassBuilder classBuilder) { this.classBuilder = classBuilder; }
+	public AssociationClassRelationshipBuilder(Architecture architecture) { this.architecture = architecture; }
 
 	public Relationship create(AssociationClass associationClass) {
-		List<Class> membersEnd = new ArrayList<Class>();
+		List<Element> membersEnd = new ArrayList<Element>();
 		
 		for (Type t : associationClass.getEndTypes()) 
-			membersEnd.add(classBuilder.getElementByXMIID(getModelHelper().getXmiId(t)));
+			membersEnd.add(architecture.getElementByXMIID(getModelHelper().getXmiId(t)));
 		
 		Type ownedEnd = associationClass.getOwnedEnds().get(0).getType();
-		mestrado.arquitetura.representation.Class onewd = classBuilder.getElementByXMIID(getModelHelper().getXmiId(ownedEnd));
+		Element onewd = architecture.getElementByXMIID(getModelHelper().getXmiId(ownedEnd));
 		
-		return new AssociationClassRelationship(associationClass.getName(), membersEnd, onewd);
+		return new AssociationClassRelationship(associationClass.getName(), membersEnd, onewd, getModelHelper().getXmiId(associationClass));
 	}
 	
 }

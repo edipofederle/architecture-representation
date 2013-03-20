@@ -56,7 +56,7 @@ public class GenericTest extends TestHelper {
 		Architecture architecture = new ArchitectureBuilder().create(uriToArchitecture);
 		
 		assertNotNull(architecture);
-		assertEquals(2, architecture.getClasses().size());
+		assertEquals(2, architecture.getAllClasses().size());
 		assertEquals(1, architecture.getInterClassRelationships().size());
 		
 		DependencyRelationship r = architecture.getAllDependencies().get(0);

@@ -2,7 +2,7 @@ package mestrado.arquitetura.builders;
 
 import mestrado.arquitetura.base.RelationshipBase;
 import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Class;
+import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
 import mestrado.arquitetura.representation.relationship.Relationship;
 
@@ -15,13 +15,9 @@ import org.eclipse.uml2.uml.Generalization;
  */
 public class GeneralizationRelationshipBuilder extends RelationshipBase {
 	
-	
-
-	private ClassBuilder classBuilder;
 	private Architecture architecture;
 
-	public GeneralizationRelationshipBuilder(ClassBuilder classBuilder, Architecture architecture) {
-		this.classBuilder = classBuilder;
+	public GeneralizationRelationshipBuilder(Architecture architecture) {
 		this.architecture = architecture;
 	}
 
@@ -29,10 +25,10 @@ public class GeneralizationRelationshipBuilder extends RelationshipBase {
 		String generalKlassId = getModelHelper().getXmiId(generalization.getGeneral());
 		String specificKlassId = getModelHelper().getXmiId(generalization.getSpecific());
 		
-		Class generalKlass = classBuilder.getElementByXMIID(generalKlassId);
-		Class specificKlass = classBuilder.getElementByXMIID(specificKlassId);
+		Element general = architecture.getElementByXMIID(generalKlassId);
+		Element specific = architecture.getElementByXMIID(specificKlassId);
 		
-		return new GeneralizationRelationship(generalKlass, specificKlass, architecture);
+		return new GeneralizationRelationship(general, specific, architecture, getModelHelper().getXmiId(generalization));
 	}
 
 }

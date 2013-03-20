@@ -20,11 +20,12 @@ public class DependencyRelationship extends Relationship {
 	private Architecture architecture;
 	String  name;
 	
-	public DependencyRelationship(Element supplier, Element client, String name, Architecture architecture) {
+	public DependencyRelationship(Element supplier, Element client, String name, Architecture architecture, String id) {
 		setSupplier(supplier);
 		setClient(client);
 		setName(name);
 		this.architecture = architecture;
+		setId(id);
 	}
 
 	public void setName(String name) {

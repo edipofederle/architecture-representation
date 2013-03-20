@@ -5,7 +5,6 @@ import java.util.List;
 
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
-import mestrado.arquitetura.helpers.ModelElementHelper;
 import mestrado.arquitetura.helpers.ModelHelper;
 import mestrado.arquitetura.helpers.ModelHelperFactory;
 import mestrado.arquitetura.representation.Architecture;
@@ -59,18 +58,16 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 		mestrado.arquitetura.representation.Class klass = null; // TODO VER ISTO. 
 		
 		boolean isAbstract = false;
-		boolean isInterface = false;
 		
 		if(modelElement instanceof ClassImpl)
 			isAbstract = ((org.eclipse.uml2.uml.Classifier)modelElement).isAbstract();
 		
-		isInterface = ModelElementHelper.isInterface(modelElement);
 		String packageName = ((NamedElement)modelElement).getNamespace().getQualifiedName();
 		packageName = packageName !=null ? packageName : "";
 		
 		String namesapce = modelElement.getNamespace().getQualifiedName();
 		
-		klass = new Class(architecture, name, isVariationPoint, variantType, isAbstract, parent, packageName, namesapce, isInterface);
+		klass = new Class(architecture, name, isVariationPoint, variantType, isAbstract, parent, packageName, namesapce, getXmiId(modelElement));
 		klass.getAttributes().addAll(getAttributes(modelElement, klass));
 		klass.getMethods().addAll(getMethods(modelElement, klass));
 		
@@ -87,7 +84,6 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 		List<Attribute> attrs = new ArrayList<Attribute>();
 		
 		if(modelElement instanceof ClassImpl){
-			//EList<Property> attributes = ((Classifier) modelElement).getAllAttributes();
 			List<Property> attributes = modelHelper.getAllAttributesForAClass(modelElement);
 			for (Property property : attributes)
 				attrs.add(attributeBuilder.create(property, parent));

@@ -5,6 +5,7 @@ import java.util.List;
 
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
+import mestrado.arquitetura.representation.Element;
 
 /**
  * 
@@ -13,38 +14,39 @@ import mestrado.arquitetura.representation.Class;
  */
 public class GeneralizationRelationship extends Relationship {
 
-	private Class parent;
+	private Element parent;
 	private Architecture architecture;
-	private Class child;
+	private Element child;
 	
-	public GeneralizationRelationship(Class parentClass, Class childClass, Architecture architecture) {
+	public GeneralizationRelationship(Element parentClass, Element childClass, Architecture architecture, String id) {
 		setParent(parentClass);
 		setChild(childClass);
 		this.architecture = architecture;
+		setId(id);
 	}
 	
 
 	/**
 	 * @return the child
 	 */
-	public Class getChild() {
+	public Element getChild() {
 		return child;
 	}
 
 	/**
 	 * @param child the child to set
 	 */
-	public void setChild(Class child) {
+	public void setChild(Element child) {
 		this.child = child;
 	}
 
 
 
-	public Class getParent() {
+	public Element getParent() {
 		return parent;
 	}
 
-	private void setParent(Class parent) {
+	private void setParent(Element parent) {
 		this.parent = parent;
 	}
 
@@ -54,9 +56,9 @@ public class GeneralizationRelationship extends Relationship {
 	 * 
 	 * @return
 	 */
-	public List<Class> gelAllChildrenForGeneralClass() {
+	public List<Element> gelAllChildrenForGeneralClass() {
 		List<GeneralizationRelationship> generalizations = architecture.getAllGeneralizations();
-		List<Class> childreen = new ArrayList<Class>();
+		List<Element> childreen = new ArrayList<Element>();
 		
 		String general = this.parent.getName();
 		

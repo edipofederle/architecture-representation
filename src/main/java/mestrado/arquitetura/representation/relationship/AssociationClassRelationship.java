@@ -3,19 +3,20 @@ package mestrado.arquitetura.representation.relationship;
 import java.util.ArrayList;
 import java.util.List;
 
-import mestrado.arquitetura.representation.Class;
+import mestrado.arquitetura.representation.Element;
 
 public class AssociationClassRelationship extends	Relationship {
 
 	public String name;
-	public List<Class> memebersEnd = new ArrayList<Class>();
-	private Class ownedEnd;
+	public List<Element> memebersEnd = new ArrayList<Element>();
+	private Element ownedEnd;
 
-	public AssociationClassRelationship(String name, List<Class> ends, Class ownedEnd) {
+	public AssociationClassRelationship(String name, List<Element> ends, Element ownedEnd, String id) {
 		super();
 		this.name = name;
 		this.memebersEnd = ends;
 		this.ownedEnd = ownedEnd;
+		setId(id);
 	}
 
 	public String getName() {
@@ -26,20 +27,20 @@ public class AssociationClassRelationship extends	Relationship {
 		this.name = name;
 	}
 
-	public List<Class> getMemebersEnd() {
+	public List<Element> getMemebersEnd() {
 		return memebersEnd;
 	}
 
-	public void setMemebersEnd(List<Class> memebersEnd) {
+	public void setMemebersEnd(List<Element> memebersEnd) {
 		this.memebersEnd = memebersEnd;
 	}
 
 	/**
-	 * Retorna a {@link Class } dona da AssociationClass.
+	 * Retorna  {@link Element } dona da AssociationClass.
 	 * 
 	 * @return
 	 */
-	public Class getOwnedEnd() {
+	public Element getOwnedEnd() {
 		return ownedEnd;
 	}
 

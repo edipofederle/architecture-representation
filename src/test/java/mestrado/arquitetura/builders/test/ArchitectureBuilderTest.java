@@ -61,13 +61,13 @@ public class ArchitectureBuilderTest extends TestHelper {
 
 	@Test
 	public void shouldHaveLoadPackages() throws Exception {
-		assertNotNull(architecture.getPackages());
-		assertEquals("Architecture should have two package", 4, architecture.getPackages().size());
+		assertNotNull(architecture.getAllPackages());
+		assertEquals("Architecture should have two package", 4, architecture.getAllPackages().size());
 	}
 
 	@Test
 	public void shouldHaveCorrectNameForPackage() {
-		assertContains(architecture.getPackages(), "Package1");
+		assertContains(architecture.getAllPackages(), "Package1");
 	}
 
 	@Test
@@ -76,7 +76,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	}
 
 	public Package getPackageByName(String name) {
-		List<Package> packges = architecture.getPackages();
+		List<Package> packges = architecture.getAllPackages();
 		for (Package p : packges) {
 			if (name.equalsIgnoreCase(p.getName()))
 				return p;
@@ -167,12 +167,12 @@ public class ArchitectureBuilderTest extends TestHelper {
 		String uriToArchitecture = getUrlToModel("semPacote");
 		architecture = new ArchitectureBuilder().create(uriToArchitecture);
 		assertNotNull(architecture);
-		assertEquals(2, architecture.getClasses().size());
-		assertEquals("Foo", architecture.getClasses().get(0).getName());
+		assertEquals(2, architecture.getAllClasses().size());
+		assertEquals("Foo", architecture.getAllClasses().get(0).getName());
 
-		assertEquals(1, architecture.getPackages().size());
-		assertEquals("pacote1", architecture.getPackages().get(0).getName());
-		Class klassBar = architecture.getPackages().get(0).getClasses().get(0);
+		assertEquals(1, architecture.getAllPackages().size());
+		assertEquals("pacote1", architecture.getAllPackages().get(0).getName());
+		Class klassBar = architecture.getAllPackages().get(0).getClasses().get(0);
 		assertEquals("Bar", klassBar.getName());
 	}
 
@@ -180,7 +180,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	public void shoudlElementHaveAParentPackage() throws Exception {
 		String uriToArchitecture = getUrlToModel("semPacote");
 		architecture = new ArchitectureBuilder().create(uriToArchitecture);
-		Class klassBar = architecture.getPackages().get(0).getClasses().get(0);
+		Class klassBar = architecture.getAllPackages().get(0).getClasses().get(0);
 		assertNotNull(klassBar.getParent());
 		assertEquals("Class should belongs to package 'pacote1'", "pacote1",
 				klassBar.getParent().getName());
@@ -191,7 +191,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 			throws Exception {
 		String uriToArchitecture = getUrlToModel("semPacote");
 		architecture = new ArchitectureBuilder().create(uriToArchitecture);
-		Class fooKlass = architecture.getClasses().get(0);
+		Class fooKlass = architecture.getAllClasses().get(0);
 
 		assertEquals(null, fooKlass.getParent());
 	}
@@ -272,8 +272,6 @@ public class ArchitectureBuilderTest extends TestHelper {
 				.toString());
 	}
 
-
-
 	@Test
 	public void shouldLoadInterElementDependency() throws Exception {
 		String uriToArchitecture8 = getUrlToModel("dependency2");
@@ -295,15 +293,14 @@ public class ArchitectureBuilderTest extends TestHelper {
 		String uriToArchitecture8 = getUrlToModel("associationClass");
 		Architecture architecture8 = new ArchitectureBuilder().create(uriToArchitecture8);
 
-		List<Relationship> relations = architecture8
-				.getInterClassRelationships();
+		List<Relationship> relations = architecture8.getInterClassRelationships();
 		assertEquals(2, relations.size());
 
 		AssociationClassRelationship associationClass = (AssociationClassRelationship) relations
 				.get(1);
 
 		assertEquals("Should return three classes", 3, architecture8
-				.getClasses().size());
+				.getAllClasses().size());
 		assertEquals(2, associationClass.getMemebersEnd().size());
 		assertEquals("Employee", associationClass.getMemebersEnd().get(0)
 				.getName());

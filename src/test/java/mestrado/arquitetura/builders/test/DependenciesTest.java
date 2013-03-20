@@ -2,7 +2,6 @@
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -21,8 +20,6 @@ import org.junit.Test;
  * @see <a href="https://dl.dropbox.com/u/6730822/d3.png"> Modelo (arch) usado nos testes</a>
  */
 public class DependenciesTest extends TestHelper {
-	
-	
 
 	private Architecture arch;
 
@@ -158,9 +155,9 @@ public class DependenciesTest extends TestHelper {
 
 		assertEquals("Class1", dependencyInterElement.getSupplier().getName());
 		Element intefacee = dependencyInterElement.getSupplier();
-		assertTrue(intefacee.isInterface());
 		assertNotNull(dependencyInterElement.getClient());
 		assertEquals("Package1", dependencyInterElement.getClient().getName());
+		assertNotNull(intefacee);
 	}
 
 	
@@ -183,14 +180,11 @@ public class DependenciesTest extends TestHelper {
 	public void shouldLoadDependencyPackagePackage() throws Exception{
 		Architecture a = givenAArchitecture("dependencyPackagePackage");
 		
-		
 		List<DependencyRelationship> dependency = a.getAllDependencies();
 
 		assertNotNull(dependency);
 		assertEquals(1, dependency.size());
 		assertEquals("Package1", dependency.get(0).getClient().getName());
-		
 	}
-	
 
 }

@@ -11,6 +11,7 @@ import java.util.List;
  */
 public abstract class Element {
 
+	private String id;
 	private String name;
 	private Boolean isVariationPoint;
 	private VariantType variantType;
@@ -19,22 +20,36 @@ public abstract class Element {
 	private String typeElement;
 	private Element parent;
 	private String namespace;
-	private boolean interfacee;
+	private List<String> idsRelationships = new ArrayList<String>();
 	
-	public Element(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String typeString, Element parent, String namespace, boolean interfacee) {
+	public Element(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String typeElement, Element parent, String namespace, String id) {
 		setArchitecture(architecture);
+		setId(id);
 		setName(name);
 		setIsVariationPoint(isVariationPoint);
 		setVariantType(variantType);
-		setTypeElement(typeString);
+		setTypeElement(typeElement);
 		setParent(parent);
 		setNamespace(namespace);
-		setIsInterface(interfacee);
 	}
 
-	private void setIsInterface(boolean interfacee) {
-		this.interfacee = interfacee;
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
 	}
+
+
+	/**
+	 * @param id the id to set
+	 */
+	private void setId(String id) {
+		this.id = id;
+	}
+
+
 
 	private void setNamespace(String namespace) {
 		this.namespace = namespace;
@@ -120,17 +135,25 @@ public abstract class Element {
 		return namespace;
 	}
 	
-	/**
-	 * True se a classe é uma interface. Caso contrário False.
-	 * 
-	 * Uma classe é considerada uma interface se a mesma contém o estreótipo << interface >>
-	 * 
-	 * @return boolean
-	 */
-	public boolean isInterface() {
-		return interfacee;
+	public Architecture getArchitecture(){
+		return this.architecture;
 	}
 
 
+	/**
+	 * @return the idsRelationships
+	 */
+	public List<String> getIdsRelationships() {
+		return idsRelationships;
+	}
+
+	/**
+	 * @param idsRelationships the idsRelationships to set
+	 */
+	public void setIdsRelationships(List<String> idsRelationships) {
+		this.idsRelationships = idsRelationships;
+	}
+	
+	
 	
 }
