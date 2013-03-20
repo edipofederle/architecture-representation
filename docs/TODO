@@ -1,0 +1,10 @@
+# Verificacao quando carrega modelos e perfils:
+	
+	Quando um modelo ou perfil é carregada, esses devem ser formados por três arquivos:
+		* modelo.uml
+		* modelo.notation
+		* modelo.di
+	
+	Em Caso do modelo ou perfil não possuir esses três arquivos, deve-se lançar um exceção. A Excecâo deve informar
+	ao usuário o que esta faltando.
+	
