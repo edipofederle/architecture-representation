@@ -11,6 +11,7 @@ import java.util.List;
  */
 public abstract class Element {
 
+	private String id;
 	private String name;
 	private Boolean isVariationPoint;
 	private VariantType variantType;
@@ -21,8 +22,9 @@ public abstract class Element {
 	private String namespace;
 	private List<String> idsRelationships = new ArrayList<String>();
 	
-	public Element(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String typeElement, Element parent, String namespace) {
+	public Element(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String typeElement, Element parent, String namespace, String id) {
 		setArchitecture(architecture);
+		setId(id);
 		setName(name);
 		setIsVariationPoint(isVariationPoint);
 		setVariantType(variantType);
@@ -30,6 +32,23 @@ public abstract class Element {
 		setParent(parent);
 		setNamespace(namespace);
 	}
+
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+
+	/**
+	 * @param id the id to set
+	 */
+	private void setId(String id) {
+		this.id = id;
+	}
+
 
 
 	private void setNamespace(String namespace) {

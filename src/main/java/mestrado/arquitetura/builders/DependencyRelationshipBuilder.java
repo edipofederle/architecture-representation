@@ -16,39 +16,18 @@ import org.eclipse.uml2.uml.NamedElement;
  */
 public class DependencyRelationshipBuilder  extends RelationshipBase{
 
-	private ClassBuilder classBuilder;
-	private PackageBuilder packageBuilder;
 	private Architecture architecture;
-	private InterfaceBuilder interfaceBuilder;
 
-	public DependencyRelationshipBuilder(ClassBuilder classBuilder, Architecture architecture, PackageBuilder packageBuilder, InterfaceBuilder interfaceBuilder) {
-		this.classBuilder = classBuilder;
+	public DependencyRelationshipBuilder( Architecture architecture) {
 		this.architecture = architecture;
-		this.packageBuilder = packageBuilder;
-		this.interfaceBuilder = interfaceBuilder;
 	}
-
 	public DependencyRelationship create(Dependency element) {
 
 		EList<NamedElement> suppliers = element.getSuppliers();
 		EList<NamedElement> clieents = element.getClients();
 		
-		Element client;
-		Element supplier;
-
-		client = classBuilder.getElementByXMIID(getModelHelper().getXmiId(clieents.get(0)));
-		supplier = classBuilder.getElementByXMIID(getModelHelper().getXmiId(suppliers.get(0)));
-
-		if ((client == null) && (supplier != null)){
-			client = packageBuilder.getElementByXMIID(getModelHelper().getXmiId(clieents.get(0)));;
-		}else if ((supplier == null) && (client != null)){
-			supplier = packageBuilder.getElementByXMIID(getModelHelper().getXmiId(suppliers.get(0)));;
-		}else if((supplier == null) && (client == null)){
-			client = packageBuilder.getElementByXMIID(getModelHelper().getXmiId(clieents.get(0)));
-			supplier = packageBuilder.getElementByXMIID(getModelHelper().getXmiId(suppliers.get(0)));
-			if(supplier == null)
-				supplier = interfaceBuilder.getElementByXMIID(getModelHelper().getXmiId(suppliers.get(0)));
-		}
+		Element client = architecture.getElementByXMIID(getModelHelper().getXmiId(clieents.get(0)));
+		Element supplier = architecture.getElementByXMIID(getModelHelper().getXmiId(suppliers.get(0)));
 		
 		return new DependencyRelationship(supplier, client, element.getName(), architecture, getModelHelper().getXmiId(element));
 	}

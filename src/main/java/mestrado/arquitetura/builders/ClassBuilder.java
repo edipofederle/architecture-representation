@@ -67,7 +67,7 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 		
 		String namesapce = modelElement.getNamespace().getQualifiedName();
 		
-		klass = new Class(architecture, name, isVariationPoint, variantType, isAbstract, parent, packageName, namesapce);
+		klass = new Class(architecture, name, isVariationPoint, variantType, isAbstract, parent, packageName, namesapce, getXmiId(modelElement));
 		klass.getAttributes().addAll(getAttributes(modelElement, klass));
 		klass.getMethods().addAll(getMethods(modelElement, klass));
 		
@@ -84,7 +84,6 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 		List<Attribute> attrs = new ArrayList<Attribute>();
 		
 		if(modelElement instanceof ClassImpl){
-			//EList<Property> attributes = ((Classifier) modelElement).getAllAttributes();
 			List<Property> attributes = modelHelper.getAllAttributesForAClass(modelElement);
 			for (Property property : attributes)
 				attrs.add(attributeBuilder.create(property, parent));

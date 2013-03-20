@@ -13,7 +13,6 @@ public class InterfaceBuilder extends ElementBuilder<mestrado.arquitetura.repres
 
 	private MethodBuilder methodBuilder;
 	
-
 	public InterfaceBuilder(Architecture architecture) {
 		super(architecture);
 		this.methodBuilder = new MethodBuilder(architecture);
@@ -23,7 +22,7 @@ public class InterfaceBuilder extends ElementBuilder<mestrado.arquitetura.repres
 	@Override
 	protected Interface buildElement(NamedElement modelElement, Element parent) {
 		
-		Interface interfacee = new Interface(architecture, name, isVariationPoint, variantType, parent, modelElement.getNamespace().getQualifiedName());
+		Interface interfacee = new Interface(architecture, name, isVariationPoint, variantType, parent, modelElement.getNamespace().getQualifiedName(), getXmiId(modelElement));
 		
 		List<Operation> elements = ((org.eclipse.uml2.uml.Class)modelElement).getAllOperations();
 		for (Operation operation : elements) {

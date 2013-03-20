@@ -13,12 +13,12 @@ public class Interface extends Element {
 	private final List<Method> operations = new ArrayList<Method>();
 	
 
-	public Interface(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, Element parent, String namespace) {
-		super(architecture, name, isVariationPoint, variantType, "interface", parent, namespace);
+	public Interface(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, Element parent, String namespace, String id) {
+		super(architecture, name, isVariationPoint, variantType, "interface", parent, namespace, id);
 	}
 	
 	public Interface(Architecture architecture, String name) {
-		this(architecture, name, false, VariantType.NONE, null, "");
+		this(architecture, name, false, VariantType.NONE, null, "", ""); //TODO recber id
 	}
 
 	public  List<Method> getOperations() {
@@ -31,7 +31,7 @@ public class Interface extends Element {
 	}
 	
 	public Method createOperation(String operationName) throws Exception {
-		Method operation = new Method(getArchitecture(), operationName, false, VariantType.NONE, "void", false, null, this, "");
+		Method operation = new Method(getArchitecture(), operationName, false, VariantType.NONE, "void", false, null, this, "", ""); //Receber id 
 		operations.add(operation);
 		return operation;
 	}

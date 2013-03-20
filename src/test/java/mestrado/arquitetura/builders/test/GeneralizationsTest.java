@@ -72,7 +72,7 @@ public class GeneralizationsTest extends TestHelper {
 	public void shouldLoadGeneralizationWithTwoChildreen() {
 		assertEquals(3, arch.getAllGeneralizations().size());
 		assertEquals("Parent", arch.getAllGeneralizations().get(1).getParent().getName());
-		List<Class> ch = (arch.getAllGeneralizations().get(1)).gelAllChildrenForGeneralClass();
+		List<Element> ch = (arch.getAllGeneralizations().get(1)).gelAllChildrenForGeneralClass();
 		assertEquals(2, ch.size());
 		assertContains(ch, "Child1", "Child2");
 	}

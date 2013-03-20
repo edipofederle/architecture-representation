@@ -27,15 +27,15 @@ public class Class extends Element {
 	 * @param packageName
 	 * @param namespace
 	 */
-	public Class(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, boolean isAbstract, Element parent, String packageName, String namespace) {
-		super(architecture, name, isVariationPoint, variantType, "klass", parent, namespace);
+	public Class(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, boolean isAbstract, Element parent, String packageName, String namespace, String id) {
+		super(architecture, name, isVariationPoint, variantType, "klass", parent, namespace, id);
 		setAbstract(isAbstract);
 		setNamespace(packageName);
 	}
 
 	//TODO verificar esses construtor
 	public Class(Architecture architecture, String name) {
-		this(architecture, name,  false, VariantType.NONE, false, null, "", "");
+		this(architecture, name,  false, VariantType.NONE, false, null, "", "", ""); //TODO recber id, 
 	}
 
 	private void setNamespace(String packageName) {

@@ -99,7 +99,7 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 	 * @param eObject
 	 * @return <b>String</b>
 	 */
-	private static String getXmiId (EObject eObject) {
+	public static String getXmiId (EObject eObject) {
 		Resource xmiResource = eObject.eResource();
 		if (xmiResource == null ) return null; //TODO verificar isto. Não retornar NULL.
 		return ((XMLResource) xmiResource).getID(eObject);

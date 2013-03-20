@@ -341,4 +341,12 @@ public class Architecture {
 			LOGGER.info("Cannot remove Class " + klass + ".");
 	}
 
+	public Element getElementByXMIID(String xmiId) {
+		for (Element element : elements) {
+			if(element.getId().equalsIgnoreCase(xmiId))
+				return element;
+		}
+		return null;
+	}
+
 }

@@ -279,13 +279,13 @@ public class ArchitectureBuilder extends RelationshipBase {
 		packageBuilder = new PackageBuilder(architecture, classBuilder);
 		variabilityBuilder = new VariabilityBuilder(architecture);
 		
-		associationRelationshipBuilder = new AssociationRelationshipBuilder(classBuilder);
-		generalizationRelationshipBuilder = new GeneralizationRelationshipBuilder(classBuilder, architecture);
-		dependencyRelationshipBuilder = new DependencyRelationshipBuilder(classBuilder, architecture, packageBuilder, intefaceBuilder);
-		realizationRelationshipBuilder = new RealizationRelationshipBuilder(classBuilder, packageBuilder);
-		abstractionRelationshipBuilder = new AbstractionRelationshipBuilder(packageBuilder, classBuilder, intefaceBuilder);
-		associationClassRelationshipBuilder = new AssociationClassRelationshipBuilder(classBuilder);
-		usageRelationshipBuilder = new UsageRelationshipBuilder(classBuilder, packageBuilder);
+		associationRelationshipBuilder = new AssociationRelationshipBuilder(architecture);
+		generalizationRelationshipBuilder = new GeneralizationRelationshipBuilder(architecture);
+		dependencyRelationshipBuilder = new DependencyRelationshipBuilder(architecture);
+		realizationRelationshipBuilder = new RealizationRelationshipBuilder(architecture);
+		abstractionRelationshipBuilder = new AbstractionRelationshipBuilder(architecture);
+		associationClassRelationshipBuilder = new AssociationClassRelationshipBuilder(architecture);
+		usageRelationshipBuilder = new UsageRelationshipBuilder(architecture);
 		
 	}
 	

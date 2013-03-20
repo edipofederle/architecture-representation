@@ -157,6 +157,7 @@ public class DependenciesTest extends TestHelper {
 		Element intefacee = dependencyInterElement.getSupplier();
 		assertNotNull(dependencyInterElement.getClient());
 		assertEquals("Package1", dependencyInterElement.getClient().getName());
+		assertNotNull(intefacee);
 	}
 
 	

@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import mestrado.arquitetura.representation.Class;
-
 /**
  * 
  * @author edipofederle
@@ -50,6 +48,5 @@ public class UtilResources {
 		}
 		return "";
 	}
-
 
 }

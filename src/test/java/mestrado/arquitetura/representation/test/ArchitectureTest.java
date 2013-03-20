@@ -79,7 +79,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllPackages(){
-		Package pkg = new Package(arch, "Pacote", false, VariantType.MANDATORY, null, "");
+		Package pkg = new Package(arch, "Pacote", false, VariantType.MANDATORY, null, "","id");
 		arch.getElements().add(pkg);
 		
 		assertEquals(1, arch.getAllPackages().size());
@@ -93,7 +93,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllClasses(){
-		Class klass = new Class(arch, "Klass", false,  VariantType.MANDATORY, false, null, "", "namespace");
+		Class klass = new Class(arch, "Klass", false,  VariantType.MANDATORY, false, null, "", "namespace","id");
 		arch.getElements().add(klass);
 		
 		assertEquals(1, arch.getAllClasses().size());
@@ -128,7 +128,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnElementClassByName(){
-		arch.getElements().add(new Class(arch, "Klass", false,  VariantType.MANDATORY, false, null, "", "namespace"));
+		arch.getElements().add(new Class(arch, "Klass", false,  VariantType.MANDATORY, false, null, "", "namespace", "id"));
 		Element klass = arch.findElementByName("klass");
 		
 		assertNotNull(klass);
@@ -137,7 +137,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnElementPackageByName(){
-		arch.getElements().add( new Package(arch, "Pacote", false, VariantType.MANDATORY, null, ""));
+		arch.getElements().add( new Package(arch, "Pacote", false, VariantType.MANDATORY, null, "", "id"));
 		Element pkg = arch.findElementByName("Pacote");
 		
 		assertNotNull(pkg);
@@ -146,9 +146,9 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllInterfaces(){
-		arch.getElements().add(new Class(arch, "Klass1", false,  VariantType.MANDATORY, false, null, "", "namespace"));
-		arch.getElements().add(new Interface(arch, "Interface1", false, VariantType.MANDATORY, null, "namesapce"));
-		arch.getElements().add(new Interface(arch, "Interface2", false, VariantType.MANDATORY, null, "namesapce"));
+		arch.getElements().add(new Class(arch, "Klass1", false,  VariantType.MANDATORY, false, null, "", "namespace", "id"));
+		arch.getElements().add(new Interface(arch, "Interface1", false, VariantType.MANDATORY, null, "namesapce","id"));
+		arch.getElements().add(new Interface(arch, "Interface2", false, VariantType.MANDATORY, null, "namesapce","id"));
 		
 		assertEquals(2, arch.getAllInterfaces().size());
 		assertEquals(1, arch.getAllClasses().size());

@@ -28,12 +28,12 @@ public class Package extends Element {
 	 * @param variantType - Qual o tipo ( {@link VariantType} ) da variante
 	 * @param parent - Qual o {@link Element} pai
 	 */
-	public Package(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, Element parent, String namespace) {
-		super(architecture, name, isVariationPoint, variantType, "package", parent, namespace);
+	public Package(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, Element parent, String namespace, String id) {
+		super(architecture, name, isVariationPoint, variantType, "package", parent, namespace, id);
 	}
 	
 	public Package(Architecture architecture, String name) {
-		this(architecture, name, false, VariantType.NONE, null, "");
+		this(architecture, name, false, VariantType.NONE, null, "", ""); //receber id
 	}
 
 	/**

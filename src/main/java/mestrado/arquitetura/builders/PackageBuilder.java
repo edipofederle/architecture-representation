@@ -42,7 +42,7 @@ public class PackageBuilder extends ElementBuilder<Package> {
 
 	@Override
 	public Package buildElement(NamedElement modelElement, Element parent) {
-		Package pkg = new Package(architecture, name, isVariationPoint, variantType, parent, modelElement.getNamespace().getQualifiedName());
+		Package pkg = new Package(architecture, name, isVariationPoint, variantType, parent, modelElement.getNamespace().getQualifiedName(), getXmiId(modelElement));
 		pkg.getElements().addAll(getNestedPackages(modelElement, null)); //TODO ver sobre pai
 		getNestedPackages(modelElement, null);
 		pkg.getElements().addAll(getClasses(modelElement, pkg));

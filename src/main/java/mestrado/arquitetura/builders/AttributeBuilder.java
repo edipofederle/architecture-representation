@@ -16,6 +16,7 @@ import org.eclipse.uml2.uml.Type;
  */
 public class AttributeBuilder extends ElementBuilder<Attribute> {
 	
+	
 	public AttributeBuilder(Architecture architecture) {
 		super(architecture);
 	}
@@ -28,7 +29,7 @@ public class AttributeBuilder extends ElementBuilder<Attribute> {
 		Type attributeType = ((Property) modelElement).getType();
 		String type = attributeType != null ? attributeType.getName() : "";
 		
-		return new Attribute(architecture, name, isVariationPoint, variantType, type, parent, modelElement.getNamespace().getQualifiedName());
+		return new Attribute(architecture, name, isVariationPoint, variantType, type, parent, modelElement.getNamespace().getQualifiedName(), getXmiId(modelElement) );
 	}
 
 }
