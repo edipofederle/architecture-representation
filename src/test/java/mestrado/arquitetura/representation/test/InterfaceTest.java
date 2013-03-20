@@ -13,7 +13,6 @@ import org.junit.Test;
 
 public class InterfaceTest extends TestHelper {
 	
-	private Architecture arch;
 	private Architecture architecture;
 
 	/**
@@ -22,7 +21,6 @@ public class InterfaceTest extends TestHelper {
 	 */
 	@Before
 	public void setUp() throws Exception{
-		arch = new Architecture("arquitetura");
 		
 		String uriToArchitecture = getUrlToModel("generico");
 		architecture = new ArchitectureBuilder().create(uriToArchitecture);
@@ -92,6 +90,5 @@ public class InterfaceTest extends TestHelper {
 		
 		assertEquals(1,i.getDependents().size());
 	}
-	
 
 }

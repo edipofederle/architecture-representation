@@ -22,7 +22,6 @@ public class UsageRelationshipBuilder extends RelationshipBase {
 		EList<NamedElement> suppliers = element.getSuppliers();
 		EList<NamedElement> clieents = element.getClients();
 		
-		
 		Element client = architecture.getElementByXMIID(getModelHelper().getXmiId(clieents.get(0)));
 		Element supplier = architecture.getElementByXMIID(getModelHelper().getXmiId(suppliers.get(0)));
 		
