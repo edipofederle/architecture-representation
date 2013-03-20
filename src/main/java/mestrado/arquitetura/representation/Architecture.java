@@ -137,6 +137,10 @@ public class Architecture {
 		return klasses;
 
 	}
+	
+	public List<Relationship> getAllRelationships(){
+		return relationships;
+	}
 
 	public List<GeneralizationRelationship> getAllGeneralizations() {
 		Predicate<Relationship> isAuthorized = new Predicate<Relationship>() {
@@ -240,7 +244,6 @@ public class Architecture {
 
 	public Interface findInterfaceByName(String interfaceName) throws InterfaceNotFound {
 		for (Interface interfacee : getAllInterfaces())
-			//if(interfaceName.equalsIgnoreCase(klass.getName()) && klass.isInterface())
 			if(interfaceName.equalsIgnoreCase(interfacee.getName()))
 				return interfacee;
 		
@@ -287,7 +290,6 @@ public class Architecture {
 	public void removeAbstractionRelationship(AbstractionRelationship ab) {
 		if (!relationships.remove(ab))
 			LOGGER.info("Cannot remove Abstraction " + ab + ".");
-		
 	}
 
 	public Package createPackage(String packageName) {

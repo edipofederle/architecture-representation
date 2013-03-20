@@ -175,19 +175,11 @@ public class ArchitectureBuilder extends RelationshipBase {
 	private List<? extends Relationship> loadInterClassDependencies() {
 		List<Relationship> relationships = new ArrayList<Relationship>();
 		List<Dependency> dependencies = getModelHelper().getAllDependencies(model);
-//		List<Package> packages = getModelHelper().getAllPackages(model);
-//		
-//		for (Package pack : packages)
-//			if(!pack.getClientDependencies().isEmpty())
-//				if(!pack.getClientDependencies().get(0).getClients().isEmpty())
-//					if(ModelElementHelper.isInterface(pack.getClientDependencies().get(0).getSuppliers().get(0)))
-//						interClassRelationships.add(dependencyInterClassRelationshipBuilder.create(pack.getClientDependencies().get(0)));
-//		
+
 		for (Dependency dependency : dependencies) 
 			if(!(dependency instanceof Usage) && (!(dependency instanceof Realization)))
 				relationships.add(dependencyRelationshipBuilder.create(dependency));
 		
-
 		if (relationships.isEmpty()) return Collections.emptyList();
 		return relationships;
 	}

@@ -108,17 +108,17 @@ public class ArchitectureBuilderTest extends TestHelper {
 		Class class1 = package1.getClasses().get(0);
 
 		assertEquals("Class1", class1.getName());
-		assertEquals(1, class1.getMethods().size());
-		assertEquals("foo", class1.getMethods().get(0).getName());
-		assertEquals("String", class1.getMethods().get(0).getReturnType());
-		assertEquals(3, class1.getMethods().get(0).getParameters().size());
-		assertEquals("name", class1.getMethods().get(0).getParameters().get(1)
+		assertEquals(1, class1.getAllMethods().size());
+		assertEquals("foo", class1.getAllMethods().get(0).getName());
+		assertEquals("String", class1.getAllMethods().get(0).getReturnType());
+		assertEquals(3, class1.getAllMethods().get(0).getParameters().size());
+		assertEquals("name", class1.getAllMethods().get(0).getParameters().get(1)
 				.getName());
-		assertEquals("String", class1.getMethods().get(0).getParameters()
+		assertEquals("String", class1.getAllMethods().get(0).getParameters()
 				.get(1).getType());
-		assertEquals("Description", class1.getMethods().get(0).getParameters()
+		assertEquals("Description", class1.getAllMethods().get(0).getParameters()
 				.get(2).getName());
-		assertEquals("String", class1.getMethods().get(0).getParameters()
+		assertEquals("String", class1.getAllMethods().get(0).getParameters()
 				.get(2).getType());
 	}
 
@@ -208,7 +208,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void shouldMethodhaveAParrentClass() {
 		Class class1 = package1.getClasses().get(0);
-		Method fooMethod = class1.getMethods().get(0);
+		Method fooMethod = class1.getAllMethods().get(0);
 		assertNotNull(fooMethod.getParent());
 		assertEquals("Class1", fooMethod.getParent().getName());
 	}

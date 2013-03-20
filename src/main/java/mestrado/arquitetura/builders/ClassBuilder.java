@@ -15,6 +15,7 @@ import mestrado.arquitetura.representation.Method;
 
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
+import org.eclipse.uml2.uml.PrimitiveType;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 
@@ -69,7 +70,7 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 		
 		klass = new Class(architecture, name, isVariationPoint, variantType, isAbstract, parent, packageName, namesapce, getXmiId(modelElement));
 		klass.getAttributes().addAll(getAttributes(modelElement, klass));
-		klass.getMethods().addAll(getMethods(modelElement, klass));
+		klass.getAllMethods().addAll(getMethods(modelElement, klass));
 		
 		return klass;
 	}
@@ -83,11 +84,11 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 	private List<Attribute> getAttributes(NamedElement modelElement, Class parent) {
 		List<Attribute> attrs = new ArrayList<Attribute>();
 		
-		if(modelElement instanceof ClassImpl){
 			List<Property> attributes = modelHelper.getAllAttributesForAClass(modelElement);
-			for (Property property : attributes)
-				attrs.add(attributeBuilder.create(property, parent));
-		}
+			for (Property property : attributes){
+				if((property.getType() instanceof PrimitiveType) || property.getType() == null)
+					attrs.add(attributeBuilder.create(property, parent));
+			}
 		
 		return attrs;
 	}

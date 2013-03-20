@@ -30,6 +30,12 @@ public class Method extends Element{
 		this(architecture, name, false, VariantType.NONE, returnType, isAbstract, paramsMethod, parent, namespace, id);
 	}
 
+	public Method(Architecture architecture, String name, String type, Element parent, boolean isAbstract) {
+		super(architecture, name, false, VariantType.NONE, "method", parent, parent.getNamespace(), "id"); //TODO verificar id unico
+		setReturnType(type);
+		setAbstract(isAbstract);
+	}
+
 	public void setAbstract(boolean isAbstract) {
 		this.isAbstract = isAbstract; 
 	}

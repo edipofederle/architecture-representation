@@ -80,9 +80,10 @@ public class StereotypeHelper extends TestHelper {
 		 * e por meio destes ver a qual classe o mesmo pertence.
 		 */
 		EList<Comment> comments = ((Class) element).getPackage().getOwnedComments();
-		
+		String nameOfElement = "";
 		for (Comment comment : comments){
-			String nameOfElement = ((NamedElement) comment.getAnnotatedElements().get(0)).getName();
+			if((comment.getAnnotatedElements().size() > 0) && (comment.getAnnotatedElements() !=null ))
+				nameOfElement = ((NamedElement) comment.getAnnotatedElements().get(0)).getName();
 			
 			if(commentBelongsToKlass(element, nameOfElement))
 				for (Stereotype stereotype : comment.getAppliedStereotypes())
