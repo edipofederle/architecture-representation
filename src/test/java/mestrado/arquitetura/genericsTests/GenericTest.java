@@ -39,7 +39,6 @@ public class GenericTest extends TestHelper {
 		
 		assertFalse("Nao deve possuir concern", StereotypeHelper.hasConcern(klass));
 		
-		
 		Stereotype concern = profileConcern.getOwnedStereotype("Persistence");
 		assertEquals("Persistence", concern.getName());
 		assertNotNull(concern);
