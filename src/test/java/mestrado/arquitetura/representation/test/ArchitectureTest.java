@@ -333,7 +333,7 @@ public class ArchitectureTest extends TestHelper {
 	}
 	
 	@Test
-	public void  shouldNotChangeListWhenTryRemoveAbstractionRelationshipNotExist() throws Exception{
+	public void shouldNotChangeListWhenTryRemoveAbstractionRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("abstractionInterElement");
 		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
 		a.removeAbstractionRelationship(null);
@@ -360,8 +360,13 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldCreateAPackage(){
 		assertEquals(1,architecture.getAllPackages().size());
+		assertEquals(5, architecture.getAllIds().size());
 		
 		Package packageTest = architecture.createPackage("myPackage");
+		
+		assertEquals(5, architecture.getAllIds().size());
+		
+		assertNotNull(packageTest.getId());
 		
 		assertEquals(2,architecture.getAllPackages().size());
 		assertSame(packageTest, architecture.getAllPackages().get(1));
@@ -374,8 +379,12 @@ public class ArchitectureTest extends TestHelper {
 		Package p = architecture.findPackageByName("Package1");
 		assertNotNull(p);
 		
+		assertEquals(5, architecture.getAllIds().size());
+		
 		architecture.removePackage(p);
 		assertEquals(0,architecture.getAllPackages().size());
+		
+		assertEquals(4, architecture.getAllIds().size());
 	}
 	
 	@Test
@@ -384,10 +393,16 @@ public class ArchitectureTest extends TestHelper {
 		
 		assertEquals(1,a.getAllClasses().size());
 		assertEquals(0, a.getAllInterfaces().size());
+		assertEquals(1, a.getAllClasses().size());
+		
+		assertEquals(2, a.getAllIds().size());
 		
 		a.removePackage(a.getAllPackages().get(0));
+		
 		assertEquals(0, a.getAllClasses().size());
 		assertEquals(0, a.getAllClasses().size());
+		
+		//assertEquals(0, a.getAllIds().size());
 	}
 	
 	@Test
@@ -459,6 +474,11 @@ public class ArchitectureTest extends TestHelper {
 		
 		architecture.removeClass(klass);
 		assertEquals(2, architecture.getAllClasses().size());
+	}
+	
+	@Test
+	public void shouldArchitecuteHaveAListContainAllElementsId(){
+		assertEquals(5, architecture.getAllIds().size());	
 	}
 	
 }

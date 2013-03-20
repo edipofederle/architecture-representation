@@ -32,8 +32,8 @@ public class Package extends Element {
 		super(architecture, name, isVariationPoint, variantType, "package", parent, namespace, id);
 	}
 	
-	public Package(Architecture architecture, String name) {
-		this(architecture, name, false, VariantType.NONE, null, "", ""); //receber id
+	public Package(Architecture architecture, String name, String id) {
+		this(architecture, name, false, VariantType.NONE, null, "", id); //receber id
 	}
 
 	/**

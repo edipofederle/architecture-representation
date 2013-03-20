@@ -35,6 +35,7 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 
 	public ElementBuilder(Architecture architecture) {
 		this.architecture = architecture;
+		
 	}
 	
 	protected abstract T buildElement(NamedElement modelElement, Element parent);
@@ -53,8 +54,13 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 		T element = buildElement(modelElement, parent);
 		element.addConcerns(concerns);
 		createdElements.put(getXmiId(modelElement), element);
-		
+		addIdToListOfElements(modelElement);
 		return element;
+	}
+
+	private void addIdToListOfElements(NamedElement modelElement) {
+		if(!architecture.getAllIds().contains(getXmiId(modelElement)))
+			architecture.getAllIds().add(getXmiId(modelElement));
 	}
 	
 	private void inspectStereotypes(NamedElement modelElement) {

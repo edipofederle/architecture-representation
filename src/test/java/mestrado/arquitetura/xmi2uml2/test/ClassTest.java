@@ -280,4 +280,19 @@ public class ClassTest extends TestHelper{
 		assertEquals(1,klass.getRelationships().size());
 	}
 	
+	@Test
+	public void shouldRemoveIdFromListOfElementsWhenElementDeleted() throws Exception{
+		Architecture a = givenAArchitecture("ExtendedPO2");
+		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
+		Method foo = klass.findMethodByName("foo");
+	
+		assertNotNull(a);
+	
+		assertEquals(16, a.getAllIds().size());
+		
+		klass.removeMethod(foo);
+		
+		assertEquals(15, a.getAllIds().size());
+	}
+	
 }

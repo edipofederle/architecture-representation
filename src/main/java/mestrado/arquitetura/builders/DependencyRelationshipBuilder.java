@@ -28,7 +28,7 @@ public class DependencyRelationshipBuilder  extends RelationshipBase{
 		
 		Element client = architecture.getElementByXMIID(getModelHelper().getXmiId(clieents.get(0)));
 		Element supplier = architecture.getElementByXMIID(getModelHelper().getXmiId(suppliers.get(0)));
-		
+		architecture.getAllIds().add(getModelHelper().getXmiId(element));
 		return new DependencyRelationship(supplier, client, element.getName(), architecture, getModelHelper().getXmiId(element));
 	}
 

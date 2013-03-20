@@ -28,7 +28,6 @@ public class InterfaceBuilder extends ElementBuilder<mestrado.arquitetura.repres
 		for (Operation operation : elements) {
 			interfacee.getOperations().add(methodBuilder.create(operation, interfacee));
 		}
-		
 		return interfacee;
 	}
 

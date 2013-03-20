@@ -31,7 +31,9 @@ public abstract class Element {
 		setTypeElement(typeElement);
 		setParent(parent);
 		setNamespace(namespace);
+		
 	}
+	
 
 
 	/**

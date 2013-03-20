@@ -71,7 +71,6 @@ public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representa
 		klass = new Class(architecture, name, isVariationPoint, variantType, isAbstract, parent, packageName, namesapce, getXmiId(modelElement));
 		klass.getAttributes().addAll(getAttributes(modelElement, klass));
 		klass.getAllMethods().addAll(getMethods(modelElement, klass));
-		
 		return klass;
 	}
 	

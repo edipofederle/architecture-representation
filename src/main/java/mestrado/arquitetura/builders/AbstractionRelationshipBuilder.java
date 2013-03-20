@@ -36,6 +36,7 @@ public class AbstractionRelationshipBuilder extends RelationshipBase {
 		Element client = architecture.getElementByXMIID(getModelHelper().getXmiId(clientElement));
 		Element supplier = architecture.getElementByXMIID(getModelHelper().getXmiId(supplierElement));
 		
+		architecture.getAllIds().add(getModelHelper().getXmiId(modelElement));
 		return new AbstractionRelationship(client,supplier, getModelHelper().getXmiId(modelElement));
 	}
 

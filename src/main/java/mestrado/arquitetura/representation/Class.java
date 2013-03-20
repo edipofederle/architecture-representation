@@ -80,6 +80,7 @@ public class Class extends Element {
 	}
 
 	public void removeAttribute(Attribute att) {
+		removeIdOfElementFromList(att	.getId());
 		getAttributes().remove(att);
 	}
 
@@ -141,7 +142,12 @@ public class Class extends Element {
 	}
 
 	public void removeMethod(Method foo) {
+		removeIdOfElementFromList(foo.getId());
 		getAllMethods().remove(foo);
+	}
+
+	private void removeIdOfElementFromList(String id) {
+		getArchitecture().getAllIds().remove(id);
 	}
 
 	public List<Method> getAllAbstractMethods() {

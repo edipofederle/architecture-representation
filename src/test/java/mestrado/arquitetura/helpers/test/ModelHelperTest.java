@@ -17,7 +17,6 @@ import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Dependency;
 import org.eclipse.uml2.uml.Generalization;
-import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Property;
@@ -52,10 +51,10 @@ public class ModelHelperTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllInterfaces() throws ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion {
-		Package content = modelHelper.getModel(getUrlToModel("ExtendedPO2"));
-		List<Classifier> elementsInterfaces = modelHelper.getAllInterfaces(content);
+		Package content = modelHelper.getModel(getUrlToModel("interface"));
+		List<Class> elementsInterfaces = modelHelper.getAllInterfaces(content);
 		assertEquals(1, elementsInterfaces.size());
-		assertEquals("myInterface", ((Interface) elementsInterfaces.get(0)).getName());
+		assertEquals("myInterface", elementsInterfaces.get(0).getName());
 	}
 
 	@Test

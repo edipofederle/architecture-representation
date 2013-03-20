@@ -46,7 +46,6 @@ public class PackageBuilder extends ElementBuilder<Package> {
 		pkg.getElements().addAll(getNestedPackages(modelElement, null)); //TODO ver sobre pai
 		getNestedPackages(modelElement, null);
 		pkg.getElements().addAll(getClasses(modelElement, pkg));
-		
 		return pkg;
 	}
 	

@@ -33,8 +33,10 @@ public class Architecture {
 	private List<Element> elements = new ArrayList<Element>();
 	private HashMap<String, Concern> concerns = new HashMap<String, Concern>();
 	private List<Variability> variabilities = new ArrayList<Variability>();
-
 	private List<Relationship> relationships = new ArrayList<Relationship>();
+
+	private List<String> allIds = new ArrayList<String>();
+	
 
 	private String name;
 
@@ -293,7 +295,7 @@ public class Architecture {
 	}
 
 	public Package createPackage(String packageName) {
-		Package pkg = new Package(this, packageName);
+		Package pkg = new Package(this, packageName, UtilResources.getRandonUUID());
 		elements.add(pkg);
 		return pkg;
 	}
@@ -306,17 +308,22 @@ public class Architecture {
 			String packageName = UtilResources.extractPackageName(klass.getNamespace());
 			if(packageName.equalsIgnoreCase(p.getName())){
 				ids.addAll(klass.getIdsRelationships());
+				removeIdOfElementFromList(klass.getId());
 				removeClass(klass);
 			}
 		}
 		
 		for (Iterator<Relationship> i = relationships.iterator(); i.hasNext();) {
 			Relationship next = i.next();
-			if (ids.contains(next.getId()))
+			if (ids.contains(next.getId())){
 				i.remove();
+				removeIdOfElementFromList(next.getId());
+			}
 		}
 		
-		if (!elements.remove(p))
+		if (elements.remove(p))
+			removeIdOfElementFromList(p.getId());
+		else	
 			LOGGER.info("Cannot remove Package " + p + ".");
 	}
 
@@ -349,6 +356,14 @@ public class Architecture {
 				return element;
 		}
 		return null;
+	}
+
+	public List<String> getAllIds() {
+		return allIds;
+	}
+	
+	private void removeIdOfElementFromList(String id) {
+		allIds.remove(id);
 	}
 
 }

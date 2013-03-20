@@ -2,6 +2,7 @@ package mestrado.arquitetura.helpers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,6 +48,10 @@ public class UtilResources {
 		    return namespace.substring(matcher.end()).trim();
 		}
 		return "";
+	}
+
+	public static String getRandonUUID() {
+		return UUID.randomUUID().toString();
 	}
 
 }
