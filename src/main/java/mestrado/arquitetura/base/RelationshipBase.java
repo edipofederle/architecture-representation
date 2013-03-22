@@ -8,7 +8,7 @@ import mestrado.arquitetura.helpers.ModelHelperFactory;
 public abstract class RelationshipBase {
 	
 	private static ModelHelper modelHelper;
-
+	
 	protected ModelHelper getModelHelper(){
 		try {
 			modelHelper = ModelHelperFactory.getModelHelper();

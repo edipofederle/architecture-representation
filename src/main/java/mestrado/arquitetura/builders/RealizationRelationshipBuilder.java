@@ -29,7 +29,7 @@ public class RealizationRelationshipBuilder extends RelationshipBase {
 		Element clientElement = architecture.getElementByXMIID(idClient);
 		Element supplierElement = architecture.getElementByXMIID(idSupplier);
 		String name = realization.getName() != null ? realization.getName() : "";
-		
+		architecture.getAllIds().add(getModelHelper().getXmiId(realization));
 		return new RealizationRelationship(clientElement, supplierElement, name, getModelHelper().getXmiId(realization));
 	}
 	

@@ -27,7 +27,7 @@ public class GeneralizationRelationshipBuilder extends RelationshipBase {
 		
 		Element general = architecture.getElementByXMIID(generalKlassId);
 		Element specific = architecture.getElementByXMIID(specificKlassId);
-		
+		architecture.getAllIds().add(getModelHelper().getXmiId(generalization));
 		return new GeneralizationRelationship(general, specific, architecture, getModelHelper().getXmiId(generalization));
 	}
 

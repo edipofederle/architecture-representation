@@ -7,7 +7,6 @@ import java.util.List;
 import mestrado.arquitetura.helpers.ModelElementHelper;
 import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.VariantType;
 
 import org.eclipse.emf.ecore.EObject;
@@ -35,9 +34,10 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 
 	public ElementBuilder(Architecture architecture) {
 		this.architecture = architecture;
+		
 	}
 	
-	protected abstract T buildElement(NamedElement modelElement, Element parent);
+	protected abstract T buildElement(NamedElement modelElement);
 	
 	/**
 	 * Cria um novo elemento arquitetural. 
@@ -46,15 +46,20 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 	 * @param parent null se não tiver parent.
 	 * @return
 	 */
-	public T create(NamedElement modelElement, Element parent) {
+	public T create(NamedElement modelElement) {
 		initialize();
 		inspectStereotypes(modelElement);
 		name = modelElement.getName();
-		T element = buildElement(modelElement, parent);
+		T element = buildElement(modelElement);
 		element.addConcerns(concerns);
 		createdElements.put(getXmiId(modelElement), element);
-		
+		addIdToListOfElements(modelElement);
 		return element;
+	}
+
+	private void addIdToListOfElements(NamedElement modelElement) {
+		if(!architecture.getAllIds().contains(getXmiId(modelElement)))
+			architecture.getAllIds().add(getXmiId(modelElement));
 	}
 	
 	private void inspectStereotypes(NamedElement modelElement) {

@@ -42,6 +42,7 @@ public class AssociationRelationshipBuilder extends RelationshipBase {
 		AssociationRelationship associationRelationship = new AssociationRelationship(getModelHelper().getXmiId(association));
 		
 		associationRelationship.getParticipants().addAll(getParticipants(association));
+		architecture.getAllIds().add(getModelHelper().getXmiId(association));
 		return associationRelationship;
 	}
 

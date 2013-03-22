@@ -79,7 +79,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllPackages(){
-		Package pkg = new Package(arch, "Pacote", false, VariantType.MANDATORY, null, "","id");
+		Package pkg = new Package(arch, "Pacote", false, VariantType.MANDATORY, "","id");
 		arch.getElements().add(pkg);
 		
 		assertEquals(1, arch.getAllPackages().size());
@@ -93,7 +93,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllClasses(){
-		Class klass = new Class(arch, "Klass", false,  VariantType.MANDATORY, false, null, "", "namespace","id");
+		Class klass = new Class(arch, "Klass", false,  VariantType.MANDATORY, false, "namespace","id");
 		arch.getElements().add(klass);
 		
 		assertEquals(1, arch.getAllClasses().size());
@@ -128,7 +128,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnElementClassByName(){
-		arch.getElements().add(new Class(arch, "Klass", false,  VariantType.MANDATORY, false, null, "", "namespace", "id"));
+		arch.getElements().add(new Class(arch, "Klass", false,  VariantType.MANDATORY, false,  "namespace", "id"));
 		Element klass = arch.findElementByName("klass");
 		
 		assertNotNull(klass);
@@ -137,7 +137,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnElementPackageByName(){
-		arch.getElements().add( new Package(arch, "Pacote", false, VariantType.MANDATORY, null, "", "id"));
+		arch.getElements().add( new Package(arch, "Pacote", false, VariantType.MANDATORY, "", "id"));
 		Element pkg = arch.findElementByName("Pacote");
 		
 		assertNotNull(pkg);
@@ -146,9 +146,9 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllInterfaces(){
-		arch.getElements().add(new Class(arch, "Klass1", false,  VariantType.MANDATORY, false, null, "", "namespace", "id"));
-		arch.getElements().add(new Interface(arch, "Interface1", false, VariantType.MANDATORY, null, "namesapce","id"));
-		arch.getElements().add(new Interface(arch, "Interface2", false, VariantType.MANDATORY, null, "namesapce","id"));
+		arch.getElements().add(new Class(arch, "Klass1", false,  VariantType.MANDATORY, false,  "namespace", "id"));
+		arch.getElements().add(new Interface(arch, "Interface1", false, VariantType.MANDATORY, "namesapce","id"));
+		arch.getElements().add(new Interface(arch, "Interface2", false, VariantType.MANDATORY, "namesapce","id"));
 		
 		assertEquals(2, arch.getAllInterfaces().size());
 		assertEquals(1, arch.getAllClasses().size());
@@ -333,7 +333,7 @@ public class ArchitectureTest extends TestHelper {
 	}
 	
 	@Test
-	public void  shouldNotChangeListWhenTryRemoveAbstractionRelationshipNotExist() throws Exception{
+	public void shouldNotChangeListWhenTryRemoveAbstractionRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("abstractionInterElement");
 		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
 		a.removeAbstractionRelationship(null);
@@ -359,9 +359,16 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateAPackage(){
-		assertEquals(1,architecture.getAllPackages().size());
+		assertEquals(1, architecture.getAllPackages().size());
+		assertEquals(7, architecture.getAllIds().size());
 		
 		Package packageTest = architecture.createPackage("myPackage");
+		
+		assertEquals("generico::myPackage", packageTest.getNamespace());
+		
+		assertEquals(8, architecture.getAllIds().size());
+		
+		assertNotNull(packageTest.getId());
 		
 		assertEquals(2,architecture.getAllPackages().size());
 		assertSame(packageTest, architecture.getAllPackages().get(1));
@@ -369,13 +376,17 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldRemoveAPackage() throws PackageNotFound{
-		assertEquals(1,architecture.getAllPackages().size());
+		assertEquals(1, architecture.getAllPackages().size());
 		
 		Package p = architecture.findPackageByName("Package1");
 		assertNotNull(p);
 		
+		assertEquals(7, architecture.getAllIds().size());
+		
 		architecture.removePackage(p);
 		assertEquals(0,architecture.getAllPackages().size());
+		
+		assertEquals(5, architecture.getAllIds().size());
 	}
 	
 	@Test
@@ -384,10 +395,16 @@ public class ArchitectureTest extends TestHelper {
 		
 		assertEquals(1,a.getAllClasses().size());
 		assertEquals(0, a.getAllInterfaces().size());
+		assertEquals(1, a.getAllClasses().size());
+		
+		assertEquals(2, a.getAllIds().size());
 		
 		a.removePackage(a.getAllPackages().get(0));
+		
 		assertEquals(0, a.getAllClasses().size());
 		assertEquals(0, a.getAllClasses().size());
+		
+		assertEquals(0, a.getAllIds().size());
 	}
 	
 	@Test
@@ -396,11 +413,13 @@ public class ArchitectureTest extends TestHelper {
 		
 		assertEquals(2, a.getAllClasses().size());
 		assertEquals(1, a.getAllAssociations().size());
+		assertEquals(4, a.getAllIds().size());
 		
 		a.removePackage(a.getAllPackages().get(0));
 		
 		assertEquals(1, a.getAllClasses().size());
 		assertEquals(0, a.getAllAssociations().size());
+		assertEquals(1, a.getAllIds().size());
 	}
 	
 	@Test
@@ -423,9 +442,14 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldCreateInterface() throws InterfaceNotFound{
 		assertEquals(0, architecture.getAllInterfaces().size());
+		assertEquals(7, architecture.getAllIds().size());
 		Interface interfacee = architecture.createInterface("myInterface");
+
+		assertEquals(8, architecture.getAllIds().size());
+		assertEquals("generico::myInterface", interfacee.getNamespace());
 		
 		assertNotNull(interfacee);
+		assertNotNull(interfacee.getId());
 		assertEquals(1, architecture.getAllInterfaces().size());
 		assertEquals(interfacee, architecture.findInterfaceByName("myInterface"));
 	}
@@ -445,11 +469,15 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldCreateClass() throws ClassNotFound{
 		assertEquals(3, architecture.getAllClasses().size());
 		
+		assertEquals(7, architecture.getAllIds().size());
+		
 		Class klass = architecture.createClass("Bar");
+		assertEquals("generico::Bar", klass.getNamespace());
 		
 		assertEquals(4, architecture.getAllClasses().size());
 		
 		assertEquals(klass, architecture.findClassByName("Bar"));
+		assertEquals(8, architecture.getAllIds().size());
 	}
 	
 	@Test
@@ -459,6 +487,11 @@ public class ArchitectureTest extends TestHelper {
 		
 		architecture.removeClass(klass);
 		assertEquals(2, architecture.getAllClasses().size());
+	}
+	
+	@Test
+	public void shouldArchitecuteHaveAListContainAllElementsId(){
+		assertEquals(7, architecture.getAllIds().size());	
 	}
 	
 }

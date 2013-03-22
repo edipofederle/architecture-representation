@@ -3,7 +3,6 @@ package mestrado.arquitetura.builders;
 import java.util.List;
 
 import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.Interface;
 
 import org.eclipse.uml2.uml.NamedElement;
@@ -20,15 +19,14 @@ public class InterfaceBuilder extends ElementBuilder<mestrado.arquitetura.repres
 	}
 
 	@Override
-	protected Interface buildElement(NamedElement modelElement, Element parent) {
+	protected Interface buildElement(NamedElement modelElement) {
 		
-		Interface interfacee = new Interface(architecture, name, isVariationPoint, variantType, parent, modelElement.getNamespace().getQualifiedName(), getXmiId(modelElement));
+		Interface interfacee = new Interface(architecture, name, isVariationPoint, variantType, modelElement.getNamespace().getQualifiedName(), getXmiId(modelElement));
 		
 		List<Operation> elements = ((org.eclipse.uml2.uml.Class)modelElement).getAllOperations();
 		for (Operation operation : elements) {
-			interfacee.getOperations().add(methodBuilder.create(operation, interfacee));
+			interfacee.getOperations().add(methodBuilder.create(operation));
 		}
-		
 		return interfacee;
 	}
 

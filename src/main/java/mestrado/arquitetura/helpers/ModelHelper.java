@@ -68,7 +68,7 @@ public class ModelHelper extends ElementHelper {
 	}
 	
 	/**
-	 * Retorna todas as classes de um modelo.
+	 * Retorna todas as classes de um modelo e seus pacotes
 	 * 
 	 * @param model
 	 * @return {@link List}
@@ -95,7 +95,7 @@ public class ModelHelper extends ElementHelper {
 		return allPropertys;
 	}
 	
-	public List<Classifier> getAllInterfaces(NamedElement model) {
+	public List<org.eclipse.uml2.uml.Class> getAllInterfaces(NamedElement model) {
 		return getAllElementsByType(model, INTERFACE);
 	}
 	

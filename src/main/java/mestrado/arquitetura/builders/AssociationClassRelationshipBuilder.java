@@ -27,6 +27,8 @@ public class AssociationClassRelationshipBuilder extends RelationshipBase {
 		Type ownedEnd = associationClass.getOwnedEnds().get(0).getType();
 		Element onewd = architecture.getElementByXMIID(getModelHelper().getXmiId(ownedEnd));
 		
+		architecture.getAllIds().add(getModelHelper().getXmiId(associationClass));
+		
 		return new AssociationClassRelationship(associationClass.getName(), membersEnd, onewd, getModelHelper().getXmiId(associationClass));
 	}
 	

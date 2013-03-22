@@ -21,8 +21,8 @@ public class Attribute extends Element {
 	 * @param namesapce
 	 * @param id
 	 */
-	public Attribute(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String type,  Element parent, String namesapce, String id) {
-		super(architecture, name, isVariationPoint, variantType, "attribute", parent, namesapce, id);
+	public Attribute(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String type, String namesapce, String id) {
+		super(architecture, name, isVariationPoint, variantType, "attribute", namesapce, id);
 		setType(type);
 	}
 
@@ -35,8 +35,8 @@ public class Attribute extends Element {
 	 * @param namespace
 	 * @param id
 	 */
-	public Attribute(Architecture architecture, String name, String type, Element parent, String namespace, String id) {
-		this(architecture, name, false, VariantType.NONE, type, parent, namespace, id);
+	public Attribute(Architecture architecture, String name, String type, String namespace, String id) {
+		this(architecture, name, false, VariantType.NONE, type, namespace, id);
 	}
 
 	public String getType() {

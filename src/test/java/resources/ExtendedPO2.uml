@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_EIGQQHH8EeKX7KNce8dLfw" name="model">
+<uml:Model xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_EIGQQHH8EeKX7KNce8dLfw" name="ExtendedPO2">
   <ownedComment xmi:id="_BsrZ4HIAEeKX7KNce8dLfw">
     <body> </body>
   </ownedComment>
@@ -31,7 +31,6 @@
   <packagedElement xmi:type="uml:Class" xmi:id="_Vlvy4HH8EeKX7KNce8dLfw" name="Class7"/>
   <packagedElement xmi:type="uml:Class" xmi:id="_VxskMHH8EeKX7KNce8dLfw" name="Class8"/>
   <packagedElement xmi:type="uml:Class" xmi:id="_V8GdYHH8EeKX7KNce8dLfw" clientDependency="_W30-cHH_EeKX7KNce8dLfw" name="Class9"/>
-  <packagedElement xmi:type="uml:Interface" xmi:id="_xqhaUHH-EeKX7KNce8dLfw" name="myInterface"/>
   <packagedElement xmi:type="uml:Association" xmi:id="_1v5UQ3H-EeKX7KNce8dLfw" name="class6_class3_1" memberEnd="_1v5URHH-EeKX7KNce8dLfw _1v5UQHH-EeKX7KNce8dLfw">
     <ownedEnd xmi:id="_1v5URHH-EeKX7KNce8dLfw" name="class6" type="_VZI6QHH8EeKX7KNce8dLfw" association="_1v5UQ3H-EeKX7KNce8dLfw">
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1v5URXH-EeKX7KNce8dLfw" value="1"/>

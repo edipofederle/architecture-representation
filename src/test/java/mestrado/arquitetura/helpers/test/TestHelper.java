@@ -15,7 +15,6 @@ import mestrado.arquitetura.helpers.ModelHelperFactory;
 import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
 import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Element;
 
 import org.eclipse.emf.common.util.URI;
@@ -39,10 +38,8 @@ public abstract class TestHelper {
 		try {
 			uml2Helper = Uml2HelperFactory.getUml2Helper();
 		} catch (ModelNotFoundException e) {
-			// TODO AJUSTAR
 			e.printStackTrace();
 		} catch (ModelIncompleteException e) {
-			// TODO AJUSTAR
 			e.printStackTrace();
 		}
 		try {
@@ -56,7 +53,6 @@ public abstract class TestHelper {
 	}
 
 	public static Package givenAModel(String modelName) throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion {
-		//TODO Move from Here, problemas dos estereotipos
 		String uri = getUrlToModel(modelName);
 		String absolutePath = new File(uri).getAbsolutePath();
 		Package epo2Model = uml2Helper.load(absolutePath);
@@ -104,9 +100,9 @@ public abstract class TestHelper {
 			}
 		}
 	protected void hasClassesNames(mestrado.arquitetura.representation.Package pkg, String ... names){
-		List<Class> klasses = pkg.getClasses();	
+		List<Element> klasses = pkg.getClasses();	
 		List<String> namesKlasses = new ArrayList<String>();
-		for (Class name : klasses) 
+		for (Element name : klasses) 
 			namesKlasses.add(name.getName());
 		
 		Assert.assertTrue(namesKlasses.containsAll(Arrays.asList(names)));
