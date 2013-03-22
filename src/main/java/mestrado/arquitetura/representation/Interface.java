@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import mestrado.arquitetura.helpers.UtilResources;
 import mestrado.arquitetura.representation.relationship.AbstractionRelationship;
 import mestrado.arquitetura.representation.relationship.DependencyRelationship;
 
@@ -13,12 +14,12 @@ public class Interface extends Element {
 	private final List<Method> operations = new ArrayList<Method>();
 	
 
-	public Interface(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, Element parent, String namespace, String id) {
-		super(architecture, name, isVariationPoint, variantType, "interface", parent, namespace, id);
+	public Interface(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String namespace, String id) {
+		super(architecture, name, isVariationPoint, variantType, "interface", namespace, id);
 	}
 	
-	public Interface(Architecture architecture, String name) {
-		this(architecture, name, false, VariantType.NONE, null, "", ""); //TODO recber id
+	public Interface(Architecture architecture, String name, String id) {
+		this(architecture, name, false, VariantType.NONE, UtilResources.createNamespace(architecture.getName(), name), id);
 	}
 
 	public  List<Method> getOperations() {
@@ -31,7 +32,7 @@ public class Interface extends Element {
 	}
 	
 	public Method createOperation(String operationName) throws Exception {
-		Method operation = new Method(getArchitecture(), operationName, false, VariantType.NONE, "void", false, null, this, "", ""); //Receber id 
+		Method operation = new Method(getArchitecture(), operationName, false, VariantType.NONE, "void", false, null,  "", ""); //Receber id 
 		operations.add(operation);
 		return operation;
 	}

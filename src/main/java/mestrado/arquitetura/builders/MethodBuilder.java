@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.Method;
 import mestrado.arquitetura.representation.ParameterMethod;
 
@@ -30,7 +29,7 @@ public class MethodBuilder extends ElementBuilder<Method> {
 	 * Cria um elemento do tipo {@link Method}
 	 */
 	@Override
-	protected Method buildElement(NamedElement modelElement, Element parent) {
+	protected Method buildElement(NamedElement modelElement) {
 		Operation method =  ((Operation) modelElement);
 		Type methodReturnType = method.getType();
 		String type = methodReturnType != null ? methodReturnType.getName() : "";
@@ -48,7 +47,7 @@ public class MethodBuilder extends ElementBuilder<Method> {
 		
 		String namespace = modelElement.getNamespace().getQualifiedName();
 			
-		Method m = new Method(architecture, name, isVariationPoint, variantType, type, isAbstract, parameterMethodReceives, parent, namespace, getXmiId(modelElement));
+		Method m = new Method(architecture, name, isVariationPoint, variantType, type, isAbstract, parameterMethodReceives, namespace, getXmiId(modelElement));
 		return m;
 	}
 

@@ -3,6 +3,8 @@ package mestrado.arquitetura.representation;
 import java.util.ArrayList;
 import java.util.List;
 
+import mestrado.arquitetura.helpers.UtilResources;
+
 /**
  * 
  * @author edipofederle
@@ -14,8 +16,8 @@ public class Method extends Element{
 	private final List<ParameterMethod> parameters = new ArrayList<ParameterMethod>();
 	private boolean isAbstract;
 
-	public Method(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, Element parent, String namespace, String id) {
-		super(architecture, name, isVariationPoint, variantType, "method", parent, namespace, id);
+	public Method(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, String namespace, String id) {
+		super(architecture, name, isVariationPoint, variantType, "method", namespace, id);
 		setReturnType(returnType);
 		setAbstract(isAbstract);
 		setParams(paramsMethod);
@@ -26,12 +28,12 @@ public class Method extends Element{
 			parameters.addAll(paramsMethod);
 	}
 	
-	public Method(Architecture architecture, String name, Boolean isVariationPoint, VariantType variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, Element parent, String namespace, String id) {
-		this(architecture, name, false, VariantType.NONE, returnType, isAbstract, paramsMethod, parent, namespace, id);
+	public Method(Architecture architecture, String name, Boolean isVariationPoint, VariantType variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, String namespace, String id) {
+		this(architecture, name, false, VariantType.NONE, returnType, isAbstract, paramsMethod,  namespace, id);
 	}
 
-	public Method(Architecture architecture, String name, String type, Element parent, boolean isAbstract) {
-		super(architecture, name, false, VariantType.NONE, "method", parent, parent.getNamespace(), "id"); //TODO verificar id unico
+	public Method(Architecture architecture, String name, String type, String className, boolean isAbstract, String id) {
+		super(architecture, name, false, VariantType.NONE, "method", UtilResources.createNamespace(architecture.getName(), className), id);
 		setReturnType(type);
 		setAbstract(isAbstract);
 	}

@@ -3,8 +3,6 @@ package mestrado.arquitetura.helpers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 
@@ -27,11 +25,9 @@ public class UtilResources {
 	@SuppressWarnings("unchecked")
 	public static <T, U extends T> List<U> filter(List<T> target, Predicate<T> predicate) {
 		List<U> result = new ArrayList<U>();
-		for (T element: target) {
-			if (predicate.apply(element)) {
+		for (T element: target) 
+			if (predicate.apply(element)) 
 				result.add((U) element);
-			}
-		}
 		return result;
 	}
 
@@ -43,15 +39,18 @@ public class UtilResources {
 	 * @return
 	 */
 	public static String extractPackageName(String namespace) {
-		final Matcher matcher = Pattern.compile("::").matcher(namespace);
-		if(matcher.find()){
-		    return namespace.substring(matcher.end()).trim();
-		}
-		return "";
+		if(namespace == null) return "";
+		String name = namespace.substring(namespace.lastIndexOf("::")+2, namespace.length());
+		return name != null ? name : "";
 	}
 
 	public static String getRandonUUID() {
 		return UUID.randomUUID().toString();
+	}
+	
+	public static String createNamespace(String architectureName, String name) {
+		String nsp = architectureName + "::" + name;
+		return nsp != null ? nsp : "";
 	}
 
 }

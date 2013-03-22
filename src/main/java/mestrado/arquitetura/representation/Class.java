@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import mestrado.arquitetura.exceptions.AttributeNotFoundException;
 import mestrado.arquitetura.exceptions.MethodNotFoundException;
+import mestrado.arquitetura.helpers.UtilResources;
 import mestrado.arquitetura.representation.relationship.Relationship;
 
 /**
@@ -20,7 +21,6 @@ public class Class extends Element {
 	private boolean isAbstract;
 	private final List<Attribute> attributes = new ArrayList<Attribute>();
 	private final List<Method> methods = new ArrayList<Method>();
-	private String namespace;
 	
 	/**
 	 * 
@@ -32,25 +32,22 @@ public class Class extends Element {
 	 * @param parent
 	 * @param interfacee
 	 * @param packageName
-	 * @param namespace
 	 */
-	public Class(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, boolean isAbstract, Element parent, String packageName, String namespace, String id) {
-		super(architecture, name, isVariationPoint, variantType, "klass", parent, namespace, id);
+	public Class(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, boolean isAbstract, String namespace, String id) {
+		super(architecture, name, isVariationPoint, variantType, "klass", namespace, id);
 		setAbstract(isAbstract);
-		setNamespace(packageName);
 	}
 
-	//TODO verificar esses construtor
-	public Class(Architecture architecture, String name) {
-		this(architecture, name,  false, VariantType.NONE, false, null, "", "", ""); //TODO recber id, 
+	public Class(Architecture architecture, String name, String id) {
+		this(architecture, name,  false, VariantType.NONE, false,  UtilResources.createNamespace(getArchitecture().getName(), name), id);
 	}
 
-	private void setNamespace(String packageName) {
-		this.namespace = packageName;
-	}
-	
-	public String getNamespace() {
-		return namespace;
+	public Attribute createAttribute(String name, String type) {
+		String id = UtilResources.getRandonUUID();
+		Attribute a = new Attribute(getArchitecture(), name, type,  getArchitecture().getName()+"::"+this.getName(), id); //Verificar IDs
+		getAttributes().add(a);
+		getArchitecture().getAllIds().add(id);
+		return a;
 	}
 
 	public void setAttribute(Attribute attr){
@@ -73,11 +70,6 @@ public class Class extends Element {
 		return methods;
 	}
 
-	public Attribute createAttribute(String name, String type) {
-		Attribute a = new Attribute(getArchitecture(), name, type, this, "", "uniqueId"); //Verificar IDs
-		getAttributes().add(a);
-		return a;
-	}
 
 	public void removeAttribute(Attribute att) {
 		removeIdOfElementFromList(att	.getId());
@@ -85,7 +77,7 @@ public class Class extends Element {
 	}
 
 	public Attribute findAttributeByName(String name) throws AttributeNotFoundException {
-		String message = "Attribute '" + name + "' not found in class '"+ this.getName() +"'.";
+		String message = "Attribute '" + name + "' not found in class '"+ this.getName() +"'.\n";
 		
 		for(Attribute att : getAttributes())
 			if (name.equalsIgnoreCase(att.getName()))
@@ -96,16 +88,18 @@ public class Class extends Element {
 
 	public void moveAttributeToClass(Attribute att, Class destinationKlass) {
 		if (!getAttributes().contains(att)) return;
-		
 		removeAttribute(att);
 		destinationKlass.getAttributes().add(att);
+		att.setNamespace(getArchitecture().getName() + "::" + destinationKlass.getName());
 	}
 	
 
 	public Method createMethod(String name, String type, boolean isAbstract) {
 		if (!methodExistsOnClass(name, type)){
-			Method method = new Method(getArchitecture(), name, type, this, isAbstract);
+			String id = UtilResources.getRandonUUID();
+			Method method = new Method(getArchitecture(), name, type, this.getName(), isAbstract, id);
 			getAllMethods().add(method);
+			getArchitecture().getAllIds().add(id);
 			return method;
 		}
 		return null; //TODO exp
@@ -114,7 +108,7 @@ public class Class extends Element {
 	private boolean methodExistsOnClass(String name, String type) {
 		for(Method m : getAllMethods()){
 			if((name.equalsIgnoreCase(m.getName())) && (type.equalsIgnoreCase(m.getReturnType()))){
-				LOGGER.info("Method '"+ name + ":"+type + "' currently created in class '"+this.getName()+"'.");
+				LOGGER.warning("Method '"+ name + ":"+type + "' currently created in class '"+this.getName()+"'.\n");
 				return true;
 			}
 		}
@@ -124,7 +118,7 @@ public class Class extends Element {
 
 	//TODO verificar metodos com mesmo nome e tipo diferente
 	public Method findMethodByName(String name) throws MethodNotFoundException {
-		String message = "Method '" + name + "' not found in class '"+ this.getName() +"'.";
+		String message = "Method '" + name + "' not found in class '"+ this.getName() +"'.\n";
 		
 		for(Method m : getAllMethods())
 			if((name.equalsIgnoreCase(m.getName())))
@@ -138,6 +132,7 @@ public class Class extends Element {
 		if (!getAllMethods().contains(m)) return;
 		
 		removeMethod(m);
+		m.setNamespace(getArchitecture().getName() + "::" + destinationKlass.getName());
 		destinationKlass.getAllMethods().add(m);
 	}
 

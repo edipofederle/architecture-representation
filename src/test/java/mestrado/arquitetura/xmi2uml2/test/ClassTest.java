@@ -1,8 +1,10 @@
 package mestrado.arquitetura.xmi2uml2.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -125,6 +127,10 @@ public class ClassTest extends TestHelper{
 		assertEquals(0, klass.getAttributes().size());
 		
 		Attribute att = klass.createAttribute("name", "String");
+		String id = att.getId();
+		assertTrue(a.getAllIds().contains(id));
+		assertEquals("classes::Class1", att.getNamespace());
+		assertNotNull(att.getId());
 		
 		assertNotNull(att);
 		assertEquals(1, klass.getAttributes().size());
@@ -140,9 +146,12 @@ public class ClassTest extends TestHelper{
 		Attribute att = klass.createAttribute("name", "String");
 		assertEquals(2, klass.getAttributes().size());
 		
+		String id = att.getId();
+		assertTrue(a.getAllIds().contains(id));
 		klass.removeAttribute(att);
 		
 		assertEquals(1, klass.getAttributes().size());
+		assertFalse(a.getAllIds().contains(id));
 	}
 	
 	@Test
@@ -162,6 +171,17 @@ public class ClassTest extends TestHelper{
 	}
 	
 	@Test
+	public void shouldChangeNamespaceWhenMoveAttribute() throws Exception{
+		Architecture a = givenAArchitecture("ExtendedPO2");
+		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
+		mestrado.arquitetura.representation.Class klass8 = a.findClassByName("Class8");
+		Attribute att = klass.findAttributeByName("name");
+		assertEquals("ExtendedPO2::Person", att.getNamespace());
+		klass.moveAttributeToClass(att, klass8 );
+		assertEquals("ExtendedPO2::Class8", att.getNamespace());
+	}
+	
+	@Test
 	public void shouldFindAttributeOnClass() throws Exception{
 		Architecture a = givenAArchitecture("ExtendedPO2");
 		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
@@ -175,10 +195,16 @@ public class ClassTest extends TestHelper{
 		Architecture a = givenAArchitecture("ExtendedPO2");
 		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
 		
-		assertEquals(1,klass.getAllMethods().size());
+		assertEquals(1, klass.getAllMethods().size());
 		
-		klass.createMethod("bar", "String", false);
+		assertEquals("ExtendedPO2", klass.getNamespace());
 		
+		Method m = klass.createMethod("bar", "String", false);
+		String id = m.getId();
+		
+		assertEquals("ExtendedPO2::Person", m.getNamespace());
+		assertNotNull(id);
+		assertTrue(a.getAllIds().contains(id));
 		assertEquals(2,klass.getAllMethods().size());
 	}
 	
@@ -208,6 +234,7 @@ public class ClassTest extends TestHelper{
 		assertEquals(2, klass.getAllMethods().size());
 	}
 	
+	
 	@Test
 	public void shouldFindMethodByName() throws Exception{
 		Architecture a = givenAArchitecture("ExtendedPO2");
@@ -228,7 +255,6 @@ public class ClassTest extends TestHelper{
 		klass.removeMethod(foo);
 		
 		assertEquals(0, klass.getAllMethods().size());
-		
 	}
 	
 	@Test
@@ -239,6 +265,8 @@ public class ClassTest extends TestHelper{
 		mestrado.arquitetura.representation.Class klass8 = a.findClassByName("Class8");
 		Method foo = klass.findMethodByName("foo");
 		
+		assertEquals("ExtendedPO2", klass.getNamespace());
+		
 		assertEquals(1, klass.getAllMethods().size());
 		assertEquals(0, klass8.getAllMethods().size());
 		
@@ -246,6 +274,21 @@ public class ClassTest extends TestHelper{
 		
 		assertEquals(0, klass.getAllMethods().size());
 		assertEquals(1, klass8.getAllMethods().size());
+	}
+	
+	@Test
+	public void shouldChangeNamespaceWhenMoveMethod() throws Exception{
+		Architecture a = givenAArchitecture("ExtendedPO2");
+		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
+		mestrado.arquitetura.representation.Class klass8 = a.findClassByName("Class8");
+		Method foo = klass.findMethodByName("foo");
+		
+		assertEquals("ExtendedPO2::Person", foo.getNamespace());
+		
+		klass.moveMethodToClass(foo, klass8);
+		
+		assertEquals("ExtendedPO2::Class8", foo.getNamespace());
+		
 	}
 	
 	@Test(expected=MethodNotFoundException.class)

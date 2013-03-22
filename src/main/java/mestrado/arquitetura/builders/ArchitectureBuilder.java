@@ -37,7 +37,6 @@ import org.eclipse.uml2.uml.Usage;
  */
 public class ArchitectureBuilder extends RelationshipBase {
 	
-	private static final Element NO_PARENT = null;
 	private Package model;
 	private PackageBuilder packageBuilder;
 	private ClassBuilder classBuilder;
@@ -86,7 +85,6 @@ public class ArchitectureBuilder extends RelationshipBase {
 		architecture.getElements().addAll(loadClasses()); // Classes que nao possuem pacotes
 		architecture.getElements().addAll(loadInterfaces());
 		architecture.getVariabilities().addAll(loadVariability());
-		
 		architecture.getInterClassRelationships().addAll(loadInterClassRelationships());
 		
 		return architecture;
@@ -225,7 +223,7 @@ public class ArchitectureBuilder extends RelationshipBase {
 		
 		for (NamedElement element : classes)
 			if(!ModelElementHelper.isInterface(element))
-				listOfClasses.add(classBuilder.create(element, null)); //TODO verificar parent ( owner )
+				listOfClasses.add(classBuilder.create(element));
 		
 		if (!listOfClasses.isEmpty()) return listOfClasses;
 		return listOfClasses;
@@ -237,7 +235,7 @@ public class ArchitectureBuilder extends RelationshipBase {
 		
 		for (org.eclipse.uml2.uml.Class class1 : classes) 
 			if(ModelElementHelper.isInterface((NamedElement)class1))
-				listOfInterfaces.add(intefaceBuilder.create(class1, null));
+				listOfInterfaces.add(intefaceBuilder.create(class1));
 		
 		return listOfInterfaces;
 	}
@@ -251,7 +249,8 @@ public class ArchitectureBuilder extends RelationshipBase {
 		List<Package> packagess = getModelHelper().getAllPackages(model);
 		
 		for (NamedElement pkg : packagess)
-			packages.add(packageBuilder.create(pkg, NO_PARENT));
+			packages.add(packageBuilder.create(pkg));
+		
 		
 		if (!packages.isEmpty()) return packages;
 		return packages;

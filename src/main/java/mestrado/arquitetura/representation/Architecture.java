@@ -34,10 +34,7 @@ public class Architecture {
 	private HashMap<String, Concern> concerns = new HashMap<String, Concern>();
 	private List<Variability> variabilities = new ArrayList<Variability>();
 	private List<Relationship> relationships = new ArrayList<Relationship>();
-
 	private List<String> allIds = new ArrayList<String>();
-	
-
 	private String name;
 
 	public Architecture(String name) {
@@ -241,7 +238,7 @@ public class Architecture {
 			if(className.equalsIgnoreCase(klass.getName()))
 				return klass;
 		
-		throw new ClassNotFound("Class " + className + " can not found.");
+		throw new ClassNotFound("Class " + className + " can not found.\n");
 	}
 
 	public Interface findInterfaceByName(String interfaceName) throws InterfaceNotFound {
@@ -249,105 +246,138 @@ public class Architecture {
 			if(interfaceName.equalsIgnoreCase(interfacee.getName()))
 				return interfacee;
 		
-		throw new InterfaceNotFound("Interface " + interfaceName + " can not found.");
+		throw new InterfaceNotFound("Interface " + interfaceName + " can not found.\n");
 	}
 
 	public Package findPackageByName(String packageName) throws PackageNotFound {
-		for(Package pkg : getAllPackages()){
+		for(Package pkg : getAllPackages())
 			if(packageName.equalsIgnoreCase(pkg.getName()))
 				return pkg;
-		}
-		throw new PackageNotFound("Pakcage " + packageName + " can not found.");
+		
+		throw new PackageNotFound("Pakcage " + packageName + " can not found.\n");
 	}
 
 	public void removeAssociationRelationship(AssociationRelationship as) {
-		if (removeRelationship(as))
-			LOGGER.info("Cannot remove Association " + as + ".");
+		if (!removeRelationship(as))
+			LOGGER.info("Cannot remove Association " + as + ".\n");
 	}
 
-	private boolean removeRelationship(AssociationRelationship as) {
-		return !relationships.remove(as);
+	private boolean removeRelationship(Relationship as) {
+		if(as == null) return false;
+			getAllIds().remove(as.getId());
+			return relationships.remove(as);
 	}
 
 	public void removeDependencyRelationship(DependencyRelationship dp) {
-		if (!relationships.remove(dp))
-			LOGGER.info("Cannot remove Dependency " + dp + ".");
+		if (!removeRelationship(dp))
+			LOGGER.info("Cannot remove Dependency " + dp + ".\n");
 	}
 
 	public void removeUsageRelationship(UsageRelationship usage) {
-		if (!relationships.remove(usage))
-			LOGGER.info("Cannot remove Usage " + usage + ".");
+		if (!removeRelationship(usage))
+			LOGGER.info("Cannot remove Usage " + usage + ".\n");
 	}
 
 	public void removeAssociationClass(AssociationClassRelationship associationClass){
-		if (!relationships.remove(associationClass))
-			LOGGER.info("Cannot remove AssociationClass " + associationClass + ".");
+		if (!removeRelationship(associationClass))
+			LOGGER.info("Cannot remove AssociationClass " + associationClass + ".\n");
 	}
 
 	public void removeGeneralizationRelationship(GeneralizationRelationship generalization) {
-		if (!relationships.remove(generalization))
-			LOGGER.info("Cannot remove Generalization " + generalization + ".");
+		if (!removeRelationship(generalization))
+			LOGGER.info("Cannot remove Generalization " + generalization + ".\n");
 	}
 
 	public void removeAbstractionRelationship(AbstractionRelationship ab) {
-		if (!relationships.remove(ab))
-			LOGGER.info("Cannot remove Abstraction " + ab + ".");
+		if (!removeRelationship(ab))
+			LOGGER.info("Cannot remove Abstraction " + ab + ".\n");
 	}
 
 	public Package createPackage(String packageName) {
-		Package pkg = new Package(this, packageName, UtilResources.getRandonUUID());
+		String id = UtilResources.getRandonUUID();
+		Package pkg = new Package(this, packageName, id);
+		getAllIds().add(id);
 		elements.add(pkg);
 		return pkg;
 	}
 
 	public void removePackage(Package p) {
-		List<Class> klasses = getAllClasses();
-		List<String> ids  = new ArrayList<String>();
+		List<Element> elements = getElements();
+		List<String> ids = new ArrayList<String>();
+		List<String> idsClasses = p.getAllClassIdsForThisPackage(); //Ids de todas as classes que pertencem ao pacote que esta sendo deletado.
 		
-		for (Class klass : klasses) {
-			String packageName = UtilResources.extractPackageName(klass.getNamespace());
-			if(packageName.equalsIgnoreCase(p.getName())){
-				ids.addAll(klass.getIdsRelationships());
-				removeIdOfElementFromList(klass.getId());
-				removeClass(klass);
+		for (Iterator<Element> i = this.elements.iterator(); i.hasNext();) {
+			Element e = i.next();
+			String packageName = UtilResources.extractPackageName(e.getNamespace());
+			if(e.getName().equalsIgnoreCase(packageName)){
+				ids.addAll(e.getIdsRelationships());
 			}
 		}
 		
-		for (Iterator<Relationship> i = relationships.iterator(); i.hasNext();) {
-			Relationship next = i.next();
-			if (ids.contains(next.getId())){
-				i.remove();
-				removeIdOfElementFromList(next.getId());
+		for(Element c : p.getClasses()){
+			List<String> res = c.getIdsRelationships();
+			for (Iterator<Relationship> i = relationships.iterator(); i.hasNext();) {
+				Relationship r = i.next();
+				if(res.contains(r.getId())){
+					i.remove();
+					removeIdOfElementFromList(r.getId(), "Relacionamento");
+				}
+					
 			}
 		}
 		
+		//Relacionamentos em pacote
+		List<Relationship> rp = p.getRelationships();
+		for (Relationship relationship : rp) {
+			for (Iterator<Relationship> r = this.relationships.iterator(); r.hasNext();) {
+				Relationship relacion = r.next();
+				if(relationship.getId().equalsIgnoreCase(relacion.getId())){
+					r.remove();
+					removeIdOfElementFromList(relacion.getId(), "Relacionamento");
+				}
+			}
+		}
+		
+		
+		if(!idsClasses.isEmpty()){
+			for (String id : idsClasses) {
+				for (Iterator<Element> i = this.elements.iterator(); i.hasNext();) {
+					Element element = i.next();
+					if(id.equalsIgnoreCase(element.getId())){
+						i.remove();
+						removeIdOfElementFromList(element.getId(), element.getTypeElement());
+					}
+				}
+			}
+		}
+
 		if (elements.remove(p))
-			removeIdOfElementFromList(p.getId());
+			removeIdOfElementFromList(p.getId(), "Package");
 		else	
 			LOGGER.info("Cannot remove Package " + p + ".");
+
 	}
 
 
 	public Interface createInterface(String interfaceName) {
-		Interface interfacee = new Interface(this, interfaceName);
+		String id = UtilResources.getRandonUUID();
+		Interface interfacee = new Interface(this, interfaceName, id);
 		elements.add(interfacee);
+		allIds.add(id);
 		return interfacee;
+	}
+	
+	public Class createClass(String klassName) {
+		String id = UtilResources.getRandonUUID();
+		Class klass = new Class(this, klassName, id);
+		elements.add(klass);
+		allIds.add(id);
+		return klass;
 	}
 
 	public void removeInterface(Interface interfacee) {
 		if (!elements.remove(interfacee))
 			LOGGER.info("Cannot remove Interface " + interfacee + ".");
-	}
-
-	public Class createClass(String klassName) {
-		Class klass = new Class(this, klassName);
-		elements.add(klass);
-		return klass;
-	}
-
-	public void removeClass(Class klass) {
-		if (!elements.remove(klass))
-			LOGGER.info("Cannot remove Class " + klass + ".");
 	}
 
 	public Element getElementByXMIID(String xmiId) {
@@ -362,8 +392,14 @@ public class Architecture {
 		return allIds;
 	}
 	
-	private void removeIdOfElementFromList(String id) {
+	private void removeIdOfElementFromList(String id, String message) {
+		LOGGER.info("Elemento ("+message+") : " + id + " removido.\n");
 		allIds.remove(id);
+	}
+
+	public void removeClass(Class klass) {
+		if(!elements.remove(klass))
+			LOGGER.info("Cannot remove Class " + klass + ".");
 	}
 
 }

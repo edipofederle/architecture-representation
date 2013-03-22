@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.UMLPackage;
@@ -50,15 +49,11 @@ public abstract class ElementHelper {
 	protected static <T> List<T> getAllElementsByType(NamedElement model, String type) {
 		EList<Element> ownedElements = model.getOwnedElements();
 		List<T> elements = new ArrayList<T>();
+		
 		for (Element e : ownedElements){
-			if(("interface".equalsIgnoreCase(type) && (e instanceof ClassImpl))){
-				if(ModelElementHelper.isInterface((NamedElement)e)){
-					elements.add((T) e);
-				}
-			}
-		if(e.eClass().equals(getLiteralType(type))){
-				elements.add((T) e);
-		}
+			if (("interface".equalsIgnoreCase(type) && (e instanceof ClassImpl)))
+				if (ModelElementHelper.isInterface((NamedElement) e)) elements.add((T) e);
+			if (e.eClass().equals(getLiteralType(type))) elements.add((T) e);
 		}
 		
 		if(elements.isEmpty()) return Collections.emptyList();

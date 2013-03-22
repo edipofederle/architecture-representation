@@ -68,7 +68,6 @@ public class DependencyRelationship extends Relationship {
 		return name != null ? name : "" ;
 	}
 
-	//TODO Acho que devo mover daqui esses dois métodos.????
 	/**
 	 * Retornar todas as {@link Class}'s que são 'client' de 'supplier'; 
 	 * 

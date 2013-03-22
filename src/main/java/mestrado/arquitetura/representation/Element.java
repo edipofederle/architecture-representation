@@ -16,25 +16,20 @@ public abstract class Element {
 	private Boolean isVariationPoint;
 	private VariantType variantType;
 	private final List<Concern> concerns = new ArrayList<Concern>();
-	private Architecture architecture;
+	private static Architecture architecture;
 	private String typeElement;
-	private Element parent;
 	private String namespace;
 	private List<String> idsRelationships = new ArrayList<String>();
 	
-	public Element(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String typeElement, Element parent, String namespace, String id) {
+	public Element(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String typeElement, String namespace, String id) {
 		setArchitecture(architecture);
 		setId(id);
 		setName(name);
 		setIsVariationPoint(isVariationPoint);
 		setVariantType(variantType);
 		setTypeElement(typeElement);
-		setParent(parent);
 		setNamespace(namespace);
-		
 	}
-	
-
 
 	/**
 	 * @return the id
@@ -43,7 +38,6 @@ public abstract class Element {
 		return id;
 	}
 
-
 	/**
 	 * @param id the id to set
 	 */
@@ -51,16 +45,9 @@ public abstract class Element {
 		this.id = id;
 	}
 
-
-
-	private void setNamespace(String namespace) {
+	public void setNamespace(String namespace) {
 		this.namespace = namespace;
 	}
-
-	private void setParent(Element parent) {
-		this.parent = parent;
-	}
-
 	private void setTypeElement(String typeElement) {
 		this.typeElement = typeElement;
 	}
@@ -120,15 +107,6 @@ public abstract class Element {
 		Concern concern = architecture.getOrCreateConcernByName(concernName);
 		concerns.add(concern);
 	}
-	
-	/**
-	 * Returns Parent Element. If there is no parent returns null.
-	 * 
-	 * @return {@link Element}
-	 */
-	public Element getParent(){
-		return this.parent != null ? this.parent : null;
-	}
 
 	/**
 	 * @return the namespace
@@ -137,8 +115,8 @@ public abstract class Element {
 		return namespace;
 	}
 	
-	public Architecture getArchitecture(){
-		return this.architecture;
+	public static Architecture getArchitecture(){
+		return architecture;
 	}
 
 

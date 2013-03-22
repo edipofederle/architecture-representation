@@ -41,20 +41,21 @@ public class PackageBuilder extends ElementBuilder<Package> {
 	}
 
 	@Override
-	public Package buildElement(NamedElement modelElement, Element parent) {
-		Package pkg = new Package(architecture, name, isVariationPoint, variantType, parent, modelElement.getNamespace().getQualifiedName(), getXmiId(modelElement));
-		pkg.getElements().addAll(getNestedPackages(modelElement, null)); //TODO ver sobre pai
-		getNestedPackages(modelElement, null);
+	public Package buildElement(NamedElement modelElement) {
+		Package pkg = new Package(architecture, name, isVariationPoint, variantType, modelElement.getNamespace().getQualifiedName(), getXmiId(modelElement));
+		pkg.getElements().addAll(getNestedPackages(modelElement)); //TODO ver sobre pai
+		getNestedPackages(modelElement);
 		pkg.getElements().addAll(getClasses(modelElement, pkg));
+		
 		return pkg;
 	}
 	
-	private List<? extends Element> getNestedPackages(NamedElement modelElement, Object object) {
+	private List<? extends Element> getNestedPackages(NamedElement modelElement) {
 		List<Package> listOfPackes = new ArrayList<Package>();
 		List<org.eclipse.uml2.uml.Package> paks = modelHelper.getAllPackages(modelElement);
 		
 		for (NamedElement element : paks)
-			listOfPackes.add(this.create(element, null));
+			listOfPackes.add(this.create(element));
 		
 		return listOfPackes;
 	}
@@ -64,12 +65,15 @@ public class PackageBuilder extends ElementBuilder<Package> {
 	 * @param modelElement
 	 * @return List
 	 */
-	private List<Class> getClasses(NamedElement modelElement, Package pkg) {
-		List<Class> listOfClasses = new ArrayList<Class>();
+	private List<Element> getClasses(NamedElement modelElement, Package pkg) {
+		List<Element> listOfClasses = new ArrayList<Element>();
 		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getAllClasses(((org.eclipse.uml2.uml.Package) modelElement));
 
-		for (NamedElement element : classes)
-			listOfClasses.add(classBuilder.create(element, pkg));
+		for (NamedElement element : classes){
+			Class klass = classBuilder.create(element);
+			pkg.getAllClassIdsForThisPackage().add(klass.getId());
+			listOfClasses.add(klass);
+		}
 
 		return listOfClasses;
 	}

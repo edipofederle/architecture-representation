@@ -3,6 +3,9 @@ package mestrado.arquitetura.representation;
 import java.util.ArrayList;
 import java.util.List;
 
+import mestrado.arquitetura.helpers.UtilResources;
+import mestrado.arquitetura.representation.relationship.Relationship;
+
 /**
  * 
  * {@link Package} representa um elemento Pacote dentro da arquitetura.
@@ -18,6 +21,7 @@ public class Package extends Element {
 	private List<Element> elements = new ArrayList<Element>();
 	private final List<Element> implementedInterfaces = new ArrayList<Element>();
 	private final List<Element> requiredInterfaces = new ArrayList<Element>();
+	private List<String> idsClasses = new ArrayList<String>();
 	
 	/**
 	 * Construtor Para um Elemento do Tipo Pacote
@@ -28,12 +32,12 @@ public class Package extends Element {
 	 * @param variantType - Qual o tipo ( {@link VariantType} ) da variante
 	 * @param parent - Qual o {@link Element} pai
 	 */
-	public Package(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, Element parent, String namespace, String id) {
-		super(architecture, name, isVariationPoint, variantType, "package", parent, namespace, id);
+	public Package(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType,  String namespace, String id) {
+		super(architecture, name, isVariationPoint, variantType, "package", namespace, id);
 	}
 	
 	public Package(Architecture architecture, String name, String id) {
-		this(architecture, name, false, VariantType.NONE, null, "", id); //receber id
+		this(architecture, name, false, VariantType.NONE, UtilResources.createNamespace(architecture.getName(), name) , id); //receber id
 	}
 
 	/**
@@ -53,12 +57,12 @@ public class Package extends Element {
 	 * 
 	 * @return List<{@link Class}>
 	 */
-	public List<Class> getClasses(){
-		List<Class> paks = new ArrayList<Class>();
+	public List<Element> getClasses(){
+		List<Element> paks = new ArrayList<Element>();
 		
-		for (Element element : elements)
-			if(element.getTypeElement().equals("klass"))
-				paks.add(((Class)element));
+		for (Element element : getArchitecture().getElements())
+			if(UtilResources.extractPackageName(element.getNamespace()).equalsIgnoreCase(this.getName()))
+				paks.add(element);
 
 		return paks;
 	}
@@ -84,5 +88,19 @@ public class Package extends Element {
 
 	public void addRequiredInterface(Class interfacee) {
 		requiredInterfaces.add(interfacee);
+	}
+
+	public List<String> getAllClassIdsForThisPackage() {
+		return idsClasses;
+	}
+	
+	public List<Relationship> getRelationships() {
+		List<Relationship> relations = new ArrayList<Relationship>();
+
+		for (Relationship relationship : getArchitecture().getAllRelationships())
+			if(this.getIdsRelationships().contains(relationship.getId()))
+				relations.add(relationship);
+		
+		return relations;
 	}
 }
