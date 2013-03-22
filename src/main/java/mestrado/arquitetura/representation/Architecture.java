@@ -403,4 +403,8 @@ public class Architecture {
 			LOGGER.info("Cannot remove Class " + klass + ".");
 	}
 
+	public int getNumberOfElements() {
+		return allIds.size();
+	}
+
 }
