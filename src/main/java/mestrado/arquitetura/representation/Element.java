@@ -90,6 +90,7 @@ public abstract class Element {
 		return getName();
 	}
 	
+	@SuppressWarnings("static-access")
 	private void setArchitecture(Architecture architecture) {
 		this.architecture = architecture;
 	}

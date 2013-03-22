@@ -3,8 +3,10 @@ package mestrado.arquitetura.representation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import mestrado.arquitetura.exceptions.ClassNotFound;
@@ -34,7 +36,7 @@ public class Architecture {
 	private HashMap<String, Concern> concerns = new HashMap<String, Concern>();
 	private List<Variability> variabilities = new ArrayList<Variability>();
 	private List<Relationship> relationships = new ArrayList<Relationship>();
-	private List<String> allIds = new ArrayList<String>();
+	private Set<String> allIds = new HashSet<String>();
 	private String name;
 
 	public Architecture(String name) {
@@ -358,7 +360,6 @@ public class Architecture {
 
 	}
 
-
 	public Interface createInterface(String interfaceName) {
 		String id = UtilResources.getRandonUUID();
 		Interface interfacee = new Interface(this, interfaceName, id);
@@ -381,14 +382,14 @@ public class Architecture {
 	}
 
 	public Element getElementByXMIID(String xmiId) {
-		for (Element element : elements) {
+		for (Element element : elements)
 			if(element.getId().equalsIgnoreCase(xmiId))
 				return element;
-		}
+
 		return null;
 	}
 
-	public List<String> getAllIds() {
+	public Set<String> getAllIds() {
 		return allIds;
 	}
 	
@@ -400,6 +401,10 @@ public class Architecture {
 	public void removeClass(Class klass) {
 		if(!elements.remove(klass))
 			LOGGER.info("Cannot remove Class " + klass + ".");
+	}
+
+	public int getNumberOfElements() {
+		return allIds.size();
 	}
 
 }
