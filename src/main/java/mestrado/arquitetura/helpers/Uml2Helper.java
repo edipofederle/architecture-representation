@@ -272,16 +272,19 @@ public class Uml2Helper extends Base {
 
 			Package model = getExternalResources(pathAbsolute);
 
-			if (hasSMartyProfile(model)) return model;
-
 			if (model.eClass().equals(UMLPackage.Literals.PROFILE)) {
-				if (!((Profile) model).isDefined())
+				if (((Profile) model).isDefined())
 					((Profile) model).define();
 				return model;
 			}
+			
+			if (hasSMartyProfile(model))
+				return model;
+			else{
+				applyProfile(model, getSMartyProfile());
+				return model;
+			}
 
-			throw new SMartyProfileNotAppliedToModelExcepetion(
-					"Profile SMarty não aplicado ao modelo");
 		}
 
 		throw new ModelNotFoundException("Model " + pathAbsolute + " não encontrado.");

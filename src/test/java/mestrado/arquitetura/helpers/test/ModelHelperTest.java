@@ -147,9 +147,11 @@ public class ModelHelperTest extends TestHelper {
 		modelHelper.getModel("/not/found/path/model.uml");
 	}
 	
-	@Test(expected=SMartyProfileNotAppliedToModelExcepetion.class)
-	public void shouldReturnProfileNotAppliedToModel() throws ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
-		modelHelper.getModel(getUrlToModel("modelSemPerfil"));
+	@Test
+	public void shouldApplySMartyProfileWhenModelNotHasOne() throws ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
+		Package model = modelHelper.getModel(getUrlToModel("modelSemPerfil"));
+		assertEquals(1,model.getAllAppliedProfiles().size());
+		assertEquals("smartyProfile",model.getAllAppliedProfiles().get(0).getName());
 	}
 	
 	@Test

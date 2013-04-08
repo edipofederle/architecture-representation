@@ -70,9 +70,7 @@ public abstract class TestHelper {
 	 * @return uri String
 	 */
 	protected static String getUrlToModel(String modelName) {
-		
 		return new File("src/test/java/resources/" + modelName + ".uml").getAbsolutePath(); 
-		
 	}
 
 	protected static String getUriToResource(String resourcesNamee) {
@@ -89,6 +87,17 @@ public abstract class TestHelper {
 		Architecture architecture6 = new ArchitectureBuilder().create(uriToArchitecture6);
 		return architecture6;
 	}
+	
+	protected Architecture givenAArchitecture2(String name) throws Exception {
+		String uriToArchitecture6 = getUrlToModelManipulation(name);
+		Architecture architecture6 = new ArchitectureBuilder().create(uriToArchitecture6);
+		return architecture6;
+	}
+	
+	protected static String getUrlToModelManipulation(String modelName) {
+		return new File("/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+modelName+".uml").getAbsolutePath(); 
+	}
+
 	
 	//Custom asserts
 	

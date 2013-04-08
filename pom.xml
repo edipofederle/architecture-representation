@@ -15,6 +15,28 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
      <id>http://maven.xwiki.org</id>
      <url>http://maven.xwiki.org/externals</url>
    </repository>
+   <repository>
+    <id>mc-release</id>
+    <name>mc-release</name>
+    <url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
+    <snapshots>
+        <enabled>false</enabled>
+    </snapshots>
+    <releases>
+        <enabled>true</enabled>
+    </releases>
+</repository>
+<repository>
+    <id>mc-snapshot</id>
+    <name>mc-snapshot</name>
+    <url>http://mc-repo.googlecode.com/svn/maven2/snapshots</url>
+    <snapshots>
+        <enabled>true</enabled>
+    </snapshots>
+    <releases>
+        <enabled>false</enabled>
+    </releases>
+</repository>
  </repositories>
   <dependencies>
     <dependency>
@@ -110,6 +132,22 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
      <version>1.2.5</version>
      <scope>test</scope>
    </dependency>    
+   <dependency>
+   <groupId>com.mycila.xmltool</groupId>
+<artifactId>xmltool</artifactId>
+<version>3.3</version>
+   </dependency>
+   <dependency>
+	<groupId>xstream</groupId>
+	<artifactId>xstream</artifactId>
+	<version>1.2.2</version>
+</dependency>
+            <dependency>
+	<groupId>dom4j</groupId>
+	<artifactId>dom4j</artifactId>
+	<version>1.6.1</version>
+</dependency>
+            
   </dependencies>
   <reporting>
     <plugins>
