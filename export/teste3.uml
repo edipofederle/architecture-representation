@@ -44,29 +44,29 @@
       <defaultValue value="" xmi:id="ab184eb8-dbba-478c-8094-9cd02c4766b2" xmi:type="uml:LiteralString"/>
     </ownedAttribute>
   </packagedElement>
-<packagedElement name="Person" xmi:id="8dff8bb2-7f32-4134-8fdd-2f1a46acccc0" xmi:type="uml:Class">
-    <ownedAttribute association="ef88cf88-a684-48a3-8f04-ebdf4bd41ccd" name="ClassDestination" type="861c32dd-d386-476c-b0ad-06adc758cfc1" xmi:id="e386b510-f42e-4334-8dab-06aca0ee4990">
-      <lowerValue value="1" xmi:id="68f68838-0334-40a2-9b8e-a397694604cf" xmi:type="uml:LiteralInteger"/>
-      <upperValue value="1" xmi:id="05f56153-10b8-4bbe-b53e-b740162b7390" xmi:type="uml:LiteralUnlimitedNatural"/>
+<packagedElement name="Person" xmi:id="ee3fe587-3b5f-4698-90d6-dfa25dc83447" xmi:type="uml:Class">
+    <ownedAttribute association="6abc9d08-647a-4137-b203-9beb90c75323" name="ClassDestination" type="791256d3-50bc-4580-b29a-fd22b8a905cf" xmi:id="ce77a720-88bd-4d2b-af60-a12dda74df6a">
+      <lowerValue value="1" xmi:id="9616b5a9-4a31-450a-8252-1db5b1298800" xmi:type="uml:LiteralInteger"/>
+      <upperValue value="1" xmi:id="9687dcbd-3311-4995-bf6b-3e00d3320af6" xmi:type="uml:LiteralUnlimitedNatural"/>
     </ownedAttribute>
   </packagedElement>
-  <packagedElement name="Employee" xmi:id="861c32dd-d386-476c-b0ad-06adc758cfc1" xmi:type="uml:Class"/>
-  <packagedElement name="Manager" xmi:id="dbf5676a-2bd4-48af-b3b7-71a8db8b115f" xmi:type="uml:Class">
-    <ownedAttribute association="d078058a-1b13-430b-9d8f-5c1865480b52" name="ClassDestination" type="8dff8bb2-7f32-4134-8fdd-2f1a46acccc0" xmi:id="ec722260-4204-41ab-8c62-259f275f68be">
-      <lowerValue value="1" xmi:id="6e44e644-6173-4fd3-8bf7-94a8ba0c6565" xmi:type="uml:LiteralInteger"/>
-      <upperValue value="1" xmi:id="5f2ce57c-07fd-4cbd-97b2-e2f9dba83399" xmi:type="uml:LiteralUnlimitedNatural"/>
+  <packagedElement name="Employee" xmi:id="791256d3-50bc-4580-b29a-fd22b8a905cf" xmi:type="uml:Class"/>
+  <packagedElement name="Manager" xmi:id="f6dadde2-f608-4185-a96d-af24b721ff94" xmi:type="uml:Class">
+    <ownedAttribute association="a643e3d3-3f2c-4a16-bb90-5b8e49ff97d1" name="ClassDestination" type="ee3fe587-3b5f-4698-90d6-dfa25dc83447" xmi:id="01b3189e-ba9b-443b-9195-efa6da3f047b">
+      <lowerValue value="1" xmi:id="13aa7d59-a19d-4f2f-8112-af6f4c27f1ea" xmi:type="uml:LiteralInteger"/>
+      <upperValue value="1" xmi:id="73352f47-fdf4-43f4-a884-72f33d8679f0" xmi:type="uml:LiteralUnlimitedNatural"/>
     </ownedAttribute>
   </packagedElement>
-  <packagedElement memberEnd="e386b510-f42e-4334-8dab-06aca0ee4990 d0d67b34-be9d-43b8-8acc-167ac59c7389" name="associationName" xmi:id="ef88cf88-a684-48a3-8f04-ebdf4bd41ccd" xmi:type="uml:Association">
-    <ownedEnd association="ef88cf88-a684-48a3-8f04-ebdf4bd41ccd" name="ClassName" type="8dff8bb2-7f32-4134-8fdd-2f1a46acccc0" xmi:id="d0d67b34-be9d-43b8-8acc-167ac59c7389">
-      <lowerValue value="1" xmi:id="3960018e-6614-4799-ac6b-c7d813c3413b" xmi:type="uml:LiteralInteger"/>
-      <upperValue value="1" xmi:id="3b249c9d-83a9-45d5-8043-869eff174c43" xmi:type="uml:LiteralInteger"/>
+  <packagedElement memberEnd="ce77a720-88bd-4d2b-af60-a12dda74df6a 591742b0-7071-440c-8824-dbc3575416c6" name="associationName" xmi:id="6abc9d08-647a-4137-b203-9beb90c75323" xmi:type="uml:Association">
+    <ownedEnd association="6abc9d08-647a-4137-b203-9beb90c75323" name="ClassName" type="ee3fe587-3b5f-4698-90d6-dfa25dc83447" xmi:id="591742b0-7071-440c-8824-dbc3575416c6">
+      <lowerValue value="1" xmi:id="d6c957a3-ce8e-442a-bd89-82efa5a112c4" xmi:type="uml:LiteralInteger"/>
+      <upperValue value="1" xmi:id="8cd73874-a76a-4ba6-8387-7e791a88021f" xmi:type="uml:LiteralInteger"/>
     </ownedEnd>
   </packagedElement>
-  <packagedElement memberEnd="ec722260-4204-41ab-8c62-259f275f68be e1007223-a847-4d06-aec8-c9ae7a82bb9a" name="associationName" xmi:id="d078058a-1b13-430b-9d8f-5c1865480b52" xmi:type="uml:Association">
-    <ownedEnd association="d078058a-1b13-430b-9d8f-5c1865480b52" name="ClassName" type="dbf5676a-2bd4-48af-b3b7-71a8db8b115f" xmi:id="e1007223-a847-4d06-aec8-c9ae7a82bb9a">
-      <lowerValue value="1" xmi:id="92da3619-769f-4e19-8d85-dd3287285a13" xmi:type="uml:LiteralInteger"/>
-      <upperValue value="1" xmi:id="7d8583bc-98e3-4b4b-8103-2a6b10da12a1" xmi:type="uml:LiteralInteger"/>
+  <packagedElement memberEnd="01b3189e-ba9b-443b-9195-efa6da3f047b 093a183e-6872-4fab-a7fe-ace3126a9931" name="associationName" xmi:id="a643e3d3-3f2c-4a16-bb90-5b8e49ff97d1" xmi:type="uml:Association">
+    <ownedEnd association="a643e3d3-3f2c-4a16-bb90-5b8e49ff97d1" name="ClassName" type="f6dadde2-f608-4185-a96d-af24b721ff94" xmi:id="093a183e-6872-4fab-a7fe-ace3126a9931">
+      <lowerValue value="1" xmi:id="f5d2cee8-b341-436d-8e25-0c966108d327" xmi:type="uml:LiteralInteger"/>
+      <upperValue value="1" xmi:id="29656c2d-b6b7-426f-b6a5-5cc409ae3e51" xmi:type="uml:LiteralInteger"/>
     </ownedEnd>
   </packagedElement>
 </uml:Model>
