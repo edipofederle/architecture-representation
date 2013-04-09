@@ -1,5 +1,7 @@
 package mestrado.arquitetura.parser;
 
+import java.util.logging.Logger;
+
 import mestrado.arquitetura.helpers.UtilResources;
 
 import org.w3c.dom.Document;
@@ -8,16 +10,9 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-/*
- *  <packagedElement xmi:type="uml:Association" xmi:id="_kA-5o5V4EeKR5_LfMQQPUg" name="class1_class2_1" memberEnd="_kA-5pJV4EeKR5_LfMQQPUg _kA-5oJV4EeKR5_LfMQQPUg">
-    <ownedEnd xmi:id="_kA-5pJV4EeKR5_LfMQQPUg" name="class1" type="_jJGPYJV4EeKR5_LfMQQPUg" association="_kA-5o5V4EeKR5_LfMQQPUg">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kA-5pZV4EeKR5_LfMQQPUg" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kA-5ppV4EeKR5_LfMQQPUg" value="1"/>
-    </ownedEnd>
-    </packagedElement>
-  
- */
 public class AssociationNode extends XmiHelper{
+	
+	private final static Logger LOGGER = Logger.getLogger(AssociationNode.class.getName()); 
 	
 	private Document docUml;
 	private Document docNotation;
@@ -56,8 +51,8 @@ public class AssociationNode extends XmiHelper{
 		Element ownedEnd = this.docUml.createElement("ownedEnd");
 		ownedEnd.setAttribute("xmi:id", memberEnd);
 		ownedEnd.setAttribute("name", "ClassName");
-		ownedEnd.setAttribute("type", this.idClassOwnnerAssociation); // Class 1 No exemplo acima
-		ownedEnd.setAttribute("association", this.idAssocation); //No exemplo _kA-5o5V4EeKR5_LfMQQPUg
+		ownedEnd.setAttribute("type", this.idClassOwnnerAssociation);
+		ownedEnd.setAttribute("association", this.idAssocation);
 		packageElement.appendChild(ownedEnd);
 		
 		Element lowerValue = this.docUml.createElement("lowerValue");
@@ -80,12 +75,6 @@ public class AssociationNode extends XmiHelper{
 		
 	}
 	
-	/**
- *    <ownedAttribute xmi:id="_kA-5oJV4EeKR5_LfMQQPUg" name="class2" type="_jV8_oJV4EeKR5_LfMQQPUg" association="_kA-5o5V4EeKR5_LfMQQPUg">
-  		<lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kA-5oZV4EeKR5_LfMQQPUg" value="1"/>
-  		<upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kA-5opV4EeKR5_LfMQQPUg" value="1"/>
-	  </ownedAttribute>
-	 */
 	private void ownedAttibute(){
 		
 		//Primeiro busca pela class que seja a "dona" da associção. Isso é feito por meio do ID.
@@ -119,12 +108,10 @@ public class AssociationNode extends XmiHelper{
 		
 		Node node = this.docNotation.getElementsByTagName("notation:Diagram").item(0);
 		
-		//Buscar no Notation O id do "shape" para essa classe
 		NamedNodeMap attributesOwnner = findByIDInNotationFile(docNotation,idClassOwnnerAssociation).getAttributes();
 		NamedNodeMap attributesDestination = findByIDInNotationFile(docNotation, idClassDestinationAssociation).getAttributes();
 		String idSource = attributesOwnner.getNamedItem("xmi:id").getNodeValue();
 		String idTarget = attributesDestination.getNamedItem("xmi:id").getNodeValue();
-		
 		
 		Element edges = this.docNotation.createElement("edges");
 		edges.setAttribute("xmi:type", "notation:Connector");
@@ -134,8 +121,6 @@ public class AssociationNode extends XmiHelper{
 		edges.setAttribute("target", idTarget);
 		edges.setAttribute("lineColor", "0");
 		
-		
-		//<element xmi:type="uml:Association" href="simples.uml#f4f2b06e-5be7-43b2-bb52-8ee7de1384b8"/>
 		Element elementAssociation = this.docNotation.createElement("element");
 		elementAssociation.setAttribute("xmi:type", "uml:Association");
 		elementAssociation.setAttribute("href", this.newModelName+".uml#"+this.idAssocation);
@@ -162,8 +147,6 @@ public class AssociationNode extends XmiHelper{
 		edges.appendChild(sourceAnchor);
 		
 		node.appendChild(edges);
-		
-		
 	}
 	
 	
@@ -179,9 +162,8 @@ public class AssociationNode extends XmiHelper{
 				for (int j = 0; j < childNodes.getLength(); j++) {
 					if(childNodes.item(j).getNodeName().equalsIgnoreCase("element")){
 						String idHref = childNodes.item(j).getAttributes().getNamedItem("href").getNodeValue();
-						if(idHref.contains(id)){
+						if(idHref.contains(id))
 							nodeToRemove =  nodesEdges.item(i);
-						}
 					}
 						
 				}
@@ -189,7 +171,7 @@ public class AssociationNode extends XmiHelper{
 			
 			notationNode.removeChild(nodeToRemove);
 		}catch(Exception e){
-			System.out.println("Cannot remove Association with id: " + id +"." + e.getMessage());
+			LOGGER.info("Cannot remove Association with id: " + id +"." + e.getMessage());
 		}
 		
 		removeAssociationFromUmlFile(id);
@@ -203,20 +185,25 @@ public class AssociationNode extends XmiHelper{
 		
 		
 		for (int i = 0; i < ownedAttributeElement.getLength(); i++) {
-			ownedAttributeElement.item(i).getAttributes().removeNamedItem("association");
-			System.out.println("Association with id: " + id + " removed from UML file");
+			if(ownedAttributeElement.item(i).getAttributes().getNamedItem("association") != null){
+				String idNode = ownedAttributeElement.item(i).getAttributes().getNamedItem("association").getNodeValue();
+				if (id.equalsIgnoreCase(idNode)){
+					ownedAttributeElement.item(i).getAttributes().removeNamedItem("association");
+					LOGGER.info("Association with id: " + id + " removed from UML file");
+				}
+			}
 		}
 		
 		for (int i = 0; i < ownedEndElement.getLength(); i++) {
 			ownedEndElement.item(i).getAttributes().removeNamedItem("association");
-			System.out.println("Association with id: " + id + " removed from UML file");
+			LOGGER.info("Association with id: " + id + " removed from UML file");
 		}
 		
 		for (int i = 0; i < packagedElementElement.getLength(); i++) {
 			String idNode = packagedElementElement.item(i).getAttributes().getNamedItem("xmi:id").getNodeValue();
 			if (id.equalsIgnoreCase(idNode)){
 				packagedElementElement.item(i).getParentNode().removeChild(packagedElementElement.item(i));
-				System.out.println("Association with id: " + id + " removed from UML file");
+				LOGGER.info("Association with id: " + id + " removed from UML file");
 			}
 		}
 	}
@@ -225,5 +212,4 @@ public class AssociationNode extends XmiHelper{
 		return this.idAssocation;
 	}
 	
-
 }

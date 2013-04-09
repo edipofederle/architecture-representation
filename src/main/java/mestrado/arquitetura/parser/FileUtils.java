@@ -6,8 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.logging.Logger;
 
 public class FileUtils {
+	
+	private final static Logger LOGGER = Logger.getLogger(FileUtils.class.getName()); 
 	
 	public static void moveFiles(String to, String from){
 	 	InputStream inStream = null;
@@ -26,22 +29,19 @@ public class FileUtils {
     	    int length;
     	    //copy the file content in bytes 
     	    while ((length = inStream.read(buffer)) > 0){
- 
     	    	outStream.write(buffer, 0, length);
- 
     	    }
  
     	    inStream.close();
     	    outStream.flush();
     	    outStream.close();
  
-    	    //delete the original file
     	    afile.delete();
  
-    	    System.out.println("File is copied successful!");
+    	    LOGGER.info("File is copied to "+ to + " from: "+ from +  " successful!");
  
     	}catch(IOException e){
-    	    e.printStackTrace();
+    		LOGGER.info("Erros when copying files. Here are message error: " + e.getMessage());
     	}
     }
 }

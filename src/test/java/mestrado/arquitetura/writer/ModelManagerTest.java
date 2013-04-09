@@ -13,7 +13,6 @@ import junit.framework.Assert;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.ClassOperations;
 import mestrado.arquitetura.parser.DocumentManager;
-import mestrado.arquitetura.parser.DocumentOperations;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Method;
@@ -79,10 +78,8 @@ public class ModelManagerTest extends TestHelper {
 		
 		assertTrue(modelContainId("testeRemover", cityId));
 		classOperations.removeClassById(cityId);
-		
 		doc.saveAndCopy("testeRemover");
 		Architecture a1 = givenAArchitecture2("testeRemover");
-		assertThat("have 1 class", a1.getAllClasses().size() == 1);
 		assertFalse(modelContainId("testeRemover", cityId));
 	}
 	
@@ -153,17 +150,6 @@ public class ModelManagerTest extends TestHelper {
 		assertThat("Should have 1 parameter", methodFoo.getParameters().size() == 1 );
 		assertThat("Should parameter name be 'name'", methodFoo.getParameters().get(0).getName().equals("name") );
 	}
-
-	@Test
-	public void whenCreateADocumentManagerShouldMakeACopyOfFiles(){
-
-		DocumentOperations documentOperations = new DocumentOperations(givenADocument("simples"));
-		Assert.assertNotNull(documentOperations);
-		
-		Assert.assertTrue("should copy exist", new File("manipulation/simples.uml").exists());
-		Assert.assertTrue("should copy exist", new File("manipulation/simples.notation").exists());
-		Assert.assertTrue("should copy exist", new File("manipulation/simples.di").exists());
-	}
 	
 	@Test
 	public void shouldSaveModificationAndCopyFilesToDestination(){
@@ -171,13 +157,13 @@ public class ModelManagerTest extends TestHelper {
 		DocumentManager documentManager = givenADocument("simples");
 		documentManager.saveAndCopy("teste5");
 		
-		Assert.assertTrue("should copy exist", new File("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/simples.notation").exists());
-		Assert.assertTrue("should copy exist", new File("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/simples.uml").exists());
-		Assert.assertTrue("should copy exist", new File("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/simples.di").exists());
+		Assert.assertTrue("should copy exist", new File("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/teste5.notation").exists());
+		Assert.assertTrue("should copy exist", new File("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/teste5.uml").exists());
+		Assert.assertTrue("should copy exist", new File("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/teste5.di").exists());
 	}
 
 	private DocumentManager givenADocument(String originalModelName) {
-		String pathToFiles = "src/main/java/mestrado/arquitetura/parser/";
+		String pathToFiles = "src/main/java/mestrado/arquitetura/parser/1/";
 		DocumentManager documentManager = new DocumentManager(pathToFiles, originalModelName);
 		return documentManager;
 		

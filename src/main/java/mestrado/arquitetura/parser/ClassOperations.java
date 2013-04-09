@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Logger;
 
 import mestrado.arquitetura.helpers.UtilResources;
 
@@ -14,6 +15,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 public class ClassOperations extends XmiHelper {
+	
+	private final static Logger LOGGER = Logger.getLogger(ClassOperations.class.getName()); 
 
 	private static final String PROPERTY_ID = "3012";
 	private static final String METHOD_ID = "3013";
@@ -73,7 +76,6 @@ public class ClassOperations extends XmiHelper {
 	    notatioChildren.appendChild(node);
 	}
 
-	//<packagedElement xmi:type="uml:Class" xmi:id="404-2093-03-04" name="Teste666"/>
 	public ClassOperations createClass(String className2) {
 		this.id = UtilResources.getRandonUUID();
 		createXmiForClass();
@@ -81,7 +83,7 @@ public class ClassOperations extends XmiHelper {
 		klass.setAttribute("xmi:type", "uml:Class");
 		klass.setAttribute("xmi:id", this.id);
 		klass.setAttribute("name", className2);
-		System.out.println("Class with id: " + this.id + " created.");
+		LOGGER.info("Class with id: " + this.id + " created.");
 		umlModelChild.appendChild(klass);
 		return this;
 	}
@@ -237,10 +239,6 @@ public class ClassOperations extends XmiHelper {
 		node.setAttribute("fontHeight", this.fontHeight);
 		node.setAttribute("lineColor", this.lineColor);
 		
-		//Need to show params method name
-//        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Mwp7MJ-TEeKGCvwmXOo5rw" source="CustomAppearance_Annotation">
-//        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-0OnIJ-TEeKGCvwmXOo5rw" key="CustomAppearance_MaskValue" value="7050"/>
-//      </eAnnotations>
       	Element eAnnotations = documentManager.getDocNotation().createElement("eAnnotations");
       	eAnnotations.setAttribute("xmi:type", "ecore:EAnnotation");
       	eAnnotations.setAttribute("xmi:id", UtilResources.getRandonUUID());

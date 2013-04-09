@@ -2,6 +2,7 @@ package mestrado.arquitetura.parser;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -15,15 +16,17 @@ import org.w3c.dom.NodeList;
 
 public class SaveAndCopy {
 	
+	private final static Logger LOGGER = Logger.getLogger(SaveAndCopy.class.getName()); 
+	
 	
 	// TODO mudar caminho para arquivo de configuração
 	public static void saveAndCopy(Document docNotation, Document docUml, Document docDi, String originalModelName, String newModelName) throws TransformerException, IOException{
+		String targetDir = ReaderConfig.getDirTarget();
+		String targetDirExport = ReaderConfig.getDirExportTarget();
 		
-		String notationCopy = "/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+originalModelName+".notation";
-		String umlCopy = "/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+originalModelName +".uml";
-		
-		String diCopy = "/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+originalModelName +".di";
-		// write the content into xml file
+		String notationCopy = targetDir+originalModelName+".notation";
+		String umlCopy = targetDir+originalModelName +".uml";
+		String diCopy = targetDir+originalModelName +".di";
 		
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		
@@ -57,15 +60,12 @@ public class SaveAndCopy {
 		DOMSource sourceDi = new DOMSource(docDi);
 		StreamResult resultDi = new StreamResult(new File(diCopy));
 		transformer.transform(sourceDi, resultDi);
-
-		System.out.println("Write: Done");
 		
-		System.out.print("Copying files to Papyrus Workspace...");
-		
+		LOGGER.info("Copying files to Papyrus Workspace...");
 
-		FileUtils.moveFiles(notationCopy, "/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/"+ newModelName + ".notation");
-		FileUtils.moveFiles(umlCopy, "/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/"+ newModelName +".uml");
-		FileUtils.moveFiles(diCopy, "/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/"+newModelName +".di");
+		FileUtils.moveFiles(notationCopy, targetDirExport+ newModelName + ".notation");
+		FileUtils.moveFiles(umlCopy, targetDirExport+ newModelName +".uml");
+		FileUtils.moveFiles(diCopy, targetDirExport+newModelName +".di");
 		
 		System.out.println("Write: Done");
 	}

@@ -10,7 +10,7 @@ public class DocumentTest {
 	
 	@Test
 	public void shouldCreateADocument(){
-		String pathToFiles = "src/main/java/mestrado/arquitetura/parser/";
+		String pathToFiles = "src/main/java/mestrado/arquitetura/parser/1/";
 		String originalModelName  = "simples";
 		DocumentManager documentManager = new DocumentManager(pathToFiles, originalModelName);
 		

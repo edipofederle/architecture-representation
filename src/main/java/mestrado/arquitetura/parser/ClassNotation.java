@@ -8,7 +8,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-
 /**
  * 
  * @author edipofederle
@@ -45,9 +44,7 @@ public class ClassNotation {
 	
 
 	private void createXmiForClass() {
-		
-		//<children xmi:type="notation:Shape" xmi:id="_HnevcJLxEeKiAcjvUSJfd3" type="2008"
-		//fontName="Lucida Grande" fontHeight="11" lineColor="0">
+
 		Element node = docNotation.createElement("children");
 		node.setAttribute("xmi:type", this.xmitype);
 		node.setAttribute("xmi:id", UtilResources.getRandonUUID());
@@ -56,7 +53,6 @@ public class ClassNotation {
 		node.setAttribute("fontHeight", this.fontHeight);
 		node.setAttribute("lineColor", this.lineColor);
 		
-		//<children xmi:type="notation:DecorationNode" xmi:id="_Hnf9kJLxEeKiAcjvUSJfdg" type="type"/>
 		Element notationDecoratioNode = docNotation.createElement("children");
 		notationDecoratioNode.setAttribute("xmi:type", "notation:DecorationNode");
 		notationDecoratioNode.setAttribute("xmi:id", "020203903-03");
@@ -75,7 +71,6 @@ public class ClassNotation {
 	    notatioChildren.appendChild(node);
 	}
 
-	//<packagedElement xmi:type="uml:Class" xmi:id="404-2093-03-04" name="Teste666"/>
 	public void createClass(String className2) {
 		createXmiForClass();
 		Element klass = docUml.createElement("packagedElement");
