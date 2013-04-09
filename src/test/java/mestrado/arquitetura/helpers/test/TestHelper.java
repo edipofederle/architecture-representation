@@ -1,9 +1,11 @@
 package mestrado.arquitetura.helpers.test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 import junitx.framework.Assert;
 import mestrado.arquitetura.builders.ArchitectureBuilder;
@@ -21,8 +23,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Stereotype;
-
-
 
 /**
  * 
@@ -84,23 +84,20 @@ public abstract class TestHelper {
 	
 	protected Architecture givenAArchitecture(String name) throws Exception {
 		String uriToArchitecture6 = getUrlToModel(name);
-		Architecture architecture6 = new ArchitectureBuilder().create(uriToArchitecture6);
-		return architecture6;
+		return  new ArchitectureBuilder().create(uriToArchitecture6);
 	}
 	
 	protected Architecture givenAArchitecture2(String name) throws Exception {
 		String uriToArchitecture6 = getUrlToModelManipulation(name);
-		Architecture architecture6 = new ArchitectureBuilder().create(uriToArchitecture6);
-		return architecture6;
+		return new ArchitectureBuilder().create(uriToArchitecture6);
 	}
 	
 	protected static String getUrlToModelManipulation(String modelName) {
-		return new File("/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+modelName+".uml").getAbsolutePath(); 
+		return  "/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/"+modelName+".uml";
 	}
 
 	
 	//Custom asserts
-	
 	protected <T extends Element> void assertContains(List<T> list, String... expected) {
 		requiredElements: for (String requiredElementName : expected)  {
 				for (Element element : list)
@@ -115,6 +112,21 @@ public abstract class TestHelper {
 			namesKlasses.add(name.getName());
 		
 		Assert.assertTrue(namesKlasses.containsAll(Arrays.asList(names)));
+	}
+	
+	protected boolean modelContainId(String modelName, String id){
+		File file = new File(getUrlToModelManipulation(modelName));
+		System.out.println(id);
+		try {
+			Scanner scanner = new Scanner(file);
+			
+			while (scanner.hasNextLine()) {
+			    String line = scanner.nextLine();
+			    if(line.contains(id))
+			        return true;
+			}
+		}catch(FileNotFoundException e) { } //TODO
+		return false;
 	}
 
 	

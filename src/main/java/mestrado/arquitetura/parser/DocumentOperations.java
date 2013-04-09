@@ -3,8 +3,6 @@ package mestrado.arquitetura.parser;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import javax.xml.transform.TransformerException;
-
 public class DocumentOperations {
 	
 	private mestrado.arquitetura.parser.DocumentManager document;
@@ -29,7 +27,7 @@ public class DocumentOperations {
 	 * @return
 	 */
 	public String createClass(String klassName) {
-		ClassNotation c = new ClassNotation(this.document.getDocNotation(), this.document.getDocUml());
+		ClassNotation c = new ClassNotation(this.document.getDocNotation(), this.document.getDocUml(), document.getNewModelName());
 		c.createClass(klassName);
 		return c.getId();
 	}
@@ -48,13 +46,13 @@ public class DocumentOperations {
 	 */
 	public String createAssociation(String idXPTO, String idClassBar){
 		
-		AssociationNode associationNode = new AssociationNode(this.document.getDocUml(), this.document.getDocNotation());
+		AssociationNode associationNode = new AssociationNode(this.document.getDocUml(), this.document.getDocNotation(),document.getNewModelName());
 		associationNode.createAssociation(idXPTO, idClassBar);
 		return associationNode.getIdAssocation();
 	}
 
 	public void removeAssociation(String idAssociation) {
-		AssociationNode associationNode = new AssociationNode(this.document.getDocUml(), this.document.getDocNotation());
+		AssociationNode associationNode = new AssociationNode(this.document.getDocUml(), this.document.getDocNotation(),document.getNewModelName());
 			associationNode.removeAssociation(idAssociation);
 	}
 

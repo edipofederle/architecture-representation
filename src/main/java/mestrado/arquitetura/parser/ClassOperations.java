@@ -62,7 +62,7 @@ public class ClassOperations extends XmiHelper {
 		node.appendChild(notationDecoratioNode);
 		
 	    Element klass = documentManager.getDocNotation().createElement("element");
-	    klass.setAttribute("href", "simples.uml#"+this.id); // TODO ver nome do model
+	    klass.setAttribute("href", documentManager.getModelName()+".uml#"+this.id); // TODO ver nome do model
 	    klass.setAttribute("xmi:type", "uml:Class");
 		
 	    this.notationBasicProperty = createChildrenComportament(documentManager.getDocNotation(), node, "7017"); //onde vai as props
@@ -257,7 +257,7 @@ public class ClassOperations extends XmiHelper {
 		
 		Element element = documentManager.getDocNotation().createElement("element");
 		element.setAttribute("xmi:type", typeElement);
-		element.setAttribute("href", "simples.uml#"+ idProperty);
+		element.setAttribute("href", documentManager.getModelName()+"#"+ idProperty);
 		node.appendChild(element);
 		 
 		
@@ -326,5 +326,29 @@ public class ClassOperations extends XmiHelper {
 		List<String> validTypes = new ArrayList<String>(Arrays.asList("String", "Integer", "Real", "Boolean", "UnlimetedNatural"));
 		return validTypes.contains(type);
 	}
+	
+	/**
+	 * 
+	 * @param idClassOwnnerAssociation
+	 * @param idClassDestinationAssociation
+	 * @return
+	 */
+	public String createAssociation(String idClassOwnnerAssociation, String idClassDestinationAssociation){
+		
+		//Refactoring, document.getNewName is common for many classes
+		AssociationNode associationNode = new AssociationNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation(), documentManager.getModelName());
+		associationNode.createAssociation(idClassOwnnerAssociation, idClassDestinationAssociation);
+		return associationNode.getIdAssocation();
+	}
 
+	public void removeAssociation(String idAssociation) {
+		AssociationNode associationNode = new AssociationNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation(), documentManager.getModelName());
+	    associationNode.removeAssociation(idAssociation);
+	}
+	
+	public void removeClassById(String id) {
+		RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
+		removeClass.removeClassById(id);
+	}
+	
 }

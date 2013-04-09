@@ -26,6 +26,7 @@ public class ClassNotation {
 	private Document docUml;
 	private Node umlModelChild;
 	private Node notatioChildren;
+	private String newModelName;
 	
 	/**
 	 * 
@@ -33,7 +34,8 @@ public class ClassNotation {
 	 * @param docNotation
 	 * @param docUml
 	 */
-	public ClassNotation(Document docNotation, Document docUml){
+	public ClassNotation(Document docNotation, Document docUml, String newModelName){
+		this.newModelName = newModelName;
 		this.id = UtilResources.getRandonUUID();
 		this.docNotation = docNotation;
 		this.docUml = docUml;
@@ -62,7 +64,7 @@ public class ClassNotation {
 		node.appendChild(notationDecoratioNode);
 		
 	    Element klass = docNotation.createElement("element");
-	    klass.setAttribute("href", "simples.uml#"+this.id);
+	    klass.setAttribute("href", this.newModelName+".uml#"+this.id);
 	    klass.setAttribute("xmi:type", "uml:Class");
 		
 		createChildrenComportament(docNotation, node, "7017");

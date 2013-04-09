@@ -27,8 +27,10 @@ public class AssociationNode extends XmiHelper{
 	
 	private final String idAssocation;
 	private final String memberEndId;
+	private final String newModelName;
 	
-	public AssociationNode(Document docUml, Document docNotation) {
+	public AssociationNode(Document docUml, Document docNotation, String name) {
+		this.newModelName = name;
 		this.docUml = docUml;
 		this.docNotation = docNotation;
 		
@@ -136,7 +138,7 @@ public class AssociationNode extends XmiHelper{
 		//<element xmi:type="uml:Association" href="simples.uml#f4f2b06e-5be7-43b2-bb52-8ee7de1384b8"/>
 		Element elementAssociation = this.docNotation.createElement("element");
 		elementAssociation.setAttribute("xmi:type", "uml:Association");
-		elementAssociation.setAttribute("href", "simples.uml#"+this.idAssocation);
+		elementAssociation.setAttribute("href", this.newModelName+".uml#"+this.idAssocation);
 		edges.appendChild(elementAssociation);
 		
 		Element styles = docNotation.createElement("styles");
@@ -188,6 +190,34 @@ public class AssociationNode extends XmiHelper{
 			notationNode.removeChild(nodeToRemove);
 		}catch(Exception e){
 			System.out.println("Cannot remove Association with id: " + id +"." + e.getMessage());
+		}
+		
+		removeAssociationFromUmlFile(id);
+		
+	}
+
+	private void removeAssociationFromUmlFile(String id) {
+		NodeList ownedAttributeElement = this.docUml.getElementsByTagName("ownedAttribute");
+		NodeList ownedEndElement = this.docUml.getElementsByTagName("ownedEnd");
+		NodeList packagedElementElement = this.docUml.getElementsByTagName("packagedElement");
+		
+		
+		for (int i = 0; i < ownedAttributeElement.getLength(); i++) {
+			ownedAttributeElement.item(i).getAttributes().removeNamedItem("association");
+			System.out.println("Association with id: " + id + " removed from UML file");
+		}
+		
+		for (int i = 0; i < ownedEndElement.getLength(); i++) {
+			ownedEndElement.item(i).getAttributes().removeNamedItem("association");
+			System.out.println("Association with id: " + id + " removed from UML file");
+		}
+		
+		for (int i = 0; i < packagedElementElement.getLength(); i++) {
+			String idNode = packagedElementElement.item(i).getAttributes().getNamedItem("xmi:id").getNodeValue();
+			if (id.equalsIgnoreCase(idNode)){
+				packagedElementElement.item(i).getParentNode().removeChild(packagedElementElement.item(i));
+				System.out.println("Association with id: " + id + " removed from UML file");
+			}
 		}
 	}
 	

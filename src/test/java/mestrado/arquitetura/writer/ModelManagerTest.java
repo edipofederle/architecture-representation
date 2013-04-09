@@ -2,7 +2,9 @@ package mestrado.arquitetura.writer;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.Map;
@@ -49,49 +51,71 @@ public class ModelManagerTest extends TestHelper {
                 }
              }
 	}
-//
-//	public void functionalTest() throws IOException, SAXException, ParserConfigurationException, TransformerException{
-//	
-//		String pathToFiles = "src/main/java/mestrado/arquitetura/parser/";
-//		String modelName = "simples";
-//
-//		DocumentManager documentManager = new DocumentManager(pathToFiles, modelName);
-//		DocumentOperations documentOperations = new DocumentOperations(documentManager);
-//		Assert.assertNotNull(documentOperations);
-//		
-//		ClassOperations classOperations = new ClassOperations(documentManager);
-//		classOperations.createClass("Home");
-//
-////		String idXPTO = documentOperations.createClass("XPTO");
-////		String idClassBar = documentOperations.createClass("Bar");
-////		
-////		String person = documentOperations.createClass("Person");
-////		String professor = documentOperations.createClass("Professor");
-////		
-////		String teste = documentOperations.createClass("Cidade");
-////	 
-////		documentOperations.removeClassById(idXPTO);
-////		//documentManager.createAssociation(idXPTO, idClassBar);
-////		documentOperations.createAssociation(professor, idClassBar);
-////		documentOperations.createAssociation(teste, person);
-////		//documentManager.createAssociation(idXPTO, professor);
-//		documentManager.saveAndCopy();
-//		
-//	}
+	
+	@Test
+	public void shouldCreateAssociationBetweenClasses() throws Exception{
+		DocumentManager doc = givenADocument("simples");
+		ClassOperations classOperations = new ClassOperations(doc);
+		Map<String, String> idPerson = classOperations.createClass("Person").build();
+		Map<String, String> idEmployee = classOperations.createClass("Employee").build();
+		Map<String, String> idManager = classOperations.createClass("Manager").build();
+		
+		classOperations.createAssociation(idPerson.get("classId"), idEmployee.get("classId"));
+		classOperations.createAssociation(idManager.get("classId"), idPerson.get("classId"));
+		doc.saveAndCopy("teste3");
+		
+		Architecture a = givenAArchitecture2("teste3");
+		assertThat("Should have 2 association", a.getAllAssociations().size() == 2);
+	}
+	
+	@Test
+	public void shouldRemoveAClass() throws Exception{
+		DocumentManager doc = givenADocument("simples");
+		ClassOperations classOperations = new ClassOperations(doc);
+		String cityId = classOperations.createClass("City").build().get("classId");
+		
+		
+		doc.saveAndCopy("testeRemover");
+		
+		assertTrue(modelContainId("testeRemover", cityId));
+		classOperations.removeClassById(cityId);
+		
+		doc.saveAndCopy("testeRemover");
+		Architecture a1 = givenAArchitecture2("testeRemover");
+		assertThat("have 1 class", a1.getAllClasses().size() == 1);
+		assertFalse(modelContainId("testeRemover", cityId));
+	}
+	
+	@Test
+	public void shouldRemoveAssociation(){
+		DocumentManager doc = givenADocument("simples");
+		ClassOperations classOperations = new ClassOperations(doc);
+		Map<String, String> idPerson = classOperations.createClass("Person").build();
+		Map<String, String> idEmployee = classOperations.createClass("Employee").build();
+		
+		String id = classOperations.createAssociation(idPerson.get("classId"), idEmployee.get("classId"));
+		doc.saveAndCopy("teste4");
+		
+		assertTrue(modelContainId("teste4", id));
+		classOperations.removeAssociation(id);
+		doc.saveAndCopy("teste4");
+		assertFalse(modelContainId("teste4", id));
+		
+	}
 	
 	@Test
 	public void shouldCreateAClass() throws Exception{
-		DocumentManager doc = givenADocument("simples", "simples2");
+		DocumentManager doc = givenADocument("simples");
 		ClassOperations classOperations = new ClassOperations(doc);
 		assertNotNull(classOperations.createClass("Helper"));
-		doc.saveAndCopy();
-		Architecture a = givenAArchitecture2("simples2");
+		doc.saveAndCopy("teste2");
+		Architecture a = givenAArchitecture2("teste2");
 		assertContains(a.getAllClasses(), "Helper");
 	}
 	
 	@Test
 	public void shouldCreateAClassWithAttribute() throws Exception{
-		DocumentManager document = givenADocument("simples", "meuModeloTest");
+		DocumentManager document = givenADocument("simples");
 		ClassOperations classOperations = new ClassOperations(document);
 		Map<String, String> classInfo = classOperations.createClass("Class43").withAttribute("name").withAttribute("age").build();
 		
@@ -101,21 +125,21 @@ public class ModelManagerTest extends TestHelper {
 		String idClass = classInfo.get("classId");
 		assertNotNull(idClass);
 		assertThat(idsProperty.length, equalTo(2));
-		document.saveAndCopy();
+		document.saveAndCopy("teste");
 		
-		Architecture a = givenAArchitecture2("meuModeloTest");
+		Architecture a = givenAArchitecture2("teste");
 		assertContains(a.getAllClasses(), "Class43");
 	}
 	
 	@Test
 	public void shouldCreatAClassWithMethod() throws Exception{
-		DocumentManager document = givenADocument("simples", "newModelSaved");
+		DocumentManager document = givenADocument("simples");
 		ClassOperations classOperations = new ClassOperations(document);
 		
 		classOperations.createClass("Person").withMethod("foo[name:String]").withMethod("teste[id:Integer]").withMethod("index").withMethod("update").withAttribute("name:String").build();
-		document.saveAndCopy();
+		document.saveAndCopy("teste4");
 		
-		Architecture arch = givenAArchitecture2("newModelSaved");
+		Architecture arch = givenAArchitecture2("teste4");
 		Class barKlass = arch.findClassByName("Person");
 		
 		assertNotNull(barKlass);
@@ -133,28 +157,28 @@ public class ModelManagerTest extends TestHelper {
 	@Test
 	public void whenCreateADocumentManagerShouldMakeACopyOfFiles(){
 
-		DocumentOperations documentOperations = new DocumentOperations(givenADocument("simples", "newModel"));
+		DocumentOperations documentOperations = new DocumentOperations(givenADocument("simples"));
 		Assert.assertNotNull(documentOperations);
 		
-		Assert.assertTrue("should copy exist", new File("manipulation/newModel.uml").exists());
-		Assert.assertTrue("should copy exist", new File("manipulation/newModel.notation").exists());
-		Assert.assertTrue("should copy exist", new File("manipulation/newModel.di").exists());
+		Assert.assertTrue("should copy exist", new File("manipulation/simples.uml").exists());
+		Assert.assertTrue("should copy exist", new File("manipulation/simples.notation").exists());
+		Assert.assertTrue("should copy exist", new File("manipulation/simples.di").exists());
 	}
 	
 	@Test
 	public void shouldSaveModificationAndCopyFilesToDestination(){
 		
-		DocumentManager documentManager = givenADocument("simples", "teste4");
-		documentManager.saveAndCopy();
+		DocumentManager documentManager = givenADocument("simples");
+		documentManager.saveAndCopy("teste5");
 		
 		Assert.assertTrue("should copy exist", new File("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/simples.notation").exists());
 		Assert.assertTrue("should copy exist", new File("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/simples.uml").exists());
 		Assert.assertTrue("should copy exist", new File("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/simples.di").exists());
 	}
 
-	private DocumentManager givenADocument(String originalModelName, String newModelName) {
+	private DocumentManager givenADocument(String originalModelName) {
 		String pathToFiles = "src/main/java/mestrado/arquitetura/parser/";
-		DocumentManager documentManager = new DocumentManager(pathToFiles, originalModelName, newModelName);
+		DocumentManager documentManager = new DocumentManager(pathToFiles, originalModelName);
 		return documentManager;
 		
 	}

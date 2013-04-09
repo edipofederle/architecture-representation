@@ -15,12 +15,14 @@ public class DocumentManager {
 	
 	private org.w3c.dom.Document docUml;
 	private org.w3c.dom.Document docNotation;
-	private String newModelName;
+	private org.w3c.dom.Document docDi;
+	private String originalModelName;
+	private String newName;
 	
 	private final static Logger LOGGER = Logger.getLogger(DocumentManager.class.getName()); 
 	
-	public DocumentManager(String pathToFiles, String originalModelName, String newModelName){
-		this.newModelName = newModelName;
+	public DocumentManager(String pathToFiles, String originalModelName){
+		this.originalModelName = originalModelName;
 		makeACopy(pathToFiles, originalModelName);
 		createXMIDocument(originalModelName);
 	}
@@ -38,8 +40,10 @@ public class DocumentManager {
 		}
 			
 		try {
-			this.docNotation =  docBuilderNotation.parse("/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+this.newModelName+".notation");
-			this.docUml = docBuilderUml.parse("/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+this.newModelName+".uml");
+			
+			this.docNotation =  docBuilderNotation.parse("/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+this.originalModelName+".notation");
+			this.docUml = docBuilderUml.parse("/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+this.originalModelName+".uml");
+			this.docDi = docBuilderUml.parse("/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+this.originalModelName+".di");
 		} catch (SAXException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -56,14 +60,15 @@ public class DocumentManager {
 	 */
 	private void makeACopy(String pathToFiles, String modelName) {
 		
-		String notationCopy = "/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+this.newModelName+".notation";
-		String umlCopy = "/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+this.newModelName+".uml";
-		String diCopy = "/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+this.newModelName+".di";
+		String notationCopy = "/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+this.originalModelName+".notation";
+		String umlCopy = "/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+this.originalModelName+".uml";
+		String diCopy = "/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+this.originalModelName+".di";
 		
 		try {
 			CopyFile.copyFile(new File(pathToFiles+modelName+".notation"), new File(notationCopy));
 			CopyFile.copyFile(new File(pathToFiles+modelName+".uml"), new File(umlCopy));
 			CopyFile.copyFile(new File(pathToFiles+modelName+".di"), new File(diCopy));
+						
 		} catch (IOException e) {
 			LOGGER.severe("I cannot copy all files. Here a message erros: " + e.getMessage());
 		}
@@ -82,16 +87,24 @@ public class DocumentManager {
 	public org.w3c.dom.Document getDocNotation() {
 		return docNotation;
 	}
-	
-	public void saveAndCopy() {
+
+	public void saveAndCopy(String newModelName) {
+		this.newName = newModelName;
 		try {
-			SaveAndCopy.saveAndCopy(docNotation, docUml, this.newModelName);
+			SaveAndCopy.saveAndCopy(docNotation, docUml, docDi, this.originalModelName, newModelName);
 		} catch (TransformerException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public String getModelName() {
+		return this.originalModelName;
+	}
+
+	public String getNewModelName() {
+		return this.newName;
+	}
 	
 }
