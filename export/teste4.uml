@@ -44,24 +44,24 @@
       <defaultValue value="" xmi:id="ab184eb8-dbba-478c-8094-9cd02c4766b2" xmi:type="uml:LiteralString"/>
     </ownedAttribute>
   </packagedElement>
-<packagedElement name="Person" xmi:id="82aa476d-cc7d-4a0f-b0c8-6f8f1e7864be" xmi:type="uml:Class">
-    <ownedOperation name="foo" xmi:id="1bf57bf6-ed0f-4736-ab71-330efbd6d5e3">
-      <ownedParameter isUnique="false" name="name" xmi:id="8a40dd97-6397-49a4-9d24-62b308a47d88">
+<packagedElement name="Person" xmi:id="94499f4f-74f2-40ac-8136-347da532d6d8" xmi:type="uml:Class">
+    <ownedOperation name="foo" xmi:id="3572609e-bada-4a3c-b0f0-83c71883271d">
+      <ownedParameter isUnique="false" name="name" xmi:id="c2aa841f-5f9f-4ab7-84af-298c84f1538b">
         <type href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String" xmi:type="uml:PrimitiveType"/>
       </ownedParameter>
     </ownedOperation>
-    <ownedOperation name="teste" xmi:id="340b5071-2c26-4f0e-99ef-3715a52168e0">
-      <ownedParameter isUnique="false" name="id" xmi:id="0ba69c9f-a3c8-498a-96ea-f66f63039b2d">
+    <ownedOperation name="teste" xmi:id="6f934f82-c820-421c-8c9c-f8416bb1f84a">
+      <ownedParameter isUnique="false" name="id" xmi:id="7ffd0da1-07e9-4d83-99e3-d9f852113f57">
         <type href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer" xmi:type="uml:PrimitiveType"/>
       </ownedParameter>
     </ownedOperation>
-    <ownedOperation name="index" xmi:id="6571034d-ee3b-45df-aa50-3b74b7d1c9e3"/>
-    <ownedOperation name="update" xmi:id="050c01c8-f4d6-4dd3-8836-533d69f4a1a1"/>
-    <ownedAttribute name="name" visibility="public" xmi:id="89470748-1487-47f3-b95d-388de9a1043c">
+    <ownedOperation name="index" xmi:id="6b3ec994-bd91-4ed6-9ea1-fa348eef8cfc"/>
+    <ownedOperation name="update" xmi:id="521a175a-6c4d-4b14-98db-7790a2f1a621"/>
+    <ownedAttribute name="name" visibility="public" xmi:id="00c0afcb-d4b8-4a1f-a56a-b3bd20a36b7b">
       <type href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String" xmi:type="uml:PrimitiveType"/>
-      <lowerValue value="1" xmi:id="5c89e969-5f36-407c-8bf9-8dd115b3aff6" xmi:type="uml:LiteralInteger"/>
-      <upperValue value="1" xmi:id="f1997b02-6592-4902-b3a9-aaa1d2c39d63" xmi:type="uml:LiteralUnlimitedNatural"/>
-      <defaultValue xmi:id="151dcb6b-933e-4973-8105-c848925edfe4" xmi:type="uml:LiteralString">
+      <lowerValue value="1" xmi:id="44f8ac13-c2e2-4ec6-9cd5-b69a248b255a" xmi:type="uml:LiteralInteger"/>
+      <upperValue value="1" xmi:id="190577ea-fe8d-4d16-aa28-c878a24908ae" xmi:type="uml:LiteralUnlimitedNatural"/>
+      <defaultValue xmi:id="17eb6914-831f-4e52-a5d9-fd33f0b6d9e5" xmi:type="uml:LiteralString">
         <value xmi:nil="true"/>
       </defaultValue>
     </ownedAttribute>
