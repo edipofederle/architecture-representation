@@ -93,7 +93,7 @@ public abstract class TestHelper {
 	}
 	
 	protected static String getUrlToModelManipulation(String modelName) {
-		return  "/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/"+modelName+".uml";
+		return  "export/"+modelName+".uml";
 	}
 
 	

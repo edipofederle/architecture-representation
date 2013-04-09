@@ -10,12 +10,12 @@ public class ReaderConfiTest {
 	@Test
 	public void shouldReturnPathToDirectorySaveModels(){
 		String dir = ReaderConfig.getDirTarget();
-		assertEquals("/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/", dir);
+		assertEquals("manipulation/", dir);
 	}
 	
 	@Test
 	public void shouldReturnPathToDirectoryExportModels(){
 		String dir = ReaderConfig.getDirExportTarget();
-		assertEquals("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/", dir);
+		assertEquals("export/", dir);
 	}
 }
