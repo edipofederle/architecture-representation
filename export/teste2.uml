@@ -44,5 +44,5 @@
       <defaultValue value="" xmi:id="ab184eb8-dbba-478c-8094-9cd02c4766b2" xmi:type="uml:LiteralString"/>
     </ownedAttribute>
   </packagedElement>
-<packagedElement name="Helper" xmi:id="cdc312fd-6a6c-49d8-8185-f4cdf72dcb71" xmi:type="uml:Class"/>
+<packagedElement name="Helper" xmi:id="f866fad9-a147-4e9b-9eeb-8c623da06f35" xmi:type="uml:Class"/>
 </uml:Model>
