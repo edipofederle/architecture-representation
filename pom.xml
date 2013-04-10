@@ -82,9 +82,39 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
       <version>2.5.0.v20100521-1847</version>
     </dependency>
     <dependency>
+      <groupId>org.uml2.profile.l3</groupId>
+      <artifactId>uml2-profilel3</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.uml2.profile.l2</groupId>
+      <artifactId>uml2-profilel2</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.uml2.uml24</groupId>
+      <artifactId>uml2-uml24</artifactId>
+      <version>4.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.uml2.common </groupId>
+      <artifactId>uml2-common</artifactId>
+      <version>1.7.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.uml2.types</groupId>
+      <artifactId>uml2-types</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    <dependency>
       <groupId>org.eclipse.birt.runtime</groupId>
       <artifactId>org.eclipse.emf.common</artifactId>
       <version>2.8.0.v20120606-0717</version>
+    </dependency>
+    <dependency>
+      <groupId>org.uml2.resources4 </groupId>
+      <artifactId>uml2-resources</artifactId>
+      <version>4.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
