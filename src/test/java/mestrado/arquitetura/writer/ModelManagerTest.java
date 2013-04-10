@@ -79,7 +79,6 @@ public class ModelManagerTest extends TestHelper {
 		assertTrue(modelContainId("testeRemover", cityId));
 		classOperations.removeClassById(cityId);
 		doc.saveAndCopy("testeRemover");
-		Architecture a1 = givenAArchitecture2("testeRemover");
 		assertFalse(modelContainId("testeRemover", cityId));
 	}
 	

@@ -60,6 +60,7 @@ local.properties
 /src/main/resources/rebel.xml
 arch/src/test/java/resources/myProfile.uml
 manipulation/
+export/*
 # External tool builders
 .externalToolBuilders/
  
