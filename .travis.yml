@@ -1,4 +1,4 @@
-script: .buidlDeps.sh
+script: .buildDeps.sh
 
 language: java
 jdk:
