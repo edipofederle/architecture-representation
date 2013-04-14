@@ -31,6 +31,7 @@ public class RemoveNode extends XmiHelper {
 		try{
 			umlNOde.removeChild(findByID(this.docUml, id, "packagedElement"));
 			removeNodeFromNotationFile(id);
+			
 			LOGGER.info("Class with id: " + id + " removed.");
 		}catch (Exception e) {
 			LOGGER.info("Cannot reemove Class with id: " + id + ".");
@@ -40,22 +41,38 @@ public class RemoveNode extends XmiHelper {
 	public void removeAttributeeById(String id, String idClass){
 		
 		try{
-			NodeList umlNOde = this.docUml.getElementsByTagName("packagedElement");
-			Node element = findByID(this.docUml, id, "ownedAttribute");
-			for (int i = 0; i < umlNOde.getLength(); i++) {
-				NamedNodeMap attributes = umlNOde.item(i).getAttributes();
-				for (int j = 0; j < attributes.getLength(); j++) {
-					String valueAttribute = attributes.item(j).getNodeValue();
-					if (idClass.equalsIgnoreCase(valueAttribute)){
-						umlNOde.item(i).removeChild(element);
-					}
-				}
-			}
-			
+			removeNodeFromUmlFile(id, idClass, "ownedAttribute");
 			removeNodeFromNotationFile(id);
+			
 			LOGGER.info("Attribute with id: " + id + " removed.");
 		}catch (Exception e) {
 			LOGGER.info("Cannot reemove Attribute with id: " + id + ".");
+		}
+	}
+	
+
+	public void removeMethodById(String idMethodToRemove, String idClass) {
+		try{
+			removeNodeFromUmlFile(idMethodToRemove, idClass, "ownedOperation");
+			removeNodeFromNotationFile(idMethodToRemove);
+			
+			LOGGER.info("Method with id: " + idMethodToRemove + " removed.");
+		}catch (Exception e) {
+			LOGGER.info("Cannot reemove method with id: " + idMethodToRemove + ".");
+		}
+	}
+
+	private void removeNodeFromUmlFile(String idMethodToRemove, String idClass, String typeElement) {
+		NodeList umlNOde = this.docUml.getElementsByTagName("packagedElement");
+		Node element = findByID(this.docUml, idMethodToRemove, typeElement);
+		for (int i = 0; i < umlNOde.getLength(); i++) {
+			NamedNodeMap attributes = umlNOde.item(i).getAttributes();
+			for (int j = 0; j < attributes.getLength(); j++) {
+				String valueAttribute = attributes.item(j).getNodeValue();
+				if (idClass.equalsIgnoreCase(valueAttribute)){
+					umlNOde.item(i).removeChild(element);
+				}
+			}
 		}
 	}
 	

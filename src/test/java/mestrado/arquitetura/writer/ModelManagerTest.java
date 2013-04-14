@@ -165,6 +165,26 @@ public class ModelManagerTest extends TestHelper {
 		assertThat("Should parameter name be 'name'", methodFoo.getParameters().get(0).getName().equals("name") );
 	}
 	
+	
+	@Test
+	public void shouldRemoveMethodFromClass(){
+		DocumentManager document = givenADocument("simples");
+		ClassOperations classOperations = new ClassOperations(document);
+		
+		Map<String, String> classInfo = classOperations.createClass("Person").withMethod("foo[name:String]").withMethod("teste[id:Integer]").withMethod("index").withMethod("update").withAttribute("name:String").build();
+		
+		
+		document.saveAndCopy("testeRemoveMethod");
+		
+		String idMethod = classInfo.get("idsMethods").split(" ")[1];
+		assertTrue(modelContainId("testeRemoveMethod", idMethod));
+		
+		classOperations.removeMethod(idMethod);
+		
+		document.saveAndCopy("testeRemoveMethod");
+		assertFalse(modelContainId("testeRemoveMethod", idMethod));
+	}
+	
 	@Test
 	public void shouldSaveModificationAndCopyFilesToDestination(){
 		

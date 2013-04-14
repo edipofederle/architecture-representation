@@ -40,6 +40,7 @@ public class ClassOperations extends XmiHelper {
 	private Element notationBasicProperty;
 	
 	private String idsProperties = new String();
+	private String idsMethods = new String();
 
 	public ClassOperations(DocumentManager documentManager) {
 		this.documentManager = documentManager;
@@ -60,12 +61,12 @@ public class ClassOperations extends XmiHelper {
 		
 		Element notationDecoratioNode = documentManager.getDocNotation().createElement("children");
 		notationDecoratioNode.setAttribute("xmi:type", "notation:DecorationNode");
-		notationDecoratioNode.setAttribute("xmi:id", "020203903-03");
+		notationDecoratioNode.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		notationDecoratioNode.setAttribute("type", "5029");
 		node.appendChild(notationDecoratioNode);
 		
 	    Element klass = documentManager.getDocNotation().createElement("element");
-	    klass.setAttribute("href", documentManager.getModelName()+".uml#"+this.id); // TODO ver nome do model
+	    klass.setAttribute("href", documentManager.getModelName()+".uml#"+this.id);
 	    klass.setAttribute("xmi:type", "uml:Class");
 		
 	    this.notationBasicProperty = createChildrenComportament(documentManager.getDocNotation(), node, "7017"); //onde vai as props
@@ -154,6 +155,9 @@ public class ClassOperations extends XmiHelper {
 		String idProperty = writeOnUmlFile(attributeType, name);
 		writeOnNotationFile(idProperty, PROPERTY_ID, PROPERTY_TYPE, notationBasicProperty);
 		
+		//Registra elemento criado. Mover daqui
+		this.idsProperties += idProperty + " ";
+		
 		return this;
 	}
 	
@@ -164,7 +168,6 @@ public class ClassOperations extends XmiHelper {
 	 * @return
 	 */
 	public ClassOperations withMethod(String method){
-		//<ownedOperation xmi:id="_LIsv8JujEeK5t701AkjzsQ" name="foo"/>
 		
 		//MOVE FROM HERE
 		String idMethod = UtilResources.getRandonUUID();
@@ -199,6 +202,8 @@ public class ClassOperations extends XmiHelper {
 		
 		writeOnNotationFile(idMethod, METHOD_ID, METHODO_TYPE, notationBasicOperation);
 		
+		this.idsMethods += idMethod + " ";
+		
 		return this;
 	}
 
@@ -207,7 +212,6 @@ public class ClassOperations extends XmiHelper {
 			return method.substring(0, method.indexOf("["));
 		return method;
 	}
-
 
 	/**
 	 * Finaliza a criação da classe.
@@ -218,19 +222,16 @@ public class ClassOperations extends XmiHelper {
 		Map<String, String> createdClassInfos = new HashMap<String, String>();
 		createdClassInfos.put("classId", this.getId());
 		createdClassInfos.put("idsProperties", this.idsProperties);
+		createdClassInfos.put("idsMethods", this.idsMethods);
 		return createdClassInfos;
 	}
 	
 	private void writeOnNotationFile(String idProperty, String idType, String type, Element appendTo) {
-		createNoteForElementType(idProperty, idType, type, appendTo);
-		
-		this.idsProperties += idProperty + " ";
+		createNodeForElementType(idProperty, idType, type, appendTo);
 	}
 
-
-	private void createNoteForElementType(String idProperty, String type, String typeElement, Element appendTo) {
+	private void createNodeForElementType(String idProperty, String type, String typeElement, Element appendTo) {
 		Element node = documentManager.getDocNotation().createElement("children");
-		
 		
 		node.setAttribute("xmi:type", this.xmitype);
 		node.setAttribute("xmi:id", UtilResources.getRandonUUID());
@@ -252,12 +253,10 @@ public class ClassOperations extends XmiHelper {
       	eAnnotations.appendChild(details);
       	node.appendChild(eAnnotations);
       	
-		
 		Element element = documentManager.getDocNotation().createElement("element");
 		element.setAttribute("xmi:type", typeElement);
 		element.setAttribute("href", documentManager.getModelName()+"#"+ idProperty);
 		node.appendChild(element);
-		 
 		
 		Element layoutConstraint = documentManager.getDocNotation().createElement("layoutConstraint");
 		layoutConstraint.setAttribute("xmi:type", "notation:Location");
@@ -353,6 +352,11 @@ public class ClassOperations extends XmiHelper {
 	public void removeAttribute(String id) {
 		RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
 		removeClass.removeAttributeeById(id, this.id);
+	}
+
+	public void removeMethod(String idMethodoToRmove) {
+		RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
+		removeClass.removeMethodById(idMethodoToRmove, this.id);
 	}
 	
 }
