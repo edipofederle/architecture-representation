@@ -48,7 +48,7 @@ public class VariationPointTest {
 	}
 	
 	@Test(expected=InvalidParameterException.class)
-	public void tes(){
+	public void shouldInvalidParameterWhenCreateInvalidVariationPoint(){
 		createVariationPointInvalid();
 	}
 
