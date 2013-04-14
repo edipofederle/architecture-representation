@@ -348,5 +348,11 @@ public class ClassOperations extends XmiHelper {
 		RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
 		removeClass.removeClassById(id);
 	}
+
+
+	public void removeAttribute(String id) {
+		RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
+		removeClass.removeAttributeeById(id, this.id);
+	}
 	
 }

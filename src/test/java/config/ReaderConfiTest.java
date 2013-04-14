@@ -16,6 +16,6 @@ public class ReaderConfiTest {
 	@Test
 	public void shouldReturnPathToDirectoryExportModels(){
 		String dir = ReaderConfig.getDirExportTarget();
-		assertEquals("export/", dir);
+		assertEquals("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/", dir);
 	}
 }

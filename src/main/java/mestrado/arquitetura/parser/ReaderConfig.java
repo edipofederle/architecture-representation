@@ -16,7 +16,6 @@ public class ReaderConfig {
 	
 	static{
 		try {
-			
 			dir = Yaml.loadType(new File(PATH_CONFIGURATION_FILE), DirTarget.class);
 		} catch (FileNotFoundException e) {
 			LOGGER.info("I can't read the configuration file at " + PATH_CONFIGURATION_FILE);

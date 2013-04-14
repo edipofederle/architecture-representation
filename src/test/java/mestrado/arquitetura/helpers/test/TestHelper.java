@@ -16,6 +16,7 @@ import mestrado.arquitetura.helpers.ModelHelper;
 import mestrado.arquitetura.helpers.ModelHelperFactory;
 import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
+import mestrado.arquitetura.parser.ReaderConfig;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Element;
 
@@ -33,10 +34,16 @@ public abstract class TestHelper {
 
 	protected static Uml2Helper uml2Helper;
 	protected static ModelHelper modelHelper;
-
+	protected static String targetDir;
+	protected static String targetDirExport;
+	
 	static{
 		try {
 			uml2Helper = Uml2HelperFactory.getUml2Helper();
+			
+			targetDir = ReaderConfig.getDirTarget();
+			targetDirExport = ReaderConfig.getDirExportTarget();
+			
 		} catch (ModelNotFoundException e) {
 			e.printStackTrace();
 		} catch (ModelIncompleteException e) {
@@ -93,11 +100,9 @@ public abstract class TestHelper {
 	}
 	
 	protected static String getUrlToModelManipulation(String modelName) {
-		return  "export/"+modelName+".uml";
+		return  targetDirExport+modelName+".uml";
 	}
 
-	
-	//Custom asserts
 	protected <T extends Element> void assertContains(List<T> list, String... expected) {
 		requiredElements: for (String requiredElementName : expected)  {
 				for (Element element : list)
@@ -129,5 +134,4 @@ public abstract class TestHelper {
 		return false;
 	}
 
-	
 }

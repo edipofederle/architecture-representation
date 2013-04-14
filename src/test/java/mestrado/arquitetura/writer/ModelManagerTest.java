@@ -75,7 +75,6 @@ public class ModelManagerTest extends TestHelper {
 		
 		
 		doc.saveAndCopy("testeRemover");
-		
 		assertTrue(modelContainId("testeRemover", cityId));
 		classOperations.removeClassById(cityId);
 		doc.saveAndCopy("testeRemover");
@@ -96,7 +95,6 @@ public class ModelManagerTest extends TestHelper {
 		classOperations.removeAssociation(id);
 		doc.saveAndCopy("teste4");
 		assertFalse(modelContainId("teste4", id));
-		
 	}
 	
 	@Test
@@ -125,6 +123,23 @@ public class ModelManagerTest extends TestHelper {
 		
 		Architecture a = givenAArchitecture2("teste");
 		assertContains(a.getAllClasses(), "Class43");
+	}
+	
+	@Test
+	public void shouldRemoveAttributeFromClasse(){
+		DocumentManager document = givenADocument("simples");
+		ClassOperations classOperations = new ClassOperations(document);
+		Map<String, String> classInfo = classOperations.createClass("Foo").withAttribute("name").withAttribute("age").build();
+		
+		String idAttr = classInfo.get("idsProperties").split(" ")[1];
+		document.saveAndCopy("testRemoveAttribute");
+		assertTrue(modelContainId("testRemoveAttribute", idAttr));
+		
+		classOperations.removeAttribute(idAttr);
+		document.saveAndCopy("testRemoveAttribute");
+		
+		assertFalse(modelContainId("testRemoveAttribute", idAttr));
+		
 	}
 	
 	@Test
