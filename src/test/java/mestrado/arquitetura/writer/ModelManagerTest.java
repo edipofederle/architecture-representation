@@ -151,6 +151,7 @@ public class ModelManagerTest extends TestHelper {
 		assertThat("Should have a method called 'update'", barKlass.findMethodByName("update").getName().equals("update"));
 		
 		Method methodFoo = barKlass.findMethodByName("foo");
+		
 		assertThat("Should have 1 parameter", methodFoo.getParameters().size() == 1 );
 		assertThat("Should parameter name be 'name'", methodFoo.getParameters().get(0).getName().equals("name") );
 	}
@@ -184,7 +185,7 @@ public class ModelManagerTest extends TestHelper {
 	private DocumentManager givenADocument(String outputModelName, String originalModelName) {
 		String pathToFiles = "src/main/java/mestrado/arquitetura/parser/1/";
 		DocumentManager documentManager = new DocumentManager(outputModelName, pathToFiles, originalModelName);
-		return documentManager;
 		
+		return documentManager;
 	}
 }

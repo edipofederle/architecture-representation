@@ -105,12 +105,10 @@ public class ClassOperations extends XmiHelper {
 		element.setAttribute("type", type);
 		node.appendChild(element);
 		
-		
 		Element notationTitleStyle = doc.createElement("styles");
 		notationTitleStyle.setAttribute("xmi:type", "notation:TitleStyle");
 		notationTitleStyle.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		element.appendChild(notationTitleStyle);
-		
 		
 		Element notationSortingStyle = doc.createElement("styles");
 		notationSortingStyle.setAttribute("xmi:type", "notation:SortingStyle");
@@ -133,6 +131,7 @@ public class ClassOperations extends XmiHelper {
 	    layoutConstraint.setAttribute("xmi:type", "notation:Bounds");
 	    layoutConstraint.setAttribute("y", randomNum());
 	    node.appendChild(layoutConstraint);
+	    
 	    return element;
 	}
 	
@@ -188,7 +187,6 @@ public class ClassOperations extends XmiHelper {
 		
 		//Check for method params	
 		Map<String, String> params = ParameterParser.getParams(method);
-		
 
 		for (Map.Entry<String, String> entry : params.entrySet()) {
 		    String paramName = entry.getKey();
@@ -219,8 +217,8 @@ public class ClassOperations extends XmiHelper {
 	}
 
 	private String getMethodName(String method) {
-		if(method.contains("["))
-			return method.substring(0, method.indexOf("["));
+		if(method.contains("[")) return method.substring(0, method.indexOf("["));
+		
 		return method;
 	}
 
@@ -322,8 +320,7 @@ public class ClassOperations extends XmiHelper {
 	private String getPropertyType(String attributeName) {
 		if (attributeName.contains(":")){
 			String type = attributeName.split(":")[1];
-			if(isValidType(type))
-				return type;
+			if(isValidType(type)) return type;
 		}
 		
 		return PROPERTYNOTYPE;
@@ -344,11 +341,13 @@ public class ClassOperations extends XmiHelper {
 	public String createAssociation(final String idClassOwnnerAssociation, final String idClassDestinationAssociation){
 		//Refactoring, document.getNewName is common for many classes
 		final AssociationNode associationNode = new AssociationNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation(), documentManager.getModelName());
+		
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
 				associationNode.createAssociation(idClassOwnnerAssociation, idClassDestinationAssociation);
 			}
 		});
+		
 		return associationNode.getIdAssocation();
 	}
 
@@ -365,6 +364,7 @@ public class ClassOperations extends XmiHelper {
 
 	public void removeAttribute(final String idAttributeToRemove) {
 		final RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
+		
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
 				removeClass.removeAttributeeById(idAttributeToRemove, id);
@@ -374,6 +374,7 @@ public class ClassOperations extends XmiHelper {
 
 	public void removeMethod(final String idMethodoToRmove) {
 		final RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
+		
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
 				removeClass.removeMethodById(idMethodoToRmove, id);

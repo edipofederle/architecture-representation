@@ -42,7 +42,6 @@ public class DocumentManager {
 		}
 			
 		try {
-			
 			this.docNotation =  docBuilderNotation.parse("/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+this.originalModelName+".notation");
 			this.docUml = docBuilderUml.parse("/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+this.originalModelName+".uml");
 			this.docDi = docBuilderUml.parse("/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+this.originalModelName+".di");
@@ -92,6 +91,7 @@ public class DocumentManager {
 
 	public void saveAndCopy(String newModelName) {
 		this.outputModelName = newModelName;
+		
 		try {
 			SaveAndCopy.saveAndCopy(docNotation, docUml, docDi, this.originalModelName, newModelName);
 		} catch (TransformerException e) {
