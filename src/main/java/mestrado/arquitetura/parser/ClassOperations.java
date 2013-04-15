@@ -77,15 +77,23 @@ public class ClassOperations extends XmiHelper {
 	    notatioChildren.appendChild(node);
 	}
 
-	public ClassOperations createClass(String className2) {
-		this.id = UtilResources.getRandonUUID();
-		createXmiForClass();
-		klass = documentManager.getDocUml().createElement("packagedElement");
-		klass.setAttribute("xmi:type", "uml:Class");
-		klass.setAttribute("xmi:id", this.id);
-		klass.setAttribute("name", className2);
-		LOGGER.info("Class with id: " + this.id + " created.");
-		umlModelChild.appendChild(klass);
+	public ClassOperations createClass(final String className) {
+		
+		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+			
+			public void useTransformation() {
+				id = UtilResources.getRandonUUID();
+				createXmiForClass();
+				klass = documentManager.getDocUml().createElement("packagedElement");
+				klass.setAttribute("xmi:type", "uml:Class");
+				klass.setAttribute("xmi:id", id);
+				klass.setAttribute("name", className);
+				LOGGER.info("Class with id: " + id + " created.");
+				umlModelChild.appendChild(klass);
+			}
+			
+		});
+		
 		return this;
 	}
 
@@ -148,19 +156,22 @@ public class ClassOperations extends XmiHelper {
 	 * @param attribute - ex: "name:String"
 	 * @return this
 	 */
-	public ClassOperations withAttribute(String attribute) {
+	public ClassOperations withAttribute(final String attribute) {
 
-		String attributeType = getPropertyType(attribute);
-		String name = getAttributeName(attribute);
-		String idProperty = writeOnUmlFile(attributeType, name);
-		writeOnNotationFile(idProperty, PROPERTY_ID, PROPERTY_TYPE, notationBasicProperty);
+		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+			public void useTransformation() {
+				String attributeType = getPropertyType(attribute);
+				String name = getAttributeName(attribute);
+				String idProperty = writeOnUmlFile(attributeType, name);
+				writeOnNotationFile(idProperty, PROPERTY_ID, PROPERTY_TYPE, notationBasicProperty);
 		
-		//Registra elemento criado. Mover daqui
-		this.idsProperties += idProperty + " ";
+				//Registra elemento criado. Mover daqui
+				idsProperties += idProperty + " ";
+			}
+		});
 		
 		return this;
 	}
-	
 	/**
 	 * Params like: foo[name:String, age:Integer]
 	 * 
@@ -330,11 +341,14 @@ public class ClassOperations extends XmiHelper {
 	 * @param idClassDestinationAssociation
 	 * @return
 	 */
-	public String createAssociation(String idClassOwnnerAssociation, String idClassDestinationAssociation){
-		
+	public String createAssociation(final String idClassOwnnerAssociation, final String idClassDestinationAssociation){
 		//Refactoring, document.getNewName is common for many classes
-		AssociationNode associationNode = new AssociationNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation(), documentManager.getModelName());
-		associationNode.createAssociation(idClassOwnnerAssociation, idClassDestinationAssociation);
+		final AssociationNode associationNode = new AssociationNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation(), documentManager.getModelName());
+		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+			public void useTransformation() {
+				associationNode.createAssociation(idClassOwnnerAssociation, idClassDestinationAssociation);
+			}
+		});
 		return associationNode.getIdAssocation();
 	}
 
@@ -349,14 +363,22 @@ public class ClassOperations extends XmiHelper {
 	}
 
 
-	public void removeAttribute(String id) {
-		RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
-		removeClass.removeAttributeeById(id, this.id);
+	public void removeAttribute(final String idAttributeToRemove) {
+		final RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
+		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+			public void useTransformation() {
+				removeClass.removeAttributeeById(idAttributeToRemove, id);
+			}
+		});
 	}
 
-	public void removeMethod(String idMethodoToRmove) {
-		RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
-		removeClass.removeMethodById(idMethodoToRmove, this.id);
+	public void removeMethod(final String idMethodoToRmove) {
+		final RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
+		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+			public void useTransformation() {
+				removeClass.removeMethodById(idMethodoToRmove, id);
+			}
+		});
 	}
 	
 }

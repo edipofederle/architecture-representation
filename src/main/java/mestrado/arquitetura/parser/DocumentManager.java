@@ -17,14 +17,16 @@ public class DocumentManager {
 	private org.w3c.dom.Document docNotation;
 	private org.w3c.dom.Document docDi;
 	private String originalModelName;
-	private String newName;
+	private String outputModelName;
 	
 	private final static Logger LOGGER = Logger.getLogger(DocumentManager.class.getName()); 
 	
-	public DocumentManager(String pathToFiles, String originalModelName){
+	public DocumentManager(String outputModelName, String pathToFiles, String originalModelName){
+		this.outputModelName = outputModelName;
 		this.originalModelName = originalModelName;
 		makeACopy(pathToFiles, originalModelName);
 		createXMIDocument(originalModelName);
+		this.saveAndCopy(outputModelName);
 	}
 	
 	private void createXMIDocument(String modelName){
@@ -89,7 +91,7 @@ public class DocumentManager {
 	}
 
 	public void saveAndCopy(String newModelName) {
-		this.newName = newModelName;
+		this.outputModelName = newModelName;
 		try {
 			SaveAndCopy.saveAndCopy(docNotation, docUml, docDi, this.originalModelName, newModelName);
 		} catch (TransformerException e) {
@@ -104,7 +106,7 @@ public class DocumentManager {
 	}
 
 	public String getNewModelName() {
-		return this.newName;
+		return this.outputModelName;
 	}
 	
 }

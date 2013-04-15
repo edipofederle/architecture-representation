@@ -12,7 +12,8 @@ public class DocumentTest {
 	public void shouldCreateADocument(){
 		String pathToFiles = "src/main/java/mestrado/arquitetura/parser/1/";
 		String originalModelName  = "simples";
-		DocumentManager documentManager = new DocumentManager(pathToFiles, originalModelName);
+		String newModelName  = "simplesNew";
+		DocumentManager documentManager = new DocumentManager(newModelName, pathToFiles, originalModelName);
 		
 		assertNotNull(documentManager);
 		assertNotNull(documentManager.getDocNotation());
