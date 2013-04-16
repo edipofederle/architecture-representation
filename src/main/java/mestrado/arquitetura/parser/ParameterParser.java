@@ -29,7 +29,14 @@ public class ParameterParser {
 		
 		return mapParams;
 	}
-	
-	
 
+	public static String isAbstract(String methodName) {
+		int index = methodName.lastIndexOf(":");
+		
+		if("abstract".equalsIgnoreCase(methodName.substring(index+1, methodName.length())))
+			return "true";
+		
+		return "false";
+	}
+	
 }

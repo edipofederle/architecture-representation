@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.Map;
 
 import junit.framework.Assert;
+import mestrado.arquitetura.exceptions.ClassNotFound;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.ClassOperations;
 import mestrado.arquitetura.parser.DocumentManager;
@@ -154,6 +155,19 @@ public class ModelManagerTest extends TestHelper {
 		
 		assertThat("Should have 1 parameter", methodFoo.getParameters().size() == 1 );
 		assertThat("Should parameter name be 'name'", methodFoo.getParameters().get(0).getName().equals("name") );
+	}
+	
+	@Test
+	public void shouldCreateAMethodWithMethodAbstract() throws Exception{
+		DocumentManager document = givenADocument("testeMethodoAbastrato", "simples");
+		ClassOperations classOperations = new ClassOperations(document);
+		
+		classOperations.createClass("Person").withMethod("foo[name:String]:abstract").build();
+		
+		Architecture arch = givenAArchitecture2("testeMethodoAbastrato");
+		
+		assertThat("Should have 1 method", arch.findClassByName("Person").getAllMethods().size() == 1);
+		assertTrue(arch.findClassByName("Person").findMethodByName("foo").isAbstract());
 	}
 	
 	
