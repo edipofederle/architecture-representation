@@ -19,6 +19,7 @@ import mestrado.arquitetura.representation.Method;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 public class ModelManagerTest extends TestHelper {
 	
@@ -57,10 +58,10 @@ public class ModelManagerTest extends TestHelper {
 		ClassOperations classOperations = new ClassOperations(doc);
 		Map<String, String> idPerson = classOperations.createClass("Person").build();
 		Map<String, String> idEmployee = classOperations.createClass("Employee").build();
-		Map<String, String> idManager = classOperations.createClass("Manager").build();
+		Map<String, String> idManager = classOperations.createClass("Casa").build();
 		
 		classOperations.createAssociation(idPerson.get("classId"), idEmployee.get("classId"));
-		classOperations.createAssociation(idManager.get("classId"), idPerson.get("classId"));
+		classOperations.createAssociation(idPerson.get("classId"), idManager.get("classId"));
 		
 		Architecture a = givenAArchitecture2("teste3");
 		assertThat("Should have 2 association", a.getAllAssociations().size() == 2);
@@ -71,7 +72,6 @@ public class ModelManagerTest extends TestHelper {
 		DocumentManager doc = givenADocument("testeRemover", "simples");
 		ClassOperations classOperations = new ClassOperations(doc);
 		String cityId = classOperations.createClass("City").build().get("classId");
-		
 		assertTrue(modelContainId("testeRemover", cityId));
 		classOperations.removeClassById(cityId);
 		doc.saveAndCopy("testeRemover");
@@ -115,7 +115,7 @@ public class ModelManagerTest extends TestHelper {
 		assertNotNull(idClass);
 		assertThat(idsProperty.length, equalTo(2));
 		
-		Architecture a = givenAArchitecture2("teste");
+		Architecture a = givenAArchitecture2("testeCreateClassWithAttribute");
 		assertContains(a.getAllClasses(), "Class43");
 	}
 	

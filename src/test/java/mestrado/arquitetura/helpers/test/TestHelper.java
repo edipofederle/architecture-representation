@@ -127,8 +127,9 @@ public abstract class TestHelper {
 			
 			while (scanner.hasNextLine()) {
 			    String line = scanner.nextLine();
-			    if(line.contains(id))
-			        return true;
+			    if(line != null)
+				    if(line.contains(id))
+				        return true;
 			}
 		}catch(FileNotFoundException e) { } //TODO
 		return false;

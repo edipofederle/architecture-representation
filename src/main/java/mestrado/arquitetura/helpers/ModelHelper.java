@@ -83,6 +83,7 @@ public class ModelHelper extends ElementHelper {
 			classes.addAll(getAllClassesOfPackage((Package)pacotes.get(i)));
 		
 		if(classes.isEmpty()) return Collections.emptyList();
+		
 		return classes;
 	}
 	
@@ -119,7 +120,6 @@ public class ModelHelper extends ElementHelper {
 		for (Association d : associations)	r.add(d);
 		
 		return r;
-		
 		
 	}
 	

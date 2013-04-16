@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import mestrado.arquitetura.exceptions.NullReferenceFoundException;
 import mestrado.arquitetura.helpers.UtilResources;
 
 import org.w3c.dom.Document;
@@ -16,8 +17,6 @@ import org.w3c.dom.Node;
 
 public class ClassOperations extends XmiHelper {
 	
-	private final static Logger LOGGER = Logger.getLogger(ClassOperations.class.getName()); 
-
 	private static final String PROPERTY_ID = "3012";
 	private static final String METHOD_ID = "3013";
 	private static final String PROPERTY_TYPE = "uml:Property";
@@ -34,13 +33,15 @@ public class ClassOperations extends XmiHelper {
 	private final String lineColor = "0";
 	private Node umlModelChild;
 	private Node notatioChildren;
-	private DocumentManager documentManager;
 	private Element klass;
+	private DocumentManager documentManager;
 	private Element notationBasicOperation;
 	private Element notationBasicProperty;
 	
 	private String idsProperties = new String();
 	private String idsMethods = new String();
+	
+	private final static Logger LOGGER = Logger.getLogger(ClassOperations.class.getName()); 
 
 	public ClassOperations(DocumentManager documentManager) {
 		this.documentManager = documentManager;
@@ -49,7 +50,7 @@ public class ClassOperations extends XmiHelper {
 	}
 	
 
-	private void createXmiForClass() {
+	private void createXmiForClassInNotationFile() throws NullReferenceFoundException {
 		
 		Element node = documentManager.getDocNotation().createElement("children");
 		node.setAttribute("xmi:type", this.xmitype);
@@ -66,7 +67,13 @@ public class ClassOperations extends XmiHelper {
 		node.appendChild(notationDecoratioNode);
 		
 	    Element klass = documentManager.getDocNotation().createElement("element");
-	    klass.setAttribute("href", documentManager.getModelName()+".uml#"+this.id);
+	    
+	    if (this.id == null){
+	    	throw new NullReferenceFoundException("A null reference found when try access attribute id. Executation will be interrupted.");
+	    }
+	    
+	   	klass.setAttribute("href", documentManager.getModelName()+".uml#"+ this.id);
+	    	
 	    klass.setAttribute("xmi:type", "uml:Class");
 		
 	    this.notationBasicProperty = createChildrenComportament(documentManager.getDocNotation(), node, "7017"); //onde vai as props
@@ -80,18 +87,17 @@ public class ClassOperations extends XmiHelper {
 	public ClassOperations createClass(final String className) {
 		
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
-			
 			public void useTransformation() {
-				id = UtilResources.getRandonUUID();
-				createXmiForClass();
-				klass = documentManager.getDocUml().createElement("packagedElement");
-				klass.setAttribute("xmi:type", "uml:Class");
-				klass.setAttribute("xmi:id", id);
-				klass.setAttribute("name", className);
-				LOGGER.info("Class with id: " + id + " created.");
+				ElementXmiGenerator generator = new ElementXmiGenerator(documentManager);
+				klass = generator.generateClass(className);
 				umlModelChild.appendChild(klass);
+				id = klass.getAttribute("xmi:id");
+				try {
+					createXmiForClassInNotationFile();
+				} catch (NullReferenceFoundException e) {
+					LOGGER.severe("A null reference has been found. The process will be interrupted");
+				}
 			}
-			
 		});
 		
 		return this;
@@ -161,7 +167,7 @@ public class ClassOperations extends XmiHelper {
 			public void useTransformation() {
 				String attributeType = getPropertyType(attribute);
 				String name = getAttributeName(attribute);
-				String idProperty = writeOnUmlFile(attributeType, name);
+				String idProperty = writeAttributeIntoUmlFile(attributeType, name);
 				writeOnNotationFile(idProperty, PROPERTY_ID, PROPERTY_TYPE, notationBasicProperty);
 		
 				//Registra elemento criado. Mover daqui
@@ -229,7 +235,7 @@ public class ClassOperations extends XmiHelper {
 	 */
 	public Map<String, String> build() {
 		Map<String, String> createdClassInfos = new HashMap<String, String>();
-		createdClassInfos.put("classId", this.getId());
+		createdClassInfos.put("classId", klass.getAttribute("xmi:id"));
 		createdClassInfos.put("idsProperties", this.idsProperties);
 		createdClassInfos.put("idsMethods", this.idsMethods);
 		return createdClassInfos;
@@ -275,7 +281,7 @@ public class ClassOperations extends XmiHelper {
 	}
 
 
-	private String writeOnUmlFile(String attributeType, String name) {
+	private String writeAttributeIntoUmlFile(String attributeType, String name) {
 		String idProperty = UtilResources.getRandonUUID();
 		Element ownedAttribute = documentManager.getDocUml().createElement("ownedAttribute");
 		ownedAttribute.setAttribute("xmi:id", idProperty);
