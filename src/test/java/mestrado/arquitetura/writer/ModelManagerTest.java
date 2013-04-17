@@ -7,20 +7,23 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import junit.framework.Assert;
-import mestrado.arquitetura.exceptions.ClassNotFound;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.ClassOperations;
 import mestrado.arquitetura.parser.DocumentManager;
+import mestrado.arquitetura.parser.method.Argument;
+import mestrado.arquitetura.parser.method.Types;
+import mestrado.arquitetura.parser.method.VisibilityKind;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Method;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 public class ModelManagerTest extends TestHelper {
 	
@@ -140,16 +143,29 @@ public class ModelManagerTest extends TestHelper {
 		DocumentManager document = givenADocument("teste4", "simples");
 		ClassOperations classOperations = new ClassOperations(document);
 		
-		classOperations.createClass("Person").withMethod("foo[name:String]").withMethod("teste[id:Integer]").withMethod("index").withMethod("update").withAttribute("name:String").build();
+		List<Argument> arguments = new ArrayList<Argument>();
+		arguments.add(new Argument("name", Types.STRING));
+		
+		mestrado.arquitetura.parser.method.Method foo = mestrado.arquitetura.parser.method.Method.create().withName("foo").withArguments(arguments)
+							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
+							 .withReturn(Types.INTEGER).build();
+		
+		List<Argument> argumentsTeste = new ArrayList<Argument>();
+		arguments.add(new Argument("id", Types.INTEGER));
+		
+		mestrado.arquitetura.parser.method.Method teste = mestrado.arquitetura.parser.method.Method.create().withName("teste").withArguments(argumentsTeste)
+							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
+							 .withReturn(Types.INTEGER).build();
+		
+		
+		classOperations.createClass("Person").withMethod(foo).withMethod(teste).withAttribute("name:String").build();
 		Architecture arch = givenAArchitecture2("teste4");
 		Class barKlass = arch.findClassByName("Person");
 		
 		assertNotNull(barKlass);
-		assertThat("Should have 4 methods", barKlass.getAllMethods().size() == 4);
+		assertThat("Should have 4 methods", barKlass.getAllMethods().size() == 2);
 		assertThat("Should have a method called 'foo'", barKlass.findMethodByName("foo").getName().equals("foo"));
 		assertThat("Should have a method called 'teste'", barKlass.findMethodByName("teste").getName().equals("teste"));
-		assertThat("Should have a method called 'index'", barKlass.findMethodByName("index").getName().equals("index"));
-		assertThat("Should have a method called 'update'", barKlass.findMethodByName("update").getName().equals("update"));
 		
 		Method methodFoo = barKlass.findMethodByName("foo");
 		
@@ -157,17 +173,44 @@ public class ModelManagerTest extends TestHelper {
 		assertThat("Should parameter name be 'name'", methodFoo.getParameters().get(0).getName().equals("name") );
 	}
 	
+	
+	@Test
+	public void testeMethod(){
+		DocumentManager document = givenADocument("teste666", "simples");
+		ClassOperations classOperations = new ClassOperations(document);
+		
+		List<Argument> arguments = new ArrayList<Argument>();
+		arguments.add(new Argument("name", Types.STRING));
+		arguments.add(new Argument("age", Types.INTEGER));
+		
+		mestrado.arquitetura.parser.method.Method foo = mestrado.arquitetura.parser.method.Method.create().withName("foo").withArguments(arguments)
+							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
+							 .withReturn(Types.INTEGER).build();
+		
+		classOperations.createClass("Bar").withMethod(foo).build();
+	}
+	
 	@Test
 	public void shouldCreateAMethodWithMethodAbstract() throws Exception{
 		DocumentManager document = givenADocument("testeMethodoAbastrato", "simples");
 		ClassOperations classOperations = new ClassOperations(document);
 		
-		classOperations.createClass("Person").withMethod("foo[name:String]:abstract").build();
+		List<Argument> arguments = new ArrayList<Argument>();
+		arguments.add(new Argument("name", Types.STRING));
+		arguments.add(new Argument("age", Types.INTEGER));
+		
+		mestrado.arquitetura.parser.method.Method bar = mestrado.arquitetura.parser.method.Method.create()
+							 						.withName("bar").withArguments(arguments)
+							 						.withVisibility(VisibilityKind.PUBLIC_LITERAL)
+							 						.withReturn(Types.INTEGER)
+							 						.abstractMethod().build();
+		
+		classOperations.createClass("Person").withMethod(bar).build();
 		
 		Architecture arch = givenAArchitecture2("testeMethodoAbastrato");
 		
 		assertThat("Should have 1 method", arch.findClassByName("Person").getAllMethods().size() == 1);
-		assertTrue(arch.findClassByName("Person").findMethodByName("foo").isAbstract());
+		assertTrue(arch.findClassByName("Person").findMethodByName("bar").isAbstract());
 	}
 	
 	
@@ -176,7 +219,25 @@ public class ModelManagerTest extends TestHelper {
 		DocumentManager document = givenADocument("testeRemoveMethod", "simples");
 		ClassOperations classOperations = new ClassOperations(document);
 		
-		Map<String, String> classInfo = classOperations.createClass("Person").withMethod("foo[name:String]").withMethod("teste[id:Integer]").withMethod("index").withMethod("update").withAttribute("name:String").build();
+		List<Argument> arguments = new ArrayList<Argument>();
+		arguments.add(new Argument("name", Types.STRING));
+		
+		mestrado.arquitetura.parser.method.Method foo = mestrado.arquitetura.parser.method.Method.create()
+							 						.withName("bar").withArguments(arguments)
+							 						.withVisibility(VisibilityKind.PUBLIC_LITERAL)
+							 						.withReturn(Types.INTEGER)
+							 						.build();
+		
+		List<Argument> arguments2 = new ArrayList<Argument>();
+		arguments.add(new Argument("name", Types.STRING));
+		
+		mestrado.arquitetura.parser.method.Method teste = mestrado.arquitetura.parser.method.Method.create()
+							 						.withName("teste").withArguments(arguments2)
+							 						.withVisibility(VisibilityKind.PUBLIC_LITERAL)
+							 						.withReturn(Types.INTEGER)
+							 						.build();
+		
+		Map<String, String> classInfo = classOperations.createClass("Person").withMethod(foo).withMethod(teste).withAttribute("name:String").build();
 		
 		String idMethod = classInfo.get("idsMethods").split(" ")[1];
 		assertTrue(modelContainId("testeRemoveMethod", idMethod));

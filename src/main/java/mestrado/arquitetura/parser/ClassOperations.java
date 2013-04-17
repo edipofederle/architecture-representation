@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import mestrado.arquitetura.exceptions.NullReferenceFoundException;
 import mestrado.arquitetura.helpers.UtilResources;
+import mestrado.arquitetura.parser.method.Argument;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -177,45 +178,33 @@ public class ClassOperations extends XmiHelper {
 		
 		return this;
 	}
-	/**
-	 * Params like: foo[name:String, age:Integer]
-	 * 
-	 * @param method
-	 * @return
-	 */
-	public ClassOperations withMethod(final String method){
+	
+	
+	public ClassOperations withMethod(final mestrado.arquitetura.parser.method.Method foo) {
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
 				
 				//MOVE FROM HERE
 				final String idMethod = UtilResources.getRandonUUID();
 				final Element ownedOperation = documentManager.getDocUml().createElement("ownedOperation");
+				ownedOperation.setAttribute("name", foo.getName());
 				ownedOperation.setAttribute("xmi:id", idMethod);
-				ownedOperation.setAttribute("name", getMethodName(method));
-				
-				String isAbstract = ParameterParser.isAbstract(method);
-				ownedOperation.setAttribute("isAbstract", isAbstract);
-				
-				//Check for method params	
-				Map<String, String> params = ParameterParser.getParams(method);
-		
-				for (Map.Entry<String, String> entry : params.entrySet()) {
-				    String paramName = entry.getKey();
-				    Object paramType = entry.getValue();
-				    
-					Element ownedParameter  = documentManager.getDocUml().createElement("ownedParameter");
-					ownedParameter.setAttribute("xmi:id", UtilResources.getRandonUUID());
-					ownedParameter.setAttribute("name", paramName);
-					ownedParameter.setAttribute("isUnique", "false");
-					
-					Element typeOperation = documentManager.getDocUml().createElement("type");
-					typeOperation.setAttribute("xmi:type", "uml:PrimitiveType");
-					typeOperation.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#"+paramType);
-					ownedParameter.appendChild(typeOperation);
-					
-					ownedOperation.appendChild(ownedParameter);
-					
+				ownedOperation.setAttribute("isAbstract", foo.isAbstract());
+
+				for (Argument arg : foo.getArguments()) {
+						Element ownedParameter  = documentManager.getDocUml().createElement("ownedParameter");
+						ownedParameter.setAttribute("xmi:id", UtilResources.getRandonUUID());
+						ownedParameter.setAttribute("name", arg.getName());
+						ownedParameter.setAttribute("isUnique", "false"); //TODO Ver se irá ser usado ou pode ficar fixo
+						
+						Element typeOperation = documentManager.getDocUml().createElement("type");
+						typeOperation.setAttribute("xmi:type", "uml:PrimitiveType");
+						typeOperation.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#"+arg.getType());
+						ownedParameter.appendChild(typeOperation);
+						
+						ownedOperation.appendChild(ownedParameter);
 				}
+				  
 				//Add method to current class
 				klass.appendChild(ownedOperation);
 				writeOnNotationFile(idMethod, METHOD_ID, METHODO_TYPE, notationBasicOperation);
@@ -227,11 +216,6 @@ public class ClassOperations extends XmiHelper {
 		return this;
 	}
 
-	private String getMethodName(String method) {
-		if(method.contains("[")) return method.substring(0, method.indexOf("["));
-		
-		return method;
-	}
 
 	/**
 	 * Finaliza a criação da classe.
@@ -392,5 +376,5 @@ public class ClassOperations extends XmiHelper {
 			}
 		});
 	}
-	
+
 }
