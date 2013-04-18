@@ -37,6 +37,10 @@ public class XmiHelper {
 		}
 		return null;
 	}
+	
+	public static String getIdForNode(Node node) {
+		return node.getAttributes().getNamedItem("xmi:id").getNodeValue();
+	}
 
 
 }

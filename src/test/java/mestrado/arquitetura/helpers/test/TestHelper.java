@@ -121,7 +121,6 @@ public abstract class TestHelper {
 	
 	protected boolean modelContainId(String modelName, String id){
 		File file = new File(getUrlToModelManipulation(modelName));
-		System.out.println(id);
 		try {
 			Scanner scanner = new Scanner(file);
 			

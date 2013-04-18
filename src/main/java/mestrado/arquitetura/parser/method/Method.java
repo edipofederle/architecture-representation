@@ -3,9 +3,12 @@ package mestrado.arquitetura.parser.method;
 import java.util.ArrayList;
 import java.util.List;
 
+import mestrado.arquitetura.helpers.UtilResources;
+
 
 public class Method {
 	
+	private String id;
 	private Method method;
 	private VisibilityKind visibility;
 	private String name;
@@ -86,7 +89,13 @@ public class Method {
 
 
 	public static Method create() {
-		return new Method();
+		Method method = new Method();
+		method.setId(UtilResources.getRandonUUID());
+		return method;
+	}
+
+	private void setId(String randonUUID) {
+		this.id = randonUUID;
 	}
 
 	public Method withName(String name) {
@@ -97,6 +106,10 @@ public class Method {
 	public Method abstractMethod() {
 		this.isAbstract = true;
 		return this;
+	}
+
+	public String getId() {
+		return this.id;
 	}
 	
 }

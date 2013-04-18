@@ -2,6 +2,7 @@ package mestrado.arquitetura.writer;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -245,6 +246,34 @@ public class ModelManagerTest extends TestHelper {
 		classOperations.removeMethod(idMethod);
 		
 		assertFalse(modelContainId("testeRemoveMethod", idMethod));
+	}
+	
+	@Test
+	public void shouldAddANewMethodInExistClass() throws Exception{
+		DocumentManager document = givenADocument("addNewMethodToClass", "simples");
+		ClassOperations classOperations = new ClassOperations(document);
+		
+		Architecture arch = givenAArchitecture2("addNewMethodToClass");
+		assertNotNull(arch);
+		assertEquals(1, arch.getAllClasses().size());
+		
+		String idClass = arch.getAllClasses().get(0).getId();
+		assertNotNull("class id should not be null", idClass);
+		assertTrue("model should contain class id", modelContainId("addNewMethodToClass", idClass));
+		
+		List<Argument> arguments2 = new ArrayList<Argument>();
+		arguments2.add(new Argument("name", Types.STRING));
+		
+		mestrado.arquitetura.parser.method.Method teste = mestrado.arquitetura.parser.method.Method.create()
+							 						.withName("teste").withArguments(arguments2)
+							 						.withVisibility(VisibilityKind.PUBLIC_LITERAL)
+							 						.withReturn(Types.INTEGER)
+							 						.build();
+		
+		classOperations.addMethodToClass(idClass, teste);
+		
+		assertTrue(modelContainId("addNewMethodToClass", teste.getId()));
+		
 	}
 	
 	@Test

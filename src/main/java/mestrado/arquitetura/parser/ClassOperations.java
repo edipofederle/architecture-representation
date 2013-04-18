@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 import mestrado.arquitetura.exceptions.NullReferenceFoundException;
 import mestrado.arquitetura.helpers.UtilResources;
-import mestrado.arquitetura.parser.method.Argument;
+import mestrado.arquitetura.parser.method.Method;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -18,13 +18,13 @@ import org.w3c.dom.Node;
 
 public class ClassOperations extends XmiHelper {
 	
+	private static final String LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE = "7018";
 	private static final String PROPERTY_ID = "3012";
 	private static final String METHOD_ID = "3013";
 	private static final String PROPERTY_TYPE = "uml:Property";
 	private static final String METHODO_TYPE = "uml:Operation";
 
 	private static final String PROPERTYNOTYPE = "";
-	
 	
 	private String xmitype = "notation:Shape";
 	private String id;
@@ -38,6 +38,7 @@ public class ClassOperations extends XmiHelper {
 	private DocumentManager documentManager;
 	private Element notationBasicOperation;
 	private Element notationBasicProperty;
+	private ElementXmiGenerator elementXmiGenerator;
 	
 	private String idsProperties = new String();
 	private String idsMethods = new String();
@@ -48,6 +49,7 @@ public class ClassOperations extends XmiHelper {
 		this.documentManager = documentManager;
 		this.umlModelChild = documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
 		this.notatioChildren = documentManager.getDocNotation().getElementsByTagName("notation:Diagram").item(0);
+		elementXmiGenerator = new ElementXmiGenerator(documentManager);
 	}
 	
 
@@ -78,7 +80,7 @@ public class ClassOperations extends XmiHelper {
 	    klass.setAttribute("xmi:type", "uml:Class");
 		
 	    this.notationBasicProperty = createChildrenComportament(documentManager.getDocNotation(), node, "7017"); //onde vai as props
-	    this.notationBasicOperation = createChildrenComportament(documentManager.getDocNotation(), node, "7018"); // onde vai os metodos
+	    this.notationBasicOperation = createChildrenComportament(documentManager.getDocNotation(), node, LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE); // onde vai os metodos
 
 	    node.appendChild(klass);
 		
@@ -180,35 +182,13 @@ public class ClassOperations extends XmiHelper {
 	}
 	
 	
-	public ClassOperations withMethod(final mestrado.arquitetura.parser.method.Method foo) {
+	public ClassOperations withMethod(final mestrado.arquitetura.parser.method.Method method) {
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
-				
-				//MOVE FROM HERE
-				final String idMethod = UtilResources.getRandonUUID();
-				final Element ownedOperation = documentManager.getDocUml().createElement("ownedOperation");
-				ownedOperation.setAttribute("name", foo.getName());
-				ownedOperation.setAttribute("xmi:id", idMethod);
-				ownedOperation.setAttribute("isAbstract", foo.isAbstract());
-
-				for (Argument arg : foo.getArguments()) {
-						Element ownedParameter  = documentManager.getDocUml().createElement("ownedParameter");
-						ownedParameter.setAttribute("xmi:id", UtilResources.getRandonUUID());
-						ownedParameter.setAttribute("name", arg.getName());
-						ownedParameter.setAttribute("isUnique", "false"); //TODO Ver se irá ser usado ou pode ficar fixo
-						
-						Element typeOperation = documentManager.getDocUml().createElement("type");
-						typeOperation.setAttribute("xmi:type", "uml:PrimitiveType");
-						typeOperation.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#"+arg.getType());
-						ownedParameter.appendChild(typeOperation);
-						
-						ownedOperation.appendChild(ownedParameter);
-				}
-				  
-				//Add method to current class
+				Element ownedOperation = elementXmiGenerator.generateMethod(method);
 				klass.appendChild(ownedOperation);
-				writeOnNotationFile(idMethod, METHOD_ID, METHODO_TYPE, notationBasicOperation);
-				idsMethods += idMethod + " ";
+				writeOnNotationFile(method.getId(), METHOD_ID, METHODO_TYPE, notationBasicOperation);
+				idsMethods += method.getId() + " ";
 			}
 		
 		});
@@ -377,4 +357,38 @@ public class ClassOperations extends XmiHelper {
 		});
 	}
 
+
+	public ClassOperations addMethodToClass(final String idClass, final Method method){
+		final Node klassToAddMethod = findByID(documentManager.getDocUml(), idClass, "packagedElement");
+		
+		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+			public void useTransformation() {
+				ElementXmiGenerator elementXmiGenerator = new ElementXmiGenerator(documentManager);
+				Element ownedOperation = elementXmiGenerator.generateMethod(method);
+				klassToAddMethod.appendChild(ownedOperation);
+				writeOnNotationFile(method.getId(), METHOD_ID, METHODO_TYPE, getNodeToAddMethodInNotationFile(idClass));
+				idsMethods += method.getId() + " ";
+			}
+		
+		});
+		
+		return this;
+	}
+
+	private Element getNodeToAddMethodInNotationFile(final String idClass) {
+		Node nodeNotationToAddMethod = findByIDInNotationFile(documentManager.getDocNotation(), idClass);
+		for(int i =0; i <  nodeNotationToAddMethod.getChildNodes().getLength(); i++){
+			if("children".equalsIgnoreCase(nodeNotationToAddMethod.getChildNodes().item(i).getNodeName())){
+				if(isLocationToAddMethodInNotationFile(nodeNotationToAddMethod, i)){
+					return (Element) nodeNotationToAddMethod.getChildNodes().item(i);
+				}
+			}
+		}
+		return null; //TODO remover NULL
+	}
+
+
+	private boolean isLocationToAddMethodInNotationFile(Node nodeNotationToAddMethod, int i) {
+		return nodeNotationToAddMethod.getChildNodes().item(i).getAttributes().getNamedItem("type").getNodeValue().equals(LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE);
+	}
 }
