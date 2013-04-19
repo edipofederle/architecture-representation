@@ -1,11 +1,15 @@
 package mestrado.arquitetura.parser.method;
-
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
+ 
 public class Types {
-
+ 
 	public interface Type {
 		String getName();
 	}
-
+ 
 	/*
 	 * Primitive Representations
 	 */
@@ -49,13 +53,13 @@ public class Types {
 			return "long";
 		}
 	};
-
+ 
 	/*
 	 * Wrapper Representations
 	 */
 	public static final Type BOOLEAN_WRAPPER = new Type() {
 		public String getName() {
-			return "java.lang.Boolean";
+			return "Boolean";
 		}
 	};
 	public static final Type BYTE_WRAPPER = new Type() {
@@ -93,7 +97,7 @@ public class Types {
 			return "java.lang.Long";
 		}
 	};
-
+ 
 	/*
 	 * String
 	 */
@@ -102,7 +106,7 @@ public class Types {
 			return "String";
 		}
 	};
-
+ 
 	/*
 	 * Custom Type
 	 */
@@ -112,5 +116,26 @@ public class Types {
 				return customType;
 			}
 		};
+	}
+ 
+	public static boolean isCustomType(String userType) {
+		boolean custom = true;
+		for (Field type : getNativeTypes()) {
+			try {
+				if (type.getName().equalsIgnoreCase(userType)) {
+					custom = false;
+					break;
+				}
+			} catch (Exception e) { /* who cares?? */ } 
+		}
+		return custom;
+	}
+ 
+	private static List<Field> getNativeTypes() {
+		List<Field> staticFields = new ArrayList<Field>();
+		for (Field field : Types.class.getDeclaredFields())
+			if (Modifier.isStatic(field.getModifiers()))
+				staticFields.add(field);
+		return staticFields;
 	}
 }

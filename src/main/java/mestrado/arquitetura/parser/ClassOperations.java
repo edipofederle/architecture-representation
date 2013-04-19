@@ -38,7 +38,7 @@ public class ClassOperations extends XmiHelper {
 
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
-				elementXmiGenerator.generateAttribute(attribute,null);
+				elementXmiGenerator.generateAttribute(attribute, null);
 				idsProperties += attribute.getId() + " ";
 			}
 		});

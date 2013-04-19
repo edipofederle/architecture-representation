@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import junit.framework.Assert;
+import mestrado.arquitetura.exceptions.ClassNotFound;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.ClassOperations;
 import mestrado.arquitetura.parser.DocumentManager;
@@ -380,6 +381,29 @@ public class ModelManagerTest extends TestHelper {
 		
 		assertTrue(modelContainId("addNewMethodToClass", teste.getId()));
 		assertTrue(modelContainId("addNewMethodToClass", xpto.getId()));
+	}
+	
+	
+	@Test
+	public void shouldCreateAAttributeWithCustonType() throws Exception{
+		
+		DocumentManager document = givenADocument("classWithAttrCuston", "simples");
+		ClassOperations classOperations = new ClassOperations(document);
+		
+		classOperations.createClass("MyClass");
+		
+		Attribute xpto = Attribute.create()
+				 .withName("xpto")
+				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
+				 .withType(Types.custom("MyClass"));
+		
+		
+		classOperations.createClass("Foo").withAttribute(xpto);
+		
+		Architecture arch = givenAArchitecture2("classWithAttrCuston");
+		Class klassFoo = arch.findClassByName("Foo");
+		assertNotNull(klassFoo);
+		assertTrue(modelContainId("classWithAttrCuston", xpto.getId()));
 		
 	}
 	

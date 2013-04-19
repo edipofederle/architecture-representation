@@ -7,6 +7,8 @@ import org.w3c.dom.NodeList;
 
 public class XmiHelper {
 	
+	
+	
 	public static Node findByIDInNotationFile(Document docNotaion, String id) {
 		NodeList node = docNotaion.getElementsByTagName("children");
 		for (int i = 0; i < node.getLength(); i++) {
@@ -23,6 +25,18 @@ public class XmiHelper {
 			}
 		}	
 		return null;
+	}
+	
+	
+	public static String findIdByName(String name, Document umlDocument){
+		NodeList node = umlDocument.getElementsByTagName("packagedElement");
+		for (int i = 0; i < node.getLength(); i++) {
+			NamedNodeMap attrs = node.item(i).getAttributes();
+			if(name.equalsIgnoreCase(attrs.getNamedItem("name").getNodeValue())){
+				return node.item(i).getAttributes().getNamedItem("xmi:id").getNodeValue();
+			}
+		}
+		return "";
 	}
 
 	public static Node findByID(Document doc, String id, String tagName) {

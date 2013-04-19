@@ -8,6 +8,7 @@ import mestrado.arquitetura.helpers.UtilResources;
 import mestrado.arquitetura.parser.method.Argument;
 import mestrado.arquitetura.parser.method.Attribute;
 import mestrado.arquitetura.parser.method.Method;
+import mestrado.arquitetura.parser.method.Types;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -244,7 +245,10 @@ public class ElementXmiGenerator extends XmiHelper {
 		ownedAttribute.setAttribute("isUnique", "false");
 		klass.appendChild(ownedAttribute);
 		
-		if(!"".equalsIgnoreCase(attribute.getType())){
+		if(Types.isCustomType(attribute.getType())){
+			String id = findIdByName(attribute.getType(), documentManager.getDocUml());
+			ownedAttribute.setAttribute("type", id);
+		}else{
 			Element typeProperty = documentManager.getDocUml().createElement("type");
 			typeProperty.setAttribute("xmi:type", "uml:PrimitiveType");
 			typeProperty.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#"+attribute.getType());
