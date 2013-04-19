@@ -138,7 +138,6 @@ public class ClassOperations extends XmiHelper {
 				elementXmiGenerator.generateMethod(method, idClass);
 				idsMethods += method.getId() + " ";
 			}
-		
 		});
 		
 		return this;
@@ -147,8 +146,8 @@ public class ClassOperations extends XmiHelper {
 	public void addAttributeToClass(final String idClass, final Attribute attribute) {
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
-				String id = elementXmiGenerator.generateAttribute(attribute, idClass);
-				idsProperties += id + " ";
+				elementXmiGenerator.generateAttribute(attribute, idClass);
+				idsProperties += attribute.getId() + " ";
 			}
 		});
 	}

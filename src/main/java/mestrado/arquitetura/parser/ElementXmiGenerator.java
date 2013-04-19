@@ -110,7 +110,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		}
 	}
 	
-	public String generateAttribute(Attribute attribute, String idClass){
+	public void generateAttribute(Attribute attribute, String idClass){
 		
 		if(idClass != null){
 			this.klass = findByID(documentManager.getDocUml(), idClass, "packagedElement");
@@ -121,11 +121,6 @@ public class ElementXmiGenerator extends XmiHelper {
 			writeOnNotationFile(attribute.getId(), PROPERTY_ID, PROPERTY_TYPE, notationBasicProperty);
 		}
 		
-		
-		
-		
-		
-		return attribute.getId();
 	}
 	
 	
