@@ -97,8 +97,8 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void shouldHaveAClassBarWithOneAttribute() {
 		Class barKlass = (Class) package1.getClasses().get(2);
-		assertEquals("String", barKlass.getAttributes().get(0).getType());
-		assertEquals("name", barKlass.getAttributes().get(0).getName());
+		assertEquals("String", barKlass.getAllAttributes().get(0).getType());
+		assertEquals("name", barKlass.getAllAttributes().get(0).getName());
 	}
 
 	@Test
@@ -123,14 +123,14 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void shouldHaveAEmptyStringTypeWhenNotTypeFoundForAttribute() {
 		Class klassClass2 = (Class) package1.getClasses().get(1);
-		assertEquals("", klassClass2.getAttributes().get(0).getType());
-		assertEquals("age", klassClass2.getAttributes().get(0).getName());
+		assertEquals("", klassClass2.getAllAttributes().get(0).getType());
+		assertEquals("age", klassClass2.getAllAttributes().get(0).getName());
 	}
 
 	@Test
 	public void shouldClass2HaveTwoAttributes() {
 		Class klassClass2 = (Class) package1.getClasses().get(1);
-		assertEquals(2, klassClass2.getAttributes().size());
+		assertEquals(2, klassClass2.getAllAttributes().size());
 	}
 
 	@Test

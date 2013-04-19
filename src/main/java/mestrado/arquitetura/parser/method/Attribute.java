@@ -4,7 +4,7 @@ import mestrado.arquitetura.helpers.UtilResources;
 
 public class Attribute {
 	
-	private static String id;
+	private String id;
 	private String name;
 	private VisibilityKind visibility;
 	private Types type;
@@ -30,8 +30,8 @@ public class Attribute {
 	/**
 	 * @return the visibility
 	 */
-	public VisibilityKind getVisibility() {
-		return visibility;
+	public String getVisibility() {
+		return visibility.getName();
 	}
 	/**
 	 * @param visibility the visibility to set
@@ -53,9 +53,15 @@ public class Attribute {
 	}
 	
 	public static Attribute create() {
-		id = UtilResources.getRandonUUID();
-		return new Attribute();
+		Attribute attr =  new Attribute();
+		attr.setId(UtilResources.getRandonUUID());
+		return attr;
+		
 	}
+	private void setId(String randonUUID) {
+		this.id = randonUUID;
+	}
+
 	public Attribute withName(String name) {
 		this.name = name;
 		return this;

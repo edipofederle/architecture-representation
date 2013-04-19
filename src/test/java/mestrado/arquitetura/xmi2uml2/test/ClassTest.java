@@ -162,13 +162,13 @@ public class ClassTest extends TestHelper{
 		mestrado.arquitetura.representation.Class klass8 = a.findClassByName("Class8");
 		Attribute att = klass.findAttributeByName("name");
 		
-		assertEquals(0, klass8.getAttributes().size());
-		assertEquals(1, klass.getAttributes().size());
+		assertEquals(0, klass8.getAllAttributes().size());
+		assertEquals(1, klass.getAllAttributes().size());
 		
 		klass.moveAttributeToClass(att, klass8 );
 		
-		assertEquals(1, klass8.getAttributes().size());
-		assertEquals(0, klass.getAttributes().size());
+		assertEquals(1, klass8.getAllAttributes().size());
+		assertEquals(0, klass.getAllAttributes().size());
 	}
 	
 	@Test

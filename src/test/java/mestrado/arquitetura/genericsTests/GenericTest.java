@@ -121,8 +121,8 @@ public class GenericTest extends TestHelper {
 	public void testeGenerico() throws Exception{
 		Architecture a = givenAArchitecture("simples");
 		assertNotNull(a);
-		assertEquals(3,a.getAllClasses().size());
-		assertEquals(3, a.getNumberOfElements());
+		assertEquals(1 ,a.getAllClasses().size());
+		assertEquals(1, a.getNumberOfElements());
 	}
 	
 }

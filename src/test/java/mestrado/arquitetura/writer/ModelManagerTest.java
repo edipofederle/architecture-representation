@@ -26,7 +26,6 @@ import mestrado.arquitetura.representation.Method;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 public class ModelManagerTest extends TestHelper {
 	
@@ -81,7 +80,6 @@ public class ModelManagerTest extends TestHelper {
 		String cityId = classOperations.createClass("City").build().get("classId");
 		assertTrue(modelContainId("testeRemover", cityId));
 		classOperations.removeClassById(cityId);
-		doc.saveAndCopy("testeRemover");
 		assertFalse(modelContainId("testeRemover", cityId));
 	}
 	
@@ -96,7 +94,6 @@ public class ModelManagerTest extends TestHelper {
 		
 		assertTrue(modelContainId("teste4", id));
 		classOperations.removeAssociation(id);
-		doc.saveAndCopy("teste4");
 		assertFalse(modelContainId("teste4", id));
 	}
 	
@@ -174,14 +171,13 @@ public class ModelManagerTest extends TestHelper {
 				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 				 .withType(Types.INTEGER);
 		
-		Map<String, String> classInfo = classOperations.createClass("Foo").withAttribute(name).withAttribute(age).build();
+		classOperations.createClass("Foo").withAttribute(name).withAttribute(age).build();
 		
-		String idAttr = classInfo.get("idsProperties").split(" ")[1];
-		assertTrue(modelContainId("testRemoveAttribute", idAttr));
+		assertTrue(modelContainId("testRemoveAttribute", name.getId()));
 		
-		classOperations.removeAttribute(idAttr);
+		classOperations.removeAttribute(name.getId());
 		
-		assertFalse(modelContainId("testRemoveAttribute", idAttr));
+		assertFalse(modelContainId("testRemoveAttribute", name.getId()));
 		
 	}
 	
@@ -214,7 +210,7 @@ public class ModelManagerTest extends TestHelper {
 		Class barKlass = arch.findClassByName("Person");
 		
 		assertNotNull(barKlass);
-		assertThat("Should have 4 methods", barKlass.getAllMethods().size() == 2);
+		assertThat("Should have 2 methods", barKlass.getAllMethods().size() == 2);
 		assertThat("Should have a method called 'foo'", barKlass.findMethodByName("foo").getName().equals("foo"));
 		assertThat("Should have a method called 'teste'", barKlass.findMethodByName("teste").getName().equals("teste"));
 		
@@ -293,29 +289,59 @@ public class ModelManagerTest extends TestHelper {
 								 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 								 .withType(Types.STRING);
 		
-		Map<String, String> classInfo = classOperations.createClass("Person").withMethod(foo).withMethod(teste).withAttribute(xpto).build();
+		classOperations.createClass("Person").withMethod(foo).withMethod(teste).withAttribute(xpto).build();
 		
-		String idMethod = classInfo.get("idsMethods").split(" ")[1];
-		assertTrue(modelContainId("testeRemoveMethod", idMethod));
+		assertTrue(modelContainId("testeRemoveMethod", teste.getId()));
 		
-		classOperations.removeMethod(idMethod);
+		classOperations.removeMethod(teste.getId());
 		
-		assertFalse(modelContainId("testeRemoveMethod", idMethod));
+		assertFalse(modelContainId("testeRemoveMethod", teste.getId()));
 	}
 	
-	@Test @Ignore
-	public void shouldAddNewAttributeTOExistClasse() throws Exception{
+	@Test
+	public void shouldAddNewAttributeToExistClass() throws Exception{
 		DocumentManager document = givenADocument("addNewAttributeToClass", "simples");
 		ClassOperations classOperations = new ClassOperations(document);
 		
-		Architecture arch = givenAArchitecture2("addNewMethodToClass");
+		Architecture arch = givenAArchitecture2("addNewAttributeToClass");
 		assertNotNull(arch);
 		assertEquals(1, arch.getAllClasses().size());
 		
 		String idClass = arch.getAllClasses().get(0).getId();
 		
-		//classOperations.addAttributeToClass(idClass, method);
+		Attribute xpto = Attribute.create()
+				 .withName("xpto")
+				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
+				 .withType(Types.STRING);
 		
+		
+		assertFalse(modelContainId("addNewAttributeToClass", xpto.getId()));
+		classOperations.addAttributeToClass(idClass, xpto);
+		assertTrue(modelContainId("addNewAttributeToClass", xpto.getId()));
+		
+	}
+	
+	@Test
+	public void shouldAddNewPrivateAttributeToExistClass() throws Exception{
+		DocumentManager document = givenADocument("addNewPrivateAttributeToClass", "simples");
+		ClassOperations classOperations = new ClassOperations(document);
+		
+		Architecture arch = givenAArchitecture("simples");
+		assertNotNull(arch);
+		
+		String idClass = arch.getAllClasses().get(0).getId();
+		
+		Attribute xpto = Attribute.create()
+				 .withName("xpto")
+				 .withVisibility(VisibilityKind.PRIVATE_LITERAL)
+				 .withType(Types.STRING);
+		
+		
+		assertFalse(modelContainId("addNewPrivateAttributeToClass", xpto.getId()));
+		classOperations.addAttributeToClass(idClass, xpto);
+		assertTrue(modelContainId("addNewPrivateAttributeToClass", xpto.getId()));
+		Architecture arch2 = givenAArchitecture2("addNewPrivateAttributeToClass");
+		assertEquals("private", arch2.findClassByName("Class1").getAllAttributes().get(0).getVisibility());
 	}
 	
 	@Test

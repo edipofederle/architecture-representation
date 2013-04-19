@@ -54,7 +54,7 @@ public class Class extends Element {
 		this.attributes.add(attr);
 	}
 	
-	public List<Attribute> getAttributes() {
+	public List<Attribute> getAllAttributes() {
 		return attributes;
 	}
 	
@@ -73,13 +73,13 @@ public class Class extends Element {
 
 	public void removeAttribute(Attribute att) {
 		removeIdOfElementFromList(att	.getId());
-		getAttributes().remove(att);
+		getAllAttributes().remove(att);
 	}
 
 	public Attribute findAttributeByName(String name) throws AttributeNotFoundException {
 		String message = "Attribute '" + name + "' not found in class '"+ this.getName() +"'.\n";
 		
-		for(Attribute att : getAttributes())
+		for(Attribute att : getAllAttributes())
 			if (name.equalsIgnoreCase(att.getName()))
 				return att;
 		LOGGER.info(message);
@@ -87,9 +87,9 @@ public class Class extends Element {
 	}
 
 	public void moveAttributeToClass(Attribute att, Class destinationKlass) {
-		if (!getAttributes().contains(att)) return;
+		if (!getAllAttributes().contains(att)) return;
 		removeAttribute(att);
-		destinationKlass.getAttributes().add(att);
+		destinationKlass.getAllAttributes().add(att);
 		att.setNamespace(getArchitecture().getName() + "::" + destinationKlass.getName());
 	}
 	
