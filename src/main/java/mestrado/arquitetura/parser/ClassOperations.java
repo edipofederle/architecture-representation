@@ -9,7 +9,7 @@ import mestrado.arquitetura.parser.method.Method;
 public class ClassOperations extends XmiHelper {
 	
 	
-	private String id;
+	private String idClass;
 	private DocumentManager documentManager;
 	private ElementXmiGenerator elementXmiGenerator;
 	private String idsProperties = new String();
@@ -22,15 +22,10 @@ public class ClassOperations extends XmiHelper {
 	}
 	
 	public ClassOperations createClass(final String className) {
-		this.id = elementXmiGenerator.generateClass(className);
+		this.idClass = elementXmiGenerator.generateClass(className);
 		return this;
 	}
 
-	public String getId(){
-		return this.id;
-	}
-
-	
 	/**
 	 * Adiciona um atributo na classe.<br />
 	 * 
@@ -55,10 +50,9 @@ public class ClassOperations extends XmiHelper {
 	public ClassOperations withMethod(final mestrado.arquitetura.parser.method.Method method) {
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
-				String id = elementXmiGenerator.generateMethod(method, null);
-				idsMethods += id + " ";
+				elementXmiGenerator.generateMethod(method, null);
+				idsMethods += method.getId() + " ";
 			}
-		
 		});
 		
 		return this;
@@ -72,7 +66,7 @@ public class ClassOperations extends XmiHelper {
 	 */
 	public Map<String, String> build() {
 		Map<String, String> createdClassInfos = new HashMap<String, String>();
-		createdClassInfos.put("classId", this.id);
+		createdClassInfos.put("classId", this.idClass);
 		createdClassInfos.put("idsProperties", this.idsProperties);
 		createdClassInfos.put("idsMethods", this.idsMethods);
 		return createdClassInfos;
@@ -122,7 +116,7 @@ public class ClassOperations extends XmiHelper {
 		
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
-				removeClass.removeAttributeeById(idAttributeToRemove, id);
+				removeClass.removeAttributeeById(idAttributeToRemove, idClass);
 			}
 		});
 	}
@@ -132,7 +126,7 @@ public class ClassOperations extends XmiHelper {
 		
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
-				removeClass.removeMethodById(idMethodoToRmove, id);
+				removeClass.removeMethodById(idMethodoToRmove, idClass);
 			}
 		});
 	}
@@ -141,8 +135,8 @@ public class ClassOperations extends XmiHelper {
 	public ClassOperations addMethodToClass(final String idClass, final Method method){
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
-				String id = elementXmiGenerator.generateMethod(method, idClass);
-				idsMethods += id + " ";
+				elementXmiGenerator.generateMethod(method, idClass);
+				idsMethods += method.getId() + " ";
 			}
 		
 		});

@@ -80,7 +80,7 @@ public class ElementXmiGenerator extends XmiHelper {
 	}
 	
 	
-	public String generateMethod(Method method, String idClass){
+	public void generateMethod(Method method, String idClass){
 		final Element ownedOperation = documentManager.getDocUml().createElement("ownedOperation");
 		ownedOperation.setAttribute("name", method.getName());
 		ownedOperation.setAttribute("xmi:id", method.getId());
@@ -108,7 +108,6 @@ public class ElementXmiGenerator extends XmiHelper {
 			klass.appendChild(ownedOperation);
 			writeOnNotationFile(method.getId(), METHOD_ID, METHODO_TYPE, notationBasicOperation);
 		}
-		return method.getId();
 	}
 	
 	public String generateAttribute(Attribute attribute, String idClass){

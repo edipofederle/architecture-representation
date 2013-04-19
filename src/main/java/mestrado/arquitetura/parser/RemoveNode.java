@@ -39,11 +39,9 @@ public class RemoveNode extends XmiHelper {
 	}
 	
 	public void removeAttributeeById(String id, String idClass){
-		
 		try{
 			removeNodeFromUmlFile(id, idClass, "ownedAttribute");
 			removeNodeFromNotationFile(id);
-			
 			LOGGER.info("Attribute with id: " + id + " removed.");
 		}catch (Exception e) {
 			LOGGER.info("Cannot reemove Attribute with id: " + id + ".");
@@ -55,7 +53,6 @@ public class RemoveNode extends XmiHelper {
 		try{
 			removeNodeFromUmlFile(idMethodToRemove, idClass, "ownedOperation");
 			removeNodeFromNotationFile(idMethodToRemove);
-			
 			LOGGER.info("Method with id: " + idMethodToRemove + " removed.");
 		}catch (Exception e) {
 			LOGGER.info("Cannot reemove method with id: " + idMethodToRemove + ".");
@@ -69,9 +66,8 @@ public class RemoveNode extends XmiHelper {
 			NamedNodeMap attributes = umlNOde.item(i).getAttributes();
 			for (int j = 0; j < attributes.getLength(); j++) {
 				String valueAttribute = attributes.item(j).getNodeValue();
-				if (idClass.equalsIgnoreCase(valueAttribute)){
+				if (idClass.equalsIgnoreCase(valueAttribute))
 					umlNOde.item(i).removeChild(element);
-				}
 			}
 		}
 	}
