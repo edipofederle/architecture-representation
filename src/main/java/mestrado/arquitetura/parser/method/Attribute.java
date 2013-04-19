@@ -7,7 +7,7 @@ public class Attribute {
 	private String id;
 	private String name;
 	private VisibilityKind visibility;
-	private Types type;
+	private Types.Type type;
 	/**
 	 * @return the id
 	 */
@@ -48,7 +48,7 @@ public class Attribute {
 	/**
 	 * @param type the type to set
 	 */
-	public void setType(Types type) {
+	public void setType(Types.Type type) {
 		this.type = type;
 	}
 	
@@ -71,7 +71,7 @@ public class Attribute {
 		this.visibility = visibility;
 		return this;
 	}
-	public Attribute withType(Types type) {
+	public Attribute withType(Types.Type type) {
 		this.type = type;
 		return this;
 	}

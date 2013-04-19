@@ -13,10 +13,10 @@ public class MethodTest {
 	public void methodTest(){
 		
 		List<Argument> arguments = new ArrayList<Argument>();
-		arguments.add(new Argument("name", Types.INTEGER));
+		arguments.add(Argument.create("name", Types.INTEGER_WRAPPER));
 		Method foo = Method.create().withName("foo").withArguments(arguments)
 							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
-							 .withReturn(Types.INTEGER)
+							 .withReturn(Types.INTEGER_WRAPPER)
 							 .abstractMethod().build();
 		
 		assertEquals("foo", foo.getName());
@@ -27,7 +27,7 @@ public class MethodTest {
 		
 		Argument arg1 = foo.getArguments().get(0);
 		assertEquals("name", arg1.getName());
-		assertEquals("Integer", arg1.getType());
+		assertEquals("Integer", arg1.getType().getName());
 		
 	}
 	
@@ -35,10 +35,10 @@ public class MethodTest {
 	public void methodTest2(){
 		
 		List<Argument> arguments = new ArrayList<Argument>();
-		arguments.add(new Argument("name", Types.INTEGER));
+		arguments.add(Argument.create("a", Types.INTEGER_WRAPPER));
 		Method foo = Method.create().withName("foo").withArguments(arguments)
 							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
-							 .withReturn(Types.INTEGER)
+							 .withReturn(Types.INTEGER_WRAPPER)
 							 .build();
 		
 		assertEquals("foo", foo.getName());

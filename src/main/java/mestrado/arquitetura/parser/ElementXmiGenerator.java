@@ -76,7 +76,6 @@ public class ElementXmiGenerator extends XmiHelper {
 		});
 		
 		return id;
-		
 	}
 	
 	

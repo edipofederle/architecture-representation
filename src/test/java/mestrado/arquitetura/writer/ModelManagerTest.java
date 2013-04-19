@@ -120,12 +120,12 @@ public class ModelManagerTest extends TestHelper {
 		Attribute age = Attribute.create()
 				 .withName("age")
 				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
-				 .withType(Types.STRING);
+				 .withType(Types.INTEGER_WRAPPER);
 		
 		Attribute id = Attribute.create()
 				 .withName("id")
 				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
-				 .withType(Types.INTEGER);
+				 .withType(Types.INTEGER_WRAPPER);
 		
 		Attribute name = Attribute.create()
 				 .withName("name")
@@ -187,14 +187,14 @@ public class ModelManagerTest extends TestHelper {
 		ClassOperations classOperations = new ClassOperations(document);
 		
 		List<Argument> arguments = new ArrayList<Argument>();
-		arguments.add(new Argument("name", Types.STRING));
+		arguments.add(Argument.create("name", Types.STRING));
 		
 		mestrado.arquitetura.parser.method.Method foo = mestrado.arquitetura.parser.method.Method.create().withName("foo").withArguments(arguments)
 							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 .withReturn(Types.INTEGER).build();
 		
 		List<Argument> argumentsTeste = new ArrayList<Argument>();
-		arguments.add(new Argument("id", Types.INTEGER));
+		arguments.add(Argument.create("name", Types.INTEGER_WRAPPER));
 		
 		mestrado.arquitetura.parser.method.Method teste = mestrado.arquitetura.parser.method.Method.create().withName("teste").withArguments(argumentsTeste)
 							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
@@ -227,8 +227,8 @@ public class ModelManagerTest extends TestHelper {
 		ClassOperations classOperations = new ClassOperations(document);
 		
 		List<Argument> arguments = new ArrayList<Argument>();
-		arguments.add(new Argument("name", Types.STRING));
-		arguments.add(new Argument("age", Types.INTEGER));
+		arguments.add(Argument.create("name", Types.STRING));
+		arguments.add(Argument.create("name", Types.INTEGER_WRAPPER));
 		
 		mestrado.arquitetura.parser.method.Method foo = mestrado.arquitetura.parser.method.Method.create().withName("foo").withArguments(arguments)
 							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
@@ -243,8 +243,8 @@ public class ModelManagerTest extends TestHelper {
 		ClassOperations classOperations = new ClassOperations(document);
 		
 		List<Argument> arguments = new ArrayList<Argument>();
-		arguments.add(new Argument("name", Types.STRING));
-		arguments.add(new Argument("age", Types.INTEGER));
+		arguments.add(Argument.create("name", Types.STRING));
+		arguments.add(Argument.create("name", Types.INTEGER_WRAPPER));
 		
 		mestrado.arquitetura.parser.method.Method bar = mestrado.arquitetura.parser.method.Method.create()
 							 						.withName("bar").withArguments(arguments)
@@ -267,7 +267,7 @@ public class ModelManagerTest extends TestHelper {
 		ClassOperations classOperations = new ClassOperations(document);
 		
 		List<Argument> arguments = new ArrayList<Argument>();
-		arguments.add(new Argument("name", Types.STRING));
+		arguments.add(Argument.create("name", Types.STRING));
 		
 		mestrado.arquitetura.parser.method.Method foo = mestrado.arquitetura.parser.method.Method.create()
 							 						.withName("bar").withArguments(arguments)
@@ -276,7 +276,7 @@ public class ModelManagerTest extends TestHelper {
 							 						.build();
 		
 		List<Argument> arguments2 = new ArrayList<Argument>();
-		arguments.add(new Argument("name", Types.STRING));
+		arguments.add(Argument.create("name", Types.STRING));
 		
 		mestrado.arquitetura.parser.method.Method teste = mestrado.arquitetura.parser.method.Method.create()
 							 						.withName("teste").withArguments(arguments2)
@@ -358,7 +358,7 @@ public class ModelManagerTest extends TestHelper {
 		assertTrue("model should contain class id", modelContainId("addNewMethodToClass", idClass));
 		
 		List<Argument> arguments2 = new ArrayList<Argument>();
-		arguments2.add(new Argument("name", Types.STRING));
+		arguments2.add(Argument.create("name", Types.STRING));
 		
 		mestrado.arquitetura.parser.method.Method teste = mestrado.arquitetura.parser.method.Method.create()
 							 						.withName("teste").withArguments(arguments2)
@@ -367,7 +367,7 @@ public class ModelManagerTest extends TestHelper {
 							 						.build();
 		
 		List<Argument> arguments3 = new ArrayList<Argument>();
-		arguments3.add(new Argument("xyz", Types.INTEGER));
+		arguments3.add(Argument.create("name", Types.INTEGER_WRAPPER));
 		
 		mestrado.arquitetura.parser.method.Method xpto = mestrado.arquitetura.parser.method.Method.create()
 							 						.withName("xpto").withArguments(arguments3)

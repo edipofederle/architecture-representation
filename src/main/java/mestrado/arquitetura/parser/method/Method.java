@@ -13,7 +13,7 @@ public class Method {
 	private VisibilityKind visibility;
 	private String name;
 	private List<Argument> arguments = new ArrayList<Argument>();
-	private Types returnMethod;
+	private Types.Type typeReturn;
 	private boolean isAbstract = false;
 
 	private Method(){}
@@ -30,8 +30,8 @@ public class Method {
 	}
 
 
-	public Method withReturn(Types typeReturn) {
-		this.returnMethod = typeReturn;
+	public Method withReturn(Types.Type typeReturn) {
+		this.typeReturn = typeReturn;
 		return this;
 	}
 	
@@ -79,7 +79,7 @@ public class Method {
 	 * @return the returnMethod
 	 */
 	public String getReturnMethod() {
-		return returnMethod.getName();
+		return typeReturn.getName();
 	}
 
 
