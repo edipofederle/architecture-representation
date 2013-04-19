@@ -183,7 +183,15 @@ public class ArchitectureTest extends TestHelper {
 		String uriToArchitecture = getUrlToModel("dependency");
 		Architecture a = new ArchitectureBuilder().create(uriToArchitecture);
 		assertEquals(5, a.getAllDependencies().size());
-	}	
+	}
+	
+	@Test
+	public void shouldReturnVisibilityForAttribute() throws Exception{
+		String uriToArchitecture =  getUrlToModel("testeCreateClassWithAttribute");
+		Architecture a = new ArchitectureBuilder().create(uriToArchitecture);
+		Class klass = a.findClassByName("Class43");
+		assertEquals("public",klass.findAttributeByName("age").getVisibility());
+	}
 	
 	@Test
 	public void shouldReturnAllDependencyClassPackage() throws Exception{

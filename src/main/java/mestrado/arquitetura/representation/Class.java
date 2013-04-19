@@ -42,13 +42,13 @@ public class Class extends Element {
 		this(architecture, name,  false, VariantType.NONE, false,  UtilResources.createNamespace(getArchitecture().getName(), name), id);
 	}
 
-	public Attribute createAttribute(String name, String type) {
-		String id = UtilResources.getRandonUUID();
-		Attribute a = new Attribute(getArchitecture(), name, type,  getArchitecture().getName()+"::"+this.getName(), id); //Verificar IDs
-		getAttributes().add(a);
-		getArchitecture().getAllIds().add(id);
-		return a;
-	}
+//	public Attribute createAttribute(String name, String type) {
+//		String id = UtilResources.getRandonUUID();
+//		Attribute a = new Attribute(getArchitecture(), name, type,  getArchitecture().getName()+"::"+this.getName(), id); //Verificar IDs
+//		getAttributes().add(a);
+//		getArchitecture().getAllIds().add(id);
+//		return a;
+//	}
 
 	public void setAttribute(Attribute attr){
 		this.attributes.add(attr);

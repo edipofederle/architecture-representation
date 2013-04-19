@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import mestrado.arquitetura.exceptions.NullReferenceFoundException;
 import mestrado.arquitetura.helpers.UtilResources;
+import mestrado.arquitetura.parser.method.Attribute;
 import mestrado.arquitetura.parser.method.Method;
 
 import org.w3c.dom.Document;
@@ -18,6 +19,7 @@ import org.w3c.dom.Node;
 
 public class ClassOperations extends XmiHelper {
 	
+	private static final String SHOW_TYPE_OF_ATTRIBUTE = "7066";
 	private static final String LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE = "7018";
 	private static final String PROPERTY_ID = "3012";
 	private static final String METHOD_ID = "3013";
@@ -164,12 +166,12 @@ public class ClassOperations extends XmiHelper {
 	 * @param attribute - ex: "name:String"
 	 * @return this
 	 */
-	public ClassOperations withAttribute(final String attribute) {
+	public ClassOperations withAttribute(final Attribute attribute) {
 
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
-				String attributeType = getPropertyType(attribute);
-				String name = getAttributeName(attribute);
+				String attributeType = attribute.getType();
+				String name = attribute.getName();
 				String idProperty = writeAttributeIntoUmlFile(attributeType, name);
 				writeOnNotationFile(idProperty, PROPERTY_ID, PROPERTY_TYPE, notationBasicProperty);
 		
@@ -233,7 +235,7 @@ public class ClassOperations extends XmiHelper {
       	details.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
       	details.setAttribute("xmi:id", UtilResources.getRandonUUID());
       	details.setAttribute("key", "CustomAppearance_MaskValue");
-      	details.setAttribute("value", "7050");
+      	details.setAttribute("value", SHOW_TYPE_OF_ATTRIBUTE);
       	eAnnotations.appendChild(details);
       	node.appendChild(eAnnotations);
       	
@@ -256,6 +258,7 @@ public class ClassOperations extends XmiHelper {
 		ownedAttribute.setAttribute("xmi:id", idProperty);
 		ownedAttribute.setAttribute("name", name);
 		ownedAttribute.setAttribute("visibility", "public");
+		ownedAttribute.setAttribute("isUnique", "false");
 		klass.appendChild(ownedAttribute);
 		
 		if(!attributeType.equals("")){

@@ -17,6 +17,7 @@ import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.ClassOperations;
 import mestrado.arquitetura.parser.DocumentManager;
 import mestrado.arquitetura.parser.method.Argument;
+import mestrado.arquitetura.parser.method.Attribute;
 import mestrado.arquitetura.parser.method.Types;
 import mestrado.arquitetura.parser.method.VisibilityKind;
 import mestrado.arquitetura.representation.Architecture;
@@ -25,6 +26,7 @@ import mestrado.arquitetura.representation.Method;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 public class ModelManagerTest extends TestHelper {
 	
@@ -111,24 +113,68 @@ public class ModelManagerTest extends TestHelper {
 	public void shouldCreateAClassWithAttribute() throws Exception{
 		DocumentManager document = givenADocument("testeCreateClassWithAttribute", "simples");
 		ClassOperations classOperations = new ClassOperations(document);
-		Map<String, String> classInfo = classOperations.createClass("Class43").withAttribute("name").withAttribute("age").build();
 		
-		classOperations.createClass("ControllerHome").withAttribute("id").withAttribute("name:String").withAttribute("age:Integer").withAttribute("date:String").withAttribute("isAdmin:Boolean").build();
+		
+		Attribute xpto = Attribute.create()
+				 .withName("xpto")
+				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
+				 .withType(Types.STRING);
+		
+		Attribute age = Attribute.create()
+				 .withName("age")
+				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
+				 .withType(Types.STRING);
+		
+		Attribute id = Attribute.create()
+				 .withName("id")
+				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
+				 .withType(Types.INTEGER);
+		
+		Attribute name = Attribute.create()
+				 .withName("name")
+				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
+				 .withType(Types.STRING);
+		
+		
+		Map<String, String> classInfo = classOperations.createClass("Class43").withAttribute(xpto).withAttribute(age).build();
+		classOperations.createClass("ControllerHome").withAttribute(id).withAttribute(name).build();
+		
 		assertNotNull(classInfo);
 		String[] idsProperty = classInfo.get("idsProperties").split(" ");
 		String idClass = classInfo.get("classId");
 		assertNotNull(idClass);
-		assertThat(idsProperty.length, equalTo(2));
+		assertThat("should contain two attributes", idsProperty.length, equalTo(2));
 		
 		Architecture a = givenAArchitecture2("testeCreateClassWithAttribute");
 		assertContains(a.getAllClasses(), "Class43");
+		
+		Class klass43 = a.findClassByName("Class43");
+		mestrado.arquitetura.representation.Attribute attrXpto = klass43.findAttributeByName("xpto");
+		assertNotNull(attrXpto);
+		assertNotNull(attrXpto.getId());
+		assertEquals("xpto", attrXpto.getName());
+		assertEquals("String", attrXpto.getType());
+		assertEquals("public", attrXpto.getVisibility());
+		
+		
 	}
 	
 	@Test
 	public void shouldRemoveAttributeFromClasse(){
 		DocumentManager document = givenADocument("testRemoveAttribute", "simples");
 		ClassOperations classOperations = new ClassOperations(document);
-		Map<String, String> classInfo = classOperations.createClass("Foo").withAttribute("name").withAttribute("age").build();
+		
+		Attribute name = Attribute.create()
+				 .withName("name")
+				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
+				 .withType(Types.STRING);
+		
+		Attribute age = Attribute.create()
+				 .withName("age")
+				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
+				 .withType(Types.INTEGER);
+		
+		Map<String, String> classInfo = classOperations.createClass("Foo").withAttribute(name).withAttribute(age).build();
 		
 		String idAttr = classInfo.get("idsProperties").split(" ")[1];
 		assertTrue(modelContainId("testRemoveAttribute", idAttr));
@@ -158,8 +204,12 @@ public class ModelManagerTest extends TestHelper {
 							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 .withReturn(Types.INTEGER).build();
 		
+		Attribute name = Attribute.create()
+				 .withName("name")
+				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
+				 .withType(Types.STRING);
 		
-		classOperations.createClass("Person").withMethod(foo).withMethod(teste).withAttribute("name:String").build();
+		classOperations.createClass("Person").withMethod(foo).withMethod(teste).withAttribute(name).build();
 		Architecture arch = givenAArchitecture2("teste4");
 		Class barKlass = arch.findClassByName("Person");
 		
@@ -238,7 +288,12 @@ public class ModelManagerTest extends TestHelper {
 							 						.withReturn(Types.INTEGER)
 							 						.build();
 		
-		Map<String, String> classInfo = classOperations.createClass("Person").withMethod(foo).withMethod(teste).withAttribute("name:String").build();
+		Attribute xpto = Attribute.create()
+								 .withName("xpto")
+								 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
+								 .withType(Types.STRING);
+		
+		Map<String, String> classInfo = classOperations.createClass("Person").withMethod(foo).withMethod(teste).withAttribute(xpto).build();
 		
 		String idMethod = classInfo.get("idsMethods").split(" ")[1];
 		assertTrue(modelContainId("testeRemoveMethod", idMethod));
@@ -246,6 +301,21 @@ public class ModelManagerTest extends TestHelper {
 		classOperations.removeMethod(idMethod);
 		
 		assertFalse(modelContainId("testeRemoveMethod", idMethod));
+	}
+	
+	@Test @Ignore
+	public void shouldAddNewAttributeTOExistClasse() throws Exception{
+		DocumentManager document = givenADocument("addNewAttributeToClass", "simples");
+		ClassOperations classOperations = new ClassOperations(document);
+		
+		Architecture arch = givenAArchitecture2("addNewMethodToClass");
+		assertNotNull(arch);
+		assertEquals(1, arch.getAllClasses().size());
+		
+		String idClass = arch.getAllClasses().get(0).getId();
+		
+		//classOperations.addAttributeToClass(idClass, method);
+		
 	}
 	
 	@Test
@@ -270,9 +340,20 @@ public class ModelManagerTest extends TestHelper {
 							 						.withReturn(Types.INTEGER)
 							 						.build();
 		
+		List<Argument> arguments3 = new ArrayList<Argument>();
+		arguments3.add(new Argument("xyz", Types.INTEGER));
+		
+		mestrado.arquitetura.parser.method.Method xpto = mestrado.arquitetura.parser.method.Method.create()
+							 						.withName("xpto").withArguments(arguments3)
+							 						.withVisibility(VisibilityKind.PRIVATE_LITERAL)
+							 						.withReturn(Types.LONG)
+							 						.build();
+		
 		classOperations.addMethodToClass(idClass, teste);
+		classOperations.addMethodToClass(idClass, xpto);
 		
 		assertTrue(modelContainId("addNewMethodToClass", teste.getId()));
+		assertTrue(modelContainId("addNewMethodToClass", xpto.getId()));
 		
 	}
 	
