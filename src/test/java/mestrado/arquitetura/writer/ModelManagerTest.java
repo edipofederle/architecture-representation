@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import junit.framework.Assert;
-import mestrado.arquitetura.exceptions.ClassNotFound;
+import mestrado.arquitetura.exceptions.CustonTypeNotFound;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.ClassOperations;
 import mestrado.arquitetura.parser.DocumentManager;
@@ -85,7 +85,7 @@ public class ModelManagerTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldRemoveAssociation(){
+	public void shouldRemoveAssociation() throws CustonTypeNotFound{
 		DocumentManager doc = givenADocument("teste4", "simples");
 		ClassOperations classOperations = new ClassOperations(doc);
 		Map<String, String> idPerson = classOperations.createClass("Person").build();
@@ -158,7 +158,7 @@ public class ModelManagerTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldRemoveAttributeFromClasse(){
+	public void shouldRemoveAttributeFromClasse() throws CustonTypeNotFound{
 		DocumentManager document = givenADocument("testRemoveAttribute", "simples");
 		ClassOperations classOperations = new ClassOperations(document);
 		
@@ -170,7 +170,7 @@ public class ModelManagerTest extends TestHelper {
 		Attribute age = Attribute.create()
 				 .withName("age")
 				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
-				 .withType(Types.INTEGER);
+				 .withType(Types.INTEGER_WRAPPER);
 		
 		classOperations.createClass("Foo").withAttribute(name).withAttribute(age).build();
 		
@@ -223,7 +223,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	
 	@Test
-	public void testeMethod(){
+	public void testeMethod() throws CustonTypeNotFound{
 		DocumentManager document = givenADocument("teste666", "simples");
 		ClassOperations classOperations = new ClassOperations(document);
 		
@@ -263,7 +263,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	
 	@Test
-	public void shouldRemoveMethodFromClass(){
+	public void shouldRemoveMethodFromClass() throws CustonTypeNotFound{
 		DocumentManager document = givenADocument("testeRemoveMethod", "simples");
 		ClassOperations classOperations = new ClassOperations(document);
 		
@@ -404,7 +404,20 @@ public class ModelManagerTest extends TestHelper {
 		Class klassFoo = arch.findClassByName("Foo");
 		assertNotNull(klassFoo);
 		assertTrue(modelContainId("classWithAttrCuston", xpto.getId()));
+	}
+	
+	@Test(expected=CustonTypeNotFound.class)
+	public void shouldNotCreateAAttributeWithCustonTypeIfTypeDontExist() throws CustonTypeNotFound{
+		DocumentManager document = givenADocument("classWithAttrCuston", "simples");
+		ClassOperations classOperations = new ClassOperations(document);
 		
+		Attribute xpto = Attribute.create()
+				 .withName("xpto")
+				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
+				 .withType(Types.custom("MyClass"));
+		
+		
+		classOperations.createClass("Foo").withAttribute(xpto);
 	}
 	
 	@Test

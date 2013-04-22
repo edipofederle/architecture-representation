@@ -3,6 +3,7 @@ package mestrado.arquitetura.parser;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import mestrado.arquitetura.exceptions.CustonTypeNotFound;
 import mestrado.arquitetura.exceptions.NullReferenceFoundException;
 import mestrado.arquitetura.helpers.UtilResources;
 import mestrado.arquitetura.parser.method.Argument;
@@ -57,7 +58,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		this.notatioChildren = documentManager.getDocNotation().getElementsByTagName("notation:Diagram").item(0);
 	}
 
-	public String generateClass(final String klassName) {
+	public String generateClass(final String klassName) throws CustonTypeNotFound {
 		
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
@@ -110,7 +111,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		}
 	}
 	
-	public void generateAttribute(Attribute attribute, String idClass){
+	public void generateAttribute(Attribute attribute, String idClass) throws CustonTypeNotFound{
 		
 		if(idClass != null){
 			this.klass = findByID(documentManager.getDocUml(), idClass, "packagedElement");
@@ -237,7 +238,7 @@ public class ElementXmiGenerator extends XmiHelper {
 	    return element;
 	}
 	
-	private String writeAttributeIntoUmlFile(Attribute attribute) {
+	private String writeAttributeIntoUmlFile(Attribute attribute) throws CustonTypeNotFound {
 		Element ownedAttribute = documentManager.getDocUml().createElement("ownedAttribute");
 		ownedAttribute.setAttribute("xmi:id", attribute.getId());
 		ownedAttribute.setAttribute("name", attribute.getName());
@@ -246,7 +247,10 @@ public class ElementXmiGenerator extends XmiHelper {
 		klass.appendChild(ownedAttribute);
 		
 		if(Types.isCustomType(attribute.getType())){
+			
 			String id = findIdByName(attribute.getType(), documentManager.getDocUml());
+			if ("".equals(id))
+				throw new CustonTypeNotFound("Type " + attribute.getType() + " not found");
 			ownedAttribute.setAttribute("type", id);
 		}else{
 			Element typeProperty = documentManager.getDocUml().createElement("type");
