@@ -451,6 +451,7 @@ public class ModelManagerTest extends TestHelper {
 		Architecture arch = givenAArchitecture2("testePacote");
 		
 		assertThat("Should have one package", arch.getAllPackages().size() == 1);
+		assertEquals("meuPacote", arch.getAllPackages().get(0).getName());
 	}
 	
 	

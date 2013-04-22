@@ -11,13 +11,16 @@ public class PackageOperation {
 	
 	private DocumentManager documentManager;
 	private Node umlModelChild;
-	private Object notatioChildren;
+	private Node notatioChildren;
 	private Element element;
+	private ClassNotation notation;
+	
 
 	public PackageOperation(DocumentManager documentManager) {
 		this.documentManager = documentManager;
 		this.umlModelChild = documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
 		this.notatioChildren = documentManager.getDocNotation().getElementsByTagName("notation:Diagram").item(0);
+		notation = new ClassNotation(this.documentManager, notatioChildren);
 	}
 	
 	
@@ -30,7 +33,10 @@ public class PackageOperation {
 				element.setAttribute("xmi:id", id);
 				element.setAttribute("name", packageName);
 				umlModelChild.appendChild(element);
+				
+				notation.createXmiForPackageInNotationFile(id);
 			}
+		
 		});
 	}
 

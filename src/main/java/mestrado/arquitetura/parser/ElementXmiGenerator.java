@@ -1,6 +1,5 @@
 package mestrado.arquitetura.parser;
 
-import java.util.Random;
 import java.util.logging.Logger;
 
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
@@ -11,7 +10,6 @@ import mestrado.arquitetura.parser.method.Attribute;
 import mestrado.arquitetura.parser.method.Method;
 import mestrado.arquitetura.parser.method.Types;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -83,16 +81,16 @@ public class ElementXmiGenerator extends XmiHelper {
 		ownedOperation.setAttribute("isAbstract", method.isAbstract());
 
 		for (Argument arg : method.getArguments()) {
-				Element ownedParameter  = documentManager.getDocUml().createElement("ownedParameter");
-				ownedParameter.setAttribute("xmi:id", UtilResources.getRandonUUID());
-				ownedParameter.setAttribute("name", arg.getName());
-				ownedParameter.setAttribute("isUnique", "false");
-				
-				Element typeOperation = documentManager.getDocUml().createElement("type");
-				typeOperation.setAttribute("xmi:type", "uml:PrimitiveType");
-				typeOperation.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#"+arg.getType().getName());
-				ownedParameter.appendChild(typeOperation);
-				ownedOperation.appendChild(ownedParameter);
+			Element ownedParameter  = documentManager.getDocUml().createElement("ownedParameter");
+			ownedParameter.setAttribute("xmi:id", UtilResources.getRandonUUID());
+			ownedParameter.setAttribute("name", arg.getName());
+			ownedParameter.setAttribute("isUnique", "false");
+			
+			Element typeOperation = documentManager.getDocUml().createElement("type");
+			typeOperation.setAttribute("xmi:type", "uml:PrimitiveType");
+			typeOperation.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#"+arg.getType().getName());
+			ownedParameter.appendChild(typeOperation);
+			ownedOperation.appendChild(ownedParameter);
 		}
 		
 
@@ -118,8 +116,8 @@ public class ElementXmiGenerator extends XmiHelper {
 	}
 	
 	
-	private void writeOnNotationFile(String idProperty, String idType, String type, Element appendTo) {
-		notation.createNodeForElementType(idProperty, idType, type, appendTo);
+	private void writeOnNotationFile(String idProperty, String typeId, String typeElement, Element appendTo) {
+		notation.createNodeForElementType(idProperty, typeId, typeElement, appendTo);
 	}
 	
 	private String writeAttributeIntoUmlFile(Attribute attribute) throws CustonTypeNotFound {
@@ -131,10 +129,8 @@ public class ElementXmiGenerator extends XmiHelper {
 		klass.appendChild(ownedAttribute);
 		
 		if(Types.isCustomType(attribute.getType())){
-			
 			String id = findIdByName(attribute.getType(), documentManager.getDocUml());
-			if ("".equals(id))
-				throw new CustonTypeNotFound("Type " + attribute.getType() + " not found");
+			if ("".equals(id))	throw new CustonTypeNotFound("Type " + attribute.getType() + " not found");
 			ownedAttribute.setAttribute("type", id);
 		}else{
 			Element typeProperty = documentManager.getDocUml().createElement("type");
@@ -172,9 +168,8 @@ public class ElementXmiGenerator extends XmiHelper {
 		Node nodeNotationToAddMethod = findByIDInNotationFile(documentManager.getDocNotation(), idClass);
 		for(int i =0; i <  nodeNotationToAddMethod.getChildNodes().getLength(); i++){
 			if("children".equalsIgnoreCase(nodeNotationToAddMethod.getChildNodes().item(i).getNodeName())){
-				if(isLocationToAddMethodInNotationFile(nodeNotationToAddMethod, i, location)){
+				if(isLocationToAddMethodInNotationFile(nodeNotationToAddMethod, i, location))
 					return (Element) nodeNotationToAddMethod.getChildNodes().item(i);
-				}
 			}
 		}
 		return null; //TODO remover NULL
