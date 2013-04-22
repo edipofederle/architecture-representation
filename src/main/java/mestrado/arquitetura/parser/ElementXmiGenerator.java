@@ -31,22 +31,16 @@ public class ElementXmiGenerator extends XmiHelper {
 	private static final String METHODO_TYPE = "uml:Operation";
 	private static final String LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE = "7018";
 	private static final String LOCATION_TO_ADD_ATTR_IN_NOTATION_FILE = "7017";
-	private static final String SHOW_TYPE_OF_ATTRIBUTE = "7066";
-	private String xmitype = "notation:Shape";
 	private String id;
-	private final String type = "2008";
-	private final String fontName = "Lucida Grande";
-	private final String fontHeight = "11";
-	private final String lineColor = "0";
 	private Node notatioChildren;
 	private Node umlModelChild;
 	private Element notationBasicOperation;
-	private Element notationBasicProperty;
 
 	private Node klass;
 	private static final String PROPERTY_ID = "3012";
 	private static final String PROPERTY_TYPE = "uml:Property";
 	
+	private ClassNotation notation;
 	/**
 	 * documentUml é o arquivo .uml
 	 * 
@@ -56,6 +50,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		this.documentManager = documentManager;
 		this.umlModelChild = documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
 		this.notatioChildren = documentManager.getDocNotation().getElementsByTagName("notation:Diagram").item(0);
+		notation = new ClassNotation(this.documentManager, notatioChildren);
 	}
 
 	public String generateClass(final String klassName) throws CustonTypeNotFound {
@@ -69,7 +64,7 @@ public class ElementXmiGenerator extends XmiHelper {
 				element.setAttribute("name", klassName);
 				klass = element;
 				try {
-					createXmiForClassInNotationFile();
+					notation.createXmiForClassInNotationFile(id);
 					umlModelChild.appendChild(element);
 				} catch (NullReferenceFoundException e) {
 					LOGGER.severe("A null reference has been found. The process will be interrupted");
@@ -95,7 +90,7 @@ public class ElementXmiGenerator extends XmiHelper {
 				
 				Element typeOperation = documentManager.getDocUml().createElement("type");
 				typeOperation.setAttribute("xmi:type", "uml:PrimitiveType");
-				typeOperation.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#"+arg.getType());
+				typeOperation.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#"+arg.getType().getName());
 				ownedParameter.appendChild(typeOperation);
 				ownedOperation.appendChild(ownedParameter);
 		}
@@ -112,130 +107,19 @@ public class ElementXmiGenerator extends XmiHelper {
 	}
 	
 	public void generateAttribute(Attribute attribute, String idClass) throws CustonTypeNotFound{
-		
 		if(idClass != null){
 			this.klass = findByID(documentManager.getDocUml(), idClass, "packagedElement");
 			writeAttributeIntoUmlFile(attribute);
 			writeOnNotationFile(attribute.getId(), PROPERTY_ID, PROPERTY_TYPE, getNodeToAddMethodInNotationFile(idClass, LOCATION_TO_ADD_ATTR_IN_NOTATION_FILE));
 		}else{
 			writeAttributeIntoUmlFile(attribute);
-			writeOnNotationFile(attribute.getId(), PROPERTY_ID, PROPERTY_TYPE, notationBasicProperty);
+			writeOnNotationFile(attribute.getId(), PROPERTY_ID, PROPERTY_TYPE, null);
 		}
-		
 	}
 	
 	
 	private void writeOnNotationFile(String idProperty, String idType, String type, Element appendTo) {
-		createNodeForElementType(idProperty, idType, type, appendTo);
-	}
-	
-
-	private void createNodeForElementType(String idProperty, String type, String typeElement, Element appendTo) {
-		Element node = documentManager.getDocNotation().createElement("children");
-		
-		node.setAttribute("xmi:type", this.xmitype);
-		node.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		node.setAttribute("type", type);
-		node.setAttribute("fontName", this.fontName);
-		node.setAttribute("fontHeight", this.fontHeight);
-		node.setAttribute("lineColor", this.lineColor);
-		
-      	Element eAnnotations = documentManager.getDocNotation().createElement("eAnnotations");
-      	eAnnotations.setAttribute("xmi:type", "ecore:EAnnotation");
-      	eAnnotations.setAttribute("xmi:id", UtilResources.getRandonUUID());
-      	eAnnotations.setAttribute("source", "CustomAppearance_Annotation");
-      	
-      	Element details = documentManager.getDocNotation().createElement("details");
-      	details.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
-      	details.setAttribute("xmi:id", UtilResources.getRandonUUID());
-      	details.setAttribute("key", "CustomAppearance_MaskValue");
-      	details.setAttribute("value", SHOW_TYPE_OF_ATTRIBUTE);
-      	eAnnotations.appendChild(details);
-      	node.appendChild(eAnnotations);
-      	
-		Element element = documentManager.getDocNotation().createElement("element");
-		element.setAttribute("xmi:type", typeElement);
-		element.setAttribute("href", documentManager.getModelName()+"#"+ idProperty);
-		node.appendChild(element);
-		
-		Element layoutConstraint = documentManager.getDocNotation().createElement("layoutConstraint");
-		layoutConstraint.setAttribute("xmi:type", "notation:Location");
-		layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		node.appendChild(layoutConstraint);
-		appendTo.appendChild(node);
-	}
-
-	
-	private void createXmiForClassInNotationFile() throws NullReferenceFoundException {
-		
-		Element node = documentManager.getDocNotation().createElement("children");
-		node.setAttribute("xmi:type", this.xmitype);
-		node.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		node.setAttribute("type", this.type);
-		node.setAttribute("fontName", this.fontName);
-		node.setAttribute("fontHeight", this.fontHeight);
-		node.setAttribute("lineColor", this.lineColor);
-		
-		Element notationDecoratioNode = documentManager.getDocNotation().createElement("children");
-		notationDecoratioNode.setAttribute("xmi:type", "notation:DecorationNode");
-		notationDecoratioNode.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		notationDecoratioNode.setAttribute("type", "5029");
-		node.appendChild(notationDecoratioNode);
-		
-	    Element klass = documentManager.getDocNotation().createElement("element");
-	    
-	    if (this.id == null){
-	    	throw new NullReferenceFoundException("A null reference found when try access attribute id. Executation will be interrupted.");
-	    }
-	    
-	   	klass.setAttribute("href", documentManager.getModelName()+".uml#"+ this.id);
-	    	
-	    klass.setAttribute("xmi:type", "uml:Class");
-		
-	    this.notationBasicProperty = createChildrenComportament(documentManager.getDocNotation(), node, LOCATION_TO_ADD_ATTR_IN_NOTATION_FILE); //onde vai as props
-	    this.notationBasicOperation = createChildrenComportament(documentManager.getDocNotation(), node, LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE); // onde vai os metodos
-
-	    node.appendChild(klass);
-		
-	    notatioChildren.appendChild(node);
-	    
-	}
-
-	private Element createChildrenComportament(Document doc, Element node, String type) {
-		Element element = doc.createElement("children");
-		element.setAttribute("xmi:type", "notation:BasicCompartment");
-		element.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		element.setAttribute("type", type);
-		node.appendChild(element);
-		
-		Element notationTitleStyle = doc.createElement("styles");
-		notationTitleStyle.setAttribute("xmi:type", "notation:TitleStyle");
-		notationTitleStyle.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		element.appendChild(notationTitleStyle);
-		
-		Element notationSortingStyle = doc.createElement("styles");
-		notationSortingStyle.setAttribute("xmi:type", "notation:SortingStyle");
-		notationSortingStyle.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		element.appendChild(notationSortingStyle);
-		
-		Element notationFilteringStyle = doc.createElement("styles");
-		notationFilteringStyle.setAttribute("xmi:type", "notation:FilteringStyle");
-		notationFilteringStyle.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		element.appendChild(notationFilteringStyle);
-		
-		Element notationBounds = doc.createElement("layoutConstraint");
-		notationBounds.setAttribute("xmi:type", "notation:Bounds");
-		notationBounds.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		element.appendChild(notationBounds);
-		
-	    Element layoutConstraint = doc.createElement("layoutConstraint");
-	    layoutConstraint.setAttribute("x", randomNum());
-	    layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
-	    layoutConstraint.setAttribute("xmi:type", "notation:Bounds");
-	    layoutConstraint.setAttribute("y", randomNum());
-	    node.appendChild(layoutConstraint);
-	    
-	    return element;
+		notation.createNodeForElementType(idProperty, idType, type, appendTo);
 	}
 	
 	private String writeAttributeIntoUmlFile(Attribute attribute) throws CustonTypeNotFound {
@@ -283,12 +167,6 @@ public class ElementXmiGenerator extends XmiHelper {
 	}
 	
 	
-	private String randomNum(){
-		Random rn = new Random();
-		int range = 1000 - 0 + 1;
-		int randomNum =  rn.nextInt(range) + 0;
-		return Integer.toString(randomNum);
-	}
 	
 	private Element getNodeToAddMethodInNotationFile(final String idClass, String location) {
 		Node nodeNotationToAddMethod = findByIDInNotationFile(documentManager.getDocNotation(), idClass);

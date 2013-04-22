@@ -17,6 +17,7 @@ import mestrado.arquitetura.exceptions.CustonTypeNotFound;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.ClassOperations;
 import mestrado.arquitetura.parser.DocumentManager;
+import mestrado.arquitetura.parser.PackageOperation;
 import mestrado.arquitetura.parser.method.Argument;
 import mestrado.arquitetura.parser.method.Attribute;
 import mestrado.arquitetura.parser.method.Types;
@@ -368,7 +369,7 @@ public class ModelManagerTest extends TestHelper {
 							 						.build();
 		
 		List<Argument> arguments3 = new ArrayList<Argument>();
-		arguments3.add(Argument.create("name", Types.INTEGER_WRAPPER));
+		arguments3.add(Argument.create("age", Types.INTEGER_WRAPPER));
 		
 		mestrado.arquitetura.parser.method.Method xpto = mestrado.arquitetura.parser.method.Method.create()
 							 						.withName("xpto").withArguments(arguments3)
@@ -436,4 +437,22 @@ public class ModelManagerTest extends TestHelper {
 		
 		return documentManager;
 	}
+	
+	
+	/* Pacote Testes */
+	
+	@Test
+	public void shouldCreateAPackage() throws Exception{
+		DocumentManager document = givenADocument("testePacote", "simples");
+		PackageOperation packageOperations = new PackageOperation(document);
+		
+		packageOperations.createPacakge("meuPacote");
+		
+		Architecture arch = givenAArchitecture2("testePacote");
+		
+		assertThat("Should have one package", arch.getAllPackages().size() == 1);
+	}
+	
+	
+	
 }

@@ -1,5 +1,7 @@
 package mestrado.arquitetura.parser;
 
+import java.util.Random;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -54,6 +56,13 @@ public class XmiHelper {
 	
 	public static String getIdForNode(Node node) {
 		return node.getAttributes().getNamedItem("xmi:id").getNodeValue();
+	}
+	
+	public String randomNum(){
+		Random rn = new Random();
+		int range = 1000 - 0 + 1;
+		int randomNum =  rn.nextInt(range) + 0;
+		return Integer.toString(randomNum);
 	}
 
 
