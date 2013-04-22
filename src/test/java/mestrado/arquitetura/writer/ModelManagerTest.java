@@ -440,7 +440,6 @@ public class ModelManagerTest extends TestHelper {
 	
 	
 	/* Pacote Testes */
-	
 	@Test
 	public void shouldCreateAPackage() throws Exception{
 		DocumentManager document = givenADocument("testePacote", "simples");
@@ -454,6 +453,13 @@ public class ModelManagerTest extends TestHelper {
 		assertEquals("meuPacote", arch.getAllPackages().get(0).getName());
 	}
 	
-	
-	
+	@Test
+	public void shouldCreateAClassInsideAPackage() throws CustonTypeNotFound{
+		DocumentManager document = givenADocument("testePacoteClass", "simples");
+		PackageOperation packageOperations = new PackageOperation(document);
+		
+		packageOperations.createPacakge("Bar").withClass("Foo").withClass("Teste");
+
+	}
+		
 }

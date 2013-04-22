@@ -14,7 +14,7 @@ public class PackageOperation {
 	private Node notatioChildren;
 	private Element element;
 	private ClassNotation notation;
-	
+	private String id;
 
 	public PackageOperation(DocumentManager documentManager) {
 		this.documentManager = documentManager;
@@ -24,10 +24,11 @@ public class PackageOperation {
 	}
 	
 	
-	public void createPacakge(final String packageName) throws CustonTypeNotFound{
+	public PackageOperation createPacakge(final String packageName) throws CustonTypeNotFound{
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+
 			public void useTransformation() {
-				String id = UtilResources.getRandonUUID();
+				id = UtilResources.getRandonUUID();
 				element = documentManager.getDocUml().createElement("packagedElement");
 				element.setAttribute("xmi:type", "uml:Package");
 				element.setAttribute("xmi:id", id);
@@ -38,6 +39,17 @@ public class PackageOperation {
 			}
 		
 		});
+		
+		return this;
+	}
+
+
+	public PackageOperation withClass(String klass) throws CustonTypeNotFound {
+		ElementXmiGenerator elementXmi = new ElementXmiGenerator(documentManager);
+		elementXmi.generateClass(klass, this.id);
+		
+		return this;
+		
 	}
 
 }

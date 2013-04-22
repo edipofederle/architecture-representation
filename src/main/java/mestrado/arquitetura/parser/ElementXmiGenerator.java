@@ -29,10 +29,11 @@ public class ElementXmiGenerator extends XmiHelper {
 	private static final String METHODO_TYPE = "uml:Operation";
 	private static final String LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE = "7018";
 	private static final String LOCATION_TO_ADD_ATTR_IN_NOTATION_FILE = "7017";
-	private String id;
+	private String packageId;
 	private Node notatioChildren;
 	private Node umlModelChild;
 	private Element notationBasicOperation;
+	private String id;
 
 	private Node klass;
 	private static final String PROPERTY_ID = "3012";
@@ -51,9 +52,10 @@ public class ElementXmiGenerator extends XmiHelper {
 		notation = new ClassNotation(this.documentManager, notatioChildren);
 	}
 
-	public String generateClass(final String klassName) throws CustonTypeNotFound {
+	public String generateClass(final String klassName, final String idPackage) throws CustonTypeNotFound {
 		
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+
 			public void useTransformation() {
 				id = UtilResources.getRandonUUID();
 				element = documentManager.getDocUml().createElement("packagedElement");
@@ -62,8 +64,17 @@ public class ElementXmiGenerator extends XmiHelper {
 				element.setAttribute("name", klassName);
 				klass = element;
 				try {
-					notation.createXmiForClassInNotationFile(id);
-					umlModelChild.appendChild(element);
+					
+					notation.createXmiForClassInNotationFile(id, idPackage);
+					
+					if((idPackage != null) && !("".equals(idPackage))){
+						//Busca pacote para adicionar a class;
+						Node packageToAppend = findByID(documentManager.getDocUml(), idPackage, "packagedElement");
+						packageToAppend.appendChild(element);
+					}else{
+						umlModelChild.appendChild(element);
+					}
+				
 				} catch (NullReferenceFoundException e) {
 					LOGGER.severe("A null reference has been found. The process will be interrupted");
 				}

@@ -10,6 +10,7 @@ import mestrado.arquitetura.parser.method.Method;
 public class ClassOperations extends XmiHelper {
 	
 	
+	private static final String WITHOUT_PACKAGE = ""; // Classe sem pacote
 	private String idClass;
 	private DocumentManager documentManager;
 	private ElementXmiGenerator elementXmiGenerator;
@@ -24,7 +25,7 @@ public class ClassOperations extends XmiHelper {
 	
 	public ClassOperations createClass(final String className) {
 		try {
-			this.idClass = elementXmiGenerator.generateClass(className);
+			this.idClass = elementXmiGenerator.generateClass(className, WITHOUT_PACKAGE);
 		} catch (CustonTypeNotFound e) {
 			e.printStackTrace();
 		}
@@ -162,5 +163,9 @@ public class ClassOperations extends XmiHelper {
 				}
 			}
 		});
+	}
+
+	public void insidePackage(String string) {
+		
 	}
 }

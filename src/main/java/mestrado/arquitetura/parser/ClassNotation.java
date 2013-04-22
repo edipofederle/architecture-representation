@@ -79,7 +79,7 @@ public class ClassNotation extends XmiHelper {
 			notationBasicProperty.appendChild(node);
 	}
 	
-	public void createXmiForClassInNotationFile(String id) throws NullReferenceFoundException {
+	public void createXmiForClassInNotationFile(String id, String idPackage) throws NullReferenceFoundException {
 		
 		Element node = documentManager.getDocNotation().createElement("children");
 		node.setAttribute("xmi:type", this.xmitype);
@@ -109,8 +109,13 @@ public class ClassNotation extends XmiHelper {
 	    this.notationBasicOperation = createChildrenComportament(documentManager.getDocNotation(), node, LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE); // onde vai os metodos
 
 	    node.appendChild(klass);
-		
-	    notatioChildren.appendChild(node);
+	    
+	    if((idPackage != null) && !(idPackage.isEmpty())){
+	    	Node nodeToAppend = findByIDInNotationFile(documentManager.getDocNotation(), idPackage);
+	    	nodeToAppend.appendChild(node);
+	    }else{
+	    	notatioChildren.appendChild(node);
+	    }
 	    
 	}
 	
@@ -233,6 +238,8 @@ public class ClassNotation extends XmiHelper {
 	    layoutConstraint2.setAttribute("xmi:id", UtilResources.getRandonUUID());
 	    layoutConstraint2.setAttribute("xmi:type", "notation:Bounds");
 	    layoutConstraint2.setAttribute("y", randomNum());
+	    layoutConstraint2.setAttribute("width", "350"); //TODO ver uma maneira de criar conforme necessidade	
+	    layoutConstraint2.setAttribute("height", "350"); //TODO ver uma maneira de criar conforme necessidade	
 	    nodeChildren.appendChild(layoutConstraint2);
 	    
 	    notatioChildren.appendChild(nodeChildren);
