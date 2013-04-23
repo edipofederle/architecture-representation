@@ -130,13 +130,10 @@ public class Architecture {
 
 		for (Element element : elements)
 			if (element.getTypeElement().equals("interface"))
-			//	if (((Class) element).isInterface())
-					klasses.add(((Interface) element));
+				klasses.add(((Interface) element));
 
-		if (klasses.isEmpty())
-			return Collections.emptyList();
+		if (klasses.isEmpty())  return Collections.emptyList();
 		return klasses;
-
 	}
 	
 	public List<Relationship> getAllRelationships(){
@@ -144,52 +141,58 @@ public class Architecture {
 	}
 
 	public List<GeneralizationRelationship> getAllGeneralizations() {
-		Predicate<Relationship> isAuthorized = new Predicate<Relationship>() {
+		Predicate<Relationship> isValid = new Predicate<Relationship>() {
 			public boolean apply(Relationship parent) {
 				return GeneralizationRelationship.class.isInstance(parent);
 			}
 		};
 
-		List<GeneralizationRelationship> authorizedUsers = UtilResources
-				.filter(relationships, isAuthorized);
-		return authorizedUsers;
+		List<GeneralizationRelationship> generalizations = UtilResources
+				.filter(relationships, isValid);
+		
+		if (generalizations.isEmpty())  return Collections.emptyList();
+		return generalizations;
 	}
 
 	public List<AssociationRelationship> getAllAssociations() {
-		Predicate<Relationship> isAuthorized = new Predicate<Relationship>() {
+		Predicate<Relationship> isValid = new Predicate<Relationship>() {
 			public boolean apply(Relationship parent) {
 				return AssociationRelationship.class.isInstance(parent);
 			}
 		};
 
-		List<AssociationRelationship> authorizedUsers = UtilResources.filter(
-				relationships, isAuthorized);
-		return authorizedUsers;
+		List<AssociationRelationship> allAssociations = UtilResources.filter(
+				relationships, isValid);
+		
+		if (allAssociations.isEmpty())  return Collections.emptyList();
+		return allAssociations;
 
 	}
 
 	public List<UsageRelationship> getAllUsage() {
-		Predicate<Relationship> isAuthorized = new Predicate<Relationship>() {
+		Predicate<Relationship> isValid = new Predicate<Relationship>() {
 			public boolean apply(Relationship parent) {
 				return UsageRelationship.class.isInstance(parent);
 			}
 		};
 
-		List<UsageRelationship> authorizedUsers = UtilResources.filter(
-				relationships, isAuthorized);
-		return authorizedUsers;
+		List<UsageRelationship> allUsages = UtilResources.filter(relationships, isValid);
+		
+		if (allUsages.isEmpty())  return Collections.emptyList();
+		return allUsages;
 	}
 
 	public List<DependencyRelationship> getAllDependencies() {
-		Predicate<Relationship> isAuthorized = new Predicate<Relationship>() {
+		Predicate<Relationship> isValid = new Predicate<Relationship>() {
 			public boolean apply(Relationship parent) {
 				return DependencyRelationship.class.isInstance(parent);
 			}
 		};
 
-		List<DependencyRelationship> authorizedUsers = UtilResources.filter(
-				relationships, isAuthorized);
-		return authorizedUsers;
+		List<DependencyRelationship> allDependencies = UtilResources.filter(relationships, isValid);
+		
+		if (allDependencies.isEmpty())  return Collections.emptyList();
+		return allDependencies;
 	}
 
 	public List<RealizationRelationship> getAllRealizations() {
@@ -199,9 +202,10 @@ public class Architecture {
 			}
 		};
 
-		List<RealizationRelationship> alRealizations = UtilResources.filter(
-				relationships, realizations);
-		return alRealizations;
+		List<RealizationRelationship> allRealizations = UtilResources.filter(relationships, realizations);
+		
+		if (allRealizations.isEmpty())  return Collections.emptyList();
+		return allRealizations;
 	}
 
 	public List<AbstractionRelationship> getAllAbstractions() {
@@ -211,9 +215,10 @@ public class Architecture {
 			}
 		};
 
-		List<AbstractionRelationship> alRealizations = UtilResources.filter(
-				relationships, realizations);
-		return alRealizations;
+		List<AbstractionRelationship> allAbstractions = UtilResources.filter(relationships, realizations);
+		
+		if (allAbstractions.isEmpty())  return Collections.emptyList();
+		return allAbstractions;
 	}
 	
 	public List<AssociationClassRelationship> getAllAssociationsClass() {
@@ -224,6 +229,7 @@ public class Architecture {
 		};
 
 		List<AssociationClassRelationship> allAssociationClass = UtilResources.filter(relationships, associationClass);
+		if (allAssociationClass.isEmpty())  return Collections.emptyList();
 		return allAssociationClass;
 	}
 
@@ -266,8 +272,8 @@ public class Architecture {
 
 	private boolean removeRelationship(Relationship as) {
 		if(as == null) return false;
-			getAllIds().remove(as.getId());
-			return relationships.remove(as);
+		getAllIds().remove(as.getId());
+		return relationships.remove(as);
 	}
 
 	public void removeDependencyRelationship(DependencyRelationship dp) {

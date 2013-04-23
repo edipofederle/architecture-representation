@@ -25,6 +25,8 @@ import mestrado.arquitetura.parser.method.VisibilityKind;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Method;
+import mestrado.arquitetura.representation.relationship.AbstractionRelationship;
+import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 
 import org.junit.After;
 import org.junit.Before;
@@ -500,6 +502,8 @@ public class ModelManagerTest extends TestHelper {
 		
 		Architecture arch = givenAArchitecture2("testeAssociationPackageClassClass");
 		assertEquals(1, arch.getAllAssociations().size());
+		AssociationRelationship asssociation = arch.getAllAssociations().get(0);
+		assertNotNull(asssociation);
 		
 	}
 		
