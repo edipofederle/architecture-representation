@@ -454,12 +454,49 @@ public class ModelManagerTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldCreateAClassInsideAPackage() throws CustonTypeNotFound{
-		DocumentManager document = givenADocument("testePacoteClass", "simples");
+	public void shouldCreateAClassInsideAPackage() throws Exception{
+		DocumentManager document = givenADocument("testePacoteComClasse", "simples");
 		PackageOperation packageOperations = new PackageOperation(document);
 		
-		packageOperations.createPacakge("Bar").withClass("Foo").withClass("Teste");
+		packageOperations.createPacakge("Bar").withClass("Foo").withClass("Teste").build();
+		
+		Architecture arch = givenAArchitecture2("testePacote");
+		
+		assertThat("Should have one package", arch.getAllPackages().size() == 1);
+		assertEquals("meuPacote", arch.getAllPackages().get(0).getName());
+	}
+	
+	@Test
+	public void shouldCreateAClassInsideAPackageWithAssociation() throws Exception{
+		DocumentManager document = givenADocument("testePacoteClassAsssociation", "simples");
+		PackageOperation packageOperations = new PackageOperation(document);
+		
+		ArrayList<String> infos = packageOperations.createPacakge("Bar").withClass("Foo").withClass("Teste").build();
+		String idClaassFoo = infos.get(0).split(":")[0];
+		String idClassTeste = infos.get(1).split(":")[0];
+		
+		Architecture arch = givenAArchitecture2("testePacoteClassAsssociation");
+		
+		ClassOperations classOperations = new ClassOperations(document);
+		classOperations.createAssociation(idClaassFoo, idClassTeste);
+		
+		assertEquals(2, arch.getAllPackages().get(0).getAllClassIdsForThisPackage().size());
+	}
+	
+	@Test
+	public void associationClassPakackeClass() throws CustonTypeNotFound{
+		DocumentManager document = givenADocument("testeAssociationPackageClassClass", "simples");
+		PackageOperation packageOperations = new PackageOperation(document);
+		ClassOperations classOperations = new ClassOperations(document);
 
+		ArrayList<String> infos = packageOperations.createPacakge("PacoteTeste").withClass("Foo").build();
+		String idClassFoo = infos.get(0).split(":")[0];
+	
+		Map<String, String> infosClass = classOperations.createClass("Person").build();
+		String idClassPerson = infosClass.get("classId");
+		
+		classOperations.createAssociation(idClassFoo, idClassPerson);
+		
 	}
 		
 }

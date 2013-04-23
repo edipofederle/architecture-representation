@@ -1,5 +1,7 @@
 package mestrado.arquitetura.parser;
 
+import java.util.ArrayList;
+
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
 import mestrado.arquitetura.helpers.UtilResources;
 
@@ -15,6 +17,8 @@ public class PackageOperation {
 	private Element element;
 	private ClassNotation notation;
 	private String id;
+	
+	private ArrayList<String> classesInfo = new ArrayList<String>();
 
 	public PackageOperation(DocumentManager documentManager) {
 		this.documentManager = documentManager;
@@ -46,10 +50,16 @@ public class PackageOperation {
 
 	public PackageOperation withClass(String klass) throws CustonTypeNotFound {
 		ElementXmiGenerator elementXmi = new ElementXmiGenerator(documentManager);
-		elementXmi.generateClass(klass, this.id);
+		String idKlass = elementXmi.generateClass(klass, this.id);
+		classesInfo.add(idKlass+":"+klass);
 		
 		return this;
 		
+	}
+
+
+	public ArrayList<String> build() {
+		return classesInfo;
 	}
 
 }
