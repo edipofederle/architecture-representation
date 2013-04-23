@@ -29,7 +29,6 @@ public class ElementXmiGenerator extends XmiHelper {
 	private static final String METHODO_TYPE = "uml:Operation";
 	private static final String LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE = "7018";
 	private static final String LOCATION_TO_ADD_ATTR_IN_NOTATION_FILE = "7017";
-	private String packageId;
 	private Node notatioChildren;
 	private Node umlModelChild;
 	private Element notationBasicOperation;
