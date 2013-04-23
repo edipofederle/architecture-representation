@@ -475,16 +475,17 @@ public class ModelManagerTest extends TestHelper {
 		String idClaassFoo = infos.get(0).split(":")[0];
 		String idClassTeste = infos.get(1).split(":")[0];
 		
-		Architecture arch = givenAArchitecture2("testePacoteClassAsssociation");
 		
 		ClassOperations classOperations = new ClassOperations(document);
 		classOperations.createAssociation(idClaassFoo, idClassTeste);
+		Architecture arch = givenAArchitecture2("testePacoteClassAsssociation");
 		
 		assertEquals(2, arch.getAllPackages().get(0).getAllClassIdsForThisPackage().size());
+		assertEquals(1, arch.getAllAssociations().size());
 	}
 	
 	@Test
-	public void associationClassPakackeClass() throws CustonTypeNotFound{
+	public void associationClassPakackeClass() throws Exception{
 		DocumentManager document = givenADocument("testeAssociationPackageClassClass", "simples");
 		PackageOperation packageOperations = new PackageOperation(document);
 		ClassOperations classOperations = new ClassOperations(document);
@@ -496,6 +497,9 @@ public class ModelManagerTest extends TestHelper {
 		String idClassPerson = infosClass.get("classId");
 		
 		classOperations.createAssociation(idClassFoo, idClassPerson);
+		
+		Architecture arch = givenAArchitecture2("testeAssociationPackageClassClass");
+		assertEquals(1, arch.getAllAssociations().size());
 		
 	}
 		
