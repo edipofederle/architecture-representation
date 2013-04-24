@@ -446,14 +446,6 @@ public class ModelManagerTest extends TestHelper {
 		Assert.assertTrue("should copy exist", new File("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/teste5.di").exists());
 	}
 
-	private DocumentManager givenADocument(String outputModelName, String originalModelName) {
-		String pathToFiles = "src/main/java/mestrado/arquitetura/parser/1/";
-		DocumentManager documentManager = new DocumentManager(outputModelName, pathToFiles, originalModelName);
-		
-		return documentManager;
-	}
-	
-	
 	/* Pacote Testes */
 	@Test
 	public void shouldCreateAPackage() throws Exception{
@@ -532,5 +524,7 @@ public class ModelManagerTest extends TestHelper {
 		Class klass = a.findClassByName("teste");
 		assertTrue(klass.isAbstract());
 	}
+	
+	
 		
 }

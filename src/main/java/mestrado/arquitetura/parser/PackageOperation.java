@@ -79,4 +79,9 @@ public class PackageOperation extends XmiHelper {
 		return classesInfo;
 	}
 
+
+	public void withClass(Node klass2) {
+		
+	}
+
 }
