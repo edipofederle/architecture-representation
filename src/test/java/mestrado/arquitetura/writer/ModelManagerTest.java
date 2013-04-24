@@ -532,5 +532,7 @@ public class ModelManagerTest extends TestHelper {
 		Class klass = a.findClassByName("teste");
 		assertTrue(klass.isAbstract());
 	}
+	
+	
 		
 }
