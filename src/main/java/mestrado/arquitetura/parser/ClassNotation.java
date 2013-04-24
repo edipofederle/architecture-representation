@@ -1,5 +1,6 @@
 package mestrado.arquitetura.parser;
 
+import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.exceptions.NullReferenceFoundException;
 import mestrado.arquitetura.helpers.UtilResources;
 
@@ -22,6 +23,8 @@ public class ClassNotation extends XmiHelper {
 	private final String lineColor = "0";
 	private Node notatioChildren;
 	private Element notationBasicProperty;
+	private Element notationBasicOperation;
+	private static final String LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE = "7018";
 	private static final String LOCATION_TO_ADD_ATTR_IN_NOTATION_FILE = "7017";
 	
 	private static final String TYPE_CLASS = "2008";
@@ -29,6 +32,8 @@ public class ClassNotation extends XmiHelper {
 	
 	
 	private DocumentManager documentManager;
+
+	
 
 	public ClassNotation(DocumentManager documentManager, Node notatioChildren){
 		this.documentManager = documentManager;
@@ -75,7 +80,7 @@ public class ClassNotation extends XmiHelper {
 			notationBasicProperty.appendChild(node);
 	}
 	
-	public void createXmiForClassInNotationFile(String id, String idPackage) throws NullReferenceFoundException {
+	public void createXmiForClassInNotationFile(String id, String idPackage) throws NullReferenceFoundException, NodeNotFound {
 		
 		Element node = documentManager.getDocNotation().createElement("children");
 		node.setAttribute("xmi:type", this.xmitype);
@@ -102,8 +107,7 @@ public class ClassNotation extends XmiHelper {
 	    klass.setAttribute("xmi:type", "uml:Class");
 		
 	    this.notationBasicProperty = createChildrenComportament(documentManager.getDocNotation(), node, LOCATION_TO_ADD_ATTR_IN_NOTATION_FILE); //onde vai as props
-//	    this.notationBasicOperation = createChildrenComportament(documentManager.getDocNotation(), node, LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE); // onde vai os metodos
-
+	    this.notationBasicOperation = createChildrenComportament(documentManager.getDocNotation(), node, LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE);
 	    node.appendChild(klass);
 	    
 	    if((idPackage != null) && !(idPackage.isEmpty())){

@@ -3,12 +3,13 @@ package mestrado.arquitetura.parser;
 import java.util.ArrayList;
 
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
+import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.helpers.UtilResources;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-public class PackageOperation {
+public class PackageOperation extends XmiHelper {
 	
 	
 	private DocumentManager documentManager;
@@ -17,8 +18,10 @@ public class PackageOperation {
 	private Element element;
 	private ClassNotation notation;
 	private String id;
+	private Node klass;
 	
 	private ArrayList<String> classesInfo = new ArrayList<String>();
+	private boolean isAbstract = false;
 
 	public PackageOperation(DocumentManager documentManager) {
 		this.documentManager = documentManager;
@@ -28,7 +31,7 @@ public class PackageOperation {
 	}
 	
 	
-	public PackageOperation createPacakge(final String packageName) throws CustonTypeNotFound{
+	public PackageOperation createPacakge(final String packageName) throws CustonTypeNotFound, NodeNotFound{
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 
 			public void useTransformation() {
@@ -48,17 +51,31 @@ public class PackageOperation {
 	}
 
 
-	public PackageOperation withClass(String klass) throws CustonTypeNotFound {
+	public PackageOperation withClass(String klass) throws CustonTypeNotFound, NodeNotFound {
 		ElementXmiGenerator elementXmi = new ElementXmiGenerator(documentManager);
-		String idKlass = elementXmi.generateClass(klass, this.id);
-		classesInfo.add(idKlass+":"+klass);
+		this.klass = elementXmi.generateClass(klass, this.id);
+		classesInfo.add(this.klass.getAttributes().getNamedItem("xmi:id").getNodeValue()+":"+klass);
 		
 		return this;
-		
 	}
+	
 
-
-	public ArrayList<String> build() {
+	public PackageOperation isAbstract() {
+		this.isAbstract  = true;
+		return this;
+	}
+	
+	public ArrayList<String> build() throws CustonTypeNotFound, NodeNotFound {
+		
+		//TODO mover, comum
+		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+			public void useTransformation() throws NodeNotFound {
+			Element e = (Element) klass;
+			e.setAttribute("isAbstract", isClassAbstract(isAbstract));
+			}
+		});
+		
+		
 		return classesInfo;
 	}
 

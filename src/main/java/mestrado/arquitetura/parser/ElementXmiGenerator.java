@@ -3,6 +3,7 @@ package mestrado.arquitetura.parser;
 import java.util.logging.Logger;
 
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
+import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.exceptions.NullReferenceFoundException;
 import mestrado.arquitetura.helpers.UtilResources;
 import mestrado.arquitetura.parser.method.Argument;
@@ -51,11 +52,11 @@ public class ElementXmiGenerator extends XmiHelper {
 		notation = new ClassNotation(this.documentManager, notatioChildren);
 	}
 
-	public String generateClass(final String klassName, final String idPackage) throws CustonTypeNotFound {
+	public Node generateClass(final String klassName, final String idPackage) throws CustonTypeNotFound, NodeNotFound {
 		
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 
-			public void useTransformation() {
+			public void useTransformation() throws NodeNotFound {
 				id = UtilResources.getRandonUUID();
 				element = documentManager.getDocUml().createElement("packagedElement");
 				element.setAttribute("xmi:type", "uml:Class");
@@ -78,13 +79,14 @@ public class ElementXmiGenerator extends XmiHelper {
 					LOGGER.severe("A null reference has been found. The process will be interrupted");
 				}
 			}
+
 		});
 		
-		return id;
+		return klass;
 	}
 	
 	
-	public void generateMethod(Method method, String idClass){
+	public void generateMethod(Method method, String idClass) throws NodeNotFound{
 		final Element ownedOperation = documentManager.getDocUml().createElement("ownedOperation");
 		ownedOperation.setAttribute("name", method.getName());
 		ownedOperation.setAttribute("xmi:id", method.getId());
@@ -114,7 +116,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		}
 	}
 	
-	public void generateAttribute(Attribute attribute, String idClass) throws CustonTypeNotFound{
+	public void generateAttribute(Attribute attribute, String idClass) throws CustonTypeNotFound, NodeNotFound{
 		if(idClass != null){
 			this.klass = findByID(documentManager.getDocUml(), idClass, "packagedElement");
 			writeAttributeIntoUmlFile(attribute);
@@ -174,7 +176,7 @@ public class ElementXmiGenerator extends XmiHelper {
 	
 	
 	
-	private Element getNodeToAddMethodInNotationFile(final String idClass, String location) {
+	private Element getNodeToAddMethodInNotationFile(final String idClass, String location) throws NodeNotFound {
 		Node nodeNotationToAddMethod = findByIDInNotationFile(documentManager.getDocNotation(), idClass);
 		for(int i =0; i <  nodeNotationToAddMethod.getChildNodes().getLength(); i++){
 			if("children".equalsIgnoreCase(nodeNotationToAddMethod.getChildNodes().item(i).getNodeName())){

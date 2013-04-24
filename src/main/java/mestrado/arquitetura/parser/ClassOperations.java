@@ -4,8 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
+import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.parser.method.Attribute;
 import mestrado.arquitetura.parser.method.Method;
+
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 public class ClassOperations extends XmiHelper {
 	
@@ -16,6 +20,8 @@ public class ClassOperations extends XmiHelper {
 	private ElementXmiGenerator elementXmiGenerator;
 	private String idsProperties = new String();
 	private String idsMethods = new String();
+	private Node klass;
+	private boolean isAbstract = false;
 	
 
 	public ClassOperations(DocumentManager documentManager) {
@@ -23,9 +29,10 @@ public class ClassOperations extends XmiHelper {
 		elementXmiGenerator = new ElementXmiGenerator(documentManager);
 	}
 	
-	public ClassOperations createClass(final String className) {
+	public ClassOperations createClass(final String className) throws NodeNotFound {
 		try {
-			this.idClass = elementXmiGenerator.generateClass(className, WITHOUT_PACKAGE);
+			klass = elementXmiGenerator.generateClass(className, WITHOUT_PACKAGE);
+			this.idClass = klass.getAttributes().getNamedItem("xmi:id").getNodeValue();
 		} catch (CustonTypeNotFound e) {
 			e.printStackTrace();
 		}
@@ -40,11 +47,12 @@ public class ClassOperations extends XmiHelper {
 	 * @param attribute - ex: "name:String"
 	 * @return this
 	 * @throws CustonTypeNotFound 
+	 * @throws NodeNotFound 
 	 */
-	public ClassOperations withAttribute(final Attribute attribute) throws CustonTypeNotFound {
+	public ClassOperations withAttribute(final Attribute attribute) throws CustonTypeNotFound, NodeNotFound {
 
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
-			public void useTransformation() throws CustonTypeNotFound {
+			public void useTransformation() throws CustonTypeNotFound, NodeNotFound {
 				elementXmiGenerator.generateAttribute(attribute, null);
 				idsProperties += attribute.getId() + " ";
 			
@@ -55,9 +63,9 @@ public class ClassOperations extends XmiHelper {
 	}
 	
 	
-	public ClassOperations withMethod(final mestrado.arquitetura.parser.method.Method method) throws CustonTypeNotFound {
+	public ClassOperations withMethod(final mestrado.arquitetura.parser.method.Method method) throws CustonTypeNotFound, NodeNotFound {
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
-			public void useTransformation() {
+			public void useTransformation() throws NodeNotFound {
 				elementXmiGenerator.generateMethod(method, null);
 				idsMethods += method.getId() + " ";
 			}
@@ -71,8 +79,18 @@ public class ClassOperations extends XmiHelper {
 	 * Finaliza a criação da classe.
 	 * 
 	 * @return {@link Map} com informações sobre a classe criada.
+	 * @throws NodeNotFound 
+	 * @throws CustonTypeNotFound 
 	 */
-	public Map<String, String> build() {
+	public Map<String, String> build() throws CustonTypeNotFound, NodeNotFound {
+		
+		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+			public void useTransformation() throws NodeNotFound {
+			Element e = (Element) klass;
+			e.setAttribute("isAbstract", isClassAbstract(isAbstract));
+			}
+		});
+		
 		Map<String, String> createdClassInfos = new HashMap<String, String>();
 		createdClassInfos.put("classId", this.idClass);
 		createdClassInfos.put("idsProperties", this.idsProperties);
@@ -87,13 +105,14 @@ public class ClassOperations extends XmiHelper {
 	 * @param idClassDestinationAssociation
 	 * @return
 	 * @throws CustonTypeNotFound 
+	 * @throws NodeNotFound 
 	 */
-	public String createAssociation(final String idClassOwnnerAssociation, final String idClassDestinationAssociation) throws CustonTypeNotFound{
+	public String createAssociation(final String idClassOwnnerAssociation, final String idClassDestinationAssociation) throws CustonTypeNotFound, NodeNotFound{
 		//Refactoring, document.getNewName is common for many classes
 		final AssociationNode associationNode = new AssociationNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation(), documentManager.getModelName());
 		
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
-			public void useTransformation() {
+			public void useTransformation() throws NodeNotFound {
 				associationNode.createAssociation(idClassOwnnerAssociation, idClassDestinationAssociation);
 			}
 		});
@@ -101,7 +120,7 @@ public class ClassOperations extends XmiHelper {
 		return associationNode.getIdAssocation();
 	}
 
-	public void removeAssociation(final String idAssociation) throws CustonTypeNotFound {
+	public void removeAssociation(final String idAssociation) throws CustonTypeNotFound, NodeNotFound {
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
 				AssociationNode associationNode = new AssociationNode(documentManager.getDocUml(), documentManager.getDocNotation(), documentManager.getModelName());
@@ -110,7 +129,7 @@ public class ClassOperations extends XmiHelper {
 		});
 	}
 	
-	public void removeClassById(final String id) throws CustonTypeNotFound {
+	public void removeClassById(final String id) throws CustonTypeNotFound, NodeNotFound {
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
 				RemoveNode removeClass = new RemoveNode(documentManager.getDocUml(), documentManager.getDocNotation());
@@ -120,7 +139,7 @@ public class ClassOperations extends XmiHelper {
 	}
 
 
-	public void removeAttribute(final String idAttributeToRemove) throws CustonTypeNotFound {
+	public void removeAttribute(final String idAttributeToRemove) throws CustonTypeNotFound, NodeNotFound {
 		final RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
 		
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
@@ -130,7 +149,7 @@ public class ClassOperations extends XmiHelper {
 		});
 	}
 
-	public void removeMethod(final String idMethodoToRmove) throws CustonTypeNotFound {
+	public void removeMethod(final String idMethodoToRmove) throws CustonTypeNotFound, NodeNotFound {
 		final RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
 		
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
@@ -141,9 +160,9 @@ public class ClassOperations extends XmiHelper {
 	}
 
 
-	public ClassOperations addMethodToClass(final String idClass, final Method method) throws CustonTypeNotFound{
+	public ClassOperations addMethodToClass(final String idClass, final Method method) throws CustonTypeNotFound, NodeNotFound{
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
-			public void useTransformation() {
+			public void useTransformation() throws NodeNotFound {
 				elementXmiGenerator.generateMethod(method, idClass);
 				idsMethods += method.getId() + " ";
 			}
@@ -152,9 +171,9 @@ public class ClassOperations extends XmiHelper {
 		return this;
 	}
 
-	public void addAttributeToClass(final String idClass, final Attribute attribute) throws CustonTypeNotFound {
+	public void addAttributeToClass(final String idClass, final Attribute attribute) throws CustonTypeNotFound, NodeNotFound {
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
-			public void useTransformation() {
+			public void useTransformation() throws NodeNotFound {
 				try {
 					elementXmiGenerator.generateAttribute(attribute, idClass);
 					idsProperties += attribute.getId() + " ";
@@ -165,7 +184,11 @@ public class ClassOperations extends XmiHelper {
 		});
 	}
 
-	public void insidePackage(String string) {
-		
+
+	//TODO move comon
+	public ClassOperations isAbstract() {
+		this.isAbstract  = true;
+		return this;
 	}
+	
 }

@@ -2,6 +2,7 @@ package mestrado.arquitetura.parser;
 
 import java.util.logging.Logger;
 
+import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.helpers.UtilResources;
 
 import org.w3c.dom.Document;
@@ -33,7 +34,7 @@ public class AssociationNode extends XmiHelper{
 		this.memberEndId  = UtilResources.getRandonUUID();
 	}
 
-	public void createAssociation(String idClassOwnnerAssociation, String idClassDestinationAssociation) {
+	public void createAssociation(String idClassOwnnerAssociation, String idClassDestinationAssociation) throws NodeNotFound {
 		
 		this.idClassDestinationAssociation = idClassDestinationAssociation;
 		this.idClassOwnnerAssociation = idClassOwnnerAssociation;
@@ -79,7 +80,6 @@ public class AssociationNode extends XmiHelper{
 		
 		//Primeiro busca pela class que seja a "dona" da associção. Isso é feito por meio do ID.
 		Node packageElementNode = findByID(docUml, this.idClassOwnnerAssociation, "packagedElement");
-		System.out.println(packageElementNode.getAttributes().getNamedItem("name"));
 		
 		Element ownedAttibute = this.docUml.createElement("ownedAttribute");
 		ownedAttibute.setAttribute("xmi:id", memberEndId);
@@ -104,7 +104,7 @@ public class AssociationNode extends XmiHelper{
 	}
 
 
-	private void createEgdeAssocationOnNotationFile(){
+	private void createEgdeAssocationOnNotationFile() throws NodeNotFound{
 		
 		Node node = this.docNotation.getElementsByTagName("notation:Diagram").item(0);
 		

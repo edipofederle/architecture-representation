@@ -14,6 +14,7 @@ import java.util.Map;
 
 import junit.framework.Assert;
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
+import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.ClassOperations;
 import mestrado.arquitetura.parser.DocumentManager;
@@ -25,7 +26,6 @@ import mestrado.arquitetura.parser.method.VisibilityKind;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Method;
-import mestrado.arquitetura.representation.relationship.AbstractionRelationship;
 import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 
 import org.junit.After;
@@ -88,7 +88,7 @@ public class ModelManagerTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldRemoveAssociation() throws CustonTypeNotFound{
+	public void shouldRemoveAssociation() throws CustonTypeNotFound, NodeNotFound{
 		DocumentManager doc = givenADocument("teste4", "simples");
 		ClassOperations classOperations = new ClassOperations(doc);
 		Map<String, String> idPerson = classOperations.createClass("Person").build();
@@ -108,6 +108,19 @@ public class ModelManagerTest extends TestHelper {
 		assertNotNull(classOperations.createClass("Helper"));
 		Architecture a = givenAArchitecture2("teste2");
 		assertContains(a.getAllClasses(), "Helper");
+		assertFalse(a.findClassByName("Helper").isAbstract());
+	}
+	
+	@Test
+	public void shouldCreateAAbstractClass() throws Exception{
+		DocumentManager doc = givenADocument("classAbstrata", "simples");
+		ClassOperations classOperations = new ClassOperations(doc);
+		
+		classOperations.createClass("ClasseAbstrata").isAbstract().build();
+		Architecture a = givenAArchitecture2("classAbstrata");
+		assertContains(a.getAllClasses(), "ClasseAbstrata");
+		Class klass = a.findClassByName("ClasseAbstrata");
+		assertTrue(klass.isAbstract());
 	}
 	
 	@Test
@@ -161,7 +174,7 @@ public class ModelManagerTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldRemoveAttributeFromClasse() throws CustonTypeNotFound{
+	public void shouldRemoveAttributeFromClasse() throws CustonTypeNotFound, NodeNotFound{
 		DocumentManager document = givenADocument("testRemoveAttribute", "simples");
 		ClassOperations classOperations = new ClassOperations(document);
 		
@@ -226,7 +239,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	
 	@Test
-	public void testeMethod() throws CustonTypeNotFound{
+	public void testeMethod() throws CustonTypeNotFound, NodeNotFound{
 		DocumentManager document = givenADocument("teste666", "simples");
 		ClassOperations classOperations = new ClassOperations(document);
 		
@@ -266,7 +279,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	
 	@Test
-	public void shouldRemoveMethodFromClass() throws CustonTypeNotFound{
+	public void shouldRemoveMethodFromClass() throws CustonTypeNotFound, NodeNotFound{
 		DocumentManager document = givenADocument("testeRemoveMethod", "simples");
 		ClassOperations classOperations = new ClassOperations(document);
 		
@@ -410,7 +423,7 @@ public class ModelManagerTest extends TestHelper {
 	}
 	
 	@Test(expected=CustonTypeNotFound.class)
-	public void shouldNotCreateAAttributeWithCustonTypeIfTypeDontExist() throws CustonTypeNotFound{
+	public void shouldNotCreateAAttributeWithCustonTypeIfTypeDontExist() throws CustonTypeNotFound, NodeNotFound{
 		DocumentManager document = givenADocument("classWithAttrCuston", "simples");
 		ClassOperations classOperations = new ClassOperations(document);
 		
@@ -505,6 +518,19 @@ public class ModelManagerTest extends TestHelper {
 		AssociationRelationship asssociation = arch.getAllAssociations().get(0);
 		assertNotNull(asssociation);
 		
+	}
+	
+	@Test
+	public void shouldCreateAAbstractClassInsideAPackage() throws Exception{
+		DocumentManager document = givenADocument("classAbstrataDentroPacote", "simples");
+		PackageOperation packageOperations = new PackageOperation(document);
+		
+		packageOperations.createPacakge("fooPkg").withClass("teste").isAbstract().build();
+		
+		Architecture a = givenAArchitecture2("classAbstrataDentroPacote");
+		assertContains(a.getAllClasses(), "teste");
+		Class klass = a.findClassByName("teste");
+		assertTrue(klass.isAbstract());
 	}
 		
 }
