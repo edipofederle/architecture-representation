@@ -82,7 +82,7 @@ public class ClassOperations extends XmiHelper {
 	 * @throws NodeNotFound 
 	 * @throws CustonTypeNotFound 
 	 */
-	public Node build() throws CustonTypeNotFound, NodeNotFound {
+	public Map<String, String> build() throws CustonTypeNotFound, NodeNotFound {
 		
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() throws NodeNotFound {
@@ -96,7 +96,7 @@ public class ClassOperations extends XmiHelper {
 		createdClassInfos.put("idsProperties", this.idsProperties);
 		createdClassInfos.put("idsMethods", this.idsMethods);
 		
-		return klass;
+		return createdClassInfos;
 	}
 	
 
