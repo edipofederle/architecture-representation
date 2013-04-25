@@ -31,6 +31,7 @@ import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.w3c.dom.Node;
 public class ModelManagerTest extends TestHelper {
 	
 	
@@ -446,14 +447,6 @@ public class ModelManagerTest extends TestHelper {
 		Assert.assertTrue("should copy exist", new File("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/teste5.di").exists());
 	}
 
-	private DocumentManager givenADocument(String outputModelName, String originalModelName) {
-		String pathToFiles = "src/main/java/mestrado/arquitetura/parser/1/";
-		DocumentManager documentManager = new DocumentManager(outputModelName, pathToFiles, originalModelName);
-		
-		return documentManager;
-	}
-	
-	
 	/* Pacote Testes */
 	@Test
 	public void shouldCreateAPackage() throws Exception{
@@ -472,8 +465,11 @@ public class ModelManagerTest extends TestHelper {
 	public void shouldCreateAClassInsideAPackage() throws Exception{
 		DocumentManager document = givenADocument("testePacoteComClasse", "simples");
 		PackageOperation packageOperations = new PackageOperation(document);
+		ClassOperations classOperations = new ClassOperations(document);
 		
-		packageOperations.createPacakge("Bar").withClass("Foo").withClass("Teste").build();
+		Map<String, String> foo = classOperations.createClass("foo").build();
+		Map<String, String> teste = classOperations.createClass("teste").build();
+		packageOperations.createPacakge("Bar").withClass(foo.get("classId")).withClass(teste.get("classId")).build();
 		
 		Architecture arch = givenAArchitecture2("testePacote");
 		
@@ -486,13 +482,15 @@ public class ModelManagerTest extends TestHelper {
 		DocumentManager document = givenADocument("testePacoteClassAsssociation", "simples");
 		PackageOperation packageOperations = new PackageOperation(document);
 		
-		ArrayList<String> infos = packageOperations.createPacakge("Bar").withClass("Foo").withClass("Teste").build();
-		String idClaassFoo = infos.get(0).split(":")[0];
-		String idClassTeste = infos.get(1).split(":")[0];
-		
-		
 		ClassOperations classOperations = new ClassOperations(document);
-		classOperations.createAssociation(idClaassFoo, idClassTeste);
+		
+		Map<String, String> foo = classOperations.createClass("foo").build();
+		Map<String, String> teste = classOperations.createClass("Teste").build();
+		
+		ArrayList<String> infos = packageOperations.createPacakge("Bar").withClass(foo.get("classId")).withClass(teste.get("classId")).build();
+
+		
+		classOperations.createAssociation(foo.get("classId"), teste.get("classId"));
 		Architecture arch = givenAArchitecture2("testePacoteClassAsssociation");
 		
 		assertEquals(2, arch.getAllPackages().get(0).getAllClassIdsForThisPackage().size());
@@ -504,14 +502,16 @@ public class ModelManagerTest extends TestHelper {
 		DocumentManager document = givenADocument("testeAssociationPackageClassClass", "simples");
 		PackageOperation packageOperations = new PackageOperation(document);
 		ClassOperations classOperations = new ClassOperations(document);
+		
+		
+		Map<String, String> foo = classOperations.createClass("foo").build();
 
-		ArrayList<String> infos = packageOperations.createPacakge("PacoteTeste").withClass("Foo").build();
-		String idClassFoo = infos.get(0).split(":")[0];
+		ArrayList<String> infos = packageOperations.createPacakge("PacoteTeste").withClass(foo.get("classId")).build();
 	
 		Map<String, String> infosClass = classOperations.createClass("Person").build();
 		String idClassPerson = infosClass.get("classId");
 		
-		classOperations.createAssociation(idClassFoo, idClassPerson);
+		classOperations.createAssociation(foo.get("classId"), idClassPerson);
 		
 		Architecture arch = givenAArchitecture2("testeAssociationPackageClassClass");
 		assertEquals(1, arch.getAllAssociations().size());
@@ -524,15 +524,38 @@ public class ModelManagerTest extends TestHelper {
 	public void shouldCreateAAbstractClassInsideAPackage() throws Exception{
 		DocumentManager document = givenADocument("classAbstrataDentroPacote", "simples");
 		PackageOperation packageOperations = new PackageOperation(document);
+		ClassOperations classOperations = new ClassOperations(document);
 		
-		packageOperations.createPacakge("fooPkg").withClass("teste").isAbstract().build();
+		Map<String, String> infosClass = classOperations.createClass("teste").isAbstract().build();
+		String idClassPerson = infosClass.get("classId");
+		
+		packageOperations.createPacakge("fooPkg").withClass(idClassPerson).isAbstract().build();
 		
 		Architecture a = givenAArchitecture2("classAbstrataDentroPacote");
 		assertContains(a.getAllClasses(), "teste");
 		Class klass = a.findClassByName("teste");
 		assertTrue(klass.isAbstract());
 	}
+
 	
-	
+	@Test
+	public void test() throws Exception{
+		
+		DocumentManager document = givenADocument("novoTest", "simples");
+		PackageOperation packageOperations = new PackageOperation(document);
+		ClassOperations classOperations = new ClassOperations(document);
+		
+		
+		 Map<String, String> k = classOperations.createClass("xpto").build();
+		 Map<String, String> k1 = classOperations.createClass("Teste").build();
+		 
+		packageOperations.createPacakge("xpto").withClass(k.get("classId")).withClass(k1.get("classId")).build();
+		
+		Architecture a = givenAArchitecture2("novoTest");
+		
+		assertEquals(1, a.getAllPackages().size());
+		assertEquals(2 ,a.findPackageByName("xpto").getAllClassIdsForThisPackage().size());
+	}
+
 		
 }

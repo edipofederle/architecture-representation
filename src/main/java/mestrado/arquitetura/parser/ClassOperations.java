@@ -95,6 +95,7 @@ public class ClassOperations extends XmiHelper {
 		createdClassInfos.put("classId", this.idClass);
 		createdClassInfos.put("idsProperties", this.idsProperties);
 		createdClassInfos.put("idsMethods", this.idsMethods);
+		
 		return createdClassInfos;
 	}
 	

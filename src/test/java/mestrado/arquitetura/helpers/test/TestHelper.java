@@ -16,6 +16,7 @@ import mestrado.arquitetura.helpers.ModelHelper;
 import mestrado.arquitetura.helpers.ModelHelperFactory;
 import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
+import mestrado.arquitetura.parser.DocumentManager;
 import mestrado.arquitetura.parser.ReaderConfig;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Element;
@@ -132,6 +133,13 @@ public abstract class TestHelper {
 			}
 		}catch(FileNotFoundException e) { } //TODO
 		return false;
+	}
+	
+	public DocumentManager givenADocument(String outputModelName, String originalModelName) {
+		String pathToFiles = "src/main/java/mestrado/arquitetura/parser/1/";
+		DocumentManager documentManager = new DocumentManager(outputModelName, pathToFiles, originalModelName);
+		
+		return documentManager;
 	}
 
 }
