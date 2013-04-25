@@ -31,7 +31,6 @@ import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.w3c.dom.Node;
 public class ModelManagerTest extends TestHelper {
 	
 	
@@ -487,7 +486,7 @@ public class ModelManagerTest extends TestHelper {
 		Map<String, String> foo = classOperations.createClass("foo").build();
 		Map<String, String> teste = classOperations.createClass("Teste").build();
 		
-		ArrayList<String> infos = packageOperations.createPacakge("Bar").withClass(foo.get("classId")).withClass(teste.get("classId")).build();
+		packageOperations.createPacakge("Bar").withClass(foo.get("classId")).withClass(teste.get("classId")).build();
 
 		
 		classOperations.createAssociation(foo.get("classId"), teste.get("classId"));
@@ -506,7 +505,7 @@ public class ModelManagerTest extends TestHelper {
 		
 		Map<String, String> foo = classOperations.createClass("foo").build();
 
-		ArrayList<String> infos = packageOperations.createPacakge("PacoteTeste").withClass(foo.get("classId")).build();
+		packageOperations.createPacakge("PacoteTeste").withClass(foo.get("classId")).build();
 	
 		Map<String, String> infosClass = classOperations.createClass("Person").build();
 		String idClassPerson = infosClass.get("classId");
@@ -539,14 +538,19 @@ public class ModelManagerTest extends TestHelper {
 
 	
 	@Test
-	public void test() throws Exception{
+	public void shouldCreateAPacakgeWithTwoClasses() throws Exception{
 		
 		DocumentManager document = givenADocument("novoTest", "simples");
 		PackageOperation packageOperations = new PackageOperation(document);
 		ClassOperations classOperations = new ClassOperations(document);
 		
+		Attribute xpto = Attribute.create()
+				 .withName("xpto")
+				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
+				 .withType(Types.STRING);
 		
-		 Map<String, String> k = classOperations.createClass("xpto").build();
+		
+		 Map<String, String> k = classOperations.createClass("xpto").withAttribute(xpto).build();
 		 Map<String, String> k1 = classOperations.createClass("Teste").build();
 		 
 		packageOperations.createPacakge("xpto").withClass(k.get("classId")).withClass(k1.get("classId")).build();
