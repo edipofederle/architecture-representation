@@ -31,7 +31,6 @@ import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.w3c.dom.Node;
 public class ModelManagerTest extends TestHelper {
 	
 	
