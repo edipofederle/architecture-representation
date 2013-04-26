@@ -3,6 +3,7 @@ package mestrado.arquitetura.parser;
 import java.util.logging.Logger;
 
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
+import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.exceptions.NullReferenceFoundException;
 import mestrado.arquitetura.helpers.UtilResources;
@@ -52,7 +53,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		notation = new ClassNotation(this.documentManager, notatioChildren);
 	}
 
-	public Node generateClass(final String klassName, final String idPackage) throws CustonTypeNotFound, NodeNotFound {
+	public Node generateClass(final String klassName, final String idPackage) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 

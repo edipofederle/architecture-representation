@@ -54,7 +54,7 @@ public class RealizationsTest extends TestHelper {
 	
 	
 	/**
-	 * @see <a href="https://dl.dropbox.com/u/6730822/Relacionamentos%20Testes/realizations/realization4.png">Modelo usado no teste (Imagem) </a>
+	 * @see <a href="https://dl.dropboxusercontent.com/u/6730822/de/realizations/realization4.png">Modelo usado no teste (Imagem) </a>
 	 * 
 	 * @throws Exception
 	 */

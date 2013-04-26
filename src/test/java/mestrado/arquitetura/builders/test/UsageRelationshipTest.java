@@ -97,7 +97,7 @@ public class UsageRelationshipTest extends HelperTest {
 	
 	
 	/**
-	 * @see <a href="https://dl.dropbox.com/u/6730822/Relacionamentos%20Testes/usageRelationshipTests/classUsagePackage.png">Modelo usado no teste (Image)</a>
+	 * @see <a href="https://dl.dropboxusercontent.com/u/6730822/de/usageRelationshipTests/classUsagePackage.png">Modelo usado no teste (Image)</a>
 	 * @throws Exception
 	 */
 	@Test
@@ -113,6 +113,10 @@ public class UsageRelationshipTest extends HelperTest {
 	}
 	
 	
+	/**
+	 * @see <a href="https://dl.dropboxusercontent.com/u/6730822/de/usage2.png">Modelo usado no teste (Image)</a>
+	 * @throws Exception
+	 */
 	@Test
 	public void shouldLoadUsageInterPackageClass() throws Exception{
 		String uriToArchitecture = getUrlToModel("PackageClassUsage");

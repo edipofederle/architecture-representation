@@ -186,5 +186,24 @@ public class DependenciesTest extends TestHelper {
 		assertEquals(1, dependency.size());
 		assertEquals("Package1", dependency.get(0).getClient().getName());
 	}
+	
+	
+	/**
+	 * @see <a href="https://dl.dropboxusercontent.com/u/6730822/de/dependency3.png">Modelo usado no teste (Imagem)</a>
+	 * @throws Exception
+	 */
+	@Test
+	public void shouldLoadDependencyPackageClass() throws Exception{
+		Architecture a = givenAArchitecture("dependencyPackageClass");
+		
+		List<DependencyRelationship> dependency = a.getAllDependencies();
+
+		assertNotNull(dependency);
+		assertEquals(1, dependency.size());
+		
+		assertEquals("Package1", dependency.get(0).getClient().getName());
+		assertEquals("Class1", dependency.get(0).getSupplier().getName());
+		
+	}
 
 }

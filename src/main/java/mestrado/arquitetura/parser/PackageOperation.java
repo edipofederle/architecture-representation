@@ -1,8 +1,10 @@
 package mestrado.arquitetura.parser;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
+import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.helpers.UtilResources;
 
@@ -18,10 +20,8 @@ public class PackageOperation extends XmiHelper {
 	private Element pkg;
 	private ClassNotation notation;
 	private String id;
-	private Node klass;
 	
-	private ArrayList<String> classesInfo = new ArrayList<String>();
-	private boolean isAbstract = false;
+	private Map<String, String> classesInfo = new HashMap<String, String>();
 
 	public PackageOperation(DocumentManager documentManager) {
 		this.documentManager = documentManager;
@@ -31,7 +31,7 @@ public class PackageOperation extends XmiHelper {
 	}
 	
 	
-	public PackageOperation createPacakge(final String packageName) throws CustonTypeNotFound, NodeNotFound{
+	public PackageOperation createPacakge(final String packageName) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 
 			public void useTransformation() {
@@ -50,27 +50,14 @@ public class PackageOperation extends XmiHelper {
 		return this;
 	}
 
-
-//	public PackageOperation withClass(String klass) throws CustonTypeNotFound, NodeNotFound {
-//		ElementXmiGenerator elementXmi = new ElementXmiGenerator(documentManager);
-//		this.klass = elementXmi.generateClass(klass, this.id);
-//		classesInfo.add(this.klass.getAttributes().getNamedItem("xmi:id").getNodeValue()+":"+klass);
-//		
-//		return this;
-//	}
 	
-
-	public PackageOperation isAbstract() {
-		this.isAbstract  = true;
-		return this;
-	}
-	
-	public ArrayList<String> build() throws CustonTypeNotFound, NodeNotFound {
+	public Map<String, String> build() throws CustonTypeNotFound, NodeNotFound {
+		classesInfo.put("packageId", this.id);
 		return classesInfo;
 	}
 	
 
-	public PackageOperation withClass(final String klassId) throws CustonTypeNotFound, NodeNotFound {
+	public PackageOperation withClass(final String klassId) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		
 		
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){

@@ -14,8 +14,10 @@ import java.util.Map;
 
 import junit.framework.Assert;
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
+import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.helpers.test.TestHelper;
+import mestrado.arquitetura.parser.AssociationOperations;
 import mestrado.arquitetura.parser.ClassOperations;
 import mestrado.arquitetura.parser.DocumentManager;
 import mestrado.arquitetura.parser.PackageOperation;
@@ -66,15 +68,24 @@ public class ModelManagerTest extends TestHelper {
 	public void shouldCreateAssociationBetweenClasses() throws Exception{
 		DocumentManager doc = givenADocument("teste3", "simples");
 		ClassOperations classOperations = new ClassOperations(doc);
+		AssociationOperations associationOperations = new AssociationOperations(doc);
+		
 		Map<String, String> idPerson = classOperations.createClass("Person").build();
 		Map<String, String> idEmployee = classOperations.createClass("Employee").build();
 		Map<String, String> idManager = classOperations.createClass("Casa").build();
 		
-		classOperations.createAssociation(idPerson.get("classId"), idEmployee.get("classId"));
-		classOperations.createAssociation(idPerson.get("classId"), idManager.get("classId"));
+		associationOperations.createAssociation()
+							 .betweenClass(idPerson.get("classId"))
+							 .andClass(idEmployee.get("classId"))
+							 .build();
+		
+		associationOperations.createAssociation()
+							 .betweenClass(idPerson.get("classId"))
+							 .andClass(idManager.get("classId"))
+							 .build();
 		
 		Architecture a = givenAArchitecture2("teste3");
-		assertThat("Should have 2 association", a.getAllAssociations().size() == 2);
+		assertEquals(2, a.getAllAssociations().size());
 	}
 	
 	@Test
@@ -88,13 +99,19 @@ public class ModelManagerTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldRemoveAssociation() throws CustonTypeNotFound, NodeNotFound{
+	public void shouldRemoveAssociation() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
 		DocumentManager doc = givenADocument("teste4", "simples");
 		ClassOperations classOperations = new ClassOperations(doc);
+		AssociationOperations associationOperations = new AssociationOperations(doc);
+		
 		Map<String, String> idPerson = classOperations.createClass("Person").build();
 		Map<String, String> idEmployee = classOperations.createClass("Employee").build();
 		
-		String id = classOperations.createAssociation(idPerson.get("classId"), idEmployee.get("classId"));
+		//String id = classOperations.createAssociation(idPerson.get("classId"), idEmployee.get("classId"));
+		
+		String id = associationOperations.createAssociation()
+							 .betweenClass(idPerson.get("classId"))
+							 .andClass(idEmployee.get("classId")).build();
 		
 		assertTrue(modelContainId("teste4", id));
 		classOperations.removeAssociation(id);
@@ -174,7 +191,7 @@ public class ModelManagerTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldRemoveAttributeFromClasse() throws CustonTypeNotFound, NodeNotFound{
+	public void shouldRemoveAttributeFromClasse() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
 		DocumentManager document = givenADocument("testRemoveAttribute", "simples");
 		ClassOperations classOperations = new ClassOperations(document);
 		
@@ -239,7 +256,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	
 	@Test
-	public void testeMethod() throws CustonTypeNotFound, NodeNotFound{
+	public void testeMethod() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
 		DocumentManager document = givenADocument("teste666", "simples");
 		ClassOperations classOperations = new ClassOperations(document);
 		
@@ -279,7 +296,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	
 	@Test
-	public void shouldRemoveMethodFromClass() throws CustonTypeNotFound, NodeNotFound{
+	public void shouldRemoveMethodFromClass() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
 		DocumentManager document = givenADocument("testeRemoveMethod", "simples");
 		ClassOperations classOperations = new ClassOperations(document);
 		
@@ -423,7 +440,7 @@ public class ModelManagerTest extends TestHelper {
 	}
 	
 	@Test(expected=CustonTypeNotFound.class)
-	public void shouldNotCreateAAttributeWithCustonTypeIfTypeDontExist() throws CustonTypeNotFound, NodeNotFound{
+	public void shouldNotCreateAAttributeWithCustonTypeIfTypeDontExist() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
 		DocumentManager document = givenADocument("classWithAttrCuston", "simples");
 		ClassOperations classOperations = new ClassOperations(document);
 		
@@ -480,7 +497,7 @@ public class ModelManagerTest extends TestHelper {
 	public void shouldCreateAClassInsideAPackageWithAssociation() throws Exception{
 		DocumentManager document = givenADocument("testePacoteClassAsssociation", "simples");
 		PackageOperation packageOperations = new PackageOperation(document);
-		
+		AssociationOperations associationOperations = new AssociationOperations(document);
 		ClassOperations classOperations = new ClassOperations(document);
 		
 		Map<String, String> foo = classOperations.createClass("foo").build();
@@ -489,7 +506,10 @@ public class ModelManagerTest extends TestHelper {
 		packageOperations.createPacakge("Bar").withClass(foo.get("classId")).withClass(teste.get("classId")).build();
 
 		
-		classOperations.createAssociation(foo.get("classId"), teste.get("classId"));
+		
+		associationOperations.createAssociation()
+							 .betweenClass(foo.get("classId")).andClass(teste.get("classId")).build();
+		
 		Architecture arch = givenAArchitecture2("testePacoteClassAsssociation");
 		
 		assertEquals(2, arch.getAllPackages().get(0).getAllClassIdsForThisPackage().size());
@@ -501,7 +521,7 @@ public class ModelManagerTest extends TestHelper {
 		DocumentManager document = givenADocument("testeAssociationPackageClassClass", "simples");
 		PackageOperation packageOperations = new PackageOperation(document);
 		ClassOperations classOperations = new ClassOperations(document);
-		
+		AssociationOperations associationOperations = new AssociationOperations(document);
 		
 		Map<String, String> foo = classOperations.createClass("foo").build();
 
@@ -510,7 +530,9 @@ public class ModelManagerTest extends TestHelper {
 		Map<String, String> infosClass = classOperations.createClass("Person").build();
 		String idClassPerson = infosClass.get("classId");
 		
-		classOperations.createAssociation(foo.get("classId"), idClassPerson);
+		associationOperations.createAssociation()
+							 .betweenClass(foo.get("classId"))
+							 .andClass(idClassPerson).build();
 		
 		Architecture arch = givenAArchitecture2("testeAssociationPackageClassClass");
 		assertEquals(1, arch.getAllAssociations().size());
@@ -528,7 +550,7 @@ public class ModelManagerTest extends TestHelper {
 		Map<String, String> infosClass = classOperations.createClass("teste").isAbstract().build();
 		String idClassPerson = infosClass.get("classId");
 		
-		packageOperations.createPacakge("fooPkg").withClass(idClassPerson).isAbstract().build();
+		packageOperations.createPacakge("fooPkg").withClass(idClassPerson).build();
 		
 		Architecture a = givenAArchitecture2("classAbstrataDentroPacote");
 		assertContains(a.getAllClasses(), "teste");
@@ -560,6 +582,6 @@ public class ModelManagerTest extends TestHelper {
 		assertEquals(1, a.getAllPackages().size());
 		assertEquals(2 ,a.findPackageByName("xpto").getAllClassIdsForThisPackage().size());
 	}
+	
 
-		
 }

@@ -2,6 +2,7 @@ package mestrado.arquitetura.parser;
 
 import java.util.logging.Logger;
 
+import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.helpers.UtilResources;
 
@@ -34,10 +35,21 @@ public class AssociationNode extends XmiHelper{
 		this.memberEndId  = UtilResources.getRandonUUID();
 	}
 
-	public void createAssociation(String idClassOwnnerAssociation, String idClassDestinationAssociation) throws NodeNotFound {
+	public void createAssociation(String idClassOwnnerAssociation, String idClassDestinationAssociation, String multiplicityClassDestination, String multiplicityClassOwnner) throws NodeNotFound, InvalidMultiplictyForAssociationException {
 		
 		this.idClassDestinationAssociation = idClassDestinationAssociation;
 		this.idClassOwnnerAssociation = idClassOwnnerAssociation;
+		
+		String multiLowerValue = "1";
+		String multiUpperValue = "1";
+		
+		if(multiplicityClassOwnner != null){
+			 multiLowerValue = multiplicityClassOwnner.substring(0, 1).trim();
+			 multiUpperValue = multiplicityClassOwnner.substring(multiplicityClassOwnner.length()-1, multiplicityClassOwnner.length()).trim();
+			 
+			if(multiLowerValue.equals("*"))
+				throw new InvalidMultiplictyForAssociationException("Multiplicy lower value cannot be *");
+		}
 		
 		Node modelRoot = this.docUml.getElementsByTagName("uml:Model").item(0);
 		
@@ -59,24 +71,25 @@ public class AssociationNode extends XmiHelper{
 		Element lowerValue = this.docUml.createElement("lowerValue");
 		lowerValue.setAttribute("xmi:type", "uml:LiteralInteger");
 		lowerValue.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		lowerValue.setAttribute("value", "1");
-		ownedEnd.appendChild(lowerValue);
 		
+		lowerValue.setAttribute("value", multiLowerValue);
+		ownedEnd.appendChild(lowerValue);
+
 		Element upperValue = this.docUml.createElement("upperValue");
-		upperValue.setAttribute("xmi:type", "uml:LiteralInteger");
+		upperValue.setAttribute("xmi:type", "uml:LiteralUnlimitedNatural");
 		upperValue.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		upperValue.setAttribute("value", "1");
+		upperValue.setAttribute("value", multiUpperValue);
 		ownedEnd.appendChild(upperValue);
 		
 		modelRoot.appendChild(packageElement);
 		
-		ownedAttibute();
+		ownedAttibute(multiplicityClassDestination);
 		
 		createEgdeAssocationOnNotationFile();
 		
 	}
 	
-	private void ownedAttibute(){
+	private void ownedAttibute(String multiplicityClassDestination) throws InvalidMultiplictyForAssociationException{
 		
 		//Primeiro busca pela class que seja a "dona" da associção. Isso é feito por meio do ID.
 		Node packageElementNode = findByID(docUml, this.idClassOwnnerAssociation, "packagedElement");
@@ -87,17 +100,29 @@ public class AssociationNode extends XmiHelper{
 		ownedAttibute.setAttribute("type", this.idClassDestinationAssociation);
 		ownedAttibute.setAttribute("association", this.idAssocation);
 		
+		String multiLowerValue = "1";
+		String multiUpperValue = "1";
 		
+		if(multiplicityClassDestination != null){
+			 multiLowerValue = multiplicityClassDestination.substring(0, 1).trim();
+			 multiUpperValue = multiplicityClassDestination.substring(multiplicityClassDestination.length()-1, multiplicityClassDestination.length()).trim();
+		}
 		Element lowerValue = this.docUml.createElement("lowerValue");
-		lowerValue.setAttribute("xmi:type", "uml:LiteralInteger");
+		if(multiLowerValue.equals("*"))
+			throw new InvalidMultiplictyForAssociationException("Multiplicy lower value cannot be *");
+		else
+			lowerValue.setAttribute("xmi:type", "uml:LiteralInteger");
 		lowerValue.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		lowerValue.setAttribute("value", "1");
+		lowerValue.setAttribute("value",multiLowerValue);
 		ownedAttibute.appendChild(lowerValue);
 		
 		Element upperValue = this.docUml.createElement("upperValue");
-		upperValue.setAttribute("xmi:type", "uml:LiteralUnlimitedNatural");
+		if(multiUpperValue.equals("*"))
+			upperValue.setAttribute("xmi:type", "uml:LiteralUnlimitedNatural");
+		else
+			upperValue.setAttribute("xmi:type", "uml:LiteralInteger");	
 		upperValue.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		upperValue.setAttribute("value", "1");
+		upperValue.setAttribute("value", multiUpperValue);
 		ownedAttibute.appendChild(upperValue);
 		
 		packageElementNode.appendChild(ownedAttibute);
@@ -120,6 +145,36 @@ public class AssociationNode extends XmiHelper{
 		edges.setAttribute("source", idSource);
 		edges.setAttribute("target", idTarget);
 		edges.setAttribute("lineColor", "0");
+		
+		//Multiplicidade
+
+		
+		Element childrenDecorationNode = this.docNotation.createElement("children");
+		childrenDecorationNode.setAttribute("xmi:type", "notation:DecorationNode");
+		childrenDecorationNode.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		childrenDecorationNode.setAttribute("type", "6033");
+		edges.appendChild(childrenDecorationNode);
+		
+		Element layoutConstraint = this.docNotation.createElement("layoutConstraint");
+		layoutConstraint.setAttribute("xmi:type", "notation:Location");
+		layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		layoutConstraint.setAttribute("y", "20");
+		childrenDecorationNode.appendChild(layoutConstraint);
+		
+		
+		Element childrenDecorationNode2 = this.docNotation.createElement("children");
+		childrenDecorationNode2.setAttribute("xmi:type", "notation:DecorationNode");
+		childrenDecorationNode2.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		childrenDecorationNode2.setAttribute("type", "6034");
+		edges.appendChild(childrenDecorationNode2);
+		
+		Element layoutConstraint2 = this.docNotation.createElement("layoutConstraint");
+		layoutConstraint2.setAttribute("xmi:type", "notation:Location");
+		layoutConstraint2.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		layoutConstraint2.setAttribute("y", "-20");
+		childrenDecorationNode2.appendChild(layoutConstraint2);
+		
+		//Fim multiplicidade
 		
 		Element elementAssociation = this.docNotation.createElement("element");
 		elementAssociation.setAttribute("xmi:type", "uml:Association");
