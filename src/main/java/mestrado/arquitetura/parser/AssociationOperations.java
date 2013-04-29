@@ -7,7 +7,6 @@ import mestrado.arquitetura.exceptions.NodeNotFound;
 public class AssociationOperations {
 	
 	private DocumentManager documentManager;
-	private ElementXmiGenerator elementXmiGenerator;
 	
 	private String idClassOwnnerAssociation;
 	private String idClassDestinationAssociation;
@@ -17,7 +16,6 @@ public class AssociationOperations {
 
 	public AssociationOperations(DocumentManager documentManager){
 		this.documentManager = documentManager;
-		elementXmiGenerator = new ElementXmiGenerator(documentManager);
 	}
 	
 	public AssociationOperations createAssociation() {

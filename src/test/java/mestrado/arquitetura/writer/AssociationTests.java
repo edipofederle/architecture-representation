@@ -44,7 +44,7 @@ public class AssociationTests  extends TestHelper {
 		
 		associationOperations.createAssociation()
 							 .betweenClass(employee.get("classId")).withMultiplicy("1..*")
-							 .andClass(casa.get("classId")).withMultiplicy("1..1")
+							 .andClass(casa.get("classId")).withMultiplicy("0..1")
 							 .build();
 		
 		Architecture a = givenAArchitecture2("testeNovaAssociacao");
@@ -55,7 +55,7 @@ public class AssociationTests  extends TestHelper {
 		assertEquals(2, association.getParticipants().size());
 		
 		assertEquals("Casa", association.getParticipants().get(0).getCLSClass().getName());
-		assertEquals("1..1", association.getParticipants().get(0).getMultiplicity().toString());
+		assertEquals("0..1", association.getParticipants().get(0).getMultiplicity().toString());
 		
 		assertEquals("Employee", association.getParticipants().get(1).getCLSClass().getName());
 		assertEquals("1..*", association.getParticipants().get(1).getMultiplicity().toString());

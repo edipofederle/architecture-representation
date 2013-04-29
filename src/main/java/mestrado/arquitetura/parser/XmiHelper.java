@@ -4,13 +4,14 @@ import java.util.Random;
 
 import mestrado.arquitetura.exceptions.NodeIdNotFound;
 import mestrado.arquitetura.exceptions.NodeNotFound;
+import mestrado.arquitetura.helpers.UtilResources;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class XmiHelper {
+public class XmiHelper extends UtilResources {
 	
 	
 	

@@ -25,11 +25,9 @@ public class ClassOperations extends XmiHelper {
 	private boolean isAbstract = false;
 	
 	
-	
-
 	public ClassOperations(DocumentManager documentManager) {
 		this.documentManager = documentManager;
-		elementXmiGenerator = new ElementXmiGenerator(documentManager);
+		this.elementXmiGenerator = new ElementXmiGenerator(documentManager);
 	}
 	
 	public ClassOperations createClass(final String className) throws NodeNotFound, InvalidMultiplictyForAssociationException {
