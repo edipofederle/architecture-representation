@@ -1,7 +1,6 @@
 package mestrado.arquitetura.xmi2uml2.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -21,18 +20,10 @@ import mestrado.arquitetura.representation.Method;
 import mestrado.arquitetura.xmi2uml2.Class;
 
 import org.eclipse.uml2.uml.Package;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class ClassTest extends TestHelper{
 	
-	private Architecture a;
-	
-	@Before
-	public void setUp() throws Exception{
-		a = givenAArchitecture("classes");
-	}
 	
 	@Test
 	public void testCreateAClass() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
