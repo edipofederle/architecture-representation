@@ -21,8 +21,6 @@ public class PackageOperation extends XmiHelper {
 	private ClassNotation notation;
 	private String id;
 	
-	private Map<String, String> classesInfo = new HashMap<String, String>();
-
 	public PackageOperation(DocumentManager documentManager) {
 		this.documentManager = documentManager;
 		this.umlModelChild = documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
@@ -32,13 +30,14 @@ public class PackageOperation extends XmiHelper {
 	
 	
 	public PackageOperation createPacakge(final String packageName) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
+		setIdPackage(UtilResources.getRandonUUID());
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 
 			public void useTransformation() {
-				id = UtilResources.getRandonUUID();
+				
 				pkg = documentManager.getDocUml().createElement("packagedElement");
 				pkg.setAttribute("xmi:type", "uml:Package");
-				pkg.setAttribute("xmi:id", id);
+				pkg.setAttribute("xmi:id", getId());
 				pkg.setAttribute("name", packageName);
 				umlModelChild.appendChild(pkg);
 				
@@ -51,8 +50,18 @@ public class PackageOperation extends XmiHelper {
 	}
 
 	
+	private void setIdPackage(String randonUUID) {
+		this.id = randonUUID;
+	}
+	
+	private String getId(){
+		return this.id;
+	}
+
+
 	public Map<String, String> build() throws CustonTypeNotFound, NodeNotFound {
-		classesInfo.put("packageId", this.id);
+		Map<String, String> classesInfo = new HashMap<String, String>();
+		classesInfo.put("packageId", getId());
 		return classesInfo;
 	}
 	

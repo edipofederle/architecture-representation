@@ -1,6 +1,7 @@
 package mestrado.arquitetura.writer;
 
 import mestrado.arquitetura.exceptions.NodeNotFound;
+import mestrado.arquitetura.helpers.UtilResources;
 import mestrado.arquitetura.parser.DocumentManager;
 import mestrado.arquitetura.parser.XmiHelper;
 
@@ -33,7 +34,7 @@ public class DependencyNode extends XmiHelper {
 		Node node = this.docNotation.getElementsByTagName("notation:Diagram").item(0);
 		Element edges = this.docNotation.createElement("edges");
 		edges.setAttribute("xmi:type", "notation:Connector");
-		edges.setAttribute("xmi:id", getRandonUUID());
+		edges.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		edges.setAttribute("type", "4008");
 		
 		String idSource = findByIDInNotationFile(docNotation, clientElement).getAttributes().getNamedItem("xmi:id").getNodeValue();
@@ -46,7 +47,7 @@ public class DependencyNode extends XmiHelper {
 		 //<styles xmi:type="notation:FontStyle" xmi:id="_B7swwbDfEeKXAbdr0ngOng" fontName="Lucida Grande" fontHeight="11"/>
 		 Element styles = this.docNotation.createElement("styles");
 		 styles.setAttribute("xmi:type", "notation:FontStyle");
-		 styles.setAttribute("xmi:id", getRandonUUID());
+		 styles.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		 styles.setAttribute("fontName", "Lucida Grande");
 		 styles.setAttribute("fontHeight", "11");
 		 edges.appendChild(styles);
@@ -59,19 +60,19 @@ public class DependencyNode extends XmiHelper {
 		 
 		Element bendpoints = docNotation.createElement("bendpoints");
 		bendpoints.setAttribute("xmi:type", "notation:RelativeBendpoints");
-		bendpoints.setAttribute("xmi:id", getRandonUUID());
+		bendpoints.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		bendpoints.setAttribute("points", "[0, 0, 476, 181]$[-467, -170, 9, 11]");
 		edges.appendChild(bendpoints);
 		
 		Element sourceAnchor = docNotation.createElement("sourceAnchor");
 		sourceAnchor.setAttribute("xmi:type", "notation:IdentityAnchor");
-		sourceAnchor.setAttribute("xmi:id", getRandonUUID());
+		sourceAnchor.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		sourceAnchor.setAttribute("id", "(0.42,0.0)");
 		edges.appendChild(sourceAnchor);
 		
 		Element targetAnchor = docNotation.createElement("targetAnchor");
 		targetAnchor.setAttribute("xmi:type", "notation:IdentityAnchor");
-		targetAnchor.setAttribute("xmi:id", getRandonUUID());
+		targetAnchor.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		targetAnchor.setAttribute("id", "(0.82,0.89)");
 		edges.appendChild(targetAnchor);
 		
@@ -81,7 +82,7 @@ public class DependencyNode extends XmiHelper {
 	private void createDependencyInUmlFile() {
 		Node modelRoot = this.docUml.getElementsByTagName("uml:Model").item(0);
 		
-		String idDependency = getRandonUUID();
+		String idDependency = UtilResources.getRandonUUID();
 		
 		Element elementDependency = this.docUml.createElement("packagedElement");
 		elementDependency.setAttribute("xmi:type", "uml:Dependency");
