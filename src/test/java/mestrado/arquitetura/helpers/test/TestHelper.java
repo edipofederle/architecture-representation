@@ -1,10 +1,14 @@
 package mestrado.arquitetura.helpers.test;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import junitx.framework.Assert;
@@ -142,4 +146,21 @@ public abstract class TestHelper {
 		return documentManager;
 	}
 
+	protected String generateRandomWord(int wordLength) throws IOException {
+		@SuppressWarnings("resource")
+		BufferedReader reader = new BufferedReader(new FileReader("src/test/java/resources/dictionary.txt"));
+		List<String> lines = new ArrayList<String>();
+		String line = reader.readLine();
+
+		while( line != null ) {
+		    lines.add(line);
+		    line = reader.readLine();
+		}
+
+		Random r = new Random();
+		String randomString = lines.get(r.nextInt(lines.size()));
+		
+		return randomString;
+	}
+		
 }

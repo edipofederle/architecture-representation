@@ -4,12 +4,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import mestrado.arquitetura.builders.ArchitectureBuilder;
+import mestrado.arquitetura.exceptions.CustonTypeNotFound;
+import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
+import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.helpers.test.TestHelper;
+import mestrado.arquitetura.parser.DocumentManager;
+import mestrado.arquitetura.parser.Operations;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.relationship.AssociationEnd;
 import mestrado.arquitetura.representation.relationship.AssociationRelationship;
@@ -123,6 +133,30 @@ public class GenericTest extends TestHelper {
 		assertNotNull(a);
 		assertEquals(1 ,a.getAllClasses().size());
 		assertEquals(1, a.getNumberOfElements());
+	}
+	
+	
+	@Test
+	public void genericTestAllElementsGenerate() throws NodeNotFound, InvalidMultiplictyForAssociationException, IOException, CustonTypeNotFound{
+		DocumentManager doc = givenADocument("genericElements", "simples");
+		Operations op = new Operations(doc);
+		List<String> idsClass = new ArrayList<String>();
+		
+		for(int i=0; i< 5; i++){
+			String idClass = op.forClass().createClass(generateRandomWord(5)).build().get("classId");
+			idsClass.add(idClass);
+			
+			if(i%2 == 0)
+				op.forPackage().createPacakge("Pacakge_"+i).withClass(idClass);
+		}
+		
+		for (int i = 0; i < idsClass.size()-1; i++) {
+			String id =idsClass.get(i);
+			String id2 = idsClass.get(i+1);
+			op.forDependency().createDependency().between(id).and(id2).build();
+			op.forAssociation().createAssociation().betweenClass(id2).andClass(id).build();
+		}
+			
 	}
 	
 }

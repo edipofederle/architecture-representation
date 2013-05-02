@@ -1,10 +1,14 @@
 package mestrado.arquitetura.writer;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Map;
 
+import mestrado.arquitetura.exceptions.CustonTypeNotFound;
+import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
+import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.DocumentManager;
 import mestrado.arquitetura.parser.Operations;
@@ -134,11 +138,45 @@ public class DependencyTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldCreateDependencyClassClassPackage(){
+	public void shouldCreateDependencyClassClassPackage() throws Exception{
 		DocumentManager doc = givenADocument("dependenciaClassClassPackage", "simples");
 		Operations op = new Operations(doc);
 		
+		String klassId = op.forClass().createClass("bar").build().get("classId");
+		String fooId = op.forClass().createClass("Foo").build().get("classId");
+		op.forPackage().createPacakge("Controllers").withClass(klassId).build();
+		
+		op.forDependency().createDependency().between(klassId).and(fooId).build();
+
+		Architecture a = givenAArchitecture2("dependenciaClassClassPackage");
+		
+		assertTrue(modelContainId("dependenciaClassClassPackage", klassId));
+		assertTrue(modelContainId("dependenciaClassClassPackage", fooId));
+		
+		assertEquals(1, a.getAllDependencies().size());
+		DependencyRelationship dependency = a.getAllDependencies().get(0);
+		assertEquals("bar",dependency.getClient().getName());
+		assertEquals("Foo",dependency.getSupplier().getName());
 	}
 	
+	@Test
+	public void CreateDependencyPacakgeClassClass() throws Exception{
+		DocumentManager doc = givenADocument("dependencyPacakgeClassClass", "simples");
+		Operations op = new Operations(doc);
+		
+		String klassId = op.forClass().createClass("bar").build().get("classId");
+		String fooId = op.forClass().createClass("Foo").build().get("classId");
+		op.forPackage().createPacakge("Controllers").withClass(klassId).build();
+		
+		op.forDependency().createDependency().between(fooId).and(klassId).build();
+
+		Architecture a = givenAArchitecture2("dependencyPacakgeClassClass");
+		
+		assertTrue(modelContainId("dependencyPacakgeClassClass", klassId));
+		assertTrue(modelContainId("dependencyPacakgeClassClass", fooId));
+		DependencyRelationship dependency = a.getAllDependencies().get(0);
+		assertEquals("Foo",dependency.getClient().getName());
+		assertEquals("bar",dependency.getSupplier().getName());
+	}
 
 }
