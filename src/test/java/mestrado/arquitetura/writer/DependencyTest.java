@@ -6,10 +6,8 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Map;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.parser.ClassOperations;
-import mestrado.arquitetura.parser.DependencyOperations;
 import mestrado.arquitetura.parser.DocumentManager;
-import mestrado.arquitetura.parser.PackageOperations;
+import mestrado.arquitetura.parser.Operations;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.relationship.DependencyRelationship;
 
@@ -21,13 +19,12 @@ public class DependencyTest extends TestHelper {
 	public void shouldCreateADependencyClassClass() throws Exception{
 		DocumentManager doc = givenADocument("testeDependencia1", "simples");
 		
-		ClassOperations classOperations = new ClassOperations(doc);
-		DependencyOperations dependencyOperations = new DependencyOperations(doc);
+		Operations op = new Operations(doc);
 		
-		Map<String, String> employee = classOperations.createClass("Employee").build();
-		Map<String, String> manager = classOperations.createClass("Casa").build();
+		Map<String, String> employee = op.forClass().createClass("Employee").build();
+		Map<String, String> manager = op.forClass().createClass("Casa").build();
 		
-		dependencyOperations.createDependency()
+		op.forDependency().createDependency()
 							.between(employee.get("classId"))
 							.and(manager.get("classId"))
 							.build();
@@ -43,14 +40,12 @@ public class DependencyTest extends TestHelper {
 	@Test
 	public void shouldCreateADependencyClassPackage() throws Exception{
 		DocumentManager doc = givenADocument("testeDependenciClassPackage", "simples");
-		PackageOperations packageOperations = new  PackageOperations(doc);
-		ClassOperations classOperations = new ClassOperations(doc);
-		DependencyOperations dependencyOperations = new DependencyOperations(doc);
+		Operations op = new Operations(doc);
 		
-		Map<String, String> id = packageOperations.createPacakge("controllers").build();
-		Map<String, String> employee = classOperations.createClass("Employee").build();
+		Map<String, String> id = op.forPackage().createPacakge("controllers").build();
+		Map<String, String> employee = op.forClass().createClass("Employee").build();
 		
-		dependencyOperations.createDependency()
+		op.forDependency().createDependency()
 							.between(employee.get("classId"))
 							.and(id.get("packageId"))
 							.build();
@@ -68,16 +63,15 @@ public class DependencyTest extends TestHelper {
 	@Test
 	public void shouldCreateDependencyPackageClass() throws Exception{
 		DocumentManager doc = givenADocument("testeDependenciPackagePackage", "simples");
-		PackageOperations packageOperations = new  PackageOperations(doc);
-		DependencyOperations dependencyOperations = new DependencyOperations(doc);
+		Operations op = new Operations(doc);
 		
-		Map<String, String> controllers = packageOperations.createPacakge("controllers").build();
-		Map<String, String> models = packageOperations.createPacakge("models").build();
+		Map<String, String> controllers = op.forPackage().createPacakge("controllers").build();
+		Map<String, String> models = op.forPackage().createPacakge("models").build();
 		
 		System.out.println(controllers.get("packageId"));
 		System.out.println(models.get("packageId"));
 		
-		dependencyOperations.createDependency()
+		op.forDependency().createDependency()
 							.between(controllers.get("packageId"))
 							.and(models.get("packageId"))
 							.build();
@@ -95,17 +89,16 @@ public class DependencyTest extends TestHelper {
 	@Test
 	public void shouldCreateDependencyWithMultiplesSuppliers() throws Exception{
 		DocumentManager doc = givenADocument("dependenciaMultipla", "simples");
-		ClassOperations classOperations = new ClassOperations(doc);
-		DependencyOperations dependencyOperations = new DependencyOperations(doc);
+		Operations op = new Operations(doc);
 		
-		String post = classOperations.createClass("Post").build().get("classId");
-		String comment = classOperations.createClass("Comment").build().get("classId");
-		String user = classOperations.createClass("User").build().get("classId");
-		String category = classOperations.createClass("Category").build().get("classId");
+		String post = op.forClass().createClass("Post").build().get("classId");
+		String comment = op.forClass().createClass("Comment").build().get("classId");
+		String user = op.forClass().createClass("User").build().get("classId");
+		String category = op.forClass().createClass("Category").build().get("classId");
 		
-		dependencyOperations.createDependency().between(post).and(comment).build();
-		dependencyOperations.createDependency().between(post).and(user).build();
-		dependencyOperations.createDependency().between(post).and(category).build();
+		op.forDependency().createDependency().between(post).and(comment).build();
+		op.forDependency().createDependency().between(post).and(user).build();
+		op.forDependency().createDependency().between(post).and(category).build();
 		
 		Architecture a = givenAArchitecture2("dependenciaMultipla");
 		
@@ -123,23 +116,27 @@ public class DependencyTest extends TestHelper {
 	@Test
 	public void shouldCreeateDependencyWithMultipleCleints() throws Exception{
 		DocumentManager doc = givenADocument("dependenciaMultipla2", "simples");
-		ClassOperations classOperations = new ClassOperations(doc);
-		DependencyOperations dependencyOperations = new DependencyOperations(doc);
+		Operations op = new Operations(doc);
 		
-		String post = classOperations.createClass("Post").build().get("classId");
-		String comment = classOperations.createClass("Comment").build().get("classId");
-		String user = classOperations.createClass("User").build().get("classId");
-		String category = classOperations.createClass("Category").build().get("classId");
+		String post = op.forClass().createClass("Post").build().get("classId");
+		String comment = op.forClass().createClass("Comment").build().get("classId");
+		String user = op.forClass().createClass("User").build().get("classId");
+		String category = op.forClass().createClass("Category").build().get("classId");
 		
-		dependencyOperations.createDependency().between(user).and(comment).build();
-		dependencyOperations.createDependency().between(post).and(comment).build();
-		dependencyOperations.createDependency().between(category).and(comment).build();
+		op.forDependency().createDependency().between(user).and(comment).build();
+		op.forDependency().createDependency().between(post).and(comment).build();
+		op.forDependency().createDependency().between(category).and(comment).build();
 		
 		Architecture a = givenAArchitecture2("dependenciaMultipla2");
 		
 		assertEquals(3, a.getAllDependencies().get(0).getAllClientsForSupplierClass().size());
 		assertEquals(1, a.getAllDependencies().get(0).getAllSuppliersForClientClass().size());
-		
+	}
+	
+	@Test
+	public void shouldCreateDependencyClassClassPackage(){
+		DocumentManager doc = givenADocument("dependenciaClassClassPackage", "simples");
+		Operations op = new Operations(doc);
 		
 	}
 	
