@@ -9,7 +9,7 @@ import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.ClassOperations;
 import mestrado.arquitetura.parser.DependencyOperations;
 import mestrado.arquitetura.parser.DocumentManager;
-import mestrado.arquitetura.parser.PackageOperation;
+import mestrado.arquitetura.parser.PackageOperations;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.relationship.DependencyRelationship;
 
@@ -43,11 +43,11 @@ public class DependencyTest extends TestHelper {
 	@Test
 	public void shouldCreateADependencyClassPackage() throws Exception{
 		DocumentManager doc = givenADocument("testeDependenciClassPackage", "simples");
-		PackageOperation packageOperation = new  PackageOperation(doc);
+		PackageOperations packageOperations = new  PackageOperations(doc);
 		ClassOperations classOperations = new ClassOperations(doc);
 		DependencyOperations dependencyOperations = new DependencyOperations(doc);
 		
-		Map<String, String> id = packageOperation.createPacakge("controllers").build();
+		Map<String, String> id = packageOperations.createPacakge("controllers").build();
 		Map<String, String> employee = classOperations.createClass("Employee").build();
 		
 		dependencyOperations.createDependency()
@@ -68,11 +68,11 @@ public class DependencyTest extends TestHelper {
 	@Test
 	public void shouldCreateDependencyPackageClass() throws Exception{
 		DocumentManager doc = givenADocument("testeDependenciPackagePackage", "simples");
-		PackageOperation packageOperation = new  PackageOperation(doc);
+		PackageOperations packageOperations = new  PackageOperations(doc);
 		DependencyOperations dependencyOperations = new DependencyOperations(doc);
 		
-		Map<String, String> controllers = packageOperation.createPacakge("controllers").build();
-		Map<String, String> models = packageOperation.createPacakge("models").build();
+		Map<String, String> controllers = packageOperations.createPacakge("controllers").build();
+		Map<String, String> models = packageOperations.createPacakge("models").build();
 		
 		System.out.println(controllers.get("packageId"));
 		System.out.println(models.get("packageId"));

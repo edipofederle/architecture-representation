@@ -41,15 +41,13 @@ public class ClassOperations extends XmiHelper {
 	}
 
 	/**
-	 * Adiciona um atributo na classe.<br />
+	 * Cria {@link Attribute} para a classe
 	 * 
-	 * Tipos válidos são: "String", "Integer", "Real", "Boolean", "UnlimetedNatural".
-	 * 
-	 * @param attribute - ex: "name:String"
-	 * @return this
-	 * @throws CustonTypeNotFound 
-	 * @throws NodeNotFound 
-	 * @throws InvalidMultiplictyForAssociationException 
+	 * @param attribute
+	 * @return
+	 * @throws CustonTypeNotFound
+	 * @throws NodeNotFound
+	 * @throws InvalidMultiplictyForAssociationException
 	 */
 	public ClassOperations withAttribute(final Attribute attribute) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 
