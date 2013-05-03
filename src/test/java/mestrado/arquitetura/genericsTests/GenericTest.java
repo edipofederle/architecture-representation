@@ -153,7 +153,7 @@ public class GenericTest extends TestHelper {
 		for (int i = 0; i < idsClass.size()-1; i++) {
 			String id =idsClass.get(i);
 			String id2 = idsClass.get(i+1);
-			op.forDependency().createDependency().between(id).and(id2).build();
+			op.forDependency().createDependency("Dependency #12").between(id).and(id2).build();
 			op.forAssociation().createAssociation().betweenClass(id2).andClass(id).build();
 		}
 			
