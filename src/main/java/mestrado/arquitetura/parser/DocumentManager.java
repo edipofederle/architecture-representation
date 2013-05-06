@@ -42,9 +42,10 @@ public class DocumentManager {
 		}
 			
 		try {
-			this.docNotation =  docBuilderNotation.parse("/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+this.originalModelName+".notation");
-			this.docUml = docBuilderUml.parse("/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+this.originalModelName+".uml");
-			this.docDi = docBuilderUml.parse("/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/"+this.originalModelName+".di");
+			//TODO movendo para arquivo de conf - manipulatiom path
+			this.docNotation =  docBuilderNotation.parse("manipulation/"+this.originalModelName+".notation");
+			this.docUml = docBuilderUml.parse("manipulation/"+this.originalModelName+".uml");
+			this.docDi = docBuilderUml.parse("manipulation/"+this.originalModelName+".di");
 		} catch (SAXException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -4,7 +4,7 @@ import mestrado.arquitetura.exceptions.CustonTypeNotFound;
 import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import mestrado.arquitetura.exceptions.NodeNotFound;
 
-public class UsageOperations implements Dependency  {
+public class UsageOperations implements Relationship  {
 
 	private DocumentManager documentManager;
 	
@@ -21,17 +21,17 @@ public class UsageOperations implements Dependency  {
 		this.name = name2;
 	}
 
-	public Dependency createDependency(String name) {
+	public Relationship createRelation(String name) {
 		if(("".equals(name) || name == null)) name = "usage";
 		return new UsageOperations(this.documentManager, name);
 	}
 
-	public Dependency between(String idElement) {
+	public Relationship between(String idElement) {
 		this.clientElement = idElement;
 		return this;
 	}
 
-	public Dependency and(String idElement) {
+	public Relationship and(String idElement) {
 		this.supplierElement = idElement;
 		return this;
 	}

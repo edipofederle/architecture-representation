@@ -56,7 +56,7 @@ public class GeneralizationRelationship extends Relationship {
 	 * 
 	 * @return
 	 */
-	public List<Element> gelAllChildrenForGeneralClass() {
+	public List<Element> getAllChildrenForGeneralClass() {
 		List<GeneralizationRelationship> generalizations = architecture.getAllGeneralizations();
 		List<Element> childreen = new ArrayList<Element>();
 		

@@ -19,13 +19,12 @@ public class DependencyTest extends TestHelper {
 	@Test
 	public void shouldCreateADependencyClassClass() throws Exception{
 		DocumentManager doc = givenADocument("testeDependencia1", "simples");
-		
 		Operations op = new Operations(doc);
 		
 		Map<String, String> employee = op.forClass().createClass("Employee").build();
 		Map<String, String> manager = op.forClass().createClass("Casa").build();
 		
-		op.forDependency().createDependency("Dependency #12")
+		op.forDependency().createRelation("Dependency #12")
 							.between(employee.get("classId"))
 							.and(manager.get("classId"))
 							.build();
@@ -47,7 +46,7 @@ public class DependencyTest extends TestHelper {
 		Map<String, String> id = op.forPackage().createPacakge("controllers").build();
 		Map<String, String> employee = op.forClass().createClass("Employee").build();
 		
-		op.forDependency().createDependency("Dependency #12")
+		op.forDependency().createRelation("Dependency #12")
 							.between(employee.get("classId"))
 							.and(id.get("packageId"))
 							.build();
@@ -73,7 +72,7 @@ public class DependencyTest extends TestHelper {
 		System.out.println(controllers.get("packageId"));
 		System.out.println(models.get("packageId"));
 		
-		op.forDependency().createDependency("Dependency #12")
+		op.forDependency().createRelation("Dependency #12")
 							.between(controllers.get("packageId"))
 							.and(models.get("packageId"))
 							.build();
@@ -98,9 +97,9 @@ public class DependencyTest extends TestHelper {
 		String user = op.forClass().createClass("User").build().get("classId");
 		String category = op.forClass().createClass("Category").build().get("classId");
 		
-		op.forDependency().createDependency("Dependency #1").between(post).and(comment).build();
-		op.forDependency().createDependency("Dependency #3").between(post).and(user).build();
-		op.forDependency().createDependency("Dependency #2").between(post).and(category).build();
+		op.forDependency().createRelation("Dependency #1").between(post).and(comment).build();
+		op.forDependency().createRelation("Dependency #3").between(post).and(user).build();
+		op.forDependency().createRelation("Dependency #2").between(post).and(category).build();
 		
 		Architecture a = givenAArchitecture2("dependenciaMultipla");
 		
@@ -125,9 +124,9 @@ public class DependencyTest extends TestHelper {
 		String user = op.forClass().createClass("User").build().get("classId");
 		String category = op.forClass().createClass("Category").build().get("classId");
 		
-		op.forDependency().createDependency("Dependency #1").between(user).and(comment).build();
-		op.forDependency().createDependency("Dependency #2").between(post).and(comment).build();
-		op.forDependency().createDependency("Dependency #3").between(category).and(comment).build();
+		op.forDependency().createRelation("Dependency #1").between(user).and(comment).build();
+		op.forDependency().createRelation("Dependency #2").between(post).and(comment).build();
+		op.forDependency().createRelation("Dependency #3").between(category).and(comment).build();
 		
 		Architecture a = givenAArchitecture2("dependenciaMultipla2");
 		
@@ -144,7 +143,7 @@ public class DependencyTest extends TestHelper {
 		String fooId = op.forClass().createClass("Foo").build().get("classId");
 		op.forPackage().createPacakge("Controllers").withClass(klassId).build();
 		
-		op.forDependency().createDependency("Dependency #12").between(klassId).and(fooId).build();
+		op.forDependency().createRelation("Dependency #12").between(klassId).and(fooId).build();
 
 		Architecture a = givenAArchitecture2("dependenciaClassClassPackage");
 		
@@ -166,7 +165,7 @@ public class DependencyTest extends TestHelper {
 		String fooId = op.forClass().createClass("Foo").build().get("classId");
 		//op.forPackage().createPacakge("Controllers").withClass(klassId).build();
 		
-		op.forDependency().createDependency("Dependency #12").between(fooId).and(klassId).build();
+		op.forDependency().createRelation("Dependency #12").between(fooId).and(klassId).build();
 
 		Architecture a = givenAArchitecture2("dependencyPacakgeClassClass");
 		
@@ -185,8 +184,8 @@ public class DependencyTest extends TestHelper {
 		String klassId = op.forClass().createClass("bar").build().get("classId");
 		String fooId = op.forClass().createClass("Foo").build().get("classId");
 		
-		op.forDependency().createDependency("").between(fooId).and(klassId).build();
-		op.forDependency().createDependency(null).between(fooId).and(klassId).build();
+		op.forDependency().createRelation("").between(fooId).and(klassId).build();
+		op.forDependency().createRelation(null).between(fooId).and(klassId).build();
 
 		Architecture a = givenAArchitecture2("dependencySemNome");
 		

@@ -24,7 +24,7 @@ public class UsageTest extends TestHelper {
 		Map<String, String> employee = op.forClass().createClass("Employee").build();
 		Map<String, String> manager = op.forClass().createClass("Casa").build();
 		
-		op.forUsage().createDependency("Usage #1").between(employee.get("classId")).and(manager.get("classId")).build();
+		op.forUsage().createRelation("Usage #1").between(employee.get("classId")).and(manager.get("classId")).build();
 	
 		Architecture a = givenAArchitecture2("usageTeste1");
 		assertNotNull(a.getAllUsage());
@@ -49,7 +49,7 @@ public class UsageTest extends TestHelper {
 		
 		op.forPackage().createPacakge("foo").withClass(employee.get("classId"));
 		
-		op.forUsage().createDependency("Usage #2").between(employee.get("classId")).and(manager.get("classId")).build();
+		op.forUsage().createRelation("Usage #2").between(employee.get("classId")).and(manager.get("classId")).build();
 		
 		Architecture a = givenAArchitecture2("usageTeste2");
 		assertEquals(1,a.getAllUsage().size());
@@ -67,7 +67,7 @@ public class UsageTest extends TestHelper {
 		
 		op.forPackage().createPacakge("foo").withClass(employee.get("classId"));
 		
-		op.forUsage().createDependency("Usage #2").between(manager.get("classId")).and(employee.get("classId")).build();
+		op.forUsage().createRelation("Usage #2").between(manager.get("classId")).and(employee.get("classId")).build();
 		
 		Architecture a = givenAArchitecture2("usageTeste3");
 		assertEquals(1, a.getAllUsage().size());
@@ -81,7 +81,7 @@ public class UsageTest extends TestHelper {
 		String p1 = op.forPackage().createPacakge("Pacote1").build().get("packageId");
 		String p2 = op.forPackage().createPacakge("Pacote1").build().get("packageId");
 		
-		op.forUsage().createDependency("Dependencia com Nome").between(p1).and(p2).build();
+		op.forUsage().createRelation("Dependencia com Nome").between(p1).and(p2).build();
 		
 		Architecture a = givenAArchitecture2("usageTeste4");
 		assertEquals(1, a.getAllUsage().size());

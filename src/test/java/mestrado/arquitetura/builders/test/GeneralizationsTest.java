@@ -33,8 +33,8 @@ public class GeneralizationsTest extends TestHelper {
 		GeneralizationRelationship generalization = arch.getAllGeneralizations().get(0);
 		assertNotNull(generalization);
 		assertEquals("Person", generalization.getParent().getName());
-		assertEquals(1, generalization.gelAllChildrenForGeneralClass().size());
-		assertContains(generalization.gelAllChildrenForGeneralClass(),"Student");
+		assertEquals(1, generalization.getAllChildrenForGeneralClass().size());
+		assertContains(generalization.getAllChildrenForGeneralClass(),"Student");
 	}
 	
 	@Test
@@ -48,10 +48,10 @@ public class GeneralizationsTest extends TestHelper {
 
 		GeneralizationRelationship generalization = arch.getAllGeneralizations().get(1);
 
-		assertContains(generalization.gelAllChildrenForGeneralClass(), "Child2");
+		assertContains(generalization.getAllChildrenForGeneralClass(), "Child2");
 		generalization.replaceChild(professorKlass);
-		assertEquals(2, generalization.gelAllChildrenForGeneralClass().size());
-		assertContains(generalization.gelAllChildrenForGeneralClass(), "Professor", "Child2");
+		assertEquals(2, generalization.getAllChildrenForGeneralClass().size());
+		assertContains(generalization.getAllChildrenForGeneralClass(), "Professor", "Child2");
 	}
 	
 
@@ -72,7 +72,7 @@ public class GeneralizationsTest extends TestHelper {
 	public void shouldLoadGeneralizationWithTwoChildreen() {
 		assertEquals(3, arch.getAllGeneralizations().size());
 		assertEquals("Parent", arch.getAllGeneralizations().get(1).getParent().getName());
-		List<Element> ch = (arch.getAllGeneralizations().get(1)).gelAllChildrenForGeneralClass();
+		List<Element> ch = (arch.getAllGeneralizations().get(1)).getAllChildrenForGeneralClass();
 		assertEquals(2, ch.size());
 		assertContains(ch, "Child1", "Child2");
 	}
@@ -88,10 +88,10 @@ public class GeneralizationsTest extends TestHelper {
 		assertEquals("Parent", parentKlass.getName());
 
 		GeneralizationRelationship r = arch.getAllGeneralizations().get(1);
-		assertEquals(2, r.gelAllChildrenForGeneralClass().size());
-		assertContains(r.gelAllChildrenForGeneralClass(), "Child1", "Child2");
+		assertEquals(2, r.getAllChildrenForGeneralClass().size());
+		assertContains(r.getAllChildrenForGeneralClass(), "Child1", "Child2");
 		assertTrue("Children of " + r.getParent() + " should NOT contain Sudent Class", !r
-				.gelAllChildrenForGeneralClass().contains(student));
+				.getAllChildrenForGeneralClass().contains(student));
 	}
 	
 	@Test
@@ -101,10 +101,10 @@ public class GeneralizationsTest extends TestHelper {
 		GeneralizationRelationship generalization = arch.getAllGeneralizations().get(0);
 		GeneralizationRelationship generalization1 = arch.getAllGeneralizations().get(3);
 		assertEquals("Class1", generalization.getParent().getName());
-		assertContains(generalization.gelAllChildrenForGeneralClass(),"Class3", "Class2");
+		assertContains(generalization.getAllChildrenForGeneralClass(),"Class3", "Class2");
 
 		assertEquals("Class2", generalization1.getParent().getName());
-		assertContains(generalization1.gelAllChildrenForGeneralClass(),"Class4", "Class5");
+		assertContains(generalization1.getAllChildrenForGeneralClass(),"Class4", "Class5");
 		assertNotNull(arch);
 	}
 	
