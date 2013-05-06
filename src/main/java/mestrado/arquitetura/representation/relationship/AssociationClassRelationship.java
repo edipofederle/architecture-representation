@@ -23,16 +23,9 @@ public class AssociationClassRelationship extends	Relationship {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public List<Element> getMemebersEnd() {
 		return memebersEnd;
-	}
-
-	public void setMemebersEnd(List<Element> memebersEnd) {
-		this.memebersEnd = memebersEnd;
 	}
 
 	/**

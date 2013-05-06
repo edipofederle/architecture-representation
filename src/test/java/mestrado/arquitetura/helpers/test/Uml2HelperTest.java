@@ -37,6 +37,11 @@ public class Uml2HelperTest  extends TestHelper{
 		modelHelper = ModelHelperFactory.getModelHelper();
 	}
 	
+	@Test
+	public void shouldBeSameInstance() throws ModelNotFoundException, ModelIncompleteException{
+		uml2Helper = Uml2HelperFactory.getUml2Helper();
+	}
+	
 	@Test(expected=ModelNotFoundException.class)
 	public void shouldRaiseExecptioWhenModelNotFound() throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		URI uri = URI.createFileURI("modeloNaoExiste.uml");

@@ -93,9 +93,6 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 		concerns = new ArrayList<String>();
 	}
 	
-	public T getElementByXMIID(String xmiid) {
-		return createdElements.get(xmiid);
-	}
 	
 	/**
 	 * Returna o atributo xmi:id como uma <b>String</b> para um dado eObject.
@@ -106,7 +103,6 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 	 */
 	public static String getXmiId (EObject eObject) {
 		Resource xmiResource = eObject.eResource();
-		if (xmiResource == null ) return null; //TODO verificar isto. Não retornar NULL.
 		return ((XMLResource) xmiResource).getID(eObject);
 	}
 	

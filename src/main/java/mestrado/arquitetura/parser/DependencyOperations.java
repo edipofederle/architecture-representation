@@ -21,7 +21,15 @@ public class DependencyOperations {
 		this.name = name2;
 	}
 
+	/**
+	 * Cria dependencia, se um nome não for fornecido é setado 
+	 * um valor default (dependency).
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public DependencyOperations createDependency(String name) {
+		if(("".equals(name) || name == null)) name = "dependency";
 		return new DependencyOperations(this.documentManager, name);
 	}
 

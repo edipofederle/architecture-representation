@@ -13,8 +13,7 @@ public abstract class Base {
 	static InitializeResources resources;
 	
 	public Base(){
-		if (resources == null)
-			resources = InitializeResources.getInstance();
+		if (resources == null) resources = InitializeResources.getInstance();
 	}
 	
 	public static ResourceSet getResources(){
