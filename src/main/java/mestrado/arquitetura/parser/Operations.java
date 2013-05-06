@@ -13,6 +13,7 @@ public class Operations {
 	 private AssociationOperations associationOperation;
 	 private PackageOperations packageOperaiton;
 	 private DependencyOperations dependencyOperation;
+	 private UsageOperations usageOperation;
 
 	 public Operations(DocumentManager doc2) {
 		 this.doc = doc2;
@@ -20,7 +21,12 @@ public class Operations {
 		 createAssociationOperations();
 		 createPackageOperations();
 		 createDependencyOperations();
+		 createUsageOperations();
 	 }
+
+	private void createUsageOperations() {
+		this.usageOperation = new UsageOperations(doc);
+	}
 
 	private void createDependencyOperations() {
 		this.dependencyOperation = new DependencyOperations(doc);
@@ -42,5 +48,6 @@ public class Operations {
 	public AssociationOperations forAssociation(){ return associationOperation; }
 	public PackageOperations forPackage(){ return packageOperaiton; }
 	public DependencyOperations forDependency(){ return dependencyOperation; }
+	public UsageOperations forUsage(){ return usageOperation;};
 
 }

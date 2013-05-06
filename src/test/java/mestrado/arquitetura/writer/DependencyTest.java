@@ -6,9 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 
-import mestrado.arquitetura.exceptions.CustonTypeNotFound;
-import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
-import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.DocumentManager;
 import mestrado.arquitetura.parser.Operations;
@@ -40,6 +37,7 @@ public class DependencyTest extends TestHelper {
 		assertEquals("Employee", a.getAllDependencies().get(0).getClient().getName());
 		assertEquals("Casa", a.getAllDependencies().get(0).getSupplier().getName());
 	}
+
 	
 	@Test
 	public void shouldCreateADependencyClassPackage() throws Exception{
@@ -195,5 +193,7 @@ public class DependencyTest extends TestHelper {
 		assertEquals("dependency", a.getAllDependencies().get(0).getName());
 		assertEquals("dependency", a.getAllDependencies().get(1).getName());
 	}
+	
+	
 
 }

@@ -27,10 +27,10 @@ public class DependencyNode extends XmiHelper {
 		this.name = name;
 	}
 
-	public void createDependency() throws DOMException, NodeNotFound {
+	public void createDependency(String dependency) throws DOMException, NodeNotFound {
 		//Primeiramente cria o xmi necessário no document UML.
 		
-		createDependencyInUmlFile();
+		createDependencyInUmlFile(dependency);
 		
 		Node node = this.docNotation.getElementsByTagName("notation:Diagram").item(0);
 		Element edges = this.docNotation.createElement("edges");
@@ -59,16 +59,12 @@ public class DependencyNode extends XmiHelper {
 		edges.setAttribute("target", idTarget);
 		edges.setAttribute("lineColor", "0");
 		
-		 //<styles xmi:type="notation:FontStyle" xmi:id="_B7swwbDfEeKXAbdr0ngOng" fontName="Lucida Grande" fontHeight="11"/>
-//		 Element styles = this.docNotation.createElement("styles");
-//		 styles.setAttribute("xmi:type", "notation:FontStyle");
-//		 styles.setAttribute("xmi:id", UtilResources.getRandonUUID());
-//		 styles.setAttribute("fontName", "Lucida Grande");
-//		 styles.setAttribute("fontHeight", "11");
-//		 edges.appendChild(styles);
-		 
 		 Element element = docNotation.createElement("element");
-		 element.setAttribute("xmi:type", "uml:Dependency");
+		 if("dependency".equalsIgnoreCase(dependency)){
+			 element.setAttribute("xmi:type", "uml:Dependency");
+		 }else if("usage".equalsIgnoreCase(dependency)){
+			 element.setAttribute("xmi:type", "uml:Usage");
+		 }
 		 element.setAttribute("href", documentManager.getNewModelName()+".uml#"+this.id); 
 		 edges.appendChild(element);
 		 
@@ -94,14 +90,17 @@ public class DependencyNode extends XmiHelper {
 		node.appendChild(edges);
 	}
 
-	private void createDependencyInUmlFile() {
+	private void createDependencyInUmlFile(String dependency) {
 		Node modelRoot = this.docUml.getElementsByTagName("uml:Model").item(0);
 		
 		String idDependency = UtilResources.getRandonUUID();
 		this.id = idDependency;
 		
 		Element elementDependency = this.docUml.createElement("packagedElement");
-		elementDependency.setAttribute("xmi:type", "uml:Dependency");
+		if("dependency".equalsIgnoreCase(dependency))
+			elementDependency.setAttribute("xmi:type", "uml:Dependency");
+		else if("usage".equalsIgnoreCase(dependency))
+			elementDependency.setAttribute("xmi:type", "uml:Usage");
 		elementDependency.setAttribute("xmi:id", idDependency);
 		elementDependency.setAttribute("name", this.name);
 		elementDependency.setAttribute("client", this.clientElement);
@@ -112,6 +111,8 @@ public class DependencyNode extends XmiHelper {
 		clientElement.setAttribute("clientDependency", idDependency);
 		
 		modelRoot.appendChild(elementDependency);
+		
+		
 	}
 
 }
