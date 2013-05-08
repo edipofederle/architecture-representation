@@ -19,7 +19,8 @@ public class AssociationEndBuilder {
 		boolean isNavigable = property.isNavigable();
 		String aggregation = property.getAggregation().getName();
 		
-		Multiplicity multiplicity = new  Multiplicity(property.getLowerValue().stringValue(), property.getUpperValue().stringValue());
+		String upperValue = property.getUpperValue() == null ? "" : property.getUpperValue().stringValue();
+		Multiplicity multiplicity = new  Multiplicity(property.getLowerValue().stringValue(), upperValue );
 		return new AssociationEnd(klass, isNavigable, aggregation, multiplicity);
 	}
 

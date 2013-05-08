@@ -25,14 +25,17 @@ public class AssociationNode extends XmiHelper{
 	private final String idAssocation;
 	private final String memberEndId;
 	private final String newModelName;
+
+	private ElementXmiGenerator elementXmiGenerator;
 	
-	public AssociationNode(Document docUml, Document docNotation, String name) {
-		this.newModelName = name;
-		this.docUml = docUml;
-		this.docNotation = docNotation;
+	public AssociationNode(DocumentManager doc) {
+		this.newModelName = doc.getModelName();
+		this.docUml = doc.getDocUml();
+		this.docNotation = doc.getDocNotation();
 		
 		this.idAssocation = UtilResources.getRandonUUID();
 		this.memberEndId  = UtilResources.getRandonUUID();
+		this.elementXmiGenerator = new ElementXmiGenerator(doc);
 	}
 
 	public void createAssociation(String idClassOwnnerAssociation, String idClassDestinationAssociation, String multiplicityClassDestination, String multiplicityClassOwnner) throws NodeNotFound, InvalidMultiplictyForAssociationException {
@@ -85,7 +88,7 @@ public class AssociationNode extends XmiHelper{
 		
 		ownedAttibute(multiplicityClassDestination);
 		
-		createEgdeAssocationOnNotationFile();
+		elementXmiGenerator.createEgdeAssocationOnNotationFile(docNotation, newModelName, idClassOwnnerAssociation, idClassDestinationAssociation, this.idAssocation);
 		
 	}
 	
@@ -128,82 +131,6 @@ public class AssociationNode extends XmiHelper{
 		packageElementNode.appendChild(ownedAttibute);
 	}
 
-
-	private void createEgdeAssocationOnNotationFile() throws NodeNotFound{
-		
-		Node node = this.docNotation.getElementsByTagName("notation:Diagram").item(0);
-		
-		NamedNodeMap attributesOwnner = findByIDInNotationFile(docNotation,idClassOwnnerAssociation).getAttributes();
-		NamedNodeMap attributesDestination = findByIDInNotationFile(docNotation, idClassDestinationAssociation).getAttributes();
-		String idSource = attributesOwnner.getNamedItem("xmi:id").getNodeValue();
-		String idTarget = attributesDestination.getNamedItem("xmi:id").getNodeValue();
-		
-		Element edges = this.docNotation.createElement("edges");
-		edges.setAttribute("xmi:type", "notation:Connector");
-		edges.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		edges.setAttribute("type", "4001");
-		edges.setAttribute("source", idSource);
-		edges.setAttribute("target", idTarget);
-		edges.setAttribute("lineColor", "0");
-		
-		//Multiplicidade
-
-		
-		Element childrenDecorationNode = this.docNotation.createElement("children");
-		childrenDecorationNode.setAttribute("xmi:type", "notation:DecorationNode");
-		childrenDecorationNode.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		childrenDecorationNode.setAttribute("type", "6033");
-		edges.appendChild(childrenDecorationNode);
-		
-		Element layoutConstraint = this.docNotation.createElement("layoutConstraint");
-		layoutConstraint.setAttribute("xmi:type", "notation:Location");
-		layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		layoutConstraint.setAttribute("y", "20");
-		childrenDecorationNode.appendChild(layoutConstraint);
-		
-		
-		Element childrenDecorationNode2 = this.docNotation.createElement("children");
-		childrenDecorationNode2.setAttribute("xmi:type", "notation:DecorationNode");
-		childrenDecorationNode2.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		childrenDecorationNode2.setAttribute("type", "6034");
-		edges.appendChild(childrenDecorationNode2);
-		
-		Element layoutConstraint2 = this.docNotation.createElement("layoutConstraint");
-		layoutConstraint2.setAttribute("xmi:type", "notation:Location");
-		layoutConstraint2.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		layoutConstraint2.setAttribute("y", "-20");
-		childrenDecorationNode2.appendChild(layoutConstraint2);
-		
-		//Fim multiplicidade
-		
-		Element elementAssociation = this.docNotation.createElement("element");
-		elementAssociation.setAttribute("xmi:type", "uml:Association");
-		elementAssociation.setAttribute("href", this.newModelName+".uml#"+this.idAssocation);
-		edges.appendChild(elementAssociation);
-		
-		Element styles = docNotation.createElement("styles");
-		styles.setAttribute("xmi:type", "notation:FontStyle");
-		styles.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		styles.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		styles.setAttribute("fontName", "Lucida Grande");
-		styles.setAttribute("fontHeight", "11");
-		edges.appendChild(styles);
-		
-		Element bendpoints = docNotation.createElement("bendpoints");
-		bendpoints.setAttribute("xmi:type", "notation:RelativeBendpoints");
-		bendpoints.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		bendpoints.setAttribute("points", "[0, 0, -200, -20]$[255, -30, -6, -50]");
-		edges.appendChild(bendpoints);
-		
-		Element sourceAnchor = docNotation.createElement("sourceAnchor");
-		sourceAnchor.setAttribute("xmi:type", "notation:IdentityAnchor");
-		sourceAnchor.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		sourceAnchor.setAttribute("id", "(1.0,0.36)");
-		edges.appendChild(sourceAnchor);
-		
-		node.appendChild(edges);
-	}
-	
 	
 	public void  removeAssociation(String id){
 		//Busca por node "edges" no arquivo notation.

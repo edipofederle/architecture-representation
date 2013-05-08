@@ -42,7 +42,7 @@ public class AssociationOperations {
 	
 	public String build() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
 		//Refactoring, document.getNewName is common for many classes
-		final AssociationNode associationNode = new AssociationNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation(), documentManager.getModelName());
+		final AssociationNode associationNode = new AssociationNode(this.documentManager);
 		
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() throws NodeNotFound, InvalidMultiplictyForAssociationException {

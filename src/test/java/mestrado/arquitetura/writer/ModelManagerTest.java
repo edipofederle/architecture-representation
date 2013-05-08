@@ -96,25 +96,6 @@ public class ModelManagerTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldRemoveAssociation() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
-		DocumentManager doc = givenADocument("teste4", "simples");
-		Operations op = new Operations(doc);
-		
-		Map<String, String> idPerson = op.forClass().createClass("Person").build();
-		Map<String, String> idEmployee = op.forClass().createClass("Employee").build();
-		
-		//String id = classOperations.createAssociation(idPerson.get("classId"), idEmployee.get("classId"));
-		
-		String id = op.forAssociation().createAssociation()
-							 .betweenClass(idPerson.get("classId"))
-							 .andClass(idEmployee.get("classId")).build();
-		
-		assertTrue(modelContainId("teste4", id));
-		op.forClass().removeAssociation(id);
-		assertFalse(modelContainId("teste4", id));
-	}
-	
-	@Test
 	public void shouldCreateAClass() throws Exception{
 		DocumentManager doc = givenADocument("teste2", "simples");
 		Operations op = new Operations(doc);

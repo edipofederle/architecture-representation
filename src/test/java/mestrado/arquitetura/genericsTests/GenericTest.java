@@ -142,7 +142,7 @@ public class GenericTest extends TestHelper {
 		Operations op = new Operations(doc);
 		List<String> idsClass = new ArrayList<String>();
 		
-		for(int i=0; i< 5; i++){
+		for(int i=0; i< 30; i++){
 			String idClass = op.forClass().createClass(generateRandomWord(5)).build().get("classId");
 			idsClass.add(idClass);
 			

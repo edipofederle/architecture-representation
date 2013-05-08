@@ -101,14 +101,6 @@ public class ClassOperations extends XmiHelper {
 	}
 	
 
-	public void removeAssociation(final String idAssociation) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
-		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
-			public void useTransformation() {
-				AssociationNode associationNode = new AssociationNode(documentManager.getDocUml(), documentManager.getDocNotation(), documentManager.getModelName());
-				associationNode.removeAssociation(idAssociation);
-			}
-		});
-	}
 	
 	public void removeClassById(final String id) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){

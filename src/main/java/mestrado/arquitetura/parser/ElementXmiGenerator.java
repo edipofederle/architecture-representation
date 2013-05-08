@@ -12,7 +12,9 @@ import mestrado.arquitetura.parser.method.Attribute;
 import mestrado.arquitetura.parser.method.Method;
 import mestrado.arquitetura.parser.method.Types;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 /**
@@ -192,5 +194,81 @@ public class ElementXmiGenerator extends XmiHelper {
 	private boolean isLocationToAddMethodInNotationFile(Node nodeNotationToAddMethod, int i, String location ) {
 		return nodeNotationToAddMethod.getChildNodes().item(i).getAttributes().getNamedItem("type").getNodeValue().equals(location);
 	}
+	
+	public void createEgdeAssocationOnNotationFile(Document docNotation, String newModelName, String client, String target, String idEdge) throws NodeNotFound{
+		
+		Node node = docNotation.getElementsByTagName("notation:Diagram").item(0);
+		
+		NamedNodeMap attributesOwnner = findByIDInNotationFile(docNotation, client).getAttributes();
+		NamedNodeMap attributesDestination = findByIDInNotationFile(docNotation, target).getAttributes();
+		String idSource = attributesOwnner.getNamedItem("xmi:id").getNodeValue();
+		String idTarget = attributesDestination.getNamedItem("xmi:id").getNodeValue();
+		
+		Element edges = docNotation.createElement("edges");
+		edges.setAttribute("xmi:type", "notation:Connector");
+		edges.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		edges.setAttribute("type", "4001");
+		edges.setAttribute("source", idSource);
+		edges.setAttribute("target", idTarget);
+		edges.setAttribute("lineColor", "0");
+		
+		//Multiplicidade
+
+		
+		Element childrenDecorationNode = docNotation.createElement("children");
+		childrenDecorationNode.setAttribute("xmi:type", "notation:DecorationNode");
+		childrenDecorationNode.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		childrenDecorationNode.setAttribute("type", "6033");
+		edges.appendChild(childrenDecorationNode);
+		
+		Element layoutConstraint = docNotation.createElement("layoutConstraint");
+		layoutConstraint.setAttribute("xmi:type", "notation:Location");
+		layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		layoutConstraint.setAttribute("y", "20");
+		childrenDecorationNode.appendChild(layoutConstraint);
+		
+		
+		Element childrenDecorationNode2 = docNotation.createElement("children");
+		childrenDecorationNode2.setAttribute("xmi:type", "notation:DecorationNode");
+		childrenDecorationNode2.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		childrenDecorationNode2.setAttribute("type", "6034");
+		edges.appendChild(childrenDecorationNode2);
+		
+		Element layoutConstraint2 = docNotation.createElement("layoutConstraint");
+		layoutConstraint2.setAttribute("xmi:type", "notation:Location");
+		layoutConstraint2.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		layoutConstraint2.setAttribute("y", "-20");
+		childrenDecorationNode2.appendChild(layoutConstraint2);
+		
+		//Fim multiplicidade
+		
+		Element elementAssociation = docNotation.createElement("element");
+		elementAssociation.setAttribute("xmi:type", "uml:Association");
+		elementAssociation.setAttribute("href", newModelName +".uml#"+idEdge);
+		edges.appendChild(elementAssociation);
+		
+		Element styles = docNotation.createElement("styles");
+		styles.setAttribute("xmi:type", "notation:FontStyle");
+		styles.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		styles.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		styles.setAttribute("fontName", "Lucida Grande");
+		styles.setAttribute("fontHeight", "11");
+		edges.appendChild(styles);
+		
+		Element bendpoints = docNotation.createElement("bendpoints");
+		bendpoints.setAttribute("xmi:type", "notation:RelativeBendpoints");
+		bendpoints.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		bendpoints.setAttribute("points", "[0, 0, -200, -20]$[255, -30, -6, -50]");
+		edges.appendChild(bendpoints);
+		
+		Element sourceAnchor = docNotation.createElement("sourceAnchor");
+		sourceAnchor.setAttribute("xmi:type", "notation:IdentityAnchor");
+		sourceAnchor.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		sourceAnchor.setAttribute("id", "(1.0,0.36)");
+		edges.appendChild(sourceAnchor);
+		
+		node.appendChild(edges);
+	}
+	
 
 }

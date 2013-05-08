@@ -15,7 +15,6 @@ public class GeneralizationNode extends XmiHelper {
 	private Document docNotation;
 	private String clientElement;
 	private String general;
-	private String name;
 	private String id;
 
 	public GeneralizationNode(DocumentManager documentManager, String general, String client, String name) {
@@ -24,7 +23,6 @@ public class GeneralizationNode extends XmiHelper {
 		this.docNotation = documentManager.getDocNotation();
 		this.clientElement = client;
 		this.general = general;
-		this.name = name;
 	}
 
 	public void createGeneralization() throws DOMException, NodeNotFound {
@@ -76,16 +74,10 @@ public class GeneralizationNode extends XmiHelper {
 
 		
 		node.appendChild(edges);
-
-		
-		
-		
 		
 	}
 
 	private void createNodeInUmlFile() {
-		Node modelRoot = this.docUml.getElementsByTagName("uml:Model").item(0);
-		
 		this.id = UtilResources.getRandonUUID();
 		
 		//Pega id da classe client
@@ -97,6 +89,5 @@ public class GeneralizationNode extends XmiHelper {
 		
 		classClient.appendChild(generalization);
 	}
-		
 
 }

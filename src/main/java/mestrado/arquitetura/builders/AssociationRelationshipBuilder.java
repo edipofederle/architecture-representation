@@ -55,7 +55,9 @@ public class AssociationRelationshipBuilder extends RelationshipBase {
 				String id = getModelHelper().getXmiId(a.getType());
 				mestrado.arquitetura.representation.Element c = architecture.getElementByXMIID(id);
 				elementsOfAssociation.add(associationEndBuilder.create(a,c));
-			}catch(Exception e){}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 					
 		}
 		

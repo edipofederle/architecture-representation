@@ -30,7 +30,20 @@ public class Multiplicity {
 	
 	@Override
 	public String toString(){
-		return this.lowerValue + ".."  + this.upperValue;
+		if(isCompleteMultiplicty())
+				return this.lowerValue + ".."  + this.upperValue;
+		else{
+			return "1";
+		}
+			
+	}
+
+	private boolean isCompleteMultiplicty() {
+		if ((this.lowerValue == null) || ("".equalsIgnoreCase(this.lowerValue)) && ((this.upperValue == null)) || ("".equalsIgnoreCase(this.upperValue))){
+			return false;
+		}else{
+			return true;
+		}
 	}
 
 }
