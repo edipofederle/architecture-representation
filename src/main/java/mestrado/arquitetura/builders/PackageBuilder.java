@@ -3,8 +3,6 @@ package mestrado.arquitetura.builders;
 import java.util.ArrayList;
 import java.util.List;
 
-import mestrado.arquitetura.exceptions.ModelIncompleteException;
-import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.helpers.ModelHelper;
 import mestrado.arquitetura.helpers.ModelHelperFactory;
 import mestrado.arquitetura.representation.Architecture;
@@ -26,13 +24,7 @@ public class PackageBuilder extends ElementBuilder<Package> {
 	private static ModelHelper modelHelper;
 
 	static{
-		try {
-			modelHelper = ModelHelperFactory.getModelHelper();
-		} catch (ModelNotFoundException e) {
-			e.printStackTrace();
-		} catch (ModelIncompleteException e) {
-			e.printStackTrace();
-		}
+		modelHelper = ModelHelperFactory.getModelHelper();
 	}
 
 	public PackageBuilder(Architecture architecture,  ClassBuilder classBuilder) {

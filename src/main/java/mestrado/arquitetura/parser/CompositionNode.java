@@ -1,5 +1,6 @@
 package mestrado.arquitetura.parser;
 
+import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.helpers.UtilResources;
 
@@ -11,6 +12,8 @@ public class CompositionNode extends XmiHelper {
 	private DocumentManager doc;
 	private String associationId;
 	private ElementXmiGenerator elementXmiGenerator;
+	private String multiplicityClassClient;
+	private String multiplicityClassTarget;
 
 	public CompositionNode(DocumentManager doc) {
 		this.doc = doc;
@@ -18,7 +21,32 @@ public class CompositionNode extends XmiHelper {
 		this.elementXmiGenerator = new ElementXmiGenerator(doc);
 	}
 
-	public void createComposition(String client, String target) throws NodeNotFound {
+	public void createComposition(String client, String target, String multiplicityClassClient, String multiplicityClassTarget) throws NodeNotFound, InvalidMultiplictyForAssociationException {
+		
+		this.multiplicityClassClient = multiplicityClassClient;
+		this.multiplicityClassTarget = multiplicityClassTarget;
+		
+		String multiLowerValueClient = "1";
+		String multiUpperValueClient = "1";
+		
+		String multiLowerValueTarget = "1";
+		String multiUpperValueTarget = "1";
+		
+		if(multiplicityClassClient != null){
+			multiLowerValueClient = multiplicityClassClient.substring(0, 1).trim();
+			multiUpperValueClient = multiplicityClassClient.substring(multiplicityClassClient.length()-1, multiplicityClassClient.length()).trim();
+			 
+			if(multiLowerValueClient.equals("*"))
+				throw new InvalidMultiplictyForAssociationException("Multiplicy lower value cannot be *");
+		}
+		
+		if(multiplicityClassTarget != null){
+			multiLowerValueTarget = multiplicityClassTarget.substring(0, 1).trim();
+			multiUpperValueTarget = multiplicityClassTarget.substring(multiplicityClassClient.length()-1, multiplicityClassTarget.length()).trim();
+			 
+			if(multiLowerValueTarget.equals("*"))
+				throw new InvalidMultiplictyForAssociationException("Multiplicy lower value cannot be *");
+		}
 		
 		//Monta XMI no arquivo .uml
 		
@@ -46,12 +74,12 @@ public class CompositionNode extends XmiHelper {
 		Element lowerValueOwnedEndElement1 = doc.getDocUml().createElement("lowerValue");
 		lowerValueOwnedEndElement1.setAttribute("xmi:type", "uml:LiteralInteger");
 		lowerValueOwnedEndElement1.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		lowerValueOwnedEndElement1.setAttribute("value", "1");
+		lowerValueOwnedEndElement1.setAttribute("value", multiLowerValueClient);
 		
 		Element upperValueOwnedEndElement1 = doc.getDocUml().createElement("upperValue");
-		upperValueOwnedEndElement1.setAttribute("xmi:type", "LiteralUnlimitedNatural");
+		upperValueOwnedEndElement1.setAttribute("xmi:type", "uml:LiteralUnlimitedNatural");
 		upperValueOwnedEndElement1.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		upperValueOwnedEndElement1.setAttribute("value", "1");
+		upperValueOwnedEndElement1.setAttribute("value", multiUpperValueClient);
 		
 		ownedEndElement1.appendChild(lowerValueOwnedEndElement1);
 		ownedEndElement1.appendChild(upperValueOwnedEndElement1);
@@ -67,12 +95,12 @@ public class CompositionNode extends XmiHelper {
 		Element lowerValueOwnedEndElement2 = doc.getDocUml().createElement("lowerValue");
 		lowerValueOwnedEndElement2.setAttribute("xmi:type", "uml:LiteralInteger");
 		lowerValueOwnedEndElement2.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		lowerValueOwnedEndElement2.setAttribute("value", "1");
+		lowerValueOwnedEndElement2.setAttribute("value", multiLowerValueTarget);
 		
 		Element upperValueOwnedEndElement2 = doc.getDocUml().createElement("upperValue");
-		upperValueOwnedEndElement2.setAttribute("xmi:type", "LiteralUnlimitedNatural");
+		upperValueOwnedEndElement2.setAttribute("xmi:type", "uml:LiteralUnlimitedNatural");
 		upperValueOwnedEndElement2.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		upperValueOwnedEndElement2.setAttribute("value", "1");
+		upperValueOwnedEndElement2.setAttribute("value", multiUpperValueTarget);
 		
 		ownedEndElement2.appendChild(lowerValueOwnedEndElement2);
 		ownedEndElement2.appendChild(upperValueOwnedEndElement2);

@@ -15,6 +15,7 @@ public class Operations {
 	 private DependencyOperations dependencyOperation;
 	 private UsageOperations usageOperation;
 	 private GeneralizationOperations generalizationOperations;
+	 private CompositionOperations compositionOperations;
 
 	 public Operations(DocumentManager doc2) {
 		 this.doc = doc2;
@@ -24,7 +25,12 @@ public class Operations {
 		 createDependencyOperations();
 		 createUsageOperations();
 		 createGeneralizationOperations();
+		 createCompositionOperations();
 	 }
+
+	private void createCompositionOperations() {
+		this.compositionOperations = new CompositionOperations(doc);
+	}
 
 	private void createGeneralizationOperations() {
 		this.generalizationOperations = new GeneralizationOperations(doc);
@@ -56,5 +62,6 @@ public class Operations {
 	public DependencyOperations forDependency(){ return dependencyOperation; }
 	public UsageOperations forUsage(){ return usageOperation; };
 	public GeneralizationOperations forGeneralization(){ return generalizationOperations; }
+	public CompositionOperations forComposition(){ return compositionOperations; }
 
 }

@@ -30,12 +30,21 @@ public class Multiplicity {
 	
 	@Override
 	public String toString(){
-		if(isCompleteMultiplicty())
-				return this.lowerValue + ".."  + this.upperValue;
-		else{
+		
+		if(bothEqualsOne()){
 			return "1";
+		}else if(isCompleteMultiplicty()){
+			return this.lowerValue + ".."  + this.upperValue;
 		}
+		
+		return "";
 			
+	}
+
+	private boolean bothEqualsOne() {
+		if(("1".equals(this.upperValue)) && ("1".equals(this.lowerValue)))
+			return true;
+		return false;
 	}
 
 	private boolean isCompleteMultiplicty() {

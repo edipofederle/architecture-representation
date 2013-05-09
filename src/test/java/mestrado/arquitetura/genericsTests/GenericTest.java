@@ -20,6 +20,10 @@ import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.DocumentManager;
 import mestrado.arquitetura.parser.Operations;
+import mestrado.arquitetura.parser.method.Argument;
+import mestrado.arquitetura.parser.method.Method;
+import mestrado.arquitetura.parser.method.Types;
+import mestrado.arquitetura.parser.method.VisibilityKind;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.relationship.AssociationEnd;
 import mestrado.arquitetura.representation.relationship.AssociationRelationship;
@@ -158,5 +162,49 @@ public class GenericTest extends TestHelper {
 		}
 			
 	}
+	
+	
+	@Test
+	public void genericTestAllElementsGenerate1() throws NodeNotFound, InvalidMultiplictyForAssociationException, IOException, CustonTypeNotFound{
+		DocumentManager doc = givenADocument("genericElements2", "simples");
+		Operations op = new Operations(doc);
+		
+		List<Argument> arguments3 = new ArrayList<Argument>();
+		arguments3.add(Argument.create("age", Types.INTEGER_WRAPPER));
+		List<Method> listMethods = new ArrayList<Method>();
+		
+		for (int i = 0; i < 5; i++) {
+			
+			mestrado.arquitetura.parser.method.Method xpto = mestrado.arquitetura.parser.method.Method.create()
+						.withName(generateRandomWord(4)).withArguments(arguments3)
+						.withVisibility(VisibilityKind.PRIVATE_LITERAL)
+						.withReturn(Types.LONG)
+						.build();
+			
+			listMethods.add(xpto);
+		}
+		
+
+		
+		String idORder = op.forClass().createClass("Order").withMethod(listMethods.get(0)).build().get("classId");
+		String class2 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(1)).build().get("classId");
+		String class3 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(2)).build().get("classId");
+		String class4 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(3)).build().get("classId");
+		String class5 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(4)).build().get("classId");
+		
+		op.forAssociation().createAssociation()
+		 .betweenClass(idORder).withMultiplicy("1..*")
+		 .andClass(class2).withMultiplicy("0..1")
+		 .build();
+		
+		op.forDependency().createRelation("Dependencia #1").between(class5).and(class4).build();
+		op.forUsage().createRelation("USage").between(class3).and(class4).build();
+		
+		op.forGeneralization().createRelation("Generalizcao #1").between(class4).and(class2).build();
+		
+		op.forDependency().createRelation("Dependencia #1").between(class5).and(class2).build();
+		
+	}
+	
 	
 }

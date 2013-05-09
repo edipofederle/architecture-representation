@@ -84,7 +84,6 @@ public class DependenciesTest extends TestHelper {
 	@Test
 	public void shouldDependencyContainsTwoClients() throws Exception {
 
-
 		DependencyRelationship d2 = arch.getAllDependencies().get(1);
 		DependencyRelationship d3 = arch.getAllDependencies().get(2);
 
@@ -93,6 +92,12 @@ public class DependenciesTest extends TestHelper {
 		assertEquals(2, d3.getAllClientsForSupplierClass().size());
 		assertEquals("Class4", d3.getAllClientsForSupplierClass().get(0).getName());
 		assertEquals("Class5", d3.getAllClientsForSupplierClass().get(1).getName());
+	}
+	
+	@Test
+	public void shouldLoadOnlyDependency() throws Exception{
+		arch = givenAArchitecture("dependencia2");
+		assertNotNull(arch);
 	}
 
 	@Test

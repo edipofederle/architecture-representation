@@ -9,6 +9,8 @@ public class CompositionOperations {
 	private DocumentManager doc;
 	private String client;
 	private String target;
+	private String multiplicityClassTarget;
+	private String multiplicityClassClient;
 
 	public CompositionOperations(DocumentManager doc) {
 		this.doc = doc;
@@ -27,17 +29,27 @@ public class CompositionOperations {
 		this.target = idElement;
 		return this;
 	}
+	
+	public CompositionOperations withMultiplicy(String multiplicity) {
+		if(this.target != null)
+			this.multiplicityClassTarget = multiplicity;
+		else if(this.client != null)
+			this.multiplicityClassClient = multiplicity;
+		return this;
+	}
+	
 
 	public void build() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		final CompositionNode cn = new CompositionNode(doc);
 		
 		mestrado.arquitetura.parser.Document.executeTransformation(doc, new Transformation(){
 			public void useTransformation() throws NodeNotFound, InvalidMultiplictyForAssociationException {
-				cn.createComposition(client, target);
+				cn.createComposition(client, target, multiplicityClassClient, multiplicityClassTarget);
 			}
 		});
 	}
-	
+
+
 	
 
 }

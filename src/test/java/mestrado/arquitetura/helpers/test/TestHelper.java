@@ -54,13 +54,8 @@ public abstract class TestHelper {
 		} catch (ModelIncompleteException e) {
 			e.printStackTrace();
 		}
-		try {
-			modelHelper = ModelHelperFactory.getModelHelper();
-		} catch (ModelNotFoundException e) {
-			e.printStackTrace();
-		} catch (ModelIncompleteException e) {
-			e.printStackTrace();
-		}
+		
+		modelHelper = ModelHelperFactory.getModelHelper();
 		
 	}
 

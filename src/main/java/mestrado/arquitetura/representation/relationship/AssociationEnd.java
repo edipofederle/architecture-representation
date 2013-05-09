@@ -50,10 +50,28 @@ public class AssociationEnd {
 		this.isNavigable = isNavigable;
 	}
 
+	/**
+	 * Retorna o tipo da associação.<br />
+	 * Tipos:
+	 * 	
+	 * 	<ul>
+	 * 		<li>Composiçãao - Composite</li>
+	 * 		<li>Agregação - Shared</li>
+	 *  </ul>
+	 *  
+	 * @return
+	 */
 	public String getAggregation() {
-		return "shared".equalsIgnoreCase(aggregation) ? "Aggregation" : aggregation;
+		if("shared".equalsIgnoreCase(aggregation))
+			return "Aggregation";
+		else if("composite".equalsIgnoreCase(aggregation))
+			return "Composition";
+		else
+			return "none";
+		
 	}
 
+	
 	private void setAggregation(String aggregation) {
 		this.aggregation = aggregation;
 	}
