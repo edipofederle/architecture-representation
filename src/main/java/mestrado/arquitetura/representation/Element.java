@@ -11,7 +11,7 @@ import java.util.List;
  */
 public abstract class Element {
 
-	private String id;
+	protected String id;
 	private String name;
 	private Boolean isVariationPoint;
 	private VariantType variantType;

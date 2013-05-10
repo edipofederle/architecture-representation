@@ -23,6 +23,7 @@ public class GeneralizationRelationship extends Relationship {
 		setChild(childClass);
 		this.architecture = architecture;
 		setId(id);
+		setTypeRelationship("generalization");
 	}
 	
 

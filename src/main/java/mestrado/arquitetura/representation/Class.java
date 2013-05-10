@@ -2,12 +2,14 @@ package mestrado.arquitetura.representation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import mestrado.arquitetura.exceptions.AttributeNotFoundException;
 import mestrado.arquitetura.exceptions.MethodNotFoundException;
 import mestrado.arquitetura.helpers.UtilResources;
 import mestrado.arquitetura.representation.relationship.Relationship;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -16,7 +18,7 @@ import mestrado.arquitetura.representation.relationship.Relationship;
  */
 public class Class extends Element {
 	
-	private final static Logger LOGGER = Logger.getLogger(Class.class.getName()); 
+	static Logger LOGGER = LogManager.getLogger(Class.class.getName());
 	
 	private boolean isAbstract;
 	private final List<Attribute> attributes = new ArrayList<Attribute>();
@@ -108,7 +110,7 @@ public class Class extends Element {
 	private boolean methodExistsOnClass(String name, String type) {
 		for(Method m : getAllMethods()){
 			if((name.equalsIgnoreCase(m.getName())) && (type.equalsIgnoreCase(m.getReturnType()))){
-				LOGGER.warning("Method '"+ name + ":"+type + "' currently created in class '"+this.getName()+"'.\n");
+				LOGGER.info("Method '"+ name + ":"+type + "' currently created in class '"+this.getName()+"'.\n");
 				return true;
 			}
 		}
@@ -162,6 +164,20 @@ public class Class extends Element {
 				relations.add(relationship);
 		
 		return relations;
+	}
+
+	public boolean dontHaveAnyRelationship() {
+		
+		if(getIdsRelationships().size() == 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public void updateId(String id) {
+		super.id = id;
+		
 	}
 	
 }

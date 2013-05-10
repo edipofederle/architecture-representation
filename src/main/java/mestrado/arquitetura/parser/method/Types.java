@@ -138,4 +138,12 @@ public class Types {
 				staticFields.add(field);
 		return staticFields;
 	}
+
+	public static Type getByName(final String type) {
+		return new Type() {
+			public String getName() {
+				return type;
+			}
+		};
+	}
 }

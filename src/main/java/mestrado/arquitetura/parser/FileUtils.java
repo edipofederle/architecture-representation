@@ -6,11 +6,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.logging.Logger;
+
+import org.apache.log4j.LogManager;
 
 public class FileUtils {
 	
-	private final static Logger LOGGER = Logger.getLogger(FileUtils.class.getName()); 
+	static org.apache.log4j.Logger LOGGER = LogManager.getLogger(FileUtils.class.getName());
 	
 	public static void moveFiles(String to, String from){
 	 	InputStream inStream = null;

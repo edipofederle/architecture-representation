@@ -1,11 +1,11 @@
 package mestrado.arquitetura.parser;
 
-import java.util.logging.Logger;
-
 import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.helpers.UtilResources;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -13,7 +13,7 @@ import org.w3c.dom.NodeList;
 
 public class AssociationNode extends XmiHelper{
 	
-	private final static Logger LOGGER = Logger.getLogger(AssociationNode.class.getName()); 
+	static Logger LOGGER = LogManager.getLogger(AssociationNode.class.getName());
 	
 	private Document docUml;
 	private Document docNotation;
@@ -152,7 +152,7 @@ public class AssociationNode extends XmiHelper{
 			
 			notationNode.removeChild(nodeToRemove);
 		}catch(Exception e){
-			LOGGER.info("Cannot remove Association with id: " + id +"." + e.getMessage());
+			LOGGER.error("Cannot remove Association with id: " + id +"." + e.getMessage());
 		}
 		
 		removeAssociationFromUmlFile(id);

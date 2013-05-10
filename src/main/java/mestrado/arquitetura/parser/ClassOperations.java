@@ -1,6 +1,7 @@
 package mestrado.arquitetura.parser;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
@@ -43,21 +44,24 @@ public class ClassOperations extends XmiHelper {
 	/**
 	 * Cria {@link Attribute} para a classe
 	 * 
-	 * @param attribute
+	 * @param attributes
 	 * @return
 	 * @throws CustonTypeNotFound
 	 * @throws NodeNotFound
 	 * @throws InvalidMultiplictyForAssociationException
 	 */
-	public ClassOperations withAttribute(final Attribute attribute) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public ClassOperations withAttribute(final List<Attribute> attributes) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 
-		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
-			public void useTransformation() throws CustonTypeNotFound, NodeNotFound {
-				elementXmiGenerator.generateAttribute(attribute, null);
-				idsProperties += attribute.getId() + " ";
-			
-			}
-		});
+		for (final Attribute attribute : attributes) {
+			mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+				public void useTransformation() throws CustonTypeNotFound, NodeNotFound {
+					elementXmiGenerator.generateAttribute(attribute, null);
+					idsProperties += attribute.getId() + " ";
+				
+				}
+			});
+		}
+
 		
 		return this;
 	}

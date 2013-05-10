@@ -2,13 +2,14 @@ package mestrado.arquitetura.parser;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
 public class DocumentManager {
@@ -19,7 +20,7 @@ public class DocumentManager {
 	private String originalModelName;
 	private String outputModelName;
 	
-	private final static Logger LOGGER = Logger.getLogger(DocumentManager.class.getName()); 
+	static Logger LOGGER = LogManager.getLogger(DocumentManager.class.getName());
 	
 	public DocumentManager(String outputModelName, String pathToFiles, String originalModelName){
 		this.outputModelName = outputModelName;
@@ -72,7 +73,7 @@ public class DocumentManager {
 			CopyFile.copyFile(new File(pathToFiles+modelName+".di"), new File(diCopy));
 						
 		} catch (IOException e) {
-			LOGGER.severe("I cannot copy all files. Here a message erros: " + e.getMessage());
+			LOGGER.error("I cannot copy all files. Here a message erros: " + e.getMessage());
 		}
 	}
 

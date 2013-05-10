@@ -1,5 +1,6 @@
 package mestrado.arquitetura.representation.relationship;
 
+
 /**
  * 
  * @author edipofederle
@@ -8,6 +9,7 @@ package mestrado.arquitetura.representation.relationship;
 public abstract class Relationship {
 	
 	private String id;
+	private String type;
 
 	/**
 	 * @return the id
@@ -21,6 +23,14 @@ public abstract class Relationship {
 	 */
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public void setTypeRelationship(String type){
+		this.type = type;
+	}
+	
+	public String getTypeRelationship(){
+		return this.type;
 	}
 	
 }

@@ -56,6 +56,24 @@ public class CompositionTest extends TestHelper {
 		assertEquals("1..*",decom.getParticipants().get(0).getMultiplicity().toString());
 		assertEquals("ClasseDois",decom.getParticipants().get(1).getCLSClass().getName());
 		assertEquals("0..1",decom.getParticipants().get(1).getMultiplicity().toString());
+	}
+	
+	@Test
+	public void shouldCreateDependencyClassPackageClass() throws Exception{
+		DocumentManager doc = givenADocument("composicaoPacote", "simples");
+		Operations op = new Operations(doc);
+		
+		String classUm =  op.forClass().createClass("ClasseUm").build().get("classId");
+		String classDois = op.forClass().createClass("ClasseDois").build().get("classId");
+		
+		op.forPackage().createPacakge("meu.com.pacote").withClass(classUm).build();
+		op.forComposition().createComposition().between(classDois).and(classUm).build();
+		
+		Architecture a = givenAArchitecture2("composicaoPacote");
+		AssociationRelationship decom = a.getAllAssociations().get(0);
+		assertNotNull(decom);
+		
+		assertEquals(2, decom.getParticipants().size());
 		
 	}
 }

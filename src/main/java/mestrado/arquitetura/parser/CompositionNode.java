@@ -12,8 +12,6 @@ public class CompositionNode extends XmiHelper {
 	private DocumentManager doc;
 	private String associationId;
 	private ElementXmiGenerator elementXmiGenerator;
-	private String multiplicityClassClient;
-	private String multiplicityClassTarget;
 
 	public CompositionNode(DocumentManager doc) {
 		this.doc = doc;
@@ -21,10 +19,18 @@ public class CompositionNode extends XmiHelper {
 		this.elementXmiGenerator = new ElementXmiGenerator(doc);
 	}
 
-	public void createComposition(String client, String target, String multiplicityClassClient, String multiplicityClassTarget) throws NodeNotFound, InvalidMultiplictyForAssociationException {
+	/**
+	 * 
+	 * @param client
+	 * @param target
+	 * @param multiplicityClassClient
+	 * @param multiplicityClassTarget
+	 * @param type - "composite", "shared"
+	 * @throws NodeNotFound
+	 * @throws InvalidMultiplictyForAssociationException
+	 */
+	public void createComposition(String client, String target, String multiplicityClassClient, String multiplicityClassTarget, String type) throws NodeNotFound, InvalidMultiplictyForAssociationException {
 		
-		this.multiplicityClassClient = multiplicityClassClient;
-		this.multiplicityClassTarget = multiplicityClassTarget;
 		
 		String multiLowerValueClient = "1";
 		String multiUpperValueClient = "1";
@@ -32,7 +38,7 @@ public class CompositionNode extends XmiHelper {
 		String multiLowerValueTarget = "1";
 		String multiUpperValueTarget = "1";
 		
-		if(multiplicityClassClient != null){
+		if((!"".equals(multiplicityClassClient) && (multiplicityClassClient != null))){
 			multiLowerValueClient = multiplicityClassClient.substring(0, 1).trim();
 			multiUpperValueClient = multiplicityClassClient.substring(multiplicityClassClient.length()-1, multiplicityClassClient.length()).trim();
 			 
@@ -40,7 +46,7 @@ public class CompositionNode extends XmiHelper {
 				throw new InvalidMultiplictyForAssociationException("Multiplicy lower value cannot be *");
 		}
 		
-		if(multiplicityClassTarget != null){
+		if((!"".equals(multiplicityClassTarget)) && (multiplicityClassTarget != null)){
 			multiLowerValueTarget = multiplicityClassTarget.substring(0, 1).trim();
 			multiUpperValueTarget = multiplicityClassTarget.substring(multiplicityClassClient.length()-1, multiplicityClassTarget.length()).trim();
 			 
@@ -68,7 +74,7 @@ public class CompositionNode extends XmiHelper {
 		ownedEndElement1.setAttribute("name", "class1"); //Pegar dinamico o nome 
 		ownedEndElement1.setAttribute("type", client);
 		ownedEndElement1.setAttribute("association", associationId);
-		ownedEndElement1.setAttribute("aggregation", "composite");
+		ownedEndElement1.setAttribute("aggregation", type);
 		pkgElement.appendChild(ownedEndElement1);
 		
 		Element lowerValueOwnedEndElement1 = doc.getDocUml().createElement("lowerValue");

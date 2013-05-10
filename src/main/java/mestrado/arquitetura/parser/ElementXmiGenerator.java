@@ -1,6 +1,5 @@
 package mestrado.arquitetura.parser;
 
-import java.util.logging.Logger;
 
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
 import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
@@ -12,6 +11,8 @@ import mestrado.arquitetura.parser.method.Attribute;
 import mestrado.arquitetura.parser.method.Method;
 import mestrado.arquitetura.parser.method.Types;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -25,7 +26,8 @@ import org.w3c.dom.Node;
  */
 public class ElementXmiGenerator extends XmiHelper {
 	
-	private final static Logger LOGGER = Logger.getLogger(ElementXmiGenerator.class.getName()); 
+
+	static Logger LOGGER = LogManager.getLogger(ElementXmiGenerator.class.getName());
 	
 	private Element element;
 	private DocumentManager documentManager;
@@ -79,7 +81,7 @@ public class ElementXmiGenerator extends XmiHelper {
 					}
 				
 				} catch (NullReferenceFoundException e) {
-					LOGGER.severe("A null reference has been found. The process will be interrupted");
+					LOGGER.error("A null reference has been found. The process will be interrupted");
 				}
 			}
 

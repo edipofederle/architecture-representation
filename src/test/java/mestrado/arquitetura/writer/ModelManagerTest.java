@@ -131,6 +131,10 @@ public class ModelManagerTest extends TestHelper {
 				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 				 .withType(Types.INTEGER_WRAPPER);
 		
+		List<Attribute> classInfoAttrs = new ArrayList<Attribute>();
+		classInfoAttrs .add(xpto);
+		classInfoAttrs.add(age);
+		
 		Attribute id = Attribute.create()
 				 .withName("id")
 				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
@@ -141,9 +145,12 @@ public class ModelManagerTest extends TestHelper {
 				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 				 .withType(Types.STRING);
 		
+		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
+		classInfoAttrs2.add(id);
+		classInfoAttrs2.add(name);
 		
-		Map<String, String> classInfo = op.forClass().createClass("Class43").withAttribute(xpto).withAttribute(age).build();
-		op.forClass().createClass("ControllerHome").withAttribute(id).withAttribute(name).build();
+		Map<String, String> classInfo = op.forClass().createClass("Class43").withAttribute(classInfoAttrs).build();
+		op.forClass().createClass("ControllerHome").withAttribute(classInfoAttrs2).build();
 		
 		assertNotNull(classInfo);
 		String[] idsProperty = classInfo.get("idsProperties").split(" ");
@@ -180,7 +187,11 @@ public class ModelManagerTest extends TestHelper {
 				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 				 .withType(Types.INTEGER_WRAPPER);
 		
-		op.forClass().createClass("Foo").withAttribute(name).withAttribute(age).build();
+		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
+		classInfoAttrs2.add(name);
+		classInfoAttrs2.add(age);
+		
+		op.forClass().createClass("Foo").withAttribute(classInfoAttrs2).build();
 		
 		assertTrue(modelContainId("testRemoveAttribute", name.getId()));
 		
@@ -214,7 +225,10 @@ public class ModelManagerTest extends TestHelper {
 				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 				 .withType(Types.STRING);
 		
-		op.forClass().createClass("Person").withMethod(foo).withMethod(teste).withAttribute(name).build();
+		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
+		classInfoAttrs2.add(name);
+		
+		op.forClass().createClass("Person").withMethod(foo).withMethod(teste).withAttribute(classInfoAttrs2).build();
 		Architecture arch = givenAArchitecture2("teste4");
 		Class barKlass = arch.findClassByName("Person");
 		
@@ -297,8 +311,9 @@ public class ModelManagerTest extends TestHelper {
 								 .withName("xpto")
 								 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 								 .withType(Types.STRING);
-		
-		op.forClass().createClass("Person").withMethod(foo).withMethod(teste).withAttribute(xpto).build();
+		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
+		classInfoAttrs2.add(xpto);
+		op.forClass().createClass("Person").withMethod(foo).withMethod(teste).withAttribute(classInfoAttrs2).build();
 		
 		assertTrue(modelContainId("testeRemoveMethod", teste.getId()));
 		
@@ -314,9 +329,9 @@ public class ModelManagerTest extends TestHelper {
 		
 		Architecture arch = givenAArchitecture2("addNewAttributeToClass");
 		assertNotNull(arch);
-		assertEquals(1, arch.getAllClasses().size());
+		assertEquals(0, arch.getAllClasses().size());
 		
-		String idClass = arch.getAllClasses().get(0).getId();
+		String idClass = op.forClass().createClass("Foo").build().get("classid");
 		
 		Attribute xpto = Attribute.create()
 				 .withName("xpto")
@@ -338,7 +353,7 @@ public class ModelManagerTest extends TestHelper {
 		Architecture arch = givenAArchitecture("simples");
 		assertNotNull(arch);
 		
-		String idClass = arch.getAllClasses().get(0).getId();
+		String idClass = op.forClass().createClass("foo").build().get("classId");
 		
 		Attribute xpto = Attribute.create()
 				 .withName("xpto")
@@ -350,7 +365,7 @@ public class ModelManagerTest extends TestHelper {
 		op.forClass().addAttributeToClass(idClass, xpto);
 		assertTrue(modelContainId("addNewPrivateAttributeToClass", xpto.getId()));
 		Architecture arch2 = givenAArchitecture2("addNewPrivateAttributeToClass");
-		assertEquals("private", arch2.findClassByName("Class1").getAllAttributes().get(0).getVisibility());
+		assertEquals("private", arch2.findClassByName("foo").getAllAttributes().get(0).getVisibility());
 	}
 	
 	@Test
@@ -360,9 +375,9 @@ public class ModelManagerTest extends TestHelper {
 		
 		Architecture arch = givenAArchitecture2("addNewMethodToClass");
 		assertNotNull(arch);
-		assertEquals(1, arch.getAllClasses().size());
+		assertEquals(0, arch.getAllClasses().size());
 		
-		String idClass = arch.getAllClasses().get(0).getId();
+		String idClass = op.forClass().createClass("Teste").build().get("classId");
 		assertNotNull("class id should not be null", idClass);
 		assertTrue("model should contain class id", modelContainId("addNewMethodToClass", idClass));
 		
@@ -405,8 +420,9 @@ public class ModelManagerTest extends TestHelper {
 				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 				 .withType(Types.custom("MyClass"));
 		
-		
-		op.forClass().createClass("Foo").withAttribute(xpto);
+		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
+		classInfoAttrs2.add(xpto);
+		op.forClass().createClass("Foo").withAttribute(classInfoAttrs2);
 		
 		Architecture arch = givenAArchitecture2("classWithAttrCuston");
 		Class klassFoo = arch.findClassByName("Foo");
@@ -424,8 +440,10 @@ public class ModelManagerTest extends TestHelper {
 				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 				 .withType(Types.custom("MyClass"));
 		
+		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
+		classInfoAttrs2.add(xpto);
 		
-		op.forClass().createClass("Foo").withAttribute(xpto);
+		op.forClass().createClass("Foo").withAttribute(classInfoAttrs2);
 	}
 	
 	@Test
@@ -540,7 +558,10 @@ public class ModelManagerTest extends TestHelper {
 				 .withType(Types.STRING);
 		
 		
-		 Map<String, String> k = op.forClass().createClass("xpto").withAttribute(xpto).build();
+		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
+		classInfoAttrs2.add(xpto);
+		
+		 Map<String, String> k = op.forClass().createClass("xpto").withAttribute(classInfoAttrs2).build();
 		 Map<String, String> k1 = op.forClass().createClass("Teste").build();
 		 
 		op.forPackage().createPacakge("xpto").withClass(k.get("classId")).withClass(k1.get("classId")).build();

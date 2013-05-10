@@ -2,15 +2,17 @@ package mestrado.arquitetura.representation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import mestrado.arquitetura.helpers.UtilResources;
 import mestrado.arquitetura.representation.relationship.AbstractionRelationship;
 import mestrado.arquitetura.representation.relationship.DependencyRelationship;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 public class Interface extends Element {
 	
-	private final static Logger LOGGER = Logger.getLogger(Interface.class.getName()); 
+	static Logger LOGGER = LogManager.getLogger(Interface.class.getName());
 	private final List<Method> operations = new ArrayList<Method>();
 	
 

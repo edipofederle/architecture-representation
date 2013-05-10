@@ -135,8 +135,8 @@ public class GenericTest extends TestHelper {
 	public void testeGenerico() throws Exception{
 		Architecture a = givenAArchitecture("simples");
 		assertNotNull(a);
-		assertEquals(1 ,a.getAllClasses().size());
-		assertEquals(1, a.getNumberOfElements());
+		assertEquals(0 ,a.getAllClasses().size());
+		assertEquals(0, a.getNumberOfElements());
 	}
 	
 	
@@ -184,7 +184,6 @@ public class GenericTest extends TestHelper {
 			listMethods.add(xpto);
 		}
 		
-
 		
 		String idORder = op.forClass().createClass("Order").withMethod(listMethods.get(0)).build().get("classId");
 		String class2 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(1)).build().get("classId");
@@ -204,6 +203,20 @@ public class GenericTest extends TestHelper {
 		
 		op.forDependency().createRelation("Dependencia #1").between(class5).and(class2).build();
 		
+		op.forComposition().createComposition().between(class3).withMultiplicy("1..*").and(idORder).build();
+		
+		
+	}
+	
+	@Test	
+	public void testePacote() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
+		DocumentManager doc = givenADocument("comPacote", "simples");
+		Operations op = new Operations(doc);
+		
+		String idp2 = op.forPackage().createPacakge("Pacote 1").build().get("packageId");
+		String idp1 = op.forPackage().createPacakge("Pacote 2").build().get("packageId");
+		
+		op.forGeneralization().createRelation("Nome").between(idp2).and(idp1).build();
 	}
 	
 	

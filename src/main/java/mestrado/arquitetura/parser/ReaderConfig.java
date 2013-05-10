@@ -2,15 +2,16 @@ package mestrado.arquitetura.parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.logging.Logger;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.ho.yaml.Yaml;
 
 import config.DirTarget;
 
 public class ReaderConfig {
 	
-	private final static Logger LOGGER = Logger.getLogger(ReaderConfig.class.getName()); 
+	static Logger LOGGER = LogManager.getLogger(ReaderConfig.class.getName());
 	private final static String PATH_CONFIGURATION_FILE = "config/application.yaml";
 	private static DirTarget dir;
 	

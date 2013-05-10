@@ -44,7 +44,7 @@ public class CompositionOperations {
 		
 		mestrado.arquitetura.parser.Document.executeTransformation(doc, new Transformation(){
 			public void useTransformation() throws NodeNotFound, InvalidMultiplictyForAssociationException {
-				cn.createComposition(client, target, multiplicityClassClient, multiplicityClassTarget);
+				cn.createComposition(client, target, multiplicityClassClient, multiplicityClassTarget, "composite");
 			}
 		});
 	}

@@ -2,7 +2,6 @@ package mestrado.arquitetura.parser;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -11,13 +10,14 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 public class SaveAndCopy {
 	
-	private final static Logger LOGGER = Logger.getLogger(SaveAndCopy.class.getName()); 
-	
+	 static Logger LOGGER = LogManager.getLogger(SaveAndCopy.class.getName());
 	
 	// TODO mudar caminho para arquivo de configuração
 	public static void saveAndCopy(Document docNotation, Document docUml, Document docDi, String originalModelName, String newModelName) throws TransformerException, IOException{
@@ -67,7 +67,7 @@ public class SaveAndCopy {
 		FileUtils.moveFiles(umlCopy, targetDirExport+ newModelName +".uml");
 		FileUtils.moveFiles(diCopy, targetDirExport+newModelName +".di");
 		
-		System.out.println("Write: Done");
+		LOGGER.info("Write: Done");
 	}
 
 	private static String getOnlyIdOfXmiAttribute(NodeList elements, int i) {

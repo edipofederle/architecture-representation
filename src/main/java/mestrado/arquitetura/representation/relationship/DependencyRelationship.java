@@ -26,6 +26,7 @@ public class DependencyRelationship extends Relationship {
 		setName(name);
 		this.architecture = architecture;
 		setId(id);
+		setTypeRelationship("dependency");
 	}
 
 	public void setName(String name) {

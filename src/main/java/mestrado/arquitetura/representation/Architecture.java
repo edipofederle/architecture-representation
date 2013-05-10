@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import mestrado.arquitetura.exceptions.ClassNotFound;
 import mestrado.arquitetura.exceptions.InterfaceNotFound;
@@ -23,6 +22,9 @@ import mestrado.arquitetura.representation.relationship.RealizationRelationship;
 import mestrado.arquitetura.representation.relationship.Relationship;
 import mestrado.arquitetura.representation.relationship.UsageRelationship;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 /**
  * 
  * @author edipofederle
@@ -30,7 +32,7 @@ import mestrado.arquitetura.representation.relationship.UsageRelationship;
  */
 public class Architecture {
 	
-	private final static Logger LOGGER = Logger.getLogger(Architecture.class.getName()); 
+	 static Logger LOGGER = LogManager.getLogger(Architecture.class.getName());
 
 	private List<Element> elements = new ArrayList<Element>();
 	private HashMap<String, Concern> concerns = new HashMap<String, Concern>();
@@ -407,6 +409,9 @@ public class Architecture {
 	public void removeClass(Class klass) {
 		if(!elements.remove(klass))
 			LOGGER.info("Cannot remove Class " + klass + ".");
+		else{
+			removeIdOfElementFromList(klass.getId(), "Class Removida com Sucesos");
+		}
 	}
 
 	public int getNumberOfElements() {

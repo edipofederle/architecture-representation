@@ -17,6 +17,9 @@ public class AssociationClassRelationship extends	Relationship {
 		this.memebersEnd = ends;
 		this.ownedEnd = ownedEnd;
 		setId(id);
+		for(Element element : memebersEnd)
+			setTypeRelationship(element.getId());
+		setTypeRelationship(ownedEnd.getId());
 	}
 
 	public String getName() {

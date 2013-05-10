@@ -16,6 +16,7 @@ public class Operations {
 	 private UsageOperations usageOperation;
 	 private GeneralizationOperations generalizationOperations;
 	 private CompositionOperations compositionOperations;
+	 private AggregationOperations aggregationOperations;
 
 	 public Operations(DocumentManager doc2) {
 		 this.doc = doc2;
@@ -26,7 +27,12 @@ public class Operations {
 		 createUsageOperations();
 		 createGeneralizationOperations();
 		 createCompositionOperations();
+		 createAggrationOperations();
 	 }
+
+	private void createAggrationOperations() {
+		this.aggregationOperations = new AggregationOperations(doc);
+	}
 
 	private void createCompositionOperations() {
 		this.compositionOperations = new CompositionOperations(doc);
@@ -63,5 +69,6 @@ public class Operations {
 	public UsageOperations forUsage(){ return usageOperation; };
 	public GeneralizationOperations forGeneralization(){ return generalizationOperations; }
 	public CompositionOperations forComposition(){ return compositionOperations; }
+	public AggregationOperations forAggregation(){ return aggregationOperations; }
 
 }
