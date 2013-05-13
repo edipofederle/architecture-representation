@@ -3,6 +3,7 @@ package mestrado.arquitetura.parser;
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
 import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import mestrado.arquitetura.exceptions.NodeNotFound;
+import mestrado.arquitetura.exceptions.NotSuppportedOperation;
 
 public class GeneralizationOperations implements Relationship {
 	
@@ -47,6 +48,10 @@ public class GeneralizationOperations implements Relationship {
 		});
 		
 		return ""; //TODO return id;
+	}
+
+	public Relationship withMultiplicy(String string)throws NotSuppportedOperation {
+		return null;
 	}
 
 }

@@ -10,10 +10,14 @@ public class AggregationOperations implements Relationship {
 	private String client;
 	private String target;
 	private String name;
+	private String multiplicityClassTarget;
+	private String multiplicityClassClient;
 
-	public AggregationOperations(DocumentManager doc, String name) {
+	public AggregationOperations(DocumentManager doc, String name,  String multiplicityClassClient, String multiplicityClassTarget) {
 		this.doc = doc;
 		this.name = name;
+		this.multiplicityClassClient = multiplicityClassClient;
+		this.multiplicityClassTarget = multiplicityClassTarget;
 	}
 
 	public AggregationOperations(DocumentManager doc) {
@@ -22,6 +26,14 @@ public class AggregationOperations implements Relationship {
 
 	public Relationship between(String idElement) {
 		this.client = idElement;
+		return this;
+	}
+	
+	public Relationship withMultiplicy(String multiplicity) {
+		if(this.target != null)
+			this.multiplicityClassTarget = multiplicity;
+		else if(this.client != null)
+			this.multiplicityClassClient = multiplicity;
 		return this;
 	}
 
@@ -35,7 +47,7 @@ public class AggregationOperations implements Relationship {
 		
 		mestrado.arquitetura.parser.Document.executeTransformation(doc, new Transformation(){
 			public void useTransformation() throws NodeNotFound, InvalidMultiplictyForAssociationException {
-				compositeNode.createComposition(client, target, "", "", "shared");
+				compositeNode.createComposition(client, target, multiplicityClassClient, multiplicityClassTarget, "shared");
 			}
 		});
 		
@@ -44,7 +56,7 @@ public class AggregationOperations implements Relationship {
 
 	public Relationship createRelation(String name) {
 		if(("".equals(name) || name == null)) name = "shared";
-		return new AggregationOperations(this.doc, name);
+		return new AggregationOperations(this.doc, name, multiplicityClassClient, multiplicityClassTarget);
 	}
 
 

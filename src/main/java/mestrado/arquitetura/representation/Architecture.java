@@ -223,6 +223,7 @@ public class Architecture {
 		return allAbstractions;
 	}
 	
+
 	public List<AssociationClassRelationship> getAllAssociationsClass() {
 		Predicate<Relationship> associationClass = new Predicate<Relationship>() {
 			public boolean apply(Relationship parent) {
@@ -417,5 +418,7 @@ public class Architecture {
 	public int getNumberOfElements() {
 		return allIds.size();
 	}
+
+	
 
 }

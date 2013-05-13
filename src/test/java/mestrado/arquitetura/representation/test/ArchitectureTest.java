@@ -163,10 +163,10 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldReturnAllGeneralizations() throws Exception{
 		assertEquals(3, architecture.getInterClassRelationships().size());
-		
 		assertNotNull(architecture.getAllGeneralizations());
 		assertEquals(1, architecture.getAllGeneralizations().size());
 	}
+	
 	
 	@Test
 	public void shouldReturnAllAssociations(){
