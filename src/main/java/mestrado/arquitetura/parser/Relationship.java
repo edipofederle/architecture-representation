@@ -15,8 +15,8 @@ import mestrado.arquitetura.exceptions.NotSuppportedOperation;
 public interface Relationship {
 	
 	public Relationship createRelation(String name);
-	public Relationship between(String idElement);
-	public Relationship and(String idElement);
+	public Relationship between(String idElement) throws NotSuppportedOperation;
+	public Relationship and(String idElement) throws NotSuppportedOperation;
 	public String build() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException;
 	public Relationship withMultiplicy(String string) throws NotSuppportedOperation;
 	

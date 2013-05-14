@@ -1,6 +1,9 @@
 package mestrado.arquitetura.writer;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import mestrado.arquitetura.exceptions.CustonTypeNotFound;
+import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
+import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.DocumentManager;
 import mestrado.arquitetura.parser.Operations;
@@ -12,7 +15,7 @@ import org.junit.Test;
 public class AggregationTest extends TestHelper {
 	
 	@Test
-	public void shouldCreateAggregationClass() throws Exception{
+	public void shouldCreateAggregationClassClass() throws Exception{
 		DocumentManager doc = givenADocument("shared", "simples");
 		Operations op = new Operations(doc);
 		
@@ -31,7 +34,20 @@ public class AggregationTest extends TestHelper {
 		
 		assertEquals("none",a.getParticipants().get(1).getAggregation());
 		assertEquals("1", a.getParticipants().get(1).getMultiplicity().toString());
+	}
+	
+	@Test
+	public void shouldCreateAggregationAssociationClassInsidePackageAndClassOutsidePackagee() throws Exception{
+		
+		DocumentManager doc = givenADocument("sharedClassPackageClass", "simples");
+		Operations op = new Operations(doc);
+		
+		String bar =  op.forClass().createClass("foo").build().get("classId");
+		op.forPackage().createPacakge("models").withClass(bar).build();
+		String foo = op.forClass().createClass("bar").build().get("classId");
+		
+		op.forAggregation().createRelation("Nome").between(bar).withMultiplicy("1..*").and(foo).build();
 		
 	}
-
+	
 }

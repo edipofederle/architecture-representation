@@ -1,11 +1,13 @@
 package mestrado.arquitetura.parser;
 
+import org.w3c.dom.Node;
+
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
 import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.exceptions.NotSuppportedOperation;
 
-public class GeneralizationOperations implements Relationship {
+public class GeneralizationOperations extends XmiHelper implements Relationship  {
 	
 	
 	private DocumentManager documentManager;
@@ -28,14 +30,30 @@ public class GeneralizationOperations implements Relationship {
 		return this;
 	}
 
-	public Relationship between(String idElement) {
-		this.client = idElement;
-		return this;
+	public Relationship between(String idElement) throws NotSuppportedOperation {
+		if(isElementAClass(idElement)){
+			this.client = idElement;
+			return this;
+		}else{
+			throw new NotSuppportedOperation("Cannot create generaliazation with package");
+		}
+	}
+	
+	public Relationship and(String idElement) throws NotSuppportedOperation {
+		if(isElementAClass(idElement)){
+			this.general = idElement;
+			return this;
+		}else{
+			throw new NotSuppportedOperation("Cannot create generaliazation with package");
+		}
 	}
 
-	public Relationship and(String idElement) {
-		this.general = idElement;
-		return this;
+
+	private boolean isElementAClass(String idElement) {
+		Node element = findByID(documentManager.getDocUml(), idElement, "packagedElement");
+		if ("uml:Class".equalsIgnoreCase(element.getAttributes().getNamedItem("xmi:type").getNodeValue()))
+				return true;
+		return false;
 	}
 
 	public String build() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {

@@ -46,18 +46,12 @@ public class ClassNotation extends XmiHelper {
 		node.setAttribute("fontHeight", this.fontHeight);
 		node.setAttribute("lineColor", this.lineColor);
 		
-      	Element eAnnotations = documentManager.getDocNotation().createElement("eAnnotations");
-      	eAnnotations.setAttribute("xmi:type", "ecore:EAnnotation");
-      	eAnnotations.setAttribute("xmi:id", UtilResources.getRandonUUID());
-      	eAnnotations.setAttribute("source", "CustomAppearance_Annotation");
       	
       	Element details = documentManager.getDocNotation().createElement("details");
       	details.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
       	details.setAttribute("xmi:id", UtilResources.getRandonUUID());
       	details.setAttribute("key", "CustomAppearance_MaskValue");
       	details.setAttribute("value", SHOW_TYPE_OF_ATTRIBUTE);
-      	eAnnotations.appendChild(details);
-      	node.appendChild(eAnnotations);
       	
 		Element element = documentManager.getDocNotation().createElement("element");
 		element.setAttribute("xmi:type", typeElement);
@@ -160,47 +154,6 @@ public class ClassNotation extends XmiHelper {
 		nodeChildren.setAttribute("fontName", this.fontName);
 		nodeChildren.setAttribute("fontHeight", this.fontHeight);
 		nodeChildren.setAttribute("lineColor", this.lineColor);
-		
-		
-	   	Element eAnnotations = documentManager.getDocNotation().createElement("eAnnotations");
-      	eAnnotations.setAttribute("xmi:type", "ecore:EAnnotation");
-      	eAnnotations.setAttribute("xmi:id", UtilResources.getRandonUUID());
-      	eAnnotations.setAttribute("source", "ShadowFigure");
-      	nodeChildren.appendChild(eAnnotations);
-		
-      	
-      	Element detailEAnnotaionsShadowFigure = documentManager.getDocNotation().createElement("details");
-      	detailEAnnotaionsShadowFigure.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
-      	detailEAnnotaionsShadowFigure.setAttribute("xmi:id", UtilResources.getRandonUUID());
-      	detailEAnnotaionsShadowFigure.setAttribute("key", "ShadowFigure_Value");
-    	detailEAnnotaionsShadowFigure.setAttribute("value", "false");
-    	eAnnotations.appendChild(detailEAnnotaionsShadowFigure);
-    	
-       	Element eAnnotations2 = documentManager.getDocNotation().createElement("eAnnotations");
-       	eAnnotations2.setAttribute("xmi:type", "ecore:EAnnotation");
-       	eAnnotations2.setAttribute("xmi:id", UtilResources.getRandonUUID());
-       	eAnnotations2.setAttribute("source", "displayNameLabelIcon");
-      	nodeChildren.appendChild(eAnnotations2);
-		
-      	Element detailEAnnotaionsShadowFigureValue = documentManager.getDocNotation().createElement("details");
-      	detailEAnnotaionsShadowFigureValue.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
-      	detailEAnnotaionsShadowFigureValue.setAttribute("xmi:id", UtilResources.getRandonUUID());
-      	detailEAnnotaionsShadowFigureValue.setAttribute("key", "displayNameLabelIcon_value");
-      	detailEAnnotaionsShadowFigureValue.setAttribute("value", "false");
-      	eAnnotations2.appendChild(detailEAnnotaionsShadowFigureValue);
-    	
-     	Element eAnnotations3 = documentManager.getDocNotation().createElement("eAnnotations");
-     	eAnnotations3.setAttribute("xmi:type", "ecore:EAnnotation");
-     	eAnnotations3.setAttribute("xmi:id", UtilResources.getRandonUUID());
-     	eAnnotations3.setAttribute("source", "QualifiedName");
-      	nodeChildren.appendChild(eAnnotations3);
-      	
-      	Element detailEAnnotaionsQualifiedName = documentManager.getDocNotation().createElement("details");
-      	detailEAnnotaionsQualifiedName.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
-      	detailEAnnotaionsQualifiedName.setAttribute("xmi:id", UtilResources.getRandonUUID());
-      	detailEAnnotaionsQualifiedName.setAttribute("key", "QualifiedNameDepth");
-      	detailEAnnotaionsQualifiedName.setAttribute("value", "1000");
-      	eAnnotations3.appendChild(detailEAnnotaionsQualifiedName);
       	
     	
       	Element childrenDecorationnode5026 = createChildrenDecorationnode("5026");

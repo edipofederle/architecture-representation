@@ -4,9 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Map;
 
-import mestrado.arquitetura.exceptions.CustonTypeNotFound;
-import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
-import mestrado.arquitetura.exceptions.NodeNotFound;
+import mestrado.arquitetura.exceptions.NotSuppportedOperation;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.DocumentManager;
 import mestrado.arquitetura.parser.Operations;
@@ -71,7 +69,7 @@ public class GeneralizationTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldCreateGeneralizationClassPackageClass() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
+	public void shouldCreateGeneralizationClassPackageClass() throws Exception{
 		DocumentManager doc = givenADocument("generalization3", "simples");
 		Operations op = new Operations(doc);
 		
@@ -83,7 +81,31 @@ public class GeneralizationTest extends TestHelper {
 		op.forGeneralization()
 		  .createRelation("Ge")
 		  .between(post).and(category).build();
-		
 	}
+	
+	@Test(expected=NotSuppportedOperation.class)
+	public void shouldNotAllowGeneralizationBetweenPackages() throws Exception{
+		DocumentManager doc = givenADocument("generalizationPacotes", "simples");
+		Operations op = new Operations(doc);
+		
+		String id1 = op.forPackage().createPacakge("Pacote1").build().get("packageId");
+		String id2 = op.forPackage().createPacakge("Pacote2").build().get("packageId");
+			
+		op.forGeneralization().createRelation("G invalida").between(id1).and(id2);
+	}
+	
+	@Test(expected=NotSuppportedOperation.class)
+	public void shouldNotAllowGeneralizationBetweenPackages2() throws Exception{
+		DocumentManager doc = givenADocument("generalizationPacotes2", "simples");
+		Operations op = new Operations(doc);
+		
+		String id1 = op.forPackage().createPacakge("Pacote1").build().get("packageId");
+		String post = op.forClass().createClass("Post").build().get("classId");
+			
+		op.forGeneralization().createRelation("G invalida").between(post).and(id1);
+	}
+	
+	
+	
 
 }

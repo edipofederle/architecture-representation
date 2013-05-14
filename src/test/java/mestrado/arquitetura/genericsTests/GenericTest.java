@@ -15,6 +15,7 @@ import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.NodeNotFound;
+import mestrado.arquitetura.exceptions.NotSuppportedOperation;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.helpers.test.TestHelper;
@@ -141,7 +142,7 @@ public class GenericTest extends TestHelper {
 	
 	
 	@Test
-	public void genericTestAllElementsGenerate() throws NodeNotFound, InvalidMultiplictyForAssociationException, IOException, CustonTypeNotFound{
+	public void genericTestAllElementsGenerate() throws NodeNotFound, InvalidMultiplictyForAssociationException, IOException, CustonTypeNotFound, NotSuppportedOperation{
 		DocumentManager doc = givenADocument("genericElements", "simples");
 		Operations op = new Operations(doc);
 		List<String> idsClass = new ArrayList<String>();
@@ -165,7 +166,7 @@ public class GenericTest extends TestHelper {
 	
 	
 	@Test
-	public void genericTestAllElementsGenerate1() throws NodeNotFound, InvalidMultiplictyForAssociationException, IOException, CustonTypeNotFound{
+	public void genericTestAllElementsGenerate1() throws NodeNotFound, InvalidMultiplictyForAssociationException, IOException, CustonTypeNotFound, NotSuppportedOperation{
 		DocumentManager doc = givenADocument("genericElements2", "simples");
 		Operations op = new Operations(doc);
 		
@@ -191,33 +192,38 @@ public class GenericTest extends TestHelper {
 		String class4 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(3)).build().get("classId");
 		String class5 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(4)).build().get("classId");
 		
+		String class6 = op.forClass().createClass("Foo").withMethod(listMethods.get(0)).build().get("classId");
+		String class7 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(1)).build().get("classId");
+		String class8 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(2)).build().get("classId");
+		String class9 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(3)).build().get("classId");
+		String class10 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(4)).build().get("classId");
+		
 		op.forAssociation().createAssociation()
 		 .betweenClass(idORder).withMultiplicy("1..*")
 		 .andClass(class2).withMultiplicy("0..1")
+		 .build();
+		
+		op.forAssociation().createAssociation()
+		 .betweenClass(class9).withMultiplicy("1..*")
+		 .andClass(class6).withMultiplicy("0..1")
 		 .build();
 		
 		op.forDependency().createRelation("Dependencia #1").between(class5).and(class4).build();
 		op.forUsage().createRelation("USage").between(class3).and(class4).build();
 		
 		op.forGeneralization().createRelation("Generalizcao #1").between(class4).and(class2).build();
+		op.forGeneralization().createRelation("Generalizcao #2").between(class8).and(class2).build();
 		
 		op.forDependency().createRelation("Dependencia #1").between(class5).and(class2).build();
+		op.forDependency().createRelation("Dependencia #2").between(idORder).and(class10).build();
 		
 		op.forComposition().createComposition().between(class3).withMultiplicy("1..*").and(idORder).build();
+		op.forAggregation().createRelation("").between(class7).and(class4).build();
+		op.forAggregation().createRelation("").between(class10).and(class2).withMultiplicy("1..*").build();
+		
+		op.forAggregation().createRelation("").between(idORder).and(class6).build();
 		
 		
 	}
-	
-	@Test	
-	public void testePacote() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
-		DocumentManager doc = givenADocument("comPacote", "simples");
-		Operations op = new Operations(doc);
-		
-		String idp2 = op.forPackage().createPacakge("Pacote 1").build().get("packageId");
-		String idp1 = op.forPackage().createPacakge("Pacote 2").build().get("packageId");
-		
-		op.forGeneralization().createRelation("Nome").between(idp2).and(idp1).build();
-	}
-	
 	
 }

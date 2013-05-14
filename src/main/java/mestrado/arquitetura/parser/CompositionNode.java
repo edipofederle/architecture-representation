@@ -48,7 +48,7 @@ public class CompositionNode extends XmiHelper {
 		
 		if((!"".equals(multiplicityClassTarget)) && (multiplicityClassTarget != null)){
 			multiLowerValueTarget = multiplicityClassTarget.substring(0, 1).trim();
-			multiUpperValueTarget = multiplicityClassTarget.substring(multiplicityClassClient.length()-1, multiplicityClassTarget.length()).trim();
+			multiUpperValueTarget = multiplicityClassTarget.substring(multiplicityClassTarget.length()-1, multiplicityClassTarget.length()).trim();
 			 
 			if(multiLowerValueTarget.equals("*"))
 				throw new InvalidMultiplictyForAssociationException("Multiplicy lower value cannot be *");
