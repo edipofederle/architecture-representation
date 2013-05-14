@@ -72,13 +72,13 @@ public class ModelManagerTest extends TestHelper {
 		Map<String, String> idManager = op.forClass().createClass("Casa").build();
 		
 		op.forAssociation().createAssociation()
-							 .betweenClass(idPerson.get("classId"))
-							 .andClass(idEmployee.get("classId"))
+							 .betweenClass(idPerson.get("id"))
+							 .andClass(idEmployee.get("id"))
 							 .build();
 		
 		op.forAssociation().createAssociation()
-							 .betweenClass(idPerson.get("classId"))
-							 .andClass(idManager.get("classId"))
+							 .betweenClass(idPerson.get("id"))
+							 .andClass(idManager.get("id"))
 							 .build();
 		
 		Architecture a = givenAArchitecture2("teste3");
@@ -89,7 +89,7 @@ public class ModelManagerTest extends TestHelper {
 	public void shouldRemoveAClass() throws Exception{
 		DocumentManager doc = givenADocument("testeRemover", "simples");
 		Operations op = new Operations(doc);
-		String cityId = op.forClass().createClass("City").build().get("classId");
+		String cityId = op.forClass().createClass("City").build().get("id");
 		assertTrue(modelContainId("testeRemover", cityId));
 		 op.forClass().removeClassById(cityId);
 		assertFalse(modelContainId("testeRemover", cityId));
@@ -154,7 +154,7 @@ public class ModelManagerTest extends TestHelper {
 		
 		assertNotNull(classInfo);
 		String[] idsProperty = classInfo.get("idsProperties").split(" ");
-		String idClass = classInfo.get("classId");
+		String idClass = classInfo.get("id");
 		assertNotNull(idClass);
 		assertThat("should contain two attributes", idsProperty.length, equalTo(2));
 		
@@ -331,7 +331,7 @@ public class ModelManagerTest extends TestHelper {
 		assertNotNull(arch);
 		assertEquals(0, arch.getAllClasses().size());
 		
-		String idClass = op.forClass().createClass("Foo").build().get("classid");
+		String idClass = op.forClass().createClass("Foo").build().get("id");
 		
 		Attribute xpto = Attribute.create()
 				 .withName("xpto")
@@ -353,7 +353,7 @@ public class ModelManagerTest extends TestHelper {
 		Architecture arch = givenAArchitecture("simples");
 		assertNotNull(arch);
 		
-		String idClass = op.forClass().createClass("foo").build().get("classId");
+		String idClass = op.forClass().createClass("foo").build().get("id");
 		
 		Attribute xpto = Attribute.create()
 				 .withName("xpto")
@@ -377,7 +377,7 @@ public class ModelManagerTest extends TestHelper {
 		assertNotNull(arch);
 		assertEquals(0, arch.getAllClasses().size());
 		
-		String idClass = op.forClass().createClass("Teste").build().get("classId");
+		String idClass = op.forClass().createClass("Teste").build().get("id");
 		assertNotNull("class id should not be null", idClass);
 		assertTrue("model should contain class id", modelContainId("addNewMethodToClass", idClass));
 		
@@ -477,7 +477,7 @@ public class ModelManagerTest extends TestHelper {
 		
 		Map<String, String> foo = op.forClass().createClass("foo").build();
 		Map<String, String> teste = op.forClass().createClass("teste").build();
-		op.forPackage().createPacakge("Bar").withClass(foo.get("classId")).withClass(teste.get("classId")).build();
+		op.forPackage().createPacakge("Bar").withClass(foo.get("id")).withClass(teste.get("id")).build();
 		
 		Architecture arch = givenAArchitecture2("testePacote");
 		
@@ -493,12 +493,12 @@ public class ModelManagerTest extends TestHelper {
 		Map<String, String> foo = op.forClass().createClass("foo").build();
 		Map<String, String> teste = op.forClass().createClass("Teste").build();
 		
-		op.forPackage().createPacakge("Bar").withClass(foo.get("classId")).withClass(teste.get("classId")).build();
+		op.forPackage().createPacakge("Bar").withClass(foo.get("id")).withClass(teste.get("id")).build();
 
 		
 		
 		op.forAssociation().createAssociation()
-							 .betweenClass(foo.get("classId")).andClass(teste.get("classId")).build();
+							 .betweenClass(foo.get("id")).andClass(teste.get("id")).build();
 		
 		Architecture arch = givenAArchitecture2("testePacoteClassAsssociation");
 		
@@ -513,13 +513,13 @@ public class ModelManagerTest extends TestHelper {
 		
 		Map<String, String> foo = op.forClass().createClass("foo").build();
 
-		op.forPackage().createPacakge("PacoteTeste").withClass(foo.get("classId")).build();
+		op.forPackage().createPacakge("PacoteTeste").withClass(foo.get("id")).build();
 	
 		Map<String, String> infosClass = op.forClass().createClass("Person").build();
-		String idClassPerson = infosClass.get("classId");
+		String idClassPerson = infosClass.get("id");
 		
 		op.forAssociation().createAssociation()
-							 .betweenClass(foo.get("classId"))
+							 .betweenClass(foo.get("id"))
 							 .andClass(idClassPerson).build();
 		
 		Architecture arch = givenAArchitecture2("testeAssociationPackageClassClass");
@@ -535,7 +535,7 @@ public class ModelManagerTest extends TestHelper {
 		Operations op = new Operations(doc);
 		
 		Map<String, String> infosClass = op.forClass().createClass("teste").isAbstract().build();
-		String idClassPerson = infosClass.get("classId");
+		String idClassPerson = infosClass.get("id");
 		
 		op.forPackage().createPacakge("fooPkg").withClass(idClassPerson).build();
 		
@@ -564,7 +564,7 @@ public class ModelManagerTest extends TestHelper {
 		 Map<String, String> k = op.forClass().createClass("xpto").withAttribute(classInfoAttrs2).build();
 		 Map<String, String> k1 = op.forClass().createClass("Teste").build();
 		 
-		op.forPackage().createPacakge("xpto").withClass(k.get("classId")).withClass(k1.get("classId")).build();
+		op.forPackage().createPacakge("xpto").withClass(k.get("id")).withClass(k1.get("id")).build();
 		
 		Architecture a = givenAArchitecture2("novoTest");
 		

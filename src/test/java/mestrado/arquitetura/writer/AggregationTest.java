@@ -19,8 +19,8 @@ public class AggregationTest extends TestHelper {
 		DocumentManager doc = givenADocument("shared", "simples");
 		Operations op = new Operations(doc);
 		
-		String bar =  op.forClass().createClass("foo").build().get("classId");
-		String foo = op.forClass().createClass("bar").build().get("classId");
+		String bar =  op.forClass().createClass("foo").build().get("id");
+		String foo = op.forClass().createClass("bar").build().get("id");
 		
 		op.forAggregation().createRelation("Nome").between(bar).withMultiplicy("1..*").and(foo).build();
 		
@@ -42,9 +42,9 @@ public class AggregationTest extends TestHelper {
 		DocumentManager doc = givenADocument("sharedClassPackageClass", "simples");
 		Operations op = new Operations(doc);
 		
-		String bar =  op.forClass().createClass("foo").build().get("classId");
+		String bar =  op.forClass().createClass("foo").build().get("id");
 		op.forPackage().createPacakge("models").withClass(bar).build();
-		String foo = op.forClass().createClass("bar").build().get("classId");
+		String foo = op.forClass().createClass("bar").build().get("id");
 		
 		op.forAggregation().createRelation("Nome").between(bar).withMultiplicy("1..*").and(foo).build();
 		

@@ -18,11 +18,11 @@ public class CompositionTest extends TestHelper {
 		
 		Operations op = new Operations(doc);
 		
-		String bar =  op.forClass().createClass("foo").build().get("classId");
-		String foo = op.forClass().createClass("bar").build().get("classId");
+		String bar =  op.forClass().createClass("foo").build().get("id");
+		String foo = op.forClass().createClass("bar").build().get("id");
 		
-		String classUm =  op.forClass().createClass("ClasseUm").build().get("classId");
-		String classDois = op.forClass().createClass("ClasseDois").build().get("classId");
+		String classUm =  op.forClass().createClass("ClasseUm").build().get("id");
+		String classDois = op.forClass().createClass("ClasseDois").build().get("id");
 		
 		op.forComposition().createComposition().between(bar).and(foo).build();
 		op.forComposition().createComposition().between(classDois).and(classUm).build();
@@ -42,8 +42,8 @@ public class CompositionTest extends TestHelper {
 		DocumentManager doc = givenADocument("ComposicaoComMultiplicidade", "simples");
 		Operations op = new Operations(doc);
 		
-		String classUm =  op.forClass().createClass("ClasseUm").build().get("classId");
-		String classDois = op.forClass().createClass("ClasseDois").build().get("classId");
+		String classUm =  op.forClass().createClass("ClasseUm").build().get("id");
+		String classDois = op.forClass().createClass("ClasseDois").build().get("id");
 		
 		op.forComposition().createComposition().between(classUm).withMultiplicy("1..*").and(classDois).withMultiplicy("0..1").build();
 		
@@ -63,8 +63,8 @@ public class CompositionTest extends TestHelper {
 		DocumentManager doc = givenADocument("composicaoPacote", "simples");
 		Operations op = new Operations(doc);
 		
-		String classUm =  op.forClass().createClass("ClasseUm").build().get("classId");
-		String classDois = op.forClass().createClass("ClasseDois").build().get("classId");
+		String classUm =  op.forClass().createClass("ClasseUm").build().get("id");
+		String classDois = op.forClass().createClass("ClasseDois").build().get("id");
 		
 		op.forPackage().createPacakge("meu.com.pacote").withClass(classUm).build();
 		op.forComposition().createComposition().between(classDois).and(classUm).build();

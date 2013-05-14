@@ -28,8 +28,8 @@ public class AssociationTests  extends TestHelper {
 		Map<String, String> manager = classOperations.createClass("Casa").build();
 		
 		associationOperations.createAssociation()
-							 .betweenClass(employee.get("classId")).withMultiplicy("*..1")
-							 .andClass(manager.get("classId"))
+							 .betweenClass(employee.get("id")).withMultiplicy("*..1")
+							 .andClass(manager.get("id"))
 							 .build();
 	}
 	
@@ -43,8 +43,8 @@ public class AssociationTests  extends TestHelper {
 		Map<String, String> casa = classOperations.createClass("Casa").build();
 		
 		associationOperations.createAssociation()
-							 .betweenClass(employee.get("classId")).withMultiplicy("1..*")
-							 .andClass(casa.get("classId")).withMultiplicy("0..1")
+							 .betweenClass(employee.get("id")).withMultiplicy("1..*")
+							 .andClass(casa.get("id")).withMultiplicy("0..1")
 							 .build();
 		
 		Architecture a = givenAArchitecture2("testeNovaAssociacao");

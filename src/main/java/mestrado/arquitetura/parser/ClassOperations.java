@@ -97,7 +97,7 @@ public class ClassOperations extends XmiHelper {
 		});
 		
 		Map<String, String> createdClassInfos = new HashMap<String, String>();
-		createdClassInfos.put("classId", this.idClass);
+		createdClassInfos.put("id", this.idClass);
 		createdClassInfos.put("idsProperties", this.idsProperties);
 		createdClassInfos.put("idsMethods", this.idsMethods);
 		

@@ -25,8 +25,8 @@ public class GeneralizationTest extends TestHelper {
 		
 		op.forGeneralization()
 		  .createRelation("Generalization #1")
-		  .between(employee.get("classId"))
-		  .and(manager.get("classId")).build();
+		  .between(employee.get("id"))
+		  .and(manager.get("id")).build();
 		
 		Architecture arch = givenAArchitecture2("generalization1");
 		
@@ -48,13 +48,13 @@ public class GeneralizationTest extends TestHelper {
 		
 		op.forGeneralization()
 		  .createRelation("Generalization #2")
-		  .between(post.get("classId"))
-		  .and(comment.get("classId")).build();
+		  .between(post.get("id"))
+		  .and(comment.get("id")).build();
 		
 		op.forGeneralization()
 		  .createRelation("Generalization #1")
-		  .between(user.get("classId"))
-		  .and(comment.get("classId")).build();
+		  .between(user.get("id"))
+		  .and(comment.get("id")).build();
 		
 		Architecture arch = givenAArchitecture2("generalization2");
 		
@@ -74,8 +74,8 @@ public class GeneralizationTest extends TestHelper {
 		Operations op = new Operations(doc);
 		
 
-		String post = op.forClass().createClass("Post").build().get("classId");
-		String category = op.forClass().createClass("Category").build().get("classId");
+		String post = op.forClass().createClass("Post").build().get("id");
+		String category = op.forClass().createClass("Category").build().get("id");
 		op.forPackage().createPacakge("Pacote1").withClass(post).build();
 		
 		op.forGeneralization()
@@ -100,7 +100,7 @@ public class GeneralizationTest extends TestHelper {
 		Operations op = new Operations(doc);
 		
 		String id1 = op.forPackage().createPacakge("Pacote1").build().get("packageId");
-		String post = op.forClass().createClass("Post").build().get("classId");
+		String post = op.forClass().createClass("Post").build().get("id");
 			
 		op.forGeneralization().createRelation("G invalida").between(post).and(id1);
 	}

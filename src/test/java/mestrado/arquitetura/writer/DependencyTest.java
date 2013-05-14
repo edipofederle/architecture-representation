@@ -25,8 +25,8 @@ public class DependencyTest extends TestHelper {
 		Map<String, String> manager = op.forClass().createClass("Casa").build();
 		
 		op.forDependency().createRelation("Dependency #12")
-							.between(employee.get("classId"))
-							.and(manager.get("classId"))
+							.between(employee.get("id"))
+							.and(manager.get("id"))
 							.build();
 		
 		Architecture a = givenAArchitecture2("testeDependencia1");
@@ -47,7 +47,7 @@ public class DependencyTest extends TestHelper {
 		Map<String, String> employee = op.forClass().createClass("Employee").build();
 		
 		op.forDependency().createRelation("Dependency #12")
-							.between(employee.get("classId"))
+							.between(employee.get("id"))
 							.and(id.get("packageId"))
 							.build();
 		
@@ -92,10 +92,10 @@ public class DependencyTest extends TestHelper {
 		DocumentManager doc = givenADocument("dependenciaMultipla", "simples");
 		Operations op = new Operations(doc);
 		
-		String post = op.forClass().createClass("Post").build().get("classId");
-		String comment = op.forClass().createClass("Comment").build().get("classId");
-		String user = op.forClass().createClass("User").build().get("classId");
-		String category = op.forClass().createClass("Category").build().get("classId");
+		String post = op.forClass().createClass("Post").build().get("id");
+		String comment = op.forClass().createClass("Comment").build().get("id");
+		String user = op.forClass().createClass("User").build().get("id");
+		String category = op.forClass().createClass("Category").build().get("id");
 		
 		op.forDependency().createRelation("Dependency #1").between(post).and(comment).build();
 		op.forDependency().createRelation("Dependency #3").between(post).and(user).build();
@@ -119,10 +119,10 @@ public class DependencyTest extends TestHelper {
 		DocumentManager doc = givenADocument("dependenciaMultipla2", "simples");
 		Operations op = new Operations(doc);
 		
-		String post = op.forClass().createClass("Post").build().get("classId");
-		String comment = op.forClass().createClass("Comment").build().get("classId");
-		String user = op.forClass().createClass("User").build().get("classId");
-		String category = op.forClass().createClass("Category").build().get("classId");
+		String post = op.forClass().createClass("Post").build().get("id");
+		String comment = op.forClass().createClass("Comment").build().get("id");
+		String user = op.forClass().createClass("User").build().get("id");
+		String category = op.forClass().createClass("Category").build().get("id");
 		
 		op.forDependency().createRelation("Dependency #1").between(user).and(comment).build();
 		op.forDependency().createRelation("Dependency #2").between(post).and(comment).build();
@@ -139,8 +139,8 @@ public class DependencyTest extends TestHelper {
 		DocumentManager doc = givenADocument("dependenciaClassClassPackage", "simples");
 		Operations op = new Operations(doc);
 		
-		String klassId = op.forClass().createClass("bar").build().get("classId");
-		String fooId = op.forClass().createClass("Foo").build().get("classId");
+		String klassId = op.forClass().createClass("bar").build().get("id");
+		String fooId = op.forClass().createClass("Foo").build().get("id");
 		op.forPackage().createPacakge("Controllers").withClass(klassId).build();
 		
 		op.forDependency().createRelation("Dependency #12").between(klassId).and(fooId).build();
@@ -161,8 +161,8 @@ public class DependencyTest extends TestHelper {
 		DocumentManager doc = givenADocument("dependencyPacakgeClassClass", "simples");
 		Operations op = new Operations(doc);
 		
-		String klassId = op.forClass().createClass("bar").build().get("classId");
-		String fooId = op.forClass().createClass("Foo").build().get("classId");
+		String klassId = op.forClass().createClass("bar").build().get("id");
+		String fooId = op.forClass().createClass("Foo").build().get("id");
 		//op.forPackage().createPacakge("Controllers").withClass(klassId).build();
 		
 		op.forDependency().createRelation("Dependency #12").between(fooId).and(klassId).build();
@@ -181,8 +181,8 @@ public class DependencyTest extends TestHelper {
 		DocumentManager doc = givenADocument("dependencySemNome", "simples");
 		Operations op = new Operations(doc);
 		
-		String klassId = op.forClass().createClass("bar").build().get("classId");
-		String fooId = op.forClass().createClass("Foo").build().get("classId");
+		String klassId = op.forClass().createClass("bar").build().get("id");
+		String fooId = op.forClass().createClass("Foo").build().get("id");
 		
 		op.forDependency().createRelation("").between(fooId).and(klassId).build();
 		op.forDependency().createRelation(null).between(fooId).and(klassId).build();

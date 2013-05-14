@@ -148,7 +148,7 @@ public class GenericTest extends TestHelper {
 		List<String> idsClass = new ArrayList<String>();
 		
 		for(int i=0; i< 30; i++){
-			String idClass = op.forClass().createClass(generateRandomWord(5)).build().get("classId");
+			String idClass = op.forClass().createClass(generateRandomWord(5)).build().get("id");
 			idsClass.add(idClass);
 			
 			if(i%2 == 0)
@@ -186,17 +186,17 @@ public class GenericTest extends TestHelper {
 		}
 		
 		
-		String idORder = op.forClass().createClass("Order").withMethod(listMethods.get(0)).build().get("classId");
-		String class2 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(1)).build().get("classId");
-		String class3 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(2)).build().get("classId");
-		String class4 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(3)).build().get("classId");
-		String class5 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(4)).build().get("classId");
+		String idORder = op.forClass().createClass("Order").withMethod(listMethods.get(0)).build().get("id");
+		String class2 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(1)).build().get("id");
+		String class3 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(2)).build().get("id");
+		String class4 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(3)).build().get("id");
+		String class5 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(4)).build().get("id");
 		
-		String class6 = op.forClass().createClass("Foo").withMethod(listMethods.get(0)).build().get("classId");
-		String class7 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(1)).build().get("classId");
-		String class8 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(2)).build().get("classId");
-		String class9 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(3)).build().get("classId");
-		String class10 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(4)).build().get("classId");
+		String class6 = op.forClass().createClass("Foo").withMethod(listMethods.get(0)).build().get("id");
+		String class7 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(1)).build().get("id");
+		String class8 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(2)).build().get("id");
+		String class9 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(3)).build().get("id");
+		String class10 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(4)).build().get("id");
 		
 		op.forAssociation().createAssociation()
 		 .betweenClass(idORder).withMultiplicy("1..*")
