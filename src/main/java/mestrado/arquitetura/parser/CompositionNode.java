@@ -26,10 +26,11 @@ public class CompositionNode extends XmiHelper {
 	 * @param multiplicityClassClient
 	 * @param multiplicityClassTarget
 	 * @param type - "composite", "shared"
+	 * @param string 
 	 * @throws NodeNotFound
 	 * @throws InvalidMultiplictyForAssociationException
 	 */
-	public void createComposition(String client, String target, String multiplicityClassClient, String multiplicityClassTarget, String type) throws NodeNotFound, InvalidMultiplictyForAssociationException {
+	public void createComposition(String name, String client, String target, String multiplicityClassClient, String multiplicityClassTarget, String type) throws NodeNotFound, InvalidMultiplictyForAssociationException {
 		
 		
 		String multiLowerValueClient = "1";
@@ -65,7 +66,7 @@ public class CompositionNode extends XmiHelper {
 		Element pkgElement = doc.getDocUml().createElement("packagedElement");
 		pkgElement.setAttribute("xmi:type", "uml:Association");
 		pkgElement.setAttribute("xmi:id", associationId);
-		pkgElement.setAttribute("name", ""); //TODO nome
+		pkgElement.setAttribute("name", name); 
 		pkgElement.setAttribute("memberEnd", ownedEnd1 + " " + ownedEnd2);
 		
 	

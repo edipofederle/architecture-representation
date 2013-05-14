@@ -9,7 +9,6 @@ import mestrado.arquitetura.representation.Element;
  */
 public class RealizationRelationship extends Relationship {
 	
-	private String name;
 	private Element client;
 	private Element supplier;
 	
@@ -17,23 +16,8 @@ public class RealizationRelationship extends Relationship {
 	public RealizationRelationship(Element client, Element supplier, String name, String id){
 		setClient(client);
 		setSupplier(supplier);
-		setName(name);
 		setId(id);
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-
-	/**
-	 * @param name the name to set
-	 */
-	private void setName(String name) {
-		this.name = name;
+		super.setName(name);
 	}
 
 

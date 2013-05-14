@@ -214,14 +214,25 @@ public class ElementXmiGenerator extends XmiHelper {
 		edges.setAttribute("target", idTarget);
 		edges.setAttribute("lineColor", "0");
 		
-		//Multiplicidade
-
-		
+		//Aparecer nome no relacionamento
 		Element childrenDecorationNode = docNotation.createElement("children");
 		childrenDecorationNode.setAttribute("xmi:type", "notation:DecorationNode");
 		childrenDecorationNode.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		childrenDecorationNode.setAttribute("type", "6033");
-		edges.appendChild(childrenDecorationNode);
+		
+		Element childrenDecorationNodeName = docNotation.createElement("children");
+		childrenDecorationNodeName.setAttribute("xmi:type", "notation:DecorationNode");
+		childrenDecorationNodeName.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		childrenDecorationNodeName.setAttribute("type", "6002");
+		edges.appendChild(childrenDecorationNodeName);
+		
+		//FIm aparecer nome no relacionamento
+		
+		Element layoutConstraintName = docNotation.createElement("layoutConstraint");
+		layoutConstraintName.setAttribute("xmi:type", "notation:Location");
+		layoutConstraintName.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		layoutConstraintName.setAttribute("y", "20");
+		childrenDecorationNodeName.appendChild(layoutConstraintName);
 		
 		Element layoutConstraint = docNotation.createElement("layoutConstraint");
 		layoutConstraint.setAttribute("xmi:type", "notation:Location");

@@ -74,18 +74,7 @@ public class DependencyNode extends XmiHelper {
 		bendpoints.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		bendpoints.setAttribute("points", "[0, 0, 476, 181]$[-467, -170, 9, 11]");
 		edges.appendChild(bendpoints);
-//		
-//		Element sourceAnchor = docNotation.createElement("sourceAnchor");
-//		sourceAnchor.setAttribute("xmi:type", "notation:IdentityAnchor");
-//		sourceAnchor.setAttribute("xmi:id", UtilResources.getRandonUUID());
-//		sourceAnchor.setAttribute("id", "(0.42,0.0)");
-//		edges.appendChild(sourceAnchor);
-//		
-//		Element targetAnchor = docNotation.createElement("targetAnchor");
-//		targetAnchor.setAttribute("xmi:type", "notation:IdentityAnchor");
-//		targetAnchor.setAttribute("xmi:id", UtilResources.getRandonUUID());
-//		targetAnchor.setAttribute("id", "(0.82,0.89)");
-//		edges.appendChild(targetAnchor);
+
 		
 		node.appendChild(edges);
 	}

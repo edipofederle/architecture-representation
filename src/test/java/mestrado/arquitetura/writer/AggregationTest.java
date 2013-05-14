@@ -1,9 +1,7 @@
 package mestrado.arquitetura.writer;
 
 import static org.junit.Assert.assertEquals;
-import mestrado.arquitetura.exceptions.CustonTypeNotFound;
-import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
-import mestrado.arquitetura.exceptions.NodeNotFound;
+import static org.junit.Assert.assertNotNull;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.DocumentManager;
 import mestrado.arquitetura.parser.Operations;
@@ -13,6 +11,41 @@ import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 import org.junit.Test;
 
 public class AggregationTest extends TestHelper {
+	
+	
+	@Test
+	public void shouldAggregationHaveAName() throws Exception{
+		DocumentManager doc = givenADocument("AggregationWithName", "simples");
+		Operations op = new Operations(doc);
+		
+		String bar =  op.forClass().createClass("foo").build().get("id");
+		String foo = op.forClass().createClass("bar").build().get("id");
+		
+		op.forAggregation().createRelation("My Aggregation").between(bar).and(foo).build();
+		
+		Architecture a = givenAArchitecture2("AggregationWithName");
+		AssociationRelationship ag = a.getAllAssociations().get(0);
+		
+		assertNotNull(ag);
+		assertEquals("My Aggregation", ag.getName());
+	}
+	
+	@Test
+	public void shouldAggregationHaveDefaultNameIfBlank() throws Exception{
+		DocumentManager doc = givenADocument("AggregationWithName2", "simples");
+		Operations op = new Operations(doc);
+		
+		String bar =  op.forClass().createClass("foo").build().get("id");
+		String foo = op.forClass().createClass("bar").build().get("id");
+		
+		op.forAggregation().createRelation("").between(bar).and(foo).build();
+		
+		Architecture a = givenAArchitecture2("AggregationWithName2");
+		AssociationRelationship ag = a.getAllAssociations().get(0);
+		
+		assertNotNull(ag);
+		assertEquals("shared", ag.getName());
+	}
 	
 	@Test
 	public void shouldCreateAggregationClassClass() throws Exception{

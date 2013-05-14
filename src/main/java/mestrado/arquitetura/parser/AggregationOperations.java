@@ -47,7 +47,7 @@ public class AggregationOperations implements Relationship {
 		
 		mestrado.arquitetura.parser.Document.executeTransformation(doc, new Transformation(){
 			public void useTransformation() throws NodeNotFound, InvalidMultiplictyForAssociationException {
-				compositeNode.createComposition(client, target, multiplicityClassClient, multiplicityClassTarget, "shared");
+				compositeNode.createComposition(name, client, target, multiplicityClassClient, multiplicityClassTarget, "shared");
 			}
 		});
 		
