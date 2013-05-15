@@ -135,7 +135,7 @@ public abstract class TestHelper {
 	}
 	
 	public DocumentManager givenADocument(String outputModelName, String originalModelName) {
-		String pathToFiles = "src/main/java/mestrado/arquitetura/parser/1/";
+		String pathToFiles = "src/main/java/mestrado/arquitetura/parser/1/";// model padrao vazio que o programa usa para construir o novo
 		DocumentManager documentManager = new DocumentManager(outputModelName, pathToFiles, originalModelName);
 		
 		return documentManager;

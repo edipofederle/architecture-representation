@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import mestrado.arquitetura.base.RelationshipBase;
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.helpers.ModelElementHelper;
+import mestrado.arquitetura.helpers.ModelHelper;
+import mestrado.arquitetura.helpers.ModelHelperFactory;
 import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
@@ -35,7 +36,7 @@ import org.eclipse.uml2.uml.Usage;
  * @author edipofederle
  *
  */
-public class ArchitectureBuilder extends RelationshipBase {
+public class ArchitectureBuilder {
 	
 	private Package model;
 	private PackageBuilder packageBuilder;
@@ -49,8 +50,18 @@ public class ArchitectureBuilder extends RelationshipBase {
 	private RealizationRelationshipBuilder realizationRelationshipBuilder;
 	private AbstractionRelationshipBuilder abstractionRelationshipBuilder; 
 	private UsageRelationshipBuilder usageRelationshipBuilder;
-
 	
+	private ModelHelper modelHelper;
+	
+	
+	
+	/**
+	 * 
+	 */
+	public ArchitectureBuilder() {
+		modelHelper = ModelHelperFactory.getModelHelper();
+	}
+
 	/**
 	 * Cria a arquitetura. Primeiramente é carregado o model (arquivo .uml), após isso é instanciado o objeto {@link Architecture}. <br/>
 	 * Feito isso, é chamado método "initialize", neste método é crializada a criação dos Builders. <br/>
@@ -76,8 +87,8 @@ public class ArchitectureBuilder extends RelationshipBase {
 	 * @throws Exception
 	 */
 	public Architecture create(String xmiFilePath) throws Exception {
-		model = getModelHelper().getModel(xmiFilePath);
-		Architecture architecture = new Architecture(getModelHelper().getName(xmiFilePath));
+		model = modelHelper.getModel(xmiFilePath);
+		Architecture architecture = new Architecture(modelHelper.getName(xmiFilePath));
 		
 		initialize(architecture);
 		
@@ -91,12 +102,12 @@ public class ArchitectureBuilder extends RelationshipBase {
 	}
 
 	private List<? extends Relationship> loadAbstractions() {
-		List<Abstraction> abstractions = getModelHelper().getAllAbstractions(model);
+		List<Abstraction> abstractions = modelHelper.getAllAbstractions(model);
 		List<Relationship> relations = new ArrayList<Relationship>();
-		List<Package> pacakges = getModelHelper().getAllPackages(model);
+		List<Package> pacakges = modelHelper.getAllPackages(model);
 		
 		for (Package package1 : pacakges) {
-			List<Abstraction> abs = getModelHelper().getAllAbstractions(package1);
+			List<Abstraction> abs = modelHelper.getAllAbstractions(package1);
 			for (Abstraction abstraction : abs)
 				relations.add(abstractionRelationshipBuilder.create(abstraction));
 		}
@@ -124,11 +135,11 @@ public class ArchitectureBuilder extends RelationshipBase {
 
 	private List<? extends Relationship> loadUsageInterClass() {
 		List<Relationship> usageClass = new ArrayList<Relationship>();
-		List<Usage> usages = getModelHelper().getAllUsage(model);
+		List<Usage> usages = modelHelper.getAllUsage(model);
 		
-		List<Package> pacotes = getModelHelper().getAllPackages(model);
+		List<Package> pacotes = modelHelper.getAllPackages(model);
 		for (Package package1 : pacotes)
-			for(Usage u : getModelHelper().getAllUsage(package1))
+			for(Usage u : modelHelper.getAllUsage(package1))
 				usageClass.add(usageRelationshipBuilder.create(u));
 		
 		for (Usage usage : usages) 
@@ -140,7 +151,7 @@ public class ArchitectureBuilder extends RelationshipBase {
 
 	private List<? extends Relationship> loadAssociationClassAssociation() {
 		List<Relationship> associationClasses = new ArrayList<Relationship>();
-		List<AssociationClass> associationsClass = getModelHelper().getAllAssociationsClass(model);
+		List<AssociationClass> associationsClass = modelHelper.getAllAssociationsClass(model);
 		
 		for (AssociationClass associationClass : associationsClass) {
 			associationClasses.add(associationClassRelationshipBuilder.create(associationClass));
@@ -152,12 +163,12 @@ public class ArchitectureBuilder extends RelationshipBase {
 
 	private List<? extends Relationship> loadRealizations() {
 		List<Relationship> relationships = new ArrayList<Relationship>();
-		List<Realization> realizations = getModelHelper().getAllRealizations(model);
+		List<Realization> realizations = modelHelper.getAllRealizations(model);
 		
 		//Se tivermos uma relação de realization entre um package e uma classe 
 		//a mesma é carregada como uma dependencia, por isso verificamos aqui se existe algum caso
 		//destes dentro de dependencies.
-		List<Dependency> depdencies = getModelHelper().getAllDependencies(model);
+		List<Dependency> depdencies = modelHelper.getAllDependencies(model);
 		
 		for (Dependency dependency : depdencies) 
 			if(dependency instanceof Realization)
@@ -172,7 +183,7 @@ public class ArchitectureBuilder extends RelationshipBase {
 
 	private List<? extends Relationship> loadInterClassDependencies() {
 		List<Relationship> relationships = new ArrayList<Relationship>();
-		List<Dependency> dependencies = getModelHelper().getAllDependencies(model);
+		List<Dependency> dependencies = modelHelper.getAllDependencies(model);
 
 		for (Dependency dependency : dependencies) 
 			if(!(dependency instanceof Usage) && (!(dependency instanceof Realization)))
@@ -184,7 +195,7 @@ public class ArchitectureBuilder extends RelationshipBase {
 
 	private List<? extends Relationship> loadGeneralizations() {
 		List<Relationship> relationships = new ArrayList<Relationship>();
-		List<EList<Generalization>> generalizations = getModelHelper().getAllGeneralizations(model);
+		List<EList<Generalization>> generalizations = modelHelper.getAllGeneralizations(model);
 		
 		for (EList<Generalization> eList : generalizations)
 			for (Generalization generalization : eList) 
@@ -196,7 +207,7 @@ public class ArchitectureBuilder extends RelationshipBase {
 
 	private List<Relationship> loadAssociations() {
 		List<Relationship> relationships = new ArrayList<Relationship>();
-		List<Association> associations = getModelHelper().getAllAssociations(model);
+		List<Association> associations = modelHelper.getAllAssociations(model);
 		
 		for (Association association : associations) 
 			relationships.add(associationRelationshipBuilder.create(association));
@@ -207,7 +218,7 @@ public class ArchitectureBuilder extends RelationshipBase {
 
 	private List<Variability> loadVariability() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
 		List<Variability> variabilities = new ArrayList<Variability>();
-		List<org.eclipse.uml2.uml.Class> variabilitiesTemp = getModelHelper().getAllClasses(model);
+		List<org.eclipse.uml2.uml.Class> variabilitiesTemp = modelHelper.getAllClasses(model);
 		
 		for (Classifier classifier : variabilitiesTemp) 
 			if(StereotypeHelper.isVariability(classifier))
@@ -219,7 +230,7 @@ public class ArchitectureBuilder extends RelationshipBase {
 
 	private List<? extends Element> loadClasses() {
 		List<Class> listOfClasses = new ArrayList<Class>();
-		List<org.eclipse.uml2.uml.Class> classes = getModelHelper().getAllClasses(model);
+		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getAllClasses(model);
 		
 		for (NamedElement element : classes)
 			if(!ModelElementHelper.isInterface(element))
@@ -231,7 +242,7 @@ public class ArchitectureBuilder extends RelationshipBase {
 	
 	private List<? extends Element> loadInterfaces() {
 		List<Interface> listOfInterfaces = new ArrayList<Interface>();
-		List<org.eclipse.uml2.uml.Class> classes = getModelHelper().getAllClasses(model);
+		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getAllClasses(model);
 		
 		for (org.eclipse.uml2.uml.Class class1 : classes) 
 			if(ModelElementHelper.isInterface((NamedElement)class1))
@@ -246,7 +257,7 @@ public class ArchitectureBuilder extends RelationshipBase {
 	 */
 	private List<mestrado.arquitetura.representation.Package> loadPackages() {
 		List<mestrado.arquitetura.representation.Package> packages = new ArrayList<mestrado.arquitetura.representation.Package>();
-		List<Package> packagess = getModelHelper().getAllPackages(model);
+		List<Package> packagess = modelHelper.getAllPackages(model);
 		
 		for (NamedElement pkg : packagess)
 			packages.add(packageBuilder.create(pkg));

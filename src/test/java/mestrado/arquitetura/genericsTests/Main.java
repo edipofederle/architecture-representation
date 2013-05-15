@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mestrado.arquitetura.builders.ArchitectureBuilder;
+import mestrado.arquitetura.exceptions.ModelIncompleteException;
+import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.parser.DocumentManager;
 import mestrado.arquitetura.parser.Operations;
 import mestrado.arquitetura.parser.method.Types;
@@ -19,8 +21,10 @@ public class Main {
 
 	/**
 	 * @param args
+	 * @throws ModelIncompleteException 
+	 * @throws ModelNotFoundException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ModelNotFoundException, ModelIncompleteException {
 		
 		Architecture a;
 		DocumentManager doc = givenADocument("TesteMain3", "simples");
@@ -44,10 +48,10 @@ public class Main {
 					attributes.add(attr);
 				}
 				if(!attributes.isEmpty()){
-					String id = op.forClass().createClass(class1.getName()).withAttribute(attributes).build().get("classId");
+					String id = op.forClass().createClass(class1.getName()).withAttribute(attributes).build().get("id");
 					class1.updateId(id);
 				}else{
-					String id = op.forClass().createClass(class1.getName()).build().get("classId");
+					String id = op.forClass().createClass(class1.getName()).build().get("id");
 					class1.updateId(id);
 				}
 				/**

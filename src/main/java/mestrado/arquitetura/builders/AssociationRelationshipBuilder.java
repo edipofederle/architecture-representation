@@ -3,7 +3,7 @@ package mestrado.arquitetura.builders;
 import java.util.ArrayList;
 import java.util.List;
 
-import mestrado.arquitetura.base.RelationshipBase;
+import mestrado.arquitetura.base.ArchitectureHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.relationship.AssociationEnd;
 import mestrado.arquitetura.representation.relationship.AssociationRelationship;
@@ -19,7 +19,7 @@ import org.eclipse.uml2.uml.Property;
  * @author edipofederle
  *
  */
-public class AssociationRelationshipBuilder extends RelationshipBase {
+public class AssociationRelationshipBuilder extends ArchitectureHelper {
 	
 	private final AssociationEndBuilder associationEndBuilder;
 	private Architecture architecture;
@@ -57,6 +57,7 @@ public class AssociationRelationshipBuilder extends RelationshipBase {
 			try{
 				String id = getModelHelper().getXmiId(a.getType());
 				mestrado.arquitetura.representation.Element c = architecture.getElementByXMIID(id);
+				
 				elementsOfAssociation.add(associationEndBuilder.create(a,c));
 			}catch(Exception e){
 				e.printStackTrace();

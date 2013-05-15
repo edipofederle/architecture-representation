@@ -1,6 +1,6 @@
 package mestrado.arquitetura.builders;
 
-import mestrado.arquitetura.base.RelationshipBase;
+import mestrado.arquitetura.base.ArchitectureHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.relationship.UsageRelationship;
@@ -9,7 +9,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Usage;
 
-public class UsageRelationshipBuilder extends RelationshipBase {
+public class UsageRelationshipBuilder extends ArchitectureHelper {
 	
 	private Architecture architecture;
 

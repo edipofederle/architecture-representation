@@ -79,11 +79,12 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 	
 	private void verifyVariant(Stereotype stereotype) {
 		VariantType type = VariantType.getByName(stereotype.getName());
-		if (type != VariantType.NONE)
+		if ((type != VariantType.NONE) && (type != VariantType.VARIATIONPOINT))
 			variantType = type;
 	}
 	private void verifyVariationPoint(Stereotype stereotype) {
-		isVariationPoint = StereotypeHelper.isVariationPoint(stereotype);
+		if(!isVariationPoint)
+			isVariationPoint = StereotypeHelper.isVariationPoint(stereotype);
 	}
 	
 	private void initialize() {

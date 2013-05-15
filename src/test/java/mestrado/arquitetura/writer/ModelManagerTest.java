@@ -14,8 +14,6 @@ import java.util.Map;
 
 import junit.framework.Assert;
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
-import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
-import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.DocumentManager;
 import mestrado.arquitetura.parser.Operations;
@@ -173,7 +171,7 @@ public class ModelManagerTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldRemoveAttributeFromClasse() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
+	public void shouldRemoveAttributeFromClasse() throws Exception{
 		DocumentManager doc = givenADocument("testRemoveAttribute", "simples");
 		Operations op = new Operations(doc);
 		
@@ -245,7 +243,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	
 	@Test
-	public void testeMethod() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
+	public void testeMethod() throws Exception{
 		DocumentManager doc = givenADocument("teste666", "simples");
 		Operations op = new Operations(doc);
 		
@@ -285,7 +283,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	
 	@Test
-	public void shouldRemoveMethodFromClass() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
+	public void shouldRemoveMethodFromClass() throws Exception{
 		DocumentManager doc = givenADocument("testeRemoveMethod", "simples");
 		Operations op = new Operations(doc);
 		
@@ -431,7 +429,7 @@ public class ModelManagerTest extends TestHelper {
 	}
 	
 	@Test(expected=CustonTypeNotFound.class)
-	public void shouldNotCreateAAttributeWithCustonTypeIfTypeDontExist() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
+	public void shouldNotCreateAAttributeWithCustonTypeIfTypeDontExist() throws Exception{
 		DocumentManager doc = givenADocument("classWithAttrCuston", "simples");
 		Operations op = new Operations(doc);
 		

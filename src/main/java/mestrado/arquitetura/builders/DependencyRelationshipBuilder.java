@@ -1,6 +1,6 @@
 package mestrado.arquitetura.builders;
 
-import mestrado.arquitetura.base.RelationshipBase;
+import mestrado.arquitetura.base.ArchitectureHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.relationship.DependencyRelationship;
@@ -14,7 +14,7 @@ import org.eclipse.uml2.uml.NamedElement;
  * @author edipofederle
  *
  */
-public class DependencyRelationshipBuilder  extends RelationshipBase{
+public class DependencyRelationshipBuilder  extends ArchitectureHelper{
 
 	private Architecture architecture;
 

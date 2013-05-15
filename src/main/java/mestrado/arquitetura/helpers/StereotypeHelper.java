@@ -64,7 +64,8 @@ public class StereotypeHelper extends TestHelper {
 	 * @return boolean
 	 */
 	public static boolean isVariationPoint(NamedElement element) {
-		return hasStereotype(element, StereotypesTypes.VARIATION_POINT);
+	//	return hasStereotype(element, StereotypesTypes.VARIATION_POINT);
+		return element.getName().equalsIgnoreCase(StereotypesTypes.VARIATION_POINT);
 	}
 
 	/**

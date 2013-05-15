@@ -22,6 +22,7 @@ import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.Stereotype;
 import org.junit.Test;
 
 /**
@@ -38,7 +39,9 @@ public class StereotypeHelperTest extends TestHelper {
 				            .withName("Car")
 							.withStereotypes("variationPoint").build();
 		
-		boolean result = StereotypeHelper.isVariationPoint(a);
+		Stereotype ste = ModelElementHelper.getAllStereotypes(a).get(0);
+		
+		boolean result = StereotypeHelper.isVariationPoint(ste);
 		assertEquals("isVariationPoint should return true", true, result);
 	}
 	

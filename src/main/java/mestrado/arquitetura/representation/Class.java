@@ -179,5 +179,9 @@ public class Class extends Element {
 		super.id = id;
 		
 	}
+
+	public Object getAllStereotype() {
+		return null;
+	}
 	
 }

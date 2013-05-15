@@ -28,12 +28,14 @@ public class DocumentManager {
 		makeACopy(pathToFiles, originalModelName);
 		createXMIDocument(originalModelName);
 		this.saveAndCopy(outputModelName);
+		
 	}
 	
 	private void createXMIDocument(String modelName){
 		DocumentBuilderFactory docBuilderFactoryNotation = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilderNotation = null;
 		DocumentBuilder docBuilderUml = null;
+		
 		try {
 			docBuilderNotation = docBuilderFactoryNotation.newDocumentBuilder();
 			DocumentBuilderFactory docBuilderFactoryUml = DocumentBuilderFactory.newInstance();
@@ -43,7 +45,6 @@ public class DocumentManager {
 		}
 			
 		try {
-			//TODO movendo para arquivo de conf - manipulatiom path
 			this.docNotation =  docBuilderNotation.parse("manipulation/"+this.originalModelName+".notation");
 			this.docUml = docBuilderUml.parse("manipulation/"+this.originalModelName+".uml");
 			this.docDi = docBuilderUml.parse("manipulation/"+this.originalModelName+".di");

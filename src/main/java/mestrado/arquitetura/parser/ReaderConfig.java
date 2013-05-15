@@ -31,4 +31,8 @@ public class ReaderConfig {
 		return dir.getDirectoryToExportModels();
 	}
 	
+	public static String getPathToProfile(){
+		return dir.getPathToProfile();
+	}
+	
 }

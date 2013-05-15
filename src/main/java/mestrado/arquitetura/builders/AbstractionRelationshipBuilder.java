@@ -1,6 +1,6 @@
 package mestrado.arquitetura.builders;
 
-import mestrado.arquitetura.base.RelationshipBase;
+import mestrado.arquitetura.base.ArchitectureHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.relationship.AbstractionRelationship;
@@ -14,7 +14,7 @@ import org.eclipse.uml2.uml.NamedElement;
  * @author edipofederle
  *
  */
-public class AbstractionRelationshipBuilder extends RelationshipBase {
+public class AbstractionRelationshipBuilder extends ArchitectureHelper {
 
 	private Architecture architecture;
 

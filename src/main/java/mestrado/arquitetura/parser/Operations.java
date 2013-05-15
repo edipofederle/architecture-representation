@@ -1,5 +1,8 @@
 package mestrado.arquitetura.parser;
 
+import mestrado.arquitetura.exceptions.ModelIncompleteException;
+import mestrado.arquitetura.exceptions.ModelNotFoundException;
+
 /**
  * 
  * 
@@ -18,7 +21,7 @@ public class Operations {
 	 private CompositionOperations compositionOperations;
 	 private AggregationOperations aggregationOperations;
 
-	 public Operations(DocumentManager doc2) {
+	 public Operations(DocumentManager doc2) throws ModelNotFoundException, ModelIncompleteException {
 		 this.doc = doc2;
 		 createClassOperation();
 		 createAssociationOperations();
@@ -58,7 +61,7 @@ public class Operations {
 		this.associationOperation = new AssociationOperations(doc);
 	}
 
-	private void createClassOperation() {
+	private void createClassOperation() throws ModelNotFoundException, ModelIncompleteException {
 		this.classOperation = new ClassOperations(doc);
 	}
 

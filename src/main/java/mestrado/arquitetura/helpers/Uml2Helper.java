@@ -12,6 +12,7 @@ import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.exceptions.StereotypeNotFoundException;
+import mestrado.arquitetura.parser.ReaderConfig;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -372,10 +373,16 @@ public class Uml2Helper extends Base {
 		package_ = (org.eclipse.uml2.uml.Package) EcoreUtil.getObjectByType(resource.getContents(), UMLPackage.Literals.PACKAGE);
 		return package_;
 	}
-
-	// TODO READ FROM CONFIGURATION FILE
-	private Profile loadSMartyProfile() throws ModelNotFoundException,	ModelIncompleteException {
-		return (Profile) getExternalResources("src/test/java/resources/smarty.profile.uml");
+	
+	/**
+	 * Retorno o Profile SMarty. O Path para esse arquivo deve ser configurado dentro do arquivo <b>application.yml</b>
+	 * 
+	 * @return
+	 * @throws ModelNotFoundException
+	 * @throws ModelIncompleteException
+	 */
+	public Profile loadSMartyProfile() throws ModelNotFoundException,	ModelIncompleteException {
+		return (Profile) getExternalResources(ReaderConfig.getPathToProfile());
 	}
 
 	public Profile getSMartyProfile() {

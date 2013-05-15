@@ -1,21 +1,35 @@
 package mestrado.arquitetura.parser;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
 import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
+import mestrado.arquitetura.exceptions.ModelIncompleteException;
+import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.NodeNotFound;
+import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import mestrado.arquitetura.helpers.ModelHelper;
+import mestrado.arquitetura.helpers.Uml2Helper;
+import mestrado.arquitetura.helpers.Uml2HelperFactory;
+import mestrado.arquitetura.helpers.UtilResources;
 import mestrado.arquitetura.parser.method.Attribute;
 import mestrado.arquitetura.parser.method.Method;
+import mestrado.arquitetura.representation.VariantType;
 
+import org.eclipse.uml2.uml.Profile;
+import org.eclipse.uml2.uml.Stereotype;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 public class ClassOperations extends XmiHelper {
 	
 	
+	private ModelHelper modelHelper;
+
+
 	private static final String WITHOUT_PACKAGE = ""; // Classe sem pacote
 	private String idClass;
 	private DocumentManager documentManager;
@@ -24,9 +38,16 @@ public class ClassOperations extends XmiHelper {
 	private String idsMethods = new String();
 	private Node klass;
 	private boolean isAbstract = false;
+
+
+	private Uml2Helper uml2Helper;
+
+
+	private String stereotype;
 	
 	
-	public ClassOperations(DocumentManager documentManager) {
+	public ClassOperations(DocumentManager documentManager) throws ModelNotFoundException, ModelIncompleteException {
+		uml2Helper = Uml2HelperFactory.getUml2Helper();
 		this.documentManager = documentManager;
 		this.elementXmiGenerator = new ElementXmiGenerator(documentManager);
 	}
@@ -166,6 +187,49 @@ public class ClassOperations extends XmiHelper {
 	public ClassOperations isAbstract() {
 		this.isAbstract  = true;
 		return this;
+	}
+
+	/**
+	 * Aplica um estereótipo na classe. Se o estereótipo não existir no profile uma exceção é lançada. 
+	 * 
+	 * @param stereotypeName
+	 * @return ClassOperations
+	 * @throws SMartyProfileNotAppliedToModelExcepetion 
+	 * @throws ModelIncompleteException 
+	 * @throws ModelNotFoundException 
+	 * @throws InvalidMultiplictyForAssociationException 
+	 * @throws NodeNotFound 
+	 * @throws CustonTypeNotFound 
+	 */
+	public ClassOperations withStereoype(final VariantType ... stereotypeNames) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+		
+		Profile profile = uml2Helper.loadSMartyProfile();
+		
+		List<VariantType> names = Arrays.asList(stereotypeNames);
+		
+		for (final VariantType name : names) {
+			Stereotype stereotype = profile.getOwnedStereotype(name.toString());
+			if(stereotype == null){
+				//TODO throws exception
+			}
+			
+			mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+				public void useTransformation() throws NodeNotFound {
+					elementXmiGenerator.createStereotype(name.toString(), idClass);
+				}
+			});
+		}
+		
+
+		return this;
+	}
+
+	public void addStereotype(final String id, final String stereotypeName) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+			public void useTransformation() throws NodeNotFound {
+				elementXmiGenerator.createStereotype(stereotypeName, id);
+			}
+		});
 	}
 
 }

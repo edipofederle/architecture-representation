@@ -3,7 +3,7 @@ package mestrado.arquitetura.builders;
 import java.util.ArrayList;
 import java.util.List;
 
-import mestrado.arquitetura.base.RelationshipBase;
+import mestrado.arquitetura.base.ArchitectureHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.relationship.AssociationClassRelationship;
@@ -12,7 +12,7 @@ import mestrado.arquitetura.representation.relationship.Relationship;
 import org.eclipse.uml2.uml.AssociationClass;
 import org.eclipse.uml2.uml.Type;
 
-public class AssociationClassRelationshipBuilder extends RelationshipBase {
+public class AssociationClassRelationshipBuilder extends ArchitectureHelper {
 	
 	private Architecture architecture;
 

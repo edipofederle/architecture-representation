@@ -217,6 +217,16 @@ public class ModelHelper extends ElementHelper {
 		throw new ModelNotFoundException("Model " + xmiFile + " not found");
 	}
 
+	/**
+	 * 
+	 * Retorno o modelo dado um path. Lança uma exceção caso  o mesmo não exista.
+	 * 
+	 * @param xmiFile
+	 * @return
+	 * @throws ModelNotFoundException
+	 * @throws ModelIncompleteException
+	 * @throws SMartyProfileNotAppliedToModelExcepetion
+	 */
 	public Package getModel(String xmiFile) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
 		if (modelExists(xmiFile))
 			return uml2Helper.load(URI.createURI(xmiFile).toString());
