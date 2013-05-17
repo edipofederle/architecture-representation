@@ -32,7 +32,7 @@ import org.apache.log4j.Logger;
  */
 public class Architecture {
 	
-	 static Logger LOGGER = LogManager.getLogger(Architecture.class.getName());
+	static Logger LOGGER = LogManager.getLogger(Architecture.class.getName());
 
 	private List<Element> elements = new ArrayList<Element>();
 	private HashMap<String, Concern> concerns = new HashMap<String, Concern>();

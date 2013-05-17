@@ -57,8 +57,6 @@ public class Variability {
 	}
 	
 	private void setName(String name) {
-		if (name == null || name.length() == 0)
-			throw new InvalidParameterException("Variability name can't be empty");
 		this.name = name;
 	}
 

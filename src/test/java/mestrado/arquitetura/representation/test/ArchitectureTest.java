@@ -22,7 +22,6 @@ import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.Interface;
 import mestrado.arquitetura.representation.Package;
 import mestrado.arquitetura.representation.Variability;
-import mestrado.arquitetura.representation.VariantType;
 import mestrado.arquitetura.representation.relationship.AbstractionRelationship;
 import mestrado.arquitetura.representation.relationship.AssociationClassRelationship;
 import mestrado.arquitetura.representation.relationship.AssociationRelationship;
@@ -79,7 +78,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllPackages(){
-		Package pkg = new Package(arch, "Pacote", false, VariantType.MANDATORY, "","id");
+		Package pkg = new Package(arch, "Pacote", false, null, "","id");
 		arch.getElements().add(pkg);
 		
 		assertEquals(1, arch.getAllPackages().size());
@@ -93,7 +92,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllClasses(){
-		Class klass = new Class(arch, "Klass", false,  VariantType.MANDATORY, false, "namespace","id");
+		Class klass = new Class(arch, "Klass", false, null, false, "namespace","id");
 		arch.getElements().add(klass);
 		
 		assertEquals(1, arch.getAllClasses().size());
@@ -128,7 +127,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnElementClassByName(){
-		arch.getElements().add(new Class(arch, "Klass", false,  VariantType.MANDATORY, false,  "namespace", "id"));
+		arch.getElements().add(new Class(arch, "Klass", false,  null, false,  "namespace", "id"));
 		Element klass = arch.findElementByName("klass");
 		
 		assertNotNull(klass);
@@ -137,7 +136,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnElementPackageByName(){
-		arch.getElements().add( new Package(arch, "Pacote", false, VariantType.MANDATORY, "", "id"));
+		arch.getElements().add( new Package(arch, "Pacote", "id"));
 		Element pkg = arch.findElementByName("Pacote");
 		
 		assertNotNull(pkg);
@@ -146,9 +145,9 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllInterfaces(){
-		arch.getElements().add(new Class(arch, "Klass1", false,  VariantType.MANDATORY, false,  "namespace", "id"));
-		arch.getElements().add(new Interface(arch, "Interface1", false, VariantType.MANDATORY, "namesapce","id"));
-		arch.getElements().add(new Interface(arch, "Interface2", false, VariantType.MANDATORY, "namesapce","id"));
+		arch.getElements().add(new Class(arch, "Klass1", false,  null, false,  "namespace", "id"));
+		arch.getElements().add(new Interface(arch, "Interface1", false, null, "namesapce","id"));
+		arch.getElements().add(new Interface(arch, "Interface2", false, null, "namesapce","id"));
 		
 		assertEquals(2, arch.getAllInterfaces().size());
 		assertEquals(1, arch.getAllClasses().size());

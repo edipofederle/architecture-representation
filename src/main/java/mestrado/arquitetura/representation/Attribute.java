@@ -22,7 +22,7 @@ public class Attribute extends Element {
 	 * @param namesapce
 	 * @param id
 	 */
-	public Attribute(Architecture architecture, String name, String visibilityKind, boolean isVariationPoint, VariantType variantType, String type, String namesapce, String id) {
+	public Attribute(Architecture architecture, String name, String visibilityKind, boolean isVariationPoint, Variant variantType, String type, String namesapce, String id) {
 		super(architecture, name, isVariationPoint, variantType, "attribute", namesapce, id);
 		setType(type);
 		setVisibilityKind(visibilityKind);
@@ -42,7 +42,7 @@ public class Attribute extends Element {
 	 * @param id
 	 */
 	public Attribute(Architecture architecture, String name, String visibilityKind, String type, String namespace, String id) {
-		this(architecture, name, visibilityKind, false, VariantType.NONE, type, namespace, id);
+		this(architecture, name, visibilityKind, false, null, type, namespace, id);
 	}
 
 	public String getType() {

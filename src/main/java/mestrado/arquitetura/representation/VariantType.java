@@ -4,7 +4,6 @@ package mestrado.arquitetura.representation;
 
 public enum VariantType {
 	
-	NONE(""),
 	MANDATORY("mandatory"),
 	OPTIONAL("optional"),
 	ALTERNATIVE_OR("alternative_OR"),
@@ -26,6 +25,6 @@ public enum VariantType {
             if (e.toString().equalsIgnoreCase(name))
                 return e;
         }
-        return NONE; 
+        return null; 
     }
 }

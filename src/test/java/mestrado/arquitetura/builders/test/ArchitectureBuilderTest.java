@@ -85,7 +85,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void shouldHaveMandatoryStereotype() {
 		Class class1 = (Class) package1.getClasses().get(0);
-		assertEquals("mandatory", class1.getVariantType().toString());
+		assertEquals("mandatory", class1.getVariantType().getVariantType().toString());
 	}
 
 	@Test

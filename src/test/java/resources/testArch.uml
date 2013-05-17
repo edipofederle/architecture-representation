@@ -94,8 +94,8 @@
   <perfilConcerns:Persistence xmi:id="_ovl0AIASEeKfhKWYalU4oQ" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
   <perfilConcerns:sorting xmi:id="_ov8ZUIASEeKfhKWYalU4oQ" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
   <smartyProfile_2:variability xmi:id="_0wO9wIK3EeKM7tkgtLdLRQ" base_Comment="_K8NGIIK3EeKM7tkgtLdLRQ"/>
-  <perfilConcerns_1:sorting xmi:id="_GIlwsIK4EeKMzbsG0IfjBw" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
-  <perfilConcerns_1:Persistence xmi:id="_GImXwIK4EeKMzbsG0IfjBw" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
-  <smartyProfile_3:mandatory xmi:id="_ZeMTcIK4EeKMzbsG0IfjBw" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
   <smartyProfile_3:variability xmi:id="_cyKo0IK8EeKMzbsG0IfjBw" base_Comment="_K8NGIIK3EeKM7tkgtLdLRQ" name="nameClass2Variability" minSelection="1" maxSelection="2" allowAddingVar="true" variants="Bar"/>
+  <smartyProfile_3:mandatory xmi:id="_zuY3AL6TEeKouuDEjm4x5Q" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
+  <perfilConcerns_1:sorting xmi:id="_wQgwAL6VEeKouuDEjm4x5Q" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
+  <perfilConcerns_1:Persistence xmi:id="_wQgwAb6VEeKouuDEjm4x5Q" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
 </xmi:XMI>

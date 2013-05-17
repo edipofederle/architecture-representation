@@ -11,24 +11,24 @@ import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
-import mestrado.arquitetura.helpers.ModelHelper;
 import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
-import mestrado.arquitetura.helpers.UtilResources;
 import mestrado.arquitetura.parser.method.Attribute;
 import mestrado.arquitetura.parser.method.Method;
 import mestrado.arquitetura.representation.VariantType;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.eclipse.uml2.uml.Profile;
-import org.eclipse.uml2.uml.Stereotype;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class ClassOperations extends XmiHelper {
 	
 	
-	private ModelHelper modelHelper;
-
+	static Logger LOGGER = LogManager.getLogger(ClassOperations.class.getName());
+	
 
 	private static final String WITHOUT_PACKAGE = ""; // Classe sem pacote
 	private String idClass;
@@ -43,7 +43,7 @@ public class ClassOperations extends XmiHelper {
 	private Uml2Helper uml2Helper;
 
 
-	private String stereotype;
+	private org.eclipse.uml2.uml.Stereotype stereotype;
 	
 	
 	public ClassOperations(DocumentManager documentManager) throws ModelNotFoundException, ModelIncompleteException {
@@ -208,10 +208,9 @@ public class ClassOperations extends XmiHelper {
 		List<VariantType> names = Arrays.asList(stereotypeNames);
 		
 		for (final VariantType name : names) {
-			Stereotype stereotype = profile.getOwnedStereotype(name.toString());
-			if(stereotype == null){
-				//TODO throws exception
-			}
+			 stereotype = profile.getOwnedStereotype(name.toString());
+			if(stereotype == null)
+				LOGGER.warn("Stereotype + "+name.name() + " cannot be found at profile.");
 			
 			mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 				public void useTransformation() throws NodeNotFound {
@@ -219,7 +218,6 @@ public class ClassOperations extends XmiHelper {
 				}
 			});
 		}
-		
 
 		return this;
 	}
@@ -227,9 +225,16 @@ public class ClassOperations extends XmiHelper {
 	public void addStereotype(final String id, final String stereotypeName) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() throws NodeNotFound {
+				
+//				Node node = documentManager.getDocUml().getDocumentElement();
+//				Element teste = documentManager.getDocUml().createElement("xmi:XMI");
+//				node.appendChild(teste);
+				
 				elementXmiGenerator.createStereotype(stereotypeName, id);
 			}
 		});
+		
+
 	}
 
 }

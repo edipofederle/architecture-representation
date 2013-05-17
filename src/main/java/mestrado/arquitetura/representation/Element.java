@@ -14,14 +14,14 @@ public abstract class Element {
 	protected String id;
 	private String name;
 	private Boolean isVariationPoint;
-	private VariantType variantType;
+	private Variant variantType;
 	private final List<Concern> concerns = new ArrayList<Concern>();
 	private static Architecture architecture;
 	private String typeElement;
 	private String namespace;
 	private List<String> idsRelationships = new ArrayList<String>();
 	
-	public Element(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, String typeElement, String namespace, String id) {
+	public Element(Architecture architecture, String name, boolean isVariationPoint, Variant variantType, String typeElement, String namespace, String id) {
 		setArchitecture(architecture);
 		setId(id);
 		setName(name);
@@ -73,11 +73,11 @@ public abstract class Element {
 	}
 	
 
-	public VariantType getVariantType() {
+	public Variant getVariantType() {
 		return variantType;
 	}
 
-	public void setVariantType(VariantType variantType) {
+	public void setVariantType(Variant variantType) {
 		this.variantType = variantType;
 	}
 

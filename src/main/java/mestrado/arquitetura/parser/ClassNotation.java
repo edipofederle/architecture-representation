@@ -199,5 +199,60 @@ public class ClassNotation extends XmiHelper {
       	childrenDecorationnode.setAttribute("type", type);
 		return childrenDecorationnode;
 	}
+
+	public void createXmiForStereotype(String stereotypeName, String idClass) throws NodeNotFound {
 		
+		ste(stereotypeName, idClass,false);
+		ste(stereotypeName, idClass, true);
+	}
+
+	private void ste(String stereotypeName, String idClass, boolean addEcorePrefix) throws NodeNotFound {
+		Node classToAddSte = findByIDInNotationFile(documentManager.getDocNotation(), idClass);
+		
+		Element eAnnotations = documentManager.getDocNotation().createElement("eAnnotations");
+		eAnnotations.setAttribute("xmi:type", "ecore:EAnnotation");
+		eAnnotations.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		if(addEcorePrefix)
+			eAnnotations.setAttribute("source", "ecore:Stereotype_Annotation");
+		else
+			eAnnotations.setAttribute("source", "Stereotype_Annotation");
+		
+		Element details = documentManager.getDocNotation().createElement("details");
+		details.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
+		details.setAttribute("xmi:id",  UtilResources.getRandonUUID());
+		details.setAttribute("key", "StereotypeWithQualifiedNameList");
+		details.setAttribute("value", "");
+		eAnnotations.appendChild(details);
+		
+		Element details2 = documentManager.getDocNotation().createElement("details");
+		details2.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
+		details2.setAttribute("xmi:id",  UtilResources.getRandonUUID());
+		details2.setAttribute("key", "StereotypeList");
+		details2.setAttribute("value", "smartyProfile::"+stereotypeName);
+		eAnnotations.appendChild(details2);
+		
+		Element details3 = documentManager.getDocNotation().createElement("details");
+		details3.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
+		details3.setAttribute("xmi:id",  UtilResources.getRandonUUID());
+		details3.setAttribute("key", "Stereotype_Presentation_Kind");
+		details3.setAttribute("value", "HorizontalStereo");
+		eAnnotations.appendChild(details3);
+		
+		Element details4 = documentManager.getDocNotation().createElement("details");
+		details4.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
+		details4.setAttribute("xmi:id",  UtilResources.getRandonUUID());
+		details4.setAttribute("key", "PropStereoDisplay");
+		details4.setAttribute("value", "");
+		eAnnotations.appendChild(details4);
+		
+		Element details5 = documentManager.getDocNotation().createElement("details");
+		details5.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
+		details5.setAttribute("xmi:id",  UtilResources.getRandonUUID());
+		details5.setAttribute("key", "StereotypePropertyLocation");
+		details5.setAttribute("value", "Compartment");
+		eAnnotations.appendChild(details5);
+		
+		classToAddSte.appendChild(eAnnotations);
+	}
+	
 }

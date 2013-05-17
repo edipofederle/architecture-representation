@@ -1,18 +1,22 @@
 package mestrado.arquitetura.builders;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import mestrado.arquitetura.helpers.ModelElementHelper;
 import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.representation.Architecture;
+import mestrado.arquitetura.representation.Variant;
 import mestrado.arquitetura.representation.VariantType;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
 
 
@@ -27,7 +31,7 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 
 	protected String name;
 	protected Boolean isVariationPoint;
-	protected VariantType variantType;
+	protected Variant variantType;
 	protected List<String> concerns;
 	protected final Architecture architecture;
 	private final HashMap<String, T> createdElements = new HashMap<String, T>();
@@ -66,7 +70,13 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 		List<Stereotype> allStereotypes = ModelElementHelper.getAllStereotypes(modelElement);
 		for (Stereotype stereotype : allStereotypes) {
 			verifyVariationPoint(stereotype);
-			verifyVariant(stereotype);	
+
+			try {
+				verifyVariant(stereotype, modelElement);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
 			//verifyFeature(stereotype); // TODO Verificar
 			verifyConcern(stereotype);
 		}
@@ -77,10 +87,22 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 			 concerns.add(stereotype.getName());
 	}
 	
-	private void verifyVariant(Stereotype stereotype) {
+	private void verifyVariant(Stereotype stereotype, NamedElement modelElement) {
 		VariantType type = VariantType.getByName(stereotype.getName());
-		if ((type != VariantType.NONE) && (type != VariantType.VARIATIONPOINT))
-			variantType = type;
+		if ((type != null) && (!stereotype.getName().equalsIgnoreCase(VariantType.VARIATIONPOINT.toString()))){
+			Variant variant = new Variant();
+			variant.setVariantType(type);
+			variant.setRootVP("ROOTVP");
+			EList<Property> stereotypeAttrs = stereotype.getAllAttributes();
+			
+			for (Property property : stereotypeAttrs) {
+				if("variabilities".equalsIgnoreCase(property.getName())){
+					variant.setVariabilities(Arrays.asList(StereotypeHelper.getValueOfAttribute(modelElement, stereotype, "variabilities")));
+				}
+			}
+			
+			variantType = variant;
+		}
 	}
 	private void verifyVariationPoint(Stereotype stereotype) {
 		if(!isVariationPoint)
@@ -90,7 +112,7 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 	private void initialize() {
 		name = "";
 		isVariationPoint = false;
-		variantType = VariantType.NONE;
+		variantType = null;
 		concerns = new ArrayList<String>();
 	}
 	

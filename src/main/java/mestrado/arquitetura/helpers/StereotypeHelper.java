@@ -132,13 +132,18 @@ public class StereotypeHelper extends TestHelper {
 	 * @return
 	 */
 	public static String getValueOfAttribute(Element element, Stereotype variability, String attrName) {
-		
-		if(element.getValue(variability, attrName) instanceof EnumerationLiteralImpl){
-			EnumerationLiteral e = (EnumerationLiteral) element.getValue(variability, attrName);
-			return e.getName();
+		Object attr = element.getValue(variability, attrName);
+		if(attr != null){
+			if(attr instanceof EnumerationLiteralImpl){
+				EnumerationLiteral e = (EnumerationLiteral) element.getValue(variability, attrName);
+				return e.getName();
+			}
+			return (String) element.getValue(variability, attrName).toString();
+		}
+		else{
+			return "";
 		}
 		
-		return (String) element.getValue(variability, attrName).toString();
 	}
 
 	/**

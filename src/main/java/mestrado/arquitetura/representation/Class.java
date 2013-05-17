@@ -35,13 +35,13 @@ public class Class extends Element {
 	 * @param interfacee
 	 * @param packageName
 	 */
-	public Class(Architecture architecture, String name, boolean isVariationPoint, VariantType variantType, boolean isAbstract, String namespace, String id) {
+	public Class(Architecture architecture, String name, boolean isVariationPoint, Variant variantType, boolean isAbstract, String namespace, String id) {
 		super(architecture, name, isVariationPoint, variantType, "klass", namespace, id);
 		setAbstract(isAbstract);
 	}
 
 	public Class(Architecture architecture, String name, String id) {
-		this(architecture, name,  false, VariantType.NONE, false,  UtilResources.createNamespace(getArchitecture().getName(), name), id);
+		this(architecture, name,  false, null, false,  UtilResources.createNamespace(getArchitecture().getName(), name), id);
 	}
 
 //	public Attribute createAttribute(String name, String type) {

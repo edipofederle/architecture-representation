@@ -1,5 +1,4 @@
 package mestrado.arquitetura.writer;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -15,22 +14,34 @@ import org.junit.Test;
 
 public class StereotypeTest extends TestHelper {
 	
+	
+	@Test
+	public void test() throws Exception{
+		Architecture a = givenAArchitecture2("edipo");
+		
+		Class klass = a.findClassByName("foo");
+		assertEquals("mandatory", klass.getVariantType().getVariantType().toString());
+		assertEquals("ROOTVP", klass.getVariantType().getRootVP());
+		assertEquals("[teste, demo, casa]", klass.getVariantType().getVariabilities().toString());
+		assertEquals("3",a.getVariabilities().get(0).getMaxSelection());
+	}
+	
 	@Test
 	public void shouldCreateClassWithSteretorypeMandatory() throws Exception{
 		
-		DocumentManager doc = givenADocument("edipo", "simples");
+		DocumentManager doc = givenADocument("edipo2", "simples");
 		Operations op = new Operations(doc);
 		
-		op.forClass().createClass("foo").withStereoype(VariantType.MANDATORY).build();
+		String id = op.forClass().createClass("foo").build().get("id");
+		op.forClass().addStereotype(id, "mandatory");
 		
-		Architecture a = givenAArchitecture2("edipo");
+		Architecture a = givenAArchitecture2("edipo2");
 		
 		Class klassFoo = a.findClassByName("foo");
 		assertNotNull(klassFoo);
 		
 		assertFalse(klassFoo.isVariationPoint());
-		assertEquals("mandatory", klassFoo.getVariantType().toString());
-	}
+ 	}
 	
 	@Test
 	public void shouldCreateClassWithSteretorypeOptional() throws Exception{
@@ -46,7 +57,7 @@ public class StereotypeTest extends TestHelper {
 		assertNotNull(klassFoo);
 		
 		assertFalse(klassFoo.isVariationPoint());
-		assertEquals("optional", klassFoo.getVariantType().toString());
+		assertEquals("optional", klassFoo.getVariantType().getVariantType().toString());
 	}
 	
 	@Test
@@ -63,7 +74,7 @@ public class StereotypeTest extends TestHelper {
 		assertNotNull(klassFoo);
 		
 		assertFalse(klassFoo.isVariationPoint());
-		assertEquals("optional", klassFoo.getVariantType().toString());
+		assertEquals("optional", klassFoo.getVariantType().getVariantType().toString());
 	}
 	
 	
@@ -78,7 +89,7 @@ public class StereotypeTest extends TestHelper {
 		Class klassFoo = a.findClassByName("foo");
 		
 		assertNotNull(klassFoo);
-		assertEquals("mandatory", klassFoo.getVariantType().toString());
+		assertEquals("mandatory", klassFoo.getVariantType().getVariantType().toString());
 		assertTrue(klassFoo.isVariationPoint());
 	}
 	
@@ -91,14 +102,15 @@ public class StereotypeTest extends TestHelper {
 		 * Inverte ordem dos estereotipos em relação ao caso de teste anterior. Esses testes servem para ver se alguma informação
 		 * Não esta sendo reescrita dentro da classe ElementBuilder.
 		*/ 
-		op.forClass().createClass("foo").withStereoype(VariantType.MANDATORY,VariantType.VARIATIONPOINT).build().get("id");
+		op.forClass().createClass("foo").withStereoype(VariantType.MANDATORY, VariantType.VARIATIONPOINT).build().get("id");
 		
 		Architecture a = givenAArchitecture2("ste4");
 		Class klassFoo = a.findClassByName("foo");
 		
 		assertNotNull(klassFoo);
-		assertEquals("mandatory", klassFoo.getVariantType().toString());
+		assertEquals("mandatory", klassFoo.getVariantType().getVariantType().toString());
 		assertTrue(klassFoo.isVariationPoint());
 	}
+	
 
 }
