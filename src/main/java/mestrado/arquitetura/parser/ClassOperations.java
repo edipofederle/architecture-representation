@@ -1,6 +1,5 @@
 package mestrado.arquitetura.parser;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,14 +14,14 @@ import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
 import mestrado.arquitetura.parser.method.Attribute;
 import mestrado.arquitetura.parser.method.Method;
-import mestrado.arquitetura.representation.VariantType;
+import mestrado.arquitetura.representation.Stereotype;
+import mestrado.arquitetura.representation.Variant;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.eclipse.uml2.uml.Profile;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 public class ClassOperations extends XmiHelper {
 	
@@ -201,20 +200,19 @@ public class ClassOperations extends XmiHelper {
 	 * @throws NodeNotFound 
 	 * @throws CustonTypeNotFound 
 	 */
-	public ClassOperations withStereoype(final VariantType ... stereotypeNames) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public ClassOperations withStereoype(final Stereotype ... stereotypeNames) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		
 		Profile profile = uml2Helper.loadSMartyProfile();
 		
-		List<VariantType> names = Arrays.asList(stereotypeNames);
 		
-		for (final VariantType name : names) {
-			 stereotype = profile.getOwnedStereotype(name.toString());
+		for (final Stereotype variant : stereotypeNames) {
+			 stereotype = profile.getOwnedStereotype(variant.getVariantName());
 			if(stereotype == null)
-				LOGGER.warn("Stereotype + "+name.name() + " cannot be found at profile.");
+				LOGGER.warn("Stereotype + "+variant.getVariantName() + " cannot be found at profile.");
 			
 			mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 				public void useTransformation() throws NodeNotFound {
-					elementXmiGenerator.createStereotype(name.toString(), idClass);
+					elementXmiGenerator.createStereotype(variant, idClass);
 				}
 			});
 		}
@@ -222,15 +220,11 @@ public class ClassOperations extends XmiHelper {
 		return this;
 	}
 
-	public void addStereotype(final String id, final String stereotypeName) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public void addStereotype(final String id, final Variant mandatory) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() throws NodeNotFound {
 				
-//				Node node = documentManager.getDocUml().getDocumentElement();
-//				Element teste = documentManager.getDocUml().createElement("xmi:XMI");
-//				node.appendChild(teste);
-				
-				elementXmiGenerator.createStereotype(stereotypeName, id);
+				elementXmiGenerator.createStereotype(mandatory, id);
 			}
 		});
 		

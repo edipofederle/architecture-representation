@@ -105,7 +105,11 @@ public class StereotypeHelper extends TestHelper {
 	}
 	
 	/**
-	 * Verifica se elemento possui interesse
+	 * Verifica se elemento possui interesse. Os intereses são definidos em um profile separado do Smarty.
+	 * Esse profile, contém um estereótipo chamado <b>concern</b>, que é abstrato e estende a metaclasse <b>Class</b>
+	 * Sendo assim os interesses que o usuário desejar usar na arquitetura devem estender do estereótipo <b>Concern</b>.<br/><br/>
+	 * 
+	 * <a href="https://dl.dropboxusercontent.com/u/6730822/Screen%20Shot%202013-05-17%20at%209.51.41%20AM.png">Exemplo</a>
 	 * 
 	 * @param element
 	 * @return boolean
@@ -137,6 +141,8 @@ public class StereotypeHelper extends TestHelper {
 			if(attr instanceof EnumerationLiteralImpl){
 				EnumerationLiteral e = (EnumerationLiteral) element.getValue(variability, attrName);
 				return e.getName();
+			}else if(attr instanceof ClassImpl){
+				return ((Class)attr).getName();
 			}
 			return (String) element.getValue(variability, attrName).toString();
 		}

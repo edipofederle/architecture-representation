@@ -3,6 +3,7 @@ package mestrado.arquitetura.parser;
 import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.exceptions.NullReferenceFoundException;
 import mestrado.arquitetura.helpers.UtilResources;
+import mestrado.arquitetura.representation.Stereotype;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -200,13 +201,13 @@ public class ClassNotation extends XmiHelper {
 		return childrenDecorationnode;
 	}
 
-	public void createXmiForStereotype(String stereotypeName, String idClass) throws NodeNotFound {
+	public void createXmiForStereotype(Stereotype mandatory, String idClass) throws NodeNotFound {
 		
-		ste(stereotypeName, idClass,false);
-		ste(stereotypeName, idClass, true);
+		ste(mandatory, idClass,false);
+		ste(mandatory, idClass, true);
 	}
 
-	private void ste(String stereotypeName, String idClass, boolean addEcorePrefix) throws NodeNotFound {
+	private void ste(Stereotype mandatory, String idClass, boolean addEcorePrefix) throws NodeNotFound {
 		Node classToAddSte = findByIDInNotationFile(documentManager.getDocNotation(), idClass);
 		
 		Element eAnnotations = documentManager.getDocNotation().createElement("eAnnotations");
@@ -228,7 +229,7 @@ public class ClassNotation extends XmiHelper {
 		details2.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
 		details2.setAttribute("xmi:id",  UtilResources.getRandonUUID());
 		details2.setAttribute("key", "StereotypeList");
-		details2.setAttribute("value", "smartyProfile::"+stereotypeName);
+		details2.setAttribute("value", "smartyProfile::"+mandatory.getVariantName());
 		eAnnotations.appendChild(details2);
 		
 		Element details3 = documentManager.getDocNotation().createElement("details");

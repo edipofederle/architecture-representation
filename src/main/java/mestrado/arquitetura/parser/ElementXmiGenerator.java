@@ -1,6 +1,8 @@
 package mestrado.arquitetura.parser;
 
 
+import java.util.List;
+
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
 import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import mestrado.arquitetura.exceptions.NodeNotFound;
@@ -10,6 +12,7 @@ import mestrado.arquitetura.parser.method.Argument;
 import mestrado.arquitetura.parser.method.Attribute;
 import mestrado.arquitetura.parser.method.Method;
 import mestrado.arquitetura.parser.method.Types;
+import mestrado.arquitetura.representation.Stereotype;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -17,6 +20,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+
+import com.google.common.base.Joiner;
 
 /**
  * Cria XMI para elementos UML.
@@ -283,19 +288,24 @@ public class ElementXmiGenerator extends XmiHelper {
 		node.appendChild(edges);
 	}
 
-	public void createStereotype(String stereotypeName, String idClass) throws NodeNotFound {
-		addStereotypeToUmlFile(stereotypeName, idClass);
-		notation.createXmiForStereotype(stereotypeName, idClass);
+	public void createStereotype(Stereotype mandatory, String idClass) throws NodeNotFound {
+		addStereotypeToUmlFile(mandatory, idClass);
+		notation.createXmiForStereotype(mandatory, idClass);
 	}
 
-	private void addStereotypeToUmlFile(String stereotypeName, String idClass) {
+	private void addStereotypeToUmlFile(Stereotype mandatory, String idClass) {
 		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
-		Element stereotype = this.documentManager.getDocUml().createElement("smartyProfile:"+stereotypeName);
+		Element stereotype = this.documentManager.getDocUml().createElement("smartyProfile:"+mandatory.getVariantName());
 		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		stereotype.setAttribute("base_Class", idClass); // A classe que tem o estereotype
+		stereotype.setAttribute("variabilities", listToString(mandatory.getVariabilities()));
 		
 		nodeXmi.getParentNode().appendChild(stereotype);
 		
+	}
+
+	private String listToString(List<String> variabilities) {
+		return Joiner.on(",").skipNulls().join(variabilities);
 	}
 	
 

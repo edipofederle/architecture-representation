@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:smartyProfile="http:///schemas/smartyProfile/_OaM18IEVEeKfhKWYalU4oQ/1" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/smartyProfile/_OaM18IEVEeKfhKWYalU4oQ/1 smarty.profile.uml#_OaSVgIEVEeKfhKWYalU4oQ">
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:smartyProfile="http:///schemas/smartyProfile/_OaM18IEVEeKfhKWYalU4oQ/1" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/smartyProfile/_OaM18IEVEeKfhKWYalU4oQ/1 smarty.profile.uml#_Ze_JQL7zEeK0iuoSreeN5g">
   <uml:Model xmi:id="_79aCsJA3EeKY_MHB0RLsZg" name="model">
     <packagedElement xmi:type="uml:Class" xmi:id="_8bcpkJA3EeKY_MHB0RLsZg" name="Class1"/>
     <packagedElement xmi:type="uml:Package" xmi:id="_9BbEcJA3EeKY_MHB0RLsZg" clientDependency="_-_Ec4JA3EeKY_MHB0RLsZg" name="Package1">
@@ -7,7 +7,7 @@
     </packagedElement>
     <profileApplication xmi:id="_QyBhIJA4EeKbYK8YNdpFng">
       <eAnnotations xmi:id="_QyBhIZA4EeKbYK8YNdpFng" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_OaSVgIEVEeKfhKWYalU4oQ"/>
+        <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_Ze_JQL7zEeK0iuoSreeN5g"/>
       </eAnnotations>
       <appliedProfile href="smarty.profile.uml#_pWQg0HnPEeKAopGwrqrm1w"/>
     </profileApplication>

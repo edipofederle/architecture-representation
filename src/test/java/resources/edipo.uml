@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:smartyProfile="http:///schemas/smartyProfile/_OaM18IEVEeKfhKWYalU4oQ/1" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/smartyProfile/_OaM18IEVEeKfhKWYalU4oQ/1 smarty.profile.uml#_OaSVgIEVEeKfhKWYalU4oQ">
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:smartyProfile="http:///schemas/smartyProfile/_ZetccL7zEeK0iuoSreeN5g/0" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/smartyProfile/_ZetccL7zEeK0iuoSreeN5g/0 smarty.profile.uml#_Ze_JQL7zEeK0iuoSreeN5g">
   <uml:Model xmi:id="_cooD4LmGEeKQQp7P9cQvNQ" name="model">
-    <ownedComment xmi:id="_wKLxcL6IEeKTh_89kA-78g" annotatedElement="f0802d4b-3913-4904-b3cd-ef2cee9367bf">
-      <body> </body>
+    <ownedComment xmi:id="_SedeEL75EeK0iuoSreeN5g" annotatedElement="e6b34dbb-dc49-4907-8702-b343cea11259">
+      <body>nome: variabilityName
+</body>
     </ownedComment>
-    <packagedElement xmi:type="uml:Class" xmi:id="f0802d4b-3913-4904-b3cd-ef2cee9367bf" name="foo"/>
-    <profileApplication xmi:id="_cipIoL1gEeKSMe99iuqyhQ">
-      <eAnnotations xmi:id="_cjI34L1gEeKSMe99iuqyhQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_OaSVgIEVEeKfhKWYalU4oQ"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="e6b34dbb-dc49-4907-8702-b343cea11259" name="GameMenu"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="__ZsvsL8kEeK9i5034mxHRQ" name="BricklesGameMenu">
+      <generalization xmi:id="_pcxv8L8lEeK9i5034mxHRQ" general="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_k7pHEL8lEeK9i5034mxHRQ" name="PongGameMenu">
+      <ownedComment xmi:id="_k99bQL8lEeK9i5034mxHRQ">
+        <body>BricklesGameMenu,</body>
+      </ownedComment>
+      <generalization xmi:id="_qqT6EL8lEeK9i5034mxHRQ" general="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_nwzWUL8lEeK9i5034mxHRQ" name="BowlingGameMenu">
+      <generalization xmi:id="_qE2ckL8lEeK9i5034mxHRQ" general="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+    </packagedElement>
+    <profileApplication xmi:id="_a2CbwL7zEeK0iuoSreeN5g">
+      <eAnnotations xmi:id="_a3UOIL7zEeK0iuoSreeN5g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_Ze_JQL7zEeK0iuoSreeN5g"/>
       </eAnnotations>
-      <appliedProfile href="smarty.profile.uml#_pWQg0HnPEeKAopGwrqrm1w"/>
+      <appliedProfile href="smarty.profile.uml#_ny8NgL7nEeKk4ovPJknorg"/>
+    </profileApplication>
+    <profileApplication xmi:id="_B7gwgL72EeK0iuoSreeN5g">
+      <eAnnotations xmi:id="_B7osUL72EeK0iuoSreeN5g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="perfilConcerns.profile.uml#_P_8VsHt4EeKj6c5Uq9Fn3w"/>
+      </eAnnotations>
+      <appliedProfile href="perfilConcerns.profile.uml#_9v_84HqaEeK1gM_kVgXLQw"/>
     </profileApplication>
   </uml:Model>
-  <smartyProfile:mandatory xmi:id="11303317-d0f1-4f43-896a-8e51348fc0f9" base_Class="f0802d4b-3913-4904-b3cd-ef2cee9367bf" variabilities="teste, demo, casa"/>
-  <smartyProfile:variationPoint xmi:id="_vR3CUL6IEeKTh_89kA-78g" base_Class="f0802d4b-3913-4904-b3cd-ef2cee9367bf" numberOfVariants="1"/>
-  <smartyProfile:variability xmi:id="_xMVyAL6IEeKTh_89kA-78g" base_Comment="_wKLxcL6IEeKTh_89kA-78g" name="VariabilidadeName" minSelection="1" maxSelection="3" allowAddingVar="true" variants="variantName"/>
+  <smartyProfile:mandatory xmi:id="f3f9c17d-7d9c-4bbb-99c2-34133f932c27" base_Class="e6b34dbb-dc49-4907-8702-b343cea11259" rootVP="_qdmF0L77EeK0iuoSreeN5g" variabilities="BricklesGameMenu, PongGameMenu, BowlingGameMenu"/>
+  <smartyProfile:variability xmi:id="_UFWjYL75EeK0iuoSreeN5g" base_Comment="_SedeEL75EeK0iuoSreeN5g" name="variabilityName" minSelection="1" maxSelection="3" bindingTime="COMPILE_TIME" allowAddingVar="true" variants="BricklesGameMenu, PongGameMenu, BowlingGameMenu"/>
+  <smartyProfile:variationPoint xmi:id="_qdmF0L77EeK0iuoSreeN5g" base_Class="e6b34dbb-dc49-4907-8702-b343cea11259" variants="algumaCoisa" variabilities="BricklesGameMenu, PongGameMenu, BowlingGameMenu"/>
+  <smartyProfile:alternative_OR xmi:id="_ydY00L8lEeK9i5034mxHRQ" base_Class="__ZsvsL8kEeK9i5034mxHRQ" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+  <smartyProfile:alternative_OR xmi:id="_1X76YL8lEeK9i5034mxHRQ" base_Class="_k7pHEL8lEeK9i5034mxHRQ" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+  <smartyProfile:alternative_OR xmi:id="_2bQ_oL8lEeK9i5034mxHRQ" base_Class="_nwzWUL8lEeK9i5034mxHRQ" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259"/>
 </xmi:XMI>

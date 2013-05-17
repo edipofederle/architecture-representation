@@ -65,9 +65,8 @@ public class ProfileSMarty {
 	private void createConcernStereotype() throws ModelNotFoundException {
 		Stereotype concern = helper.createStereotype(this.profile, "concern", false);
 		
-		helper.createAttribute(concern, "name", helper.getPrimitiveType("String"), 1, 1);
 		Class klassMetaClass = helper.referenceMetaclass(this.profile,
-				UMLPackage.Literals.CLASS.getName());
+				UMLPackage.Literals.STEREOTYPE.getName());
 		helper.createExtension(klassMetaClass, concern, false);
 	}
 

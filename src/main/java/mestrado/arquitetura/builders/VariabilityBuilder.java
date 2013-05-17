@@ -46,7 +46,7 @@ public class VariabilityBuilder {
 			String[] variantsElements = variabilityAttributes.get("variants").split(",");
 			
 			for (String variantElement : variantsElements) {
-				Element element = architecture.findElementByName(variantElement);
+				Element element = architecture.findElementByName(variantElement.trim());
 				if (element != null) variants.add(element);
 			}
 			

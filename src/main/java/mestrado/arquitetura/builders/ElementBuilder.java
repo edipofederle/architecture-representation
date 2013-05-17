@@ -1,13 +1,14 @@
 package mestrado.arquitetura.builders;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import mestrado.arquitetura.exceptions.ClassNotFound;
 import mestrado.arquitetura.helpers.ModelElementHelper;
 import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.representation.Architecture;
+import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.Variant;
 import mestrado.arquitetura.representation.VariantType;
 
@@ -73,9 +74,7 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 
 			try {
 				verifyVariant(stereotype, modelElement);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+			} catch (Exception e) {}
 			
 			//verifyFeature(stereotype); // TODO Verificar
 			verifyConcern(stereotype);
@@ -90,19 +89,23 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 	private void verifyVariant(Stereotype stereotype, NamedElement modelElement) {
 		VariantType type = VariantType.getByName(stereotype.getName());
 		if ((type != null) && (!stereotype.getName().equalsIgnoreCase(VariantType.VARIATIONPOINT.toString()))){
-			Variant variant = new Variant();
-			variant.setVariantName(stereotype.getName());
-			variant.setRootVP("ROOTVP");
-			EList<Property> stereotypeAttrs = stereotype.getAllAttributes();
 			
-			for (Property property : stereotypeAttrs) {
-				if("variabilities".equalsIgnoreCase(property.getName())){
-					variant.setVariabilities(Arrays.asList(StereotypeHelper.getValueOfAttribute(modelElement, stereotype, "variabilities")));
-				}
-			}
+			variantType = Variant.createVariant().withName(stereotype.getName())
+								   .andRootVp(StereotypeHelper.getValueOfAttribute(modelElement, stereotype, "rootVP"))
+								   .andVariabilities(getVariabilities(stereotype, modelElement)).build();
 			
-			variantType = variant;
 		}
+	}
+
+	private String[] getVariabilities(Stereotype stereotype, NamedElement modelElement) {
+		EList<Property> stereotypeAttrs = stereotype.getAllAttributes();
+		
+		for (Property property : stereotypeAttrs) {
+			if("variabilities".equalsIgnoreCase(property.getName())){
+				return StereotypeHelper.getValueOfAttribute(modelElement, stereotype, "variabilities").split(",");
+			}
+		}
+		return new String[] {};
 	}
 	private void verifyVariationPoint(Stereotype stereotype) {
 		if(!isVariationPoint)

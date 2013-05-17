@@ -119,8 +119,8 @@ public class Uml2HelperTest  extends TestHelper{
 	public void givenAModelshouldReturnUriToPerfil() throws ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
 		Package model = givenAModel("variability");
 		EList<Profile> profiles = model.getAppliedProfiles();
-		assertEquals(2, profiles.size());
-		assertEquals("smartyProfile", profiles.get(1).getName());
+		assertEquals(1, profiles.size());
+		assertEquals("smartyProfile", profiles.get(0).getName());
 	}
 	
 }

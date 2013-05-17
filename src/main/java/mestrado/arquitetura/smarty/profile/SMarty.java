@@ -11,7 +11,6 @@ public class SMarty {
 
 	public static void main(String[] args) throws ModelNotFoundException {
 		ProfileSMarty smartyProfile = new ProfileSMarty("smarty.profile");
-		smartyProfile.getProfile().getName();
 	}
 
 }
