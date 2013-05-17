@@ -91,7 +91,7 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 		VariantType type = VariantType.getByName(stereotype.getName());
 		if ((type != null) && (!stereotype.getName().equalsIgnoreCase(VariantType.VARIATIONPOINT.toString()))){
 			Variant variant = new Variant();
-			variant.setVariantType(type);
+			variant.setVariantName(stereotype.getName());
 			variant.setRootVP("ROOTVP");
 			EList<Property> stereotypeAttrs = stereotype.getAllAttributes();
 			

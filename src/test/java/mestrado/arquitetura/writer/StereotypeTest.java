@@ -20,7 +20,7 @@ public class StereotypeTest extends TestHelper {
 		Architecture a = givenAArchitecture2("edipo");
 		
 		Class klass = a.findClassByName("foo");
-		assertEquals("mandatory", klass.getVariantType().getVariantType().toString());
+		assertEquals("mandatory", klass.getVariantType().getVariantName());
 		assertEquals("ROOTVP", klass.getVariantType().getRootVP());
 		assertEquals("[teste, demo, casa]", klass.getVariantType().getVariabilities().toString());
 		assertEquals("3",a.getVariabilities().get(0).getMaxSelection());
@@ -57,7 +57,7 @@ public class StereotypeTest extends TestHelper {
 		assertNotNull(klassFoo);
 		
 		assertFalse(klassFoo.isVariationPoint());
-		assertEquals("optional", klassFoo.getVariantType().getVariantType().toString());
+		assertEquals("optional", klassFoo.getVariantType().getVariantName());
 	}
 	
 	@Test
@@ -74,7 +74,7 @@ public class StereotypeTest extends TestHelper {
 		assertNotNull(klassFoo);
 		
 		assertFalse(klassFoo.isVariationPoint());
-		assertEquals("optional", klassFoo.getVariantType().getVariantType().toString());
+		assertEquals("optional", klassFoo.getVariantType().getVariantName());
 	}
 	
 	
@@ -89,7 +89,7 @@ public class StereotypeTest extends TestHelper {
 		Class klassFoo = a.findClassByName("foo");
 		
 		assertNotNull(klassFoo);
-		assertEquals("mandatory", klassFoo.getVariantType().getVariantType().toString());
+		assertEquals("mandatory", klassFoo.getVariantType().getVariantName());
 		assertTrue(klassFoo.isVariationPoint());
 	}
 	
@@ -108,7 +108,7 @@ public class StereotypeTest extends TestHelper {
 		Class klassFoo = a.findClassByName("foo");
 		
 		assertNotNull(klassFoo);
-		assertEquals("mandatory", klassFoo.getVariantType().getVariantType().toString());
+		assertEquals("mandatory", klassFoo.getVariantType().getVariantName());
 		assertTrue(klassFoo.isVariationPoint());
 	}
 	

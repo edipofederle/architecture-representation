@@ -14,20 +14,20 @@ import java.util.List;
  */
 public class Variant {
 	
-	private VariantType variantType;
+	private String name;
 	private String rootVP;
 	List<String> variabilities = new ArrayList<String>();
 	/**
 	 * @return the variantType
 	 */
-	public VariantType getVariantType() {
-		return variantType;
+	public String getVariantName() {
+		return name;
 	}
 	/**
 	 * @param variantType the variantType to set
 	 */
-	public void setVariantType(VariantType variantType) {
-		this.variantType = variantType;
+	public void setVariantName(String name) {
+		this.name = name;
 	}
 	/**
 	 * @return the rootVP
