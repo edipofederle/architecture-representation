@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:smarty="http:///schemas/smarty/_JCfpEHnQEeKPzNgP2hkCeg/0" xmlns:smartyProfile="http:///schemas/smartyProfile/_ZetccL7zEeK0iuoSreeN5g/0" xmlns:smartyProfile_1="http:///schemas/smartyProfile/_svZGUHrAEeKrvOtKHwVHcA/2" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/smarty/_JCfpEHnQEeKPzNgP2hkCeg/0 smarty.profile.uml#_JClIoHnQEeKPzNgP2hkCeg http:///schemas/smartyProfile/_ZetccL7zEeK0iuoSreeN5g/0 smarty.profile.uml#_Ze_JQL7zEeK0iuoSreeN5g http:///schemas/smartyProfile/_svZGUHrAEeKrvOtKHwVHcA/2 smarty.profile.uml#_swAxYHrAEeKrvOtKHwVHcA">
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:smarty="http:///schemas/smarty/_JCfpEHnQEeKPzNgP2hkCeg/0" xmlns:smartyProfile="http:///schemas/smartyProfile/_ZetccL7zEeK0iuoSreeN5g/0" xmlns:smartyProfile_1="http:///schemas/smartyProfile/_svZGUHrAEeKrvOtKHwVHcA/2" xmlns:smartyProfile_2="http:///schemas/smartyProfile/_SfJh4L-6EeKzudUTJ6GjUg/0" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/smarty/_JCfpEHnQEeKPzNgP2hkCeg/0 smarty.profile.uml#_JClIoHnQEeKPzNgP2hkCeg http:///schemas/smartyProfile/_ZetccL7zEeK0iuoSreeN5g/0 smarty.profile.uml#_Ze_JQL7zEeK0iuoSreeN5g http:///schemas/smartyProfile/_svZGUHrAEeKrvOtKHwVHcA/2 smarty.profile.uml#_swAxYHrAEeKrvOtKHwVHcA http:///schemas/smartyProfile/_SfJh4L-6EeKzudUTJ6GjUg/0 smarty.profile.uml#_SfKI8b-6EeKzudUTJ6GjUg">
   <uml:Model xmi:id="_YGKVMHnTEeKijLwIu2M4Tg" name="model">
     <ownedComment xmi:id="_rZ52wHnTEeKijLwIu2M4Tg" annotatedElement="_p47zQHnTEeKijLwIu2M4Tg">
       <body> </body>
     </ownedComment>
     <packagedElement xmi:type="uml:Class" xmi:id="_p47zQHnTEeKijLwIu2M4Tg" name="Class1"/>
-    <profileApplication xmi:id="_NbBXYL8PEeKVUILT-JlQ9w">
-      <eAnnotations xmi:id="_NbQA4L8PEeKVUILT-JlQ9w" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_Ze_JQL7zEeK0iuoSreeN5g"/>
+    <profileApplication xmi:id="_Ol8iEL_CEeKDC7Mk9CPWmg">
+      <eAnnotations xmi:id="_Ol8iEb_CEeKDC7Mk9CPWmg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_SfKI8b-6EeKzudUTJ6GjUg"/>
       </eAnnotations>
-      <appliedProfile href="smarty.profile.uml#_ny8NgL7nEeKk4ovPJknorg"/>
+      <appliedProfile href="smarty.profile.uml#__ADjAL9YEeKBnqPE5oP9jA"/>
     </profileApplication>
   </uml:Model>
   <smarty:variability xmi:id="_2uWmgHnTEeKPzNgP2hkCeg" base_Comment="_rZ52wHnTEeKijLwIu2M4Tg"/>
   <smartyProfile_1:variability xmi:id="_ryduoHn9EeKPzNgP2hkCeg" base_Comment="_rZ52wHnTEeKijLwIu2M4Tg" name="name"/>
   <smartyProfile:variability xmi:id="_B_jBMIEXEeKMTZXkIWDVyA" base_Comment="_rZ52wHnTEeKijLwIu2M4Tg" name="casa" minSelection="2" maxSelection="1" variants="teste, teste1, teste2"/>
+  <smartyProfile_2:variability xmi:id="_QL7BYL_CEeKDC7Mk9CPWmg" base_Comment="_rZ52wHnTEeKijLwIu2M4Tg" name="casa" minSelection="1" maxSelection="2" variants="teste1, teste2, teste3"/>
 </xmi:XMI>

@@ -14,7 +14,6 @@ import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Concern;
 import mestrado.arquitetura.representation.Package;
 import mestrado.arquitetura.representation.Variability;
-import mestrado.arquitetura.representation.VariationPoint;
 import mestrado.arquitetura.representation.relationship.AssociationClassRelationship;
 import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 import mestrado.arquitetura.representation.relationship.DependencyRelationship;
@@ -221,7 +220,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("nameClass2Variability", variability.getName());
 		assertEquals("1", variability.getMinSelection());
 		assertEquals("2", variability.getMaxSelection());
-		assertTrue(variability.allowAddingVar());
+		assertFalse(variability.allowAddingVar());
 		assertEquals("Bar", variability.getVariationPoints().get(0)
 				.getVariants().get(0).getName());
 		assertEquals("Class2", variability.getVariationPoints().get(0)
@@ -231,7 +230,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void testVariationPointToString() {
 		Variability variability = architecture.getVariabilities().get(0);
-		assertEquals("Variants: Bar", variability.getVariationPoints().get(0)
+		assertEquals("Variants: Bar, Class2", variability.getVariationPoints().get(0)
 				.toString());
 	}
 
@@ -300,38 +299,5 @@ public class ArchitectureBuilderTest extends TestHelper {
 
 	}
 
-	
-	@Test
-	public void testStereotypes() throws Exception{
-		Architecture a = givenAArchitecture("edipo");
-		
-		List<VariationPoint> list = a.getVariabilities().get(0).getVariationPoints();
-		assertEquals("deve ter 1 variabilidade", 1, list.size());
-		assertEquals("deve ter 3 variantes", 3, list.get(0).getVariants().size());
-		
-		assertEquals("BricklesGameMenu", list.get(0).getVariants().get(0).getName());
-		Class rootVP1 = a.findClassByName(list.get(0).getVariants().get(0).getVariantType().getRootVP());
-		assertTrue("Deve ser um ponto de variacao", rootVP1.isVariationPoint());
-		assertEquals("Classe Ponto de Variação deve ser GameMenu", "GameMenu", rootVP1.getName());
-		
-		assertEquals("PongGameMenu", list.get(0).getVariants().get(1).getName());
-		Class rootVP2 = a.findClassByName(list.get(0).getVariants().get(1).getVariantType().getRootVP());
-		assertTrue("Deve ser um ponto de variacao", rootVP2.isVariationPoint());
-		assertEquals("Classe Ponto de Variação deve ser GameMenu", "GameMenu", rootVP2.getName());
-		
-		assertEquals("BowlingGameMenu", list.get(0).getVariants().get(2).getName());
-		Class rootVP3 = a.findClassByName(list.get(0).getVariants().get(2).getVariantType().getRootVP());
-		assertTrue("Deve ser um ponto de variacao", rootVP2.isVariationPoint());
-		assertEquals("Classe Ponto de Variação deve ser GameMenu", "GameMenu", rootVP3.getName());
-		
-		assertEquals("deve ser do tipo alternative_OR", "alternative_OR", list.get(0).getVariants().get(0).getVariantType().getVariantName());
-		assertEquals("deve ser do tipo alternative_OR", "alternative_OR", list.get(0).getVariants().get(1).getVariantType().getVariantName());
-		assertEquals("deve ser do tipo alternative_OR", "alternative_OR", list.get(0).getVariants().get(2).getVariantType().getVariantName());
-		
-		assertFalse("Não deve ser um ponto de variacao", list.get(0).getVariants().get(0).isVariationPoint());
-		assertFalse("Não deve ser um ponto de variacao", list.get(0).getVariants().get(1).isVariationPoint());
-		assertFalse("Não deve ser um ponto de variacao", list.get(0).getVariants().get(2).isVariationPoint());
-		
-	}
 
 }

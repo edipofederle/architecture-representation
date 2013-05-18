@@ -222,7 +222,7 @@ public class ArchitectureBuilder {
 		
 		for (Classifier classifier : variabilitiesTemp) 
 			if(StereotypeHelper.isVariability(classifier))
-				variabilities.add(variabilityBuilder.create(classifier));
+				variabilities.addAll(variabilityBuilder.create(classifier));
 		
 		if (!variabilities.isEmpty()) return variabilities;
 		return Collections.emptyList();

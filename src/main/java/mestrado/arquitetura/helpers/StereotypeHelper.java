@@ -1,5 +1,6 @@
 package mestrado.arquitetura.helpers;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -10,7 +11,6 @@ import mestrado.arquitetura.exceptions.ConcernNotFoundException;
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
-import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Class;
@@ -31,7 +31,7 @@ import org.eclipse.uml2.uml.internal.impl.StereotypeImpl;
  * @author edipofederle
  *
  */
-public class StereotypeHelper extends TestHelper {
+public class StereotypeHelper {
 	
 	/**
 	 * 
@@ -74,12 +74,13 @@ public class StereotypeHelper extends TestHelper {
 	 * @param element
 	 * @return boolean
 	 */
-	public static Comment getCommentVariability(NamedElement element) {
+	public static List<Comment> getCommentVariability(NamedElement element) {
 		/**
 		 * Como não é possível recuperar os elementos do tipo Comentário da UML2,
 		 * é preciso recuperar todos os comentários que existem na arquitetura 
 		 * e por meio destes ver a qual classe o mesmo pertence.
 		 */
+		List<Comment> belongsComments = new ArrayList<Comment>();
 		EList<Comment> comments = ((Class) element).getPackage().getOwnedComments();
 		String nameOfElement = "";
 		for (Comment comment : comments){
@@ -88,10 +89,12 @@ public class StereotypeHelper extends TestHelper {
 			
 			if(commentBelongsToKlass(element, nameOfElement))
 				for (Stereotype stereotype : comment.getAppliedStereotypes())
-					if (stereotype.getName().equalsIgnoreCase("variability")) return comment;
+					if (stereotype.getName().equalsIgnoreCase("variability")){
+						belongsComments.add(comment);
+					}
 		}
 		
-		return null;
+		return belongsComments;
 	}
 	
 	/**
@@ -101,7 +104,12 @@ public class StereotypeHelper extends TestHelper {
 	 * @return boolean
 	 */
 	public static boolean isVariability(NamedElement element) {
-		return getCommentVariability(element) != null ? true : false;
+		//return getCommentVariability(element) != null ? true : false;
+		int s = getCommentVariability(element).size();
+		if(s > 0)
+			return true;
+		else
+			return false;
 	}
 	
 	/**
@@ -177,19 +185,19 @@ public class StereotypeHelper extends TestHelper {
 	 * @throws ModelIncompleteException
 	 * @throws SMartyProfileNotAppliedToModelExcepetion
 	 */
-	public static Map<String, String> getVariabilityAttributes(NamedElement klass) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
-		Comment commentVariability  = getCommentVariability(klass);
-		if(commentVariability != null){
+	public static Map<String, String> getVariabilityAttributes(NamedElement klass, Comment comment) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
+		
+		if(comment != null){
 			
 			Stereotype variability = getStereotypeByName(klass, "variability");
 			Map<String, String> variabilityProps  = new HashMap<String, String>();
 			
-			String name = getValueOfAttribute(commentVariability, variability, "name");
-			String bidingTime = getValueOfAttribute(commentVariability, variability, "bindingTime");
-			String maxSelection = getValueOfAttribute(commentVariability, variability, "maxSelection");
-			String minSelection = getValueOfAttribute(commentVariability, variability, "minSelection");
-			String variants = getValueOfAttribute(commentVariability, variability, "variants");
-			String allowAddingVar = getValueOfAttribute(commentVariability, variability, "allowAddingVar");
+			String name = getValueOfAttribute(comment, variability, "name");
+			String bidingTime = getValueOfAttribute(comment, variability, "bindingTime");
+			String maxSelection = getValueOfAttribute(comment, variability, "maxSelection");
+			String minSelection = getValueOfAttribute(comment, variability, "minSelection");
+			String variants = getValueOfAttribute(comment, variability, "variants");
+			String allowAddingVar = getValueOfAttribute(comment, variability, "allowAddingVar");
 			
 			variabilityProps.put("name", name);
 			variabilityProps.put("bindingTime", bidingTime);

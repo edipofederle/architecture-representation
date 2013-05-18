@@ -117,4 +117,13 @@ public class Variability {
 	public String getOwnerClass() {
 		return variabilityOwner;
 	}
+
+	public List<String> getVariants() {
+		List<String> variantsLst = new ArrayList<String>();
+		String[] variants = getAttributes().get("variants").split(",");
+		for (int i = 0; i < variants.length; i++) 
+			variantsLst.add(variants[i]);
+		
+		return variantsLst;
+	}
 }

@@ -4,20 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import mestrado.arquitetura.exceptions.ClassNotFound;
 import mestrado.arquitetura.helpers.ModelElementHelper;
 import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.Variant;
 import mestrado.arquitetura.representation.VariantType;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.uml2.uml.NamedElement;
-import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
 
 
@@ -92,21 +88,22 @@ public abstract class ElementBuilder<T extends mestrado.arquitetura.representati
 			
 			variantType = Variant.createVariant().withName(stereotype.getName())
 								   .andRootVp(StereotypeHelper.getValueOfAttribute(modelElement, stereotype, "rootVP"))
-								   .andVariabilities(getVariabilities(stereotype, modelElement)).build();
+								   .build();
 			
 		}
 	}
 
-	private String[] getVariabilities(Stereotype stereotype, NamedElement modelElement) {
-		EList<Property> stereotypeAttrs = stereotype.getAllAttributes();
-		
-		for (Property property : stereotypeAttrs) {
-			if("variabilities".equalsIgnoreCase(property.getName())){
-				return StereotypeHelper.getValueOfAttribute(modelElement, stereotype, "variabilities").split(",");
-			}
-		}
-		return new String[] {};
-	}
+//	private String[] getVariabilities(Stereotype stereotype, NamedElement modelElement) {
+//		EList<Property> stereotypeAttrs = stereotype.getAllAttributes();
+//		
+//		for (Property property : stereotypeAttrs) {
+//			if("variabilities".equalsIgnoreCase(property.getName())){
+//				return StereotypeHelper.getValueOfAttribute(modelElement, stereotype, "variabilities").split(",");
+//			}
+//		}
+//		return new String[] {};
+//	}
+	
 	private void verifyVariationPoint(Stereotype stereotype) {
 		if(!isVariationPoint)
 			isVariationPoint = StereotypeHelper.isVariationPoint(stereotype);

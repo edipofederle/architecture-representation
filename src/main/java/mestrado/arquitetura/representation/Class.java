@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mestrado.arquitetura.exceptions.AttributeNotFoundException;
+import mestrado.arquitetura.exceptions.ClassNotFound;
 import mestrado.arquitetura.exceptions.MethodNotFoundException;
 import mestrado.arquitetura.helpers.UtilResources;
 import mestrado.arquitetura.representation.relationship.Relationship;
@@ -36,6 +37,7 @@ public class Class extends Element {
 	 * @param packageName
 	 */
 	public Class(Architecture architecture, String name, boolean isVariationPoint, Variant variantType, boolean isAbstract, String namespace, String id) {
+		
 		super(architecture, name, isVariationPoint, variantType, "klass", namespace, id);
 		setAbstract(isAbstract);
 	}
@@ -182,6 +184,27 @@ public class Class extends Element {
 
 	public Object getAllStereotype() {
 		return null;
+	}
+	
+	/**
+	 * se classe for um ponto de variação retorna todas as variantes
+	 * @return 
+	 */
+	public List<Element> getVariants() {
+		List<Element> variants = new ArrayList<Element>();
+		if(this.isVariationPoint()){
+			List<Variability> variabilities = getArchitecture().getVariabilities();
+			for (Variability variability : variabilities) {
+				for(String element : variability.getVariants()){
+					try {
+						variants.add(getArchitecture().findClassByName(element));
+					} catch (ClassNotFound e) {
+						e.printStackTrace(); //TODO logg
+					}
+				}
+			}
+		}
+		return variants;
 	}
 	
 }

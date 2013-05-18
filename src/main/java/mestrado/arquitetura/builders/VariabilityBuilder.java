@@ -15,6 +15,7 @@ import mestrado.arquitetura.representation.Variability;
 import mestrado.arquitetura.representation.VariationPoint;
 
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Comment;
 
 /**
  * 
@@ -26,34 +27,51 @@ public class VariabilityBuilder {
 	private Architecture architecture;
 	
 	private final HashMap<String, Variability> variabilities = new HashMap<String, Variability>();
-	private List<Element> variants = new ArrayList<Element>();
 		
 	public VariabilityBuilder(Architecture architecture) throws ModelNotFoundException, ModelIncompleteException {
 		this.architecture = architecture;
 	}
 
-	public Variability create(Classifier klass) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
+	public List<Variability> create(Classifier klass) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
 
 		Variability variability  = null;
-		Map<String, String> variabilityAttributes = StereotypeHelper.getVariabilityAttributes(klass);
+		List<Comment> commentVariability  = StereotypeHelper.getCommentVariability(klass);
+		List<Variability> variabilitiesList = new ArrayList<Variability>();
+		Element variationPointElement = null;
 		
-		if(variabilities.get(variabilityAttributes.get("name")) != null) return variabilities.get(variabilityAttributes.get("name"));
-		
-		if(variabilityAttributes != null){
-			Element variationPointElement = architecture.findElementByName(klass.getName()); // Busca Classe ja na representacao
-			variability = new Variability(variabilityAttributes.get("name"), variabilityAttributes.get("minSelection"), variabilityAttributes.get("maxSelection"), allowAddingVar(variabilityAttributes), variabilityAttributes, klass.getName());
-			variabilities.put(variability.getName(), variability);
-			String[] variantsElements = variabilityAttributes.get("variants").split(",");
+		for (Comment comment : commentVariability) {
+			Map<String, String> variabilityAttributes = StereotypeHelper.getVariabilityAttributes(klass, comment);
+			List<Element> variants = new ArrayList<Element>();
+			if(variabilities.get(variabilityAttributes.get("name")) != null){
+				variabilitiesList.add(variabilities.get(variabilityAttributes.get("name")));
+			}else{
 			
-			for (String variantElement : variantsElements) {
-				Element element = architecture.findElementByName(variantElement.trim());
-				if (element != null) variants.add(element);
+				if(variabilityAttributes != null) { 
+					variationPointElement = architecture.findElementByName(klass.getName()); // Busca Classe ja na representacao
+					
+					variability = new Variability(variabilityAttributes.get("name"),
+							                      variabilityAttributes.get("minSelection"),
+							                      variabilityAttributes.get("maxSelection"),
+							                      allowAddingVar(variabilityAttributes),
+							                      variabilityAttributes, klass.getName());
+					
+					variabilities.put(variability.getName(), variability);
+					String[] variantsElements = variabilityAttributes.get("variants").split(",");
+					
+					for (String variantElement : variantsElements) {
+						Element element = architecture.findElementByName(variantElement.trim());
+						if (element != null) variants.add(element);
+					}
+					
+					
+				}
 			}
-			
 			variability.addVariationPoint(new VariationPoint(variationPointElement, variants));
+			variabilitiesList.add(variability);
 		}
+			
 		
-		return variability;
+		return variabilitiesList;
 	}
 
 	private boolean allowAddingVar(Map<String, String> a) {

@@ -231,4 +231,8 @@ public class ClassOperations extends XmiHelper {
 
 	}
 
+	public Variant withVariationPoint(String string) {
+		return null;
+	}
+
 }

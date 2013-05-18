@@ -1,8 +1,5 @@
 package mestrado.arquitetura.representation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Essa classe representa uma variant, contem os atributos referentes
@@ -17,7 +14,6 @@ public class Variant implements Stereotype{
 	
 	private String name;
 	private String rootVP;
-	List<String> variabilities = new ArrayList<String>();
 	/**
 	 * @return the variantType
 	 */
@@ -42,18 +38,7 @@ public class Variant implements Stereotype{
 	private void setRootVP(String rootVP) {
 		this.rootVP = rootVP;
 	}
-	/**
-	 * @return the variabilities
-	 */
-	public List<String> getVariabilities() {
-		return variabilities;
-	}
-	/**
-	 * @param variabilities the variabilities to set
-	 */
-	public void setVariabilities(List<String> variabilities) {
-		this.variabilities = variabilities;
-	}
+
 	
 	public Variant withName(String name) {
 		setVariantName(name);
@@ -74,15 +59,7 @@ public class Variant implements Stereotype{
 		return this;
 	}
 	
-	/**
-	 * 
-	 * @param variabilities
-	 * @return
-	 */
-	public Variant andVariabilities(String ... variabilities) {
-		this.setVariabilities(Arrays.asList(variabilities));
-		return this;
-	}
+	
 	public Variant build() {
 		return this;
 	}

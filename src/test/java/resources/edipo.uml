@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:smartyProfile="http:///schemas/smartyProfile/_ZetccL7zEeK0iuoSreeN5g/0" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/smartyProfile/_ZetccL7zEeK0iuoSreeN5g/0 smarty.profile.uml#_Ze_JQL7zEeK0iuoSreeN5g">
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:smartyProfile="http:///schemas/smartyProfile/_ZetccL7zEeK0iuoSreeN5g/0" xmlns:smartyProfile_1="http:///schemas/smartyProfile/_0VxWIL9OEeKzudUTJ6GjUg/0" xmlns:smartyProfile_2="http:///schemas/smartyProfile/_SfJh4L-6EeKzudUTJ6GjUg/0" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/smartyProfile/_ZetccL7zEeK0iuoSreeN5g/0 smarty.profile.uml#_Ze_JQL7zEeK0iuoSreeN5g http:///schemas/smartyProfile/_0VxWIL9OEeKzudUTJ6GjUg/0 smarty.profile.uml#_0V2OoL9OEeKzudUTJ6GjUg http:///schemas/smartyProfile/_SfJh4L-6EeKzudUTJ6GjUg/0 smarty.profile.uml#_SfKI8b-6EeKzudUTJ6GjUg">
   <uml:Model xmi:id="_cooD4LmGEeKQQp7P9cQvNQ" name="model">
     <ownedComment xmi:id="_SedeEL75EeK0iuoSreeN5g" annotatedElement="e6b34dbb-dc49-4907-8702-b343cea11259">
       <body>nome: variabilityName
 </body>
+    </ownedComment>
+    <ownedComment xmi:id="_9pVKML9kEeKzudUTJ6GjUg" annotatedElement="e6b34dbb-dc49-4907-8702-b343cea11259">
+      <body> </body>
     </ownedComment>
     <packagedElement xmi:type="uml:Class" xmi:id="e6b34dbb-dc49-4907-8702-b343cea11259" name="GameMenu"/>
     <packagedElement xmi:type="uml:Class" xmi:id="__ZsvsL8kEeK9i5034mxHRQ" name="BricklesGameMenu">
@@ -18,6 +21,12 @@
     <packagedElement xmi:type="uml:Class" xmi:id="_nwzWUL8lEeK9i5034mxHRQ" name="BowlingGameMenu">
       <generalization xmi:id="_qE2ckL8lEeK9i5034mxHRQ" general="e6b34dbb-dc49-4907-8702-b343cea11259"/>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_EtVYcL9lEeKzudUTJ6GjUg" name="Class1">
+      <generalization xmi:id="_Ht7boL9lEeKzudUTJ6GjUg" general="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_e-oaoL9oEeKzudUTJ6GjUg" name="Class2">
+      <generalization xmi:id="_f80hML9oEeKzudUTJ6GjUg" general="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+    </packagedElement>
     <profileApplication xmi:id="_a2CbwL7zEeK0iuoSreeN5g">
       <eAnnotations xmi:id="_a3UOIL7zEeK0iuoSreeN5g" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_Ze_JQL7zEeK0iuoSreeN5g"/>
@@ -30,11 +39,41 @@
       </eAnnotations>
       <appliedProfile href="perfilConcerns.profile.uml#_9v_84HqaEeK1gM_kVgXLQw"/>
     </profileApplication>
+    <profileApplication xmi:id="_1m-fUL9OEeKzudUTJ6GjUg">
+      <eAnnotations xmi:id="_1n3QIL9OEeKzudUTJ6GjUg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_0V2OoL9OEeKzudUTJ6GjUg"/>
+      </eAnnotations>
+      <appliedProfile href="smarty.profile.uml#_oQwFEL9OEeKOLM4nMeg1Xg"/>
+    </profileApplication>
+    <profileApplication xmi:id="_pLZQUL-6EeKzudUTJ6GjUg">
+      <eAnnotations xmi:id="_pLZQUb-6EeKzudUTJ6GjUg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_SfKI8b-6EeKzudUTJ6GjUg"/>
+      </eAnnotations>
+      <appliedProfile href="smarty.profile.uml#__ADjAL9YEeKBnqPE5oP9jA"/>
+    </profileApplication>
   </uml:Model>
   <smartyProfile:mandatory xmi:id="f3f9c17d-7d9c-4bbb-99c2-34133f932c27" base_Class="e6b34dbb-dc49-4907-8702-b343cea11259" rootVP="_qdmF0L77EeK0iuoSreeN5g" variabilities="BricklesGameMenu, PongGameMenu, BowlingGameMenu"/>
   <smartyProfile:variability xmi:id="_UFWjYL75EeK0iuoSreeN5g" base_Comment="_SedeEL75EeK0iuoSreeN5g" name="variabilityName" minSelection="1" maxSelection="3" bindingTime="COMPILE_TIME" allowAddingVar="true" variants="BricklesGameMenu, PongGameMenu, BowlingGameMenu"/>
-  <smartyProfile:variationPoint xmi:id="_qdmF0L77EeK0iuoSreeN5g" base_Class="e6b34dbb-dc49-4907-8702-b343cea11259" variants="algumaCoisa" variabilities="BricklesGameMenu, PongGameMenu, BowlingGameMenu"/>
-  <smartyProfile:alternative_OR xmi:id="_ydY00L8lEeK9i5034mxHRQ" base_Class="__ZsvsL8kEeK9i5034mxHRQ" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259"/>
-  <smartyProfile:alternative_OR xmi:id="_1X76YL8lEeK9i5034mxHRQ" base_Class="_k7pHEL8lEeK9i5034mxHRQ" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259"/>
-  <smartyProfile:alternative_OR xmi:id="_2bQ_oL8lEeK9i5034mxHRQ" base_Class="_nwzWUL8lEeK9i5034mxHRQ" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+  <smartyProfile:variationPoint xmi:id="_qdmF0L77EeK0iuoSreeN5g" base_Class="e6b34dbb-dc49-4907-8702-b343cea11259" numberOfVariants="3" variants="BricklesGameMenu, PongGameMenu, BowlingGameMenu" variabilities=""/>
+  <smartyProfile:alternative_OR xmi:id="_ydY00L8lEeK9i5034mxHRQ" base_Class="__ZsvsL8kEeK9i5034mxHRQ"/>
+  <smartyProfile:alternative_OR xmi:id="_1X76YL8lEeK9i5034mxHRQ" base_Class="_k7pHEL8lEeK9i5034mxHRQ"/>
+  <smartyProfile:alternative_OR xmi:id="_2bQ_oL8lEeK9i5034mxHRQ" base_Class="_nwzWUL8lEeK9i5034mxHRQ"/>
+  <smartyProfile_1:variationPoint xmi:id="_7lynIL9OEeKzudUTJ6GjUg" base_Class="e6b34dbb-dc49-4907-8702-b343cea11259" numberOfVariants="3" variants=""/>
+  <smartyProfile_1:mandatory xmi:id="_7m1I8L9OEeKzudUTJ6GjUg" base_Class="e6b34dbb-dc49-4907-8702-b343cea11259" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259" variabilities=""/>
+  <smartyProfile_1:alternative_OR xmi:id="_LXu14L9PEeKzudUTJ6GjUg" base_Class="__ZsvsL8kEeK9i5034mxHRQ" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+  <smartyProfile_1:alternative_OR xmi:id="_NhafML9PEeKzudUTJ6GjUg" base_Class="_nwzWUL8lEeK9i5034mxHRQ" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+  <smartyProfile_1:variability xmi:id="_QeFEoL9PEeKzudUTJ6GjUg" base_Comment="_SedeEL75EeK0iuoSreeN5g" name="teste" minSelection="1" maxSelection="3" variants="BricklesGameMenu, PongGameMenu, BowlingGameMenu&#xA;"/>
+  <smartyProfile_1:alternative_OR xmi:id="_4sIngL9QEeKzudUTJ6GjUg" base_Class="_k7pHEL8lEeK9i5034mxHRQ" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+  <smartyProfile_1:variability xmi:id="_-4-0ML9kEeKzudUTJ6GjUg" base_Comment="_9pVKML9kEeKzudUTJ6GjUg" name="teste3" minSelection="1" maxSelection="2" variants="Class1, Class2"/>
+  <smartyProfile_1:alternative_OR xmi:id="_GAzLcL9lEeKzudUTJ6GjUg" base_Class="_EtVYcL9lEeKzudUTJ6GjUg" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+  <smartyProfile_1:alternative_OR xmi:id="_g36QcL9oEeKzudUTJ6GjUg" base_Class="_e-oaoL9oEeKzudUTJ6GjUg" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+  <smartyProfile_2:mandatory xmi:id="_tls4cL-6EeKzudUTJ6GjUg" base_Class="e6b34dbb-dc49-4907-8702-b343cea11259" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+  <smartyProfile_2:variationPoint xmi:id="_tmMAoL-6EeKzudUTJ6GjUg" base_Class="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+  <smartyProfile_2:alternative_OR xmi:id="_xQ1tcL-6EeKzudUTJ6GjUg" base_Class="_e-oaoL9oEeKzudUTJ6GjUg" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+  <smartyProfile_2:alternative_OR xmi:id="_yf0pEL-6EeKzudUTJ6GjUg" base_Class="_EtVYcL9lEeKzudUTJ6GjUg" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+  <smartyProfile_2:alternative_OR xmi:id="_zSsQcL-6EeKzudUTJ6GjUg" base_Class="__ZsvsL8kEeK9i5034mxHRQ" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+  <smartyProfile_2:alternative_OR xmi:id="_0MGksL-6EeKzudUTJ6GjUg" base_Class="_k7pHEL8lEeK9i5034mxHRQ" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+  <smartyProfile_2:alternative_OR xmi:id="_1EVNML-6EeKzudUTJ6GjUg" base_Class="_nwzWUL8lEeK9i5034mxHRQ" rootVP="e6b34dbb-dc49-4907-8702-b343cea11259"/>
+  <smartyProfile_2:variability xmi:id="_DcHLEL-7EeKzudUTJ6GjUg" base_Comment="_SedeEL75EeK0iuoSreeN5g" name="VaribilidadeUm" minSelection="3" maxSelection="1" variants="BricklesGameMenu, PongGameMenu, BowlingGameMenu"/>
+  <smartyProfile_2:variability xmi:id="_MISRAL-7EeKzudUTJ6GjUg" base_Comment="_9pVKML9kEeKzudUTJ6GjUg" name="variabilidadeDois" minSelection="1" maxSelection="2" variants="Class1, Class2"/>
 </xmi:XMI>

@@ -246,7 +246,7 @@ public class Architecture {
 	 */
 	public Class findClassByName(String className) throws ClassNotFound {
 		for (Class klass : getAllClasses()) 
-			if(className.equalsIgnoreCase(klass.getName()))
+			if(className.trim().equalsIgnoreCase(klass.getName().trim()))
 				return klass;
 		
 		throw new ClassNotFound("Class " + className + " can not found.\n");

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:perfilConcerns="http:///schemas/perfilConcerns/_kDVIcIE_EeKfhKWYalU4oQ/14" xmlns:perfilConcerns_1="http:///schemas/perfilConcerns/_P_xWkHt4EeKj6c5Uq9Fn3w/13" xmlns:smarty="http:///schemas/smarty/_JCfpEHnQEeKPzNgP2hkCeg/0" xmlns:smartyProfile="http:///schemas/smartyProfile/_9qTU4Hd2EeKFLPdiRaUVaA/1" xmlns:smartyProfile_1="http:///schemas/smartyProfile/_NQCRoHn-EeKPzNgP2hkCeg/1" xmlns:smartyProfile_2="http:///schemas/smartyProfile/_2wAWcIGhEeKM7tkgtLdLRQ/2" xmlns:smartyProfile_3="http:///schemas/smartyProfile/_OaM18IEVEeKfhKWYalU4oQ/1" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/perfilConcerns/_kDVIcIE_EeKfhKWYalU4oQ/14 perfilConcerns.profile.uml#_kDVvgIE_EeKfhKWYalU4oQ http:///schemas/perfilConcerns/_P_xWkHt4EeKj6c5Uq9Fn3w/13 perfilConcerns.profile.uml#_P_8VsHt4EeKj6c5Uq9Fn3w http:///schemas/smarty/_JCfpEHnQEeKPzNgP2hkCeg/0 smarty.profile.uml#_JClIoHnQEeKPzNgP2hkCeg http:///schemas/smartyProfile/_9qTU4Hd2EeKFLPdiRaUVaA/1 smarty.profile.uml#_9qUjAHd2EeKFLPdiRaUVaA http:///schemas/smartyProfile/_NQCRoHn-EeKPzNgP2hkCeg/1 smarty.profile.uml#_NQC4sHn-EeKPzNgP2hkCeg http:///schemas/smartyProfile/_2wAWcIGhEeKM7tkgtLdLRQ/2 smarty.profile.uml#_2wF2AIGhEeKM7tkgtLdLRQ http:///schemas/smartyProfile/_OaM18IEVEeKfhKWYalU4oQ/1 smarty.profile.uml#_Ze_JQL7zEeK0iuoSreeN5g">
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:perfilConcerns="http:///schemas/perfilConcerns/_kDVIcIE_EeKfhKWYalU4oQ/14" xmlns:perfilConcerns_1="http:///schemas/perfilConcerns/_P_xWkHt4EeKj6c5Uq9Fn3w/13" xmlns:smarty="http:///schemas/smarty/_JCfpEHnQEeKPzNgP2hkCeg/0" xmlns:smartyProfile="http:///schemas/smartyProfile/_9qTU4Hd2EeKFLPdiRaUVaA/1" xmlns:smartyProfile_1="http:///schemas/smartyProfile/_NQCRoHn-EeKPzNgP2hkCeg/1" xmlns:smartyProfile_2="http:///schemas/smartyProfile/_2wAWcIGhEeKM7tkgtLdLRQ/2" xmlns:smartyProfile_3="http:///schemas/smartyProfile/_OaM18IEVEeKfhKWYalU4oQ/1" xmlns:smartyProfile_4="http:///schemas/smartyProfile/_SfJh4L-6EeKzudUTJ6GjUg/0" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/perfilConcerns/_kDVIcIE_EeKfhKWYalU4oQ/14 perfilConcerns.profile.uml#_kDVvgIE_EeKfhKWYalU4oQ http:///schemas/perfilConcerns/_P_xWkHt4EeKj6c5Uq9Fn3w/13 perfilConcerns.profile.uml#_P_8VsHt4EeKj6c5Uq9Fn3w http:///schemas/smarty/_JCfpEHnQEeKPzNgP2hkCeg/0 smarty.profile.uml#_JClIoHnQEeKPzNgP2hkCeg http:///schemas/smartyProfile/_9qTU4Hd2EeKFLPdiRaUVaA/1 smarty.profile.uml#_9qUjAHd2EeKFLPdiRaUVaA http:///schemas/smartyProfile/_NQCRoHn-EeKPzNgP2hkCeg/1 smarty.profile.uml#_NQC4sHn-EeKPzNgP2hkCeg http:///schemas/smartyProfile/_2wAWcIGhEeKM7tkgtLdLRQ/2 smarty.profile.uml#_2wF2AIGhEeKM7tkgtLdLRQ http:///schemas/smartyProfile/_OaM18IEVEeKfhKWYalU4oQ/1 smarty.profile.uml#_Ze_JQL7zEeK0iuoSreeN5g http:///schemas/smartyProfile/_SfJh4L-6EeKzudUTJ6GjUg/0 smarty.profile.uml#_SfKI8b-6EeKzudUTJ6GjUg">
   <uml:Model xmi:id="_cFDbYHdcEeKFLPdiRaUVaA" name="model">
     <packagedElement xmi:type="uml:Package" xmi:id="_lBUy0HdcEeKFLPdiRaUVaA" name="Package1">
       <ownedComment xmi:id="_K8NGIIK3EeKM7tkgtLdLRQ" annotatedElement="_niquMHdcEeKFLPdiRaUVaA">
@@ -80,11 +80,11 @@
       </eAnnotations>
       <appliedProfile href="perfilConcerns.profile.uml#_9v_84HqaEeK1gM_kVgXLQw"/>
     </profileApplication>
-    <profileApplication xmi:id="_XrHowIK3EeKM7tkgtLdLRQ">
-      <eAnnotations xmi:id="_XrIP0IK3EeKM7tkgtLdLRQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_Ze_JQL7zEeK0iuoSreeN5g"/>
+    <profileApplication xmi:id="_3DkyAL_DEeKDC7Mk9CPWmg">
+      <eAnnotations xmi:id="_3DlZEL_DEeKDC7Mk9CPWmg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_SfKI8b-6EeKzudUTJ6GjUg"/>
       </eAnnotations>
-      <appliedProfile href="smarty.profile.uml#_pWQg0HnPEeKAopGwrqrm1w"/>
+      <appliedProfile href="smarty.profile.uml#__ADjAL9YEeKBnqPE5oP9jA"/>
     </profileApplication>
   </uml:Model>
   <smartyProfile:concern xmi:id="_aE4iUHd7EeKFLPdiRaUVaA" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
@@ -98,4 +98,6 @@
   <smartyProfile_3:mandatory xmi:id="_zuY3AL6TEeKouuDEjm4x5Q" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
   <perfilConcerns_1:sorting xmi:id="_wQgwAL6VEeKouuDEjm4x5Q" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
   <perfilConcerns_1:Persistence xmi:id="_wQgwAb6VEeKouuDEjm4x5Q" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
+  <smartyProfile_4:mandatory xmi:id="_4DiaML_DEeKDC7Mk9CPWmg" base_Class="_mlAMEHdcEeKFLPdiRaUVaA"/>
+  <smartyProfile_4:variability xmi:id="_VSCUsL_EEeKDC7Mk9CPWmg" base_Comment="_K8NGIIK3EeKM7tkgtLdLRQ" name="nameClass2Variability" minSelection="1" maxSelection="2" variants="Bar, Class2"/>
 </xmi:XMI>

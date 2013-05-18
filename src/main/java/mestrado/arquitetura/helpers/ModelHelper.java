@@ -261,7 +261,7 @@ public class ModelHelper extends ElementHelper {
 		
 		for (int i = 0; i < classes.size(); i++) 
 			if(StereotypeHelper.isVariability(classes.get(i)))
-				variabilities.add(StereotypeHelper.getCommentVariability(classes.get(i)));
+				variabilities.addAll(StereotypeHelper.getCommentVariability(classes.get(i)));
 
 		if(!variabilities.isEmpty()) return variabilities;
 		return Collections.emptyList();

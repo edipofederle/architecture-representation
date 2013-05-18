@@ -1,8 +1,6 @@
 package mestrado.arquitetura.parser;
 
 
-import java.util.List;
-
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
 import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import mestrado.arquitetura.exceptions.NodeNotFound;
@@ -20,8 +18,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-
-import com.google.common.base.Joiner;
 
 /**
  * Cria XMI para elementos UML.
@@ -295,18 +291,16 @@ public class ElementXmiGenerator extends XmiHelper {
 
 	private void addStereotypeToUmlFile(Stereotype mandatory, String idClass) {
 		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
-		Element stereotype = this.documentManager.getDocUml().createElement("smartyProfile:"+mandatory.getVariantName());
+		Element stereotype = this.documentManager.getDocUml().createElement("smartyProfile_1:"+mandatory.getVariantName());
 		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		stereotype.setAttribute("base_Class", idClass); // A classe que tem o estereotype
-		stereotype.setAttribute("variabilities", listToString(mandatory.getVariabilities()));
-		
 		nodeXmi.getParentNode().appendChild(stereotype);
 		
 	}
 
-	private String listToString(List<String> variabilities) {
-		return Joiner.on(",").skipNulls().join(variabilities);
-	}
+//	private String listToString(List<String> variabilities) {
+//		return Joiner.on(",").skipNulls().join(variabilities);
+//	}
 	
 
 }

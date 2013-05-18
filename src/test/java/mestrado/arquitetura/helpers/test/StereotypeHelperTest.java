@@ -20,6 +20,7 @@ import mestrado.arquitetura.helpers.StereotypeHelper;
 
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Stereotype;
@@ -172,14 +173,14 @@ public class StereotypeHelperTest extends TestHelper {
 		NamedElement klass = modelHelper.getAllClasses(model).get(0);
 		
 		assertTrue(StereotypeHelper.isVariability(klass));
-		
-		Map<String, String> variabilityAttrubutes = StereotypeHelper.getVariabilityAttributes(klass);
+		List<Comment> commentVariability  = StereotypeHelper.getCommentVariability(klass);
+		Map<String, String> variabilityAttrubutes = StereotypeHelper.getVariabilityAttributes(klass, commentVariability.get(0));
 		
 		assertEquals("casa", variabilityAttrubutes.get("name"));
 		assertEquals("DESIGN_TIME", variabilityAttrubutes.get("bindingTime"));
-		assertEquals("1", variabilityAttrubutes.get("maxSelection"));
-		assertEquals("2", variabilityAttrubutes.get("minSelection"));
-		assertEquals("teste, teste1, teste2", variabilityAttrubutes.get("variants"));
+		assertEquals("2", variabilityAttrubutes.get("maxSelection"));
+		assertEquals("1", variabilityAttrubutes.get("minSelection"));
+		assertEquals("teste1, teste2, teste3", variabilityAttrubutes.get("variants"));
 		assertEquals("false", variabilityAttrubutes.get("allowAddingVar"));
 		
 	}

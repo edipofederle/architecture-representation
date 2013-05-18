@@ -30,6 +30,10 @@ public class GeneralizationOperations extends XmiHelper implements Relationship 
 		return this;
 	}
 
+	/**
+	 * A Superclasse
+	 * 
+	 */
 	public Relationship between(String idElement) throws NotSuppportedOperation {
 		if(isElementAClass(idElement)){
 			this.client = idElement;
@@ -39,6 +43,9 @@ public class GeneralizationOperations extends XmiHelper implements Relationship 
 		}
 	}
 	
+	/**
+	 * A Subclasse
+	 */
 	public Relationship and(String idElement) throws NotSuppportedOperation {
 		if(isElementAClass(idElement)){
 			this.general = idElement;

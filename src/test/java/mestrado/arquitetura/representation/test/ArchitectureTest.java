@@ -224,8 +224,8 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldFindInterfaceByName() throws Exception{
 		Architecture a = givenAArchitecture("classes");
-		assertNotNull(a.findInterfaceByName("interface"));
-		assertEquals("Interface", a.findInterfaceByName("interface").getName());
+		assertNotNull(a.findInterfaceByName("Interface"));
+		assertEquals("Interface", a.findInterfaceByName("Interface").getName());
 	}
 	
 	@Test(expected=InterfaceNotFound.class)

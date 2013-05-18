@@ -124,19 +124,6 @@ public class ProfileSMarty {
 
 		Class classMetaClass = helper.referenceMetaclass(this.profile, UMLPackage.Literals.CLASS.getName());
 		helper.createExtension(classMetaClass, variantPoint, false);
-
-		helper.createAttribute(variantPoint, "numberOfVariants", helper.getPrimitiveType("Integer"), 1, 1);
-		helper.createAttribute(variantPoint, "variants", helper.getPrimitiveType("String"), 1, 1); // TODO Nao achei algo de collection. Ver se da para seprar por , as variants
-		helper.createAttribute(variantPoint, "variabilities", helper.getPrimitiveType("String"), 1, 1);
-
-		Enumeration bindingTime = null;
-		try {
-			bindingTime = (Enumeration) helper.getEnumerationByName(this.profile, "BindingTime");
-		} catch (EnumerationNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		helper.createAttribute(variantPoint, "bindingTime", bindingTime, 1, 1);
 	}
 
 	private void createVariantStereotype() throws ModelNotFoundException{
@@ -145,15 +132,14 @@ public class ProfileSMarty {
 		Class classMetaClass = helper.referenceMetaclass(this.profile,	UMLPackage.Literals.CLASS.getName());
 		helper.createExtension(classMetaClass, variant, false);
 
-		Stereotype variationPoint = null;
-		try {
-			variationPoint = (Stereotype) helper.getStereotypeByName(this.profile, "variationPoint");
-		} catch (StereotypeNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		helper.createAttribute(variant, "rootVP", variationPoint, 1, 1);
-		helper.createAttribute(variant, "variabilities", helper.getPrimitiveType("String"), 1, 1);
+//		Stereotype variationPoint = null;
+//		try {
+//			variationPoint = (Stereotype) helper.getStereotypeByName(this.profile, "variationPoint");
+//		} catch (StereotypeNotFoundException e) {
+//			e.printStackTrace();
+//		}
+		Class c = helper.referenceMetaclass(this.profile, UMLPackage.Literals.CLASS.getName());
+		helper.createAttribute(variant, "rootVP", c, 1, 1);
 
 	}
 
