@@ -10,7 +10,7 @@ import mestrado.arquitetura.parser.method.Argument;
 import mestrado.arquitetura.parser.method.Attribute;
 import mestrado.arquitetura.parser.method.Method;
 import mestrado.arquitetura.parser.method.Types;
-import mestrado.arquitetura.representation.Stereotype;
+import mestrado.arquitetura.representation.Variant;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -284,17 +284,21 @@ public class ElementXmiGenerator extends XmiHelper {
 		node.appendChild(edges);
 	}
 
-	public void createStereotype(Stereotype mandatory, String idClass) throws NodeNotFound {
+	public void createStereotype(Variant mandatory, String idClass) throws NodeNotFound {
 		addStereotypeToUmlFile(mandatory, idClass);
 		notation.createXmiForStereotype(mandatory, idClass);
 	}
 
-	private void addStereotypeToUmlFile(Stereotype mandatory, String idClass) {
+	private void addStereotypeToUmlFile(Variant mandatory, String idClass) {
 		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
 		Element stereotype = this.documentManager.getDocUml().createElement("smartyProfile_1:"+mandatory.getVariantName());
 		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		stereotype.setAttribute("base_Class", idClass); // A classe que tem o estereotype
+		
+		
+		stereotype.setAttribute("rootVP", mandatory.getRootVP());
 		nodeXmi.getParentNode().appendChild(stereotype);
+		
 		
 	}
 

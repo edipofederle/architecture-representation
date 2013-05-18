@@ -200,12 +200,12 @@ public class ClassOperations extends XmiHelper {
 	 * @throws NodeNotFound 
 	 * @throws CustonTypeNotFound 
 	 */
-	public ClassOperations withStereoype(final Stereotype ... stereotypeNames) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public ClassOperations withStereoype(final Variant ... stereotypeNames) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		
 		Profile profile = uml2Helper.loadSMartyProfile();
 		
 		
-		for (final Stereotype variant : stereotypeNames) {
+		for (final Variant variant : stereotypeNames) {
 			 stereotype = profile.getOwnedStereotype(variant.getVariantName());
 			if(stereotype == null)
 				LOGGER.warn("Stereotype + "+variant.getVariantName() + " cannot be found at profile.");

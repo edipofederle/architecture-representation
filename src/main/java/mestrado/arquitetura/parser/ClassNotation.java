@@ -3,7 +3,7 @@ package mestrado.arquitetura.parser;
 import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.exceptions.NullReferenceFoundException;
 import mestrado.arquitetura.helpers.UtilResources;
-import mestrado.arquitetura.representation.Stereotype;
+import mestrado.arquitetura.representation.Variant;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -201,13 +201,13 @@ public class ClassNotation extends XmiHelper {
 		return childrenDecorationnode;
 	}
 
-	public void createXmiForStereotype(Stereotype mandatory, String idClass) throws NodeNotFound {
+	public void createXmiForStereotype(Variant mandatory, String idClass) throws NodeNotFound {
 		
 		ste(mandatory, idClass,false);
 		ste(mandatory, idClass, true);
 	}
 
-	private void ste(Stereotype mandatory, String idClass, boolean addEcorePrefix) throws NodeNotFound {
+	private void ste(Variant mandatory, String idClass, boolean addEcorePrefix) throws NodeNotFound {
 		Node classToAddSte = findByIDInNotationFile(documentManager.getDocNotation(), idClass);
 		
 		Element eAnnotations = documentManager.getDocNotation().createElement("eAnnotations");

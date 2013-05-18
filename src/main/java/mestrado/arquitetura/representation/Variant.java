@@ -5,12 +5,15 @@ package mestrado.arquitetura.representation;
  * Essa classe representa uma variant, contem os atributos referentes
  * as variants:<br/>
  * <ul>
- * 	<li>Mandatory</li>
+ * 	<li>mandatory</li>
+ *  <li>optional</li>
+ *  <li>alternative_OR</li>
+ *  </li>alternative_XOR</li>
  * </ul> 
  * @author edipofederle
  *
  */
-public class Variant implements Stereotype{
+public class Variant{
 	
 	private String name;
 	private String rootVP;

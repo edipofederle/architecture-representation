@@ -46,12 +46,14 @@ public class StereotypeTest extends TestHelper {
 		Operations op = new Operations(doc);
 		
 		String idMenuGameClass = op.forClass().createClass("TicTacToe").build().get("id");
-		Variant mandatory = givenAVariant("mandatory");
+		
 		
 		String idFoo = op.forClass()
 				         .createClass("MenuGame")
-				         .withStereoype(mandatory)
 				         .build().get("id");
+		
+		Variant mandatory = givenAVariant("mandatory", idFoo);
+		op.forClass().addStereotype(idFoo, mandatory);
 		
 		op.forGeneralization().between(idMenuGameClass).and(idFoo).build();
 		
@@ -66,9 +68,15 @@ public class StereotypeTest extends TestHelper {
 		assertEquals("mandatory", klassFoo.getVariantType().getVariantName());
  	}
 
-	private Variant givenAVariant(String name) {
+	/**
+	 * 
+	 * @param name
+	 * @param idRootVpClass
+	 * @return
+	 */
+	private Variant givenAVariant(String name, String idRootVpClass) {
 		Variant mandatory = Variant.createVariant().withName(name)
-				                   .andRootVp("MenuGame")
+				                   .andRootVp(idRootVpClass)
 				                   .build();
 		return mandatory;
 	}
@@ -79,8 +87,10 @@ public class StereotypeTest extends TestHelper {
 		DocumentManager doc = givenADocument("ste2", "simples");
 		Operations op = new Operations(doc);
 		
-		Variant optional = givenAVariant("optional");
-		op.forClass().createClass("foo").withStereoype(optional).build();
+		
+		String idFoo = op.forClass().createClass("foo").build().get("id");
+		Variant optional = givenAVariant("optional", idFoo);
+		op.forClass().addStereotype(idFoo, optional);
 		
 		Architecture a = givenAArchitecture2("ste2");
 		
@@ -98,7 +108,7 @@ public class StereotypeTest extends TestHelper {
 		
 		String id = op.forClass().createClass("foo").build().get("id");
 		
-		Variant optional = givenAVariant("optional");
+		Variant optional = givenAVariant("optional", id);
 		op.forClass().addStereotype(id, optional);
 		
 		Architecture a = givenAArchitecture2("ste3");
@@ -115,11 +125,11 @@ public class StereotypeTest extends TestHelper {
 		DocumentManager doc = givenADocument("ste4", "simples");
 		Operations op = new Operations(doc);
 		
-		Variant mandatory = givenAVariant("mandatory");
 		
-		op.forClass().createClass("foo")
-					.withStereoype(mandatory)
+		String idClassFoo = op.forClass().createClass("foo")
 					.build().get("id");
+		Variant mandatory = givenAVariant("mandatory", idClassFoo);
+		op.forClass().addStereotype(idClassFoo, mandatory);
 		
 		Architecture a = givenAArchitecture2("ste4");
 		Class klassFoo = a.findClassByName("foo");
