@@ -10,7 +10,6 @@ import javax.xml.transform.TransformerException;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 public class DocumentManager {

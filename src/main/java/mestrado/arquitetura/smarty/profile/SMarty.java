@@ -10,7 +10,7 @@ import mestrado.arquitetura.exceptions.ModelNotFoundException;
 public class SMarty {
 
 	public static void main(String[] args) throws ModelNotFoundException {
-		ProfileSMarty smartyProfile = new ProfileSMarty("smarty.profile");
+		new ProfileSMarty("smarty.profile");
 	}
 
 }

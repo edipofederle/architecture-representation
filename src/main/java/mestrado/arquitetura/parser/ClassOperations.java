@@ -14,7 +14,6 @@ import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
 import mestrado.arquitetura.parser.method.Attribute;
 import mestrado.arquitetura.parser.method.Method;
-import mestrado.arquitetura.representation.Stereotype;
 import mestrado.arquitetura.representation.Variant;
 
 import org.apache.log4j.LogManager;
