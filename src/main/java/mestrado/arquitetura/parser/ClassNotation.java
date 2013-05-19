@@ -3,11 +3,11 @@ package mestrado.arquitetura.parser;
 import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.exceptions.NullReferenceFoundException;
 import mestrado.arquitetura.helpers.UtilResources;
-import mestrado.arquitetura.representation.Variant;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * 
@@ -201,18 +201,56 @@ public class ClassNotation extends XmiHelper {
 		return childrenDecorationnode;
 	}
 
-	public void createXmiForStereotype(Variant mandatory, String idClass) throws NodeNotFound {
+	public void createXmiForStereotype(String name, String idClass) throws NodeNotFound {
 		
-		ste(mandatory, idClass,false);
-		ste(mandatory, idClass, true);
+		Node node = getXmiToAppendStereotype(idClass);
+		if(node != null){
+			Node valueAttr = node.getAttributes().getNamedItem("value");
+			 String oldValue = valueAttr.getNodeValue().trim();
+			 valueAttr.setNodeValue(oldValue +",smartyProfile::"+name);
+		}else{
+			ste(name, idClass,false);
+			ste(name, idClass, true);
+		}
 	}
 
-	private void ste(Variant mandatory, String idClass, boolean addEcorePrefix) throws NodeNotFound {
+	/**
+	 * Verifica se o arquivo xmi já tem os nodes resposnveis por apresentar os estereotipos.
+	 * Se tiver retorna o node para que se possa adicinar o estereotipos.
+	 * 
+	 * @param idClass
+	 * @return
+	 * @throws NodeNotFound
+	 */
+	private Node getXmiToAppendStereotype(String idClass) throws NodeNotFound {
+		//Verifica se já existe no notation o xmi para estereotipos
+		Node node = findByIDInNotationFile(documentManager.getDocNotation(), idClass);
+				
+		NodeList chidreen = node.getChildNodes();
+		for (int i = 0; i < chidreen.getLength(); i++) {
+			if("eAnnotations".equalsIgnoreCase(chidreen.item(i).getNodeName())){
+				String nodeValue = chidreen.item(i).getAttributes().getNamedItem("source").getNodeValue();
+				if("Stereotype_Annotation".equalsIgnoreCase(nodeValue)){
+					NodeList eAnnotationsChildreen = chidreen.item(i).getChildNodes();
+					for (int j = 0; j < eAnnotationsChildreen.getLength(); j++) {
+						String keyValue = eAnnotationsChildreen.item(j).getAttributes().getNamedItem("key").getNodeValue();
+						if("StereotypeList".equalsIgnoreCase(keyValue)){
+							return eAnnotationsChildreen.item(j);
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	private void ste(String name, String idClass, boolean addEcorePrefix) throws NodeNotFound {
 		Node classToAddSte = findByIDInNotationFile(documentManager.getDocNotation(), idClass);
 		
 		Element eAnnotations = documentManager.getDocNotation().createElement("eAnnotations");
 		eAnnotations.setAttribute("xmi:type", "ecore:EAnnotation");
 		eAnnotations.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		
 		if(addEcorePrefix)
 			eAnnotations.setAttribute("source", "ecore:Stereotype_Annotation");
 		else
@@ -229,7 +267,7 @@ public class ClassNotation extends XmiHelper {
 		details2.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
 		details2.setAttribute("xmi:id",  UtilResources.getRandonUUID());
 		details2.setAttribute("key", "StereotypeList");
-		details2.setAttribute("value", "smartyProfile::"+mandatory.getVariantName());
+		details2.setAttribute("value", "smartyProfile::"+name);
 		eAnnotations.appendChild(details2);
 		
 		Element details3 = documentManager.getDocNotation().createElement("details");

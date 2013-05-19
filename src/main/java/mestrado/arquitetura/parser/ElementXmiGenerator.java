@@ -286,7 +286,7 @@ public class ElementXmiGenerator extends XmiHelper {
 
 	public void createStereotype(Variant mandatory, String idClass) throws NodeNotFound {
 		addStereotypeToUmlFile(mandatory, idClass);
-		notation.createXmiForStereotype(mandatory, idClass);
+		notation.createXmiForStereotype(mandatory.getVariantName(), idClass);
 	}
 
 	private void addStereotypeToUmlFile(Variant mandatory, String idClass) {
@@ -300,6 +300,16 @@ public class ElementXmiGenerator extends XmiHelper {
 		nodeXmi.getParentNode().appendChild(stereotype);
 		
 		
+	}
+
+	public void createStereotypeVariationPoint(String idClass) throws NodeNotFound {
+		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
+		Element stereotype = this.documentManager.getDocUml().createElement("smartyProfile_1:variationPoint");
+		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		stereotype.setAttribute("base_Class", idClass); // A classe que tem o estereotype
+		nodeXmi.getParentNode().appendChild(stereotype);
+		
+		notation.createXmiForStereotype("variationPoint", idClass);
 	}
 
 //	private String listToString(List<String> variabilities) {

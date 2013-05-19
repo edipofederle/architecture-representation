@@ -14,8 +14,11 @@ import mestrado.arquitetura.parser.method.VisibilityKind;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Attribute;
 import mestrado.arquitetura.representation.Class;
+import mestrado.arquitetura.representation.Element;
+import mestrado.arquitetura.representation.Variant;
 import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 import mestrado.arquitetura.representation.relationship.DependencyRelationship;
+import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
 
 public class Main {
 
@@ -27,8 +30,8 @@ public class Main {
 	public static void main(String[] args) throws ModelNotFoundException, ModelIncompleteException {
 		
 		Architecture a;
-		DocumentManager doc = givenADocument("TesteMain3", "simples");
-		String path = new File("src/test/java/resources/testeLeitura2.uml").getAbsolutePath(); 
+		DocumentManager doc = givenADocument("TesteComEstereotipo", "simples");
+		String path = new File("src/test/java/resources/edipo2.uml").getAbsolutePath(); 
 		Operations op = new Operations(doc);
 		
 		try {
@@ -37,6 +40,8 @@ public class Main {
 			List<Class> classes = a.getAllClasses();
 			
 			for (Class class1 : classes) {
+				
+				//System.out.println(class1.getName() +  " " + class1.isVariationPoint());
 				List<mestrado.arquitetura.parser.method.Attribute> attributes = new ArrayList<mestrado.arquitetura.parser.method.Attribute>();
 				List<Attribute> attrs = class1.getAllAttributes();
 				for (Attribute attribute : attrs) {
@@ -54,10 +59,22 @@ public class Main {
 					String id = op.forClass().createClass(class1.getName()).build().get("id");
 					class1.updateId(id);
 				}
+				
+				Variant v = null;
+				try{
+					Variant variant = class1.getVariantType();
+					Element elementRootVp = a.findElementByName(variant.getRootVP());
+					v = Variant.createVariant().withName(variant.getVariantName()).andRootVp(elementRootVp.getId()).build();
+				}catch(Exception e){}
+				
+				//Se tem variant adicionar na classe
+				if(v != null){
+					op.forClass().addStereotype(class1.getId(), v);
+				}
 				/**
 				 * Deve atualizar o id do elemento em memória com o id do elemente gerado.
 				 * Isso é necesário pois quando usamos os métodos para gerar os elementos esses geram um id novo,	
-				 * diante disso ambos ids são diferen	tes e não é possível localizar os elementos nos XMIS para criar os relacionamentos.
+				 * diante disso ambos ids são diferebtes e não é possível localizar os elementos nos XMIS para criar os relacionamentos.
 				 */
 				
 			}
@@ -75,12 +92,9 @@ public class Main {
 			}
 			
 			//Remove classes qeu não tenham relacionamentos
-			for (Class class1 : classes) {
-				if(class1.dontHaveAnyRelationship()){
-					//op.forClass().removeClassById(class1.getId());
-					op.forGeneralization().createRelation("Ge").between(class1.getId()).and(classes.get(0).getId()).build();
+			for(GeneralizationRelationship g : a.getAllGeneralizations()){
+					op.forGeneralization().createRelation("Ge").between(g.getChild().getId()).and(g.getParent().getId()).build();
 				}
-			}
 			
 			
 		} catch (Exception e) {

@@ -37,11 +37,13 @@ public class ClassOperations extends XmiHelper {
 	private Node klass;
 	private boolean isAbstract = false;
 
-
 	private Uml2Helper uml2Helper;
 
 
 	private org.eclipse.uml2.uml.Stereotype stereotype;
+
+
+	
 	
 	
 	public ClassOperations(DocumentManager documentManager) throws ModelNotFoundException, ModelIncompleteException {
@@ -222,16 +224,19 @@ public class ClassOperations extends XmiHelper {
 	public void addStereotype(final String id, final Variant mandatory) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() throws NodeNotFound {
-				
 				elementXmiGenerator.createStereotype(mandatory, id);
 			}
 		});
-		
-
 	}
 
-	public Variant withVariationPoint(String string) {
-		return null;
+
+	public ClassOperations isVariationPoint() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+			public void useTransformation() throws NodeNotFound {
+				elementXmiGenerator.createStereotypeVariationPoint(idClass);
+			}
+		});
+		return this;
 	}
 
 }

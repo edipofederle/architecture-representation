@@ -40,9 +40,37 @@ public class StereotypeTest extends TestHelper {
 
 	
 	@Test
-	public void shouldCreateClassWithSteretorypeMandatory() throws Exception{
+	public void shouldCreateClassWithSteretorypeMandatoryAndVariationPoint() throws Exception{
 		
 		DocumentManager doc = givenADocument("edipo2", "simples");
+		Operations op = new Operations(doc);
+		
+		String idMenuGameClass = op.forClass().createClass("TicTacToe").build().get("id");
+		
+		
+		String idFoo = op.forClass()
+				         .createClass("MenuGame").isVariationPoint()
+				         .build().get("id");
+		
+		Variant mandatory = givenAVariant("mandatory", idFoo);
+		op.forClass().addStereotype(idFoo, mandatory);
+		
+		op.forGeneralization().between(idMenuGameClass).and(idFoo).build();
+		
+		
+		Architecture a = givenAArchitecture2("edipo2");
+		
+		Class klassFoo = a.findClassByName("MenuGame");
+		assertNotNull(klassFoo);
+		
+		assertTrue(klassFoo.isVariationPoint());
+		assertEquals("mandatory", klassFoo.getVariantType().getVariantName());
+ 	}
+	
+	@Test
+	public void shouldCreateClassWithSteretorypeMandatory() throws Exception{
+		
+		DocumentManager doc = givenADocument("somenteComMandatory", "simples");
 		Operations op = new Operations(doc);
 		
 		String idMenuGameClass = op.forClass().createClass("TicTacToe").build().get("id");
@@ -58,8 +86,7 @@ public class StereotypeTest extends TestHelper {
 		op.forGeneralization().between(idMenuGameClass).and(idFoo).build();
 		
 		
-		
-		Architecture a = givenAArchitecture2("edipo2");
+		Architecture a = givenAArchitecture2("somenteComMandatory");
 		
 		Class klassFoo = a.findClassByName("MenuGame");
 		assertNotNull(klassFoo);
