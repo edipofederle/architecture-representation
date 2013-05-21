@@ -20,14 +20,14 @@ public class StereotypeTest extends TestHelper {
 	public void testStereotypes() throws Exception{
 		Architecture a = givenAArchitecture("edipo");
 		
-		Variability variability1 = a.getVariabilities().get(0);
-		Variability variability2 = a.getVariabilities().get(1);
+		Variability variability1 = a.getAllVariabilities().get(0);
+		Variability variability2 = a.getAllVariabilities().get(1);
 		
-		assertEquals("arquitetura deve ter duas variabilidades", 2, a.getVariabilities().size());
+		assertEquals("arquitetura deve ter duas variabilidades", 2, a.getAllVariabilities().size());
 		assertEquals("variabilidade 1 deve ter 3 variants", 3, variability1.getVariants().size());
 		assertEquals("variabilidade 2 deve ter 2 variants", 2, variability2.getVariants().size());
 		
-		assertEquals(1,a.getVariabilities().get(0).getVariationPoints().size());
+		assertEquals(1,a.getAllVariabilities().get(0).getVariationPoints().size());
 		
 		assertTrue(a.findClassByName("GameMenu").isVariationPoint());
 		assertEquals("Ponto de variação deve ter 5 variants", 5, a.findClassByName("GameMenu").getVariants().size());

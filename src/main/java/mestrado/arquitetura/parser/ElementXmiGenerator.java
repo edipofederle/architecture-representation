@@ -1,6 +1,8 @@
 package mestrado.arquitetura.parser;
 
 
+import java.util.List;
+
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
 import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import mestrado.arquitetura.exceptions.NodeNotFound;
@@ -19,6 +21,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+
+import com.google.common.base.Joiner;
 
 /**
  * Cria XMI para elementos UML.
@@ -322,9 +326,13 @@ public class ElementXmiGenerator extends XmiHelper {
 		
 		if("class".equalsIgnoreCase(type))
 			stereotype.setAttribute("base_Class", idNote); // A classe que tem o estereotype
-		else if("comment".equalsIgnoreCase(type)){
+		else if("comment".equalsIgnoreCase(type))
 			stereotype.setAttribute("base_Comment", idNote); // A classe que tem o estereotype
-		}
+		stereotype.setAttribute("name", a.getName());
+		stereotype.setAttribute("minSelection", a.getMinSelection());
+		stereotype.setAttribute("maxSelection", a.getMaxSelection());
+		stereotype.setAttribute("variants", splitVariants(a.getVariants()));
+		
 		nodeXmi.getParentNode().appendChild(stereotype);
 		
 		notation.createXmiForStereotype(a.getName(), idNote);
@@ -332,5 +340,10 @@ public class ElementXmiGenerator extends XmiHelper {
 		
 	}
 
+	private String splitVariants(List<String> variants) {
+		return Joiner.on(", ").join(variants);
+	}
+
+	//<smartyProfile:variability xmi:id="_-4-0ML9kEeKzudUTJ6GjUg" base_Comment="_9pVKML9kEeKzudUTJ6GjUg" name="teste3" minSelection="1" maxSelection="2" variants="Class1, Class2"/>
 
 }

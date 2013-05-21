@@ -109,15 +109,15 @@ public class ArchitectureTest extends TestHelper {
 		Map<String, String> attributes = new HashMap<String, String>();
 		attributes.put("name", "var");
 		Variability v = new Variability("var", "1", "1", false, attributes, null);
-		arch.getVariabilities().add(v);
+		arch.getAllVariabilities().add(v);
 		
-		assertNotNull(arch.getVariabilities().get(0));
-		assertEquals("var", arch.getVariabilities().get(0).getName());
+		assertNotNull(arch.getAllVariabilities().get(0));
+		assertEquals("var", arch.getAllVariabilities().get(0).getName());
 	}
 	
 	@Test
 	public void shouldReturnEmptyListWhenNoVariabilities(){
-		assertEquals(Collections.emptyList(), arch.getVariabilities());
+		assertEquals(Collections.emptyList(), arch.getAllVariabilities());
 	}
 	
 	@Test

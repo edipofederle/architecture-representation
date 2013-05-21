@@ -322,4 +322,9 @@ public class ClassOperations extends XmiHelper {
 		return this;
 	}
 
+	public ClassOperations withId(String ownerClass) {
+		this.idClass = ownerClass;
+		return this;
+	}
+
 }

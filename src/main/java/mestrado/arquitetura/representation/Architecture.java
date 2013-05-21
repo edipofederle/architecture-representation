@@ -95,7 +95,7 @@ public class Architecture {
 		return klasses;
 	}
 
-	public List<Variability> getVariabilities() {
+	public List<Variability> getAllVariabilities() {
 		return variabilities;
 	}
 

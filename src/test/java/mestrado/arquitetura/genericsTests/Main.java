@@ -16,13 +16,13 @@ import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Attribute;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Element;
+import mestrado.arquitetura.representation.Variability;
 import mestrado.arquitetura.representation.Variant;
 import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 import mestrado.arquitetura.representation.relationship.DependencyRelationship;
 import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import mestrado.arquitetura.writer.BindingTime;
+import mestrado.arquitetura.writer.VariabilityStereotype;
 
 public class Main {
 
@@ -33,22 +33,21 @@ public class Main {
 	 */
 	public static void main(String[] args) throws ModelNotFoundException, ModelIncompleteException {
 		
-		Logger LOGGER = LogManager.getLogger(Main.class.getName());
+		System.out.println("Start....");
 		
 		Architecture a;
 		DocumentManager doc = givenADocument("TesteComEstereotipo", "simples");
-		String path = new File("src/test/java/resources/edipo2.uml").getAbsolutePath(); 
+		String path = new File("src/test/java/resources/edipo.uml").getAbsolutePath(); 
 		Operations op = new Operations(doc);
+		
 		
 		try {
 			a = new ArchitectureBuilder().create(path);
-			
 			
 			List<Class> classes = a.getAllClasses();
 			
 			for (Class class1 : classes) {
 				
-				//System.out.println(class1.getName() +  " " + class1.isVariationPoint());
 				List<mestrado.arquitetura.parser.method.Attribute> attributes = new ArrayList<mestrado.arquitetura.parser.method.Attribute>();
 				List<Attribute> attrs = class1.getAllAttributes();
 				for (Attribute attribute : attrs) {
@@ -84,6 +83,20 @@ public class Main {
 				 * diante disso ambos ids são diferebtes e não é possível localizar os elementos nos XMIS para criar os relacionamentos.
 				 */
 				
+				
+			}
+			
+			//Variabilidades - Notes
+			List<Variability> variabilities = a.getAllVariabilities();
+			for (Variability variability : variabilities) {
+				String ownerClass = a.findElementByName(variability.getOwnerClass()).getId();
+				
+				String idNote = op.forNote().createNote().build();
+				VariabilityStereotype var = new VariabilityStereotype(variability.getMinSelection(),
+																	 variability.getMaxSelection(), false, BindingTime.DESIGN_TIME,
+																	 variability.getVariants());
+				op.forNote().addVariability(idNote, var).build();
+				op.forClass().withId(ownerClass).linkToNote(idNote);
 			}
 			
 			for (AssociationRelationship r : a.getAllAssociations()) {
@@ -100,15 +113,15 @@ public class Main {
 			
 			//Remove classes qeu não tenham relacionamentos
 			for(GeneralizationRelationship g : a.getAllGeneralizations()){
-					op.forGeneralization().createRelation("Ge").between(g.getChild().getId()).and(g.getParent().getId()).build();
-				}
+				op.forGeneralization().createRelation("Ge").between(g.getChild().getId()).and(g.getParent().getId()).build();
+			}
 			
 			
 		} catch (Exception e) {
-			LOGGER.error("Ops!. Error, I am sorry: " + e.getMessage());
+			System.out.println("Ops!. Error, I am sorry: " + e.getMessage());
 		}
 		
-		LOGGER.info("Done. Architecture save into: " + ReaderConfig.getDirExportTarget());
+		System.out.println("\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget()+doc.getNewModelName());
 		
 	}
 	

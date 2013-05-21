@@ -104,8 +104,5 @@ public class GeneralizationTest extends TestHelper {
 			
 		op.forGeneralization().createRelation("G invalida").between(post).and(id1);
 	}
-	
-	
-	
 
 }

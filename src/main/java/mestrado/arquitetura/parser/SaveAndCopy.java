@@ -63,7 +63,7 @@ public class SaveAndCopy {
 		StreamResult resultDi = new StreamResult(new File(diCopy));
 		transformer.transform(sourceDi, resultDi);
 		
-		LOGGER.info("Save resources...");
+		System.out.print("*");
 
 		FileUtils.moveFiles(notationCopy, targetDirExport+ newModelName + ".notation");
 		FileUtils.moveFiles(umlCopy, targetDirExport+ newModelName +".uml");

@@ -1,5 +1,7 @@
 package mestrado.arquitetura.writer;
 
+import java.util.List;
+
 /**
  * Classe usada para definir o estereótipo Variability para ser setado em uma note.(Comment)
  * 
@@ -9,17 +11,19 @@ package mestrado.arquitetura.writer;
 public class VariabilityStereotype  implements Stereotype{
 	
 	private String name;
-	private int minSelection;
-	private int maxSelection;
+	private String minSelection;
+	private String maxSelection;
 	private boolean allowAddingVar;
 	private String bindingTime;
+	private List<String> variants;
 
-	public VariabilityStereotype(int minSelection, int maxSelecion, boolean allowAddingVar, String bindingTime) {
+	public VariabilityStereotype(String minSelection, String maxSelecion, boolean allowAddingVar, String bindingTime, List<String> variants) {
 		setName("variability");
 		setMinSelection(minSelection);
 		setMaxSelection(maxSelecion);
 		setAllowAddingVar(allowAddingVar);
 		setBindingTime(bindingTime);
+		setVariants(variants);
 	}
 
 	private void setBindingTime(String bindingTime) {
@@ -30,11 +34,11 @@ public class VariabilityStereotype  implements Stereotype{
 		this.allowAddingVar = allowAddingVar;
 	}
 
-	private void setMaxSelection(int maxSelecion) {
+	private void setMaxSelection(String maxSelecion) {
 		this.maxSelection = maxSelecion;
 	}
 
-	private void setMinSelection(int minSelection) {
+	private void setMinSelection(String minSelection) {
 		this.minSelection = minSelection;
 	}
 
@@ -52,14 +56,14 @@ public class VariabilityStereotype  implements Stereotype{
 	/**
 	 * @return the minSelection
 	 */
-	public int getMinSelection() {
+	public String getMinSelection() {
 		return minSelection;
 	}
 
 	/**
 	 * @return the maxSelection
 	 */
-	public int getMaxSelection() {
+	public String getMaxSelection() {
 		return maxSelection;
 	}
 
@@ -76,6 +80,19 @@ public class VariabilityStereotype  implements Stereotype{
 	public String getBindingTime() {
 		return bindingTime;
 	}
-	
+
+	/**
+	 * @return the variants
+	 */
+	public List<String> getVariants() {
+		return variants;
+	}
+
+	/**
+	 * @param variants the variants to set
+	 */
+	public void setVariants(List<String> variants) {
+		this.variants = variants;
+	}
 	
 }

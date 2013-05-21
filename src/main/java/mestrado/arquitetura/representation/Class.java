@@ -193,7 +193,7 @@ public class Class extends Element {
 	public List<Element> getVariants() {
 		List<Element> variants = new ArrayList<Element>();
 		if(this.isVariationPoint()){
-			List<Variability> variabilities = getArchitecture().getVariabilities();
+			List<Variability> variabilities = getArchitecture().getAllVariabilities();
 			for (Variability variability : variabilities) {
 				for(String element : variability.getVariants()){
 					try {

@@ -203,12 +203,12 @@ public class ArchitectureBuilderTest extends TestHelper {
 
 	@Test
 	public void shouldHaveOneVariability() {
-		assertEquals(1, architecture.getVariabilities().size());
+		assertEquals(1, architecture.getAllVariabilities().size());
 	}
 
 	@Test
 	public void shouldVariabilityBelongToClass1() {
-		Variability variability = architecture.getVariabilities().get(0);
+		Variability variability = architecture.getAllVariabilities().get(0);
 		assertNotNull(variability);
 
 		assertEquals("Class2", variability.getOwnerClass());
@@ -216,7 +216,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 
 	@Test
 	public void shouldVariabilityHaveCorrectAttributesValues() {
-		Variability variability = architecture.getVariabilities().get(0);
+		Variability variability = architecture.getAllVariabilities().get(0);
 		assertEquals("nameClass2Variability", variability.getName());
 		assertEquals("1", variability.getMinSelection());
 		assertEquals("2", variability.getMaxSelection());
@@ -229,7 +229,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 
 	@Test
 	public void testVariationPointToString() {
-		Variability variability = architecture.getVariabilities().get(0);
+		Variability variability = architecture.getAllVariabilities().get(0);
 		assertEquals("Variants: Bar, Class2", variability.getVariationPoints().get(0)
 				.toString());
 	}

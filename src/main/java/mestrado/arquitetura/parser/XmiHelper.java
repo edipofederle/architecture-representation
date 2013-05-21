@@ -12,8 +12,6 @@ import org.w3c.dom.NodeList;
 
 public class XmiHelper {
 	
-	
-	
 	/**
 	 * Busca por {@link Node} dado um id e um {@link Documnet}.
 	 * 
@@ -71,18 +69,19 @@ public class XmiHelper {
 		
 		for (int i = 0; i < element.getChildNodes().getLength(); i++) {
 			String elementName = element.getChildNodes().item(i).getNodeName();
+			String elementId = "";
+			try{
+				elementId = element.getChildNodes().item(i).getAttributes().getNamedItem("xmi:id").getNodeValue();
+			}catch(Exception e){}
 			if("packagedElement".equalsIgnoreCase(elementName)){
-				if("uml:Class".equalsIgnoreCase(element.getChildNodes().item(i).getAttributes().getNamedItem("xmi:type").getNodeValue())){
+				String elementValue = element.getChildNodes().item(i).getAttributes().getNamedItem("xmi:type").getNodeValue();
+				if("uml:Class".equalsIgnoreCase(elementValue) && (id.equalsIgnoreCase(elementId)))
 					return "class";
-				}
 			}else{
-				if("ownedComment".equalsIgnoreCase(elementName)){
-					return "comment";
-				}
+				if("ownedComment".equalsIgnoreCase(elementName) && (id.equalsIgnoreCase(elementId))) return "comment";
 			}
 		}
 		return "";
-		
 
 	}
 
@@ -90,12 +89,11 @@ public class XmiHelper {
 		NodeList node = doc.getElementsByTagName(tagName);
 		for (int i = 0; i < node.getLength(); i++) {
 			NamedNodeMap attributtes = node.item(i).getAttributes();
-			for (int j = 0; j < attributtes.getLength(); j++) {
-				if (id.equalsIgnoreCase(attributtes.item(j).getNodeValue())) {
+			for (int j = 0; j < attributtes.getLength(); j++)
+				if (id.equalsIgnoreCase(attributtes.item(j).getNodeValue()))
 					return node.item(i);
-				}
-			}
 		}
+		
 		return null;
 	}
 	

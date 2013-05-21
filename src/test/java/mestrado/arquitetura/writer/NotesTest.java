@@ -1,6 +1,9 @@
 package mestrado.arquitetura.writer;
 
 import static org.junit.Assert.*;
+
+import java.util.Arrays;
+
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.DocumentManager;
 import mestrado.arquitetura.parser.Operations;
@@ -22,7 +25,7 @@ public class NotesTest extends TestHelper {
 		Operations op = new Operations(doc);
 		
 		String idNote = op.forNote().createNote().build();
-		VariabilityStereotype a = new VariabilityStereotype(1, 3, false, BindingTime.DESIGN_TIME);
+		VariabilityStereotype a = new VariabilityStereotype("1", "3", false, BindingTime.DESIGN_TIME, Arrays.asList("teste"));
 		
 		op.forNote().addVariability(idNote, a ).build();
 		
@@ -30,8 +33,7 @@ public class NotesTest extends TestHelper {
 		
 		Architecture arq = givenAArchitecture2("note");
 		
-		assertEquals(1, arq.getVariabilities().size());
-		
+		assertEquals(1, arq.getAllVariabilities().size());
 	}
 
 }

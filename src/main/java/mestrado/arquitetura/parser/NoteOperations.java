@@ -14,13 +14,13 @@ public class NoteOperations extends XmiHelper {
 	
 	public NoteOperations(DocumentManager documentManager){
 		this.documentManager = documentManager;
-		this.id = UtilResources.getRandonUUID();
 		this.elementXmiGenerator = new ElementXmiGenerator(documentManager);
 
 	}
 
 	public NoteOperations createNote() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		final NoteNode noteNode = new NoteNode(documentManager);
+		this.id = UtilResources.getRandonUUID();
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() throws NodeNotFound, InvalidMultiplictyForAssociationException {
 				noteNode.createNote(id);
