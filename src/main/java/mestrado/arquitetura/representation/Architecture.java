@@ -411,14 +411,12 @@ public class Architecture {
 		if(!elements.remove(klass))
 			LOGGER.info("Cannot remove Class " + klass + ".");
 		else{
-			removeIdOfElementFromList(klass.getId(), "Class Removida com Sucesos");
+			removeIdOfElementFromList(klass.getId(), "Class removida com sucesso");
 		}
 	}
 
 	public int getNumberOfElements() {
 		return allIds.size();
 	}
-
-	
 
 }

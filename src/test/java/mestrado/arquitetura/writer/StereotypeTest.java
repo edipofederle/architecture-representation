@@ -95,18 +95,7 @@ public class StereotypeTest extends TestHelper {
 		assertEquals("mandatory", klassFoo.getVariantType().getVariantName());
  	}
 
-	/**
-	 * 
-	 * @param name
-	 * @param idRootVpClass
-	 * @return
-	 */
-	private Variant givenAVariant(String name, String idRootVpClass) {
-		Variant mandatory = Variant.createVariant().withName(name)
-				                   .andRootVp(idRootVpClass)
-				                   .build();
-		return mandatory;
-	}
+
 	
 	@Test
 	public void shouldCreateClassWithSteretorypeOptional() throws Exception{
@@ -153,7 +142,7 @@ public class StereotypeTest extends TestHelper {
 		Operations op = new Operations(doc);
 		
 		
-		String idClassFoo = op.forClass().createClass("foo")
+		String idClassFoo = op.forClass().createClass("foo").isVariationPoint()
 					.build().get("id");
 		Variant mandatory = givenAVariant("mandatory", idClassFoo);
 		op.forClass().addStereotype(idClassFoo, mandatory);
@@ -163,28 +152,29 @@ public class StereotypeTest extends TestHelper {
 		
 		assertNotNull(klassFoo);
 		assertEquals("mandatory", klassFoo.getVariantType().getVariantName());
-		//assertTrue(klassFoo.isVariationPoint());
+		assertTrue(klassFoo.isVariationPoint());
 	}
 	
-//	@Test
-//	public void shouldAddMandatoryAndVariationPointToClassInvertOrder() throws Exception{
-//		DocumentManager doc = givenADocument("ste4", "simples");
-//		Operations op = new Operations(doc);
-//		
-//		Variant mandatory = givenAVariant("mandatory");
-//		/*
-//		 * Inverte ordem dos estereotipos em relação ao caso de teste anterior. Esses testes servem para ver se alguma informação
-//		 * Não esta sendo reescrita dentro da classe ElementBuilder.
-//		*/ 
-//		op.forClass().createClass("foo").withStereoype(VariantType.MANDATORY, VariantType.VARIATIONPOINT).build().get("id");
-//		
-//		Architecture a = givenAArchitecture2("ste4");
-//		Class klassFoo = a.findClassByName("foo");
-//		
-//		assertNotNull(klassFoo);
-//		assertEquals("mandatory", klassFoo.getVariantType().getVariantName());
-//		assertTrue(klassFoo.isVariationPoint());
-//	}
+	@Test
+	public void shouldAddMandatoryAndVariationPointToClassInvertOrder() throws Exception{
+		DocumentManager doc = givenADocument("ste5", "simples");
+		Operations op = new Operations(doc);
+		
+		String idClass = op.forClass().createClass("foo").withStereoype().isVariationPoint().build().get("id");
+		Variant mandatory = givenAVariant("mandatory", idClass);
+		/*
+		 * Inverte ordem dos estereotipos em relação ao caso de teste anterior. Esses testes servem para ver se alguma informação
+		 * Não esta sendo reescrita dentro da classe ElementBuilder.
+		*/ 
+		op.forClass().addStereotype(idClass, mandatory);
+		
+		Architecture a = givenAArchitecture2("ste4");
+		Class klassFoo = a.findClassByName("foo");
+		
+		assertNotNull(klassFoo);
+		assertEquals("mandatory", klassFoo.getVariantType().getVariantName());
+		assertTrue(klassFoo.isVariationPoint());
+	}
 	
 
 }

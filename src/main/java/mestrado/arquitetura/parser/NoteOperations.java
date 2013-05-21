@@ -1,0 +1,46 @@
+package mestrado.arquitetura.parser;
+
+import mestrado.arquitetura.exceptions.CustonTypeNotFound;
+import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
+import mestrado.arquitetura.exceptions.NodeNotFound;
+import mestrado.arquitetura.helpers.UtilResources;
+import mestrado.arquitetura.writer.VariabilityStereotype;
+
+public class NoteOperations extends XmiHelper {
+	
+	private DocumentManager documentManager;
+	private ElementXmiGenerator elementXmiGenerator;
+	private String id;
+	
+	public NoteOperations(DocumentManager documentManager){
+		this.documentManager = documentManager;
+		this.id = UtilResources.getRandonUUID();
+		this.elementXmiGenerator = new ElementXmiGenerator(documentManager);
+
+	}
+
+	public NoteOperations createNote() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+		final NoteNode noteNode = new NoteNode(documentManager);
+		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+			public void useTransformation() throws NodeNotFound, InvalidMultiplictyForAssociationException {
+				noteNode.createNote(id);
+			}
+		});
+		
+		return this;
+	}
+
+	public String build() {
+		return this.id;
+	}
+
+	public NoteOperations addVariability(final String idNote, final VariabilityStereotype a) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+			public void useTransformation() throws NodeNotFound, InvalidMultiplictyForAssociationException {
+				elementXmiGenerator.createStereotypeVariability(idNote, a);
+			}
+		});
+		return this;
+	}
+	
+}

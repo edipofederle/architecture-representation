@@ -26,6 +26,8 @@ import mestrado.arquitetura.parser.method.Method;
 import mestrado.arquitetura.parser.method.Types;
 import mestrado.arquitetura.parser.method.VisibilityKind;
 import mestrado.arquitetura.representation.Architecture;
+import mestrado.arquitetura.representation.Class;
+import mestrado.arquitetura.representation.Variant;
 import mestrado.arquitetura.representation.relationship.AssociationEnd;
 import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 import mestrado.arquitetura.representation.relationship.DependencyRelationship;
@@ -223,7 +225,45 @@ public class GenericTest extends TestHelper {
 		
 		op.forAggregation().createRelation("Testeseec").between(idORder).and(class6).build();
 		
+	}
+	
+	@Test
+	public void createModelsWithVariants() throws Exception{
+		DocumentManager doc = givenADocument("modelComVariants", "simples");
+		Operations op = new Operations(doc);
 		
+		String idFoo = op.forClass().createClass("Foo").isVariationPoint().build().get("id");
+		Variant mandatory = givenAVariant("mandatory", idFoo); // Classe Foo irá ser o rootVP.
+		op.forClass().addStereotype(idFoo, mandatory);
+		
+		String idBar1 = op.forClass().createClass("Bar1").build().get("id");
+		Variant alternative_OR = givenAVariant("alternative_OR", idFoo); // Classe Foo irá ser o rootVP.
+		op.forClass().addStereotype(idBar1, alternative_OR);
+		
+		String idBar2 = op.forClass().createClass("Bar2").build().get("id");
+		op.forClass().addStereotype(idBar2, alternative_OR);
+		
+		String idBar3 = op.forClass().createClass("Bar3").build().get("id");
+		op.forClass().addStereotype(idBar3, alternative_OR);
+		
+		op.forGeneralization().createRelation("").between(idBar1).and(idFoo).build();
+		op.forGeneralization().createRelation("").between(idBar2).and(idFoo).build();
+		op.forGeneralization().createRelation("").between(idBar3).and(idFoo).build();
+		
+//		//Le o modelo criado
+		
+		Architecture a = givenAArchitecture2("modelComVariants");
+		
+		Class foo = a.findClassByName("foo");
+		assertTrue(foo.isVariationPoint());
+		
+		Class bar1 = a.findClassByName("Bar1");
+		Class bar2 = a.findClassByName("Bar2");
+		Class bar3 = a.findClassByName("Bar3");
+		
+		assertEquals("alternative_OR", bar1.getVariantType().getVariantName());
+		assertEquals("alternative_OR", bar2.getVariantType().getVariantName());
+		assertEquals("alternative_OR", bar3.getVariantType().getVariantName());
 	}
 	
 }

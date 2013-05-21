@@ -1,5 +1,7 @@
 package mestrado.arquitetura.representation;
 
+import mestrado.arquitetura.writer.Stereotype;
+
 
 /**
  * Essa classe representa uma variant, contem os atributos referentes
@@ -13,7 +15,7 @@ package mestrado.arquitetura.representation;
  * @author edipofederle
  *
  */
-public class Variant{
+public class Variant implements Stereotype{
 	
 	private String name;
 	private String rootVP;

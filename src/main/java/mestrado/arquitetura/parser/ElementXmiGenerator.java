@@ -11,6 +11,7 @@ import mestrado.arquitetura.parser.method.Attribute;
 import mestrado.arquitetura.parser.method.Method;
 import mestrado.arquitetura.parser.method.Types;
 import mestrado.arquitetura.representation.Variant;
+import mestrado.arquitetura.writer.VariabilityStereotype;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -312,9 +313,24 @@ public class ElementXmiGenerator extends XmiHelper {
 		notation.createXmiForStereotype("variationPoint", idClass);
 	}
 
-//	private String listToString(List<String> variabilities) {
-//		return Joiner.on(",").skipNulls().join(variabilities);
-//	}
-	
+	public void createStereotypeVariability(String idNote, VariabilityStereotype a) throws NodeNotFound {
+		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
+		Element stereotype = this.documentManager.getDocUml().createElement("smartyProfile_1:"+a.getName());
+		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		
+		String type = findTypeById(idNote, documentManager.getDocUml());
+		
+		if("class".equalsIgnoreCase(type))
+			stereotype.setAttribute("base_Class", idNote); // A classe que tem o estereotype
+		else if("comment".equalsIgnoreCase(type)){
+			stereotype.setAttribute("base_Comment", idNote); // A classe que tem o estereotype
+		}
+		nodeXmi.getParentNode().appendChild(stereotype);
+		
+		notation.createXmiForStereotype(a.getName(), idNote);
+		
+		
+	}
+
 
 }

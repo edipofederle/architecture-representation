@@ -56,6 +56,35 @@ public class XmiHelper {
 		
 		return "";
 	}
+	
+
+	/**
+	 * Retorna se o elemento é uma classe ou um comentário (note).
+	 * 
+	 * Caso não for encontrado retorna uma string vazia ("").
+	 * @param id
+	 * @param umlDocument
+	 * @return
+	 */
+	public String findTypeById(String id, Document umlDocument) {
+		Node element = umlDocument.getElementsByTagName("uml:Model").item(0);
+		
+		for (int i = 0; i < element.getChildNodes().getLength(); i++) {
+			String elementName = element.getChildNodes().item(i).getNodeName();
+			if("packagedElement".equalsIgnoreCase(elementName)){
+				if("uml:Class".equalsIgnoreCase(element.getChildNodes().item(i).getAttributes().getNamedItem("xmi:type").getNodeValue())){
+					return "class";
+				}
+			}else{
+				if("ownedComment".equalsIgnoreCase(elementName)){
+					return "comment";
+				}
+			}
+		}
+		return "";
+		
+
+	}
 
 	public static Node findByID(Document doc, String id, String tagName) {
 		NodeList node = doc.getElementsByTagName(tagName);

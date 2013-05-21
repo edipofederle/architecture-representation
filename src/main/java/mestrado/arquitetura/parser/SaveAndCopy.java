@@ -13,6 +13,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class SaveAndCopy {
@@ -39,7 +40,8 @@ public class SaveAndCopy {
 		NodeList elements = docNotation.getElementsByTagName("element");
 		for (int i = 0; i < elements.getLength(); i++) {
 			String idXmi = getOnlyIdOfXmiAttribute(elements, i);
-			elements.item(i).getAttributes().getNamedItem("href").setNodeValue(newModelName+".uml#"+idXmi);
+			if(idXmi !=null)
+				elements.item(i).getAttributes().getNamedItem("href").setNodeValue(newModelName+".uml#"+idXmi);
 		}
 		
 		NodeList elementsUml = docDi.getElementsByTagName("emfPageIdentifier");
@@ -61,18 +63,22 @@ public class SaveAndCopy {
 		StreamResult resultDi = new StreamResult(new File(diCopy));
 		transformer.transform(sourceDi, resultDi);
 		
-		LOGGER.info("Copying files to Papyrus Workspace...");
+		LOGGER.info("Save resources...");
 
 		FileUtils.moveFiles(notationCopy, targetDirExport+ newModelName + ".notation");
 		FileUtils.moveFiles(umlCopy, targetDirExport+ newModelName +".uml");
 		FileUtils.moveFiles(diCopy, targetDirExport+newModelName +".di");
 		
-		LOGGER.info("Write: Done");
 	}
 
 	private static String getOnlyIdOfXmiAttribute(NodeList elements, int i) {
-		String currentValue = elements.item(i).getAttributes().getNamedItem("href").getNodeValue();
-		return currentValue.substring(currentValue.indexOf("#")+1, currentValue.length());
+		Node href = elements.item(i).getAttributes().getNamedItem("href");
+		if(href !=null){
+			String currentValue = href.getNodeValue();
+			return currentValue.substring(currentValue.indexOf("#")+1, currentValue.length());
+		}else{
+			return null;
+		}
 	}
 
 }

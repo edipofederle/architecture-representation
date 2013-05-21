@@ -12,6 +12,7 @@ import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
+import mestrado.arquitetura.helpers.UtilResources;
 import mestrado.arquitetura.parser.method.Attribute;
 import mestrado.arquitetura.parser.method.Method;
 import mestrado.arquitetura.representation.Variant;
@@ -39,13 +40,8 @@ public class ClassOperations extends XmiHelper {
 
 	private Uml2Helper uml2Helper;
 
-
 	private org.eclipse.uml2.uml.Stereotype stereotype;
 
-
-	
-	
-	
 	public ClassOperations(DocumentManager documentManager) throws ModelNotFoundException, ModelIncompleteException {
 		uml2Helper = Uml2HelperFactory.getUml2Helper();
 		this.documentManager = documentManager;
@@ -221,6 +217,24 @@ public class ClassOperations extends XmiHelper {
 		return this;
 	}
 
+	/**
+	 * 
+	 * Aplica um dado estereótipo a classe. Aplicavéis são:
+	 * 
+	 *   	<li>mandatory</li>
+	 * 		<li>optional</li>
+	 *  	<li>alternative_OR</li>
+	 * 	 	</li>alternative_XOR</li>
+	 * 
+	 * @param id - Classe id
+	 * @param mandatory - Estereótipo
+	 * @throws ModelNotFoundException
+	 * @throws ModelIncompleteException
+	 * @throws SMartyProfileNotAppliedToModelExcepetion
+	 * @throws CustonTypeNotFound
+	 * @throws NodeNotFound
+	 * @throws InvalidMultiplictyForAssociationException
+	 */
 	public void addStereotype(final String id, final Variant mandatory) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() throws NodeNotFound {
@@ -230,12 +244,81 @@ public class ClassOperations extends XmiHelper {
 	}
 
 
+	/**
+	 * Indica que a classe sendo criada é um ponto de variação, ou seja, possui o estereótipo <b>variationPoint</b>
+	 * 
+	 * @return {@link ClassOperations}
+	 * @throws CustonTypeNotFound
+	 * @throws NodeNotFound
+	 * @throws InvalidMultiplictyForAssociationException
+	 */
 	public ClassOperations isVariationPoint() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() throws NodeNotFound {
 				elementXmiGenerator.createStereotypeVariationPoint(idClass);
 			}
 		});
+		return this;
+	}
+
+	/**
+	 * Anota uma classe com um dado comentário
+	 * 
+	 * @param id - ID do comentário.
+	 * @throws InvalidMultiplictyForAssociationException 
+	 * @throws NodeNotFound 
+	 * @throws CustonTypeNotFound 
+	 */
+	public ClassOperations linkToNote(final String id) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+			public void useTransformation() throws NodeNotFound {
+				
+				Element comment = (Element) findByID(documentManager.getDocUml(), id, "ownedComment");
+				comment.setAttribute("annotatedElement", idClass);
+				
+				//pega o id do source e do target no arquivo .notation
+				Node commentElement = findByIDInNotationFile(documentManager.getDocNotation(), id);
+				Node classElement = findByIDInNotationFile(documentManager.getDocNotation(), idClass);
+				String idCommentNotation = commentElement.getAttributes().getNamedItem("xmi:id").getNodeValue();
+				String idClassNotation = classElement.getAttributes().getNamedItem("xmi:id").getNodeValue();
+				
+				Element edges = documentManager.getDocNotation().createElement("edges");
+				edges.setAttribute("xmi:type", "notation:Connector");
+				edges.setAttribute("xmi:id", UtilResources.getRandonUUID());
+				edges.setAttribute("type", "4013");
+				edges.setAttribute("source", idCommentNotation);
+				edges.setAttribute("target", idClassNotation);
+				edges.setAttribute("lineColor", "0");
+				
+				Element styles = documentManager.getDocNotation().createElement("styles");
+				styles.setAttribute("xmi:id", UtilResources.getRandonUUID());
+				styles.setAttribute("fontName", "Lucida Grande");
+				styles.setAttribute("xmi:type", "notation:FontStyle");
+				styles.setAttribute("fontHeight", "11");
+				edges.appendChild(styles);
+				
+				Element element = documentManager.getDocNotation().createElement("element");
+				element.setAttribute("xsi:nil", "true");
+				edges.appendChild(element);
+				
+				Element bendpoints = documentManager.getDocNotation().createElement("bendpoints");
+				bendpoints.setAttribute("xmi:type", "notation:RelativeBendpoints");
+				bendpoints.setAttribute("xmi:id", UtilResources.getRandonUUID());
+				bendpoints.setAttribute("points", "[-10, 17, 55, -89]$[-63, 156, 2, 50]");
+				edges.appendChild(bendpoints);
+				
+				Element sourceAnchor = documentManager.getDocNotation().createElement("sourceAnchor");
+				sourceAnchor.setAttribute("xmi:type", "notation:IdentityAnchor");
+				sourceAnchor.setAttribute("xmi:id", UtilResources.getRandonUUID());
+				sourceAnchor.setAttribute("id", "(1.0,0.7166666666666667)");
+				edges.appendChild(sourceAnchor);
+				
+				 Node root = documentManager.getDocNotation().getElementsByTagName("notation:Diagram").item(0);
+				 root.appendChild(edges);
+				
+			}
+		});
+		
 		return this;
 	}
 

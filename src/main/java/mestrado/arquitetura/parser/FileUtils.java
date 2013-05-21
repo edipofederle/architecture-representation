@@ -39,7 +39,7 @@ public class FileUtils {
  
     	    afile.delete();
  
-    	    LOGGER.info("File is copied to "+ to + " from: "+ from +  " successful!");
+    	//    LOGGER.info("File is copied to "+ to + " from: "+ from +  " successful!");
  
     	}catch(IOException e){
     		LOGGER.info("Erros when copying files. Here are message error: " + e.getMessage());

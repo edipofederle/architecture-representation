@@ -24,6 +24,7 @@ import mestrado.arquitetura.parser.DocumentManager;
 import mestrado.arquitetura.parser.ReaderConfig;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Element;
+import mestrado.arquitetura.representation.Variant;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.uml2.uml.NamedElement;
@@ -156,6 +157,19 @@ public abstract class TestHelper {
 		String randomString = lines.get(r.nextInt(lines.size()));
 		
 		return randomString;
+	}
+	
+	/**
+	 * 
+	 * @param name
+	 * @param idRootVpClass
+	 * @return
+	 */
+	protected Variant givenAVariant(String name, String idRootVpClass) {
+		Variant mandatory = Variant.createVariant().withName(name)
+				                   .andRootVp(idRootVpClass)
+				                   .build();
+		return mandatory;
 	}
 		
 }

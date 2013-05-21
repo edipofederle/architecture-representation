@@ -20,6 +20,7 @@ public class Operations {
 	 private GeneralizationOperations generalizationOperations;
 	 private CompositionOperations compositionOperations;
 	 private AggregationOperations aggregationOperations;
+	 private NoteOperations noteOperations;
 
 	 public Operations(DocumentManager doc2) throws ModelNotFoundException, ModelIncompleteException {
 		 this.doc = doc2;
@@ -31,7 +32,12 @@ public class Operations {
 		 createGeneralizationOperations();
 		 createCompositionOperations();
 		 createAggrationOperations();
+		 createNoteOperations();
 	 }
+
+	private void createNoteOperations() {
+		this.noteOperations = new NoteOperations(doc);
+	}
 
 	private void createAggrationOperations() {
 		this.aggregationOperations = new AggregationOperations(doc);
@@ -73,5 +79,6 @@ public class Operations {
 	public GeneralizationOperations forGeneralization(){ return generalizationOperations; }
 	public CompositionOperations forComposition(){ return compositionOperations; }
 	public AggregationOperations forAggregation(){ return aggregationOperations; }
+	public NoteOperations forNote() {return noteOperations;}
 
 }

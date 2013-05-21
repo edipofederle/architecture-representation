@@ -9,6 +9,7 @@ import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.parser.DocumentManager;
 import mestrado.arquitetura.parser.Operations;
+import mestrado.arquitetura.parser.ReaderConfig;
 import mestrado.arquitetura.parser.method.Types;
 import mestrado.arquitetura.parser.method.VisibilityKind;
 import mestrado.arquitetura.representation.Architecture;
@@ -20,6 +21,9 @@ import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 import mestrado.arquitetura.representation.relationship.DependencyRelationship;
 import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 public class Main {
 
 	/**
@@ -29,6 +33,8 @@ public class Main {
 	 */
 	public static void main(String[] args) throws ModelNotFoundException, ModelIncompleteException {
 		
+		Logger LOGGER = LogManager.getLogger(Main.class.getName());
+		
 		Architecture a;
 		DocumentManager doc = givenADocument("TesteComEstereotipo", "simples");
 		String path = new File("src/test/java/resources/edipo2.uml").getAbsolutePath(); 
@@ -36,6 +42,7 @@ public class Main {
 		
 		try {
 			a = new ArchitectureBuilder().create(path);
+			
 			
 			List<Class> classes = a.getAllClasses();
 			
@@ -98,8 +105,10 @@ public class Main {
 			
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Ops!. Error, I am sorry: " + e.getMessage());
 		}
+		
+		LOGGER.info("Done. Architecture save into: " + ReaderConfig.getDirExportTarget());
 		
 	}
 	
