@@ -201,16 +201,26 @@ public class ClassNotation extends XmiHelper {
 		return childrenDecorationnode;
 	}
 
-	public void createXmiForStereotype(String name, String idClass) throws NodeNotFound {
+	/**
+	 * 
+	 * @param name - o nome do esterótipo
+	 * @param idClass - id da classe que se deseja aplicar o estereótipo
+	 * @param perfilType - de qual perfil vem o estereótipo sendo aplicado
+	 * @throws NodeNotFound
+	 */
+	public void createXmiForStereotype(String name, String idClass, String perfilType) throws NodeNotFound {
 		
 		Node node = getXmiToAppendStereotype(idClass);
 		if(node != null){
 			Node valueAttr = node.getAttributes().getNamedItem("value");
 			 String oldValue = valueAttr.getNodeValue().trim();
-			 valueAttr.setNodeValue(oldValue +",smartyProfile::"+name);
+			 if("smarty".equalsIgnoreCase(perfilType))
+				 valueAttr.setNodeValue(oldValue +",smartyProfile::"+name);
+			 else if("concern".equalsIgnoreCase(perfilType))
+				 valueAttr.setNodeValue(oldValue +",perfilConcerns::"+name);
 		}else{
-			ste(name, idClass,false);
-			ste(name, idClass, true);
+			ste(name, idClass,false, perfilType);
+			ste(name, idClass, true, perfilType);
 		}
 	}
 
@@ -244,7 +254,7 @@ public class ClassNotation extends XmiHelper {
 		return null;
 	}
 
-	private void ste(String name, String idClass, boolean addEcorePrefix) throws NodeNotFound {
+	private void ste(String name, String idClass, boolean addEcorePrefix, String perfilType) throws NodeNotFound {
 		Node classToAddSte = findByIDInNotationFile(documentManager.getDocNotation(), idClass);
 		
 		Element eAnnotations = documentManager.getDocNotation().createElement("eAnnotations");
@@ -267,7 +277,10 @@ public class ClassNotation extends XmiHelper {
 		details2.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
 		details2.setAttribute("xmi:id",  UtilResources.getRandonUUID());
 		details2.setAttribute("key", "StereotypeList");
-		details2.setAttribute("value", "smartyProfile::"+name);
+		if("smarty".equalsIgnoreCase(perfilType))
+			details2.setAttribute("value", "smartyProfile::"+name);
+		else if("concern".equalsIgnoreCase(perfilType))
+				details2.setAttribute("value", "perfilConcerns::"+name);
 		eAnnotations.appendChild(details2);
 		
 		Element details3 = documentManager.getDocNotation().createElement("details");

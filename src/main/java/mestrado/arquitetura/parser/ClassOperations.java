@@ -327,4 +327,14 @@ public class ClassOperations extends XmiHelper {
 		return this;
 	}
 
+	public ClassOperations withConcern(final String name) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+		mestrado.arquitetura.parser.Document.executeTransformation(documentManager, new Transformation(){
+			public void useTransformation() throws NodeNotFound {
+				elementXmiGenerator.createConcern(name);
+			}
+		});
+		
+		return this;
+	}
+
 }

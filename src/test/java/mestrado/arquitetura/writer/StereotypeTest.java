@@ -160,7 +160,7 @@ public class StereotypeTest extends TestHelper {
 		DocumentManager doc = givenADocument("ste5", "simples");
 		Operations op = new Operations(doc);
 		
-		String idClass = op.forClass().createClass("foo").withStereoype().isVariationPoint().build().get("id");
+		String idClass = op.forClass().createClass("foo").isVariationPoint().build().get("id");
 		Variant mandatory = givenAVariant("mandatory", idClass);
 		/*
 		 * Inverte ordem dos estereotipos em relação ao caso de teste anterior. Esses testes servem para ver se alguma informação
@@ -174,6 +174,26 @@ public class StereotypeTest extends TestHelper {
 		assertNotNull(klassFoo);
 		assertEquals("mandatory", klassFoo.getVariantType().getVariantName());
 		assertTrue(klassFoo.isVariationPoint());
+	}
+	
+	@Test
+	public void shouldAddConcernToClass() throws Exception{
+		DocumentManager doc = givenADocument("addConcern", "simples");
+		Operations op = new Operations(doc);
+		
+			op.forClass()
+			   .createClass("foo")
+			   .withConcern("Persistence")
+			   .build().get("id");
+		
+		Architecture a = givenAArchitecture2("addConcern");
+		assertNotNull(a.getAllConcerns());
+		assertEquals("deve ter um interesse", 1, a.getAllConcerns().size());
+		assertEquals("interese deve ser Persistence", "Persistence", a.getAllConcerns().entrySet().iterator().next().getValue().getName());
+		
+		
+		
+		
 	}
 	
 

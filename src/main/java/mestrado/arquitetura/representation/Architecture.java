@@ -67,7 +67,7 @@ public class Architecture {
 		return concern;
 	}
 
-	public HashMap<String, Concern> getConcerns() {
+	public HashMap<String, Concern> getAllConcerns() {
 		return concerns;
 	}
 

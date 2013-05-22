@@ -43,7 +43,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void shouldHaveTwoConcerns() {
 		assertEquals("Architecture should have two conecern", 2, architecture
-				.getConcerns().size());
+				.getAllConcerns().size());
 	}
 
 	@Test
