@@ -39,13 +39,19 @@ public class ReaderConfiTest {
 	
 	@Test
 	public void shouldReturnPathToProfile(){
-		String path = ReaderConfig.getPathToProfile();
+		String path = ReaderConfig.getPathToProfileSMarty();
 		assertEquals("resources/smarty.profile.uml", path);
 	}
 	
 	@Test
 	public void shouldProfileFileExistsOnConfiguredPath(){
-		File profile = new File(ReaderConfig.getPathToProfile());
+		File profile = new File(ReaderConfig.getPathToProfileSMarty());
 		assertTrue(profile.exists());
+	}
+	
+	@Test
+	public void shouldReturnsPathToProfileConcerns(){
+		String path = ReaderConfig.getPathToProfileConcerns();
+		assertEquals("resources/perfilConcerns.profile.uml", path);
 	}
 }

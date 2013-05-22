@@ -382,7 +382,7 @@ public class Uml2Helper extends Base {
 	 * @throws ModelIncompleteException
 	 */
 	public Profile loadSMartyProfile() throws ModelNotFoundException,	ModelIncompleteException {
-		return (Profile) getExternalResources(ReaderConfig.getPathToProfile());
+		return (Profile) getExternalResources(ReaderConfig.getPathToProfileSMarty());
 	}
 
 	public Profile getSMartyProfile() {

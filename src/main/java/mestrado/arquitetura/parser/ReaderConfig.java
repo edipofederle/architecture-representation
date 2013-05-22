@@ -31,8 +31,12 @@ public class ReaderConfig {
 		return dir.getDirectoryToExportModels();
 	}
 	
-	public static String getPathToProfile(){
+	public static String getPathToProfileSMarty(){
 		return dir.getPathToProfile();
+	}
+
+	public static String getPathToProfileConcerns() {
+		return dir.getPathToProfileConcern();
 	}
 	
 }

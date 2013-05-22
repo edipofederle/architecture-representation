@@ -191,10 +191,6 @@ public class StereotypeTest extends TestHelper {
 		assertEquals("deve ter um interesse", 1, a.getAllConcerns().size());
 		assertEquals("interese deve ser Persistence", "Persistence", a.getAllConcerns().entrySet().iterator().next().getValue().getName());
 		
-		
-		
-		
 	}
-	
 
 }
