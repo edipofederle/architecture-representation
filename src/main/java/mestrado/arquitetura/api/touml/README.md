@@ -20,5 +20,6 @@ O código acima irá gerar dois arquivos:
 Esses arquivos serão exportados para o diretório configurado para *directoryToExportModels* no arquivo *application.yml*.	
 
 O newModel irá aparecer como no diretório alvo. Para o exemplo acima o seguinte resultado é obtido:
-[id]: https://dl.dropboxusercontent.com/u/6730822/aclasse.png "Resultado"
+
+![Resultado](https://dl.dropboxusercontent.com/u/6730822/aclasse.png)
 	 
