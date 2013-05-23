@@ -2,6 +2,8 @@ package mestrado.arquitetura.writer;
 
 import java.util.List;
 
+import mestrado.arquitetura.api.touml.Stereotype;
+
 /**
  * Classe usada para definir o estereótipo Variability para ser setado em uma note.(Comment)
  * 

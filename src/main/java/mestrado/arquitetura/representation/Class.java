@@ -6,8 +6,8 @@ import java.util.List;
 import mestrado.arquitetura.exceptions.AttributeNotFoundException;
 import mestrado.arquitetura.exceptions.ClassNotFound;
 import mestrado.arquitetura.exceptions.MethodNotFoundException;
-import mestrado.arquitetura.helpers.UtilResources;
 import mestrado.arquitetura.representation.relationship.Relationship;
+import mestrado.arquitetura.utils.UtilResources;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

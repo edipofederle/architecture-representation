@@ -4,9 +4,10 @@ import static org.junit.Assert.*;
 
 import java.util.Arrays;
 
+import mestrado.arquitetura.api.touml.BindingTime;
+import mestrado.arquitetura.api.touml.DocumentManager;
+import mestrado.arquitetura.api.touml.Operations;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.parser.DocumentManager;
-import mestrado.arquitetura.parser.Operations;
 import mestrado.arquitetura.representation.Architecture;
 
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class NotesTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateANote() throws Exception{
-		DocumentManager doc = givenADocument("note", "simples");
+		DocumentManager doc = givenADocument("note");
 		Operations op = new Operations(doc);
 		
 		String idNote = op.forNote().createNote().build();

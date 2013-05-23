@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Map;
 
 import junit.framework.Assert;
+import mestrado.arquitetura.api.touml.DocumentManager;
+import mestrado.arquitetura.api.touml.Operations;
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.parser.DocumentManager;
-import mestrado.arquitetura.parser.Operations;
 import mestrado.arquitetura.parser.method.Argument;
 import mestrado.arquitetura.parser.method.Attribute;
 import mestrado.arquitetura.parser.method.Types;
@@ -62,7 +62,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateAssociationBetweenClasses() throws Exception{
-		DocumentManager doc = givenADocument("teste3", "simples");
+		DocumentManager doc = givenADocument("teste3");
 		Operations op = new Operations(doc);
 		
 		Map<String, String> idPerson = op.forClass().createClass("Person").build();
@@ -85,7 +85,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void shouldRemoveAClass() throws Exception{
-		DocumentManager doc = givenADocument("testeRemover", "simples");
+		DocumentManager doc = givenADocument("testeRemover");
 		Operations op = new Operations(doc);
 		String cityId = op.forClass().createClass("City").build().get("id");
 		assertTrue(modelContainId("testeRemover", cityId));
@@ -95,7 +95,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateAClass() throws Exception{
-		DocumentManager doc = givenADocument("teste2", "simples");
+		DocumentManager doc = givenADocument("teste2");
 		Operations op = new Operations(doc);
 		assertNotNull(op.forClass().createClass("Helper"));
 		Architecture a = givenAArchitecture2("teste2");
@@ -105,7 +105,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateAAbstractClass() throws Exception{
-		DocumentManager doc = givenADocument("classAbstrata", "simples");
+		DocumentManager doc = givenADocument("classAbstrata");
 		Operations op = new Operations(doc);
 		op.forClass().createClass("ClasseAbstrata").isAbstract().build();
 		Architecture a = givenAArchitecture2("classAbstrata");
@@ -116,7 +116,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateAClassWithAttribute() throws Exception{
-		DocumentManager doc = givenADocument("testeCreateClassWithAttribute", "simples");
+		DocumentManager doc = givenADocument("testeCreateClassWithAttribute");
 		Operations op = new Operations(doc);
 		
 		Attribute xpto = Attribute.create()
@@ -172,7 +172,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void shouldRemoveAttributeFromClasse() throws Exception{
-		DocumentManager doc = givenADocument("testRemoveAttribute", "simples");
+		DocumentManager doc = givenADocument("testRemoveAttribute");
 		Operations op = new Operations(doc);
 		
 		Attribute name = Attribute.create()
@@ -201,7 +201,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void shouldCreatAClassWithMethod() throws Exception{
-		DocumentManager doc = givenADocument("teste4", "simples");
+		DocumentManager doc = givenADocument("teste4");
 		Operations op = new Operations(doc);
 		
 		List<Argument> arguments = new ArrayList<Argument>();
@@ -244,7 +244,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void testeMethod() throws Exception{
-		DocumentManager doc = givenADocument("teste666", "simples");
+		DocumentManager doc = givenADocument("teste666");
 		Operations op = new Operations(doc);
 		
 		List<Argument> arguments = new ArrayList<Argument>();
@@ -260,7 +260,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateAMethodWithMethodAbstract() throws Exception{
-		DocumentManager doc = givenADocument("testeMethodoAbastrato", "simples");
+		DocumentManager doc = givenADocument("testeMethodoAbastrato");
 		Operations op = new Operations(doc);
 		
 		List<Argument> arguments = new ArrayList<Argument>();
@@ -284,7 +284,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void shouldRemoveMethodFromClass() throws Exception{
-		DocumentManager doc = givenADocument("testeRemoveMethod", "simples");
+		DocumentManager doc = givenADocument("testeRemoveMethod");
 		Operations op = new Operations(doc);
 		
 		List<Argument> arguments = new ArrayList<Argument>();
@@ -322,7 +322,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void shouldAddNewAttributeToExistClass() throws Exception{
-		DocumentManager doc = givenADocument("addNewAttributeToClass", "simples");
+		DocumentManager doc = givenADocument("addNewAttributeToClass");
 		Operations op = new Operations(doc);
 		
 		Architecture arch = givenAArchitecture2("addNewAttributeToClass");
@@ -345,7 +345,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void shouldAddNewPrivateAttributeToExistClass() throws Exception{
-		DocumentManager doc = givenADocument("addNewPrivateAttributeToClass", "simples");
+		DocumentManager doc = givenADocument("addNewPrivateAttributeToClass");
 		Operations op = new Operations(doc);
 		
 		Architecture arch = givenAArchitecture("simples");
@@ -368,7 +368,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void shouldAddANewMethodInExistClass() throws Exception{
-		DocumentManager doc = givenADocument("addNewMethodToClass", "simples");
+		DocumentManager doc = givenADocument("addNewMethodToClass");
 		Operations op = new Operations(doc);
 		
 		Architecture arch = givenAArchitecture2("addNewMethodToClass");
@@ -408,7 +408,7 @@ public class ModelManagerTest extends TestHelper {
 	@Test
 	public void shouldCreateAAttributeWithCustonType() throws Exception{
 		
-		DocumentManager doc = givenADocument("classWithAttrCuston", "simples");
+		DocumentManager doc = givenADocument("classWithAttrCuston");
 		Operations op = new Operations(doc);
 		
 		op.forClass().createClass("MyClass");
@@ -430,7 +430,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test(expected=CustonTypeNotFound.class)
 	public void shouldNotCreateAAttributeWithCustonTypeIfTypeDontExist() throws Exception{
-		DocumentManager doc = givenADocument("classWithAttrCuston", "simples");
+		DocumentManager doc = givenADocument("classWithAttrCuston");
 		Operations op = new Operations(doc);
 		
 		Attribute xpto = Attribute.create()
@@ -447,7 +447,7 @@ public class ModelManagerTest extends TestHelper {
 	@Test
 	public void shouldSaveModificationAndCopyFilesToDestination(){
 		
-		givenADocument("teste5", "simples");
+		givenADocument("teste5");
 		
 		Assert.assertTrue("should copy exist", new File("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/teste5.notation").exists());
 		Assert.assertTrue("should copy exist", new File("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/teste5.uml").exists());
@@ -457,7 +457,7 @@ public class ModelManagerTest extends TestHelper {
 	/* Pacote Testes */
 	@Test
 	public void shouldCreateAPackage() throws Exception{
-		DocumentManager doc = givenADocument("testePacote", "simples");
+		DocumentManager doc = givenADocument("testePacote");
 		Operations op = new Operations(doc);
 		
 		op.forPackage().createPacakge("meuPacote");
@@ -470,7 +470,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateAClassInsideAPackage() throws Exception{
-		DocumentManager doc = givenADocument("testePacoteComClasse", "simples");
+		DocumentManager doc = givenADocument("testePacoteComClasse");
 		Operations op = new Operations(doc);
 		
 		Map<String, String> foo = op.forClass().createClass("foo").build();
@@ -485,7 +485,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateAClassInsideAPackageWithAssociation() throws Exception{
-		DocumentManager doc = givenADocument("testePacoteClassAsssociation", "simples");
+		DocumentManager doc = givenADocument("testePacoteClassAsssociation");
 		Operations op = new Operations(doc);
 		
 		Map<String, String> foo = op.forClass().createClass("foo").build();
@@ -506,7 +506,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void associationClassPakackeClass() throws Exception{
-		DocumentManager doc = givenADocument("testeAssociationPackageClassClass", "simples");
+		DocumentManager doc = givenADocument("testeAssociationPackageClassClass");
 		Operations op = new Operations(doc);
 		
 		Map<String, String> foo = op.forClass().createClass("foo").build();
@@ -529,7 +529,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateAAbstractClassInsideAPackage() throws Exception{
-		DocumentManager doc = givenADocument("classAbstrataDentroPacote", "simples");
+		DocumentManager doc = givenADocument("classAbstrataDentroPacote");
 		Operations op = new Operations(doc);
 		
 		Map<String, String> infosClass = op.forClass().createClass("teste").isAbstract().build();
@@ -547,7 +547,7 @@ public class ModelManagerTest extends TestHelper {
 	@Test
 	public void shouldCreateAPacakgeWithTwoClasses() throws Exception{
 		
-		DocumentManager doc = givenADocument("novoTest", "simples");
+		DocumentManager doc = givenADocument("novoTest");
 		Operations op = new Operations(doc);
 		
 		Attribute xpto = Attribute.create()

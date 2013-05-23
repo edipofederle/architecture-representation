@@ -1,7 +1,7 @@
 package mestrado.arquitetura.helpers.test;
 
 import static org.junit.Assert.*;
-import mestrado.arquitetura.helpers.UtilResources;
+import mestrado.arquitetura.utils.UtilResources;
 
 import org.junit.Test;
 

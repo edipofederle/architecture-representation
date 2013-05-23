@@ -12,7 +12,6 @@ import mestrado.arquitetura.exceptions.ClassNotFound;
 import mestrado.arquitetura.exceptions.InterfaceNotFound;
 import mestrado.arquitetura.exceptions.PackageNotFound;
 import mestrado.arquitetura.helpers.Predicate;
-import mestrado.arquitetura.helpers.UtilResources;
 import mestrado.arquitetura.representation.relationship.AbstractionRelationship;
 import mestrado.arquitetura.representation.relationship.AssociationClassRelationship;
 import mestrado.arquitetura.representation.relationship.AssociationRelationship;
@@ -21,6 +20,7 @@ import mestrado.arquitetura.representation.relationship.GeneralizationRelationsh
 import mestrado.arquitetura.representation.relationship.RealizationRelationship;
 import mestrado.arquitetura.representation.relationship.Relationship;
 import mestrado.arquitetura.representation.relationship.UsageRelationship;
+import mestrado.arquitetura.utils.UtilResources;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

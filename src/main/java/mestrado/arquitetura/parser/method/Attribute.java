@@ -1,6 +1,6 @@
 package mestrado.arquitetura.parser.method;
 
-import mestrado.arquitetura.helpers.UtilResources;
+import mestrado.arquitetura.utils.UtilResources;
 
 public class Attribute {
 	

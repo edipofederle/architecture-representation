@@ -4,12 +4,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import mestrado.arquitetura.api.touml.BindingTime;
+import mestrado.arquitetura.api.touml.DocumentManager;
+import mestrado.arquitetura.api.touml.Operations;
 import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
-import mestrado.arquitetura.parser.DocumentManager;
-import mestrado.arquitetura.parser.Operations;
-import mestrado.arquitetura.parser.ReaderConfig;
+import mestrado.arquitetura.io.ReaderConfig;
 import mestrado.arquitetura.parser.method.Types;
 import mestrado.arquitetura.parser.method.VisibilityKind;
 import mestrado.arquitetura.representation.Architecture;
@@ -21,7 +22,6 @@ import mestrado.arquitetura.representation.Variant;
 import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 import mestrado.arquitetura.representation.relationship.DependencyRelationship;
 import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
-import mestrado.arquitetura.writer.BindingTime;
 import mestrado.arquitetura.writer.VariabilityStereotype;
 
 public class Main {
@@ -36,7 +36,7 @@ public class Main {
 		System.out.println("Start....");
 		
 		Architecture a;
-		DocumentManager doc = givenADocument("TesteComEstereotipo", "simples");
+		DocumentManager doc = givenADocument("TesteComEstereotipo");
 		String path = new File("src/test/java/resources/edipo.uml").getAbsolutePath(); 
 		Operations op = new Operations(doc);
 		
@@ -83,7 +83,6 @@ public class Main {
 				 * diante disso ambos ids são diferebtes e não é possível localizar os elementos nos XMIS para criar os relacionamentos.
 				 */
 				
-				
 			}
 			
 			//Variabilidades - Notes
@@ -125,9 +124,9 @@ public class Main {
 		
 	}
 	
-	private static DocumentManager givenADocument(String outputModelName, String originalModelName) {
-		String pathToFiles = "src/main/java/mestrado/arquitetura/parser/1/";
-		DocumentManager documentManager = new DocumentManager(outputModelName, pathToFiles, originalModelName);
+	private static DocumentManager givenADocument(String outputModelName) {
+		String pathToFiles = "/Users/edipofederle/sourcesMestrado/arquitetura/src/main/java/mestrado/arquitetura/api/touml/1/";// model padrao vazio que o programa usa para construir o novo
+		DocumentManager documentManager = new DocumentManager(outputModelName, pathToFiles);
 		
 		return documentManager;
 	}

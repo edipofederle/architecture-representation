@@ -2,9 +2,9 @@ package mestrado.arquitetura.writer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import mestrado.arquitetura.api.touml.DocumentManager;
+import mestrado.arquitetura.api.touml.Operations;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.parser.DocumentManager;
-import mestrado.arquitetura.parser.Operations;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 
@@ -15,7 +15,7 @@ public class AggregationTest extends TestHelper {
 	
 	@Test
 	public void shouldAggregationHaveAName() throws Exception{
-		DocumentManager doc = givenADocument("AggregationWithName", "simples");
+		DocumentManager doc = givenADocument("AggregationWithName");
 		Operations op = new Operations(doc);
 		
 		String bar =  op.forClass().createClass("foo").build().get("id");
@@ -32,7 +32,7 @@ public class AggregationTest extends TestHelper {
 	
 	@Test
 	public void shouldAggregationHaveDefaultNameIfBlank() throws Exception{
-		DocumentManager doc = givenADocument("AggregationWithName2", "simples");
+		DocumentManager doc = givenADocument("AggregationWithName2");
 		Operations op = new Operations(doc);
 		
 		String bar =  op.forClass().createClass("foo").build().get("id");
@@ -49,7 +49,7 @@ public class AggregationTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateAggregationClassClass() throws Exception{
-		DocumentManager doc = givenADocument("shared", "simples");
+		DocumentManager doc = givenADocument("shared");
 		Operations op = new Operations(doc);
 		
 		String bar =  op.forClass().createClass("foo").build().get("id");
@@ -72,7 +72,7 @@ public class AggregationTest extends TestHelper {
 	@Test
 	public void shouldCreateAggregationAssociationClassInsidePackageAndClassOutsidePackagee() throws Exception{
 		
-		DocumentManager doc = givenADocument("sharedClassPackageClass", "simples");
+		DocumentManager doc = givenADocument("sharedClassPackageClass");
 		Operations op = new Operations(doc);
 		
 		String bar =  op.forClass().createClass("foo").build().get("id");

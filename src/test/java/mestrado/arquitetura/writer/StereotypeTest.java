@@ -3,9 +3,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import mestrado.arquitetura.api.touml.DocumentManager;
+import mestrado.arquitetura.api.touml.Operations;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.parser.DocumentManager;
-import mestrado.arquitetura.parser.Operations;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Variability;
@@ -42,7 +42,7 @@ public class StereotypeTest extends TestHelper {
 	@Test
 	public void shouldCreateClassWithSteretorypeMandatoryAndVariationPoint() throws Exception{
 		
-		DocumentManager doc = givenADocument("edipo2", "simples");
+		DocumentManager doc = givenADocument("edipo2");
 		Operations op = new Operations(doc);
 		
 		String idMenuGameClass = op.forClass().createClass("TicTacToe").build().get("id");
@@ -70,7 +70,7 @@ public class StereotypeTest extends TestHelper {
 	@Test
 	public void shouldCreateClassWithSteretorypeMandatory() throws Exception{
 		
-		DocumentManager doc = givenADocument("somenteComMandatory", "simples");
+		DocumentManager doc = givenADocument("somenteComMandatory");
 		Operations op = new Operations(doc);
 		
 		String idMenuGameClass = op.forClass().createClass("TicTacToe").build().get("id");
@@ -100,7 +100,7 @@ public class StereotypeTest extends TestHelper {
 	@Test
 	public void shouldCreateClassWithSteretorypeOptional() throws Exception{
 		
-		DocumentManager doc = givenADocument("ste2", "simples");
+		DocumentManager doc = givenADocument("ste2");
 		Operations op = new Operations(doc);
 		
 		
@@ -119,7 +119,7 @@ public class StereotypeTest extends TestHelper {
 	
 	@Test
 	public void shouldAddStereotypeToClass() throws Exception{
-		DocumentManager doc = givenADocument("ste3", "simples");
+		DocumentManager doc = givenADocument("ste3");
 		Operations op = new Operations(doc);
 		
 		String id = op.forClass().createClass("foo").build().get("id");
@@ -138,7 +138,7 @@ public class StereotypeTest extends TestHelper {
 	
 	@Test
 	public void shouldAddMandatoryAndVariationPointToClass() throws Exception{
-		DocumentManager doc = givenADocument("ste4", "simples");
+		DocumentManager doc = givenADocument("ste4");
 		Operations op = new Operations(doc);
 		
 		
@@ -157,7 +157,7 @@ public class StereotypeTest extends TestHelper {
 	
 	@Test
 	public void shouldAddMandatoryAndVariationPointToClassInvertOrder() throws Exception{
-		DocumentManager doc = givenADocument("ste5", "simples");
+		DocumentManager doc = givenADocument("ste5");
 		Operations op = new Operations(doc);
 		
 		String idClass = op.forClass().createClass("foo").isVariationPoint().build().get("id");
@@ -178,7 +178,7 @@ public class StereotypeTest extends TestHelper {
 	
 	@Test
 	public void shouldAddConcernToClass() throws Exception{
-		DocumentManager doc = givenADocument("addConcern", "simples");
+		DocumentManager doc = givenADocument("addConcern");
 		Operations op = new Operations(doc);
 		
 			op.forClass()

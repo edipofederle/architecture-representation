@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import junitx.framework.Assert;
+import mestrado.arquitetura.api.touml.DocumentManager;
 import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
@@ -20,8 +21,7 @@ import mestrado.arquitetura.helpers.ModelHelper;
 import mestrado.arquitetura.helpers.ModelHelperFactory;
 import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
-import mestrado.arquitetura.parser.DocumentManager;
-import mestrado.arquitetura.parser.ReaderConfig;
+import mestrado.arquitetura.io.ReaderConfig;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Element;
 import mestrado.arquitetura.representation.Variant;
@@ -135,9 +135,9 @@ public abstract class TestHelper {
 		return false;
 	}
 	
-	public DocumentManager givenADocument(String outputModelName, String originalModelName) {
-		String pathToFiles = "src/main/java/mestrado/arquitetura/parser/1/";// model padrao vazio que o programa usa para construir o novo
-		DocumentManager documentManager = new DocumentManager(outputModelName, pathToFiles, originalModelName);
+	public DocumentManager givenADocument(String outputModelName) {
+		String pathToFiles = "/Users/edipofederle/sourcesMestrado/arquitetura/src/main/java/mestrado/arquitetura/api/touml/1/";// model padrao vazio que o programa usa para construir o novo
+		DocumentManager documentManager = new DocumentManager(outputModelName, pathToFiles);
 		
 		return documentManager;
 	}

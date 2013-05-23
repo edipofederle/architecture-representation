@@ -12,7 +12,8 @@ import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.exceptions.StereotypeNotFoundException;
-import mestrado.arquitetura.parser.ReaderConfig;
+import mestrado.arquitetura.io.ReaderConfig;
+import mestrado.arquitetura.utils.UtilResources;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;

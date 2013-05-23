@@ -5,9 +5,9 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Map;
 
+import mestrado.arquitetura.api.touml.DocumentManager;
+import mestrado.arquitetura.api.touml.Operations;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.parser.DocumentManager;
-import mestrado.arquitetura.parser.Operations;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.relationship.UsageRelationship;
 
@@ -17,7 +17,7 @@ public class UsageTest extends TestHelper {
 
 	@Test
 	public void shouldCreateUsageClassClass() throws Exception{
-		DocumentManager doc = givenADocument("usageTeste1", "simples");
+		DocumentManager doc = givenADocument("usageTeste1");
 		Operations op = new Operations(doc);
 		
 		
@@ -40,7 +40,7 @@ public class UsageTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateUsageClassPackageClass() throws Exception{
-		DocumentManager doc = givenADocument("usageTeste2", "simples");
+		DocumentManager doc = givenADocument("usageTeste2");
 		Operations op = new Operations(doc);
 		
 		
@@ -58,7 +58,7 @@ public class UsageTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateUsageClassClassPackage() throws Exception{
-		DocumentManager doc = givenADocument("usageTeste3", "simples");
+		DocumentManager doc = givenADocument("usageTeste3");
 		Operations op = new Operations(doc);
 		
 		
@@ -75,7 +75,7 @@ public class UsageTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateUsagePackagePackage() throws Exception{
-		DocumentManager doc = givenADocument("usageTeste4", "simples");
+		DocumentManager doc = givenADocument("usageTeste4");
 		Operations op = new Operations(doc);
 		
 		String p1 = op.forPackage().createPacakge("Pacote1").build().get("packageId");

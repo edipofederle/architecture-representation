@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 
+import mestrado.arquitetura.api.touml.DocumentManager;
+import mestrado.arquitetura.api.touml.Operations;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.parser.DocumentManager;
-import mestrado.arquitetura.parser.Operations;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.relationship.DependencyRelationship;
 
@@ -18,7 +18,7 @@ public class DependencyTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateADependencyClassClass() throws Exception{
-		DocumentManager doc = givenADocument("testeDependencia1", "simples");
+		DocumentManager doc = givenADocument("testeDependencia1");
 		Operations op = new Operations(doc);
 		
 		Map<String, String> employee = op.forClass().createClass("Employee").build();
@@ -40,7 +40,7 @@ public class DependencyTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateADependencyClassPackage() throws Exception{
-		DocumentManager doc = givenADocument("testeDependenciClassPackage", "simples");
+		DocumentManager doc = givenADocument("testeDependenciClassPackage");
 		Operations op = new Operations(doc);
 		
 		Map<String, String> id = op.forPackage().createPacakge("controllers").build();
@@ -63,7 +63,7 @@ public class DependencyTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateDependencyPackageClass() throws Exception{
-		DocumentManager doc = givenADocument("testeDependenciPackagePackage", "simples");
+		DocumentManager doc = givenADocument("testeDependenciPackagePackage");
 		Operations op = new Operations(doc);
 		
 		Map<String, String> controllers = op.forPackage().createPacakge("controllers").build();
@@ -89,7 +89,7 @@ public class DependencyTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateDependencyWithMultiplesSuppliers() throws Exception{
-		DocumentManager doc = givenADocument("dependenciaMultipla", "simples");
+		DocumentManager doc = givenADocument("dependenciaMultipla");
 		Operations op = new Operations(doc);
 		
 		String post = op.forClass().createClass("Post").build().get("id");
@@ -116,7 +116,7 @@ public class DependencyTest extends TestHelper {
 	
 	@Test
 	public void shouldCreeateDependencyWithMultipleCleints() throws Exception{
-		DocumentManager doc = givenADocument("dependenciaMultipla2", "simples");
+		DocumentManager doc = givenADocument("dependenciaMultipla2");
 		Operations op = new Operations(doc);
 		
 		String post = op.forClass().createClass("Post").build().get("id");
@@ -136,7 +136,7 @@ public class DependencyTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateDependencyClassClassPackage() throws Exception{
-		DocumentManager doc = givenADocument("dependenciaClassClassPackage", "simples");
+		DocumentManager doc = givenADocument("dependenciaClassClassPackage");
 		Operations op = new Operations(doc);
 		
 		String klassId = op.forClass().createClass("bar").build().get("id");
@@ -158,7 +158,7 @@ public class DependencyTest extends TestHelper {
 	
 	@Test
 	public void createDependencyPacakgeClassClass() throws Exception{
-		DocumentManager doc = givenADocument("dependencyPacakgeClassClass", "simples");
+		DocumentManager doc = givenADocument("dependencyPacakgeClassClass");
 		Operations op = new Operations(doc);
 		
 		String klassId = op.forClass().createClass("bar").build().get("id");
@@ -178,7 +178,7 @@ public class DependencyTest extends TestHelper {
 	
 	@Test
 	public void whenDependencyNotHaveANameSetDefault() throws Exception{
-		DocumentManager doc = givenADocument("dependencySemNome", "simples");
+		DocumentManager doc = givenADocument("dependencySemNome");
 		Operations op = new Operations(doc);
 		
 		String klassId = op.forClass().createClass("bar").build().get("id");

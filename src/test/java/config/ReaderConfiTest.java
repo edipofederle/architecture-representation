@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import mestrado.arquitetura.parser.ReaderConfig;
+import mestrado.arquitetura.io.ReaderConfig;
 
 import org.junit.Test;
 

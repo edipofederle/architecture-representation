@@ -3,7 +3,7 @@ package mestrado.arquitetura.parser.method;
 import java.util.ArrayList;
 import java.util.List;
 
-import mestrado.arquitetura.helpers.UtilResources;
+import mestrado.arquitetura.utils.UtilResources;
 
 
 public class Method {

@@ -13,7 +13,6 @@ import org.eclipse.uml2.uml.Property;
  *
  */
 public class AssociationEndBuilder {
-	
 
 	public AssociationEnd create(Property property, Element klass) {
 		boolean isNavigable = property.isNavigable();

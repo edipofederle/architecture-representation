@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import mestrado.arquitetura.api.touml.DocumentManager;
+import mestrado.arquitetura.api.touml.Operations;
 import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.exceptions.CustonTypeNotFound;
 import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
@@ -19,8 +21,6 @@ import mestrado.arquitetura.exceptions.NotSuppportedOperation;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.helpers.StereotypeHelper;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.parser.DocumentManager;
-import mestrado.arquitetura.parser.Operations;
 import mestrado.arquitetura.parser.method.Argument;
 import mestrado.arquitetura.parser.method.Method;
 import mestrado.arquitetura.parser.method.Types;
@@ -145,7 +145,7 @@ public class GenericTest extends TestHelper {
 	
 	@Test
 	public void genericTestAllElementsGenerate() throws NodeNotFound, InvalidMultiplictyForAssociationException, IOException, CustonTypeNotFound, NotSuppportedOperation, ModelNotFoundException, ModelIncompleteException{
-		DocumentManager doc = givenADocument("genericElements", "simples");
+		DocumentManager doc = givenADocument("genericElements");
 		Operations op = new Operations(doc);
 		List<String> idsClass = new ArrayList<String>();
 		
@@ -169,7 +169,7 @@ public class GenericTest extends TestHelper {
 	
 	@Test
 	public void genericTestAllElementsGenerate1() throws NodeNotFound, InvalidMultiplictyForAssociationException, IOException, CustonTypeNotFound, NotSuppportedOperation, ModelNotFoundException, ModelIncompleteException{
-		DocumentManager doc = givenADocument("genericElements2", "simples");
+		DocumentManager doc = givenADocument("genericElements2");
 		Operations op = new Operations(doc);
 		
 		List<Argument> arguments3 = new ArrayList<Argument>();
@@ -229,7 +229,7 @@ public class GenericTest extends TestHelper {
 	
 	@Test
 	public void createModelsWithVariants() throws Exception{
-		DocumentManager doc = givenADocument("modelComVariants", "simples");
+		DocumentManager doc = givenADocument("modelComVariants");
 		Operations op = new Operations(doc);
 		
 		String idFoo = op.forClass().createClass("Foo").isVariationPoint().build().get("id");

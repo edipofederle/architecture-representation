@@ -4,10 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Map;
 
+import mestrado.arquitetura.api.touml.DocumentManager;
+import mestrado.arquitetura.api.touml.Operations;
 import mestrado.arquitetura.exceptions.NotSuppportedOperation;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.parser.DocumentManager;
-import mestrado.arquitetura.parser.Operations;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
 
@@ -17,7 +17,7 @@ public class GeneralizationTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateGeneralization() throws Exception{
-		DocumentManager doc = givenADocument("generalization1", "simples");
+		DocumentManager doc = givenADocument("generalization1");
 		Operations op = new Operations(doc);
 		
 		Map<String, String> employee = op.forClass().createClass("Employee").build();
@@ -39,7 +39,7 @@ public class GeneralizationTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateGeneralization2() throws Exception{
-		DocumentManager doc = givenADocument("generalization2", "simples");
+		DocumentManager doc = givenADocument("generalization2");
 		Operations op = new Operations(doc);
 		
 		Map<String, String> post = op.forClass().createClass("Post").build();
@@ -70,7 +70,7 @@ public class GeneralizationTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateGeneralizationClassPackageClass() throws Exception{
-		DocumentManager doc = givenADocument("generalization3", "simples");
+		DocumentManager doc = givenADocument("generalization3");
 		Operations op = new Operations(doc);
 		
 
@@ -85,7 +85,7 @@ public class GeneralizationTest extends TestHelper {
 	
 	@Test(expected=NotSuppportedOperation.class)
 	public void shouldNotAllowGeneralizationBetweenPackages() throws Exception{
-		DocumentManager doc = givenADocument("generalizationPacotes", "simples");
+		DocumentManager doc = givenADocument("generalizationPacotes");
 		Operations op = new Operations(doc);
 		
 		String id1 = op.forPackage().createPacakge("Pacote1").build().get("packageId");
@@ -96,7 +96,7 @@ public class GeneralizationTest extends TestHelper {
 	
 	@Test(expected=NotSuppportedOperation.class)
 	public void shouldNotAllowGeneralizationBetweenPackages2() throws Exception{
-		DocumentManager doc = givenADocument("generalizationPacotes2", "simples");
+		DocumentManager doc = givenADocument("generalizationPacotes2");
 		Operations op = new Operations(doc);
 		
 		String id1 = op.forPackage().createPacakge("Pacote1").build().get("packageId");

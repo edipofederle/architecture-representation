@@ -1,6 +1,6 @@
 package mestrado.arquitetura.representation;
 
-import mestrado.arquitetura.writer.Stereotype;
+import mestrado.arquitetura.api.touml.Stereotype;
 
 
 /**

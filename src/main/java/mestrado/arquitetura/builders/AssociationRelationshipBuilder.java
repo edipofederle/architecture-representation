@@ -13,7 +13,6 @@ import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Property;
 
-
 /**
  * 
  * @author edipofederle
@@ -49,7 +48,6 @@ public class AssociationRelationshipBuilder extends ArchitectureHelper {
 		return associationRelationship;
 	}
 
-	//TODO verificar essa classe, testes com mais tipos de associaçoes
 	private List<? extends AssociationEnd> getParticipants(Association association) {
 		List<AssociationEnd> elementsOfAssociation = new ArrayList<AssociationEnd>();
 		
@@ -62,7 +60,6 @@ public class AssociationRelationshipBuilder extends ArchitectureHelper {
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-					
 		}
 		
 		return elementsOfAssociation;

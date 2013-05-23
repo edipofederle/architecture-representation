@@ -3,9 +3,9 @@ package mestrado.arquitetura.representation;
 import java.util.ArrayList;
 import java.util.List;
 
-import mestrado.arquitetura.helpers.UtilResources;
 import mestrado.arquitetura.representation.relationship.AbstractionRelationship;
 import mestrado.arquitetura.representation.relationship.DependencyRelationship;
+import mestrado.arquitetura.utils.UtilResources;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

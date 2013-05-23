@@ -5,11 +5,11 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Map;
 
+import mestrado.arquitetura.api.touml.AssociationOperations;
+import mestrado.arquitetura.api.touml.ClassOperations;
+import mestrado.arquitetura.api.touml.DocumentManager;
 import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.parser.AssociationOperations;
-import mestrado.arquitetura.parser.ClassOperations;
-import mestrado.arquitetura.parser.DocumentManager;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 
@@ -20,7 +20,7 @@ public class AssociationTests  extends TestHelper {
 		
 	@Test(expected=InvalidMultiplictyForAssociationException.class)
 	public void shouldNotCreateAssociationBetweenClassesWhenLowerIsMany() throws Exception{
-		DocumentManager doc = givenADocument("testeNovaAssociacaoInvlida", "simples");
+		DocumentManager doc = givenADocument("testeNovaAssociacaoInvlida");
 		AssociationOperations associationOperations = new AssociationOperations(doc);
 		ClassOperations classOperations = new ClassOperations(doc);
 		
@@ -35,7 +35,7 @@ public class AssociationTests  extends TestHelper {
 	
 	@Test
 	public void shouldCreateAssociation() throws Exception{
-		DocumentManager doc = givenADocument("testeNovaAssociacao", "simples");
+		DocumentManager doc = givenADocument("testeNovaAssociacao");
 		AssociationOperations associationOperations = new AssociationOperations(doc);
 		ClassOperations classOperations = new ClassOperations(doc);
 		

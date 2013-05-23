@@ -2,9 +2,9 @@ package mestrado.arquitetura.writer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import mestrado.arquitetura.api.touml.DocumentManager;
+import mestrado.arquitetura.api.touml.Operations;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.parser.DocumentManager;
-import mestrado.arquitetura.parser.Operations;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 
@@ -14,7 +14,7 @@ public class CompositionTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateComposition() throws Exception{
-		DocumentManager doc = givenADocument("Composicao", "simples");
+		DocumentManager doc = givenADocument("Composicao");
 		
 		Operations op = new Operations(doc);
 		
@@ -39,7 +39,7 @@ public class CompositionTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateCompositionWithMultiplicy() throws Exception{
-		DocumentManager doc = givenADocument("ComposicaoComMultiplicidade", "simples");
+		DocumentManager doc = givenADocument("ComposicaoComMultiplicidade");
 		Operations op = new Operations(doc);
 		
 		String classUm =  op.forClass().createClass("ClasseUm").build().get("id");
@@ -60,7 +60,7 @@ public class CompositionTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateDependencyClassPackageClass() throws Exception{
-		DocumentManager doc = givenADocument("composicaoPacote", "simples");
+		DocumentManager doc = givenADocument("composicaoPacote");
 		Operations op = new Operations(doc);
 		
 		String classUm =  op.forClass().createClass("ClasseUm").build().get("id");

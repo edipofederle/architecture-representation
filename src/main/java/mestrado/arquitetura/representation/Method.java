@@ -3,7 +3,7 @@ package mestrado.arquitetura.representation;
 import java.util.ArrayList;
 import java.util.List;
 
-import mestrado.arquitetura.helpers.UtilResources;
+import mestrado.arquitetura.utils.UtilResources;
 
 /**
  * 
