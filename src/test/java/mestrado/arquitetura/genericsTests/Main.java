@@ -7,9 +7,11 @@ import java.util.List;
 import mestrado.arquitetura.api.touml.BindingTime;
 import mestrado.arquitetura.api.touml.DocumentManager;
 import mestrado.arquitetura.api.touml.Operations;
+import mestrado.arquitetura.base.ArchitectureBase;
 import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
+import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.io.ReaderConfig;
 import mestrado.arquitetura.parser.method.Types;
 import mestrado.arquitetura.parser.method.VisibilityKind;
@@ -24,14 +26,15 @@ import mestrado.arquitetura.representation.relationship.DependencyRelationship;
 import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
 import mestrado.arquitetura.writer.VariabilityStereotype;
 
-public class Main {
+public class Main extends ArchitectureBase {
 
 	/**
 	 * @param args
 	 * @throws ModelIncompleteException 
 	 * @throws ModelNotFoundException 
+	 * @throws SMartyProfileNotAppliedToModelExcepetion 
 	 */
-	public static void main(String[] args) throws ModelNotFoundException, ModelIncompleteException {
+	public static void main(String[] args) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
 		
 		System.out.println("Start....");
 		
@@ -117,18 +120,12 @@ public class Main {
 			
 			
 		} catch (Exception e) {
-			System.out.println("Ops!. Error, I am sorry: " + e.getMessage());
+			System.out.println("Ops!. Error, I am sorry: " + e.getLocalizedMessage());
 		}
 		
 		System.out.println("\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget()+doc.getNewModelName());
 		
 	}
 	
-	private static DocumentManager givenADocument(String outputModelName) {
-		String pathToFiles = "/Users/edipofederle/sourcesMestrado/arquitetura/src/main/java/mestrado/arquitetura/api/touml/1/";// model padrao vazio que o programa usa para construir o novo
-		DocumentManager documentManager = new DocumentManager(outputModelName, pathToFiles);
-		
-		return documentManager;
-	}
 
 }

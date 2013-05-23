@@ -2424,3 +2424,688 @@ Done. Architecture save into: /Users/edipofederle/Documents/modelingParaEscrita/
 
 2013-05-23 09:55:07 INFO  Class:89 - Attribute 'algumaCoisa' not found in class 'Person'.
 
+2013-05-23 10:54:18 INFO  Architecture:273 - Cannot remove Association null.
+
+2013-05-23 10:54:18 INFO  Architecture:284 - Cannot remove Dependency null.
+
+2013-05-23 10:54:18 INFO  Architecture:289 - Cannot remove Usage null.
+
+2013-05-23 10:54:18 INFO  Architecture:299 - Cannot remove Generalization null.
+
+2013-05-23 10:54:18 INFO  Architecture:304 - Cannot remove Abstraction null.
+
+2013-05-23 10:54:18 INFO  Architecture:406 - Elemento (Relacionamento) : _M2A5AI2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 10:54:18 INFO  Architecture:406 - Elemento (Package) : _GcVaII2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 10:54:18 INFO  Architecture:406 - Elemento (klass) : _--6rcJCxEeKDaa5NsMvxvw removido.
+
+2013-05-23 10:54:18 INFO  Architecture:406 - Elemento (Package) : _AnTlkJCyEeKDaa5NsMvxvw removido.
+
+2013-05-23 10:54:18 INFO  Architecture:406 - Elemento (Relacionamento) : _UBzIAJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 10:54:18 INFO  Architecture:406 - Elemento (klass) : _R0newJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 10:54:18 INFO  Architecture:406 - Elemento (Package) : _SyQLsJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 10:54:18 INFO  Architecture:406 - Elemento (Relacionamento) : _7sLxk5DAEeKDaa5NsMvxvw removido.
+
+2013-05-23 10:54:18 INFO  Architecture:406 - Elemento (Relacionamento) : _8QGW8JDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 10:54:18 INFO  Architecture:406 - Elemento (klass) : _voFGgJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 10:54:18 INFO  Architecture:406 - Elemento (klass) : _yRZ5MJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 10:54:18 INFO  Architecture:406 - Elemento (Package) : _wjFWMJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 10:54:18 INFO  Architecture:406 - Elemento (Class removida com sucesso) : _FfCEYI2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 10:54:18 INFO  RemoveNode:79 - Class with id: de1f8fef-68ca-4d07-8e36-cf8293c9c539 removed from NOTATION file.
+2013-05-23 10:54:18 INFO  RemoveNode:35 - Class with id: de1f8fef-68ca-4d07-8e36-cf8293c9c539 removed from UML file.
+2013-05-23 10:54:18 INFO  RemoveNode:79 - Class with id: cf56efc2-62dd-4d50-8f2c-863731512974 removed from NOTATION file.
+2013-05-23 10:54:18 INFO  RemoveNode:45 - Attribute with id: cf56efc2-62dd-4d50-8f2c-863731512974 removed.
+2013-05-23 10:54:19 INFO  RemoveNode:79 - Class with id: 4e23a297-82f4-4bb9-bb09-fc1334cae401 removed from NOTATION file.
+2013-05-23 10:54:19 INFO  RemoveNode:56 - Method with id: 4e23a297-82f4-4bb9-bb09-fc1334cae401 removed.
+2013-05-23 10:54:22 INFO  Class:115 - Method 'foo:' currently created in class 'Person'.
+
+2013-05-23 10:54:22 INFO  Class:115 - Method 'bar:String' currently created in class 'Person'.
+
+2013-05-23 10:54:22 INFO  Class:131 - Method 'metodoSemNome' not found in class 'Person'.
+
+2013-05-23 10:54:22 INFO  Class:89 - Attribute 'algumaCoisa' not found in class 'Person'.
+
+2013-05-23 14:21:48 INFO  Architecture:273 - Cannot remove Association null.
+
+2013-05-23 14:21:48 INFO  Architecture:284 - Cannot remove Dependency null.
+
+2013-05-23 14:21:48 INFO  Architecture:289 - Cannot remove Usage null.
+
+2013-05-23 14:21:48 INFO  Architecture:299 - Cannot remove Generalization null.
+
+2013-05-23 14:21:49 INFO  Architecture:304 - Cannot remove Abstraction null.
+
+2013-05-23 14:21:49 INFO  Architecture:406 - Elemento (Relacionamento) : _M2A5AI2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 14:21:49 INFO  Architecture:406 - Elemento (Package) : _GcVaII2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 14:21:49 INFO  Architecture:406 - Elemento (klass) : _--6rcJCxEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:21:49 INFO  Architecture:406 - Elemento (Package) : _AnTlkJCyEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:21:49 INFO  Architecture:406 - Elemento (Relacionamento) : _UBzIAJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 14:21:49 INFO  Architecture:406 - Elemento (klass) : _R0newJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 14:21:49 INFO  Architecture:406 - Elemento (Package) : _SyQLsJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 14:21:49 INFO  Architecture:406 - Elemento (Relacionamento) : _7sLxk5DAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:21:49 INFO  Architecture:406 - Elemento (Relacionamento) : _8QGW8JDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:21:49 INFO  Architecture:406 - Elemento (klass) : _voFGgJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:21:49 INFO  Architecture:406 - Elemento (klass) : _yRZ5MJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:21:49 INFO  Architecture:406 - Elemento (Package) : _wjFWMJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:21:49 INFO  Architecture:406 - Elemento (Class removida com sucesso) : _FfCEYI2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 14:21:50 INFO  RemoveNode:79 - Class with id: 6814d490-240a-40ab-94a9-f8e8d6ca405b removed from NOTATION file.
+2013-05-23 14:21:50 INFO  RemoveNode:35 - Class with id: 6814d490-240a-40ab-94a9-f8e8d6ca405b removed from UML file.
+2013-05-23 14:21:53 INFO  RemoveNode:79 - Class with id: 8eb69387-753c-418f-af0a-3d1aa456fd3e removed from NOTATION file.
+2013-05-23 14:21:53 INFO  RemoveNode:45 - Attribute with id: 8eb69387-753c-418f-af0a-3d1aa456fd3e removed.
+2013-05-23 14:21:53 INFO  RemoveNode:79 - Class with id: 20b2a609-f3aa-444f-965f-edab51d08ac8 removed from NOTATION file.
+2013-05-23 14:21:53 INFO  RemoveNode:56 - Method with id: 20b2a609-f3aa-444f-965f-edab51d08ac8 removed.
+2013-05-23 14:21:57 INFO  Class:115 - Method 'foo:' currently created in class 'Person'.
+
+2013-05-23 14:21:57 INFO  Class:115 - Method 'bar:String' currently created in class 'Person'.
+
+2013-05-23 14:21:57 INFO  Class:131 - Method 'metodoSemNome' not found in class 'Person'.
+
+2013-05-23 14:21:57 INFO  Class:89 - Attribute 'algumaCoisa' not found in class 'Person'.
+
+2013-05-23 14:23:29 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:37 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:37 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:37 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:37 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:37 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:37 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:37 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:37 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:37 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:37 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:38 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:38 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:38 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:38 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:38 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:38 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:38 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:38 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:39 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:39 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:39 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:39 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:39 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:39 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:39 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:39 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:39 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:40 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:40 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:40 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:41 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:41 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:42 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:42 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:42 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:42 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:42 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:43 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:43 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:43 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:43 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:43 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:43 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:43 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:43 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:43 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:44 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:44 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:44 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:44 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:44 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:44 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:44 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:44 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:44 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:45 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:45 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:45 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:45 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:45 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:45 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:46 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:46 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:46 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:46 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:46 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:47 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:47 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:47 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:47 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:47 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:47 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:47 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:47 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:47 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:47 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:48 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:48 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:48 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:48 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:48 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:48 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:48 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:48 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:48 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:49 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:49 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:49 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:49 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:49 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:49 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:49 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:49 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:49 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:49 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:49 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:49 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:49 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:50 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:51 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:51 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:51 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:51 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:51 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:51 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:51 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:51 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:51 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:51 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:51 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:51 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:51 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:51 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:51 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:52 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:52 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:52 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:52 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:52 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:52 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:52 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:52 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:52 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:52 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:52 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:52 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:52 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:52 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:52 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:53 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:54 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:55 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:56 INFO  Architecture:273 - Cannot remove Association null.
+
+2013-05-23 14:23:57 INFO  Architecture:284 - Cannot remove Dependency null.
+
+2013-05-23 14:23:57 INFO  Architecture:289 - Cannot remove Usage null.
+
+2013-05-23 14:23:57 INFO  Architecture:299 - Cannot remove Generalization null.
+
+2013-05-23 14:23:57 INFO  Architecture:304 - Cannot remove Abstraction null.
+
+2013-05-23 14:23:57 INFO  Architecture:406 - Elemento (Relacionamento) : _M2A5AI2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 14:23:57 INFO  Architecture:406 - Elemento (Package) : _GcVaII2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 14:23:57 INFO  Architecture:406 - Elemento (klass) : _--6rcJCxEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:23:57 INFO  Architecture:406 - Elemento (Package) : _AnTlkJCyEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:23:57 INFO  Architecture:406 - Elemento (Relacionamento) : _UBzIAJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 14:23:57 INFO  Architecture:406 - Elemento (klass) : _R0newJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 14:23:57 INFO  Architecture:406 - Elemento (Package) : _SyQLsJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 14:23:57 INFO  Architecture:406 - Elemento (Relacionamento) : _7sLxk5DAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:23:57 INFO  Architecture:406 - Elemento (Relacionamento) : _8QGW8JDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:23:57 INFO  Architecture:406 - Elemento (klass) : _voFGgJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:23:57 INFO  Architecture:406 - Elemento (klass) : _yRZ5MJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:23:57 INFO  Architecture:406 - Elemento (Package) : _wjFWMJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:23:57 INFO  Architecture:406 - Elemento (Class removida com sucesso) : _FfCEYI2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 14:23:57 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:57 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:57 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:57 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:57 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:57 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:57 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:57 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:57 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:57 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:58 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:59 INFO  RemoveNode:79 - Class with id: 3b799148-269d-4e7d-865e-1b6ee1d5dd67 removed from NOTATION file.
+2013-05-23 14:23:59 INFO  RemoveNode:45 - Attribute with id: 3b799148-269d-4e7d-865e-1b6ee1d5dd67 removed.
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:23:59 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:00 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:00 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:00 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:00 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:00 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:00 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:00 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:00 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:00 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:00 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:00 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:00 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:00 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:00 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:00 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:01 INFO  Architecture:273 - Cannot remove Association null.
+
+2013-05-23 14:24:01 INFO  Architecture:284 - Cannot remove Dependency null.
+
+2013-05-23 14:24:01 INFO  Architecture:289 - Cannot remove Usage null.
+
+2013-05-23 14:24:01 INFO  Architecture:299 - Cannot remove Generalization null.
+
+2013-05-23 14:24:01 INFO  Architecture:304 - Cannot remove Abstraction null.
+
+2013-05-23 14:24:01 INFO  Architecture:406 - Elemento (Relacionamento) : _M2A5AI2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 14:24:01 INFO  Architecture:406 - Elemento (Package) : _GcVaII2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 14:24:01 INFO  Architecture:406 - Elemento (klass) : _--6rcJCxEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:24:01 INFO  Architecture:406 - Elemento (Package) : _AnTlkJCyEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:24:01 INFO  Architecture:406 - Elemento (Relacionamento) : _UBzIAJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 14:24:01 INFO  Architecture:406 - Elemento (klass) : _R0newJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 14:24:01 INFO  Architecture:406 - Elemento (Package) : _SyQLsJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 14:24:01 INFO  Architecture:406 - Elemento (Relacionamento) : _7sLxk5DAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:24:01 INFO  Architecture:406 - Elemento (Relacionamento) : _8QGW8JDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:24:01 INFO  Architecture:406 - Elemento (klass) : _voFGgJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:24:01 INFO  Architecture:406 - Elemento (klass) : _yRZ5MJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:24:01 INFO  Architecture:406 - Elemento (Package) : _wjFWMJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:24:01 INFO  Architecture:406 - Elemento (Class removida com sucesso) : _FfCEYI2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 14:24:01 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:01 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:01 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:01 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:01 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:01 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:01 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:01 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:01 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:01 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:01 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:01 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:01 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:03 INFO  RemoveNode:79 - Class with id: 676eba73-3c89-46c7-ab74-248a3637cb4c removed from NOTATION file.
+2013-05-23 14:24:03 INFO  RemoveNode:45 - Attribute with id: 676eba73-3c89-46c7-ab74-248a3637cb4c removed.
+2013-05-23 14:24:03 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:03 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:03 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:03 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:03 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:03 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:03 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:03 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:03 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:03 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:03 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:04 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:05 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:05 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:05 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:05 INFO  Class:115 - Method 'foo:' currently created in class 'Person'.
+
+2013-05-23 14:24:05 INFO  Class:115 - Method 'bar:String' currently created in class 'Person'.
+
+2013-05-23 14:24:05 INFO  Class:131 - Method 'metodoSemNome' not found in class 'Person'.
+
+2013-05-23 14:24:05 INFO  Class:89 - Attribute 'algumaCoisa' not found in class 'Person'.
+
+2013-05-23 14:24:05 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:05 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:05 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:05 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:05 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:05 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:05 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:05 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:05 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:05 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:05 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:06 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:06 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:06 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:06 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:06 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:06 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:06 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:06 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:06 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:07 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:07 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:07 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:07 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:07 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:08 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:08 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.notation (No such file or directory)
+2013-05-23 14:24:08 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.uml (No such file or directory)
+2013-05-23 14:24:08 INFO  FileUtils:45 - Erros when copying files. Here are message error: manipulation/simples.di (No such file or directory)
+2013-05-23 14:24:08 INFO  Class:115 - Method 'foo:' currently created in class 'Person'.
+
+2013-05-23 14:24:08 INFO  Class:115 - Method 'bar:String' currently created in class 'Person'.
+
+2013-05-23 14:24:08 INFO  Class:131 - Method 'metodoSemNome' not found in class 'Person'.
+
+2013-05-23 14:24:08 INFO  Class:89 - Attribute 'algumaCoisa' not found in class 'Person'.
+
+2013-05-23 14:24:37 INFO  RemoveNode:79 - Class with id: 8428fc9a-e3e0-4c51-bd98-4484463df8fc removed from NOTATION file.
+2013-05-23 14:24:37 INFO  RemoveNode:35 - Class with id: 8428fc9a-e3e0-4c51-bd98-4484463df8fc removed from UML file.
+2013-05-23 14:24:37 INFO  RemoveNode:79 - Class with id: c365dde5-8658-4a2b-8d03-78ab49a51f37 removed from NOTATION file.
+2013-05-23 14:24:37 INFO  RemoveNode:45 - Attribute with id: c365dde5-8658-4a2b-8d03-78ab49a51f37 removed.
+2013-05-23 14:24:38 INFO  RemoveNode:79 - Class with id: 7c6cc68d-8807-4324-99e0-89b90608fc64 removed from NOTATION file.
+2013-05-23 14:24:38 INFO  RemoveNode:56 - Method with id: 7c6cc68d-8807-4324-99e0-89b90608fc64 removed.
+2013-05-23 14:25:03 INFO  Architecture:273 - Cannot remove Association null.
+
+2013-05-23 14:25:03 INFO  Architecture:284 - Cannot remove Dependency null.
+
+2013-05-23 14:25:03 INFO  Architecture:289 - Cannot remove Usage null.
+
+2013-05-23 14:25:03 INFO  Architecture:299 - Cannot remove Generalization null.
+
+2013-05-23 14:25:03 INFO  Architecture:304 - Cannot remove Abstraction null.
+
+2013-05-23 14:25:03 INFO  Architecture:406 - Elemento (Relacionamento) : _M2A5AI2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 14:25:03 INFO  Architecture:406 - Elemento (Package) : _GcVaII2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 14:25:03 INFO  Architecture:406 - Elemento (klass) : _--6rcJCxEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:03 INFO  Architecture:406 - Elemento (Package) : _AnTlkJCyEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:03 INFO  Architecture:406 - Elemento (Relacionamento) : _UBzIAJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:03 INFO  Architecture:406 - Elemento (klass) : _R0newJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:03 INFO  Architecture:406 - Elemento (Package) : _SyQLsJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:03 INFO  Architecture:406 - Elemento (Relacionamento) : _7sLxk5DAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:03 INFO  Architecture:406 - Elemento (Relacionamento) : _8QGW8JDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:03 INFO  Architecture:406 - Elemento (klass) : _voFGgJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:03 INFO  Architecture:406 - Elemento (klass) : _yRZ5MJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:03 INFO  Architecture:406 - Elemento (Package) : _wjFWMJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:03 INFO  Architecture:406 - Elemento (Class removida com sucesso) : _FfCEYI2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 14:25:26 INFO  Architecture:273 - Cannot remove Association null.
+
+2013-05-23 14:25:26 INFO  Architecture:284 - Cannot remove Dependency null.
+
+2013-05-23 14:25:26 INFO  Architecture:289 - Cannot remove Usage null.
+
+2013-05-23 14:25:27 INFO  Architecture:299 - Cannot remove Generalization null.
+
+2013-05-23 14:25:27 INFO  Architecture:304 - Cannot remove Abstraction null.
+
+2013-05-23 14:25:27 INFO  Architecture:406 - Elemento (Relacionamento) : _M2A5AI2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 14:25:27 INFO  Architecture:406 - Elemento (Package) : _GcVaII2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 14:25:27 INFO  Architecture:406 - Elemento (klass) : _--6rcJCxEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:27 INFO  Architecture:406 - Elemento (Package) : _AnTlkJCyEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:27 INFO  Architecture:406 - Elemento (Relacionamento) : _UBzIAJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:27 INFO  Architecture:406 - Elemento (klass) : _R0newJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:27 INFO  Architecture:406 - Elemento (Package) : _SyQLsJC1EeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:27 INFO  Architecture:406 - Elemento (Relacionamento) : _7sLxk5DAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:27 INFO  Architecture:406 - Elemento (Relacionamento) : _8QGW8JDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:27 INFO  Architecture:406 - Elemento (klass) : _voFGgJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:27 INFO  Architecture:406 - Elemento (klass) : _yRZ5MJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:27 INFO  Architecture:406 - Elemento (Package) : _wjFWMJDAEeKDaa5NsMvxvw removido.
+
+2013-05-23 14:25:27 INFO  Architecture:406 - Elemento (Class removida com sucesso) : _FfCEYI2PEeKIxp0D2fxnTw removido.
+
+2013-05-23 14:25:27 INFO  RemoveNode:79 - Class with id: e751f8d7-c2cd-438b-ab32-4d3259b2628b removed from NOTATION file.
+2013-05-23 14:25:27 INFO  RemoveNode:35 - Class with id: e751f8d7-c2cd-438b-ab32-4d3259b2628b removed from UML file.
+2013-05-23 14:25:27 INFO  RemoveNode:79 - Class with id: 3351e6f2-0f04-4484-bbdf-a8af8b743eae removed from NOTATION file.
+2013-05-23 14:25:27 INFO  RemoveNode:45 - Attribute with id: 3351e6f2-0f04-4484-bbdf-a8af8b743eae removed.
+2013-05-23 14:25:27 INFO  RemoveNode:79 - Class with id: 1a80e7af-a3a6-44de-9814-7d0abc084413 removed from NOTATION file.
+2013-05-23 14:25:27 INFO  RemoveNode:56 - Method with id: 1a80e7af-a3a6-44de-9814-7d0abc084413 removed.
+2013-05-23 14:25:29 INFO  Class:115 - Method 'foo:' currently created in class 'Person'.
+
+2013-05-23 14:25:29 INFO  Class:115 - Method 'bar:String' currently created in class 'Person'.
+
+2013-05-23 14:25:29 INFO  Class:131 - Method 'metodoSemNome' not found in class 'Person'.
+
+2013-05-23 14:25:29 INFO  Class:89 - Attribute 'algumaCoisa' not found in class 'Person'.
+

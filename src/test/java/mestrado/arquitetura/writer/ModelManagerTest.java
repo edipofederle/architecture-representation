@@ -445,7 +445,7 @@ public class ModelManagerTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldSaveModificationAndCopyFilesToDestination(){
+	public void shouldSaveModificationAndCopyFilesToDestination() throws Exception{
 		
 		givenADocument("teste5");
 		

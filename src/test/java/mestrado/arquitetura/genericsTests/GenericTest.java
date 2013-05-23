@@ -20,7 +20,10 @@ import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.exceptions.NotSuppportedOperation;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.helpers.StereotypeHelper;
+import mestrado.arquitetura.helpers.Uml2Helper;
+import mestrado.arquitetura.helpers.Uml2HelperFactory;
 import mestrado.arquitetura.helpers.test.TestHelper;
+import mestrado.arquitetura.io.ReaderConfig;
 import mestrado.arquitetura.parser.method.Argument;
 import mestrado.arquitetura.parser.method.Method;
 import mestrado.arquitetura.parser.method.Types;
@@ -34,6 +37,7 @@ import mestrado.arquitetura.representation.relationship.DependencyRelationship;
 import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
 import mestrado.arquitetura.representation.relationship.UsageRelationship;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Profile;
@@ -264,6 +268,18 @@ public class GenericTest extends TestHelper {
 		assertEquals("alternative_OR", bar1.getVariantType().getVariantName());
 		assertEquals("alternative_OR", bar2.getVariantType().getVariantName());
 		assertEquals("alternative_OR", bar3.getVariantType().getVariantName());
+	}
+	
+	@Test
+	public void teste() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, IOException{
+		Uml2Helper helper = Uml2HelperFactory.getUml2Helper();
+		Package model = helper.load("src/main/java/mestrado/arquitetura/api/touml/1/simples.uml");
+		assertNotNull(model);
+		
+		Profile profile = (Profile) helper.getExternalResources(ReaderConfig.getPathToProfileConcerns());
+		model.applyProfile(profile);
+		URI uri = URI.createFileURI("/Users/edipofederle/Desktop/output.uml");
+		helper.saveResources(model, uri);
 	}
 	
 }

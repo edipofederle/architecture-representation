@@ -8,6 +8,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
+import mestrado.arquitetura.exceptions.ModelIncompleteException;
+import mestrado.arquitetura.exceptions.ModelNotFoundException;
+import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.io.CopyFile;
 import mestrado.arquitetura.io.SaveAndCopy;
 
@@ -15,7 +18,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
-public class DocumentManager {
+public class DocumentManager extends XmiHelper {
 	
 	private org.w3c.dom.Document docUml;
 	private org.w3c.dom.Document docNotation;
@@ -25,18 +28,19 @@ public class DocumentManager {
 	
 	static Logger LOGGER = LogManager.getLogger(DocumentManager.class.getName());
 	
-	public DocumentManager(String outputModelName, String pathToFiles){
+	public DocumentManager(String outputModelName, String pathToFiles) throws ModelNotFoundException, ModelIncompleteException {
 		this.outputModelName = outputModelName;
 		
 		
 		makeACopy(pathToFiles, BASE_DOCUMENT);
 		createXMIDocument();
 		
-		
 		this.saveAndCopy(outputModelName);
+		
 		
 	}
 	
+
 	private void createXMIDocument(){
 		DocumentBuilderFactory docBuilderFactoryNotation = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilderNotation = null;
@@ -67,13 +71,17 @@ public class DocumentManager {
 	 * 
 	 * @param pathToFiles
 	 * @param modelName
+	 * @throws ModelIncompleteException 
+	 * @throws ModelNotFoundException 
+	 * @throws SMartyProfileNotAppliedToModelExcepetion 
 	 * @throws IOException
 	 */
-	private void makeACopy(String pathToFiles, String modelName) {
+	private void makeACopy(String pathToFiles, String modelName) throws ModelNotFoundException, ModelIncompleteException {
 		
 		String notationCopy = "manipulation/"+BASE_DOCUMENT+".notation";
 		String umlCopy = "manipulation/"+BASE_DOCUMENT+".uml";
 		String diCopy = "manipulation/"+BASE_DOCUMENT+".di";
+		
 		
 		try {
 			CopyFile.copyFile(new File(pathToFiles+modelName+".notation"), new File(notationCopy));
@@ -83,6 +91,7 @@ public class DocumentManager {
 		} catch (IOException e) {
 			LOGGER.error("I cannot copy all files. Here a message erros: " + e.getMessage());
 		}
+
 	}
 
 	/**

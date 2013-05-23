@@ -135,8 +135,8 @@ public abstract class TestHelper {
 		return false;
 	}
 	
-	public DocumentManager givenADocument(String outputModelName) {
-		String pathToFiles = "/Users/edipofederle/sourcesMestrado/arquitetura/src/main/java/mestrado/arquitetura/api/touml/1/";// model padrao vazio que o programa usa para construir o novo
+	public DocumentManager givenADocument(String outputModelName) throws ModelNotFoundException, ModelIncompleteException {
+		String pathToFiles = "src/main/java/mestrado/arquitetura/api/touml/1/";// model padrao vazio que o programa usa para construir o novo
 		DocumentManager documentManager = new DocumentManager(outputModelName, pathToFiles);
 		
 		return documentManager;

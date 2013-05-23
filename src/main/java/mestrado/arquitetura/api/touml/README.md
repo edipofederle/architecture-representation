@@ -1,15 +1,14 @@
 
 
-Esse pacote contém classes responsáveis pela escrita de um arquitetura representada em memória (*ver pacote: mestrado.arquitetura.representation*).
+Esse pacote contém classes responsáveis pela escrita de uma arquitetura representada em memória (*ver pacote: mestrado.arquitetura.representation*).
 
 Por meio da classe **Operations** se tem acesso as funcionalidades.
 
 Por exemplo, se desejarmos criar uma classe chamada *Foo*.
 
-		DocumentManager doc = givenADocument("newModel");
-		Operations op = new Operations(doc);
-
-	  op.forClass().createClass("Foo").build();
+	DocumentManager doc = givenADocument("newModel");
+	Operations op = new Operations(doc);
+	op.forClass().createClass("Foo").build();
 
 O código acima irá gerar dois arquivos:
 
