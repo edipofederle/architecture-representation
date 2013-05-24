@@ -146,7 +146,20 @@ public class DocumentManager extends XmiHelper {
 		return this.outputModelName;
 	}
 
-
+	
+	/**
+	 * Esse método é responsável por atualizar as referencias aos profiles (definidos no arquivo application.yml)
+	 * que são usados no modelo.
+	 * 
+	 * Basicamente é lido dois valores de cada arquivo de profile e atualizado no arquivo simples.uml, do qual é
+	 * usado como base para escrever o modelo novamente em disco.
+	 * 
+	 * @throws ModelNotFoundException
+	 * @throws ModelIncompleteException
+	 * @throws CustonTypeNotFound
+	 * @throws NodeNotFound
+	 * @throws InvalidMultiplictyForAssociationException
+	 */
 	public void updateProfilesRefs() throws ModelNotFoundException, ModelIncompleteException, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		String pathToProfileSMarty = ReaderConfig.getPathToProfileSMarty();
 		String pathToProfileConcern = ReaderConfig.getPathToProfileConcerns();
@@ -165,16 +178,16 @@ public class DocumentManager extends XmiHelper {
 			profileConcern = factoryConcern.newDocumentBuilder();
 			final Document docConcern = profileConcern.parse(pathToProfileConcern);
 			
-			updateHrefAtt(getRefId(docProfile, "contents", "xmi:id"), "smarty", "appliedProfile", false);
-			updateHrefAtt(getRefId(docConcern, "contents", "xmi:id"), "Concerns", "appliedProfile", false);
+			updateHrefAtt(getIdOnNode(docProfile, "contents", "xmi:id"), "smarty", "appliedProfile", false);
+			updateHrefAtt(getIdOnNode(docConcern, "contents", "xmi:id"), "Concerns", "appliedProfile", false);
 			
-			updateHrefAtt(getRefId(docProfile, "uml:Profile", "xmi:id"), "smarty", "appliedProfile", true);
-			updateHrefAtt(getRefId(docConcern, "uml:Profile", "xmi:id"), "Concerns", "appliedProfile", true);
+			updateHrefAtt(getIdOnNode(docProfile, "uml:Profile", "xmi:id"), "smarty", "appliedProfile", true);
+			updateHrefAtt(getIdOnNode(docConcern, "uml:Profile", "xmi:id"), "Concerns", "appliedProfile", true);
 			
 			
 			//Recuperar os valores de nsURI para os profiles.
-			final String nsUriPerfilSmarty = getRefId(docProfile, "contents", "nsURI");
-			final String nsUriPerfilConcern = getRefId(docConcern, "contents", "nsURI");
+			final String nsUriPerfilSmarty = getIdOnNode(docProfile, "contents", "nsURI");
+			final String nsUriPerfilConcern = getIdOnNode(docConcern, "contents", "nsURI");
 			
 			mestrado.arquitetura.api.touml.Document.executeTransformation(this, new Transformation(){
 				public void useTransformation() throws CustonTypeNotFound, NodeNotFound {
@@ -185,16 +198,12 @@ public class DocumentManager extends XmiHelper {
 					xmlsnsConcern.setNodeValue(nsUriPerfilConcern);
 					
 					Node nodeSchemaLocation = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xsi:schemaLocation");
-					String concernLocaltionSchema = nsUriPerfilConcern + " " + "perfilConcerns.profile.uml#"+ getRefId(docConcern, "contents", "xmi:id");
-					String samrtyLocaltionSchema = nsUriPerfilSmarty + " " + "smarty.profile.uml#"+ getRefId(docProfile, "contents", "xmi:id");
+					String concernLocaltionSchema = nsUriPerfilConcern + " " + "perfilConcerns.profile.uml#"+ getIdOnNode(docConcern, "contents", "xmi:id");
+					String samrtyLocaltionSchema = nsUriPerfilSmarty + " " + "smarty.profile.uml#"+ getIdOnNode(docProfile, "contents", "xmi:id");
 					
 					nodeSchemaLocation.setNodeValue(concernLocaltionSchema +" " + samrtyLocaltionSchema);
-					
-					
 				}
 			});
-			
-			
 			
 		} catch (SAXException e) {
 			e.printStackTrace();
@@ -243,24 +252,35 @@ public class DocumentManager extends XmiHelper {
 						for (int k = 0; k < childs.item(j).getChildNodes().getLength(); k++) {
 							if(childs.item(j).getChildNodes().item(k).getNodeName().equalsIgnoreCase("references")){
 								NodeList eAnnotationsChilds = childs.item(j).getChildNodes();
-								for (int l = 0; l < eAnnotationsChilds.getLength(); l++) {
-									if(eAnnotationsChilds.item(l).getNodeName().equalsIgnoreCase("references")
-											&& (eAnnotationsChilds.item(l).getAttributes().getNamedItem("href").getNodeValue().contains(profileName))){
+								for (int l = 0; l < eAnnotationsChilds.getLength(); l++) 
+									if(isProfileNode(profileName, eAnnotationsChilds, l))
 										return eAnnotationsChilds.item(l);
-									}
-								}
 							}
 						}
-						
 					}
+						
 				}
 			}
+			
 			return null;
 		}
-	
 
-	private String getRefId(Document docProfile, String tagName, String attrName) {
-		return docProfile.getElementsByTagName(tagName).item(0).getAttributes().getNamedItem(attrName).getNodeValue();
+
+	private boolean isProfileNode(String profileName, NodeList eAnnotationsChilds, int l) {
+		return (eAnnotationsChilds.item(l).getNodeName().equalsIgnoreCase("references") &&
+			   (eAnnotationsChilds.item(l).getAttributes().getNamedItem("href").getNodeValue().contains(profileName)));
+	}
+	
+	
+	/**
+	 * 
+	 * @param document - O documento em que se quer pesquisar.
+	 * @param tagName - elemento desejado
+	 * @param attrName - atributo do elemento desejado
+	 * @return
+	 */
+	private String getIdOnNode(Document document, String tagName, String attrName) {
+		return document.getElementsByTagName(tagName).item(0).getAttributes().getNamedItem(attrName).getNodeValue();
 	}
 	
 }
