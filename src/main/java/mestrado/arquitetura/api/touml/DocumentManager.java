@@ -16,7 +16,7 @@ import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.io.CopyFile;
 import mestrado.arquitetura.io.ReaderConfig;
-import mestrado.arquitetura.io.SaveAndCopy;
+import mestrado.arquitetura.io.SaveAndMove;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -24,6 +24,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import com.google.common.io.Files;
 
 public class DocumentManager extends XmiHelper {
 	
@@ -42,21 +44,36 @@ public class DocumentManager extends XmiHelper {
 		makeACopy(pathToFiles, BASE_DOCUMENT);
 		createXMIDocument();
 		
-		try {
-			updateProfilesRefs();
-		} catch (CustonTypeNotFound e) {
-			e.printStackTrace();
-		} catch (NodeNotFound e) {
-			e.printStackTrace();
-		} catch (InvalidMultiplictyForAssociationException e) {
-			e.printStackTrace();
-		}
+		updateProfilesRefs();
 		
 		this.saveAndCopy(outputModelName);
+		
+		copyProfilesToDestination();
 		
 		
 	}
 	
+
+	private void copyProfilesToDestination() {
+		String pathSmarty = ReaderConfig.getPathToProfileSMarty();
+		String pathConcern = ReaderConfig.getPathToProfileConcerns();
+		
+		final File sourceFileSmarty = new File(pathSmarty);
+		final File destFileSmarty = new File(ReaderConfig.getDirExportTarget()+"/smarty.profile.uml");
+		
+		final File sourceFileConcern = new File(pathConcern);
+		final File destFileConcern = new File(ReaderConfig.getDirExportTarget()+"/perfilConcerns.profile.uml");
+		
+		try {
+			Files.copy(sourceFileSmarty, destFileSmarty);
+			Files.copy(sourceFileConcern, destFileConcern);
+		} catch (IOException e) {
+			LOGGER.warn("I cannot copy resources to destination. " + e.getMessage() );
+			e.printStackTrace();
+		}
+		
+	}
+
 
 	private void createXMIDocument(){
 		DocumentBuilderFactory docBuilderFactoryNotation = DocumentBuilderFactory.newInstance();
@@ -130,7 +147,7 @@ public class DocumentManager extends XmiHelper {
 		this.outputModelName = newModelName;
 		
 		try {
-			SaveAndCopy.saveAndCopy(docNotation, docUml, docDi, BASE_DOCUMENT, newModelName);
+			SaveAndMove.saveAndMove(docNotation, docUml, docDi, BASE_DOCUMENT, newModelName);
 		} catch (TransformerException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -160,7 +177,7 @@ public class DocumentManager extends XmiHelper {
 	 * @throws NodeNotFound
 	 * @throws InvalidMultiplictyForAssociationException
 	 */
-	public void updateProfilesRefs() throws ModelNotFoundException, ModelIncompleteException, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public void updateProfilesRefs()  {
 		String pathToProfileSMarty = ReaderConfig.getPathToProfileSMarty();
 		String pathToProfileConcern = ReaderConfig.getPathToProfileConcerns();
 		
@@ -216,7 +233,7 @@ public class DocumentManager extends XmiHelper {
 	}
 
 
-	private void updateHrefAtt(final String idApplied, final String profileName, final String tagName, final boolean updateReference) throws CustonTypeNotFound, NodeNotFound,	InvalidMultiplictyForAssociationException {
+	private void updateHrefAtt(final String idApplied, final String profileName, final String tagName, final boolean updateReference) {
 		mestrado.arquitetura.api.touml.Document.executeTransformation(this, new Transformation(){
 			public void useTransformation() {
 				Node node = null;

@@ -15,7 +15,6 @@ import java.util.Map;
 import junit.framework.Assert;
 import mestrado.arquitetura.api.touml.DocumentManager;
 import mestrado.arquitetura.api.touml.Operations;
-import mestrado.arquitetura.exceptions.CustonTypeNotFound;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.parser.method.Argument;
 import mestrado.arquitetura.parser.method.Attribute;

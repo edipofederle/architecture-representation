@@ -8,7 +8,6 @@ import java.util.Map;
 import mestrado.arquitetura.api.touml.AssociationOperations;
 import mestrado.arquitetura.api.touml.ClassOperations;
 import mestrado.arquitetura.api.touml.DocumentManager;
-import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import mestrado.arquitetura.helpers.test.TestHelper;
 import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.relationship.AssociationRelationship;

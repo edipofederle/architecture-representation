@@ -3761,3 +3761,53 @@ Done. Architecture save into: /Users/edipofederle/Documents/modelingParaEscrita/
 
 2013-05-24 16:50:24 INFO  Class:89 - Attribute 'algumaCoisa' not found in class 'Person'.
 
+2013-05-24 17:30:33 INFO  Architecture:273 - Cannot remove Association null.
+
+2013-05-24 17:30:33 INFO  Architecture:284 - Cannot remove Dependency null.
+
+2013-05-24 17:30:33 INFO  Architecture:289 - Cannot remove Usage null.
+
+2013-05-24 17:30:33 INFO  Architecture:299 - Cannot remove Generalization null.
+
+2013-05-24 17:30:33 INFO  Architecture:304 - Cannot remove Abstraction null.
+
+2013-05-24 17:30:33 INFO  Architecture:406 - Elemento (Relacionamento) : _M2A5AI2PEeKIxp0D2fxnTw removido.
+
+2013-05-24 17:30:33 INFO  Architecture:406 - Elemento (Package) : _GcVaII2PEeKIxp0D2fxnTw removido.
+
+2013-05-24 17:30:34 INFO  Architecture:406 - Elemento (klass) : _--6rcJCxEeKDaa5NsMvxvw removido.
+
+2013-05-24 17:30:34 INFO  Architecture:406 - Elemento (Package) : _AnTlkJCyEeKDaa5NsMvxvw removido.
+
+2013-05-24 17:30:34 INFO  Architecture:406 - Elemento (Relacionamento) : _UBzIAJC1EeKDaa5NsMvxvw removido.
+
+2013-05-24 17:30:34 INFO  Architecture:406 - Elemento (klass) : _R0newJC1EeKDaa5NsMvxvw removido.
+
+2013-05-24 17:30:34 INFO  Architecture:406 - Elemento (Package) : _SyQLsJC1EeKDaa5NsMvxvw removido.
+
+2013-05-24 17:30:34 INFO  Architecture:406 - Elemento (Relacionamento) : _7sLxk5DAEeKDaa5NsMvxvw removido.
+
+2013-05-24 17:30:34 INFO  Architecture:406 - Elemento (Relacionamento) : _8QGW8JDAEeKDaa5NsMvxvw removido.
+
+2013-05-24 17:30:34 INFO  Architecture:406 - Elemento (klass) : _voFGgJDAEeKDaa5NsMvxvw removido.
+
+2013-05-24 17:30:34 INFO  Architecture:406 - Elemento (klass) : _yRZ5MJDAEeKDaa5NsMvxvw removido.
+
+2013-05-24 17:30:34 INFO  Architecture:406 - Elemento (Package) : _wjFWMJDAEeKDaa5NsMvxvw removido.
+
+2013-05-24 17:30:34 INFO  Architecture:406 - Elemento (Class removida com sucesso) : _FfCEYI2PEeKIxp0D2fxnTw removido.
+
+2013-05-24 17:30:34 INFO  RemoveNode:79 - Class with id: a5a3bbd9-c97e-41fc-842a-eddd749e16e3 removed from NOTATION file.
+2013-05-24 17:30:34 INFO  RemoveNode:35 - Class with id: a5a3bbd9-c97e-41fc-842a-eddd749e16e3 removed from UML file.
+2013-05-24 17:30:35 INFO  RemoveNode:79 - Class with id: 41a41e8d-9a2d-4b63-88c3-3c720d8ec563 removed from NOTATION file.
+2013-05-24 17:30:35 INFO  RemoveNode:45 - Attribute with id: 41a41e8d-9a2d-4b63-88c3-3c720d8ec563 removed.
+2013-05-24 17:30:35 INFO  RemoveNode:79 - Class with id: ceb58bfc-f304-4072-aaff-033713edbc32 removed from NOTATION file.
+2013-05-24 17:30:35 INFO  RemoveNode:56 - Method with id: ceb58bfc-f304-4072-aaff-033713edbc32 removed.
+2013-05-24 17:30:40 INFO  Class:115 - Method 'foo:' currently created in class 'Person'.
+
+2013-05-24 17:30:40 INFO  Class:115 - Method 'bar:String' currently created in class 'Person'.
+
+2013-05-24 17:30:40 INFO  Class:131 - Method 'metodoSemNome' not found in class 'Person'.
+
+2013-05-24 17:30:40 INFO  Class:89 - Attribute 'algumaCoisa' not found in class 'Person'.
+
