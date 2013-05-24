@@ -17,22 +17,6 @@ import org.junit.Test;
 
 public class AssociationTests  extends TestHelper {
 	
-		
-	@Test(expected=InvalidMultiplictyForAssociationException.class)
-	public void shouldNotCreateAssociationBetweenClassesWhenLowerIsMany() throws Exception{
-		DocumentManager doc = givenADocument("testeNovaAssociacaoInvlida");
-		AssociationOperations associationOperations = new AssociationOperations(doc);
-		ClassOperations classOperations = new ClassOperations(doc);
-		
-		Map<String, String> employee = classOperations.createClass("Employee").build();
-		Map<String, String> manager = classOperations.createClass("Casa").build();
-		
-		associationOperations.createAssociation()
-							 .betweenClass(employee.get("id")).withMultiplicy("*..1")
-							 .andClass(manager.get("id"))
-							 .build();
-	}
-	
 	@Test
 	public void shouldCreateAssociation() throws Exception{
 		DocumentManager doc = givenADocument("testeNovaAssociacao");

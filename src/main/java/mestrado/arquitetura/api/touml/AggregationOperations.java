@@ -46,7 +46,7 @@ public class AggregationOperations implements Relationship {
 		final CompositionNode compositeNode = new CompositionNode(doc);
 		
 		mestrado.arquitetura.api.touml.Document.executeTransformation(doc, new Transformation(){
-			public void useTransformation() throws NodeNotFound, InvalidMultiplictyForAssociationException {
+			public void useTransformation(){
 				compositeNode.createComposition(name, client, target, multiplicityClassClient, multiplicityClassTarget, "shared");
 			}
 		});

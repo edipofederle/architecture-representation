@@ -1,6 +1,5 @@
 package mestrado.arquitetura.api.touml;
 
-import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.utils.UtilResources;
 
 import org.w3c.dom.DOMException;
@@ -25,7 +24,7 @@ public class GeneralizationNode extends XmiHelper {
 		this.general = general;
 	}
 
-	public void createGeneralization() throws DOMException, NodeNotFound {
+	public void createGeneralization() throws DOMException {
 		
 		createNodeInUmlFile();
 		

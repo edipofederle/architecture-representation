@@ -44,7 +44,7 @@ public class CompositionOperations {
 		final CompositionNode cn = new CompositionNode(doc);
 		
 		mestrado.arquitetura.api.touml.Document.executeTransformation(doc, new Transformation(){
-			public void useTransformation() throws NodeNotFound, InvalidMultiplictyForAssociationException {
+			public void useTransformation() {
 				cn.createComposition(name, client, target, multiplicityClassClient, multiplicityClassTarget, "composite");
 			}
 		});

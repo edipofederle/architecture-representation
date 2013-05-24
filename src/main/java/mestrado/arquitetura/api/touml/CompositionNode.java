@@ -4,10 +4,14 @@ import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException
 import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.utils.UtilResources;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 public class CompositionNode extends XmiHelper {
+	
+	static Logger LOGGER = LogManager.getLogger(CompositionNode.class.getName());
 
 	private DocumentManager doc;
 	private String associationId;
@@ -30,7 +34,7 @@ public class CompositionNode extends XmiHelper {
 	 * @throws NodeNotFound
 	 * @throws InvalidMultiplictyForAssociationException
 	 */
-	public void createComposition(String name, String client, String target, String multiplicityClassClient, String multiplicityClassTarget, String type) throws NodeNotFound, InvalidMultiplictyForAssociationException {
+	public void createComposition(String name, String client, String target, String multiplicityClassClient, String multiplicityClassTarget, String type) {
 		
 		
 		String multiLowerValueClient = "1";
@@ -44,7 +48,7 @@ public class CompositionNode extends XmiHelper {
 			multiUpperValueClient = multiplicityClassClient.substring(multiplicityClassClient.length()-1, multiplicityClassClient.length()).trim();
 			 
 			if(multiLowerValueClient.equals("*"))
-				throw new InvalidMultiplictyForAssociationException("Multiplicy lower value cannot be *");
+				LOGGER.warn("Multiplicy lower value cannot be *. FIX IT");
 		}
 		
 		if((!"".equals(multiplicityClassTarget)) && (multiplicityClassTarget != null)){
@@ -52,7 +56,7 @@ public class CompositionNode extends XmiHelper {
 			multiUpperValueTarget = multiplicityClassTarget.substring(multiplicityClassTarget.length()-1, multiplicityClassTarget.length()).trim();
 			 
 			if(multiLowerValueTarget.equals("*"))
-				throw new InvalidMultiplictyForAssociationException("Multiplicy lower value cannot be *");
+				LOGGER.warn("Multiplicy lower value cannot be *. FIX IT");
 		}
 		
 		//Monta XMI no arquivo .uml

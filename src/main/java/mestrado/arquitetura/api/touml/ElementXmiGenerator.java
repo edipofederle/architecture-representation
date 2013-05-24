@@ -67,7 +67,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
 
-			public void useTransformation() throws NodeNotFound {
+			public void useTransformation() {
 				id = UtilResources.getRandonUUID();
 				element = documentManager.getDocUml().createElement("packagedElement");
 				element.setAttribute("xmi:type", "uml:Class");
@@ -97,7 +97,7 @@ public class ElementXmiGenerator extends XmiHelper {
 	}
 	
 	
-	public void generateMethod(Method method, String idClass) throws NodeNotFound{
+	public void generateMethod(Method method, String idClass) {
 		final Element ownedOperation = documentManager.getDocUml().createElement("ownedOperation");
 		ownedOperation.setAttribute("name", method.getName());
 		ownedOperation.setAttribute("xmi:id", method.getId());
@@ -127,7 +127,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		}
 	}
 	
-	public void generateAttribute(Attribute attribute, String idClass) throws CustonTypeNotFound, NodeNotFound{
+	public void generateAttribute(Attribute attribute, String idClass) {
 		if(idClass != null){
 			this.klass = findByID(documentManager.getDocUml(), idClass, "packagedElement");
 			writeAttributeIntoUmlFile(attribute);
@@ -143,7 +143,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		notation.createNodeForElementType(idProperty, typeId, typeElement, appendTo);
 	}
 	
-	private String writeAttributeIntoUmlFile(Attribute attribute) throws CustonTypeNotFound {
+	private String writeAttributeIntoUmlFile(Attribute attribute)  {
 		Element ownedAttribute = documentManager.getDocUml().createElement("ownedAttribute");
 		ownedAttribute.setAttribute("xmi:id", attribute.getId());
 		ownedAttribute.setAttribute("name", attribute.getName());
@@ -153,7 +153,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		
 		if(Types.isCustomType(attribute.getType())){
 			String id = findIdByName(attribute.getType(), documentManager.getDocUml());
-			if ("".equals(id))	throw new CustonTypeNotFound("Type " + attribute.getType() + " not found");
+			if ("".equals(id))	LOGGER.warn("Type " + attribute.getType() + " not found");
 			ownedAttribute.setAttribute("type", id);
 		}else{
 			Element typeProperty = documentManager.getDocUml().createElement("type");
@@ -187,7 +187,7 @@ public class ElementXmiGenerator extends XmiHelper {
 	
 	
 	
-	private Element getNodeToAddMethodInNotationFile(final String idClass, String location) throws NodeNotFound {
+	private Element getNodeToAddMethodInNotationFile(final String idClass, String location) {
 		Node nodeNotationToAddMethod = findByIDInNotationFile(documentManager.getDocNotation(), idClass);
 		for(int i =0; i <  nodeNotationToAddMethod.getChildNodes().getLength(); i++){
 			if("children".equalsIgnoreCase(nodeNotationToAddMethod.getChildNodes().item(i).getNodeName())){
@@ -203,7 +203,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		return nodeNotationToAddMethod.getChildNodes().item(i).getAttributes().getNamedItem("type").getNodeValue().equals(location);
 	}
 	
-	public void createEgdeAssocationOnNotationFile(Document docNotation, String newModelName, String client, String target, String idEdge) throws NodeNotFound{
+	public void createEgdeAssocationOnNotationFile(Document docNotation, String newModelName, String client, String target, String idEdge){
 		
 		Node node = docNotation.getElementsByTagName("notation:Diagram").item(0);
 		
@@ -289,7 +289,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		node.appendChild(edges);
 	}
 
-	public void createStereotype(Variant mandatory, String idClass) throws NodeNotFound {
+	public void createStereotype(Variant mandatory, String idClass) {
 		addStereotypeToUmlFile(mandatory, idClass);
 		notation.createXmiForStereotype(mandatory.getVariantName(), idClass, "smarty");
 	}
@@ -307,7 +307,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		
 	}
 
-	public void createStereotypeVariationPoint(String idClass) throws NodeNotFound {
+	public void createStereotypeVariationPoint(String idClass) {
 		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
 		Element stereotype = this.documentManager.getDocUml().createElement("smartyProfile:variationPoint");
 		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
@@ -317,7 +317,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		notation.createXmiForStereotype("variationPoint", idClass, "smarty");
 	}
 
-	public void createStereotypeVariability(String idNote, VariabilityStereotype a) throws NodeNotFound {
+	public void createStereotypeVariability(String idNote, VariabilityStereotype a) {
 		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
 		Element stereotype = this.documentManager.getDocUml().createElement("smartyProfile:"+a.getName());
 		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
@@ -339,7 +339,7 @@ public class ElementXmiGenerator extends XmiHelper {
 	}
 
 
-	public void createConcern(String name) throws NodeNotFound {
+	public void createConcern(String name) {
 		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
 		Element stereotype = this.documentManager.getDocUml().createElement("perfilConcerns:"+name);
 		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());

@@ -41,7 +41,7 @@ public class UsageOperations implements Relationship  {
 		final DependencyNode dependencyNode = new DependencyNode(this.documentManager, this.name, this.clientElement, this.supplierElement);
 		
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
-			public void useTransformation() throws NodeNotFound, InvalidMultiplictyForAssociationException {
+			public void useTransformation() {
 				dependencyNode.createDependency("usage");
 			}
 		});

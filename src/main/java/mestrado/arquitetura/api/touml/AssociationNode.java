@@ -1,7 +1,5 @@
 package mestrado.arquitetura.api.touml;
 
-import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
-import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.utils.UtilResources;
 
 import org.apache.log4j.LogManager;
@@ -37,7 +35,7 @@ public class AssociationNode extends XmiHelper{
 		this.elementXmiGenerator = new ElementXmiGenerator(doc);
 	}
 
-	public void createAssociation(String idClassOwnnerAssociation, String idClassDestinationAssociation, String multiplicityClassDestination, String multiplicityClassOwnner) throws NodeNotFound, InvalidMultiplictyForAssociationException {
+	public void createAssociation(String idClassOwnnerAssociation, String idClassDestinationAssociation, String multiplicityClassDestination, String multiplicityClassOwnner)  {
 		
 		this.idClassDestinationAssociation = idClassDestinationAssociation;
 		this.idClassOwnnerAssociation = idClassOwnnerAssociation;
@@ -50,7 +48,7 @@ public class AssociationNode extends XmiHelper{
 			 multiUpperValue = multiplicityClassOwnner.substring(multiplicityClassOwnner.length()-1, multiplicityClassOwnner.length()).trim();
 			 
 			if(multiLowerValue.equals("*"))
-				throw new InvalidMultiplictyForAssociationException("Multiplicy lower value cannot be *");
+				LOGGER.warn("Multiplicy lower value cannot be *. FIX it");
 		}
 		
 		Node modelRoot = this.docUml.getElementsByTagName("uml:Model").item(0);
@@ -91,7 +89,7 @@ public class AssociationNode extends XmiHelper{
 		
 	}
 	
-	private void ownedAttibute(String multiplicityClassDestination) throws InvalidMultiplictyForAssociationException{
+	private void ownedAttibute(String multiplicityClassDestination){
 		
 		//Primeiro busca pela class que seja a "dona" da associção. Isso é feito por meio do ID.
 		Node packageElementNode = findByID(docUml, this.idClassOwnnerAssociation, "packagedElement");
@@ -111,7 +109,7 @@ public class AssociationNode extends XmiHelper{
 		}
 		Element lowerValue = this.docUml.createElement("lowerValue");
 		if(multiLowerValue.equals("*"))
-			throw new InvalidMultiplictyForAssociationException("Multiplicy lower value cannot be *");
+			LOGGER.warn("Multiplicy lower value cannot be *. FIX IT");
 		else
 			lowerValue.setAttribute("xmi:type", "uml:LiteralInteger");
 		lowerValue.setAttribute("xmi:id", UtilResources.getRandonUUID());

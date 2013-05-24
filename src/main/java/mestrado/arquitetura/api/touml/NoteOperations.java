@@ -22,7 +22,7 @@ public class NoteOperations extends XmiHelper {
 		final NoteNode noteNode = new NoteNode(documentManager);
 		this.id = UtilResources.getRandonUUID();
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
-			public void useTransformation() throws NodeNotFound, InvalidMultiplictyForAssociationException {
+			public void useTransformation() {
 				noteNode.createNote(id);
 			}
 		});
@@ -36,7 +36,7 @@ public class NoteOperations extends XmiHelper {
 
 	public NoteOperations addVariability(final String idNote, final VariabilityStereotype a) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
-			public void useTransformation() throws NodeNotFound, InvalidMultiplictyForAssociationException {
+			public void useTransformation() {
 				elementXmiGenerator.createStereotypeVariability(idNote, a);
 			}
 		});

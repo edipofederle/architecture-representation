@@ -45,7 +45,7 @@ public class AssociationOperations {
 		final AssociationNode associationNode = new AssociationNode(this.documentManager);
 		
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
-			public void useTransformation() throws NodeNotFound, InvalidMultiplictyForAssociationException {
+			public void useTransformation() {
 				associationNode.createAssociation(idClassOwnnerAssociation, idClassDestinationAssociation, multiplicityClassDestination, multiplicityClassOwnner);
 			}
 		});

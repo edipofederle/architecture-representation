@@ -66,7 +66,7 @@ public class GeneralizationOperations extends XmiHelper implements Relationship 
 		final GeneralizationNode generalizationNode = new GeneralizationNode(this.documentManager, this.general, this.client, this.name);
 		
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
-			public void useTransformation() throws NodeNotFound, InvalidMultiplictyForAssociationException {
+			public void useTransformation() {
 				generalizationNode.createGeneralization();
 			}
 		});

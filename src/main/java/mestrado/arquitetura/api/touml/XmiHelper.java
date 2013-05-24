@@ -3,14 +3,17 @@ package mestrado.arquitetura.api.touml;
 import java.util.Random;
 
 import mestrado.arquitetura.exceptions.NodeIdNotFound;
-import mestrado.arquitetura.exceptions.NodeNotFound;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class XmiHelper {
+	
+	static Logger LOGGER = LogManager.getLogger(XmiHelper.class.getName());
 	
 	/**
 	 * Busca por {@link Node} dado um id e um {@link Documnet}.
@@ -21,7 +24,7 @@ public class XmiHelper {
 	 * @param id - Id a ser buscado
 	 * @return {@link Node}
 	 */
-	public static Node findByIDInNotationFile(Document docNotaion, String id) throws NodeNotFound {
+	public static Node findByIDInNotationFile(Document docNotaion, String id) {
 		NodeList node = docNotaion.getElementsByTagName("children");
 		Node nodeFound = null;
 		for (int i = 0; i < node.getLength(); i++) {
@@ -37,8 +40,10 @@ public class XmiHelper {
 				}
 			}
 		}	
-		if(nodeFound == null)
-			throw new NodeNotFound("Node with id " + id + " cannot be found" );
+		if(nodeFound == null){
+			LOGGER.warn("Node with id " + id + " cannot be found. Retuns null");
+			return null;
+		}
 		return nodeFound;
 	}
 	

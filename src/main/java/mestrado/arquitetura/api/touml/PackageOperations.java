@@ -79,7 +79,7 @@ public class PackageOperations extends XmiHelper {
 			Node classToMoveNotation = findByIDInNotationFile(documentManager.getDocNotation(), klassId);
 			Node packageToAddNotation = findByIDInNotationFile(documentManager.getDocNotation(), id);
 			
-			public void useTransformation() throws NodeNotFound {
+			public void useTransformation() {
 				packageToAdd.appendChild(classToMove);
 				packageToAddNotation.appendChild(classToMoveNotation);
 			}});

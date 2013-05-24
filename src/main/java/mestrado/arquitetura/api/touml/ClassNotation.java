@@ -70,7 +70,7 @@ public class ClassNotation extends XmiHelper {
 			notationBasicProperty.appendChild(node);
 	}
 	
-	public void createXmiForClassInNotationFile(String id, String idPackage) throws NullReferenceFoundException, NodeNotFound {
+	public void createXmiForClassInNotationFile(String id, String idPackage) throws NullReferenceFoundException {
 		
 		Element node = documentManager.getDocNotation().createElement("children");
 		node.setAttribute("xmi:type", this.xmitype);
@@ -208,7 +208,7 @@ public class ClassNotation extends XmiHelper {
 	 * @param perfilType - de qual perfil vem o estereótipo sendo aplicado
 	 * @throws NodeNotFound
 	 */
-	public void createXmiForStereotype(String name, String idClass, String perfilType) throws NodeNotFound {
+	public void createXmiForStereotype(String name, String idClass, String perfilType) {
 		
 		Node node = getXmiToAppendStereotype(idClass);
 		if(node != null){
@@ -232,7 +232,7 @@ public class ClassNotation extends XmiHelper {
 	 * @return
 	 * @throws NodeNotFound
 	 */
-	private Node getXmiToAppendStereotype(String idClass) throws NodeNotFound {
+	private Node getXmiToAppendStereotype(String idClass) {
 		//Verifica se já existe no notation o xmi para estereotipos
 		Node node = findByIDInNotationFile(documentManager.getDocNotation(), idClass);
 				
@@ -254,7 +254,7 @@ public class ClassNotation extends XmiHelper {
 		return null;
 	}
 
-	private void ste(String name, String idClass, boolean addEcorePrefix, String perfilType) throws NodeNotFound {
+	private void ste(String name, String idClass, boolean addEcorePrefix, String perfilType) {
 		Node classToAddSte = findByIDInNotationFile(documentManager.getDocNotation(), idClass);
 		
 		Element eAnnotations = documentManager.getDocNotation().createElement("eAnnotations");

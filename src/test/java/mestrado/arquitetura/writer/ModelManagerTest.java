@@ -427,23 +427,7 @@ public class ModelManagerTest extends TestHelper {
 		assertNotNull(klassFoo);
 		assertTrue(modelContainId("classWithAttrCuston", xpto.getId()));
 	}
-	
-	@Test(expected=CustonTypeNotFound.class)
-	public void shouldNotCreateAAttributeWithCustonTypeIfTypeDontExist() throws Exception{
-		DocumentManager doc = givenADocument("classWithAttrCuston");
-		Operations op = new Operations(doc);
-		
-		Attribute xpto = Attribute.create()
-				 .withName("xpto")
-				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
-				 .withType(Types.custom("MyClass"));
-		
-		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
-		classInfoAttrs2.add(xpto);
-		
-		op.forClass().createClass("Foo").withAttribute(classInfoAttrs2);
-	}
-	
+
 	@Test
 	public void shouldSaveModificationAndCopyFilesToDestination() throws Exception{
 		

@@ -1,9 +1,7 @@
 package mestrado.arquitetura.api.touml;
 
-import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.utils.UtilResources;
 
-import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -27,7 +25,7 @@ public class DependencyNode extends XmiHelper {
 		this.name = name;
 	}
 
-	public void createDependency(String dependency) throws DOMException, NodeNotFound {
+	public void createDependency(String dependency) {
 		//Primeiramente cria o xmi necessário no document UML.
 		
 		createDependencyInUmlFile(dependency);

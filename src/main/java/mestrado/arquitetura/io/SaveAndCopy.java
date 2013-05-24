@@ -16,7 +16,6 @@ import mestrado.arquitetura.utils.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class SaveAndCopy extends XmiHelper{

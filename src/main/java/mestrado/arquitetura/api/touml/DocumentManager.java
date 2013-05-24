@@ -190,7 +190,7 @@ public class DocumentManager extends XmiHelper {
 			final String nsUriPerfilConcern = getIdOnNode(docConcern, "contents", "nsURI");
 			
 			mestrado.arquitetura.api.touml.Document.executeTransformation(this, new Transformation(){
-				public void useTransformation() throws CustonTypeNotFound, NodeNotFound {
+				public void useTransformation() {
 					Node xmlsnsSmarty = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xmlns:smartyProfile");
 					xmlsnsSmarty.setNodeValue(nsUriPerfilSmarty);
 					
@@ -218,7 +218,7 @@ public class DocumentManager extends XmiHelper {
 
 	private void updateHrefAtt(final String idApplied, final String profileName, final String tagName, final boolean updateReference) throws CustonTypeNotFound, NodeNotFound,	InvalidMultiplictyForAssociationException {
 		mestrado.arquitetura.api.touml.Document.executeTransformation(this, new Transformation(){
-			public void useTransformation() throws CustonTypeNotFound, NodeNotFound {
+			public void useTransformation() {
 				Node node = null;
 				if(updateReference)
 					node = getAppliedHrefProfile(profileName, tagName);
