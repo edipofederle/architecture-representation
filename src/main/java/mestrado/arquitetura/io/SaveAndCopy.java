@@ -10,6 +10,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import mestrado.arquitetura.api.touml.XmiHelper;
 import mestrado.arquitetura.utils.FileUtils;
 
 import org.apache.log4j.LogManager;
@@ -18,7 +19,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class SaveAndCopy {
+public class SaveAndCopy extends XmiHelper{
 	
 	 static Logger LOGGER = LogManager.getLogger(SaveAndCopy.class.getName());
 	
@@ -73,14 +74,5 @@ public class SaveAndCopy {
 		
 	}
 
-	private static String getOnlyIdOfXmiAttribute(NodeList elements, int i) {
-		Node href = elements.item(i).getAttributes().getNamedItem("href");
-		if(href !=null){
-			String currentValue = href.getNodeValue();
-			return currentValue.substring(currentValue.indexOf("#")+1, currentValue.length());
-		}else{
-			return null;
-		}
-	}
 
 }

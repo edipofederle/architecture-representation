@@ -8,8 +8,7 @@ import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 public abstract class ArchitectureBase {
 	
 	public static DocumentManager givenADocument(String outputModelName) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
-		String pathToFiles = "src/main/java/mestrado/arquitetura/api/touml/1/";// model padrao vazio que o programa usa para construir o novo
-		DocumentManager documentManager = new DocumentManager(outputModelName, pathToFiles);
+		DocumentManager documentManager = new DocumentManager(outputModelName);
 		return documentManager;
 	}
 	

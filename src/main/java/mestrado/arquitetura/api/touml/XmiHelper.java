@@ -129,5 +129,15 @@ public class XmiHelper {
 	public static String isClassAbstract(boolean isAbstract) {
 		return (isAbstract) ? "true" : "false";
 	}
+	
+	public static String getOnlyIdOfXmiAttribute(NodeList elements, int i) {
+		Node href = elements.item(i).getAttributes().getNamedItem("href");
+		if(href !=null){
+			String currentValue = href.getNodeValue();
+			return currentValue.substring(currentValue.indexOf("#")+1, currentValue.length());
+		}else{
+			return null;
+		}
+	}
 
 }
