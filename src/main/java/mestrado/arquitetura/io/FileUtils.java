@@ -42,7 +42,7 @@ public class FileUtils {
     	    outStream.flush();
     	    outStream.close();
  
-    	    afile.delete();
+    	   afile.delete();
  
     	//    LOGGER.info("File is copied to "+ to + " from: "+ from +  " successful!");
  

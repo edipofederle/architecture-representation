@@ -26,6 +26,9 @@ import mestrado.arquitetura.representation.relationship.DependencyRelationship;
 import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
 import mestrado.arquitetura.writer.VariabilityStereotype;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 public class Main extends ArchitectureBase {
 
 	/**
@@ -34,14 +37,46 @@ public class Main extends ArchitectureBase {
 	 * @throws ModelNotFoundException 
 	 * @throws SMartyProfileNotAppliedToModelExcepetion 
 	 */
-	public static void main(String[] args) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
+	public static void main(String[] args) {
+		
+		Logger LOGGER = LogManager.getLogger(Main.class.getName());
+		
+		
+		if((args.length != 2) || ("".equals(args[0].trim()))){
+			System.out.println("\tUsage:");
+			System.out.println("\t\t java -jar arq.java <path_to_model.uml> <model_output_name>");
+			System.exit(0);
+		}
+		
+		long init = System.currentTimeMillis();
 		
 		System.out.println("Start....");
+
+		
+		String pathToModel = args[0];
 		
 		Architecture a;
-		DocumentManager doc = givenADocument("TesteComEstereotipo");
-		String path = new File("src/test/java/resources/edipo.uml").getAbsolutePath(); 
-		Operations op = new Operations(doc);
+		DocumentManager doc = null;
+		try {
+			doc = givenADocument(args[1]);
+		} catch (ModelNotFoundException e1) {
+			LOGGER.warn("Cannot find model: " + e1.getMessage());
+		} catch (ModelIncompleteException e1) {
+			LOGGER.warn("Model Incomplete" + e1.getMessage());
+		} catch (SMartyProfileNotAppliedToModelExcepetion e1) {
+			LOGGER.warn("Smarty Profile note Applied: "+e1.getMessage());
+		}
+		
+		String path = new File(pathToModel).getAbsolutePath(); 
+		Operations op = null;
+		
+		try {
+			op = new Operations(doc);
+		} catch (ModelNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (ModelIncompleteException e1) {
+			e1.printStackTrace();
+		}
 		
 		
 		try {
@@ -113,7 +148,6 @@ public class Main extends ArchitectureBase {
 								  .and(d.getSupplier().getId()).build();
 			}
 			
-			//Remove classes qeu não tenham relacionamentos
 			for(GeneralizationRelationship g : a.getAllGeneralizations()){
 				op.forGeneralization().createRelation("Ge").between(g.getChild().getId()).and(g.getParent().getId()).build();
 			}
@@ -121,9 +155,11 @@ public class Main extends ArchitectureBase {
 			
 		} catch (Exception e) {
 			System.out.println("Ops!. Error, I am sorry: " + e.getLocalizedMessage());
+			System.exit(0);
 		}
-		
+		long end = System.currentTimeMillis();
 		System.out.println("\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget()+doc.getNewModelName());
+		System.out.println("Time:" + (end - init) + "Millis");
 		
 	}
 	

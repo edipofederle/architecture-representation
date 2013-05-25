@@ -45,7 +45,7 @@ public class DocumentManager extends XmiHelper {
 	public DocumentManager(String outputModelName) throws ModelNotFoundException, ModelIncompleteException {
 		this.outputModelName = outputModelName;
 		
-		String pathToFiles = "src/main/java/mestrado/arquitetura/api/touml/1/";// model padrao vazio que o programa usa para construir o novo
+		String pathToFiles = "/Users/edipofederle/sourcesMestrado/arquitetura/src/main/java/mestrado/arquitetura/api/touml/1/"; // model padr vazio que o programa usa para construir o novo
 		makeACopy(pathToFiles, BASE_DOCUMENT);
 		createXMIDocument();
 		
@@ -55,9 +55,7 @@ public class DocumentManager extends XmiHelper {
 		
 		copyProfilesToDestination();
 		
-		
 	}
-	
 
 	private void copyProfilesToDestination() {
 		String pathSmarty = ReaderConfig.getPathToProfileSMarty();
@@ -95,9 +93,9 @@ public class DocumentManager extends XmiHelper {
 		}
 			
 		try {
-			this.docNotation =  docBuilderNotation.parse("manipulation/"+BASE_DOCUMENT+".notation");
-			this.docUml = docBuilderUml.parse("manipulation/"+BASE_DOCUMENT+".uml");
-			this.docDi = docBuilderUml.parse("manipulation/"+BASE_DOCUMENT+".di");
+			this.docNotation =  docBuilderNotation.parse(ReaderConfig.getDirTarget()+BASE_DOCUMENT+".notation");
+			this.docUml = docBuilderUml.parse(ReaderConfig.getDirTarget()+BASE_DOCUMENT+".uml");
+			this.docDi = docBuilderUml.parse(ReaderConfig.getDirTarget()+BASE_DOCUMENT+".di");
 		} catch (SAXException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -117,20 +115,17 @@ public class DocumentManager extends XmiHelper {
 	 */
 	private void makeACopy(String pathToFiles, String modelName) throws ModelNotFoundException, ModelIncompleteException {
 		
-		String notationCopy = "manipulation/"+BASE_DOCUMENT+".notation";
-		String umlCopy = "manipulation/"+BASE_DOCUMENT+".uml";
-		String diCopy = "manipulation/"+BASE_DOCUMENT+".di";
+		LOGGER.info("makeACopy(String pathToFiles, String modelName) - Enter");
 		
+		String notationCopy = ReaderConfig.getDirTarget()+BASE_DOCUMENT+".notation";
+		String umlCopy = ReaderConfig.getDirTarget()+BASE_DOCUMENT+".uml";
+		String diCopy = ReaderConfig.getDirTarget()+BASE_DOCUMENT+".di";
 		
-		try {
-			CopyFile.copyFile(new File(pathToFiles+modelName+".notation"), new File(notationCopy));
-			CopyFile.copyFile(new File(pathToFiles+modelName+".uml"), new File(umlCopy));
-			CopyFile.copyFile(new File(pathToFiles+modelName+".di"), new File(diCopy));
+		CopyFile.copyFile(new File(pathToFiles+modelName+".notation"), new File(notationCopy));
+		CopyFile.copyFile(new File(pathToFiles+modelName+".uml"), new File(umlCopy));
+		CopyFile.copyFile(new File(pathToFiles+modelName+".di"), new File(diCopy));
 						
-		} catch (IOException e) {
-			LOGGER.error("I cannot copy all files. Here a message erros: " + e.getMessage());
-		}
-		
+		LOGGER.info("makeACopy(String pathToFiles, String modelName) - Exit");
 		
 	}
 
