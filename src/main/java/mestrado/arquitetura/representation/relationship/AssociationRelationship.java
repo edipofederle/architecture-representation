@@ -7,7 +7,7 @@ import mestrado.arquitetura.representation.Class;
 
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class AssociationRelationship extends Relationship {

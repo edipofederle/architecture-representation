@@ -1,7 +1,11 @@
 package mestrado.arquitetura.representation;
 
 
-
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public enum VariantType {
 	
 	MANDATORY("mandatory"),

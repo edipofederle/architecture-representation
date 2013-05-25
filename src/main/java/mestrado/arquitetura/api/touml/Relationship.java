@@ -7,9 +7,7 @@ import mestrado.arquitetura.exceptions.NotSuppportedOperation;
 
 /**
  * 
- * Interface com operações para Relacionamentos do tipo Dependency e Usage.
- * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public interface Relationship {

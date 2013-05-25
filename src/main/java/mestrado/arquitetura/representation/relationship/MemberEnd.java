@@ -6,7 +6,7 @@ import mestrado.arquitetura.representation.Class;
  * MemberEnd usada nas associações do tipo AssociationClass
  * 
  * Each end represents participation of instances of the classifier connected to the end in links of the association (Papyrus info)
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class MemberEnd {

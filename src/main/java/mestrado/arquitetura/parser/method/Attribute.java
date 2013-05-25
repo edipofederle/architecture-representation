@@ -2,6 +2,11 @@ package mestrado.arquitetura.parser.method;
 
 import mestrado.arquitetura.utils.UtilResources;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class Attribute {
 	
 	private String id;

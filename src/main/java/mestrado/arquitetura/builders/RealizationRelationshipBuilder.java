@@ -9,7 +9,7 @@ import org.eclipse.uml2.uml.Realization;
 
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class RealizationRelationshipBuilder extends ArchitectureHelper {

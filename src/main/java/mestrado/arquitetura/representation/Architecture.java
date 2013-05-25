@@ -27,8 +27,8 @@ import org.apache.log4j.Logger;
 
 /**
  * 
- * @author edipofederle
- * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
  */
 public class Architecture {
 	

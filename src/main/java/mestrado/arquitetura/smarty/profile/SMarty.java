@@ -4,7 +4,7 @@ import mestrado.arquitetura.exceptions.ModelNotFoundException;
 
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class SMarty {

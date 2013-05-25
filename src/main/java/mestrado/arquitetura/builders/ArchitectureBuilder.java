@@ -33,7 +33,7 @@ import org.eclipse.uml2.uml.Usage;
 /**
  * Builder responsável por criar a arquitetura.
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class ArchitectureBuilder {

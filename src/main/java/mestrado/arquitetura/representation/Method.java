@@ -7,7 +7,7 @@ import mestrado.arquitetura.utils.UtilResources;
 
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class Method extends Element{

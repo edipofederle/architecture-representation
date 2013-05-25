@@ -10,6 +10,11 @@ import mestrado.arquitetura.utils.UtilResources;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class Interface extends Element {
 	
 	static Logger LOGGER = LogManager.getLogger(Interface.class.getName());

@@ -4,6 +4,11 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
  
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class Types {
  
 	public interface Type {

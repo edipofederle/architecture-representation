@@ -11,13 +11,17 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import mestrado.arquitetura.api.touml.XmiHelper;
-import mestrado.arquitetura.utils.FileUtils;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class SaveAndMove extends XmiHelper{
 	
 	 static Logger LOGGER = LogManager.getLogger(SaveAndMove.class.getName());

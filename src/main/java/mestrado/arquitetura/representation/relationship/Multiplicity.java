@@ -2,7 +2,7 @@ package mestrado.arquitetura.representation.relationship;
 
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class Multiplicity {

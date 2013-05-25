@@ -5,6 +5,11 @@ import java.util.List;
 
 import mestrado.arquitetura.representation.Element;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class AssociationClassRelationship extends	Relationship {
 
 	public String name;

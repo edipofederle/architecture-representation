@@ -7,9 +7,9 @@ import mestrado.arquitetura.representation.relationship.Multiplicity;
 import org.eclipse.uml2.uml.Property;
 
 /**
- * Representa uma AssociationEnd numa associação.
+ * Representa uma AssociationEnd em uma associação.
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class AssociationEndBuilder {

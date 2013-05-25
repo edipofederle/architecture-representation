@@ -25,9 +25,8 @@ import org.w3c.dom.Node;
 import com.google.common.base.Joiner;
 
 /**
- * Cria XMI para elementos UML.
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class ElementXmiGenerator extends XmiHelper {

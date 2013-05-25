@@ -19,7 +19,7 @@ import org.eclipse.uml2.uml.Comment;
 
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class VariabilityBuilder {

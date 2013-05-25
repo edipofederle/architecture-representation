@@ -11,14 +11,17 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class XmiHelper {
 	
 	static Logger LOGGER = LogManager.getLogger(XmiHelper.class.getName());
 	
 	/**
 	 * Busca por {@link Node} dado um id e um {@link Documnet}.
-	 * 
-	 * 
 	 * 
 	 * @param docNotaion - Deve ser o arquivo .notation
 	 * @param id - Id a ser buscado

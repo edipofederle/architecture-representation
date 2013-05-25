@@ -9,7 +9,7 @@ import mestrado.arquitetura.representation.Element;
  * Each end of a relationship has properties that specify the role of the association end,
  * its multiplicity, visibility, navigability, and constraints.
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class AssociationEnd {

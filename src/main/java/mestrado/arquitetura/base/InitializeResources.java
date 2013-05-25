@@ -16,7 +16,7 @@ import org.eclipse.uml2.uml.resources.util.UMLResourcesUtil;
 /**
  * Inicialização dos recursos necessários.
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class InitializeResources {

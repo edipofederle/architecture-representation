@@ -3,7 +3,7 @@ package mestrado.arquitetura.representation;
 /**
  * Representa parametro de um método.
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class ParameterMethod {

@@ -12,6 +12,11 @@ import mestrado.arquitetura.representation.relationship.Relationship;
 import org.eclipse.uml2.uml.AssociationClass;
 import org.eclipse.uml2.uml.Type;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class AssociationClassRelationshipBuilder extends ArchitectureHelper {
 	
 	private Architecture architecture;

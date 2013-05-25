@@ -10,7 +10,7 @@ import org.eclipse.uml2.uml.Generalization;
 
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class GeneralizationRelationshipBuilder extends ArchitectureHelper {

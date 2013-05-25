@@ -10,7 +10,7 @@ import org.eclipse.uml2.uml.Type;
 /**
  * Builder responsável pelos atributos.
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class AttributeBuilder extends ElementBuilder<Attribute> {

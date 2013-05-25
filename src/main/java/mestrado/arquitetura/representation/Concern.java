@@ -2,7 +2,7 @@ package mestrado.arquitetura.representation;
 
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class Concern {

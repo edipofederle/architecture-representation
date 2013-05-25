@@ -19,7 +19,7 @@ import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 /**
  * Builder resposável por criar element do tipo Classe.
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class ClassBuilder extends ElementBuilder<mestrado.arquitetura.representation.Class> {

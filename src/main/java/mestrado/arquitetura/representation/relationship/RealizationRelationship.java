@@ -4,7 +4,7 @@ import mestrado.arquitetura.representation.Element;
 
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class RealizationRelationship extends Relationship {

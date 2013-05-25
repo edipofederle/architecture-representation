@@ -12,7 +12,7 @@ import mestrado.arquitetura.api.touml.Stereotype;
  *  <li>alternative_OR</li>
  *  </li>alternative_XOR</li>
  * </ul> 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class Variant implements Stereotype{

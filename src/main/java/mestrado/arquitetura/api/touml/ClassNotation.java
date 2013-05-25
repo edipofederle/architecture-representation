@@ -11,7 +11,7 @@ import org.w3c.dom.NodeList;
 
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class ClassNotation extends XmiHelper {
@@ -64,7 +64,7 @@ public class ClassNotation extends XmiHelper {
 		layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		node.appendChild(layoutConstraint);
 		
-		if(appendTo != null)
+		if(appendTo != null) 
 			appendTo.appendChild(node);
 		else
 			notationBasicProperty.appendChild(node);

@@ -5,6 +5,11 @@ import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException
 import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.exceptions.NotSuppportedOperation;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class DependencyOperations implements Relationship {
 	
 	private DocumentManager documentManager;

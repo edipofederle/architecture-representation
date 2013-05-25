@@ -7,6 +7,11 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class RemoveNode extends XmiHelper {
 	
 	static Logger LOGGER = LogManager.getLogger(RemoveNode.class.getName());

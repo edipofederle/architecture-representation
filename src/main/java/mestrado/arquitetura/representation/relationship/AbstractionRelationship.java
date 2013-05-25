@@ -5,7 +5,7 @@ import mestrado.arquitetura.representation.Package;
 
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class AbstractionRelationship extends Relationship{

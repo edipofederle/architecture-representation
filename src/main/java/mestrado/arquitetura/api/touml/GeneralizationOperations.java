@@ -7,6 +7,11 @@ import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException
 import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.exceptions.NotSuppportedOperation;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class GeneralizationOperations extends XmiHelper implements Relationship  {
 	
 	

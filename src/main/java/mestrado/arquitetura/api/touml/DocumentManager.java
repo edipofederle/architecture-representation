@@ -27,6 +27,11 @@ import org.xml.sax.SAXException;
 
 import com.google.common.io.Files;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class DocumentManager extends XmiHelper {
 	
 	private org.w3c.dom.Document docUml;

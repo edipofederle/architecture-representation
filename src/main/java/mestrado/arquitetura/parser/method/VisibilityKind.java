@@ -7,6 +7,11 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.Enumerator;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public enum VisibilityKind implements Enumerator {
 	PUBLIC_LITERAL(0, "public", "public"), 
 	PRIVATE_LITERAL(1, "private", "private"), 

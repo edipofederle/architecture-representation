@@ -23,6 +23,11 @@ import org.eclipse.uml2.uml.Profile;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class ClassOperations extends XmiHelper {
 	
 	
@@ -322,8 +327,14 @@ public class ClassOperations extends XmiHelper {
 		this.idClass = ownerClass;
 		return this;
 	}
-
-	public ClassOperations withConcern(final String name) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	
+	/**
+	 * Adiciona um <b>concern</b> na classe.
+	 * 
+	 * @param name - Nome do <b>concern</b> esse deve estar definido no profile <b>perfilConcerns.profile.uml</b>
+	 * @return ClassOperations
+	 */
+	public ClassOperations withConcern(final String name) {
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
 				elementXmiGenerator.createConcern(name);

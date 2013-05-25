@@ -9,6 +9,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class AssociationNode extends XmiHelper{
 	
 	static Logger LOGGER = LogManager.getLogger(AssociationNode.class.getName());

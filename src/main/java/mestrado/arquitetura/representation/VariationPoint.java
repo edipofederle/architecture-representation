@@ -4,6 +4,11 @@ package mestrado.arquitetura.representation;
 import java.security.InvalidParameterException;
 import java.util.List;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class VariationPoint {
 
 	private final Element variationPointElement;

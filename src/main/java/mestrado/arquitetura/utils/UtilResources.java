@@ -8,7 +8,7 @@ import mestrado.arquitetura.helpers.Predicate;
 
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class UtilResources {

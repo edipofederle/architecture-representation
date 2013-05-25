@@ -15,7 +15,7 @@ import org.eclipse.uml2.uml.Property;
 
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class AssociationRelationshipBuilder extends ArchitectureHelper {

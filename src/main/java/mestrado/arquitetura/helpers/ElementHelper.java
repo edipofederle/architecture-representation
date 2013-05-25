@@ -15,7 +15,7 @@ import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public abstract class ElementHelper {

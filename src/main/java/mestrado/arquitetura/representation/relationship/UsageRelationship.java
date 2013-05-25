@@ -3,6 +3,11 @@ package mestrado.arquitetura.representation.relationship;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Element;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class UsageRelationship extends Relationship {
 	
 	private String name;

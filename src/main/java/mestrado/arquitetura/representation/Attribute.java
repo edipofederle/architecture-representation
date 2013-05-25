@@ -1,9 +1,8 @@
 package mestrado.arquitetura.representation;
 
 /**
- * Representa um atributo.
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class Attribute extends Element {

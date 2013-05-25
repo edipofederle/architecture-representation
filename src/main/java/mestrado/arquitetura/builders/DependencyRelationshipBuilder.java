@@ -11,7 +11,7 @@ import org.eclipse.uml2.uml.NamedElement;
 
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class DependencyRelationshipBuilder  extends ArchitectureHelper{

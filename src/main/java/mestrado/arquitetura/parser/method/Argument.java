@@ -1,5 +1,10 @@
 package mestrado.arquitetura.parser.method;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class Argument {
 
 	private final String name;

@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe resposável por abstrair as propriedades comuns a todos os elementos
- * da arquitetura.
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
+ *
  */
 public abstract class Element {
 
@@ -134,9 +133,5 @@ public abstract class Element {
 	public void setIdsRelationships(List<String> idsRelationships) {
 		this.idsRelationships = idsRelationships;
 	}
-	
-	
-	
-	
 	
 }

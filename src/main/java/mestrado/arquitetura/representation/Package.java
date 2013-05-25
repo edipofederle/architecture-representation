@@ -13,7 +13,7 @@ import mestrado.arquitetura.utils.UtilResources;
  * Pacotes podem conter {@link Class}'s e outros {@link Package}'s
  * 
  * 
- * @author edipofederle
+ * @author edipofederle <edipofederle@gmail.com>
  *
  */
 public class Package extends Element {

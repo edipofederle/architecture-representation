@@ -2,7 +2,7 @@ package mestrado.arquitetura.helpers;
 
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class StereotypesTypes {

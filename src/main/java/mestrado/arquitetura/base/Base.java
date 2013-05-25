@@ -5,7 +5,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 /**
  * Classe abstrata responsável por fornece os recursos necessários para usar a UML2.
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public abstract class Base {

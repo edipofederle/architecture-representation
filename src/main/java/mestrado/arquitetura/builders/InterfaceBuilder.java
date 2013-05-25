@@ -8,6 +8,11 @@ import mestrado.arquitetura.representation.Interface;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class InterfaceBuilder extends ElementBuilder<mestrado.arquitetura.representation.Interface>  {
 
 	private MethodBuilder methodBuilder;

@@ -15,7 +15,7 @@ import org.eclipse.uml2.uml.NamedElement;
 /**
  * Builder responsável por criar element do tipo Pacote.
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class PackageBuilder extends ElementBuilder<Package> {

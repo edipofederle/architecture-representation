@@ -26,9 +26,7 @@ import org.eclipse.uml2.uml.internal.impl.StereotypeImpl;
 
 /**
  * 
- * Helpers para trabalhar com estereótipos.
- * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class StereotypeHelper {

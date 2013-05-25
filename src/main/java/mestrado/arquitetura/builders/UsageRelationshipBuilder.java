@@ -9,6 +9,11 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Usage;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class UsageRelationshipBuilder extends ArchitectureHelper {
 	
 	private Architecture architecture;

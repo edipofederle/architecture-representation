@@ -11,7 +11,7 @@ import org.eclipse.uml2.uml.NamedElement;
 /**
  * Builder Responsável por criar relacionamentos entre Pacote e Classe.
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class AbstractionRelationshipBuilder extends ArchitectureHelper {

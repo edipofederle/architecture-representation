@@ -47,7 +47,7 @@ import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 /**
  * Helper para atuar sobre um model ( arquitetura ).
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class ModelHelper extends ElementHelper {

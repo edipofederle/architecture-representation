@@ -9,6 +9,11 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class CompositionNode extends XmiHelper {
 	
 	static Logger LOGGER = LogManager.getLogger(CompositionNode.class.getName());
@@ -118,14 +123,10 @@ public class CompositionNode extends XmiHelper {
 		
 		
 		//Escreve XMI no Notation
-		
-		
 		elementXmiGenerator.createEgdeAssocationOnNotationFile(this.doc.getDocNotation(), doc.getNewModelName(), client, target, this.associationId);
 		
 		modelRoot.appendChild(pkgElement);
 		
-		
 	}
 	
-
 }

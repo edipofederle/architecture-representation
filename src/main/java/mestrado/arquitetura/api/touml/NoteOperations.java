@@ -6,6 +6,11 @@ import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.utils.UtilResources;
 import mestrado.arquitetura.writer.VariabilityStereotype;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class NoteOperations extends XmiHelper {
 	
 	private DocumentManager documentManager;

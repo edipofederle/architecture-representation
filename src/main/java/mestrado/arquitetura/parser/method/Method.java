@@ -5,7 +5,11 @@ import java.util.List;
 
 import mestrado.arquitetura.utils.UtilResources;
 
-
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class Method {
 	
 	private String id;

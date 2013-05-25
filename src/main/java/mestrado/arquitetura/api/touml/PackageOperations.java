@@ -11,8 +11,12 @@ import mestrado.arquitetura.utils.UtilResources;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+/**
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class PackageOperations extends XmiHelper {
-	
 	
 	private DocumentManager documentManager;
 	private Node umlModelChild;

@@ -1,9 +1,8 @@
 package mestrado.arquitetura.representation.relationship;
 
-
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public abstract class Relationship {

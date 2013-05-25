@@ -18,9 +18,8 @@ import org.eclipse.uml2.uml.Stereotype;
 
 
 /**
- * Classe abstrata que abstrai elemetnos comuns aos builders.
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  * @param <T>
  */

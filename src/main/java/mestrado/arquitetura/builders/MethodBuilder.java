@@ -16,7 +16,7 @@ import org.eclipse.uml2.uml.Type;
 /**
  * Builder resposável por criar element do tipo Método.
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class MethodBuilder extends ElementBuilder<Method> {

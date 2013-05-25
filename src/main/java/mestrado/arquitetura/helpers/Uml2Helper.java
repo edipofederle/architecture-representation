@@ -41,9 +41,10 @@ import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.resource.UMLResource;
 
 /**
- * @author edipofederle
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
  */
-
 public class Uml2Helper extends Base {
 
 	private static final boolean PRINT_LOGS = false;

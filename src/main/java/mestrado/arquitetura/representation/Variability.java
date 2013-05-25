@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 
 /**
  * 
- * @author edipofederle
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class Variability {

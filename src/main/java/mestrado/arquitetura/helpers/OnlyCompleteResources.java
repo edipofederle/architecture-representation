@@ -4,11 +4,10 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 /**
- * Classe responsável por verificar se modelo ( arquitetura) é completa.
- * 
- * Uma arquitetura completa deve conter um arquivo .uml, .notation e .di 
- * 
- * @author edipofederle
+ * Classe responsável por verificar se modelo (arquitetura) é completa.
+ * Uma arquitetura completa deve conter um arquivo .uml, .notation e .di
+ *  
+ * @author edipofederle<edipofederle@gmail.com>
  *
  */
 public class OnlyCompleteResources implements FilenameFilter {

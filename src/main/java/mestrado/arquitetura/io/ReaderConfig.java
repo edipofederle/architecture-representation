@@ -9,6 +9,12 @@ import org.ho.yaml.Yaml;
 
 import config.DirTarget;
 
+/**
+ * Classe responsável por acesso ao arquivo de configuração <b>application.yaml</b>/
+ * 
+ * @author edipofederle<edipofederle@gmail.com>
+ *
+ */
 public class ReaderConfig {
 	
 	static Logger LOGGER = LogManager.getLogger(ReaderConfig.class.getName());
