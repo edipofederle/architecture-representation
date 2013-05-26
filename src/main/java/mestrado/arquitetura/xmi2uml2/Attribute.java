@@ -1,6 +1,5 @@
 package mestrado.arquitetura.xmi2uml2;
 
-import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.helpers.Uml2Helper;
 import mestrado.arquitetura.helpers.Uml2HelperFactory;
@@ -15,13 +14,7 @@ public class Attribute {
 	private static Uml2Helper uml2Helper;
 
 	static {
-		try {
 			uml2Helper = Uml2HelperFactory.getUml2Helper();
-		} catch (ModelNotFoundException e) {
-			e.printStackTrace();
-		} catch (ModelIncompleteException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public Attribute createOnClass(Classifier klass, String attributeName, String attributeType) throws ModelNotFoundException {

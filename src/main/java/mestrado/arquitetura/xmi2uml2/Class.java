@@ -29,13 +29,7 @@ public class Class {
 	protected static Uml2Helper uml2Helper;
 
 	static {
-		try {
-			uml2Helper = Uml2HelperFactory.getUml2Helper();
-		} catch (ModelNotFoundException e) {
-			e.printStackTrace();
-		} catch (ModelIncompleteException e) {
-			e.printStackTrace();
-		}
+		uml2Helper = Uml2HelperFactory.getUml2Helper();
 	}
 
 	public static Class createOnModel(Package model) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {

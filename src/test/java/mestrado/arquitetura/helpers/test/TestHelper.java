@@ -44,20 +44,12 @@ public abstract class TestHelper {
 	protected static String targetDirExport;
 	
 	static{
-		try {
-			uml2Helper = Uml2HelperFactory.getUml2Helper();
-			
-			targetDir = ReaderConfig.getDirTarget();
-			targetDirExport = ReaderConfig.getDirExportTarget();
-			
-		} catch (ModelNotFoundException e) {
-			e.printStackTrace();
-		} catch (ModelIncompleteException e) {
-			e.printStackTrace();
-		}
+		uml2Helper = Uml2HelperFactory.getUml2Helper();
 		
+		targetDir = ReaderConfig.getDirTarget();
+		targetDirExport = ReaderConfig.getDirExportTarget();
+			
 		modelHelper = ModelHelperFactory.getModelHelper();
-		
 	}
 
 	public static Package givenAModel(String modelName) throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion {

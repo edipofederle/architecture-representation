@@ -45,6 +45,7 @@ public class DocumentManager extends XmiHelper {
 	public DocumentManager(String outputModelName) throws ModelNotFoundException, ModelIncompleteException {
 		this.outputModelName = outputModelName;
 		
+		//TODO MUDAR PARA PATH RELATIVO
 		String pathToFiles = "/Users/edipofederle/sourcesMestrado/arquitetura/src/main/java/mestrado/arquitetura/api/touml/1/"; // model padr vazio que o programa usa para construir o novo
 		makeACopy(pathToFiles, BASE_DOCUMENT);
 		createXMIDocument();
@@ -61,11 +62,13 @@ public class DocumentManager extends XmiHelper {
 		String pathSmarty = ReaderConfig.getPathToProfileSMarty();
 		String pathConcern = ReaderConfig.getPathToProfileConcerns();
 		
+		//TODO criar pasta resouces se nao existir
+		
 		final File sourceFileSmarty = new File(pathSmarty);
-		final File destFileSmarty = new File(ReaderConfig.getDirExportTarget()+"/smarty.profile.uml");
+		final File destFileSmarty = new File(ReaderConfig.getDirExportTarget()+"/resources/smarty.profile.uml");
 		
 		final File sourceFileConcern = new File(pathConcern);
-		final File destFileConcern = new File(ReaderConfig.getDirExportTarget()+"/perfilConcerns.profile.uml");
+		final File destFileConcern = new File(ReaderConfig.getDirExportTarget()+"/resources/perfilConcerns.profile.uml");
 		
 		try {
 			Files.copy(sourceFileSmarty, destFileSmarty);
@@ -215,8 +218,8 @@ public class DocumentManager extends XmiHelper {
 					xmlsnsConcern.setNodeValue(nsUriPerfilConcern);
 					
 					Node nodeSchemaLocation = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xsi:schemaLocation");
-					String concernLocaltionSchema = nsUriPerfilConcern + " " + "perfilConcerns.profile.uml#"+ getIdOnNode(docConcern, "contents", "xmi:id");
-					String samrtyLocaltionSchema = nsUriPerfilSmarty + " " + "smarty.profile.uml#"+ getIdOnNode(docProfile, "contents", "xmi:id");
+					String concernLocaltionSchema = nsUriPerfilConcern + " " + "resources/perfilConcerns.profile.uml#"+ getIdOnNode(docConcern, "contents", "xmi:id");
+					String samrtyLocaltionSchema = nsUriPerfilSmarty + " " + "resources/smarty.profile.uml#"+ getIdOnNode(docProfile, "contents", "xmi:id");
 					
 					nodeSchemaLocation.setNodeValue(concernLocaltionSchema +" " + samrtyLocaltionSchema);
 				}

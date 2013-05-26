@@ -1,7 +1,5 @@
 package mestrado.arquitetura.api.touml;
 
-import mestrado.arquitetura.exceptions.ModelIncompleteException;
-import mestrado.arquitetura.exceptions.ModelNotFoundException;
 
 /**
  * 
@@ -21,7 +19,7 @@ public class Operations {
 	 private AggregationOperations aggregationOperations;
 	 private NoteOperations noteOperations;
 
-	 public Operations(DocumentManager doc2) throws ModelNotFoundException, ModelIncompleteException {
+	 public Operations(DocumentManager doc2) {
 		 this.doc = doc2;
 		 createClassOperation();
 		 createAssociationOperations();
@@ -66,7 +64,7 @@ public class Operations {
 		this.associationOperation = new AssociationOperations(doc);
 	}
 
-	private void createClassOperation() throws ModelNotFoundException, ModelIncompleteException {
+	private void createClassOperation()  {
 		this.classOperation = new ClassOperations(doc);
 	}
 

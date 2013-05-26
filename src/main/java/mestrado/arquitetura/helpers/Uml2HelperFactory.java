@@ -1,7 +1,5 @@
 package mestrado.arquitetura.helpers;
 
-import mestrado.arquitetura.exceptions.ModelIncompleteException;
-import mestrado.arquitetura.exceptions.ModelNotFoundException;
 
 /**
  * 
@@ -12,7 +10,7 @@ public class Uml2HelperFactory {
 	
 	private static Uml2Helper instance;
 	
-	public static Uml2Helper getUml2Helper() throws ModelNotFoundException, ModelIncompleteException{
+	public static Uml2Helper getUml2Helper(){
 		if (instance == null){
 			instance = Uml2Helper.getInstance();
 			instance.setSMartyProfile();

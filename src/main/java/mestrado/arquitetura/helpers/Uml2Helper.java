@@ -51,7 +51,7 @@ public class Uml2Helper extends Base {
 	private static Package profile;
 	private static Uml2Helper instance;
 
-	public static Uml2Helper getInstance() throws ModelNotFoundException, ModelIncompleteException {
+	public static Uml2Helper getInstance() {
 		if (instance == null) instance = new Uml2Helper();
 		return instance;
 	}
@@ -383,7 +383,7 @@ public class Uml2Helper extends Base {
 	 * @throws ModelNotFoundException
 	 * @throws ModelIncompleteException
 	 */
-	public Profile loadSMartyProfile() throws ModelNotFoundException,	ModelIncompleteException {
+	public Profile loadSMartyProfile() {
 		return (Profile) getExternalResources(ReaderConfig.getPathToProfileSMarty());
 	}
 
@@ -391,7 +391,7 @@ public class Uml2Helper extends Base {
 		return (Profile) profile;
 	}
 
-	public void setSMartyProfile() throws ModelNotFoundException, ModelIncompleteException {
+	public void setSMartyProfile() {
 		profile = loadSMartyProfile();
 	}
 

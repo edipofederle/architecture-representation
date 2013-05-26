@@ -47,7 +47,7 @@ public class ClassOperations extends XmiHelper {
 
 	private org.eclipse.uml2.uml.Stereotype stereotype;
 
-	public ClassOperations(DocumentManager documentManager) throws ModelNotFoundException, ModelIncompleteException {
+	public ClassOperations(DocumentManager documentManager) {
 		uml2Helper = Uml2HelperFactory.getUml2Helper();
 		this.documentManager = documentManager;
 		this.elementXmiGenerator = new ElementXmiGenerator(documentManager);

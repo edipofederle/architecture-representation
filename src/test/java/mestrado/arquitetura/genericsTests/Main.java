@@ -50,7 +50,7 @@ public class Main extends ArchitectureBase {
 		
 		long init = System.currentTimeMillis();
 		
-		System.out.println("Start....");
+		System.out.println("Working....");
 
 		
 		String pathToModel = args[0];
@@ -70,13 +70,7 @@ public class Main extends ArchitectureBase {
 		String path = new File(pathToModel).getAbsolutePath(); 
 		Operations op = null;
 		
-		try {
-			op = new Operations(doc);
-		} catch (ModelNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (ModelIncompleteException e1) {
-			e1.printStackTrace();
-		}
+		op = new Operations(doc);
 		
 		
 		try {
@@ -115,10 +109,11 @@ public class Main extends ArchitectureBase {
 				if(v != null){
 					op.forClass().addStereotype(class1.getId(), v);
 				}
+				
 				/**
 				 * Deve atualizar o id do elemento em memória com o id do elemente gerado.
-				 * Isso é necesário pois quando usamos os métodos para gerar os elementos esses geram um id novo,	
-				 * diante disso ambos ids são diferebtes e não é possível localizar os elementos nos XMIS para criar os relacionamentos.
+				 * Isso é necesário pois quando usamos os métodos para gerar os elementos esses geram ids novos,	
+				 * diante disso ambos ids são diferentes e não é possível localizar os elementos nos XMIS para criar os relacionamentos.
 				 */
 				
 			}

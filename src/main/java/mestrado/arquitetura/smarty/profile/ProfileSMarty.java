@@ -3,7 +3,6 @@ package mestrado.arquitetura.smarty.profile;
 import java.io.IOException;
 
 import mestrado.arquitetura.exceptions.EnumerationNotFoundException;
-import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.StereotypeNotFoundException;
 import mestrado.arquitetura.helpers.Uml2Helper;
@@ -27,13 +26,7 @@ public class ProfileSMarty {
 	private static Uml2Helper helper;
 	
 	static{
-		try {
-			helper = Uml2HelperFactory.getUml2Helper();
-		} catch (ModelNotFoundException e) {
-			e.printStackTrace();
-		} catch (ModelIncompleteException e) {
-			e.printStackTrace();
-		}
+		helper = Uml2HelperFactory.getUml2Helper();
 	}
 
 	private Profile profile;
@@ -165,7 +158,5 @@ public class ProfileSMarty {
 	public Profile getProfile(){
 		return profile;
 	}
-
-
 
 }
