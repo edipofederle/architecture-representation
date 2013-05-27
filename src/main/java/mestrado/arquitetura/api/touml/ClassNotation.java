@@ -25,11 +25,14 @@ public class ClassNotation extends XmiHelper {
 	private Node notatioChildren;
 	private Element notationBasicProperty;
 	private static final String LOCATION_TO_ADD_ATTR_IN_NOTATION_FILE = "7017";
+	private static final String LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE = "7018";
 	
 	private static final String TYPE_CLASS = "2008";
 	private static final String TYPE_PACKAGE = "2007";
 	
 	private DocumentManager documentManager;
+
+	private Element notationBasicMethod ;
 
 	public ClassNotation(DocumentManager documentManager, Node notatioChildren){
 		this.documentManager = documentManager;
@@ -97,6 +100,7 @@ public class ClassNotation extends XmiHelper {
 	    klass.setAttribute("xmi:type", "uml:Class");
 		
 	    this.notationBasicProperty = createChildrenComportament(documentManager.getDocNotation(), node, LOCATION_TO_ADD_ATTR_IN_NOTATION_FILE); //onde vai as props
+	    this.notationBasicMethod = createChildrenComportament(documentManager.getDocNotation(), node, LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE); //onde vai os methods
 	    node.appendChild(klass);
 	    
 	    if((idPackage != null) && !(idPackage.isEmpty())){

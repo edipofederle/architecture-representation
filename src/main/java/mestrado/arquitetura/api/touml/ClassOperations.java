@@ -113,7 +113,7 @@ public class ClassOperations extends XmiHelper {
 			final mestrado.arquitetura.parser.method.Method method) {
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
-				elementXmiGenerator.generateMethod(method, null);
+				elementXmiGenerator.generateMethod(method, idClass);
 				idsMethods += method.getId() + " ";
 			}
 		});

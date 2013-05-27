@@ -82,7 +82,7 @@ public class Main extends ArchitectureBase {
 			List<Class> classes = a.getAllClasses();
 			
 			for (Class klass : classes) {		
-				klass.createAttribute("attr","String"); // ver resto dos parametros
+				klass.createAttribute("attr", Types.STRING, VisibilityKind.PUBLIC_LITERAL); // ver resto dos parametros
 				klass.createMethod("fooBar", "String", false); // ver resto dos parametros
 				klass.createMethod("fooBar1", "String", false);
 				klass.createMethod("fooBar2", "String", true);
@@ -113,7 +113,6 @@ public class Main extends ArchitectureBase {
 						methods.add(m);
 					}
 						
-				
 						 
 				}
 				
