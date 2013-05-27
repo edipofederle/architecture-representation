@@ -191,7 +191,7 @@ public class ClassTest extends TestHelper{
 		
 		assertEquals("ExtendedPO2", klass.getNamespace());
 		
-		Method m = klass.createMethod("bar", "String", false);
+		Method m = klass.createMethod("bar", "String", false, null);
 		String id = m.getId();
 		
 		assertEquals("ExtendedPO2::Person", m.getNamespace());
@@ -207,7 +207,7 @@ public class ClassTest extends TestHelper{
 		
 		assertEquals(1, klass.getAllMethods().size());
 		
-		klass.createMethod("foo", "", false);
+		klass.createMethod("foo", "", false, null);
 		
 		assertEquals(1, klass.getAllMethods().size());
 	}
@@ -220,8 +220,8 @@ public class ClassTest extends TestHelper{
 		
 		assertEquals(1, klass.getAllMethods().size());
 		
-		klass.createMethod("bar", "String", false);
-		klass.createMethod("bar", "String", false);
+		klass.createMethod("bar", "String", false, null);
+		klass.createMethod("bar", "String", false, null);
 		
 		assertEquals(2, klass.getAllMethods().size());
 	}

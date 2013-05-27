@@ -50,12 +50,23 @@ public class ClassNotation extends XmiHelper {
 		node.setAttribute("fontHeight", this.fontHeight);
 		node.setAttribute("lineColor", this.lineColor);
 		
+
+		Element eAnnotations = documentManager.getDocNotation().createElement("eAnnotations");
+		eAnnotations.setAttribute("xmi:type", "ecore:EAnnotation");
+		eAnnotations.setAttribute("source", "CustomAppearance_Annotation");
+		eAnnotations.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		
+		
       	
       	Element details = documentManager.getDocNotation().createElement("details");
       	details.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
       	details.setAttribute("xmi:id", UtilResources.getRandonUUID());
-      	details.setAttribute("key", "CustomAppearance_MaskValue");
-      	details.setAttribute("value", SHOW_TYPE_OF_ATTRIBUTE);
+		details.setAttribute("key", "CustomAppearance_MaskValue");
+      	details.setAttribute("value", "7050");
+      	eAnnotations.appendChild(details);
+      	
+      	node.appendChild(eAnnotations);
+      	
       	
 		Element element = documentManager.getDocNotation().createElement("element");
 		element.setAttribute("xmi:type", typeElement);

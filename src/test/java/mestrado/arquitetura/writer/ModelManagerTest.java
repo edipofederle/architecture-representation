@@ -211,7 +211,7 @@ public class ModelManagerTest extends TestHelper {
 							 .withReturn(Types.INTEGER).build();
 		
 		List<Argument> argumentsTeste = new ArrayList<Argument>();
-		arguments.add(Argument.create("name", Types.INTEGER_WRAPPER));
+		argumentsTeste.add(Argument.create("name", Types.STRING));
 		
 		mestrado.arquitetura.parser.method.Method teste = mestrado.arquitetura.parser.method.Method.create().withName("teste").withArguments(argumentsTeste)
 							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
@@ -240,7 +240,7 @@ public class ModelManagerTest extends TestHelper {
 		
 		Method methodFoo = barKlass.findMethodByName("foo");
 		
-		assertThat("Should have 1 parameter", methodFoo.getParameters().size() == 1 );
+		assertEquals(2, methodFoo.getParameters().size());
 		assertThat("Should parameter name be 'name'", methodFoo.getParameters().get(0).getName().equals("name") );
 	}
 	
@@ -405,7 +405,7 @@ public class ModelManagerTest extends TestHelper {
 		mestrado.arquitetura.parser.method.Method xpto = mestrado.arquitetura.parser.method.Method.create()
 							 						.withName("xpto").withArguments(arguments3)
 							 						.withVisibility(VisibilityKind.PRIVATE_LITERAL)
-							 						.withReturn(Types.LONG)
+							 						.withReturn(Types.STRING)
 							 						.build();
 		
 		op.forClass().addMethodToClass(idClass, teste);

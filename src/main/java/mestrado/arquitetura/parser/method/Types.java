@@ -40,7 +40,7 @@ public class Types {
 	};
 	public static final Type INTEGER = new Type() {
 		public String getName() {
-			return "int";
+			return "Integer";
 		}
 	};
 	public static final Type DOUBLE = new Type() {
@@ -55,7 +55,7 @@ public class Types {
 	};
 	public static final Type LONG = new Type() {
 		public String getName() {
-			return "long";
+			return "Longer";
 		}
 	};
  

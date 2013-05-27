@@ -102,6 +102,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		
 
 		for (Argument arg : method.getArguments()) {
+			System.out.println("PARMS---");
 			Element ownedParameter  = documentManager.getDocUml().createElement("ownedParameter");
 			ownedParameter.setAttribute("xmi:id", UtilResources.getRandonUUID());
 			ownedParameter.setAttribute("name", arg.getName());
@@ -114,6 +115,16 @@ public class ElementXmiGenerator extends XmiHelper {
 			ownedOperation.appendChild(ownedParameter);
 		}
 		
+	  	Element ownedParameterReturnType  = documentManager.getDocUml().createElement("ownedParameter");
+	  	ownedParameterReturnType.setAttribute("xmi:id", UtilResources.getRandonUUID());
+	  	ownedParameterReturnType.setAttribute("name", "");
+	  	ownedParameterReturnType.setAttribute("direction", "return");
+		
+		Element typeOperationReturn = documentManager.getDocUml().createElement("type");
+		typeOperationReturn.setAttribute("xmi:type", "uml:PrimitiveType");
+		typeOperationReturn.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#"+method.getReturnMethod());
+		ownedParameterReturnType.appendChild(typeOperationReturn);
+		ownedOperation.appendChild(ownedParameterReturnType);
 
 		if(idClass != null){
 			final Node klassToAddMethod = findByID(documentManager.getDocUml(), idClass, "packagedElement");

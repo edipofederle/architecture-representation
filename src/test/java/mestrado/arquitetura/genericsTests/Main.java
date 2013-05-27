@@ -13,6 +13,7 @@ import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.io.ReaderConfig;
+import mestrado.arquitetura.parser.method.Argument;
 import mestrado.arquitetura.parser.method.Method;
 import mestrado.arquitetura.parser.method.Types;
 import mestrado.arquitetura.parser.method.VisibilityKind;
@@ -20,6 +21,7 @@ import mestrado.arquitetura.representation.Architecture;
 import mestrado.arquitetura.representation.Attribute;
 import mestrado.arquitetura.representation.Class;
 import mestrado.arquitetura.representation.Element;
+import mestrado.arquitetura.representation.ParameterMethod;
 import mestrado.arquitetura.representation.Variability;
 import mestrado.arquitetura.representation.Variant;
 import mestrado.arquitetura.representation.relationship.AssociationRelationship;
@@ -82,12 +84,13 @@ public class Main extends ArchitectureBase {
 			List<Class> classes = a.getAllClasses();
 			
 			for (Class klass : classes) {		
-				klass.createAttribute("attr", Types.STRING, VisibilityKind.PUBLIC_LITERAL); // ver resto dos parametros
-				klass.createMethod("fooBar", "String", false); // ver resto dos parametros
-				klass.createMethod("fooBar1", "String", false);
-				klass.createMethod("fooBar2", "String", true);
-				klass.createMethod("fooBar3", "String", false);
-				klass.createMethod("fooBar4", "String", true);
+				klass.createAttribute("attr", Types.STRING, VisibilityKind.PUBLIC_LITERAL);
+				
+				List<ParameterMethod> parameters = new ArrayList<ParameterMethod>();
+				ParameterMethod p1 = new ParameterMethod("name", "String");
+				parameters.add(p1);
+				
+				klass.createMethod("fooBar1", "String", false, parameters);
 			}
 			
 			//Fim manipulação
@@ -101,14 +104,23 @@ public class Main extends ArchitectureBase {
 				List<mestrado.arquitetura.representation.Method> methodsClass = class1.getAllMethods();
 				for (mestrado.arquitetura.representation.Method method : methodsClass) {
 					
+					List<ParameterMethod> paramsMethod = method.getParameters();
+					List<Argument> currentMethodParams = new ArrayList<Argument>();
+					
+					for (ParameterMethod param : paramsMethod) {
+						currentMethodParams.add(Argument.create(param.getName(), Types.getByName(param.getType())));
+					}
+					
 					if(method.isAbstract()){
 						Method m = Method.create()
 							  .withName(method.getName()).abstractMethod()
+							  .withArguments(currentMethodParams)
 							  .withReturn(Types.getByName(method.getReturnType())).build();
 						methods.add(m);
 					}else{
 						Method m = Method.create()
 								  .withName(method.getName())
+								  .withArguments(currentMethodParams)
 								  .withReturn(Types.getByName(method.getReturnType())).build();
 						methods.add(m);
 					}

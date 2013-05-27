@@ -101,10 +101,12 @@ public class Class extends Element {
 	}
 	
 
-	public Method createMethod(String name, String type, boolean isAbstract) {
+	public Method createMethod(String name, String type, boolean isAbstract, List<ParameterMethod> parameters) {
 		if (!methodExistsOnClass(name, type)){
 			String id = UtilResources.getRandonUUID();
 			Method method = new Method(getArchitecture(), name, type, this.getName(), isAbstract, id);
+			if(parameters != null)
+				method.getParameters().addAll(parameters);
 			getAllMethods().add(method);
 			getArchitecture().getAllIds().add(id);
 			return method;
