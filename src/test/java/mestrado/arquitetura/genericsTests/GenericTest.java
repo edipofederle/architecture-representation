@@ -53,7 +53,7 @@ public class GenericTest extends TestHelper {
 	
 	
 	@Test
-	public void shouldApplyStereotypePersistense() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+	public void shouldApplyStereotypePersistense() throws Exception{
 		Package model = givenAModel("interface");
 		
 		NamedElement klass = modelHelper.getAllClasses(model).get(0);

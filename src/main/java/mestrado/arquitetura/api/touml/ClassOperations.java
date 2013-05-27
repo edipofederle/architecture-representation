@@ -53,13 +53,9 @@ public class ClassOperations extends XmiHelper {
 		this.elementXmiGenerator = new ElementXmiGenerator(documentManager);
 	}
 	
-	public ClassOperations createClass(final String className) throws NodeNotFound, InvalidMultiplictyForAssociationException {
-		try {
-			klass = elementXmiGenerator.generateClass(className, WITHOUT_PACKAGE);
-			this.idClass = klass.getAttributes().getNamedItem("xmi:id").getNodeValue();
-		} catch (CustonTypeNotFound e) {
-			e.printStackTrace();
-		}
+	public ClassOperations createClass(final String className){
+		klass = elementXmiGenerator.generateClass(className, WITHOUT_PACKAGE);
+		this.idClass = klass.getAttributes().getNamedItem("xmi:id").getNodeValue();
 		return this;
 	}
 
@@ -72,7 +68,7 @@ public class ClassOperations extends XmiHelper {
 	 * @throws NodeNotFound
 	 * @throws InvalidMultiplictyForAssociationException
 	 */
-	public ClassOperations withAttribute(final List<Attribute> attributes) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public ClassOperations withAttribute(final List<Attribute> attributes)   {
 
 		for (final Attribute attribute : attributes) {
 			mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
@@ -89,16 +85,40 @@ public class ClassOperations extends XmiHelper {
 	}
 	
 	
-	public ClassOperations withMethod(final mestrado.arquitetura.parser.method.Method method) throws CustonTypeNotFound{
+	/**
+	 * Recebe vários métodos
+	 * 
+	 * @param methods
+	 * @return
+	 */
+	public ClassOperations withMethod(final List<mestrado.arquitetura.parser.method.Method> methods){
+		for (final Method method : methods) 
+			createMethod(method);
+		
+		return this;
+	}
+	
+	/**
+	 * Recebe um único método.
+	 * 
+	 * @param method
+	 * @return
+	 */
+	public ClassOperations withMethod(final mestrado.arquitetura.parser.method.Method method){
+		createMethod(method);
+		return this;
+	}
+
+	private void createMethod(
+			final mestrado.arquitetura.parser.method.Method method) {
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
 				elementXmiGenerator.generateMethod(method, null);
 				idsMethods += method.getId() + " ";
 			}
 		});
-		
-		return this;
 	}
+
 
 
 	/**
@@ -109,7 +129,7 @@ public class ClassOperations extends XmiHelper {
 	 * @throws CustonTypeNotFound 
 	 * @throws InvalidMultiplictyForAssociationException 
 	 */
-	public Map<String, String> build() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public Map<String, String> build() {
 		
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
@@ -128,7 +148,7 @@ public class ClassOperations extends XmiHelper {
 	
 
 	
-	public void removeClassById(final String id) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public void removeClassById(final String id) {
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
 				RemoveNode removeClass = new RemoveNode(documentManager.getDocUml(), documentManager.getDocNotation());
@@ -138,7 +158,7 @@ public class ClassOperations extends XmiHelper {
 	}
 
 
-	public void removeAttribute(final String idAttributeToRemove) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public void removeAttribute(final String idAttributeToRemove) {
 		final RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
 		
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
@@ -148,7 +168,7 @@ public class ClassOperations extends XmiHelper {
 		});
 	}
 
-	public void removeMethod(final String idMethodoToRmove) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public void removeMethod(final String idMethodoToRmove)   {
 		final RemoveNode removeClass = new RemoveNode(this.documentManager.getDocUml(), this.documentManager.getDocNotation());
 		
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
@@ -159,7 +179,7 @@ public class ClassOperations extends XmiHelper {
 	}
 
 
-	public ClassOperations addMethodToClass(final String idClass, final Method method) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
+	public ClassOperations addMethodToClass(final String idClass, final Method method)  {
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
 				elementXmiGenerator.generateMethod(method, idClass);
@@ -170,7 +190,7 @@ public class ClassOperations extends XmiHelper {
 		return this;
 	}
 
-	public void addAttributeToClass(final String idClass, final Attribute attribute) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public void addAttributeToClass(final String idClass, final Attribute attribute)   {
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
 				elementXmiGenerator.generateAttribute(attribute, idClass);
@@ -236,7 +256,7 @@ public class ClassOperations extends XmiHelper {
 	 * @throws NodeNotFound
 	 * @throws InvalidMultiplictyForAssociationException
 	 */
-	public void addStereotype(final String id, final Variant mandatory) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public void addStereotype(final String id, final Variant mandatory) {
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation()  {
 				elementXmiGenerator.createStereotype(mandatory, id);
@@ -253,7 +273,7 @@ public class ClassOperations extends XmiHelper {
 	 * @throws NodeNotFound
 	 * @throws InvalidMultiplictyForAssociationException
 	 */
-	public ClassOperations isVariationPoint() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public ClassOperations isVariationPoint()   {
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
 				elementXmiGenerator.createStereotypeVariationPoint(idClass);
@@ -270,7 +290,7 @@ public class ClassOperations extends XmiHelper {
 	 * @throws NodeNotFound 
 	 * @throws CustonTypeNotFound 
 	 */
-	public ClassOperations linkToNote(final String id) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public ClassOperations linkToNote(final String id)   {
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
 				

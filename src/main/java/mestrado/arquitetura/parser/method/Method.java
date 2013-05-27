@@ -59,6 +59,8 @@ public class Method {
 	 * @return the visibility
 	 */
 	public String getVisibility() {
+		if(visibility == null)
+			return "public";
 		return visibility.getName();
 	}
 

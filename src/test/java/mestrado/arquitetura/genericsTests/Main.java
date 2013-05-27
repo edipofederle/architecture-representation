@@ -13,6 +13,7 @@ import mestrado.arquitetura.exceptions.ModelIncompleteException;
 import mestrado.arquitetura.exceptions.ModelNotFoundException;
 import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.io.ReaderConfig;
+import mestrado.arquitetura.parser.method.Method;
 import mestrado.arquitetura.parser.method.Types;
 import mestrado.arquitetura.parser.method.VisibilityKind;
 import mestrado.arquitetura.representation.Architecture;
@@ -76,11 +77,46 @@ public class Main extends ArchitectureBase {
 		try {
 			a = new ArchitectureBuilder().create(path);
 			
+			
+			//Alguma manipulação sobre a arquitetura
 			List<Class> classes = a.getAllClasses();
+			
+			for (Class klass : classes) {		
+				klass.createAttribute("attr","String"); // ver resto dos parametros
+				klass.createMethod("fooBar", "String", false); // ver resto dos parametros
+				klass.createMethod("fooBar1", "String", false);
+				klass.createMethod("fooBar2", "String", true);
+				klass.createMethod("fooBar3", "String", false);
+				klass.createMethod("fooBar4", "String", true);
+			}
+			
+			//Fim manipulação
+			
 			
 			for (Class class1 : classes) {
 				
 				List<mestrado.arquitetura.parser.method.Attribute> attributes = new ArrayList<mestrado.arquitetura.parser.method.Attribute>();
+				List<Method> methods = new ArrayList<Method>();
+				
+				List<mestrado.arquitetura.representation.Method> methodsClass = class1.getAllMethods();
+				for (mestrado.arquitetura.representation.Method method : methodsClass) {
+					
+					if(method.isAbstract()){
+						Method m = Method.create()
+							  .withName(method.getName()).abstractMethod()
+							  .withReturn(Types.getByName(method.getReturnType())).build();
+						methods.add(m);
+					}else{
+						Method m = Method.create()
+								  .withName(method.getName())
+								  .withReturn(Types.getByName(method.getReturnType())).build();
+						methods.add(m);
+					}
+						
+				
+						 
+				}
+				
 				List<Attribute> attrs = class1.getAllAttributes();
 				for (Attribute attribute : attrs) {
 					mestrado.arquitetura.parser.method.Attribute attr = mestrado.arquitetura.parser.method.Attribute.create()
@@ -91,7 +127,7 @@ public class Main extends ArchitectureBase {
 					attributes.add(attr);
 				}
 				if(!attributes.isEmpty()){
-					String id = op.forClass().createClass(class1.getName()).withAttribute(attributes).build().get("id");
+					String id = op.forClass().createClass(class1.getName()).withAttribute(attributes).withMethod(methods).build().get("id");
 					class1.updateId(id);
 				}else{
 					String id = op.forClass().createClass(class1.getName()).build().get("id");
@@ -149,7 +185,7 @@ public class Main extends ArchitectureBase {
 			
 			
 		} catch (Exception e) {
-			System.out.println("Ops!. Error, I am sorry: " + e.getLocalizedMessage());
+			System.out.println("Ops!. Error, I am sorry: " + e.getMessage());
 			System.exit(0);
 		}
 		long end = System.currentTimeMillis();

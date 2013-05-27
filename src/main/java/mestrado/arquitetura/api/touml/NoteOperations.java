@@ -1,8 +1,5 @@
 package mestrado.arquitetura.api.touml;
 
-import mestrado.arquitetura.exceptions.CustonTypeNotFound;
-import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
-import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.utils.UtilResources;
 import mestrado.arquitetura.writer.VariabilityStereotype;
 
@@ -23,7 +20,7 @@ public class NoteOperations extends XmiHelper {
 
 	}
 
-	public NoteOperations createNote() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public NoteOperations createNote()  {
 		final NoteNode noteNode = new NoteNode(documentManager);
 		this.id = UtilResources.getRandonUUID();
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
@@ -39,7 +36,7 @@ public class NoteOperations extends XmiHelper {
 		return this.id;
 	}
 
-	public NoteOperations addVariability(final String idNote, final VariabilityStereotype a) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public NoteOperations addVariability(final String idNote, final VariabilityStereotype a) {
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
 				elementXmiGenerator.createStereotypeVariability(idNote, a);

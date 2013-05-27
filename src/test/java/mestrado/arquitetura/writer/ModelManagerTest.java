@@ -129,7 +129,7 @@ public class ModelManagerTest extends TestHelper {
 				 .withType(Types.INTEGER_WRAPPER);
 		
 		List<Attribute> classInfoAttrs = new ArrayList<Attribute>();
-		classInfoAttrs .add(xpto);
+		classInfoAttrs.add(xpto);
 		classInfoAttrs.add(age);
 		
 		Attribute id = Attribute.create()
@@ -207,7 +207,7 @@ public class ModelManagerTest extends TestHelper {
 		arguments.add(Argument.create("name", Types.STRING));
 		
 		mestrado.arquitetura.parser.method.Method foo = mestrado.arquitetura.parser.method.Method.create().withName("foo").withArguments(arguments)
-							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
+							 .withVisibility(VisibilityKind.PRIVATE_LITERAL)
 							 .withReturn(Types.INTEGER).build();
 		
 		List<Argument> argumentsTeste = new ArrayList<Argument>();
@@ -225,7 +225,11 @@ public class ModelManagerTest extends TestHelper {
 		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
 		classInfoAttrs2.add(name);
 		
-		op.forClass().createClass("Person").withMethod(foo).withMethod(teste).withAttribute(classInfoAttrs2).build();
+		List<mestrado.arquitetura.parser.method.Method> methods = new ArrayList<mestrado.arquitetura.parser.method.Method>();
+		methods.add(foo);
+		methods.add(teste);
+		
+		op.forClass().createClass("Person").withMethod(methods).withAttribute(classInfoAttrs2).build();
 		Architecture arch = givenAArchitecture2("teste4");
 		Class barKlass = arch.findClassByName("Person");
 		
@@ -254,7 +258,9 @@ public class ModelManagerTest extends TestHelper {
 							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 .withReturn(Types.INTEGER).build();
 		
-		op.forClass().createClass("Bar").withMethod(foo).build();
+		List<mestrado.arquitetura.parser.method.Method> methods = new ArrayList<mestrado.arquitetura.parser.method.Method>();
+		methods.add(foo);
+		op.forClass().createClass("Bar").withMethod(methods).build();
 	}
 	
 	@Test
@@ -272,7 +278,10 @@ public class ModelManagerTest extends TestHelper {
 							 						.withReturn(Types.INTEGER)
 							 						.abstractMethod().build();
 		
-		op.forClass().createClass("Person").withMethod(bar).build();
+		List<mestrado.arquitetura.parser.method.Method> methods = new ArrayList<mestrado.arquitetura.parser.method.Method>();
+		methods.add(bar);
+		
+		op.forClass().createClass("Person").withMethod(methods).build();
 		
 		Architecture arch = givenAArchitecture2("testeMethodoAbastrato");
 		
@@ -310,7 +319,10 @@ public class ModelManagerTest extends TestHelper {
 								 .withType(Types.STRING);
 		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
 		classInfoAttrs2.add(xpto);
-		op.forClass().createClass("Person").withMethod(foo).withMethod(teste).withAttribute(classInfoAttrs2).build();
+		List<mestrado.arquitetura.parser.method.Method> methods = new ArrayList<mestrado.arquitetura.parser.method.Method>();
+		methods.add(foo);
+		methods.add(teste);
+		op.forClass().createClass("Person").withMethod(methods).withAttribute(classInfoAttrs2).build();
 		
 		assertTrue(modelContainId("testeRemoveMethod", teste.getId()));
 		

@@ -1,8 +1,5 @@
 package mestrado.arquitetura.api.touml;
 
-import mestrado.arquitetura.exceptions.CustonTypeNotFound;
-import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
-import mestrado.arquitetura.exceptions.NodeNotFound;
 
 /**
  * 
@@ -47,7 +44,7 @@ public class AggregationOperations implements Relationship {
 		return this;
 	}
 
-	public String build() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public String build() {
 		final CompositionNode compositeNode = new CompositionNode(doc);
 		
 		mestrado.arquitetura.api.touml.Document.executeTransformation(doc, new Transformation(){

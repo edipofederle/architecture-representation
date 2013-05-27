@@ -6,6 +6,7 @@ import java.util.List;
 import mestrado.arquitetura.exceptions.AttributeNotFoundException;
 import mestrado.arquitetura.exceptions.ClassNotFound;
 import mestrado.arquitetura.exceptions.MethodNotFoundException;
+import mestrado.arquitetura.parser.method.VisibilityKind;
 import mestrado.arquitetura.representation.relationship.Relationship;
 import mestrado.arquitetura.utils.UtilResources;
 
@@ -46,13 +47,13 @@ public class Class extends Element {
 		this(architecture, name,  false, null, false,  UtilResources.createNamespace(getArchitecture().getName(), name), id);
 	}
 
-//	public Attribute createAttribute(String name, String type) {
-//		String id = UtilResources.getRandonUUID();
-//		Attribute a = new Attribute(getArchitecture(), name, type,  getArchitecture().getName()+"::"+this.getName(), id); //Verificar IDs
-//		getAttributes().add(a);
-//		getArchitecture().getAllIds().add(id);
-//		return a;
-//	}
+	public Attribute createAttribute(String name, String type) {
+		String id = UtilResources.getRandonUUID();
+		Attribute a = new Attribute(getArchitecture(), name, VisibilityKind.PUBLIC_LITERAL.toString(), type, getArchitecture().getName()+"::"+this.getName(), UtilResources.getRandonUUID());
+		getAllAttributes().add(a);
+		getArchitecture().getAllIds().add(id);
+		return a;
+	}
 
 	public void setAttribute(Attribute attr){
 		this.attributes.add(attr);

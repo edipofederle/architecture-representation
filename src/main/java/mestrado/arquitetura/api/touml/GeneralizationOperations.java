@@ -1,11 +1,8 @@
 package mestrado.arquitetura.api.touml;
 
-import org.w3c.dom.Node;
-
-import mestrado.arquitetura.exceptions.CustonTypeNotFound;
-import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
-import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.exceptions.NotSuppportedOperation;
+
+import org.w3c.dom.Node;
 
 /**
  * 
@@ -67,7 +64,7 @@ public class GeneralizationOperations extends XmiHelper implements Relationship 
 		return false;
 	}
 
-	public String build() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public String build() {
 		final GeneralizationNode generalizationNode = new GeneralizationNode(this.documentManager, this.general, this.client, this.name);
 		
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){

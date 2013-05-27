@@ -45,7 +45,7 @@ public class AssociationOperations {
 		return this;
 	}
 	
-	public String build() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
+	public String build(){
 		//Refactoring, document.getNewName is common for many classes
 		final AssociationNode associationNode = new AssociationNode(this.documentManager);
 		

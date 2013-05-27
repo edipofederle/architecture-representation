@@ -1,8 +1,5 @@
 package mestrado.arquitetura.api.touml;
 
-import mestrado.arquitetura.exceptions.CustonTypeNotFound;
-import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
-import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.exceptions.NotSuppportedOperation;
 
 /**
@@ -42,7 +39,7 @@ public class UsageOperations implements Relationship  {
 		return this;
 	}
 
-	public String build() throws CustonTypeNotFound, NodeNotFound,	InvalidMultiplictyForAssociationException {
+	public String build() {
 		final DependencyNode dependencyNode = new DependencyNode(this.documentManager, this.name, this.clientElement, this.supplierElement);
 		
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){

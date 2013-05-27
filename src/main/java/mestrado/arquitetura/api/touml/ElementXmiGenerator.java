@@ -3,9 +3,6 @@ package mestrado.arquitetura.api.touml;
 
 import java.util.List;
 
-import mestrado.arquitetura.exceptions.CustonTypeNotFound;
-import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
-import mestrado.arquitetura.exceptions.NodeNotFound;
 import mestrado.arquitetura.exceptions.NullReferenceFoundException;
 import mestrado.arquitetura.parser.method.Argument;
 import mestrado.arquitetura.parser.method.Attribute;
@@ -62,7 +59,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		notation = new ClassNotation(this.documentManager, notatioChildren);
 	}
 
-	public Node generateClass(final String klassName, final String idPackage) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public Node generateClass(final String klassName, final String idPackage){
 		
 		mestrado.arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
 
@@ -101,6 +98,8 @@ public class ElementXmiGenerator extends XmiHelper {
 		ownedOperation.setAttribute("name", method.getName());
 		ownedOperation.setAttribute("xmi:id", method.getId());
 		ownedOperation.setAttribute("isAbstract", method.isAbstract());
+		ownedOperation.setAttribute("visibility", method.getVisibility());
+		
 
 		for (Argument arg : method.getArguments()) {
 			Element ownedParameter  = documentManager.getDocUml().createElement("ownedParameter");
