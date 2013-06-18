@@ -14,26 +14,43 @@ public class Variability {
 	private String name;
 	private String minSelection;
 	private String maxSelection;
+	private String bindingTime;
 	private boolean allowsAddingVar;
 	
 	private List<VariationPoint> variationPoints = new ArrayList<VariationPoint>();
 	private List<Variant> variants = new ArrayList<Variant>();
 	
 	/**
-	 * 
 	 * @param name
 	 * @param minSelection
 	 * @param maxSelection
+	 * @param bidingTime 
 	 * @param allowsAddingVar
 	 * @param attributes
 	 * @param elementOwner
 	 */
-	public Variability(String name, String minSelection, String maxSelection, boolean allowsAddingVar) {
+	public Variability(String name, String minSelection, String maxSelection, String bindingTime, boolean allowsAddingVar) {
 		setName(name);
 		setMinSelection(minSelection);
 		setMaxSelection(maxSelection);
 		setAllowsAddingVar(allowsAddingVar);
+		setBindingTime(bindingTime);
 	}
+	
+
+	private void setBindingTime(String bindingTime) {
+		this.bindingTime = bindingTime;
+	}
+	
+
+
+	/**
+	 * @return the bindingTime
+	 */
+	public String getBindingTime() {
+		return bindingTime;
+	}
+
 
 	public void addVariationPoint(VariationPoint variationPoint) {
 		if (variationPoint != null)

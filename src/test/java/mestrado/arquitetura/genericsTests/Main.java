@@ -205,7 +205,7 @@ public class Main extends ArchitectureBase {
 				
 				String idNote = op.forNote().createNote().build();
 				VariabilityStereotype var = new VariabilityStereotype(variability.getName(), variability.getMinSelection(), variability.getMaxSelection()
-						,variability.allowAddingVar(), BindingTime.COMPILE_TIME, spliterVariants(variability.getVariants()));
+						,variability.allowAddingVar(), variability.getBindingTime(), spliterVariants(variability.getVariants()));
 				for (VariationPoint variationPoint : variationsPointsForVariability) {
 					op.forNote().addVariability(idNote, var).build();
 					op.forClass().withId(variationPoint.getVariationPointElement().getId()).linkToNote(idNote);

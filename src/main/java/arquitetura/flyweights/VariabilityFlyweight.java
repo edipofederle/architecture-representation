@@ -44,9 +44,10 @@ public class VariabilityFlyweight {
 			variantFlyweight.setArchitecture(architecture);
 			
 			variability = new Variability(variabilityAttributes.get("name"),
-                      variabilityAttributes.get("minSelection"),
-                      variabilityAttributes.get("maxSelection"),
-                      allowAddingVar(variabilityAttributes));
+                      					  variabilityAttributes.get("minSelection"),
+                                          variabilityAttributes.get("maxSelection"),
+                                          variabilityAttributes.get("bindingTime"),
+                                          allowAddingVar(variabilityAttributes));
 			
 			variabilities.put(variability.getName(), variability);	
 		}
