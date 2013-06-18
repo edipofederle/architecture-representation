@@ -8,7 +8,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -46,7 +45,6 @@ public class DocumentManager extends XmiHelper {
 	
 	public DocumentManager(String outputModelName) throws ModelNotFoundException, ModelIncompleteException {
 		this.outputModelName = outputModelName;
-		//TODO MUDAR PARA PATH RELATIVO
 		String pathToFiles = "src/main/java/resources/"; // model padr vazio que o programa usa para construir o novo
 		makeACopy(pathToFiles, BASE_DOCUMENT);
 		createXMIDocument();
