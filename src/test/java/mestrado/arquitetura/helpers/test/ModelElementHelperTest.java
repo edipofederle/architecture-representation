@@ -6,17 +6,18 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import mestrado.arquitetura.exceptions.ModelIncompleteException;
-import mestrado.arquitetura.exceptions.ModelNotFoundException;
-import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.factories.Klass;
-import mestrado.arquitetura.helpers.ModelElementHelper;
 
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Stereotype;
 import org.junit.Test;
+
+import arquitetura.exceptions.ModelIncompleteException;
+import arquitetura.exceptions.ModelNotFoundException;
+import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import arquitetura.helpers.ModelElementHelper;
 
 /**
  * 

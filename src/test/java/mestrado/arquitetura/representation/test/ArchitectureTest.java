@@ -6,31 +6,30 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import mestrado.arquitetura.builders.ArchitectureBuilder;
-import mestrado.arquitetura.exceptions.ClassNotFound;
-import mestrado.arquitetura.exceptions.InterfaceNotFound;
-import mestrado.arquitetura.exceptions.PackageNotFound;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Class;
-import mestrado.arquitetura.representation.Concern;
-import mestrado.arquitetura.representation.Element;
-import mestrado.arquitetura.representation.Interface;
-import mestrado.arquitetura.representation.Package;
-import mestrado.arquitetura.representation.Variability;
-import mestrado.arquitetura.representation.relationship.AbstractionRelationship;
-import mestrado.arquitetura.representation.relationship.AssociationClassRelationship;
-import mestrado.arquitetura.representation.relationship.AssociationRelationship;
-import mestrado.arquitetura.representation.relationship.DependencyRelationship;
-import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
-import mestrado.arquitetura.representation.relationship.UsageRelationship;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+
+import arquitetura.builders.ArchitectureBuilder;
+import arquitetura.exceptions.ClassNotFound;
+import arquitetura.exceptions.InterfaceNotFound;
+import arquitetura.exceptions.PackageNotFound;
+import arquitetura.representation.Architecture;
+import arquitetura.representation.Class;
+import arquitetura.representation.Concern;
+import arquitetura.representation.Element;
+import arquitetura.representation.Interface;
+import arquitetura.representation.Package;
+import arquitetura.representation.relationship.AbstractionRelationship;
+import arquitetura.representation.relationship.AssociationClassRelationship;
+import arquitetura.representation.relationship.AssociationRelationship;
+import arquitetura.representation.relationship.DependencyRelationship;
+import arquitetura.representation.relationship.GeneralizationRelationship;
+import arquitetura.representation.relationship.UsageRelationship;
 
 public class ArchitectureTest extends TestHelper {
 	
@@ -78,7 +77,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllPackages(){
-		Package pkg = new Package(arch, "Pacote", false, null, "","id");
+		Package pkg = new Package(arch, "Pacote", null, "","id");
 		arch.getElements().add(pkg);
 		
 		assertEquals(1, arch.getAllPackages().size());
@@ -92,7 +91,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllClasses(){
-		Class klass = new Class(arch, "Klass", false, null, false, "namespace","id");
+		Class klass = new Class(arch, "Klass", null, false, "namespace","id");
 		arch.getElements().add(klass);
 		
 		assertEquals(1, arch.getAllClasses().size());
@@ -103,18 +102,7 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldReturnEmptyListWhenNoClasses(){
 		assertEquals(Collections.emptyList(), arch.getAllClasses());
 	}
-	
-	@Test
-	public void shouldReturnVariabilities(){
-		Map<String, String> attributes = new HashMap<String, String>();
-		attributes.put("name", "var");
-		Variability v = new Variability("var", "1", "1", false, attributes, null);
-		arch.getAllVariabilities().add(v);
-		
-		assertNotNull(arch.getAllVariabilities().get(0));
-		assertEquals("var", arch.getAllVariabilities().get(0).getName());
-	}
-	
+
 	@Test
 	public void shouldReturnEmptyListWhenNoVariabilities(){
 		assertEquals(Collections.emptyList(), arch.getAllVariabilities());
@@ -127,7 +115,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnElementClassByName(){
-		arch.getElements().add(new Class(arch, "Klass", false,  null, false,  "namespace", "id"));
+		arch.getElements().add(new Class(arch, "Klass",  null, false,  "namespace", "id"));
 		Element klass = arch.findElementByName("klass");
 		
 		assertNotNull(klass);
@@ -145,9 +133,9 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllInterfaces(){
-		arch.getElements().add(new Class(arch, "Klass1", false,  null, false,  "namespace", "id"));
-		arch.getElements().add(new Interface(arch, "Interface1", false, null, "namesapce","id"));
-		arch.getElements().add(new Interface(arch, "Interface2", false, null, "namesapce","id"));
+		arch.getElements().add(new Class(arch, "Klass1",  null, false,  "namespace", "id"));
+		arch.getElements().add(new Interface(arch, "Interface1", null, "namesapce","id"));
+		arch.getElements().add(new Interface(arch, "Interface2", null, "namesapce","id"));
 		
 		assertEquals(2, arch.getAllInterfaces().size());
 		assertEquals(1, arch.getAllClasses().size());
@@ -188,7 +176,7 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldReturnVisibilityForAttribute() throws Exception{
 		String uriToArchitecture =  getUrlToModel("testeCreateClassWithAttribute");
 		Architecture a = new ArchitectureBuilder().create(uriToArchitecture);
-		Class klass = a.findClassByName("Class43");
+		Class klass = a.findClassByName("Class43").get(0);
 		assertEquals("public",klass.findAttributeByName("age").getVisibility());
 	}
 	
@@ -216,12 +204,36 @@ public class ArchitectureTest extends TestHelper {
 		assertEquals("Class3", architecture.findElementByName("CLass3").getName());
 	}
 	
+	@Test
+	public void shouldFindClassById() throws Exception{
+		Architecture a = givenAArchitecture("classesComMesmoNome");
+		assertEquals(2,a.getAllClasses().size());
+		Class c = a.findClassById("_Tln8YMlrEeKhSNDKJvPCfQ");
+		
+		assertNotNull(c);
+		assertEquals("model::Package1",c.getNamespace());
+		
+		Class c2 = a.findClassById("_Q4UBkMlrEeKhSNDKJvPCfQ");
+		assertNotNull(c2);
+		assertEquals("model",c2.getNamespace());
+	}
+	
+	@Test
+	public void shouldReturnsListOfClassesWhenModelContainsClassesWithSameName() throws Exception{
+		Architecture a = givenAArchitecture2("classesComMesmoNome");
+		List<Class> classes = a.findClassByName("Class1");
+		
+		assertEquals(2,classes.size());
+		assertEquals("Class1", classes.get(0).getName());
+		assertEquals("Class1", classes.get(1).getName());
+	}
+	
 	@Test(expected=ClassNotFound.class)
 	public void shouldRaiseClassNotFoundExceptionWhenClassNotFound() throws ClassNotFound{
 		architecture.findClassByName("noClass");
 	}
 	
-	@Test
+	@Test @Ignore
 	public void shouldFindInterfaceByName() throws Exception{
 		Architecture a = givenAArchitecture("classes");
 		assertNotNull(a.findInterfaceByName("Interface"));
@@ -483,8 +495,18 @@ public class ArchitectureTest extends TestHelper {
 		
 		assertEquals(4, architecture.getAllClasses().size());
 		
-		assertEquals(klass, architecture.findClassByName("Bar"));
+		assertEquals(klass, architecture.findClassByName("Bar").get(0));
 		assertEquals(8, architecture.getAllIds().size());
+	}
+	
+	@Test
+	public void shouldCreateAssociation(){
+		Class klass1 = architecture.createClass("Bar");
+		Class klass2 = architecture.createClass("Foo");
+		
+		architecture.createAssociation(klass1, klass2);
+		
+		assertEquals(2, architecture.getAllAssociations().size());
 	}
 	
 	@Test

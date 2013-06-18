@@ -8,13 +8,14 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Element;
-import mestrado.arquitetura.representation.relationship.AssociationEnd;
-import mestrado.arquitetura.representation.relationship.AssociationRelationship;
-import mestrado.arquitetura.representation.relationship.Relationship;
 
 import org.junit.Test;
+
+import arquitetura.representation.Architecture;
+import arquitetura.representation.Element;
+import arquitetura.representation.relationship.AssociationEnd;
+import arquitetura.representation.relationship.AssociationRelationship;
+import arquitetura.representation.relationship.Relationship;
 
 public class AssociationsTest extends TestHelper {
 	

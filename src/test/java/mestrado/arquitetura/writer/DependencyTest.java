@@ -6,13 +6,14 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 
-import mestrado.arquitetura.api.touml.DocumentManager;
-import mestrado.arquitetura.api.touml.Operations;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.relationship.DependencyRelationship;
 
 import org.junit.Test;
+
+import arquitetura.api.touml.DocumentManager;
+import arquitetura.api.touml.Operations;
+import arquitetura.representation.Architecture;
+import arquitetura.representation.relationship.DependencyRelationship;
 
 public class DependencyTest extends TestHelper {
 	

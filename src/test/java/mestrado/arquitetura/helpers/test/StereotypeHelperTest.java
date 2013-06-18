@@ -10,13 +10,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import mestrado.arquitetura.exceptions.ConcernNotFoundException;
-import mestrado.arquitetura.exceptions.ModelIncompleteException;
-import mestrado.arquitetura.exceptions.ModelNotFoundException;
-import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.factories.Klass;
-import mestrado.arquitetura.helpers.ModelElementHelper;
-import mestrado.arquitetura.helpers.StereotypeHelper;
 
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
@@ -25,6 +19,13 @@ import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Stereotype;
 import org.junit.Test;
+
+import arquitetura.exceptions.ConcernNotFoundException;
+import arquitetura.exceptions.ModelIncompleteException;
+import arquitetura.exceptions.ModelNotFoundException;
+import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import arquitetura.helpers.ModelElementHelper;
+import arquitetura.helpers.StereotypeHelper;
 
 /**
  * 

@@ -5,10 +5,11 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Method;
 
 import org.junit.Test;
+
+import arquitetura.representation.Architecture;
+import arquitetura.representation.Method;
 
 public class InterfaceBuilderTest extends TestHelper {
 	

@@ -5,13 +5,14 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.helpers.test.HelperTest;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.relationship.Relationship;
-import mestrado.arquitetura.representation.relationship.UsageRelationship;
 
 import org.junit.Test;
+
+import arquitetura.builders.ArchitectureBuilder;
+import arquitetura.representation.Architecture;
+import arquitetura.representation.relationship.Relationship;
+import arquitetura.representation.relationship.UsageRelationship;
 
 public class UsageRelationshipTest extends HelperTest {
 	

@@ -5,9 +5,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import mestrado.arquitetura.io.ReaderConfig;
 
 import org.junit.Test;
+
+import arquitetura.io.ReaderConfig;
 
 public class ReaderConfiTest {
 	

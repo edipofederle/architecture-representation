@@ -1,14 +1,15 @@
 package mestrado.arquitetura.writer;
 
 import static org.junit.Assert.assertNotNull;
-import mestrado.arquitetura.api.touml.DocumentManager;
-import mestrado.arquitetura.exceptions.CustonTypeNotFound;
-import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
-import mestrado.arquitetura.exceptions.ModelIncompleteException;
-import mestrado.arquitetura.exceptions.ModelNotFoundException;
-import mestrado.arquitetura.exceptions.NodeNotFound;
 
 import org.junit.Test;
+
+import arquitetura.api.touml.DocumentManager;
+import arquitetura.exceptions.CustonTypeNotFound;
+import arquitetura.exceptions.InvalidMultiplictyForAssociationException;
+import arquitetura.exceptions.ModelIncompleteException;
+import arquitetura.exceptions.ModelNotFoundException;
+import arquitetura.exceptions.NodeNotFound;
 
 public class DocumentTest {
 	

@@ -6,9 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import mestrado.arquitetura.exceptions.ModelIncompleteException;
-import mestrado.arquitetura.exceptions.ModelNotFoundException;
-import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Association;
@@ -24,6 +21,10 @@ import org.eclipse.uml2.uml.Usage;
 import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 import org.eclipse.uml2.uml.internal.impl.PackageImpl;
 import org.junit.Test;
+
+import arquitetura.exceptions.ModelIncompleteException;
+import arquitetura.exceptions.ModelNotFoundException;
+import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 
 /**
  * 

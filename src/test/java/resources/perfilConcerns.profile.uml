@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Profile xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_9v_84HqaEeK1gM_kVgXLQw" name="perfilConcerns" metaclassReference="_ClV7MHqbEeK1gM_kVgXLQw">
   <eAnnotations xmi:id="_EgIM4HqbEeK1gM_kVgXLQw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_ZWvNYNKVEeKsX9Mc5gQTXQ" name="perfilConcerns" nsURI="http:///schemas/perfilConcerns/_ZWsKENKVEeKsX9Mc5gQTXQ/14" nsPrefix="perfilConcerns">
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ZWv0cNKVEeKsX9Mc5gQTXQ" name="Concern" abstract="true">
+        <eAnnotations xmi:id="_ZWv0cdKVEeKsX9Mc5gQTXQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_-WptMHqaEeK1gM_kVgXLQw"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_ZWv0ctKVEeKsX9Mc5gQTXQ" name="base_Class" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Class"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ZWv0dNKVEeKsX9Mc5gQTXQ" name="Persistence" eSuperTypes="_ZWv0cNKVEeKsX9Mc5gQTXQ">
+        <eAnnotations xmi:id="_ZWv0ddKVEeKsX9Mc5gQTXQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_EwztMHqbEeK1gM_kVgXLQw"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ZWv0d9KVEeKsX9Mc5gQTXQ" name="sorting" eSuperTypes="_ZWv0cNKVEeKsX9Mc5gQTXQ">
+        <eAnnotations xmi:id="_ZWv0eNKVEeKsX9Mc5gQTXQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_8KZHkHt3EeK2ob5NxUhyBg"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ZWv0etKVEeKsX9Mc5gQTXQ" name="GUI" eSuperTypes="_ZWv0cNKVEeKsX9Mc5gQTXQ">
+        <eAnnotations xmi:id="_ZWv0e9KVEeKsX9Mc5gQTXQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_Oond0NKVEeKsX9Mc5gQTXQ"/>
+      </eClassifiers>
+    </contents>
     <contents xmi:type="ecore:EPackage" xmi:id="_P_8VsHt4EeKj6c5Uq9Fn3w" name="perfilConcerns" nsURI="http:///schemas/perfilConcerns/_P_xWkHt4EeKj6c5Uq9Fn3w/13" nsPrefix="perfilConcerns">
       <eClassifiers xmi:type="ecore:EClass" xmi:id="_P_8VsXt4EeKj6c5Uq9Fn3w" name="Concern" abstract="true">
         <eAnnotations xmi:id="_P_8Vsnt4EeKj6c5Uq9Fn3w" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_-WptMHqaEeK1gM_kVgXLQw"/>
@@ -248,5 +265,8 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Stereotype" xmi:id="_8KZHkHt3EeK2ob5NxUhyBg" name="sorting">
     <generalization xmi:id="_B5n7QHt4EeK2ob5NxUhyBg" general="_-WptMHqaEeK1gM_kVgXLQw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_Oond0NKVEeKsX9Mc5gQTXQ" name="GUI">
+    <generalization xmi:id="_Sa6DsNKVEeKsX9Mc5gQTXQ" general="_-WptMHqaEeK1gM_kVgXLQw"/>
   </packagedElement>
 </uml:Profile>

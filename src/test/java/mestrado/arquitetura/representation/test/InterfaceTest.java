@@ -2,14 +2,15 @@ package mestrado.arquitetura.representation.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import mestrado.arquitetura.builders.ArchitectureBuilder;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Interface;
-import mestrado.arquitetura.representation.Method;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import arquitetura.builders.ArchitectureBuilder;
+import arquitetura.representation.Architecture;
+import arquitetura.representation.Interface;
+import arquitetura.representation.Method;
 
 public class InterfaceTest extends TestHelper {
 	

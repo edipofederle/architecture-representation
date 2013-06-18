@@ -5,13 +5,14 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Map;
 
-import mestrado.arquitetura.api.touml.DocumentManager;
-import mestrado.arquitetura.api.touml.Operations;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.relationship.UsageRelationship;
 
 import org.junit.Test;
+
+import arquitetura.api.touml.DocumentManager;
+import arquitetura.api.touml.Operations;
+import arquitetura.representation.Architecture;
+import arquitetura.representation.relationship.UsageRelationship;
 
 public class UsageTest extends TestHelper {
 

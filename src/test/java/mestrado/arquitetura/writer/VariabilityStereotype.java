@@ -1,8 +1,6 @@
 package mestrado.arquitetura.writer;
 
-import java.util.List;
-
-import mestrado.arquitetura.api.touml.Stereotype;
+import arquitetura.api.touml.Stereotype;
 
 /**
  * Classe usada para definir o estereótipo Variability para ser setado em uma note.(Comment)
@@ -12,15 +10,16 @@ import mestrado.arquitetura.api.touml.Stereotype;
  */
 public class VariabilityStereotype  implements Stereotype{
 	
+	private String stereotypeName = "variability";
 	private String name;
 	private String minSelection;
 	private String maxSelection;
 	private boolean allowAddingVar;
 	private String bindingTime;
-	private List<String> variants;
+	private String variants; // Nomes separados por virgulas(,)
 
-	public VariabilityStereotype(String minSelection, String maxSelecion, boolean allowAddingVar, String bindingTime, List<String> variants) {
-		setName("variability");
+	public VariabilityStereotype(String name, String minSelection, String maxSelecion, boolean allowAddingVar, String bindingTime, String variants) {
+		setName(name);
 		setMinSelection(minSelection);
 		setMaxSelection(maxSelecion);
 		setAllowAddingVar(allowAddingVar);
@@ -86,15 +85,29 @@ public class VariabilityStereotype  implements Stereotype{
 	/**
 	 * @return the variants
 	 */
-	public List<String> getVariants() {
+	public String getVariants() {
 		return variants;
 	}
 
 	/**
 	 * @param variants the variants to set
 	 */
-	public void setVariants(List<String> variants) {
+	public void setVariants(String variants) {
 		this.variants = variants;
+	}
+
+	/**
+	 * @return the stereotypeName
+	 */
+	public String getStereotypeName() {
+		return stereotypeName;
+	}
+
+	/**
+	 * @param stereotypeName the stereotypeName to set
+	 */
+	public void setStereotypeName(String stereotypeName) {
+		this.stereotypeName = stereotypeName;
 	}
 	
 }

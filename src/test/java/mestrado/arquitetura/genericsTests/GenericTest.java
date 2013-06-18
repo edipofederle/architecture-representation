@@ -9,33 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import mestrado.arquitetura.api.touml.DocumentManager;
-import mestrado.arquitetura.api.touml.Operations;
-import mestrado.arquitetura.builders.ArchitectureBuilder;
-import mestrado.arquitetura.exceptions.CustonTypeNotFound;
-import mestrado.arquitetura.exceptions.InvalidMultiplictyForAssociationException;
-import mestrado.arquitetura.exceptions.ModelIncompleteException;
-import mestrado.arquitetura.exceptions.ModelNotFoundException;
-import mestrado.arquitetura.exceptions.NodeNotFound;
-import mestrado.arquitetura.exceptions.NotSuppportedOperation;
-import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
-import mestrado.arquitetura.helpers.StereotypeHelper;
-import mestrado.arquitetura.helpers.Uml2Helper;
-import mestrado.arquitetura.helpers.Uml2HelperFactory;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.io.ReaderConfig;
-import mestrado.arquitetura.parser.method.Argument;
-import mestrado.arquitetura.parser.method.Method;
-import mestrado.arquitetura.parser.method.Types;
-import mestrado.arquitetura.parser.method.VisibilityKind;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Class;
-import mestrado.arquitetura.representation.Variant;
-import mestrado.arquitetura.representation.relationship.AssociationEnd;
-import mestrado.arquitetura.representation.relationship.AssociationRelationship;
-import mestrado.arquitetura.representation.relationship.DependencyRelationship;
-import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
-import mestrado.arquitetura.representation.relationship.UsageRelationship;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.uml2.uml.NamedElement;
@@ -43,6 +17,31 @@ import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Profile;
 import org.eclipse.uml2.uml.Stereotype;
 import org.junit.Test;
+
+import arquitetura.api.touml.Argument;
+import arquitetura.api.touml.DocumentManager;
+import arquitetura.api.touml.Method;
+import arquitetura.api.touml.Operations;
+import arquitetura.api.touml.Types;
+import arquitetura.api.touml.VisibilityKind;
+import arquitetura.builders.ArchitectureBuilder;
+import arquitetura.exceptions.CustonTypeNotFound;
+import arquitetura.exceptions.InvalidMultiplictyForAssociationException;
+import arquitetura.exceptions.ModelIncompleteException;
+import arquitetura.exceptions.ModelNotFoundException;
+import arquitetura.exceptions.NodeNotFound;
+import arquitetura.exceptions.NotSuppportedOperation;
+import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import arquitetura.helpers.StereotypeHelper;
+import arquitetura.helpers.Uml2Helper;
+import arquitetura.helpers.Uml2HelperFactory;
+import arquitetura.io.ReaderConfig;
+import arquitetura.representation.Architecture;
+import arquitetura.representation.relationship.AssociationEnd;
+import arquitetura.representation.relationship.AssociationRelationship;
+import arquitetura.representation.relationship.DependencyRelationship;
+import arquitetura.representation.relationship.GeneralizationRelationship;
+import arquitetura.representation.relationship.UsageRelationship;
 
 /**
  * 
@@ -125,12 +124,12 @@ public class GenericTest extends TestHelper {
 		assertEquals("Class3", p1.getCLSClass().getName());
 		assertEquals("Class1", p2.getCLSClass().getName());
 		
-		mestrado.arquitetura.representation.Package server = a.findPackageByName("Server");
+		arquitetura.representation.Package server = a.findPackageByName("Server");
 		assertNotNull(server);
 		assertEquals(3, server.getClasses().size());
 		assertContains(server.getClasses(), "Class1", "Class2", "Class3");
 		
-		mestrado.arquitetura.representation.Package client = a.findPackageByName("Client");
+		arquitetura.representation.Package client = a.findPackageByName("Client");
 		assertNotNull(client);
 		assertEquals(1, client.getClasses().size());
 		assertContains(client.getClasses(), "Class1");
@@ -182,7 +181,7 @@ public class GenericTest extends TestHelper {
 		
 		for (int i = 0; i < 5; i++) {
 			
-			mestrado.arquitetura.parser.method.Method xpto = mestrado.arquitetura.parser.method.Method.create()
+			arquitetura.api.touml.Method xpto = arquitetura.api.touml.Method.create()
 						.withName(generateRandomWord(4)).withArguments(arguments3)
 						.withVisibility(VisibilityKind.PRIVATE_LITERAL)
 						.withReturn(Types.LONG)
@@ -231,49 +230,11 @@ public class GenericTest extends TestHelper {
 		
 	}
 	
-	@Test
-	public void createModelsWithVariants() throws Exception{
-		DocumentManager doc = givenADocument("modelComVariants");
-		Operations op = new Operations(doc);
-		
-		String idFoo = op.forClass().createClass("Foo").isVariationPoint().build().get("id");
-		Variant mandatory = givenAVariant("mandatory", idFoo); // Classe Foo irá ser o rootVP.
-		op.forClass().addStereotype(idFoo, mandatory);
-		
-		String idBar1 = op.forClass().createClass("Bar1").build().get("id");
-		Variant alternative_OR = givenAVariant("alternative_OR", idFoo); // Classe Foo irá ser o rootVP.
-		op.forClass().addStereotype(idBar1, alternative_OR);
-		
-		String idBar2 = op.forClass().createClass("Bar2").build().get("id");
-		op.forClass().addStereotype(idBar2, alternative_OR);
-		
-		String idBar3 = op.forClass().createClass("Bar3").build().get("id");
-		op.forClass().addStereotype(idBar3, alternative_OR);
-		
-		op.forGeneralization().createRelation("").between(idBar1).and(idFoo).build();
-		op.forGeneralization().createRelation("").between(idBar2).and(idFoo).build();
-		op.forGeneralization().createRelation("").between(idBar3).and(idFoo).build();
-		
-//		//Le o modelo criado
-		
-		Architecture a = givenAArchitecture2("modelComVariants");
-		
-		Class foo = a.findClassByName("foo");
-		assertTrue(foo.isVariationPoint());
-		
-		Class bar1 = a.findClassByName("Bar1");
-		Class bar2 = a.findClassByName("Bar2");
-		Class bar3 = a.findClassByName("Bar3");
-		
-		assertEquals("alternative_OR", bar1.getVariantType().getVariantName());
-		assertEquals("alternative_OR", bar2.getVariantType().getVariantName());
-		assertEquals("alternative_OR", bar3.getVariantType().getVariantName());
-	}
 	
 	@Test
 	public void teste() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, IOException{
 		Uml2Helper helper = Uml2HelperFactory.getUml2Helper();
-		Package model = helper.load("src/main/java/mestrado/arquitetura/api/touml/1/simples.uml");
+		Package model = helper.load("src/main/java/arquitetura/api/touml/1/simples.uml");
 		assertNotNull(model);
 		
 		Profile profile = (Profile) helper.getExternalResources(ReaderConfig.getPathToProfileConcerns());

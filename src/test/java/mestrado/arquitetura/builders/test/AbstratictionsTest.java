@@ -6,10 +6,11 @@ import static org.junit.Assert.assertNotNull;
 import java.util.List;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.relationship.AbstractionRelationship;
 
 import org.junit.Test;
+
+import arquitetura.representation.Architecture;
+import arquitetura.representation.relationship.AbstractionRelationship;
 
 public class AbstratictionsTest  extends TestHelper{
 	

@@ -4,13 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import mestrado.arquitetura.exceptions.EnumerationNotFoundException;
-import mestrado.arquitetura.exceptions.ModelIncompleteException;
-import mestrado.arquitetura.exceptions.ModelNotFoundException;
-import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
-import mestrado.arquitetura.helpers.ModelHelperFactory;
-import mestrado.arquitetura.helpers.Uml2Helper;
-import mestrado.arquitetura.helpers.Uml2HelperFactory;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -22,6 +15,14 @@ import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.junit.Before;
 import org.junit.Test;
+
+import arquitetura.exceptions.EnumerationNotFoundException;
+import arquitetura.exceptions.ModelIncompleteException;
+import arquitetura.exceptions.ModelNotFoundException;
+import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import arquitetura.helpers.ModelHelperFactory;
+import arquitetura.helpers.Uml2Helper;
+import arquitetura.helpers.Uml2HelperFactory;
 /**
  * 
  * @author edipofederle

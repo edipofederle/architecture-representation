@@ -2,13 +2,14 @@ package mestrado.arquitetura.writer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import mestrado.arquitetura.api.touml.DocumentManager;
-import mestrado.arquitetura.api.touml.Operations;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 
 import org.junit.Test;
+
+import arquitetura.api.touml.DocumentManager;
+import arquitetura.api.touml.Operations;
+import arquitetura.representation.Architecture;
+import arquitetura.representation.relationship.AssociationRelationship;
 
 public class AggregationTest extends TestHelper {
 	

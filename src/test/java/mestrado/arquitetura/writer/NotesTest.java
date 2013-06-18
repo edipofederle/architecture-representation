@@ -1,16 +1,14 @@
 package mestrado.arquitetura.writer;
 
-import static org.junit.Assert.*;
-
-import java.util.Arrays;
-
-import mestrado.arquitetura.api.touml.BindingTime;
-import mestrado.arquitetura.api.touml.DocumentManager;
-import mestrado.arquitetura.api.touml.Operations;
+import static org.junit.Assert.assertEquals;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.Architecture;
 
 import org.junit.Test;
+
+import arquitetura.api.touml.BindingTime;
+import arquitetura.api.touml.DocumentManager;
+import arquitetura.api.touml.Operations;
+import arquitetura.representation.Architecture;
 
 /**
  * Uma nota é um comentário da UML.
@@ -25,8 +23,9 @@ public class NotesTest extends TestHelper {
 		DocumentManager doc = givenADocument("note");
 		Operations op = new Operations(doc);
 		
+		
 		String idNote = op.forNote().createNote().build();
-		VariabilityStereotype a = new VariabilityStereotype("1", "3", false, BindingTime.DESIGN_TIME, Arrays.asList("teste"));
+		VariabilityStereotype a = new VariabilityStereotype("Variabilidade1", "1", "2", false, BindingTime.DESIGN_TIME, "class1");
 		
 		op.forNote().addVariability(idNote, a ).build();
 		

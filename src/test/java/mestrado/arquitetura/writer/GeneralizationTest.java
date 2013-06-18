@@ -4,14 +4,15 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Map;
 
-import mestrado.arquitetura.api.touml.DocumentManager;
-import mestrado.arquitetura.api.touml.Operations;
-import mestrado.arquitetura.exceptions.NotSuppportedOperation;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
 
 import org.junit.Test;
+
+import arquitetura.api.touml.DocumentManager;
+import arquitetura.api.touml.Operations;
+import arquitetura.exceptions.NotSuppportedOperation;
+import arquitetura.representation.Architecture;
+import arquitetura.representation.relationship.GeneralizationRelationship;
 
 public class GeneralizationTest extends TestHelper {
 	

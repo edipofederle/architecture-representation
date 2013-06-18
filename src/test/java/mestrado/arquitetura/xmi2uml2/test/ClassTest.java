@@ -8,19 +8,20 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Map;
 
-import mestrado.arquitetura.exceptions.AttributeNotFoundException;
-import mestrado.arquitetura.exceptions.MethodNotFoundException;
-import mestrado.arquitetura.exceptions.ModelIncompleteException;
-import mestrado.arquitetura.exceptions.ModelNotFoundException;
-import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Attribute;
-import mestrado.arquitetura.representation.Method;
-import mestrado.arquitetura.xmi2uml2.Class;
 
 import org.eclipse.uml2.uml.Package;
 import org.junit.Test;
+
+import arquitetura.exceptions.AttributeNotFoundException;
+import arquitetura.exceptions.MethodNotFoundException;
+import arquitetura.exceptions.ModelIncompleteException;
+import arquitetura.exceptions.ModelNotFoundException;
+import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import arquitetura.representation.Architecture;
+import arquitetura.representation.Attribute;
+import arquitetura.representation.Method;
+import arquitetura.xmi2uml2.Class;
 
 public class ClassTest extends TestHelper{
 	
@@ -149,8 +150,8 @@ public class ClassTest extends TestHelper{
 	@Test
 	public void shouldMoveAttributeFromOneClassToOther() throws Exception{
 		Architecture a = givenAArchitecture("ExtendedPO2");
-		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
-		mestrado.arquitetura.representation.Class klass8 = a.findClassByName("Class8");
+		arquitetura.representation.Class klass = a.findClassByName("Person").get(0);
+		arquitetura.representation.Class klass8 = a.findClassByName("Class8").get(0);
 		Attribute att = klass.findAttributeByName("name");
 		
 		assertEquals(0, klass8.getAllAttributes().size());
@@ -165,8 +166,8 @@ public class ClassTest extends TestHelper{
 	@Test
 	public void shouldChangeNamespaceWhenMoveAttribute() throws Exception{
 		Architecture a = givenAArchitecture("ExtendedPO2");
-		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
-		mestrado.arquitetura.representation.Class klass8 = a.findClassByName("Class8");
+		arquitetura.representation.Class klass = a.findClassByName("Person").get(0);
+		arquitetura.representation.Class klass8 = a.findClassByName("Class8").get(0);
 		Attribute att = klass.findAttributeByName("name");
 		assertEquals("ExtendedPO2::Person", att.getNamespace());
 		klass.moveAttributeToClass(att, klass8 );
@@ -176,7 +177,7 @@ public class ClassTest extends TestHelper{
 	@Test
 	public void shouldFindAttributeOnClass() throws Exception{
 		Architecture a = givenAArchitecture("ExtendedPO2");
-		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
+		arquitetura.representation.Class klass = a.findClassByName("Person").get(0);
 		Attribute att = klass.findAttributeByName("name");
 		assertNotNull(att);
 		assertEquals("name", att.getName());
@@ -185,7 +186,7 @@ public class ClassTest extends TestHelper{
 	@Test
 	public void shouldCreateMethod() throws Exception{
 		Architecture a = givenAArchitecture("ExtendedPO2");
-		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
+		arquitetura.representation.Class klass = a.findClassByName("Person").get(0);
 		
 		assertEquals(1, klass.getAllMethods().size());
 		
@@ -203,7 +204,7 @@ public class ClassTest extends TestHelper{
 	@Test
 	public void shouldNotCreateMethodWhenExists() throws Exception{
 		Architecture a = givenAArchitecture("ExtendedPO2");
-		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
+		arquitetura.representation.Class klass = a.findClassByName("Person").get(0);
 		
 		assertEquals(1, klass.getAllMethods().size());
 		
@@ -216,7 +217,7 @@ public class ClassTest extends TestHelper{
 	@Test
 	public void shouldNotCreateMethodWhenExists2() throws Exception{
 		Architecture a = givenAArchitecture("ExtendedPO2");
-		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
+		arquitetura.representation.Class klass = a.findClassByName("Person").get(0);
 		
 		assertEquals(1, klass.getAllMethods().size());
 		
@@ -230,7 +231,7 @@ public class ClassTest extends TestHelper{
 	@Test
 	public void shouldFindMethodByName() throws Exception{
 		Architecture a = givenAArchitecture("ExtendedPO2");
-		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
+		arquitetura.representation.Class klass = a.findClassByName("Person").get(0);
 		
 		assertEquals(1, klass.getAllMethods().size());
 		Method foo = klass.findMethodByName("foo");
@@ -240,7 +241,7 @@ public class ClassTest extends TestHelper{
 	@Test
 	public void shouldRemoveMethod() throws Exception{
 		Architecture a = givenAArchitecture("ExtendedPO2");
-		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
+		arquitetura.representation.Class klass = a.findClassByName("Person").get(0);
 		Method foo = klass.findMethodByName("foo");
 		assertEquals(1, klass.getAllMethods().size());
 		
@@ -252,9 +253,9 @@ public class ClassTest extends TestHelper{
 	@Test
 	public void shouldMoveMethodToClass() throws Exception{
 		Architecture a = givenAArchitecture("ExtendedPO2");
-		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
+		arquitetura.representation.Class klass = a.findClassByName("Person").get(0);
 		
-		mestrado.arquitetura.representation.Class klass8 = a.findClassByName("Class8");
+		arquitetura.representation.Class klass8 = a.findClassByName("Class8").get(0);
 		Method foo = klass.findMethodByName("foo");
 		
 		assertEquals("ExtendedPO2", klass.getNamespace());
@@ -271,8 +272,8 @@ public class ClassTest extends TestHelper{
 	@Test
 	public void shouldChangeNamespaceWhenMoveMethod() throws Exception{
 		Architecture a = givenAArchitecture("ExtendedPO2");
-		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
-		mestrado.arquitetura.representation.Class klass8 = a.findClassByName("Class8");
+		arquitetura.representation.Class klass = a.findClassByName("Person").get(0);
+		arquitetura.representation.Class klass8 = a.findClassByName("Class8").get(0);
 		Method foo = klass.findMethodByName("foo");
 		
 		assertEquals("ExtendedPO2::Person", foo.getNamespace());
@@ -286,7 +287,7 @@ public class ClassTest extends TestHelper{
 	@Test(expected=MethodNotFoundException.class)
 	public void shouldRaiseMethodNotFoundExceptionWhenMethodNotFound() throws Exception{
 		Architecture a = givenAArchitecture("ExtendedPO2");
-		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
+		arquitetura.representation.Class klass = a.findClassByName("Person").get(0);
 		Method foo = klass.findMethodByName("metodoSemNome");
 		assertNull(foo);
 	}
@@ -294,14 +295,14 @@ public class ClassTest extends TestHelper{
 	@Test(expected=AttributeNotFoundException.class)
 	public void shouldRaiseAttributeNotFoundWhenAttributeNotFound() throws Exception{
 		Architecture a = givenAArchitecture("ExtendedPO2");
-		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
+		arquitetura.representation.Class klass = a.findClassByName("Person").get(0);
 		klass.findAttributeByName("algumaCoisa");
 	}
 	
 	@Test
 	public void shouldGetAllAbstractMethods() throws Exception{
 		Architecture a = givenAArchitecture("methods");
-		mestrado.arquitetura.representation.Class klass = a.findClassByName("Class1");
+		arquitetura.representation.Class klass = a.findClassByName("Class1").get(0);
 		
 		assertEquals(2,klass.getAllMethods().size());
 		assertEquals(1, klass.getAllAbstractMethods().size());
@@ -310,7 +311,7 @@ public class ClassTest extends TestHelper{
 	@Test
 	public void shouldReturnAllRelationships() throws Exception{
 		Architecture a = givenAArchitecture("ExtendedPO2");
-		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
+		arquitetura.representation.Class klass = a.findClassByName("Person").get(0);
 		
 		assertEquals(1,klass.getRelationships().size());
 	}
@@ -318,7 +319,7 @@ public class ClassTest extends TestHelper{
 	@Test
 	public void shouldRemoveIdFromListOfElementsWhenElementDeleted() throws Exception{
 		Architecture a = givenAArchitecture("ExtendedPO2");
-		mestrado.arquitetura.representation.Class klass = a.findClassByName("Person");
+		arquitetura.representation.Class klass = a.findClassByName("Person").get(0);
 		Method foo = klass.findMethodByName("foo");
 	
 		assertNotNull(a);

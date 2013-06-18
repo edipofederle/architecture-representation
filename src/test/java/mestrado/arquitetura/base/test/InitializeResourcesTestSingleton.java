@@ -1,10 +1,11 @@
 package mestrado.arquitetura.base.test;
 
 import static org.junit.Assert.*;
-import mestrado.arquitetura.base.InitializeResources;
 
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.junit.Test;
+
+import arquitetura.base.InitializeResources;
 
 /**
  * 

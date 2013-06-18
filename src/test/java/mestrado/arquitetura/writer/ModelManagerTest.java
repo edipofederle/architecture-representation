@@ -13,21 +13,22 @@ import java.util.List;
 import java.util.Map;
 
 import junit.framework.Assert;
-import mestrado.arquitetura.api.touml.DocumentManager;
-import mestrado.arquitetura.api.touml.Operations;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.parser.method.Argument;
-import mestrado.arquitetura.parser.method.Attribute;
-import mestrado.arquitetura.parser.method.Types;
-import mestrado.arquitetura.parser.method.VisibilityKind;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Class;
-import mestrado.arquitetura.representation.Method;
-import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import arquitetura.api.touml.Argument;
+import arquitetura.api.touml.Attribute;
+import arquitetura.api.touml.DocumentManager;
+import arquitetura.api.touml.Operations;
+import arquitetura.api.touml.Types;
+import arquitetura.api.touml.VisibilityKind;
+import arquitetura.representation.Architecture;
+import arquitetura.representation.Class;
+import arquitetura.representation.Method;
+import arquitetura.representation.relationship.AssociationRelationship;
 public class ModelManagerTest extends TestHelper {
 	
 	
@@ -99,7 +100,7 @@ public class ModelManagerTest extends TestHelper {
 		assertNotNull(op.forClass().createClass("Helper"));
 		Architecture a = givenAArchitecture2("teste2");
 		assertContains(a.getAllClasses(), "Helper");
-		assertFalse(a.findClassByName("Helper").isAbstract());
+		assertFalse(a.findClassByName("Helper").get(0).isAbstract());
 	}
 	
 	@Test
@@ -109,7 +110,7 @@ public class ModelManagerTest extends TestHelper {
 		op.forClass().createClass("ClasseAbstrata").isAbstract().build();
 		Architecture a = givenAArchitecture2("classAbstrata");
 		assertContains(a.getAllClasses(), "ClasseAbstrata");
-		Class klass = a.findClassByName("ClasseAbstrata");
+		Class klass = a.findClassByName("ClasseAbstrata").get(0);
 		assertTrue(klass.isAbstract());
 	}
 	
@@ -158,8 +159,8 @@ public class ModelManagerTest extends TestHelper {
 		Architecture a = givenAArchitecture2("testeCreateClassWithAttribute");
 		assertContains(a.getAllClasses(), "Class43");
 		
-		Class klass43 = a.findClassByName("Class43");
-		mestrado.arquitetura.representation.Attribute attrXpto = klass43.findAttributeByName("xpto");
+		Class klass43 = a.findClassByName("Class43").get(0);
+		arquitetura.representation.Attribute attrXpto = klass43.findAttributeByName("xpto");
 		assertNotNull(attrXpto);
 		assertNotNull(attrXpto.getId());
 		assertEquals("xpto", attrXpto.getName());
@@ -206,14 +207,14 @@ public class ModelManagerTest extends TestHelper {
 		List<Argument> arguments = new ArrayList<Argument>();
 		arguments.add(Argument.create("name", Types.STRING));
 		
-		mestrado.arquitetura.parser.method.Method foo = mestrado.arquitetura.parser.method.Method.create().withName("foo").withArguments(arguments)
+		arquitetura.api.touml.Method foo = arquitetura.api.touml.Method.create().withName("foo").withArguments(arguments)
 							 .withVisibility(VisibilityKind.PRIVATE_LITERAL)
 							 .withReturn(Types.INTEGER).build();
 		
 		List<Argument> argumentsTeste = new ArrayList<Argument>();
 		argumentsTeste.add(Argument.create("name", Types.STRING));
 		
-		mestrado.arquitetura.parser.method.Method teste = mestrado.arquitetura.parser.method.Method.create().withName("teste").withArguments(argumentsTeste)
+		arquitetura.api.touml.Method teste = arquitetura.api.touml.Method.create().withName("teste").withArguments(argumentsTeste)
 							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 .withReturn(Types.INTEGER).build();
 		
@@ -225,13 +226,13 @@ public class ModelManagerTest extends TestHelper {
 		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
 		classInfoAttrs2.add(name);
 		
-		List<mestrado.arquitetura.parser.method.Method> methods = new ArrayList<mestrado.arquitetura.parser.method.Method>();
+		List<arquitetura.api.touml.Method> methods = new ArrayList<arquitetura.api.touml.Method>();
 		methods.add(foo);
 		methods.add(teste);
 		
 		op.forClass().createClass("Person").withMethod(methods).withAttribute(classInfoAttrs2).build();
 		Architecture arch = givenAArchitecture2("teste4");
-		Class barKlass = arch.findClassByName("Person");
+		Class barKlass = arch.findClassByName("Person").get(0);
 		
 		assertNotNull(barKlass);
 		assertThat("Should have 2 methods", barKlass.getAllMethods().size() == 2);
@@ -254,11 +255,11 @@ public class ModelManagerTest extends TestHelper {
 		arguments.add(Argument.create("name", Types.STRING));
 		arguments.add(Argument.create("name", Types.INTEGER_WRAPPER));
 		
-		mestrado.arquitetura.parser.method.Method foo = mestrado.arquitetura.parser.method.Method.create().withName("foo").withArguments(arguments)
+		arquitetura.api.touml.Method foo = arquitetura.api.touml.Method.create().withName("foo").withArguments(arguments)
 							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 .withReturn(Types.INTEGER).build();
 		
-		List<mestrado.arquitetura.parser.method.Method> methods = new ArrayList<mestrado.arquitetura.parser.method.Method>();
+		List<arquitetura.api.touml.Method> methods = new ArrayList<arquitetura.api.touml.Method>();
 		methods.add(foo);
 		op.forClass().createClass("Bar").withMethod(methods).build();
 	}
@@ -272,21 +273,21 @@ public class ModelManagerTest extends TestHelper {
 		arguments.add(Argument.create("name", Types.STRING));
 		arguments.add(Argument.create("name", Types.INTEGER_WRAPPER));
 		
-		mestrado.arquitetura.parser.method.Method bar = mestrado.arquitetura.parser.method.Method.create()
+		arquitetura.api.touml.Method bar = arquitetura.api.touml.Method.create()
 							 						.withName("bar").withArguments(arguments)
 							 						.withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 						.withReturn(Types.INTEGER)
 							 						.abstractMethod().build();
 		
-		List<mestrado.arquitetura.parser.method.Method> methods = new ArrayList<mestrado.arquitetura.parser.method.Method>();
+		List<arquitetura.api.touml.Method> methods = new ArrayList<arquitetura.api.touml.Method>();
 		methods.add(bar);
 		
 		op.forClass().createClass("Person").withMethod(methods).build();
 		
 		Architecture arch = givenAArchitecture2("testeMethodoAbastrato");
 		
-		assertThat("Should have 1 method", arch.findClassByName("Person").getAllMethods().size() == 1);
-		assertTrue(arch.findClassByName("Person").findMethodByName("bar").isAbstract());
+		assertThat("Should have 1 method", arch.findClassByName("Person").get(0).getAllMethods().size() == 1);
+		assertTrue(arch.findClassByName("Person").get(0).findMethodByName("bar").isAbstract());
 	}
 	
 	
@@ -298,7 +299,7 @@ public class ModelManagerTest extends TestHelper {
 		List<Argument> arguments = new ArrayList<Argument>();
 		arguments.add(Argument.create("name", Types.STRING));
 		
-		mestrado.arquitetura.parser.method.Method foo = mestrado.arquitetura.parser.method.Method.create()
+		arquitetura.api.touml.Method foo = arquitetura.api.touml.Method.create()
 							 						.withName("bar").withArguments(arguments)
 							 						.withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 						.withReturn(Types.INTEGER)
@@ -307,7 +308,7 @@ public class ModelManagerTest extends TestHelper {
 		List<Argument> arguments2 = new ArrayList<Argument>();
 		arguments.add(Argument.create("name", Types.STRING));
 		
-		mestrado.arquitetura.parser.method.Method teste = mestrado.arquitetura.parser.method.Method.create()
+		arquitetura.api.touml.Method teste = arquitetura.api.touml.Method.create()
 							 						.withName("teste").withArguments(arguments2)
 							 						.withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 						.withReturn(Types.INTEGER)
@@ -319,7 +320,7 @@ public class ModelManagerTest extends TestHelper {
 								 .withType(Types.STRING);
 		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
 		classInfoAttrs2.add(xpto);
-		List<mestrado.arquitetura.parser.method.Method> methods = new ArrayList<mestrado.arquitetura.parser.method.Method>();
+		List<arquitetura.api.touml.Method> methods = new ArrayList<arquitetura.api.touml.Method>();
 		methods.add(foo);
 		methods.add(teste);
 		op.forClass().createClass("Person").withMethod(methods).withAttribute(classInfoAttrs2).build();
@@ -374,7 +375,7 @@ public class ModelManagerTest extends TestHelper {
 		op.forClass().addAttributeToClass(idClass, xpto);
 		assertTrue(modelContainId("addNewPrivateAttributeToClass", xpto.getId()));
 		Architecture arch2 = givenAArchitecture2("addNewPrivateAttributeToClass");
-		assertEquals("private", arch2.findClassByName("foo").getAllAttributes().get(0).getVisibility());
+		assertEquals("private", arch2.findClassByName("foo").get(0).getAllAttributes().get(0).getVisibility());
 	}
 	
 	@Test
@@ -393,7 +394,7 @@ public class ModelManagerTest extends TestHelper {
 		List<Argument> arguments2 = new ArrayList<Argument>();
 		arguments2.add(Argument.create("name", Types.STRING));
 		
-		mestrado.arquitetura.parser.method.Method teste = mestrado.arquitetura.parser.method.Method.create()
+		arquitetura.api.touml.Method teste = arquitetura.api.touml.Method.create()
 							 						.withName("teste").withArguments(arguments2)
 							 						.withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 						.withReturn(Types.INTEGER)
@@ -402,7 +403,7 @@ public class ModelManagerTest extends TestHelper {
 		List<Argument> arguments3 = new ArrayList<Argument>();
 		arguments3.add(Argument.create("age", Types.INTEGER_WRAPPER));
 		
-		mestrado.arquitetura.parser.method.Method xpto = mestrado.arquitetura.parser.method.Method.create()
+		arquitetura.api.touml.Method xpto = arquitetura.api.touml.Method.create()
 							 						.withName("xpto").withArguments(arguments3)
 							 						.withVisibility(VisibilityKind.PRIVATE_LITERAL)
 							 						.withReturn(Types.STRING)
@@ -434,7 +435,7 @@ public class ModelManagerTest extends TestHelper {
 		op.forClass().createClass("Foo").withAttribute(classInfoAttrs2);
 		
 		Architecture arch = givenAArchitecture2("classWithAttrCuston");
-		Class klassFoo = arch.findClassByName("Foo");
+		Class klassFoo = arch.findClassByName("Foo").get(0);
 		assertNotNull(klassFoo);
 		assertTrue(modelContainId("classWithAttrCuston", xpto.getId()));
 	}
@@ -534,7 +535,7 @@ public class ModelManagerTest extends TestHelper {
 		
 		Architecture a = givenAArchitecture2("classAbstrataDentroPacote");
 		assertContains(a.getAllClasses(), "teste");
-		Class klass = a.findClassByName("teste");
+		Class klass = a.findClassByName("teste").get(0);
 		assertTrue(klass.isAbstract());
 	}
 

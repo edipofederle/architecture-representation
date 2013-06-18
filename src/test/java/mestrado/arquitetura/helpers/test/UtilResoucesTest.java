@@ -1,9 +1,10 @@
 package mestrado.arquitetura.helpers.test;
 
 import static org.junit.Assert.*;
-import mestrado.arquitetura.utils.UtilResources;
 
 import org.junit.Test;
+
+import arquitetura.helpers.UtilResources;
 
 public class UtilResoucesTest {
 	

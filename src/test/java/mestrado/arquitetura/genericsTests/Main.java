@@ -4,33 +4,37 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import mestrado.arquitetura.api.touml.BindingTime;
-import mestrado.arquitetura.api.touml.DocumentManager;
-import mestrado.arquitetura.api.touml.Operations;
-import mestrado.arquitetura.base.ArchitectureBase;
-import mestrado.arquitetura.builders.ArchitectureBuilder;
-import mestrado.arquitetura.exceptions.ModelIncompleteException;
-import mestrado.arquitetura.exceptions.ModelNotFoundException;
-import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
-import mestrado.arquitetura.io.ReaderConfig;
-import mestrado.arquitetura.parser.method.Argument;
-import mestrado.arquitetura.parser.method.Method;
-import mestrado.arquitetura.parser.method.Types;
-import mestrado.arquitetura.parser.method.VisibilityKind;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Attribute;
-import mestrado.arquitetura.representation.Class;
-import mestrado.arquitetura.representation.Element;
-import mestrado.arquitetura.representation.ParameterMethod;
-import mestrado.arquitetura.representation.Variability;
-import mestrado.arquitetura.representation.Variant;
-import mestrado.arquitetura.representation.relationship.AssociationRelationship;
-import mestrado.arquitetura.representation.relationship.DependencyRelationship;
-import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
 import mestrado.arquitetura.writer.VariabilityStereotype;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+
+import arquitetura.api.touml.ArchitectureBase;
+import arquitetura.api.touml.Argument;
+import arquitetura.api.touml.BindingTime;
+import arquitetura.api.touml.DocumentManager;
+import arquitetura.api.touml.Method;
+import arquitetura.api.touml.Operations;
+import arquitetura.api.touml.Types;
+import arquitetura.api.touml.VisibilityKind;
+import arquitetura.builders.ArchitectureBuilder;
+import arquitetura.exceptions.ModelIncompleteException;
+import arquitetura.exceptions.ModelNotFoundException;
+import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import arquitetura.io.ReaderConfig;
+import arquitetura.representation.Architecture;
+import arquitetura.representation.Attribute;
+import arquitetura.representation.Class;
+import arquitetura.representation.Element;
+import arquitetura.representation.ParameterMethod;
+import arquitetura.representation.Variability;
+import arquitetura.representation.Variant;
+import arquitetura.representation.VariationPoint;
+import arquitetura.representation.relationship.AssociationRelationship;
+import arquitetura.representation.relationship.DependencyRelationship;
+import arquitetura.representation.relationship.GeneralizationRelationship;
+
+import com.google.common.base.Joiner;
 
 public class Main extends ArchitectureBase {
 
@@ -91,18 +95,21 @@ public class Main extends ArchitectureBase {
 				parameters.add(p1);
 				
 				klass.createMethod("fooBar1", "String", false, parameters);
+				Class class1 = a.createClass(klass.getName()+"AlgumaCoias");
+				Class class2 = a.createClass(klass.getName()+"AlgumaCoias_2");
+				a.createAssociation(class1, class2);
 			}
 			
 			//Fim manipulação
 			
-			
-			for (Class class1 : classes) {
-				
-				List<mestrado.arquitetura.parser.method.Attribute> attributes = new ArrayList<mestrado.arquitetura.parser.method.Attribute>();
+			List<Class> classesReloaded = a.getAllClasses(); //VER ISSO
+			for (Class class1 : classesReloaded) {
+				String idClass = null;
+				List<arquitetura.api.touml.Attribute> attributes = new ArrayList<arquitetura.api.touml.Attribute>();
 				List<Method> methods = new ArrayList<Method>();
 				
-				List<mestrado.arquitetura.representation.Method> methodsClass = class1.getAllMethods();
-				for (mestrado.arquitetura.representation.Method method : methodsClass) {
+				List<arquitetura.representation.Method> methodsClass = class1.getAllMethods();
+				for (arquitetura.representation.Method method : methodsClass) {
 					
 					List<ParameterMethod> paramsMethod = method.getParameters();
 					List<Argument> currentMethodParams = new ArrayList<Argument>();
@@ -130,7 +137,7 @@ public class Main extends ArchitectureBase {
 				
 				List<Attribute> attrs = class1.getAllAttributes();
 				for (Attribute attribute : attrs) {
-					mestrado.arquitetura.parser.method.Attribute attr = mestrado.arquitetura.parser.method.Attribute.create()
+					arquitetura.api.touml.Attribute attr = arquitetura.api.touml.Attribute.create()
 							 .withName(attribute.getName())
 							 .withVisibility(VisibilityKind.getByName(attribute.getVisibility()))
 							 .withType(Types.getByName(attribute.getType()));
@@ -138,24 +145,52 @@ public class Main extends ArchitectureBase {
 					attributes.add(attr);
 				}
 				if(!attributes.isEmpty()){
-					String id = op.forClass().createClass(class1.getName()).withAttribute(attributes).withMethod(methods).build().get("id");
-					class1.updateId(id);
+					idClass = op.forClass()
+							      .createClass(class1.getName())
+							      .withAttribute(attributes)
+							      .withMethod(methods)
+							      .build()
+							      .get("id");
+					class1.updateId(idClass);
 				}else{
-					String id = op.forClass().createClass(class1.getName()).build().get("id");
-					class1.updateId(id);
+					idClass = op.forClass().createClass(class1.getName()).build().get("id");
+					class1.updateId(idClass);
 				}
+				
+				VariationPoint vp = class1.getVariationPoint();
+				if(vp != null)
+					op.forClass().withId(idClass).isVariationPoint(spliterVariants(vp.getVariants()), spliterVariabilities(vp.getVariabilities()), BindingTime.DESIGN_TIME);
+				
 				
 				Variant v = null;
-				try{
-					Variant variant = class1.getVariantType();
-					Element elementRootVp = a.findElementByName(variant.getRootVP());
-					v = Variant.createVariant().withName(variant.getVariantName()).andRootVp(elementRootVp.getId()).build();
-				}catch(Exception e){}
 				
-				//Se tem variant adicionar na classe
-				if(v != null){
-					op.forClass().addStereotype(class1.getId(), v);
-				}
+					
+					Variant variant = class1.getVariant();
+					if(variant != null){
+						try{
+							Element elementRootVp = a.findElementByName(variant.getRootVP());
+							String rootVp = null;
+							
+							if(elementRootVp != null)
+								rootVp = elementRootVp.getId();
+							else
+								rootVp = ""; // Ver essa questao
+							v = Variant.createVariant()
+									   .withName(variant.getVariantName())
+									   .andRootVp(rootVp)
+									   .withVariantType(variant.getVariantType()).build();
+							
+							//Se tem variant adicionar na classe
+							if(v != null){
+								op.forClass().addStereotype(class1.getId(), v);
+							}
+						
+						}catch(Exception e){
+							System.out.println("Error when try create Variant."+ e.getMessage());
+							System.exit(0);
+						}
+					}
+				
 				
 				/**
 				 * Deve atualizar o id do elemento em memória com o id do elemente gerado.
@@ -168,14 +203,16 @@ public class Main extends ArchitectureBase {
 			//Variabilidades - Notes
 			List<Variability> variabilities = a.getAllVariabilities();
 			for (Variability variability : variabilities) {
-				String ownerClass = a.findElementByName(variability.getOwnerClass()).getId();
+				List<VariationPoint> variationsPointsForVariability = variability.getVariationPoints();
 				
 				String idNote = op.forNote().createNote().build();
-				VariabilityStereotype var = new VariabilityStereotype(variability.getMinSelection(),
-																	 variability.getMaxSelection(), false, BindingTime.DESIGN_TIME,
-																	 variability.getVariants());
-				op.forNote().addVariability(idNote, var).build();
-				op.forClass().withId(ownerClass).linkToNote(idNote);
+				VariabilityStereotype var = new VariabilityStereotype(variability.getName(), variability.getMinSelection(), variability.getMaxSelection()
+						,variability.allowAddingVar(), BindingTime.DESIGN_TIME, spliterVariants(variability.getVariants()));
+				for (VariationPoint variationPoint : variationsPointsForVariability) {
+					op.forNote().addVariability(idNote, var).build();
+					op.forClass().withId(variationPoint.getVariationPointElement().getId()).linkToNote(idNote);
+				}
+				
 			}
 			
 			for (AssociationRelationship r : a.getAllAssociations()) {
@@ -199,10 +236,29 @@ public class Main extends ArchitectureBase {
 			System.out.println("Ops!. Error, I am sorry: " + e.getMessage());
 			System.exit(0);
 		}
+		
 		long end = System.currentTimeMillis();
 		System.out.println("\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget()+doc.getNewModelName());
 		System.out.println("Time:" + (end - init) + "Millis");
 		
+	}
+
+	private static String spliterVariants(List<Variant> list) {
+		List<String> names = new ArrayList<String>();
+		
+		for (Variant variant : list)
+			names.add(variant.getName());
+		
+		return Joiner.on(", ").skipNulls().join(names);
+	}
+	
+	private static String spliterVariabilities(List<Variability> list) {
+		List<String> names = new ArrayList<String>();
+		
+		for(Variability variability : list)
+			names.add(variability.getName());
+		
+		return Joiner.on(", ").skipNulls().join(names);
 	}
 	
 

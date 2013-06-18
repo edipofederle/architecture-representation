@@ -5,14 +5,15 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Map;
 
-import mestrado.arquitetura.api.touml.AssociationOperations;
-import mestrado.arquitetura.api.touml.ClassOperations;
-import mestrado.arquitetura.api.touml.DocumentManager;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.relationship.AssociationRelationship;
 
 import org.junit.Test;
+
+import arquitetura.api.touml.AssociationOperations;
+import arquitetura.api.touml.ClassOperations;
+import arquitetura.api.touml.DocumentManager;
+import arquitetura.representation.Architecture;
+import arquitetura.representation.relationship.AssociationRelationship;
 
 public class AssociationTests  extends TestHelper {
 	

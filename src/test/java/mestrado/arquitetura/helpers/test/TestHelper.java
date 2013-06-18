@@ -12,24 +12,25 @@ import java.util.Random;
 import java.util.Scanner;
 
 import junitx.framework.Assert;
-import mestrado.arquitetura.api.touml.DocumentManager;
-import mestrado.arquitetura.builders.ArchitectureBuilder;
-import mestrado.arquitetura.exceptions.ModelIncompleteException;
-import mestrado.arquitetura.exceptions.ModelNotFoundException;
-import mestrado.arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
-import mestrado.arquitetura.helpers.ModelHelper;
-import mestrado.arquitetura.helpers.ModelHelperFactory;
-import mestrado.arquitetura.helpers.Uml2Helper;
-import mestrado.arquitetura.helpers.Uml2HelperFactory;
-import mestrado.arquitetura.io.ReaderConfig;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Element;
-import mestrado.arquitetura.representation.Variant;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Stereotype;
+
+import arquitetura.api.touml.DocumentManager;
+import arquitetura.builders.ArchitectureBuilder;
+import arquitetura.exceptions.ModelIncompleteException;
+import arquitetura.exceptions.ModelNotFoundException;
+import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import arquitetura.helpers.ModelHelper;
+import arquitetura.helpers.ModelHelperFactory;
+import arquitetura.helpers.Uml2Helper;
+import arquitetura.helpers.Uml2HelperFactory;
+import arquitetura.io.ReaderConfig;
+import arquitetura.representation.Architecture;
+import arquitetura.representation.Element;
+import arquitetura.representation.Variant;
 
 /**
  * 
@@ -103,7 +104,7 @@ public abstract class TestHelper {
 				Assert.fail("list there is no element called " + requiredElementName);
 			}
 		}
-	protected void hasClassesNames(mestrado.arquitetura.representation.Package pkg, String ... names){
+	protected void hasClassesNames(arquitetura.representation.Package pkg, String ... names){
 		List<Element> klasses = pkg.getClasses();	
 		List<String> namesKlasses = new ArrayList<String>();
 		for (Element name : klasses) 
@@ -156,9 +157,10 @@ public abstract class TestHelper {
 	 * @param idRootVpClass
 	 * @return
 	 */
-	protected Variant givenAVariant(String name, String idRootVpClass) {
+	protected Variant givenAVariant(String name, String idRootVpClass, String variantName) {
 		Variant mandatory = Variant.createVariant().withName(name)
 				                   .andRootVp(idRootVpClass)
+				                   .withVariantType(variantName)
 				                   .build();
 		return mandatory;
 	}

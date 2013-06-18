@@ -7,13 +7,14 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.Class;
-import mestrado.arquitetura.representation.Element;
-import mestrado.arquitetura.representation.relationship.GeneralizationRelationship;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import arquitetura.representation.Architecture;
+import arquitetura.representation.Class;
+import arquitetura.representation.Element;
+import arquitetura.representation.relationship.GeneralizationRelationship;
 
 public class GeneralizationsTest extends TestHelper {
 	

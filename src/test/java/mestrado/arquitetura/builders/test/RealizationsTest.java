@@ -8,11 +8,12 @@ import static org.junit.Assert.assertNotNull;
 import java.util.List;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.Architecture;
-import mestrado.arquitetura.representation.relationship.RealizationRelationship;
-import mestrado.arquitetura.representation.relationship.Relationship;
 
 import org.junit.Test;
+
+import arquitetura.representation.Architecture;
+import arquitetura.representation.relationship.RealizationRelationship;
+import arquitetura.representation.relationship.Relationship;
 
 public class RealizationsTest extends TestHelper {
 	

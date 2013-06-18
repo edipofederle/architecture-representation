@@ -263,4 +263,7 @@
   <packagedElement xmi:type="uml:Stereotype" xmi:id="_8KZHkHt3EeK2ob5NxUhyBg" name="sorting">
     <generalization xmi:id="_B5n7QHt4EeK2ob5NxUhyBg" general="_-WptMHqaEeK1gM_kVgXLQw"/>
   </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_HfkM8NKUEeKsX9Mc5gQTXQ" name="GUI">
+    <generalization xmi:id="_MuV-8NKUEeKsX9Mc5gQTXQ" general="_-WptMHqaEeK1gM_kVgXLQw"/>
+  </packagedElement>
 </uml:Profile>

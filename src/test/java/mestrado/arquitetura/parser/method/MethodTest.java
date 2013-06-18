@@ -5,7 +5,13 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.junit.Test;
+
+import arquitetura.api.touml.Argument;
+import arquitetura.api.touml.Method;
+import arquitetura.api.touml.Types;
+import arquitetura.api.touml.VisibilityKind;
 
 public class MethodTest {
 
