@@ -337,6 +337,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		stereotype.setAttribute("minSelection", a.getMinSelection());
 		stereotype.setAttribute("maxSelection", a.getMaxSelection());
 		stereotype.setAttribute("variants", a.getVariants());
+		stereotype.setAttribute("bindingTime", a.getBindingTime());
 		
 		nodeXmi.getParentNode().appendChild(stereotype);
 		

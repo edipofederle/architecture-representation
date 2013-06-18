@@ -191,13 +191,11 @@ public class Main extends ArchitectureBase {
 						}
 					}
 				
-				
 				/**
 				 * Deve atualizar o id do elemento em memória com o id do elemente gerado.
 				 * Isso é necesário pois quando usamos os métodos para gerar os elementos esses geram ids novos,	
 				 * diante disso ambos ids são diferentes e não é possível localizar os elementos nos XMIS para criar os relacionamentos.
 				 */
-				
 			}
 			
 			//Variabilidades - Notes
@@ -207,7 +205,7 @@ public class Main extends ArchitectureBase {
 				
 				String idNote = op.forNote().createNote().build();
 				VariabilityStereotype var = new VariabilityStereotype(variability.getName(), variability.getMinSelection(), variability.getMaxSelection()
-						,variability.allowAddingVar(), BindingTime.DESIGN_TIME, spliterVariants(variability.getVariants()));
+						,variability.allowAddingVar(), BindingTime.COMPILE_TIME, spliterVariants(variability.getVariants()));
 				for (VariationPoint variationPoint : variationsPointsForVariability) {
 					op.forNote().addVariability(idNote, var).build();
 					op.forClass().withId(variationPoint.getVariationPointElement().getId()).linkToNote(idNote);

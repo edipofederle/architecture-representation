@@ -37,10 +37,10 @@ public class NoteOperations extends XmiHelper {
 		return this.id;
 	}
 
-	public NoteOperations addVariability(final String idNote, final VariabilityStereotype a) {
+	public NoteOperations addVariability(final String idNote, final VariabilityStereotype variability) {
 		arquitetura.api.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
-				elementXmiGenerator.createStereotypeVariability(idNote, a);
+				elementXmiGenerator.createStereotypeVariability(idNote, variability);
 			}
 		});
 		return this;

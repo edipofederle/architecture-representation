@@ -3736,3 +3736,73 @@
 2013-06-18 08:45:17 INFO  CopyFile:26 - DestFile: manipulation/simples.di
 2013-06-18 08:45:17 INFO  CopyFile:42 - copyFile(File sourceFile, File destFile) - Exit
 2013-06-18 08:45:17 INFO  DocumentManager:131 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-06-18 09:30:10 INFO  DocumentManager:120 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-06-18 09:30:10 INFO  CopyFile:24 - copyFile(File sourceFile, File destFile) - Enter
+2013-06-18 09:30:10 INFO  CopyFile:25 - SourceFile: src/main/java/resources/simples.notation
+2013-06-18 09:30:10 INFO  CopyFile:26 - DestFile: manipulation/simples.notation
+2013-06-18 09:30:10 INFO  CopyFile:42 - copyFile(File sourceFile, File destFile) - Exit
+2013-06-18 09:30:10 INFO  CopyFile:24 - copyFile(File sourceFile, File destFile) - Enter
+2013-06-18 09:30:10 INFO  CopyFile:25 - SourceFile: src/main/java/resources/simples.uml
+2013-06-18 09:30:10 INFO  CopyFile:26 - DestFile: manipulation/simples.uml
+2013-06-18 09:30:10 INFO  CopyFile:42 - copyFile(File sourceFile, File destFile) - Exit
+2013-06-18 09:30:10 INFO  CopyFile:24 - copyFile(File sourceFile, File destFile) - Enter
+2013-06-18 09:30:10 INFO  CopyFile:25 - SourceFile: src/main/java/resources/simples.di
+2013-06-18 09:30:10 INFO  CopyFile:26 - DestFile: manipulation/simples.di
+2013-06-18 09:30:10 INFO  CopyFile:42 - copyFile(File sourceFile, File destFile) - Exit
+2013-06-18 09:30:10 INFO  DocumentManager:131 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-06-18 09:33:01 INFO  DocumentManager:120 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-06-18 09:33:01 INFO  CopyFile:24 - copyFile(File sourceFile, File destFile) - Enter
+2013-06-18 09:33:01 INFO  CopyFile:25 - SourceFile: src/main/java/resources/simples.notation
+2013-06-18 09:33:01 INFO  CopyFile:26 - DestFile: manipulation/simples.notation
+2013-06-18 09:33:01 INFO  CopyFile:42 - copyFile(File sourceFile, File destFile) - Exit
+2013-06-18 09:33:01 INFO  CopyFile:24 - copyFile(File sourceFile, File destFile) - Enter
+2013-06-18 09:33:01 INFO  CopyFile:25 - SourceFile: src/main/java/resources/simples.uml
+2013-06-18 09:33:01 INFO  CopyFile:26 - DestFile: manipulation/simples.uml
+2013-06-18 09:33:01 INFO  CopyFile:42 - copyFile(File sourceFile, File destFile) - Exit
+2013-06-18 09:33:01 INFO  CopyFile:24 - copyFile(File sourceFile, File destFile) - Enter
+2013-06-18 09:33:01 INFO  CopyFile:25 - SourceFile: src/main/java/resources/simples.di
+2013-06-18 09:33:01 INFO  CopyFile:26 - DestFile: manipulation/simples.di
+2013-06-18 09:33:01 INFO  CopyFile:42 - copyFile(File sourceFile, File destFile) - Exit
+2013-06-18 09:33:01 INFO  DocumentManager:131 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-06-18 09:35:20 INFO  DocumentManager:120 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-06-18 09:35:20 INFO  CopyFile:24 - copyFile(File sourceFile, File destFile) - Enter
+2013-06-18 09:35:20 INFO  CopyFile:25 - SourceFile: src/main/java/resources/simples.notation
+2013-06-18 09:35:20 INFO  CopyFile:26 - DestFile: manipulation/simples.notation
+2013-06-18 09:35:20 INFO  CopyFile:42 - copyFile(File sourceFile, File destFile) - Exit
+2013-06-18 09:35:20 INFO  CopyFile:24 - copyFile(File sourceFile, File destFile) - Enter
+2013-06-18 09:35:20 INFO  CopyFile:25 - SourceFile: src/main/java/resources/simples.uml
+2013-06-18 09:35:20 INFO  CopyFile:26 - DestFile: manipulation/simples.uml
+2013-06-18 09:35:20 INFO  CopyFile:42 - copyFile(File sourceFile, File destFile) - Exit
+2013-06-18 09:35:20 INFO  CopyFile:24 - copyFile(File sourceFile, File destFile) - Enter
+2013-06-18 09:35:20 INFO  CopyFile:25 - SourceFile: src/main/java/resources/simples.di
+2013-06-18 09:35:20 INFO  CopyFile:26 - DestFile: manipulation/simples.di
+2013-06-18 09:35:20 INFO  CopyFile:42 - copyFile(File sourceFile, File destFile) - Exit
+2013-06-18 09:35:20 INFO  DocumentManager:131 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-06-18 09:45:09 INFO  DocumentManager:120 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-06-18 09:45:09 INFO  CopyFile:24 - copyFile(File sourceFile, File destFile) - Enter
+2013-06-18 09:45:09 INFO  CopyFile:25 - SourceFile: src/main/java/resources/simples.notation
+2013-06-18 09:45:09 INFO  CopyFile:26 - DestFile: manipulation/simples.notation
+2013-06-18 09:45:09 INFO  CopyFile:42 - copyFile(File sourceFile, File destFile) - Exit
+2013-06-18 09:45:09 INFO  CopyFile:24 - copyFile(File sourceFile, File destFile) - Enter
+2013-06-18 09:45:09 INFO  CopyFile:25 - SourceFile: src/main/java/resources/simples.uml
+2013-06-18 09:45:09 INFO  CopyFile:26 - DestFile: manipulation/simples.uml
+2013-06-18 09:45:09 INFO  CopyFile:42 - copyFile(File sourceFile, File destFile) - Exit
+2013-06-18 09:45:09 INFO  CopyFile:24 - copyFile(File sourceFile, File destFile) - Enter
+2013-06-18 09:45:09 INFO  CopyFile:25 - SourceFile: src/main/java/resources/simples.di
+2013-06-18 09:45:09 INFO  CopyFile:26 - DestFile: manipulation/simples.di
+2013-06-18 09:45:09 INFO  CopyFile:42 - copyFile(File sourceFile, File destFile) - Exit
+2013-06-18 09:45:09 INFO  DocumentManager:131 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-06-18 09:46:42 INFO  DocumentManager:120 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-06-18 09:46:42 INFO  CopyFile:24 - copyFile(File sourceFile, File destFile) - Enter
+2013-06-18 09:46:42 INFO  CopyFile:25 - SourceFile: src/main/java/resources/simples.notation
+2013-06-18 09:46:42 INFO  CopyFile:26 - DestFile: manipulation/simples.notation
+2013-06-18 09:46:43 INFO  CopyFile:42 - copyFile(File sourceFile, File destFile) - Exit
+2013-06-18 09:46:43 INFO  CopyFile:24 - copyFile(File sourceFile, File destFile) - Enter
+2013-06-18 09:46:43 INFO  CopyFile:25 - SourceFile: src/main/java/resources/simples.uml
+2013-06-18 09:46:43 INFO  CopyFile:26 - DestFile: manipulation/simples.uml
+2013-06-18 09:46:43 INFO  CopyFile:42 - copyFile(File sourceFile, File destFile) - Exit
+2013-06-18 09:46:43 INFO  CopyFile:24 - copyFile(File sourceFile, File destFile) - Enter
+2013-06-18 09:46:43 INFO  CopyFile:25 - SourceFile: src/main/java/resources/simples.di
+2013-06-18 09:46:43 INFO  CopyFile:26 - DestFile: manipulation/simples.di
+2013-06-18 09:46:43 INFO  CopyFile:42 - copyFile(File sourceFile, File destFile) - Exit
+2013-06-18 09:46:43 INFO  DocumentManager:131 - makeACopy(String pathToFiles, String modelName) - Exit
