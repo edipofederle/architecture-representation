@@ -18,7 +18,6 @@ import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Stereotype;
 
-import arquitetura.api.touml.DocumentManager;
 import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.exceptions.ModelIncompleteException;
 import arquitetura.exceptions.ModelNotFoundException;
@@ -31,6 +30,7 @@ import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Element;
 import arquitetura.representation.Variant;
+import arquitetura.touml.DocumentManager;
 
 /**
  * 

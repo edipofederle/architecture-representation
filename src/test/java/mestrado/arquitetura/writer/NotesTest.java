@@ -5,10 +5,11 @@ import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Test;
 
-import arquitetura.api.touml.BindingTime;
-import arquitetura.api.touml.DocumentManager;
-import arquitetura.api.touml.Operations;
 import arquitetura.representation.Architecture;
+import arquitetura.touml.BindingTime;
+import arquitetura.touml.DocumentManager;
+import arquitetura.touml.Operations;
+import arquitetura.touml.VariabilityStereotype;
 
 /**
  * Uma nota é um comentário da UML.

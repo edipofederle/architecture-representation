@@ -12,33 +12,40 @@ import org.apache.log4j.Logger;
 /**
  * 
  * @author edipofederle<edipofederle@gmail.com>
- *
+ * 
  */
 public class CopyFile {
-	
+
 	static Logger LOGGER = LogManager.getLogger(CopyFile.class.getName());
-	
-	@SuppressWarnings("resource")
-	public static void copyFile(File sourceFile, File destFile) {
-		
+
+	public static void copyFile(File source, File destFile) {
+
 		LOGGER.info("copyFile(File sourceFile, File destFile) - Enter");
-		LOGGER.info("SourceFile: "+sourceFile);
-		LOGGER.info("DestFile: "+destFile);
-		
-		if (!sourceFile.exists()) return;
-		if (!destFile.exists())
+		LOGGER.info("SourceFile: " + source);
+		LOGGER.info("DestFile: " + destFile);
+
+		FileOutputStream outputStream = null;
+		FileChannel inputChannel = null, outputChannel = null;
+		FileInputStream inputStream = null;
+
+		try {
+			inputStream = new FileInputStream(source);
+			outputStream = new FileOutputStream(destFile);
+			inputChannel = inputStream.getChannel();
+			outputChannel = outputStream.getChannel();
+			inputChannel.transferTo(0, inputChannel.size(), outputChannel);
+		} catch (IOException e) {
+			throw new RuntimeException("Cannot copy the file: "
+									   + e.getMessage());
+		} finally {
 			try {
-				destFile.createNewFile();
-				FileChannel source = new FileInputStream(sourceFile).getChannel();
-				FileChannel destination = new FileOutputStream(destFile).getChannel();
-				
-				if (destination != null && source != null) 	destination.transferFrom(source, 0, source.size());
-				if (source != null) source.close();
-				if (destination != null) destination.close();
+				inputStream.close();
+				outputChannel.close();
+				outputStream.close();
 			} catch (IOException e) {
-				LOGGER.error("ERROR: " + e.getMessage());
-			} 
-		
+			}
+		}
+
 		LOGGER.info("copyFile(File sourceFile, File destFile) - Exit");
 
 	}

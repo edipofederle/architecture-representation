@@ -10,10 +10,10 @@ import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Test;
 
-import arquitetura.api.touml.DocumentManager;
-import arquitetura.api.touml.Operations;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.relationship.DependencyRelationship;
+import arquitetura.touml.DocumentManager;
+import arquitetura.touml.Operations;
 
 public class DependencyTest extends TestHelper {
 	

@@ -12,14 +12,14 @@ import mestrado.arquitetura.helpers.test.TestHelper;
 import org.eclipse.uml2.uml.Stereotype;
 import org.junit.Test;
 
-import arquitetura.api.touml.BindingTime;
-import arquitetura.api.touml.DocumentManager;
-import arquitetura.api.touml.Operations;
 import arquitetura.helpers.StereotypeHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Variability;
 import arquitetura.representation.Variant;
+import arquitetura.touml.BindingTime;
+import arquitetura.touml.DocumentManager;
+import arquitetura.touml.Operations;
 public class StereotypeTest extends TestHelper {
 	
 	

@@ -19,16 +19,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import arquitetura.api.touml.Argument;
-import arquitetura.api.touml.Attribute;
-import arquitetura.api.touml.DocumentManager;
-import arquitetura.api.touml.Operations;
-import arquitetura.api.touml.Types;
-import arquitetura.api.touml.VisibilityKind;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Method;
 import arquitetura.representation.relationship.AssociationRelationship;
+import arquitetura.touml.Argument;
+import arquitetura.touml.Attribute;
+import arquitetura.touml.DocumentManager;
+import arquitetura.touml.Operations;
+import arquitetura.touml.Types;
+import arquitetura.touml.VisibilityKind;
 public class ModelManagerTest extends TestHelper {
 	
 	
@@ -207,14 +207,14 @@ public class ModelManagerTest extends TestHelper {
 		List<Argument> arguments = new ArrayList<Argument>();
 		arguments.add(Argument.create("name", Types.STRING));
 		
-		arquitetura.api.touml.Method foo = arquitetura.api.touml.Method.create().withName("foo").withArguments(arguments)
+		arquitetura.touml.Method foo = arquitetura.touml.Method.create().withName("foo").withArguments(arguments)
 							 .withVisibility(VisibilityKind.PRIVATE_LITERAL)
 							 .withReturn(Types.INTEGER).build();
 		
 		List<Argument> argumentsTeste = new ArrayList<Argument>();
 		argumentsTeste.add(Argument.create("name", Types.STRING));
 		
-		arquitetura.api.touml.Method teste = arquitetura.api.touml.Method.create().withName("teste").withArguments(argumentsTeste)
+		arquitetura.touml.Method teste = arquitetura.touml.Method.create().withName("teste").withArguments(argumentsTeste)
 							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 .withReturn(Types.INTEGER).build();
 		
@@ -226,7 +226,7 @@ public class ModelManagerTest extends TestHelper {
 		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
 		classInfoAttrs2.add(name);
 		
-		List<arquitetura.api.touml.Method> methods = new ArrayList<arquitetura.api.touml.Method>();
+		List<arquitetura.touml.Method> methods = new ArrayList<arquitetura.touml.Method>();
 		methods.add(foo);
 		methods.add(teste);
 		
@@ -255,11 +255,11 @@ public class ModelManagerTest extends TestHelper {
 		arguments.add(Argument.create("name", Types.STRING));
 		arguments.add(Argument.create("name", Types.INTEGER_WRAPPER));
 		
-		arquitetura.api.touml.Method foo = arquitetura.api.touml.Method.create().withName("foo").withArguments(arguments)
+		arquitetura.touml.Method foo = arquitetura.touml.Method.create().withName("foo").withArguments(arguments)
 							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 .withReturn(Types.INTEGER).build();
 		
-		List<arquitetura.api.touml.Method> methods = new ArrayList<arquitetura.api.touml.Method>();
+		List<arquitetura.touml.Method> methods = new ArrayList<arquitetura.touml.Method>();
 		methods.add(foo);
 		op.forClass().createClass("Bar").withMethod(methods).build();
 	}
@@ -273,13 +273,13 @@ public class ModelManagerTest extends TestHelper {
 		arguments.add(Argument.create("name", Types.STRING));
 		arguments.add(Argument.create("name", Types.INTEGER_WRAPPER));
 		
-		arquitetura.api.touml.Method bar = arquitetura.api.touml.Method.create()
+		arquitetura.touml.Method bar = arquitetura.touml.Method.create()
 							 						.withName("bar").withArguments(arguments)
 							 						.withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 						.withReturn(Types.INTEGER)
 							 						.abstractMethod().build();
 		
-		List<arquitetura.api.touml.Method> methods = new ArrayList<arquitetura.api.touml.Method>();
+		List<arquitetura.touml.Method> methods = new ArrayList<arquitetura.touml.Method>();
 		methods.add(bar);
 		
 		op.forClass().createClass("Person").withMethod(methods).build();
@@ -299,7 +299,7 @@ public class ModelManagerTest extends TestHelper {
 		List<Argument> arguments = new ArrayList<Argument>();
 		arguments.add(Argument.create("name", Types.STRING));
 		
-		arquitetura.api.touml.Method foo = arquitetura.api.touml.Method.create()
+		arquitetura.touml.Method foo = arquitetura.touml.Method.create()
 							 						.withName("bar").withArguments(arguments)
 							 						.withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 						.withReturn(Types.INTEGER)
@@ -308,7 +308,7 @@ public class ModelManagerTest extends TestHelper {
 		List<Argument> arguments2 = new ArrayList<Argument>();
 		arguments.add(Argument.create("name", Types.STRING));
 		
-		arquitetura.api.touml.Method teste = arquitetura.api.touml.Method.create()
+		arquitetura.touml.Method teste = arquitetura.touml.Method.create()
 							 						.withName("teste").withArguments(arguments2)
 							 						.withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 						.withReturn(Types.INTEGER)
@@ -320,7 +320,7 @@ public class ModelManagerTest extends TestHelper {
 								 .withType(Types.STRING);
 		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
 		classInfoAttrs2.add(xpto);
-		List<arquitetura.api.touml.Method> methods = new ArrayList<arquitetura.api.touml.Method>();
+		List<arquitetura.touml.Method> methods = new ArrayList<arquitetura.touml.Method>();
 		methods.add(foo);
 		methods.add(teste);
 		op.forClass().createClass("Person").withMethod(methods).withAttribute(classInfoAttrs2).build();
@@ -394,7 +394,7 @@ public class ModelManagerTest extends TestHelper {
 		List<Argument> arguments2 = new ArrayList<Argument>();
 		arguments2.add(Argument.create("name", Types.STRING));
 		
-		arquitetura.api.touml.Method teste = arquitetura.api.touml.Method.create()
+		arquitetura.touml.Method teste = arquitetura.touml.Method.create()
 							 						.withName("teste").withArguments(arguments2)
 							 						.withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 						.withReturn(Types.INTEGER)
@@ -403,7 +403,7 @@ public class ModelManagerTest extends TestHelper {
 		List<Argument> arguments3 = new ArrayList<Argument>();
 		arguments3.add(Argument.create("age", Types.INTEGER_WRAPPER));
 		
-		arquitetura.api.touml.Method xpto = arquitetura.api.touml.Method.create()
+		arquitetura.touml.Method xpto = arquitetura.touml.Method.create()
 							 						.withName("xpto").withArguments(arguments3)
 							 						.withVisibility(VisibilityKind.PRIVATE_LITERAL)
 							 						.withReturn(Types.STRING)

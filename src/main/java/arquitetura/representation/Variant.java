@@ -3,7 +3,7 @@ package arquitetura.representation;
 import java.util.ArrayList;
 import java.util.List;
 
-import arquitetura.api.touml.Stereotype;
+import arquitetura.touml.Stereotype;
 
 
 

@@ -7,12 +7,12 @@ import java.util.List;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import arquitetura.api.touml.VisibilityKind;
-import arquitetura.api.touml.Types.Type;
 import arquitetura.exceptions.AttributeNotFoundException;
 import arquitetura.exceptions.MethodNotFoundException;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.Relationship;
+import arquitetura.touml.VisibilityKind;
+import arquitetura.touml.Types.Type;
 
 /**
  * 

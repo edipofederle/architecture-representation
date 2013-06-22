@@ -8,10 +8,10 @@ import java.util.List;
 
 import org.junit.Test;
 
-import arquitetura.api.touml.Argument;
-import arquitetura.api.touml.Method;
-import arquitetura.api.touml.Types;
-import arquitetura.api.touml.VisibilityKind;
+import arquitetura.touml.Argument;
+import arquitetura.touml.Method;
+import arquitetura.touml.Types;
+import arquitetura.touml.VisibilityKind;
 
 public class MethodTest {
 

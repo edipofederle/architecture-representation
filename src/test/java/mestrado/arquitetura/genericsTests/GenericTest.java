@@ -18,12 +18,6 @@ import org.eclipse.uml2.uml.Profile;
 import org.eclipse.uml2.uml.Stereotype;
 import org.junit.Test;
 
-import arquitetura.api.touml.Argument;
-import arquitetura.api.touml.DocumentManager;
-import arquitetura.api.touml.Method;
-import arquitetura.api.touml.Operations;
-import arquitetura.api.touml.Types;
-import arquitetura.api.touml.VisibilityKind;
 import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.exceptions.CustonTypeNotFound;
 import arquitetura.exceptions.InvalidMultiplictyForAssociationException;
@@ -42,6 +36,12 @@ import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.UsageRelationship;
+import arquitetura.touml.Argument;
+import arquitetura.touml.DocumentManager;
+import arquitetura.touml.Method;
+import arquitetura.touml.Operations;
+import arquitetura.touml.Types;
+import arquitetura.touml.VisibilityKind;
 
 /**
  * 
@@ -181,7 +181,7 @@ public class GenericTest extends TestHelper {
 		
 		for (int i = 0; i < 5; i++) {
 			
-			arquitetura.api.touml.Method xpto = arquitetura.api.touml.Method.create()
+			arquitetura.touml.Method xpto = arquitetura.touml.Method.create()
 						.withName(generateRandomWord(4)).withArguments(arguments3)
 						.withVisibility(VisibilityKind.PRIVATE_LITERAL)
 						.withReturn(Types.LONG)
@@ -234,7 +234,7 @@ public class GenericTest extends TestHelper {
 	@Test
 	public void teste() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, IOException{
 		Uml2Helper helper = Uml2HelperFactory.getUml2Helper();
-		Package model = helper.load("src/main/java/arquitetura/api/touml/1/simples.uml");
+		Package model = helper.load("src/main/java/arquitetura/touml/1/simples.uml");
 		assertNotNull(model);
 		
 		Profile profile = (Profile) helper.getExternalResources(ReaderConfig.getPathToProfileConcerns());

@@ -9,11 +9,11 @@ import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Test;
 
-import arquitetura.api.touml.AssociationOperations;
-import arquitetura.api.touml.ClassOperations;
-import arquitetura.api.touml.DocumentManager;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.relationship.AssociationRelationship;
+import arquitetura.touml.AssociationOperations;
+import arquitetura.touml.ClassOperations;
+import arquitetura.touml.DocumentManager;
 
 public class AssociationTests  extends TestHelper {
 	

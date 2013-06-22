@@ -8,11 +8,11 @@ import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Test;
 
-import arquitetura.api.touml.DocumentManager;
-import arquitetura.api.touml.Operations;
 import arquitetura.exceptions.NotSuppportedOperation;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.relationship.GeneralizationRelationship;
+import arquitetura.touml.DocumentManager;
+import arquitetura.touml.Operations;
 
 public class GeneralizationTest extends TestHelper {
 	

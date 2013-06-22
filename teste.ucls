@@ -1,45 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.2" icons="true" always-add-relationships="true" generalizations="true" realizations="true" 
   associations="true" dependencies="true" nesting-relationships="true">  
-  <package id="1" language="java" name="arquitetura.api.touml" project="arquitetura" 
-    file="/arquitetura/src/main/java/arquitetura/api/touml" binary="false" corner="BOTTOM_RIGHT">    
+  <package id="1" language="java" name="arquitetura.touml" project="arquitetura" 
+    file="/arquitetura/src/main/java/arquitetura/touml" binary="false" corner="BOTTOM_RIGHT">    
     <position height="50" width="235" x="104" y="185"/>    
-    <display autosize="true" stereotype="true" accessors="true"/>  
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true"/>  
   </package>  
   <package id="2" language="java" name="arquitetura.base" project="arquitetura" 
     file="/arquitetura/src/main/java/arquitetura/base" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="625" y="263"/>    
-    <display autosize="true" stereotype="false" accessors="true"/>  
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true"/>  
   </package>  
   <package id="3" language="java" name="arquitetura.flyweights" project="arquitetura" 
     file="/arquitetura/src/main/java/arquitetura/flyweights" binary="false" corner="BOTTOM_RIGHT">    
     <position height="34" width="174" x="259" y="111"/>    
-    <display autosize="true" stereotype="false" accessors="true"/>  
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true"/>  
   </package>  
   <package id="4" language="java" name="arquitetura.helpers" project="arquitetura" 
     file="/arquitetura/src/main/java/arquitetura/helpers" binary="false" corner="BOTTOM_RIGHT">    
     <position height="34" width="154" x="475" y="349"/>    
-    <display autosize="true" stereotype="false" accessors="true"/>  
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true"/>  
   </package>  
   <package id="5" language="java" name="arquitetura.io" project="arquitetura" 
     file="/arquitetura/src/main/java/arquitetura/io" binary="false" corner="BOTTOM_RIGHT">    
     <position height="34" width="116" x="43" y="423"/>    
-    <display autosize="true" stereotype="false" accessors="true"/>  
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true"/>  
   </package>  
   <package id="6" language="java" name="arquitetura.representation" project="arquitetura" 
     file="/arquitetura/src/main/java/arquitetura/representation" binary="false" corner="BOTTOM_RIGHT">    
     <position height="34" width="203" x="230" y="275"/>    
-    <display autosize="true" stereotype="false" accessors="true"/>  
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true"/>  
   </package>  
   <package id="7" language="java" name="arquitetura.representation.relationship" project="arquitetura" 
     file="/arquitetura/src/main/java/arquitetura/representation/relationship" binary="false" corner="BOTTOM_RIGHT">    
     <position height="34" width="289" x="125" y="349"/>    
-    <display autosize="true" stereotype="false" accessors="true"/>  
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true"/>  
   </package>  
   <package id="8" language="java" name="arquitetura.builders" project="arquitetura" 
     file="/arquitetura/src/main/java/arquitetura/builders" binary="false" corner="BOTTOM_RIGHT">    
     <position height="34" width="159" x="454" y="37"/>    
-    <display autosize="true" stereotype="false" accessors="true"/>  
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true"/>  
   </package>  
   <dependency id="9">    
     <end type="SOURCE" refId="1"/>    

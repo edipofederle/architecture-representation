@@ -4,12 +4,12 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import arquitetura.api.touml.DocumentManager;
 import arquitetura.exceptions.CustonTypeNotFound;
 import arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import arquitetura.exceptions.ModelIncompleteException;
 import arquitetura.exceptions.ModelNotFoundException;
 import arquitetura.exceptions.NodeNotFound;
+import arquitetura.touml.DocumentManager;
 
 public class DocumentTest {
 	
