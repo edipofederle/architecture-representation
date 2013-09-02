@@ -9,7 +9,9 @@
    <url>http://maven.apache.org</url>
    <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <powermock.version>1.4.9</powermock.version>
    </properties>
+	
    <repositories>
       <repository>
          <id>wiki.org</id>
@@ -116,11 +118,7 @@
 	         <artifactId>uml2-resources</artifactId>
 	         <version>4.0.0</version>
 	      </dependency>
-	      <dependency>
-	         <groupId>org.mockito</groupId>
-	         <artifactId>mockito-all</artifactId>
-	         <version>1.8.4</version>
-	      </dependency>
+
 	      <dependency>
 	         <groupId>org.hamcrest</groupId>
 	         <artifactId>hamcrest-all</artifactId>
@@ -146,6 +144,31 @@
 		<groupId>log4j</groupId>
 		<artifactId>log4j</artifactId>
 		<version>1.2.17</version>
+	</dependency>
+ 
+	<dependency>
+		<groupId>org.powermock</groupId>
+		<artifactId>powermock-module-junit4</artifactId>
+		<version>${powermock.version}</version>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.powermock</groupId>
+		<artifactId>powermock-api-mockito</artifactId>
+		<version>${powermock.version}</version>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.mockito</groupId>
+		<artifactId>mockito-core</artifactId>
+		<version>1.8.5</version>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.8.2</version>
+		<scope>test</scope>
 	</dependency>
 </dependencies>
 

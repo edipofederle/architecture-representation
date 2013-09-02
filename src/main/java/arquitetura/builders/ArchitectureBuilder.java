@@ -223,9 +223,9 @@ public class ArchitectureBuilder {
 
 	private List<Variability> loadVariability() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
 		List<Variability> variabilities = new ArrayList<Variability>();
-		List<org.eclipse.uml2.uml.Class> variabilitiesTemp = modelHelper.getAllClasses(model);
+		List<org.eclipse.uml2.uml.Class> allClasses = modelHelper.getAllClasses(model);
 		
-		for (Classifier classifier : variabilitiesTemp) 
+		for (Classifier classifier : allClasses) 
 			if(StereotypeHelper.isVariability(classifier))
 				variabilityBuilder.create(classifier);
 		

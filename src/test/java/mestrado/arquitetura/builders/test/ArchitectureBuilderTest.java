@@ -10,6 +10,7 @@ import java.util.List;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import arquitetura.builders.ArchitectureBuilder;
@@ -17,6 +18,7 @@ import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
 import arquitetura.representation.Package;
+import arquitetura.representation.Variability;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
@@ -84,8 +86,8 @@ public class ArchitectureBuilderTest extends TestHelper {
 
 	@Test
 	public void shouldHaveMandatoryStereotype() {
-		assertNotNull(architecture.getAllVariantionsPoints());
-		System.out.println(architecture.getAllVariantionsPoints().get(0));
+		assertNotNull(architecture.getAllVariationPoints());
+		System.out.println(architecture.getAllVariationPoints().get(0));
 	}
 
 	@Test
@@ -206,13 +208,17 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals(1, architecture.getAllVariabilities().size());
 	}
 
-//	@Test
-//	public void shouldVariabilityBelongToClass1() {
-//		Variability variability = architecture.getAllVariabilities().get(0);
-//		assertNotNull(variability);
-//
-//		assertEquals("Class2", variability.getOwnerClass());
-//	}
+	/**
+	 * TODO - Pendente. Conversar com Thelma/Silvia.
+	 * 
+	 */
+	@Test @Ignore
+	public void shouldVariabilityBelongToClass1() {
+		Variability variability = architecture.getAllVariabilities().get(0);
+		assertNotNull(variability);
+
+		assertEquals("Class2", variability.getOwnerClass());
+	}
 
 	@Test
 	public void shouldLoadInterElementDependency() throws Exception {

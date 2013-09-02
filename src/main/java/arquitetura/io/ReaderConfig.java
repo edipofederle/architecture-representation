@@ -24,7 +24,7 @@ public class ReaderConfig {
 		try {
 			dir = Yaml.loadType(new File(PATH_CONFIGURATION_FILE), DirTarget.class);
 		} catch (FileNotFoundException e) {
-			LOGGER.info("I can't read the configuration file at " + PATH_CONFIGURATION_FILE);
+			LOGGER.info("I can't read the configuration file at: " + PATH_CONFIGURATION_FILE);
 		}
 	}
 	
@@ -36,6 +36,11 @@ public class ReaderConfig {
 		return dir.getDirectoryToSaveModels();
 	}
 	
+	/**
+	 * Diretório onde a arquitetura será exportada para que possa ser utilizada
+	 * 
+	 * @return
+	 */
 	public static String getDirExportTarget() {
 		return dir.getDirectoryToExportModels();
 	}
@@ -46,6 +51,13 @@ public class ReaderConfig {
 
 	public static String getPathToProfileConcerns() {
 		return dir.getPathToProfileConcern();
+	}
+
+
+	public static boolean hasProfilesSeted() {
+		if((getPathToProfileConcerns() == null) && (getPathToProfileSMarty() == null))
+			return false;
+		return true;
 	}
 	
 }

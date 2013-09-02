@@ -54,11 +54,10 @@ public class DocumentManager extends XmiHelper {
 		createXMIDocument();
 		
 		updateProfilesRefs();
-		
-		this.saveAndCopy(outputModelName);
-		
 		copyProfilesToDestination();
 		
+		
+		this.saveAndCopy(outputModelName);
 	}
 
 	private void copyProfilesToDestination() {
@@ -112,6 +111,9 @@ public class DocumentManager extends XmiHelper {
 	/**
 	 * Realiza um cópia dos três arquivos para o diretório <b>manipulation</b>.
 	 * 
+	 * Esse diretório deve ser setado no arquivo de configuração <b>application.yml</b>
+	 * na propriedade "directoryToSaveModels".
+	 * 
 	 * @param pathToFiles
 	 * @param modelName
 	 * @throws ModelIncompleteException 
@@ -128,14 +130,13 @@ public class DocumentManager extends XmiHelper {
 		String umlCopy = ReaderConfig.getDirTarget()+BASE_DOCUMENT+".uml";
 		String diCopy = ReaderConfig.getDirTarget()+BASE_DOCUMENT+".di";
 		
-		
-		
 		URL n = null;
 		URL u = null;
 		URL d = null;
 		  try {
 		     URL baseUrl = DocumentManager.class.getResource(".");
 		     if (baseUrl != null) {
+		    	//Arquivos vazios usados para geração da nova arquitetura
 		        n = new URL(baseUrl, modelName+".notation");
 		        u = new URL(baseUrl, modelName+".uml");
 		        d = new URL(baseUrl, modelName+".di");
@@ -221,7 +222,7 @@ public class DocumentManager extends XmiHelper {
 	 * Esse método é responsável por atualizar as referencias aos profiles (definidos no arquivo application.yml)
 	 * que são usados no modelo.
 	 * 
-	 * Basicamente é lido dois valores de cada arquivo de profile e atualizado no arquivo simples.uml, do qual é
+	 * Basicamente é lido dois valores de cada arquivo de profile e atualizado no arquivo simples.uml do qual é
 	 * usado como base para escrever o modelo novamente em disco.
 	 * 
 	 * @throws ModelNotFoundException

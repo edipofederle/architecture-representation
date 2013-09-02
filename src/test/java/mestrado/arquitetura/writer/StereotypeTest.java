@@ -27,7 +27,7 @@ public class StereotypeTest extends TestHelper {
 	public void testStereotypes() throws Exception{
 		Architecture a = givenAArchitecture("edipo");
 		
-		assertEquals(1, a.getAllVariantionsPoints().size());
+		assertEquals(1, a.getAllVariationPoints().size());
 		assertEquals(2, a.getAllVariabilities().size());
 		assertEquals(6, a.getAllVariants().size());
 		
@@ -55,7 +55,7 @@ public class StereotypeTest extends TestHelper {
 		List<Variability> variabilities = a.getAllVariabilities();
 		
 		assertEquals(7, a.getAllVariants().size());
-		assertEquals(2 ,a.getAllVariantionsPoints().size());
+		assertEquals(2 ,a.getAllVariationPoints().size());
 		assertEquals(2, variabilities.size());
 		
 		assertEquals(1, a.findClassByName("Class7").get(0).getVariant().getVariabilities().size());

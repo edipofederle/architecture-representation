@@ -98,10 +98,6 @@ public class Architecture {
 		return klasses;
 	}
 
-	public List<Variability> getAllVariabilities() {
-		return VariabilityFlyweight.getInstance().getVariabilities();
-	}
-
 	public List<Relationship> getInterClassRelationships() {
 		return relationships;
 	}
@@ -446,12 +442,16 @@ public class Architecture {
 		this.model = model;
 	}
 
-	public List<VariationPoint> getAllVariantionsPoints() {
+	public List<VariationPoint> getAllVariationPoints() {
 		return VariationPointFlyweight.getInstance().getVariationPoints();
 	}
 
 	public List<Variant> getAllVariants() {	
 		return VariantFlyweight.getInstance().getVariants();
+	}
+	
+	public List<Variability> getAllVariabilities() {
+		return VariabilityFlyweight.getInstance().getVariabilities();
 	}
 
 	public Class findClassById(String idClass) throws ClassNotFound {

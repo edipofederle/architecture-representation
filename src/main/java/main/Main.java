@@ -80,26 +80,26 @@ public class Main extends ArchitectureBase {
 		try {
 			a = new ArchitectureBuilder().create(path);
 			
+//			
+//			//Alguma manipulação sobre a arquitetura
+//			List<Class> classes = a.getAllClasses();
+//			
+//			for (Class klass : classes) {		
+//				klass.createAttribute("attr", Types.STRING, VisibilityKind.PUBLIC_LITERAL);
+//				
+//				List<ParameterMethod> parameters = new ArrayList<ParameterMethod>();
+//				ParameterMethod p1 = new ParameterMethod("name", "String");
+//				parameters.add(p1);
+//				
+//				klass.createMethod("fooBar1", "String", false, parameters);
+//				Class class1 = a.createClass(klass.getName()+"AlgumaCoias");
+//				Class class2 = a.createClass(klass.getName()+"AlgumaCoias_2");
+//				a.createAssociation(class1, class2);
+//			}
+//			
+//			//Fim manipulação
 			
-			//Alguma manipulação sobre a arquitetura
-			List<Class> classes = a.getAllClasses();
-			
-			for (Class klass : classes) {		
-				klass.createAttribute("attr", Types.STRING, VisibilityKind.PUBLIC_LITERAL);
-				
-				List<ParameterMethod> parameters = new ArrayList<ParameterMethod>();
-				ParameterMethod p1 = new ParameterMethod("name", "String");
-				parameters.add(p1);
-				
-				klass.createMethod("fooBar1", "String", false, parameters);
-				Class class1 = a.createClass(klass.getName()+"AlgumaCoias");
-				Class class2 = a.createClass(klass.getName()+"AlgumaCoias_2");
-				a.createAssociation(class1, class2);
-			}
-			
-			//Fim manipulação
-			
-			List<Class> classesReloaded = a.getAllClasses(); //VER ISSO
+			List<Class> classesReloaded = a.getAllClasses(); //TODO VER ISSO?Nao sei mais o que é :(
 			for (Class class1 : classesReloaded) {
 				String idClass = null;
 				List<arquitetura.touml.Attribute> attributes = new ArrayList<arquitetura.touml.Attribute>();
@@ -158,9 +158,7 @@ public class Main extends ArchitectureBase {
 				if(vp != null)
 					op.forClass().withId(idClass).isVariationPoint(spliterVariants(vp.getVariants()), spliterVariabilities(vp.getVariabilities()), BindingTime.DESIGN_TIME);
 				
-				
 				Variant v = null;
-				
 					
 					Variant variant = class1.getVariant();
 					if(variant != null){
@@ -171,7 +169,7 @@ public class Main extends ArchitectureBase {
 							if(elementRootVp != null)
 								rootVp = elementRootVp.getId();
 							else
-								rootVp = ""; // Ver essa questao
+								rootVp = ""; //TODO Ver essa questao
 							v = Variant.createVariant()
 									   .withName(variant.getVariantName())
 									   .andRootVp(rootVp)

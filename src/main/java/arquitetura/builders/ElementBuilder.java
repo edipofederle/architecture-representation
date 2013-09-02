@@ -43,7 +43,6 @@ public abstract class ElementBuilder<T extends arquitetura.representation.Elemen
 	 * Cria um novo elemento arquitetural. 
 	 * 
 	 * @param modelElement
-	 * @param parent null se não tiver parent.
 	 * @return
 	 */
 	public T create(NamedElement modelElement) {

@@ -150,5 +150,11 @@ public class Variability {
 			return false;
 		return true;
 	}
+
+
+	public Object getOwnerClass() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
