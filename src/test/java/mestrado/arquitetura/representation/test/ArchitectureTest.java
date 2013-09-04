@@ -49,6 +49,32 @@ public class ArchitectureTest extends TestHelper {
 	}
 	
 	@Test
+	public void shouldReturnConcernsForClass() throws Exception{
+		String uriToArchitecture = getUrlToModel("f/Needless");
+		Architecture architecture = new ArchitectureBuilder().create(uriToArchitecture);
+		
+		assertEquals(2,architecture.getAllClasses().get(0).getConcerns().size());
+		assertEquals("action",architecture.getAllClasses().get(0).getConcerns().get(0).getName());
+		assertEquals("bowling",architecture.getAllClasses().get(0).getConcerns().get(1).getName());
+	}
+	
+	@Test
+	public void teste() throws Exception{
+		String uriToArchitecture = getUrlToModel("pacotesTesteRe/Needless");
+		Architecture architecture = new ArchitectureBuilder().create(uriToArchitecture);
+		
+		System.out.println(architecture.getAllRealizations().get(0).getName());
+		System.out.println("Client:"+architecture.getAllRealizations().get(0).getClient().getName());
+		System.out.println("Supplier:"+architecture.getAllRealizations().get(0).getSupplier().getName());
+		
+		System.out.println("\n");
+		System.out.println(architecture.getAllDependencies().get(0).getName());
+		System.out.println("Cliente:"+architecture.getAllDependencies().get(0).getClient().getName());
+		System.out.println("Supplier:"+architecture.getAllDependencies().get(0).getSupplier().getName());
+		
+	}
+	
+	@Test
 	public void shouldArchitectureHaveAName(){
 		assertEquals("arquitetura", arch.getName());
 	}
@@ -233,7 +259,7 @@ public class ArchitectureTest extends TestHelper {
 		architecture.findClassByName("noClass");
 	}
 	
-	@Test @Ignore
+	@Test
 	public void shouldFindInterfaceByName() throws Exception{
 		Architecture a = givenAArchitecture("classes");
 		assertNotNull(a.findInterfaceByName("Interface"));
@@ -359,7 +385,8 @@ public class ArchitectureTest extends TestHelper {
 		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
 	}
 	
-	@Test
+	
+	@Test 
 	public void shouldAddConcerns(){
 		List<Package> packages = architecture.getAllPackages();
 		assertEquals("Number of concerns should be 0", 0, architecture.getAllConcerns().size());

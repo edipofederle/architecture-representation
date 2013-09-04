@@ -19,7 +19,9 @@ import arquitetura.representation.relationship.Relationship;
  */
 public class Package extends Element {
 
+	//TODO Somente pode ter pacotes, interfaces e classes.
 	private List<Element> elements = new ArrayList<Element>();
+	
 	private final List<Element> implementedInterfaces = new ArrayList<Element>();
 	private final List<Element> requiredInterfaces = new ArrayList<Element>();
 	private List<String> idsClasses = new ArrayList<String>();

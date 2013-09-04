@@ -1,4 +1,4 @@
-package mestrado.arquitetura.writer;
+package mestrado.arquitetura.writer.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -31,8 +31,11 @@ public class StereotypeTest extends TestHelper {
 		assertEquals(2, a.getAllVariabilities().size());
 		assertEquals(6, a.getAllVariants().size());
 		
-		assertEquals("variabilidade 2 deve ter 2 variants", 3, a.getAllVariabilities().get(1).getVariants().size());
-		assertEquals("variabilidade 1 deve ter 4 variants", 4, a.getAllVariabilities().get(0).getVariants().size());
+		Variability variabilidade1 = a.getAllVariabilities().get(1);
+		Variability variabilidade0 = a.getAllVariabilities().get(0);
+		
+		assertEquals("variabilidade "+ variabilidade1.getName()  + " deve ter 2 variants", 2, variabilidade1.getVariants().size());
+		assertEquals("variabilidade "+ variabilidade0.getName() + " deve ter 3 variants", 3, a.getAllVariabilities().get(0).getVariants().size());
 		
 		assertEquals(1,a.getAllVariabilities().get(0).getVariationPoints().size());
 		assertEquals(1,a.getAllVariabilities().get(1).getVariationPoints().size());

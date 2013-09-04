@@ -2,6 +2,7 @@ package arquitetura.representation;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -16,33 +17,29 @@ public class Variability {
 	private String maxSelection;
 	private String bindingTime;
 	private boolean allowsAddingVar;
+	private String ownerClass; // Classe na qual a variabilidade esta ligada
 	
-	private List<VariationPoint> variationPoints = new ArrayList<VariationPoint>();
+	private List<VariationPoint> variationPoints = new ArrayList<VariationPoint>(); //TODO vai ter somente um varitionPoint
 	private List<Variant> variants = new ArrayList<Variant>();
 	
-	/**
-	 * @param name
-	 * @param minSelection
-	 * @param maxSelection
-	 * @param bidingTime 
-	 * @param allowsAddingVar
-	 * @param attributes
-	 * @param elementOwner
-	 */
-	public Variability(String name, String minSelection, String maxSelection, String bindingTime, boolean allowsAddingVar) {
+	public Variability(String name, String minSelection, String maxSelection, String bindingTime, boolean allowsAddingVar, String ownerClass) {
 		setName(name);
 		setMinSelection(minSelection);
 		setMaxSelection(maxSelection);
 		setAllowsAddingVar(allowsAddingVar);
 		setBindingTime(bindingTime);
+		setOwner(ownerClass);
 	}
 	
+
+	private void setOwner(String ownerClass) {
+		this.ownerClass = ownerClass;
+	}
+
 
 	private void setBindingTime(String bindingTime) {
 		this.bindingTime = bindingTime;
 	}
-	
-
 
 	/**
 	 * @return the bindingTime
@@ -117,7 +114,14 @@ public class Variability {
 
 
 	public List<Variant> getVariants() {
-		return this.variants;
+		List<Variant> variantsNames = variants;
+		Iterator<Variant> i = variantsNames.iterator();
+		
+		while (i.hasNext()) {
+			Variant s = i.next();
+			if (s.getName().equalsIgnoreCase(this.getOwnerClass())){ i.remove(); }
+		}
+		return variants;
 	}
 
 	/* (non-Javadoc)
@@ -152,9 +156,13 @@ public class Variability {
 	}
 
 
-	public Object getOwnerClass() {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Retorna a classe na qual a Variabilidade pertence.
+	 * 
+	 * @return String - nome da classe
+	 */
+	public String getOwnerClass() {
+		return ownerClass;
 	}
 	
 }

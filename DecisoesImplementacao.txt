@@ -1,0 +1,1 @@
+- Uma variabilidade irá estar associada somente a somente um elemento arquitetural. Isto é terá somente um ponto de variação.

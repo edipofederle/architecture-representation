@@ -88,7 +88,7 @@ public abstract class Element {
 		return concerns;
 	}
 	
-	public void addConcerns(List<String> concernsNames) {
+	public void addConcerns(String nameElement, List<String> concernsNames) {
 		for (String name : concernsNames) 
 			addConcern(name);
 	}

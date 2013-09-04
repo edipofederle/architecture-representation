@@ -208,16 +208,13 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals(1, architecture.getAllVariabilities().size());
 	}
 
-	/**
-	 * TODO - Pendente. Conversar com Thelma/Silvia.
-	 * 
-	 */
-	@Test @Ignore
+
+	@Test
 	public void shouldVariabilityBelongToClass1() {
 		Variability variability = architecture.getAllVariabilities().get(0);
 		assertNotNull(variability);
 
-		assertEquals("Class2", variability.getOwnerClass());
+		assertEquals("Class1", variability.getOwnerClass());
 	}
 
 	@Test

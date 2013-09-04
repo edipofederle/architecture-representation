@@ -54,6 +54,11 @@ public class ReaderConfig {
 	}
 
 
+	/**
+	 * Verifica se existe ou não perfis setados no arquivo de configuração.
+	 * 
+	 * @return boolean
+	 */
 	public static boolean hasProfilesSeted() {
 		if((getPathToProfileConcerns() == null) && (getPathToProfileSMarty() == null))
 			return false;

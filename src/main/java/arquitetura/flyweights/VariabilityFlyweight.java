@@ -35,7 +35,7 @@ public class VariabilityFlyweight {
 		return INSTANCE;
 	}
 	
-	public Variability getOrCreateVariability(Map<String, String> variabilityAttributes){
+	public Variability getOrCreateVariability(String owner, Map<String, String> variabilityAttributes){
 		Variability variability = variabilities.get(variabilityAttributes.get("name"));
 		this.variabilityAttributes.put(variabilityAttributes.get("name"), variabilityAttributes);
 		
@@ -47,7 +47,8 @@ public class VariabilityFlyweight {
                       					  variabilityAttributes.get("minSelection"),
                                           variabilityAttributes.get("maxSelection"),
                                           variabilityAttributes.get("bindingTime"),
-                                          allowAddingVar(variabilityAttributes));
+                                          allowAddingVar(variabilityAttributes),
+                                          owner);
 			
 			variabilities.put(variability.getName(), variability);	
 		}

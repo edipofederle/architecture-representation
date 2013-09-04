@@ -7,7 +7,7 @@ package arquitetura.representation;
  */
 public class Concern {
 
-	private final String name;
+	private String name;
 
 	public Concern(String name) {
 		this.name = name;
@@ -20,5 +20,9 @@ public class Concern {
 	@Override
 	public String toString() {
 		return getName();
+	}
+
+	public void updateConcernsList(String newName) {
+		this.name += ","+newName;
 	}
 }

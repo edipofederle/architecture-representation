@@ -412,8 +412,8 @@ public class Architecture {
 	}
 	
 	private void removeIdOfElementFromList(String id, String message) {
-		LOGGER.info("Elemento ("+message+") : " + id + " removido.\n");
 		allIds.remove(id);
+		LOGGER.info("Elemento ("+message+") : " + id + " removido.\n");
 	}
 
 	public void removeClass(Class klass) {
@@ -461,7 +461,5 @@ public class Architecture {
 		
 		throw new ClassNotFound("Class " + idClass + " can not found.\n");
 	}
-	
-	
 
 }

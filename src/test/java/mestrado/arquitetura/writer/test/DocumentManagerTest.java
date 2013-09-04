@@ -1,4 +1,4 @@
-package mestrado.arquitetura.writer;
+package mestrado.arquitetura.writer.test;
 
 import static org.junit.Assert.assertNotNull;
 

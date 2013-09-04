@@ -45,7 +45,8 @@ public class VariabilityBuilder {
 		for (Comment comment : commentVariability) {
 			Map<String, String> variabilityAttributes = StereotypeHelper.getVariabilityAttributes(klass, comment);
 			if(variabilityAttributes != null) { 
-				variability = variabilityFlyweight.getOrCreateVariability(variabilityAttributes);
+				//Passado o nome da classe junto para saber o owner da variabilidade
+				variability = variabilityFlyweight.getOrCreateVariability(klass.getName(), variabilityAttributes);
 			}
 				
 			

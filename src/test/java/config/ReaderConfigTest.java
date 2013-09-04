@@ -18,8 +18,6 @@ import arquitetura.io.ReaderConfig;
 @PrepareForTest(ReaderConfig.class )
 public class ReaderConfigTest {
 	
-	
-	
 	@Test
 	public void shouldReturnPathToDirectorySaveModels(){
 		String dir = ReaderConfig.getDirTarget();
@@ -70,6 +68,5 @@ public class ReaderConfigTest {
 	public void comPerfilSetado(){
 		assertTrue(ReaderConfig.hasProfilesSeted());
 	}
-	
 	
 }
