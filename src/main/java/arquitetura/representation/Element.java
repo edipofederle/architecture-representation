@@ -1,6 +1,7 @@
 package arquitetura.representation;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -28,6 +29,8 @@ public abstract class Element {
 		setTypeElement(typeElement);
 		setNamespace(namespace);
 	}
+	
+	public abstract Collection<Concern> getAllConcerns();
 
 	/**
 	 * @return the id

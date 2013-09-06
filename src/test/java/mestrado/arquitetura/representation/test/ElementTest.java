@@ -12,11 +12,10 @@ import org.mockito.Mockito;
 
 import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
-import arquitetura.representation.Element;
 
 public class ElementTest {
 	
-	private Element klass;
+	private Class klass;
 	
 	@Before
 	public void setUp(){

@@ -1,6 +1,7 @@
 package arquitetura.representation;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import arquitetura.helpers.UtilResources;
@@ -57,6 +58,11 @@ public class Method extends Element{
 
 	public List<ParameterMethod> getParameters() {
 		return parameters;
+	}
+
+	@Override
+	public Collection<Concern> getAllConcerns() {
+		return new ArrayList<Concern>(getOwnConcerns());
 	}
 
 }

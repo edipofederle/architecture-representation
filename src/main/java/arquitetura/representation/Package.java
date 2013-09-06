@@ -1,8 +1,10 @@
 package arquitetura.representation;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import arquitetura.exceptions.ConcernCannotBeAppliedToPackagesException;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.Relationship;
 
@@ -105,5 +107,11 @@ public class Package extends Element {
 				relations.add(relationship);
 		
 		return relations;
+	}
+
+	@Override
+	public Collection<Concern> getAllConcerns() {
+		 new ConcernCannotBeAppliedToPackagesException();
+		return null;
 	}
 }

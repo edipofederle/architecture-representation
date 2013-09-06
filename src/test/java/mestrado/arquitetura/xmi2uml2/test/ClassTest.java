@@ -5,13 +5,18 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.eclipse.uml2.uml.Package;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import arquitetura.exceptions.AttributeNotFoundException;
 import arquitetura.exceptions.MethodNotFoundException;
@@ -20,7 +25,12 @@ import arquitetura.exceptions.ModelNotFoundException;
 import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
+import arquitetura.representation.Concern;
+import arquitetura.representation.Element;
 import arquitetura.representation.Method;
+import arquitetura.touml.Types;
+import arquitetura.touml.Types.Type;
+import arquitetura.touml.VisibilityKind;
 import arquitetura.xmi2uml2.Class;
 
 public class ClassTest extends TestHelper{
@@ -329,6 +339,34 @@ public class ClassTest extends TestHelper{
 		klass.removeMethod(foo);
 		
 		assertEquals(17, a.getAllIds().size());
+	}
+	
+	@Test
+	public void getAllConcernsTest(){
+		arquitetura.representation.Class klass =
+				Mockito.mock(arquitetura.representation.Class.class, Mockito.CALLS_REAL_METHODS);
+		
+		Attribute attr = Mockito.mock(Attribute.class, Mockito.CALLS_REAL_METHODS);
+		Method method = Mockito.mock(Method.class, Mockito.CALLS_REAL_METHODS);
+		List<Attribute> attrList = Arrays.asList(attr);
+		List<Method> methodList = Arrays.asList(method);
+		
+		Concern con1 = new Concern("movement");
+		Concern con2 = new Concern("play");
+		Concern con3 = new Concern("pause");
+		List<Concern> concernsForClass = Arrays.asList(con1, con2, con3);
+		List<Concern> concernsForAttribute = Arrays.asList(con1, con2);
+		List<Concern> concernsForMethod = Arrays.asList(con2, con3);
+
+		Mockito.when(klass.getOwnConcerns()).thenReturn(concernsForClass);
+		Mockito.when(klass.getAllAttributes()).thenReturn(attrList);
+		Mockito.when(klass.getAllMethods()).thenReturn(methodList);
+		Mockito.when(attr.getOwnConcerns()).thenReturn(concernsForAttribute);
+		Mockito.when(method.getOwnConcerns()).thenReturn(concernsForMethod);
+		
+		//TODO Ver Se é isto mesmo.
+		//Visto que se o interesse "play" estiver no atributo x e no metodo y, o concern play vai aparecer 2 vezes na lista.
+		assertEquals(7, klass.getAllConcerns().size());
 	}
 	
 }

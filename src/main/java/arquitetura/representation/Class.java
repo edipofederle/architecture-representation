@@ -1,8 +1,8 @@
 package arquitetura.representation;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -12,8 +12,8 @@ import arquitetura.exceptions.MethodNotFoundException;
 import arquitetura.flyweights.VariantFlyweight;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.Relationship;
-import arquitetura.touml.VisibilityKind;
 import arquitetura.touml.Types.Type;
+import arquitetura.touml.VisibilityKind;
 
 /**
  * 
@@ -206,6 +206,18 @@ public class Class extends Element {
 				return v.getVariantType();
 		}
 		return null;
+	}
+
+	@Override
+	public Collection<Concern> getAllConcerns() {
+		Collection<Concern> concerns = new ArrayList<Concern>(getOwnConcerns());
+
+		for (Method method : getAllMethods())
+			concerns.addAll(method.getAllConcerns());
+		for (Attribute attribute : getAllAttributes())
+			concerns.addAll(attribute.getAllConcerns());
+		
+		return concerns;
 	}
 	
 //	/**

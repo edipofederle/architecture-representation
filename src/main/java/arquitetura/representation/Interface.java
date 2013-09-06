@@ -1,6 +1,7 @@
 package arquitetura.representation;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -73,6 +74,15 @@ public class Interface extends Element {
 				if((dependency.getSupplier() instanceof Interface) && (dependency.getSupplier().equals(this)))
 					implementors.add((Package) dependency.getClient());
 		return implementors;
+	}
+
+	@Override
+	public Collection<Concern> getAllConcerns() {
+		Collection<Concern> concerns = new ArrayList<Concern>(getOwnConcerns());
+		for (Method operation : getOperations())
+			concerns.addAll(operation.getAllConcerns());
+		
+		return concerns;
 	}
 
 }

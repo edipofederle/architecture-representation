@@ -1,5 +1,8 @@
 package arquitetura.representation;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * 
  * @author edipofederle<edipofederle@gmail.com>
@@ -55,5 +58,10 @@ public class Attribute extends Element {
 	public String getVisibility() {
 		return this.visibilityKind;
 		
+	}
+
+	@Override
+	public Collection<Concern> getAllConcerns() {
+		return new ArrayList<Concern>(getOwnConcerns());
 	}
 }
