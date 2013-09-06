@@ -5,6 +5,8 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
+import arquitetura.exceptions.VariationPointElementTypeErrorException;
+
 /**
  * 
  * @author edipofederle<edipofederle@gmail.com>
@@ -23,14 +25,26 @@ public class VariationPoint {
 	 * @param variants {@link List}<{@link Element}>
 	 * @param bindingTime 
 	 * @param type 
+	 * @throws VariationPointElementTypeErrorException 
 	 */
-	public VariationPoint(Element variationPointElement, List<Variant> variants, String bindingTime) { //TODO VER SOBRE TIPO
+	public VariationPoint(Element variationPointElement, List<Variant> variants, String bindingTime) throws VariationPointElementTypeErrorException { //TODO VER SOBRE TIPO
 		if (variationPointElement == null)
 			throw new InvalidParameterException("A variation point must have an element");
+		
+		if(!variationPointElementIsAInterfaceOrClass(variationPointElement)){
+			throw new VariationPointElementTypeErrorException();
+		}
+		
 		this.variationPointElement = variationPointElement;
 		this.variationPointElement.setVariationPoint(this);
 		this.variants = variants;
 		this.bindingTime = bindingTime;
+	}
+
+	private boolean variationPointElementIsAInterfaceOrClass(Element variationPointElement) {
+		if(( variationPointElement instanceof Class) || (variationPointElement instanceof Interface))
+			return true;
+		return false;
 	}
 
 	public Element getVariationPointElement() {

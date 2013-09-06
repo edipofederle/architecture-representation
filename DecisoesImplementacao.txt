@@ -1,2 +1,4 @@
-- Uma variabilidade irá estar associada somente a uma classe
-- No Papyrus, não é possível adicionar um estereótipo por meio da interface visual em um pacote. Isso pode ser feito fora da interface gráfica, entretanto, o esterótipo não é apresentado na representação visual. Diante disto foi optado por não utiliza interesses (implementados por meio de estereótipos) em pacotes. 
+- Uma variabilidade irá estar associada somente a uma classe (03 Setembro 2013)
+
+- No Papyrus, não é possível adicionar um estereótipo por meio da interface visual em um pacote. Isso pode ser feito fora da interface gráfica, entretanto, o esterótipo não é apresentado na representação visual. Diante disto foi optado por não utiliza interesses (implementados por meio de estereótipos) em pacotes. (04 Setembro 2013)
+

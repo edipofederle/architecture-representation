@@ -12,6 +12,7 @@ import org.eclipse.uml2.uml.Stereotype;
 import arquitetura.exceptions.ModelIncompleteException;
 import arquitetura.exceptions.ModelNotFoundException;
 import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import arquitetura.exceptions.VariationPointElementTypeErrorException;
 import arquitetura.flyweights.VariabilityFlyweight;
 import arquitetura.flyweights.VariationPointFlyweight;
 import arquitetura.helpers.StereotypeHelper;
@@ -33,7 +34,7 @@ public class VariabilityBuilder {
 		this.architecture = architecture;
 	}
 
-	public List<Variability> create(Classifier klass) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
+	public List<Variability> create(Classifier klass) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, VariationPointElementTypeErrorException {
 
 		VariabilityFlyweight variabilityFlyweight = VariabilityFlyweight.getInstance();
 		variabilityFlyweight.setArchitecture(architecture);

@@ -10,7 +10,6 @@ import java.util.List;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import arquitetura.builders.ArchitectureBuilder;

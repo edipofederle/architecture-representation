@@ -20,6 +20,7 @@ import org.eclipse.uml2.uml.Usage;
 import arquitetura.exceptions.ModelIncompleteException;
 import arquitetura.exceptions.ModelNotFoundException;
 import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import arquitetura.exceptions.VariationPointElementTypeErrorException;
 import arquitetura.flyweights.VariabilityFlyweight;
 import arquitetura.flyweights.VariantFlyweight;
 import arquitetura.flyweights.VariationPointFlyweight;
@@ -221,7 +222,7 @@ public class ArchitectureBuilder {
 		return relationships;
 	}
 
-	private List<Variability> loadVariability() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
+	private List<Variability> loadVariability() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, VariationPointElementTypeErrorException {
 		List<Variability> variabilities = new ArrayList<Variability>();
 		List<org.eclipse.uml2.uml.Class> allClasses = modelHelper.getAllClasses(model);
 		

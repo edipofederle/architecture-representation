@@ -8,6 +8,7 @@ import java.util.List;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Stereotype;
 
+import arquitetura.exceptions.VariationPointElementTypeErrorException;
 import arquitetura.helpers.ModelHelper;
 import arquitetura.helpers.ModelHelperFactory;
 import arquitetura.helpers.StereotypeHelper;
@@ -33,7 +34,7 @@ public class VariationPointFlyweight {
 		return INSTANCE;
 	}
 	
-	public VariationPoint getOrCreateVariationPoint(Classifier klass){
+	public VariationPoint getOrCreateVariationPoint(Classifier klass) throws VariationPointElementTypeErrorException{
 		
 		Element variationPointElement = architecture.findElementByName(klass.getName()); // Busca Classe ja na representacao
 		Stereotype variantTypeForVariationPointElement = StereotypeHelper.getVariantType(klass);
