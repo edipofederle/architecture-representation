@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import arquitetura.exceptions.AttributeNotFoundException;
 import arquitetura.exceptions.MethodNotFoundException;
+import arquitetura.flyweights.VariantFlyweight;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.Relationship;
 import arquitetura.touml.VisibilityKind;
@@ -188,6 +189,22 @@ public class Class extends Element {
 	}
 
 	public Object getAllStereotype() {
+		return null;
+	}
+
+
+	/**
+	 * Retorna o tipo de variant (ex: alternative_OR).<br/>
+	 * 
+	 * Retorna null se não existir
+	 * 
+	 * @return String (ex: alternative_OR).
+	 */
+	public String getVariantType() {
+		for(Variant v : VariantFlyweight.getInstance().getVariants()){
+			if(v.getName().equalsIgnoreCase(this.getName()))
+				return v.getVariantType();
+		}
 		return null;
 	}
 	

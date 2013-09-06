@@ -134,7 +134,7 @@ public class GenericTest extends TestHelper {
 		assertEquals(1, client.getClasses().size());
 		assertContains(client.getClasses(), "Class1");
 		
-		assertEquals(9, a.getNumberOfElements());
+		assertEquals(10, a.getNumberOfElements());
 	}
 	
 	@Test

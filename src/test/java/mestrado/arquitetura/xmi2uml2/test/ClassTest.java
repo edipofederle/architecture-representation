@@ -155,12 +155,12 @@ public class ClassTest extends TestHelper{
 		Attribute att = klass.findAttributeByName("name");
 		
 		assertEquals(0, klass8.getAllAttributes().size());
-		assertEquals(1, klass.getAllAttributes().size());
+		assertEquals(2, klass.getAllAttributes().size());
 		
 		klass.moveAttributeToClass(att, klass8 );
 		
 		assertEquals(1, klass8.getAllAttributes().size());
-		assertEquals(0, klass.getAllAttributes().size());
+		assertEquals(1, klass.getAllAttributes().size());
 	}
 	
 	@Test
@@ -324,11 +324,11 @@ public class ClassTest extends TestHelper{
 	
 		assertNotNull(a);
 	
-		assertEquals(16, a.getAllIds().size());
+		assertEquals(18, a.getAllIds().size());
 		
 		klass.removeMethod(foo);
 		
-		assertEquals(15, a.getAllIds().size());
+		assertEquals(17, a.getAllIds().size());
 	}
 	
 }

@@ -84,11 +84,24 @@ public abstract class Element {
 		this.architecture = architecture;
 	}
 
-	public List<Concern> getConcerns() {
+	/**
+	 * Retorna apenas os interesses pertencentes a este elemento.<br />
+	 * 
+	 * @return List<{@link Concern}>
+	 */
+	public List<Concern> getOwnConcerns() {
 		return concerns;
 	}
 	
-	public void addConcerns(String nameElement, List<String> concernsNames) {
+	public boolean containsConcern(Concern concern){
+		for (Concern conc : getOwnConcerns()) {
+			if(conc.getName().equalsIgnoreCase(concern.getName()))
+				return true;
+		}
+		return false;
+	}
+	
+	public void addConcerns(List<String> concernsNames) {
 		for (String name : concernsNames) 
 			addConcern(name);
 	}

@@ -3,10 +3,8 @@ package arquitetura.builders;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
-import org.eclipse.uml2.uml.PrimitiveType;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 
@@ -76,8 +74,7 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 		
 			List<Property> attributes = modelHelper.getAllAttributesForAClass(modelElement);
 			for (Property property : attributes){
-				if((property.getType() instanceof PrimitiveType) || property.getType() == null)
-					attrs.add(attributeBuilder.create(property));
+				attrs.add(attributeBuilder.create(property));
 			}
 		
 		return attrs;

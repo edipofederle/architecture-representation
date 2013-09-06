@@ -52,9 +52,9 @@ public class ArchitectureTest extends TestHelper {
 		String uriToArchitecture = getUrlToModel("f/Needless");
 		Architecture architecture = new ArchitectureBuilder().create(uriToArchitecture);
 		
-		assertEquals(2,architecture.getAllClasses().get(0).getConcerns().size());
-		assertEquals("action",architecture.getAllClasses().get(0).getConcerns().get(0).getName());
-		assertEquals("bowling",architecture.getAllClasses().get(0).getConcerns().get(1).getName());
+		assertEquals(2,architecture.getAllClasses().get(0).getOwnConcerns().size());
+		assertEquals("action",architecture.getAllClasses().get(0).getOwnConcerns().get(0).getName());
+		assertEquals("bowling",architecture.getAllClasses().get(0).getOwnConcerns().get(1).getName());
 	}
 	
 	@Test

@@ -50,7 +50,7 @@ public abstract class ElementBuilder<T extends arquitetura.representation.Elemen
 		inspectStereotypes(modelElement);
 		name = modelElement.getName();
 		T element = buildElement(modelElement);
-		element.addConcerns(name, concerns);
+		element.addConcerns(concerns);
 		createdElements.put(getXmiId(modelElement), element);
 		addIdToListOfElements(modelElement);
 		return element;
