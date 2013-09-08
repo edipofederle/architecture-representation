@@ -3169,3 +3169,883 @@
 2013-09-08 14:09:55 INFO  CopyFile:25 - DestFile: manipulation/simples.di
 2013-09-08 14:09:55 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
 2013-09-08 14:09:55 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:57:59 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:57:59 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:57:59 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:57:59 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:57:59 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:57:59 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:57:59 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:57:59 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:57:59 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:57:59 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:57:59 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:57:59 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:57:59 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:57:59 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:06 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:06 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:06 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:06 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:06 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:06 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:06 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:06 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:06 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:06 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:06 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:06 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:06 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:06 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:08 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:08 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:08 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:08 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:08 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:08 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:08 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:08 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:08 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:08 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:08 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:08 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:08 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:08 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:09 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:09 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:09 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:09 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:09 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:09 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:09 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:09 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:09 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:09 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:09 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:09 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:09 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:09 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:09 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:09 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:09 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:09 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:09 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:10 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:10 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:10 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:10 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:10 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:10 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:10 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:10 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:10 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:10 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:10 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:10 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:10 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:10 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:10 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:10 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:10 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:10 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:10 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:10 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:10 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:10 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:10 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:10 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:10 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:10 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:10 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:10 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:10 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:10 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:10 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:10 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:10 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:10 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:10 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:10 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:10 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:10 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:10 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:10 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:10 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:10 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:10 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:10 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:10 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:10 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:10 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:10 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:10 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:10 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:10 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:11 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:11 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:11 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:11 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:11 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:11 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:11 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:11 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:11 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:11 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:12 INFO  Architecture:275 - Cannot remove Association null.
+
+2013-09-08 14:58:12 INFO  Architecture:286 - Cannot remove Dependency null.
+
+2013-09-08 14:58:12 INFO  Architecture:291 - Cannot remove Usage null.
+
+2013-09-08 14:58:12 INFO  Architecture:301 - Cannot remove Generalization null.
+
+2013-09-08 14:58:12 INFO  Architecture:306 - Cannot remove Abstraction null.
+
+2013-09-08 14:58:12 INFO  Architecture:416 - Elemento (Relacionamento) : _M2A5AI2PEeKIxp0D2fxnTw removido.
+
+2013-09-08 14:58:12 INFO  Architecture:416 - Elemento (Package) : _GcVaII2PEeKIxp0D2fxnTw removido.
+
+2013-09-08 14:58:12 INFO  Architecture:416 - Elemento (klass) : _--6rcJCxEeKDaa5NsMvxvw removido.
+
+2013-09-08 14:58:12 INFO  Architecture:416 - Elemento (Package) : _AnTlkJCyEeKDaa5NsMvxvw removido.
+
+2013-09-08 14:58:12 INFO  Architecture:416 - Elemento (Relacionamento) : _UBzIAJC1EeKDaa5NsMvxvw removido.
+
+2013-09-08 14:58:12 INFO  Architecture:416 - Elemento (klass) : _R0newJC1EeKDaa5NsMvxvw removido.
+
+2013-09-08 14:58:12 INFO  Architecture:416 - Elemento (Package) : _SyQLsJC1EeKDaa5NsMvxvw removido.
+
+2013-09-08 14:58:12 INFO  Architecture:416 - Elemento (Relacionamento) : _7sLxk5DAEeKDaa5NsMvxvw removido.
+
+2013-09-08 14:58:12 INFO  Architecture:416 - Elemento (Relacionamento) : _8QGW8JDAEeKDaa5NsMvxvw removido.
+
+2013-09-08 14:58:12 INFO  Architecture:416 - Elemento (klass) : _voFGgJDAEeKDaa5NsMvxvw removido.
+
+2013-09-08 14:58:12 INFO  Architecture:416 - Elemento (klass) : _yRZ5MJDAEeKDaa5NsMvxvw removido.
+
+2013-09-08 14:58:12 INFO  Architecture:416 - Elemento (Package) : _wjFWMJDAEeKDaa5NsMvxvw removido.
+
+2013-09-08 14:58:12 INFO  Architecture:416 - Elemento (Class removida com sucesso) : _FfCEYI2PEeKIxp0D2fxnTw removido.
+
+2013-09-08 14:58:12 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:12 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:12 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:12 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:12 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:12 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:12 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:12 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:12 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:12 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:12 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:12 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:12 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:12 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:12 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:12 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:12 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:12 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:12 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:12 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:12 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:12 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:12 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:12 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:12 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:12 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:12 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:12 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:12 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:12 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:12 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:12 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:12 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:12 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:12 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:12 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:12 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:12 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:12 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:12 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:12 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:12 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:13 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:13 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:13 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:13 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:13 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:13 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:13 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:13 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:13 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:13 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:13 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:13 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:13 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:13 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:13 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:13 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:13 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:13 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:13 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:13 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:13 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:13 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:13 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:13 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:13 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:13 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:13 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:13 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:13 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:13 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:13 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:13 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:13 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:13 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:13 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:13 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:13 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:13 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:13 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:13 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:13 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:13 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:13 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:13 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:13 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:13 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:13 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:13 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:13 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:13 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:13 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:13 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:13 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:13 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:13 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:13 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:14 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:14 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:14 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:14 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: source/godisdead.txt
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: dest/godisdead.txt
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:14 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:14 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:14 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:14 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:14 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:15 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:15 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:15 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:15 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:15 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:15 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:15 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:15 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:15 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:15 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:15 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:15 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:15 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:15 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:15 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:15 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:15 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:15 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:15 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:15 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:15 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:15 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:15 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:15 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:15 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:15 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:15 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:15 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:15 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:15 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:15 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:15 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:15 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:15 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:15 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:15 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:15 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:15 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:15 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:15 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:15 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:15 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:16 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:16 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:16 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:16 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:16 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:16 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:16 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:16 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:16 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:16 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:16 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:16 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:16 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:16 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:16 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:16 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:16 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:16 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:16 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:16 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:16 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:16 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:16 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:16 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:16 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:16 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:16 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:16 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:16 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:16 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:16 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:16 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:16 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:16 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:16 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:16 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:16 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:16 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:16 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:16 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:16 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:16 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:16 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:16 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:16 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:16 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:16 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:16 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:16 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:16 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:16 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:16 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:16 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:16 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:16 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:16 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:17 INFO  Class:121 - Method 'foo:' currently created in class 'Person'.
+
+2013-09-08 14:58:17 INFO  Class:121 - Method 'bar:String' currently created in class 'Person'.
+
+2013-09-08 14:58:17 INFO  Class:137 - Method 'metodoSemNome' not found in class 'Person'.
+
+2013-09-08 14:58:17 INFO  Class:93 - Attribute 'algumaCoisa' not found in class 'Person'.
+
+2013-09-08 14:58:19 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:19 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:19 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:19 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:19 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:19 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:19 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:19 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:19 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:19 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:19 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:19 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:19 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:19 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:19 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:19 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:19 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:19 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:19 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:19 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:19 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:19 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:19 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:19 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:19 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:19 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:19 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:19 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:19 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:19 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:19 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:19 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:19 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:19 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:19 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:19 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:19 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:19 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:19 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:19 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:19 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:19 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:19 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:19 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:19 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:19 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:19 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:19 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:19 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:19 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:19 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:20 INFO  RemoveNode:86 - Class with id: 888bd62a-cba6-450d-ba49-a7b2f6ae2efd removed from NOTATION file.
+2013-09-08 14:58:20 INFO  RemoveNode:42 - Class with id: 888bd62a-cba6-450d-ba49-a7b2f6ae2efd removed from UML file.
+2013-09-08 14:58:20 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:20 INFO  RemoveNode:86 - Class with id: a192c397-496b-48f9-9191-e1e590c117ef removed from NOTATION file.
+2013-09-08 14:58:20 INFO  RemoveNode:52 - Attribute with id: a192c397-496b-48f9-9191-e1e590c117ef removed.
+2013-09-08 14:58:20 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:20 INFO  RemoveNode:86 - Class with id: 236bf92c-7729-4eef-b3d1-7bc3b2b137c2 removed from NOTATION file.
+2013-09-08 14:58:20 INFO  RemoveNode:63 - Method with id: 236bf92c-7729-4eef-b3d1-7bc3b2b137c2 removed.
+2013-09-08 14:58:20 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:20 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:20 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:20 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:126 - makeACopy(String pathToFiles, String modelName) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.notation
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.uml
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  CopyFile:23 - copyFile(File sourceFile, File destFile) - Enter
+2013-09-08 14:58:21 INFO  CopyFile:24 - SourceFile: /Users/edipofederle/sourcesMestrado/arquitetura/target/classes/arquitetura/touml/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:25 - DestFile: manipulation/simples.di
+2013-09-08 14:58:21 INFO  CopyFile:49 - copyFile(File sourceFile, File destFile) - Exit
+2013-09-08 14:58:21 INFO  DocumentManager:164 - makeACopy(String pathToFiles, String modelName) - Exit

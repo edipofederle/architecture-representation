@@ -3,6 +3,7 @@ package agm.tests;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
@@ -33,6 +34,125 @@ public class AgmTest extends TestHelper {
 	public void deveCarregarTodasAsClasses(){
 		assertEquals("Deve ter 30 classes", 30, architecture.getAllClasses().size());
 	}
+	
+	/* Classes Stereotypes */
+	
+	@Test
+	public void testClasseBowlingGameStereotypes(){
+		Class klass = architecture.getAllClasses().get(0);
+		
+		assertEquals("BowlingGame",klass.getName());
+		assertEquals("alternative_OR",klass.getVariantType());
+		
+		assertEquals("bowling", klass.getOwnConcerns().get(0).getName());
+	}
+	
+	@Test
+	public void testClassePongGameStereotypes(){
+		Class klass = architecture.getAllClasses().get(1);
+		
+		assertEquals("PongGame",klass.getName());
+		assertEquals("alternative_OR",klass.getVariantType());
+		
+		assertEquals("pong", klass.getOwnConcerns().get(0).getName());
+	}
+	
+	@Test
+	public void testClasseBricklesGameStereotypes(){
+		Class klass = architecture.getAllClasses().get(2);
+		
+		assertEquals("BricklesGame",klass.getName());
+		assertEquals("alternative_OR",klass.getVariantType());
+		
+		assertEquals("brickles", klass.getOwnConcerns().get(0).getName());
+	}
+	
+	@Test
+	public void testClasseGameStereotypes(){
+		Class klass = architecture.getAllClasses().get(3);
+		
+		assertEquals("Game",klass.getName());
+		assertEquals("mandatory",klass.getVariantType());
+		
+		assertEquals("play", klass.getOwnConcerns().get(0).getName());
+		assertTrue(klass.isVariationPoint());
+	}
+	
+	@Test
+	public void testClasseGameMgrStereotypes(){
+		Class klass = architecture.getAllClasses().get(4);
+		assertEquals("GameMgr",klass.getName());
+	}
+	
+	@Test
+	public void testClasseMovableSpritesStereotypes(){
+		Class klass = architecture.getAllClasses().get(5);
+		
+		assertEquals("MovableSprites",klass.getName());
+		assertEquals("alternative_OR",klass.getVariantType());
+		
+		assertEquals("collision", klass.getOwnConcerns().get(0).getName());
+		assertEquals("movement", klass.getOwnConcerns().get(1).getName());
+		assertTrue(klass.isVariationPoint());
+	}
+	
+	@Test
+	public void testClasseVelocityStereotypes(){
+		Class klass = architecture.getAllClasses().get(6);
+		
+		assertEquals("Velocity",klass.getName());
+		assertNull(klass.getVariantType());
+		
+		assertEquals("movement", klass.getOwnConcerns().get(0).getName());
+	}
+	
+	@Test
+	public void testClassePuckStereotypes(){
+		Class klass = architecture.getAllClasses().get(7);
+		
+		assertEquals("Puck",klass.getName());
+		assertEquals("alternative_OR",klass.getVariantType());
+		assertFalse(klass.isVariationPoint());
+		
+		assertEquals("play", klass.getOwnConcerns().get(0).getName());
+	}
+	
+	
+	@Test
+	public void testClasseWallStereotypes(){
+		Class klass = architecture.getAllClasses().get(8);
+		
+		assertEquals("Wall",klass.getName());
+		assertEquals("alternative_OR",klass.getVariantType());
+		assertFalse(klass.isVariationPoint());
+		
+		assertEquals("brickles", klass.getOwnConcerns().get(0).getName());
+	}
+	
+	@Test
+	public void testClassePaddleStereotypes(){
+		Class klass = architecture.getAllClasses().get(9);
+		
+		assertEquals("Paddle",klass.getName());
+		assertEquals("alternative_OR",klass.getVariantType());
+		assertFalse(klass.isVariationPoint());
+		
+		assertEquals("play", klass.getOwnConcerns().get(0).getName());
+	}
+	
+	@Test
+	public void testClasseFloorStereotypes(){
+		Class klass = architecture.getAllClasses().get(10);
+		
+		assertEquals("Floor",klass.getName());
+		assertEquals("alternative_OR",klass.getVariantType());
+		assertFalse(klass.isVariationPoint());
+		
+		assertEquals("brickles", klass.getOwnConcerns().get(0).getName());
+	}
+	
+	
+	/* Classes Stereotypes */
 	
 	@Test
 	public void deveCarregarTodasAsInterfaces(){
