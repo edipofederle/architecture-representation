@@ -16,7 +16,6 @@ public class DocumentManagerTest {
 	
 	@Test
 	public void shouldCreateADocument() throws ModelNotFoundException, ModelIncompleteException{
-		//TODO Move to conf file
 		String newModelName  = "simplesNew";
 		DocumentManager documentManager = new DocumentManager(newModelName);
 		
@@ -30,11 +29,6 @@ public class DocumentManagerTest {
 		DocumentManager doc = new DocumentManager("saida");
 		doc.updateProfilesRefs();
 		//TODO Asserções
-	}
-	
-	@Test @Ignore
-	public void arquiteturaLidaSemPerfil(){
-		//TODO Implementar
 	}
 
 }

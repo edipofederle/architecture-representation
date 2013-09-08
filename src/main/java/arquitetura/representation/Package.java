@@ -21,7 +21,6 @@ import arquitetura.representation.relationship.Relationship;
  */
 public class Package extends Element {
 
-	//TODO Somente pode ter pacotes, interfaces e classes.
 	private List<Element> elements = new ArrayList<Element>();
 	
 	private final List<Element> implementedInterfaces = new ArrayList<Element>();
@@ -117,5 +116,19 @@ public class Package extends Element {
 	public Collection<Concern> getAllConcerns() {
 		 new ConcernCannotBeAppliedToPackagesException();
 		return null;
+	}
+
+	public void setElements(List<? extends Element> elements) {
+		for (Element element : elements) {
+			if (isPackageClassOrInterface(element)){
+				getElements().add(element);
+			}
+		}
+	}
+
+	private boolean isPackageClassOrInterface(Element element) {
+		if ((element instanceof Package) || (element instanceof Interface) || (element instanceof Class))
+			return true;
+		return false;
 	}
 }

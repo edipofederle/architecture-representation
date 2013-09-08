@@ -106,24 +106,42 @@ public class Architecture {
 		this.relationships = relationships;
 	}
 
-	// TODO refatorar para buscar todo tipo de elemento
-	public Element findElementByName(String name) {
-		List<Class> klasses = getAllClasses();
-		List<Package> packages = getAllPackages();
-
-		for (Class klass : klasses)
-			if (foundElement(name, klass))
-				return klass;
-
-		for (Package package1 : packages)
-			if (foundElement(name, package1))
-				return package1;
-
-		return null; // TODO Verifica Null
+	
+	/**
+	 * Busca elemento por nome.<br/>
+	 * 
+	 * No momento busca por class, interface ou package <br/>
+	 * 
+	 * 
+	 * TODO refatorar para buscar todo tipo de elemento
+	 * 
+	 * @param name  - Nome do elemento
+	 * @parm type - tipo do elemento (class, interface ou package)
+	 * @return
+	 */
+	public Element findElementByName(String name, String type) {
+		return findElement(name, type);
 	}
 
-	private <T> boolean foundElement(String name, Element element) {
-		return name.equalsIgnoreCase(element.getName());
+	private Element findElement(String name, String type) {
+		if(type.equalsIgnoreCase("class")){
+			for(Element element : getAllClasses())
+				if(element.getName().equalsIgnoreCase(name))
+					return element;
+		}
+		
+		if(type.equalsIgnoreCase("interface")){
+			for(Element element : getAllInterfaces())
+				if(element.getName().equalsIgnoreCase(name))
+					return element;
+		}
+		
+		if(type.equalsIgnoreCase("package")){
+			for(Element element : getAllPackages())
+				if(element.getName().equalsIgnoreCase(name))
+					return element;
+		}
+		return null;
 	}
 
 	public List<Interface> getAllInterfaces() {

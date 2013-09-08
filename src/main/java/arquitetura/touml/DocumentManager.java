@@ -53,11 +53,17 @@ public class DocumentManager extends XmiHelper {
 		makeACopy(BASE_DOCUMENT);
 		createXMIDocument();
 		
-		updateProfilesRefs();
-		copyProfilesToDestination();
+		if(onlyUpdateProfilesAndCopyIfExists()){
+			updateProfilesRefs();
+			copyProfilesToDestination();
+		}
 		
 		
 		this.saveAndCopy(outputModelName);
+	}
+
+	private boolean onlyUpdateProfilesAndCopyIfExists() {
+		return ReaderConfig.hasProfilesSeted();
 	}
 
 	private void copyProfilesToDestination() {
@@ -178,7 +184,6 @@ public class DocumentManager extends XmiHelper {
 		         resStreamOut.write(buffer, 0, readBytes);
 		     }
 		 } catch (IOException e1) {
-		     // TODO Auto-generated catch block
 		     e1.printStackTrace();
 		 }
 	}

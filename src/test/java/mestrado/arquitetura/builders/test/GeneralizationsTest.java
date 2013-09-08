@@ -40,8 +40,8 @@ public class GeneralizationsTest extends TestHelper {
 	
 	@Test
 	public void shouldReplaceChildClass() throws Exception {
-		Class professorKlass = (Class) arch.findElementByName("Professor");
-		Class class1 = (Class) arch.findElementByName("Child1");
+		Class professorKlass = (Class) arch.findElementByName("Professor", "class");
+		Class class1 = (Class) arch.findElementByName("Child1", "class");
 		assertNotNull(class1);
 
 		assertNotNull(professorKlass);
@@ -58,7 +58,7 @@ public class GeneralizationsTest extends TestHelper {
 
 	@Test
 	public void shouldReplaceAParentClass() throws Exception {
-		Class professorKlass = (Class) arch.findElementByName("Professor");
+		Class professorKlass = (Class) arch.findElementByName("Professor", "class");
 		assertNotNull(professorKlass);
 		assertEquals("Professor", professorKlass.getName());
 
@@ -82,8 +82,8 @@ public class GeneralizationsTest extends TestHelper {
 	public void givenAParentClassShouldReturnAllChildren() {
 		assertEquals(6, arch.getAllClasses().size());
 
-		Element parentKlass = arch.findElementByName("Parent");
-		Class student = (Class) arch.findElementByName("Student");
+		Element parentKlass = arch.findElementByName("Parent", "class");
+		Class student = (Class) arch.findElementByName("Student","class");
 		assertNotNull(parentKlass);
 		assertNotNull(student);
 		assertEquals("Parent", parentKlass.getName());

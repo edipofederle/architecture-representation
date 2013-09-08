@@ -124,7 +124,7 @@ public abstract class TestHelper {
 				    if(line.contains(id))
 				        return true;
 			}
-		}catch(FileNotFoundException e) { } //TODO
+		}catch(FileNotFoundException e) {e.printStackTrace(); }
 		return false;
 	}
 	

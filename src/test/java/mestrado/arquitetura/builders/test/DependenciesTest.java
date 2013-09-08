@@ -123,7 +123,7 @@ public class DependenciesTest extends TestHelper {
 	@Test
 	public void shouldReplaceClientDependency() throws Exception {
 
-		Class klass = (Class) arch.findElementByName("replaceClass");
+		Class klass = (Class) arch.findElementByName("replaceClass", "class");
 
 		DependencyRelationship dependency = arch.getAllDependencies().get(0);
 		assertEquals("Class2", dependency.getClient().getName());
@@ -135,7 +135,7 @@ public class DependenciesTest extends TestHelper {
 
 	@Test
 	public void shouldReplaceSupplierDependency() throws Exception {
-		Class klass = (Class) arch.findElementByName("replaceClass");
+		Class klass = (Class) arch.findElementByName("replaceClass", "class");
 
 		DependencyRelationship dependency = arch.getAllDependencies().get(0);
 		assertEquals("Class1", dependency.getSupplier().getName());

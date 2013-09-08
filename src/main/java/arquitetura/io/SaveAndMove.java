@@ -27,7 +27,6 @@ public class SaveAndMove extends XmiHelper{
 	
 	 static Logger LOGGER = LogManager.getLogger(SaveAndMove.class.getName());
 	
-	// TODO mudar caminho para arquivo de configuração
 	public static void saveAndMove(Document docNotation, Document docUml, Document docDi, String originalModelName, String newModelName) throws TransformerException, IOException{
 		String targetDir = ReaderConfig.getDirTarget();
 		String targetDirExport = ReaderConfig.getDirExportTarget();

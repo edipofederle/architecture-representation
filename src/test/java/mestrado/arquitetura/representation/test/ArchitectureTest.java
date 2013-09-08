@@ -135,13 +135,13 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnNullWhenElementNotFound(){
-		assertNull(arch.findElementByName("KlassNotFound"));
+		assertNull(arch.findElementByName("KlassNotFound","class"));
 	}
 	
 	@Test
 	public void shouldReturnElementClassByName(){
 		arch.getElements().add(new Class(arch, "Klass",  null, false,  "namespace", "id"));
-		Element klass = arch.findElementByName("klass");
+		Element klass = arch.findElementByName("klass","class");
 		
 		assertNotNull(klass);
 		assertEquals("Klass", klass.getName());
@@ -150,7 +150,7 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldReturnElementPackageByName(){
 		arch.getElements().add( new Package(arch, "Pacote", "id"));
-		Element pkg = arch.findElementByName("Pacote");
+		Element pkg = arch.findElementByName("Pacote", "package");
 		
 		assertNotNull(pkg);
 		assertEquals("Pacote", pkg.getName());
@@ -226,7 +226,7 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldFindClassByName() throws Exception{
 		assertNotNull(architecture.findClassByName("Class3"));
-		assertEquals("Class3", architecture.findElementByName("CLass3").getName());
+		assertEquals("Class3", architecture.findElementByName("CLass3","class").getName());
 	}
 	
 	@Test

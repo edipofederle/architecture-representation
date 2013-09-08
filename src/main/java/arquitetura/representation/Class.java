@@ -112,7 +112,7 @@ public class Class extends Element {
 			getArchitecture().getAllIds().add(id);
 			return method;
 		}
-		return null; //TODO exp
+		return null; 
 	}
 
 	private boolean methodExistsOnClass(String name, String type) {

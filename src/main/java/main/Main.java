@@ -163,7 +163,7 @@ public class Main extends ArchitectureBase {
 					Variant variant = class1.getVariant();
 					if(variant != null){
 						try{
-							Element elementRootVp = a.findElementByName(variant.getRootVP());
+							Element elementRootVp = a.findElementByName(variant.getRootVP(), "class");
 							String rootVp = null;
 							
 							if(elementRootVp != null)

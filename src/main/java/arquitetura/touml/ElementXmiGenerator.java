@@ -197,7 +197,7 @@ public class ElementXmiGenerator extends XmiHelper {
 					return (Element) nodeNotationToAddMethod.getChildNodes().item(i);
 			}
 		}
-		return null; //TODO remover NULL
+		return null;
 	}
 	
 

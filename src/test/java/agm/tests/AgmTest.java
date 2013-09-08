@@ -1,7 +1,7 @@
 package agm.tests;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -167,6 +167,13 @@ public class AgmTest extends TestHelper {
 	@Test
 	public void deveCarregarTodosOsPacotes(){
 		assertEquals(9, architecture.getAllPackages().size());
+	}
+	
+	@Test
+	public void pacoteClasses(){
+		arquitetura.representation.Package p = architecture.getAllPackages().get(0);
+		assertEquals("GameMgr",p.getName());
+		assertEquals(6, p.getClasses().size());
 	}
 	
 	@Test
