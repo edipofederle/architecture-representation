@@ -10,10 +10,13 @@ import org.junit.Test;
 
 import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.exceptions.ClassNotFound;
+import arquitetura.exceptions.InterfaceNotFound;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
+import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
+import arquitetura.representation.Variability;
 
 public class AgmTest extends TestHelper {
 	
@@ -108,8 +111,48 @@ public class AgmTest extends TestHelper {
 		
 		assertEquals(1, moving.getOwnConcerns().size());
 		assertEquals("movement", moving.getOwnConcerns().get(0).getName());
-		
 	}
+	
+	/* Interfaces */
+	
+	@Test
+	public void interfaceIGameBoardData() throws InterfaceNotFound{
+		Interface iGameBoardData = architecture.findInterfaceByName("IGameBoardData");
+		
+		assertNotNull(iGameBoardData);
+		assertEquals(1, iGameBoardData.getOperations().size());
+		
+		Method operation = iGameBoardData.getOperations().get(0);
+		assertEquals("getGameBoard", operation.getName());
+		
+		//Params
+		assertEquals(1, operation.getParameters().size());
+		assertEquals("gameCode",operation.getParameters().get(0).getName());
+		assertEquals("String", operation.getParameters().get(0).getType());
+		assertEquals("", operation.getReturnType());
+		
+		//Concerns
+		assertEquals(1, operation.getOwnConcerns().size());
+		assertEquals("play", operation.getOwnConcerns().get(0).getName());
+	}
+	
+	/* Interfaces */
+	
+	
+	/* Variabilidades */
+	
+	@Test
+	public void var1(){
+		Variability var1 = architecture.getAllVariabilities().get(0);
+		assertEquals("movable_sprite", var1.getName());
+		
+		assertEquals("1", var1.getMinSelection());
+		assertEquals("2", var1.getMaxSelection());
+		assertNotNull(var1.getVariationPoint());
+	}
+	
+	/* Variabilidades */
+	
 	
 	
 	@Test

@@ -109,6 +109,10 @@ public class Package extends Element {
 		return relations;
 	}
 
+	/**
+	 * Eu sei, eu sei,  princípio da substituição de Liskov.
+	 * Desculpe :D 
+	 */
 	@Override
 	public Collection<Concern> getAllConcerns() {
 		 new ConcernCannotBeAppliedToPackagesException();

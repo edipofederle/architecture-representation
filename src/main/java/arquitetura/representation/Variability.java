@@ -19,7 +19,7 @@ public class Variability {
 	private boolean allowsAddingVar;
 	private String ownerClass; // Classe na qual a variabilidade esta ligada
 	
-	private List<VariationPoint> variationPoints = new ArrayList<VariationPoint>(); //TODO vai ter somente um varitionPoint
+	private VariationPoint variationPoint; 
 	private List<Variant> variants = new ArrayList<Variant>();
 	
 	public Variability(String name, String minSelection, String maxSelection, String bindingTime, boolean allowsAddingVar, String ownerClass) {
@@ -50,8 +50,7 @@ public class Variability {
 
 
 	public void addVariationPoint(VariationPoint variationPoint) {
-		if (variationPoint != null)
-			getVariationPoints().add(variationPoint);
+			this.variationPoint = variationPoint;
 	}
 
 	public String getName() {
@@ -87,12 +86,12 @@ public class Variability {
 	}
 	
 	/**
-	 * Retorna uma lista de {@link VariationPoint} para a {@link Variability} em questão.
+	 * Retorna o {@link VariationPoint} para a {@link Variability}.
 	 * 
-	 * @return {@link List}<{@link VariationPoint}>
+	 * @return {@link VariationPoint}
 	 */
-	public List<VariationPoint> getVariationPoints() {
-		return variationPoints;
+	public VariationPoint getVariationPoint() {
+		return variationPoint;
 	}
 
 	
@@ -104,7 +103,7 @@ public class Variability {
 	public String toString() {
 		return "Variability [name=" + name + ", minSelection=" + minSelection
 				+ ", maxSelection=" + maxSelection + ", allowsAddingVar="
-				+ allowsAddingVar + ", variationPoints=" + variationPoints
+				+ allowsAddingVar + ", variationPoint=" + variationPoint
 				+ ", variants=" + variants + "]";
 	}
 

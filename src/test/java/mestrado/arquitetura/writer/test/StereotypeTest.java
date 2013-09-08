@@ -37,8 +37,8 @@ public class StereotypeTest extends TestHelper {
 		assertEquals("variabilidade "+ variabilidade1.getName()  + " deve ter 2 variants", 2, variabilidade1.getVariants().size());
 		assertEquals("variabilidade "+ variabilidade0.getName() + " deve ter 3 variants", 3, a.getAllVariabilities().get(0).getVariants().size());
 		
-		assertEquals(1,a.getAllVariabilities().get(0).getVariationPoints().size());
-		assertEquals(1,a.getAllVariabilities().get(1).getVariationPoints().size());
+		assertNotNull(a.getAllVariabilities().get(0).getVariationPoint());
+		assertNotNull(a.getAllVariabilities().get(1).getVariationPoint());
 
 		assertTrue(a.findClassByName("GameMenu").get(0).isVariationPoint());
 		assertEquals("Ponto de variação deve ter 5 variants", 5, a.findClassByName("GameMenu").get(0).getVariationPoint().getVariants().size());
