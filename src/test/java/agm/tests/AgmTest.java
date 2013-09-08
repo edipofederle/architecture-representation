@@ -1,5 +1,6 @@
 package agm.tests;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -148,13 +149,85 @@ public class AgmTest extends TestHelper {
 		
 		assertEquals("1", var1.getMinSelection());
 		assertEquals("2", var1.getMaxSelection());
+
+		assertEquals("DESIGN_TIME", var1.getBindingTime());
+		
 		assertNotNull(var1.getVariationPoint());
 		assertEquals(2, var1.getVariants().size());
-		
 		assertEquals("Puck", var1.getVariants().get(0).getName());
 		assertEquals("Paddle", var1.getVariants().get(1).getName());
 		
 		assertEquals("MovableSprites", var1.getVariationPoint().getVariationPointElement().getName());
+	}
+	
+	@Test
+	public void gameVariability(){
+		Variability var2 = architecture.getAllVariabilities().get(1);
+		assertEquals("game", var2.getName());
+		
+		assertEquals("1", var2.getMinSelection());
+		assertEquals("3", var2.getMaxSelection());
+
+		assertEquals("DESIGN_TIME", var2.getBindingTime());
+		
+		assertNotNull(var2.getVariationPoint());
+		assertEquals(3, var2.getVariants().size());
+		assertEquals("PongGame", var2.getVariants().get(0).getName());
+		assertEquals("BricklesGame", var2.getVariants().get(1).getName());
+		
+		assertEquals("Game", var2.getVariationPoint().getVariationPointElement().getName());
+	}
+	
+	@Test
+	public void SpritVariability(){
+		Variability var = architecture.getAllVariabilities().get(2);
+		assertEquals("sprit", var.getName());
+		
+		assertEquals("1", var.getMinSelection());
+		assertEquals("2", var.getMaxSelection());
+
+		assertEquals("DESIGN_TIME", var.getBindingTime());
+		
+		assertNotNull(var.getVariationPoint());
+		assertEquals(2, var.getVariants().size());
+		assertEquals("MovableSprites", var.getVariants().get(0).getName());
+		assertEquals("StationarySprite", var.getVariants().get(1).getName());
+		
+		assertEquals("Sprit", var.getVariationPoint().getVariationPointElement().getName());
+	}
+	
+	@Test
+	public void rankingVariability(){
+		Variability var = architecture.getAllVariabilities().get(3);
+		assertEquals("ranking", var.getName());
+		
+		assertEquals("0", var.getMinSelection());
+		assertEquals("1", var.getMaxSelection());
+
+		assertEquals("DESIGN_TIME", var.getBindingTime());
+		
+		assertNull(var.getVariationPoint());
+		assertEquals(1, var.getVariants().size());
+		assertEquals("Player", var.getVariants().get(0).getName());
+	}
+	
+	@Test
+	public void stationaySpritVariability(){
+		Variability var = architecture.getAllVariabilities().get(4);
+		assertEquals("stationay_sprit", var.getName());
+		
+		assertEquals("1", var.getMinSelection());
+		assertEquals("4", var.getMaxSelection());
+
+		assertEquals("DESIGN_TIME", var.getBindingTime());
+		
+		assertNotNull(var.getVariationPoint());
+		assertEquals(5, var.getVariants().size());
+		assertEquals("Ceiling", var.getVariants().get(0).getName());
+		assertEquals("Floor", var.getVariants().get(1).getName());
+		assertEquals("Wall", var.getVariants().get(2).getName());
+		assertEquals("Brick", var.getVariants().get(3).getName());
+		assertEquals("BrickPile", var.getVariants().get(4).getName());
 	}
 	
 	/* Variabilidades */
