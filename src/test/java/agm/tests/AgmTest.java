@@ -142,13 +142,19 @@ public class AgmTest extends TestHelper {
 	/* Variabilidades */
 	
 	@Test
-	public void var1(){
+	public void movableSpriteVariability(){
 		Variability var1 = architecture.getAllVariabilities().get(0);
 		assertEquals("movable_sprite", var1.getName());
 		
 		assertEquals("1", var1.getMinSelection());
 		assertEquals("2", var1.getMaxSelection());
 		assertNotNull(var1.getVariationPoint());
+		assertEquals(2, var1.getVariants().size());
+		
+		assertEquals("Puck", var1.getVariants().get(0).getName());
+		assertEquals("Paddle", var1.getVariants().get(1).getName());
+		
+		assertEquals("MovableSprites", var1.getVariationPoint().getVariationPointElement().getName());
 	}
 	
 	/* Variabilidades */
