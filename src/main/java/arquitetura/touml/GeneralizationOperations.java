@@ -5,7 +5,6 @@ import org.w3c.dom.Node;
 
 import arquitetura.exceptions.NotSuppportedOperation;
 import arquitetura.helpers.XmiHelper;
-import arquitetura.representation.Architecture;
 
 /**
  * 
@@ -20,15 +19,9 @@ public class GeneralizationOperations extends XmiHelper implements Relationship 
 	private String general;
 	private String client;
 	private String name;
-	private Architecture a; // Nao preciso aqui
 	
 	public GeneralizationOperations(DocumentManager doc) {
 		this.documentManager = doc;
-	}
-
-	public GeneralizationOperations(DocumentManager documentManager, Architecture a) {
-		this.documentManager = documentManager;
-		this.a = a;
 	}
 
 	public Relationship createRelation(String name) {

@@ -23,7 +23,6 @@ public class DependencyNode extends XmiHelper {
 	private String supplierElement;
 	private String name;
 	private String id;
-	private Architecture a;
 	
 	public DependencyNode(DocumentManager documentManager, String name,	String clientElement, String supplierElement, Architecture a) {
 		this.documentManager = documentManager;
@@ -32,7 +31,6 @@ public class DependencyNode extends XmiHelper {
 		this.clientElement = clientElement;
 		this.supplierElement = supplierElement;
 		this.name = name;
-		this.a = a;
 	}
 
 	public void createDependency(String dependency) {

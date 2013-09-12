@@ -34,7 +34,6 @@ public class ElementXmiGenerator extends XmiHelper {
 	private Node notatioChildren;
 	private Node umlModelChild;
 	private Element notationBasicOperation;
-	private String id;
 	private Architecture a;
 
 	private Node klass;

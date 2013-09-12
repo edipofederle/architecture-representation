@@ -28,7 +28,7 @@ public class Operations {
 		 createPackageOperations();
 		 createDependencyOperations(a);
 		 createUsageOperations(a);
-		 createGeneralizationOperations(a);
+		 createGeneralizationOperations();
 		 createCompositionOperations();
 		 createAggrationOperations(a);
 		 createNoteOperations(a);
@@ -46,8 +46,8 @@ public class Operations {
 		this.compositionOperations = new CompositionOperations(doc);
 	}
 
-	private void createGeneralizationOperations(Architecture a) {
-		this.generalizationOperations = new GeneralizationOperations(doc,a);
+	private void createGeneralizationOperations() {
+		this.generalizationOperations = new GeneralizationOperations(doc);
 	}
 
 	private void createUsageOperations(Architecture a) {
