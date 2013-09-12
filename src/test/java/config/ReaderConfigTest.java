@@ -1,5 +1,6 @@
 package config;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -34,7 +35,7 @@ public class ReaderConfigTest {
 	@Test
 	public void shouldReturnPathToDirectoryExportModels(){
 		String dir = ReaderConfig.getDirExportTarget();
-		assertEquals("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/", dir);
+		assertNotNull(dir);
 	}
 	
 	@Test
@@ -47,7 +48,7 @@ public class ReaderConfigTest {
 	@Test 
 	public void shouldReturnPathToProfile(){
 		String path = ReaderConfig.getPathToProfileSMarty();
-		assertEquals("/Users/edipofederle/Desktop/testesRuns/resources/smarty.profile.uml", path);
+		assertNotNull(path);
 	}
 	
 	@Test

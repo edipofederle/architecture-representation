@@ -6,8 +6,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
 
@@ -19,12 +17,8 @@ import org.eclipse.uml2.uml.Stereotype;
 import org.junit.Test;
 
 import arquitetura.builders.ArchitectureBuilder;
-import arquitetura.exceptions.CustonTypeNotFound;
-import arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import arquitetura.exceptions.ModelIncompleteException;
 import arquitetura.exceptions.ModelNotFoundException;
-import arquitetura.exceptions.NodeNotFound;
-import arquitetura.exceptions.NotSuppportedOperation;
 import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import arquitetura.helpers.StereotypeHelper;
 import arquitetura.helpers.Uml2Helper;
@@ -36,12 +30,6 @@ import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.UsageRelationship;
-import arquitetura.touml.Argument;
-import arquitetura.touml.DocumentManager;
-import arquitetura.touml.Method;
-import arquitetura.touml.Operations;
-import arquitetura.touml.Types;
-import arquitetura.touml.VisibilityKind;
 
 /**
  * 
@@ -145,91 +133,7 @@ public class GenericTest extends TestHelper {
 		assertEquals(0, a.getNumberOfElements());
 	}
 	
-	
-	@Test
-	public void genericTestAllElementsGenerate() throws NodeNotFound, InvalidMultiplictyForAssociationException, IOException, CustonTypeNotFound, NotSuppportedOperation, ModelNotFoundException, ModelIncompleteException{
-		DocumentManager doc = givenADocument("genericElements");
-		Operations op = new Operations(doc);
-		List<String> idsClass = new ArrayList<String>();
-		
-		for(int i=0; i< 30; i++){
-			String idClass = op.forClass().createClass(generateRandomWord(5)).build().get("id");
-			idsClass.add(idClass);
-			
-			if(i%2 == 0)
-				op.forPackage().createPacakge("Pacakge_"+i).withClass(idClass);
-		}
-		
-		for (int i = 0; i < idsClass.size()-1; i++) {
-			String id =idsClass.get(i);
-			String id2 = idsClass.get(i+1);
-			op.forDependency().createRelation("Dependency #12").between(id).and(id2).build();
-			op.forAssociation().createAssociation().betweenClass(id2).andClass(id).build();
-		}
-			
-	}
-	
-	
-	@Test
-	public void genericTestAllElementsGenerate1() throws NodeNotFound, InvalidMultiplictyForAssociationException, IOException, CustonTypeNotFound, NotSuppportedOperation, ModelNotFoundException, ModelIncompleteException{
-		DocumentManager doc = givenADocument("genericElements2");
-		Operations op = new Operations(doc);
-		
-		List<Argument> arguments3 = new ArrayList<Argument>();
-		arguments3.add(Argument.create("age", Types.INTEGER_WRAPPER));
-		List<Method> listMethods = new ArrayList<Method>();
-		
-		for (int i = 0; i < 5; i++) {
-			
-			arquitetura.touml.Method xpto = arquitetura.touml.Method.create()
-						.withName(generateRandomWord(4)).withArguments(arguments3)
-						.withVisibility(VisibilityKind.PRIVATE_LITERAL)
-						.withReturn(Types.LONG)
-						.build();
-			
-			listMethods.add(xpto);
-		}
-		
-		
-		String idORder = op.forClass().createClass("Order").withMethod(listMethods.get(0)).build().get("id");
-		String class2 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(1)).build().get("id");
-		String class3 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(2)).build().get("id");
-		String class4 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(3)).build().get("id");
-		String class5 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(4)).build().get("id");
-		
-		String class6 = op.forClass().createClass("Foo").withMethod(listMethods.get(0)).build().get("id");
-		String class7 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(1)).build().get("id");
-		String class8 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(2)).build().get("id");
-		String class9 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(3)).build().get("id");
-		String class10 = op.forClass().createClass(generateRandomWord(5)).withMethod(listMethods.get(4)).build().get("id");
-		
-		op.forAssociation().createAssociation()
-		 .betweenClass(idORder).withMultiplicy("1..*")
-		 .andClass(class2).withMultiplicy("0..1")
-		 .build();
-		
-		op.forAssociation().createAssociation()
-		 .betweenClass(class9).withMultiplicy("1..*")
-		 .andClass(class6).withMultiplicy("0..1")
-		 .build();
-		
-		op.forDependency().createRelation("Dependencia #1").between(class5).and(class4).build();
-		op.forUsage().createRelation("USage 1").between(class3).and(class4).build();
-		
-		op.forGeneralization().createRelation("Generalizcao #1").between(class4).and(class2).build();
-		op.forGeneralization().createRelation("Generalizcao #2").between(class8).and(class2).build();
-		
-		op.forDependency().createRelation("Dependencia #1").between(class5).and(class2).build();
-		op.forDependency().createRelation("Dependencia #2").between(idORder).and(class10).build();
-		
-		op.forComposition().createComposition().between(class3).withMultiplicy("1..*").and(idORder).build();
-		op.forAggregation().createRelation("Alguma coisa").between(class7).and(class4).build();
-		op.forAggregation().createRelation("Alguma coisa 2").between(class10).and(class2).withMultiplicy("1..*").build();
-		
-		op.forAggregation().createRelation("Testeseec").between(idORder).and(class6).build();
-		
-	}
-	
+
 	
 	@Test
 	public void teste() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion, IOException{

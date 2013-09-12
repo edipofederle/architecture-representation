@@ -1,5 +1,7 @@
 package arquitetura.touml;
 
+import arquitetura.representation.Architecture;
+
 
 /**
  * 
@@ -19,41 +21,41 @@ public class Operations {
 	 private AggregationOperations aggregationOperations;
 	 private NoteOperations noteOperations;
 
-	 public Operations(DocumentManager doc2) {
+	 public Operations(DocumentManager doc2, Architecture a) {
 		 this.doc = doc2;
-		 createClassOperation();
+		 createClassOperation(a);
 		 createAssociationOperations();
 		 createPackageOperations();
-		 createDependencyOperations();
-		 createUsageOperations();
-		 createGeneralizationOperations();
+		 createDependencyOperations(a);
+		 createUsageOperations(a);
+		 createGeneralizationOperations(a);
 		 createCompositionOperations();
-		 createAggrationOperations();
-		 createNoteOperations();
+		 createAggrationOperations(a);
+		 createNoteOperations(a);
 	 }
 
-	private void createNoteOperations() {
-		this.noteOperations = new NoteOperations(doc);
+	private void createNoteOperations(Architecture a) {
+		this.noteOperations = new NoteOperations(doc,a);
 	}
 
-	private void createAggrationOperations() {
-		this.aggregationOperations = new AggregationOperations(doc);
+	private void createAggrationOperations(Architecture a) {
+		this.aggregationOperations = new AggregationOperations(doc,a);
 	}
 
 	private void createCompositionOperations() {
 		this.compositionOperations = new CompositionOperations(doc);
 	}
 
-	private void createGeneralizationOperations() {
-		this.generalizationOperations = new GeneralizationOperations(doc);
+	private void createGeneralizationOperations(Architecture a) {
+		this.generalizationOperations = new GeneralizationOperations(doc,a);
 	}
 
-	private void createUsageOperations() {
-		this.usageOperation = new UsageOperations(doc);
+	private void createUsageOperations(Architecture a) {
+		this.usageOperation = new UsageOperations(doc, a);
 	}
 
-	private void createDependencyOperations() {
-		this.dependencyOperation = new DependencyOperations(doc);
+	private void createDependencyOperations(Architecture a) {
+		this.dependencyOperation = new DependencyOperations(doc, a);
 	}
 
 	private void createPackageOperations() {
@@ -64,8 +66,8 @@ public class Operations {
 		this.associationOperation = new AssociationOperations(doc);
 	}
 
-	private void createClassOperation()  {
-		this.classOperation = new ClassOperations(doc);
+	private void createClassOperation(Architecture a)  {
+		this.classOperation = new ClassOperations(doc,a);
 	}
 
 	public ClassOperations forClass() { return classOperation; }

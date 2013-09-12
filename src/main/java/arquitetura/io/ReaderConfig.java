@@ -60,7 +60,7 @@ public class ReaderConfig {
 	 * @return boolean
 	 */
 	public static boolean hasProfilesSeted() {
-		if((getPathToProfileConcerns() == null) && (getPathToProfileSMarty() == null))
+		if((getPathToProfileConcerns() == null) || (getPathToProfileSMarty() == null))
 			return false;
 		return true;
 	}

@@ -1,6 +1,7 @@
 package arquitetura.touml;
 
 
+
 /**
  * 
  * @author edipofederle<edipofederle@gmail.com>
@@ -44,7 +45,7 @@ public class AssociationOperations {
 	
 	public String build(){
 		//Refactoring, document.getNewName is common for many classes
-		final AssociationNode associationNode = new AssociationNode(this.documentManager);
+		final AssociationNode associationNode = new AssociationNode(this.documentManager,null);
 		
 		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {

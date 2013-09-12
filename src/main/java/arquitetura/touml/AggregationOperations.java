@@ -1,5 +1,7 @@
 package arquitetura.touml;
 
+import arquitetura.representation.Architecture;
+
 
 /**
  * 
@@ -22,7 +24,7 @@ public class AggregationOperations implements Relationship {
 		this.multiplicityClassTarget = multiplicityClassTarget;
 	}
 
-	public AggregationOperations(DocumentManager doc) {
+	public AggregationOperations(DocumentManager doc, Architecture a) {
 		this.doc = doc;
 	}
 
@@ -45,7 +47,7 @@ public class AggregationOperations implements Relationship {
 	}
 
 	public String build() {
-		final CompositionNode compositeNode = new CompositionNode(doc);
+		final CompositionNode compositeNode = new CompositionNode(doc,null);
 		
 		arquitetura.touml.Document.executeTransformation(doc, new Transformation(){
 			public void useTransformation(){

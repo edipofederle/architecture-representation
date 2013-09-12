@@ -17,6 +17,7 @@ import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.exceptions.ClassNotFound;
 import arquitetura.exceptions.InterfaceNotFound;
 import arquitetura.exceptions.PackageNotFound;
+import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
@@ -245,12 +246,14 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnsListOfClassesWhenModelContainsClassesWithSameName() throws Exception{
+		targetDirExport =  "src/test/java/resources/";
 		Architecture a = givenAArchitecture2("classesComMesmoNome");
 		List<Class> classes = a.findClassByName("Class1");
 		
 		assertEquals(2,classes.size());
 		assertEquals("Class1", classes.get(0).getName());
 		assertEquals("Class1", classes.get(1).getName());
+		targetDirExport = ReaderConfig.getDirExportTarget();
 	}
 	
 	@Test(expected=ClassNotFound.class)

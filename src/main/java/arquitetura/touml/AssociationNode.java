@@ -10,6 +10,7 @@ import org.w3c.dom.NodeList;
 
 import arquitetura.helpers.UtilResources;
 import arquitetura.helpers.XmiHelper;
+import arquitetura.representation.Architecture;
 
 /**
  * 
@@ -32,14 +33,14 @@ public class AssociationNode extends XmiHelper{
 
 	private ElementXmiGenerator elementXmiGenerator;
 	
-	public AssociationNode(DocumentManager doc) {
+	public AssociationNode(DocumentManager doc, Architecture a) {
 		this.newModelName = doc.getModelName();
 		this.docUml = doc.getDocUml();
 		this.docNotation = doc.getDocNotation();
 		
 		this.idAssocation = UtilResources.getRandonUUID();
 		this.memberEndId  = UtilResources.getRandonUUID();
-		this.elementXmiGenerator = new ElementXmiGenerator(doc);
+		this.elementXmiGenerator = new ElementXmiGenerator(doc, a);
 	}
 
 	public void createAssociation(String idClassOwnnerAssociation, String idClassDestinationAssociation, String multiplicityClassDestination, String multiplicityClassOwnner)  {

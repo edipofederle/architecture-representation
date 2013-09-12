@@ -94,7 +94,7 @@ public abstract class TestHelper {
 	}
 	
 	protected static String getUrlToModelManipulation(String modelName) {
-		return  targetDirExport+modelName+".uml";
+		return targetDirExport+modelName+".uml";
 	}
 
 	protected <T extends Element> void assertContains(List<T> list, String... expected) {

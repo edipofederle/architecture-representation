@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.eclipse.uml2.uml.Profile;
@@ -21,6 +20,7 @@ import arquitetura.helpers.Uml2Helper;
 import arquitetura.helpers.Uml2HelperFactory;
 import arquitetura.helpers.UtilResources;
 import arquitetura.helpers.XmiHelper;
+import arquitetura.representation.Architecture;
 import arquitetura.representation.Variant;
 
 /**
@@ -42,20 +42,21 @@ public class ClassOperations extends XmiHelper {
 	private String idsMethods = new String();
 	private Node klass;
 	private boolean isAbstract = false;
-
+	
 	private Uml2Helper uml2Helper;
 
 	private org.eclipse.uml2.uml.Stereotype stereotype;
 
-	public ClassOperations(DocumentManager documentManager) {
+	public ClassOperations(DocumentManager documentManager, Architecture a) {
 		uml2Helper = Uml2HelperFactory.getUml2Helper();
 		this.documentManager = documentManager;
-		this.elementXmiGenerator = new ElementXmiGenerator(documentManager);
+		this.elementXmiGenerator = new ElementXmiGenerator(documentManager,a);
 	}
 	
-	public ClassOperations createClass(final String className){
-		klass = elementXmiGenerator.generateClass(className, WITHOUT_PACKAGE);
-		this.idClass = klass.getAttributes().getNamedItem("xmi:id").getNodeValue();
+	public ClassOperations createClass(final arquitetura.representation.Element _klass){
+		klass = elementXmiGenerator.generateClass(_klass, WITHOUT_PACKAGE);
+		//this.idClass = klass.getAttributes().getNamedItem("xmi:id").getNodeValue();
+		this.idClass = _klass.getId();
 		return this;
 	}
 
@@ -91,7 +92,7 @@ public class ClassOperations extends XmiHelper {
 	 * @param methods
 	 * @return
 	 */
-	public ClassOperations withMethod(final List<arquitetura.touml.Method> methods){
+	public ClassOperations withMethods(final List<arquitetura.touml.Method> methods){
 		for (final Method method : methods) 
 			createMethod(method);
 		
@@ -132,8 +133,8 @@ public class ClassOperations extends XmiHelper {
 		
 		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
-			Element e = (Element) klass;
-			e.setAttribute("isAbstract", isClassAbstract(isAbstract));
+				Element e = (Element) klass;
+				e.setAttribute("isAbstract", isClassAbstract(isAbstract));
 			}
 		});
 		
@@ -360,7 +361,7 @@ public class ClassOperations extends XmiHelper {
 	public ClassOperations withConcern(final String name) {
 		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
-				elementXmiGenerator.createConcern(name);
+				elementXmiGenerator.createConcern(name, idClass);
 			}
 		});
 		

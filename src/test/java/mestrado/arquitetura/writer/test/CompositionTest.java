@@ -4,28 +4,59 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Class;
+import arquitetura.representation.Element;
+import arquitetura.representation.Package;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.touml.DocumentManager;
 import arquitetura.touml.Operations;
 
 public class CompositionTest extends TestHelper {
 	
+	private Element bar;
+	private Element foo;
+	private Element classeDois;
+	private Element classeUm;
+	
+	@Before
+	public void setUp() throws Exception{
+		
+		bar = Mockito.mock(Class.class);
+		Mockito.when(bar.getName()).thenReturn("Bar");
+		Mockito.when(bar.getId()).thenReturn("01010101001001001");
+		
+		foo = Mockito.mock(Class.class);
+		Mockito.when(foo.getName()).thenReturn("Foo");
+		Mockito.when(foo.getId()).thenReturn("199339390");
+		
+		
+		classeUm = Mockito.mock(Class.class);
+		Mockito.when(classeUm.getName()).thenReturn("ClasseUm");
+		Mockito.when(classeUm.getId()).thenReturn("0101010101231201001001");
+		
+		classeDois = Mockito.mock(Class.class);
+		Mockito.when(classeDois.getName()).thenReturn("ClasseDois");
+		Mockito.when(classeDois.getId()).thenReturn("19933939023232");
+	}
+	
 	@Test
 	public void shouldCreateComposition() throws Exception{
 		DocumentManager doc = givenADocument("Composicao");
 		
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc,null);
 		
-		String bar =  op.forClass().createClass("foo").build().get("id");
-		String foo = op.forClass().createClass("bar").build().get("id");
+		String barKlass =  op.forClass().createClass(foo).build().get("id");
+		String fooKlass = op.forClass().createClass(bar).build().get("id");
 		
-		String classUm =  op.forClass().createClass("ClasseUm").build().get("id");
-		String classDois = op.forClass().createClass("ClasseDois").build().get("id");
+		String classUm =  op.forClass().createClass(classeUm).build().get("id");
+		String classDois = op.forClass().createClass(classeDois).build().get("id");
 		
-		op.forComposition().createComposition().between(bar).and(foo).build();
+		op.forComposition().createComposition().between(barKlass).and(fooKlass).build();
 		op.forComposition().createComposition().between(classDois).and(classUm).build();
 		Architecture a = givenAArchitecture2("Composicao");
 		
@@ -41,10 +72,10 @@ public class CompositionTest extends TestHelper {
 	@Test
 	public void shouldCreateCompositionWithMultiplicy() throws Exception{
 		DocumentManager doc = givenADocument("ComposicaoComMultiplicidade");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc,null);
 		
-		String classUm =  op.forClass().createClass("ClasseUm").build().get("id");
-		String classDois = op.forClass().createClass("ClasseDois").build().get("id");
+		String classUm =  op.forClass().createClass(classeUm).build().get("id");
+		String classDois = op.forClass().createClass(classeDois).build().get("id");
 		
 		op.forComposition().createComposition().between(classUm).withMultiplicy("1..*").and(classDois).withMultiplicy("0..1").build();
 		
@@ -62,12 +93,16 @@ public class CompositionTest extends TestHelper {
 	@Test
 	public void shouldCreateDependencyClassPackageClass() throws Exception{
 		DocumentManager doc = givenADocument("composicaoPacote");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
-		String classUm =  op.forClass().createClass("ClasseUm").build().get("id");
-		String classDois = op.forClass().createClass("ClasseDois").build().get("id");
+		String classUm =  op.forClass().createClass(classeUm).build().get("id");
+		String classDois = op.forClass().createClass(classeDois).build().get("id");
 		
-		op.forPackage().createPacakge("meu.com.pacote").withClass(classUm).build();
+		Package pacote = Mockito.mock(Package.class);
+		Mockito.when(pacote.getName()).thenReturn("meu.com.pacote");
+		Mockito.when(pacote.getId()).thenReturn("12312312312");
+		
+		op.forPackage().createPacakge(pacote).withClass(classUm).build();
 		op.forComposition().createComposition().between(classDois).and(classUm).build();
 		
 		Architecture a = givenAArchitecture2("composicaoPacote");

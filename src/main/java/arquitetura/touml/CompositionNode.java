@@ -10,6 +10,7 @@ import arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import arquitetura.exceptions.NodeNotFound;
 import arquitetura.helpers.UtilResources;
 import arquitetura.helpers.XmiHelper;
+import arquitetura.representation.Architecture;
 
 /**
  * 
@@ -24,10 +25,10 @@ public class CompositionNode extends XmiHelper {
 	private String associationId;
 	private ElementXmiGenerator elementXmiGenerator;
 
-	public CompositionNode(DocumentManager doc) {
+	public CompositionNode(DocumentManager doc, Architecture a) {
 		this.doc = doc;
 		this.associationId = UtilResources.getRandonUUID();
-		this.elementXmiGenerator = new ElementXmiGenerator(doc);
+		this.elementXmiGenerator = new ElementXmiGenerator(doc,a);
 	}
 
 	/**

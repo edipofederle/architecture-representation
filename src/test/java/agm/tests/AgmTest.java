@@ -13,6 +13,7 @@ import org.junit.Test;
 import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.exceptions.ClassNotFound;
 import arquitetura.exceptions.InterfaceNotFound;
+import arquitetura.exceptions.PackageNotFound;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
@@ -170,15 +171,8 @@ public class AgmTest extends TestHelper {
 	}
 	
 	@Test
-	public void pacoteClasses(){
-		arquitetura.representation.Package p = architecture.getAllPackages().get(0);
-		assertEquals("GameMgr",p.getName());
-		assertEquals(6, p.getClasses().size());
-	}
-	
-	@Test
 	public void deveCarregarTodosOsInteresses(){
-		assertEquals("Deve ter 11 interesses", 11, architecture.getAllConcerns().size());
+		assertEquals("Deve ter 11 interesses", 12, architecture.getAllConcerns().size());
 	}
 	
 	@Test
@@ -303,6 +297,12 @@ public class AgmTest extends TestHelper {
 		assertEquals("BricklesGame", var2.getVariants().get(1).getName());
 		
 		assertEquals("Game", var2.getVariationPoint().getVariationPointElement().getName());
+	}
+	
+	@Test
+	public void pacoteTeste() throws PackageNotFound{
+		arquitetura.representation.Package p = architecture.findPackageByName("GameMgr");
+		System.out.println(p.getOwnConcerns());
 	}
 	
 	@Test

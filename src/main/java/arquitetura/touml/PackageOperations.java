@@ -1,8 +1,8 @@
 package arquitetura.touml;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -10,8 +10,8 @@ import org.w3c.dom.Node;
 import arquitetura.exceptions.CustonTypeNotFound;
 import arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import arquitetura.exceptions.NodeNotFound;
-import arquitetura.helpers.UtilResources;
 import arquitetura.helpers.XmiHelper;
+import arquitetura.representation.Package;
 
 /**
  * 
@@ -35,19 +35,19 @@ public class PackageOperations extends XmiHelper {
 	}
 	
 	
-	public PackageOperations createPacakge(final String packageName) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
-		setIdPackage(UtilResources.getRandonUUID());
+	public PackageOperations createPacakge(final Package pack) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
+		setIdPackage(pack.getId());
 		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 
 			public void useTransformation() {
 				
 				pkg = documentManager.getDocUml().createElement("packagedElement");
 				pkg.setAttribute("xmi:type", "uml:Package");
-				pkg.setAttribute("xmi:id", getId());
-				pkg.setAttribute("name", packageName);
+				pkg.setAttribute("xmi:id", pack.getId());
+				pkg.setAttribute("name", pack.getName());
 				umlModelChild.appendChild(pkg);
 				
-				notation.createXmiForPackageInNotationFile(id);
+				notation.createXmiForPackageInNotationFile(pack.getId());
 			}
 		
 		});
@@ -60,34 +60,50 @@ public class PackageOperations extends XmiHelper {
 		this.id = randonUUID;
 	}
 	
-	private String getId(){
-		return this.id;
-	}
-
-
 	public Map<String, String> build() throws CustonTypeNotFound, NodeNotFound {
 		Map<String, String> classesInfo = new HashMap<String, String>();
-		classesInfo.put("packageId", getId());
+		classesInfo.put("packageId", this.id);
 		return classesInfo;
 	}
 	
 
-	public PackageOperations withClass(final String klassId) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	public PackageOperations withClass(final List<String> ids) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		
+		for (final String _id : ids) {
+			arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
+				
+				//Primeiramente é olhado para o arquivo .uml e movido a classe para o pacote.
+				final Node classToMove = findByID(documentManager.getDocUml(), _id, "packagedElement");
+				final Node packageToAdd = findByID(documentManager.getDocUml(), id, "packagedElement");
+				
+				//Agora buscamos no arquivo .notaiton
+				Node classToMoveNotation = findByIDInNotationFile(documentManager.getDocNotation(), _id);
+				Node packageToAddNotation = findByIDInNotationFile(documentManager.getDocNotation(), id);
+				
+				public void useTransformation() {
+					packageToAdd.appendChild(classToMove);
+					packageToAddNotation.appendChild(classToMoveNotation);
+			}});
+		}
 		
-		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
-			
-			//Primeiramente é olhado para o arquivo .uml e movido a classe para o pacote.
-			final Node classToMove = findByID(documentManager.getDocUml(), klassId, "packagedElement");
-			final Node packageToAdd = findByID(documentManager.getDocUml(), id, "packagedElement");
-			
-			//Agora buscamos no arquivo .notaiton
-			Node classToMoveNotation = findByIDInNotationFile(documentManager.getDocNotation(), klassId);
-			Node packageToAddNotation = findByIDInNotationFile(documentManager.getDocNotation(), id);
-			
-			public void useTransformation() {
-				packageToAdd.appendChild(classToMove);
-				packageToAddNotation.appendChild(classToMoveNotation);
+		return this;
+	}
+	
+	public PackageOperations withClass(final String idklass) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+		
+			arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
+				
+				//Primeiramente é olhado para o arquivo .uml e movido a classe para o pacote.
+				final Node classToMove = findByID(documentManager.getDocUml(), idklass, "packagedElement");
+				final Node packageToAdd = findByID(documentManager.getDocUml(), id, "packagedElement");
+				
+				//Agora buscamos no arquivo .notaiton
+				Node classToMoveNotation = findByIDInNotationFile(documentManager.getDocNotation(), idklass);
+				Node packageToAddNotation = findByIDInNotationFile(documentManager.getDocNotation(), id);
+				
+				public void useTransformation() {
+					packageToAdd.appendChild(classToMove);
+					packageToAddNotation.appendChild(classToMoveNotation);
 			}});
 		
 		return this;

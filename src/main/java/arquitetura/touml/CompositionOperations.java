@@ -46,7 +46,7 @@ public class CompositionOperations {
 	
 
 	public void build() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
-		final CompositionNode cn = new CompositionNode(doc);
+		final CompositionNode cn = new CompositionNode(doc,null);
 		
 		arquitetura.touml.Document.executeTransformation(doc, new Transformation(){
 			public void useTransformation() {

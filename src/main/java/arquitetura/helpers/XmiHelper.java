@@ -15,6 +15,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import arquitetura.exceptions.NodeIdNotFound;
+import arquitetura.representation.Element;
 import arquitetura.representation.Variant;
 
 import com.google.common.base.Joiner;
@@ -59,15 +60,11 @@ public class XmiHelper {
 	}
 	
 	
-	public static String findIdByName(String name, Document umlDocument){
-		NodeList node = umlDocument.getElementsByTagName("packagedElement");
-		for (int i = 0; i < node.getLength(); i++) {
-			NamedNodeMap attrs = node.item(i).getAttributes();
-			if(name.equalsIgnoreCase(attrs.getNamedItem("name").getNodeValue())){
-				return node.item(i).getAttributes().getNamedItem("xmi:id").getNodeValue();
-			}
+	public static String findIdByName(String name, List<Element> list){
+		for (Element element : list) {
+			if(element.getName().equalsIgnoreCase(name))
+				return element.getId();
 		}
-		
 		return "";
 	}
 	

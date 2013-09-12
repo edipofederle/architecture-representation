@@ -8,26 +8,79 @@ import java.util.Map;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Class;
+import arquitetura.representation.Element;
+import arquitetura.representation.Package;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.touml.DocumentManager;
 import arquitetura.touml.Operations;
 
 public class DependencyTest extends TestHelper {
 	
+	private Element employee;
+	private Element casa;
+	private Package controllers;
+	private Package models;
+	private Element post;
+	private Element category;
+	private Element user;
+	private Element comment;
+	
+	
+	
+	@Before
+	public void setUp() throws Exception{
+		employee = Mockito.mock(Class.class);
+		Mockito.when(employee.getName()).thenReturn("Employee");
+		Mockito.when(employee.getId()).thenReturn("199339390");
+		
+		casa = Mockito.mock(Class.class);
+		Mockito.when(casa.getName()).thenReturn("Casa");
+		Mockito.when(casa.getId()).thenReturn("123123123123");
+		
+		controllers = Mockito.mock(Package.class);
+		Mockito.when(controllers.getName()).thenReturn("controllers");
+		Mockito.when(controllers.getId()).thenReturn("10100010303");
+		
+		models = Mockito.mock(Package.class);
+		Mockito.when(models.getName()).thenReturn("models");
+		Mockito.when(models.getId()).thenReturn("232121212121212");
+		
+		post = Mockito.mock(Class.class);
+		Mockito.when(post.getName()).thenReturn("Post");
+		Mockito.when(post.getId()).thenReturn("101001001010");
+		
+		category = Mockito.mock(Class.class);
+		Mockito.when(category.getName()).thenReturn("Category");
+		Mockito.when(category.getId()).thenReturn("101001001012");
+		
+		comment = Mockito.mock(Class.class);
+		Mockito.when(comment.getName()).thenReturn("Comment");
+		Mockito.when(comment.getId()).thenReturn("1010010010123");
+		
+		user = Mockito.mock(Class.class);
+		Mockito.when(user.getName()).thenReturn("User");
+		Mockito.when(user.getId()).thenReturn("1010123001010");
+		
+	}
+	
+	
 	@Test
 	public void shouldCreateADependencyClassClass() throws Exception{
 		DocumentManager doc = givenADocument("testeDependencia1");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc,null);
 		
-		Map<String, String> employee = op.forClass().createClass("Employee").build();
-		Map<String, String> manager = op.forClass().createClass("Casa").build();
+		Map<String, String> employeeKlass = op.forClass().createClass(employee).build();
+		Map<String, String> managerKlass = op.forClass().createClass(casa).build();
 		
 		op.forDependency().createRelation("Dependency #12")
-							.between(employee.get("id"))
-							.and(manager.get("id"))
+							.between(employeeKlass.get("id"))
+							.and(managerKlass.get("id"))
 							.build();
 		
 		Architecture a = givenAArchitecture2("testeDependencia1");
@@ -42,16 +95,15 @@ public class DependencyTest extends TestHelper {
 	@Test
 	public void shouldCreateADependencyClassPackage() throws Exception{
 		DocumentManager doc = givenADocument("testeDependenciClassPackage");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc,null);
 		
-		Map<String, String> id = op.forPackage().createPacakge("controllers").build();
-		Map<String, String> employee = op.forClass().createClass("Employee").build();
+		Map<String, String> id = op.forPackage().createPacakge(controllers).build();
+		Map<String, String> employeeKlass = op.forClass().createClass(employee).build();
 		
 		op.forDependency().createRelation("Dependency #12")
-							.between(employee.get("id"))
-							.and(id.get("packageId"))
-							.build();
-		
+							.between(employeeKlass.get("id"))
+							.and(id.get("packageId")).build();
+
 		Architecture a = givenAArchitecture2("testeDependenciClassPackage");
 		DependencyRelationship dependency = a.getAllDependencies().get(0);
 		
@@ -65,17 +117,15 @@ public class DependencyTest extends TestHelper {
 	@Test
 	public void shouldCreateDependencyPackageClass() throws Exception{
 		DocumentManager doc = givenADocument("testeDependenciPackagePackage");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc,null);
 		
-		Map<String, String> controllers = op.forPackage().createPacakge("controllers").build();
-		Map<String, String> models = op.forPackage().createPacakge("models").build();
+		Map<String, String> pacoteControllers = op.forPackage().createPacakge(controllers).build();
+		Map<String, String> pacoteModels = op.forPackage().createPacakge(models).build();
 		
-		System.out.println(controllers.get("packageId"));
-		System.out.println(models.get("packageId"));
 		
 		op.forDependency().createRelation("Dependency #12")
-							.between(controllers.get("packageId"))
-							.and(models.get("packageId"))
+							.between(pacoteControllers.get("packageId"))
+							.and(pacoteModels.get("packageId"))
 							.build();
 		
 		Architecture a = givenAArchitecture2("testeDependenciPackagePackage");
@@ -91,16 +141,16 @@ public class DependencyTest extends TestHelper {
 	@Test
 	public void shouldCreateDependencyWithMultiplesSuppliers() throws Exception{
 		DocumentManager doc = givenADocument("dependenciaMultipla");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc,null);
 		
-		String post = op.forClass().createClass("Post").build().get("id");
-		String comment = op.forClass().createClass("Comment").build().get("id");
-		String user = op.forClass().createClass("User").build().get("id");
-		String category = op.forClass().createClass("Category").build().get("id");
+		String postKlass = op.forClass().createClass(post).build().get("id");
+		String commentKlass = op.forClass().createClass(comment).build().get("id");
+		String userKlass = op.forClass().createClass(user).build().get("id");
+		String categoryKlass = op.forClass().createClass(category).build().get("id");
 		
-		op.forDependency().createRelation("Dependency #1").between(post).and(comment).build();
-		op.forDependency().createRelation("Dependency #3").between(post).and(user).build();
-		op.forDependency().createRelation("Dependency #2").between(post).and(category).build();
+		op.forDependency().createRelation("Dependency #1").between(postKlass).and(commentKlass).build();
+		op.forDependency().createRelation("Dependency #3").between(postKlass).and(userKlass).build();
+		op.forDependency().createRelation("Dependency #2").between(postKlass).and(categoryKlass).build();
 		
 		Architecture a = givenAArchitecture2("dependenciaMultipla");
 		
@@ -118,16 +168,17 @@ public class DependencyTest extends TestHelper {
 	@Test
 	public void shouldCreeateDependencyWithMultipleCleints() throws Exception{
 		DocumentManager doc = givenADocument("dependenciaMultipla2");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc,null);
 		
-		String post = op.forClass().createClass("Post").build().get("id");
-		String comment = op.forClass().createClass("Comment").build().get("id");
-		String user = op.forClass().createClass("User").build().get("id");
-		String category = op.forClass().createClass("Category").build().get("id");
+		String postKlass = op.forClass().createClass(post).build().get("id");
+		String commentKlass = op.forClass().createClass(comment).build().get("id");
+		String userKlass = op.forClass().createClass(user).build().get("id");
+		String categoryKlass = op.forClass().createClass(category).build().get("id");
+	
 		
-		op.forDependency().createRelation("Dependency #1").between(user).and(comment).build();
-		op.forDependency().createRelation("Dependency #2").between(post).and(comment).build();
-		op.forDependency().createRelation("Dependency #3").between(category).and(comment).build();
+		op.forDependency().createRelation("Dependency #1").between(userKlass).and(commentKlass).build();
+		op.forDependency().createRelation("Dependency #2").between(postKlass).and(commentKlass).build();
+		op.forDependency().createRelation("Dependency #3").between(categoryKlass).and(commentKlass).build();
 		
 		Architecture a = givenAArchitecture2("dependenciaMultipla2");
 		
@@ -138,11 +189,11 @@ public class DependencyTest extends TestHelper {
 	@Test
 	public void shouldCreateDependencyClassClassPackage() throws Exception{
 		DocumentManager doc = givenADocument("dependenciaClassClassPackage");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc,null);
 		
-		String klassId = op.forClass().createClass("bar").build().get("id");
-		String fooId = op.forClass().createClass("Foo").build().get("id");
-		op.forPackage().createPacakge("Controllers").withClass(klassId).build();
+		String klassId = op.forClass().createClass(comment).build().get("id");
+		String fooId = op.forClass().createClass(post).build().get("id");
+		op.forPackage().createPacakge(controllers).withClass(klassId).build();
 		
 		op.forDependency().createRelation("Dependency #12").between(klassId).and(fooId).build();
 
@@ -153,17 +204,17 @@ public class DependencyTest extends TestHelper {
 		
 		assertEquals(1, a.getAllDependencies().size());
 		DependencyRelationship dependency = a.getAllDependencies().get(0);
-		assertEquals("bar",dependency.getClient().getName());
-		assertEquals("Foo",dependency.getSupplier().getName());
+		assertEquals("Comment",dependency.getClient().getName());
+		assertEquals("Post",dependency.getSupplier().getName());
 	}
 	
 	@Test
 	public void createDependencyPacakgeClassClass() throws Exception{
 		DocumentManager doc = givenADocument("dependencyPacakgeClassClass");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc,null);
 		
-		String klassId = op.forClass().createClass("bar").build().get("id");
-		String fooId = op.forClass().createClass("Foo").build().get("id");
+		String klassId = op.forClass().createClass(post).build().get("id");
+		String fooId = op.forClass().createClass(comment).build().get("id");
 		//op.forPackage().createPacakge("Controllers").withClass(klassId).build();
 		
 		op.forDependency().createRelation("Dependency #12").between(fooId).and(klassId).build();
@@ -173,20 +224,20 @@ public class DependencyTest extends TestHelper {
 		assertTrue(modelContainId("dependencyPacakgeClassClass", klassId));
 		assertTrue(modelContainId("dependencyPacakgeClassClass", fooId));
 		DependencyRelationship dependency = a.getAllDependencies().get(0);
-		assertEquals("Foo",dependency.getClient().getName());
-		assertEquals("bar",dependency.getSupplier().getName());
+		assertEquals("Comment",dependency.getClient().getName());
+		assertEquals("Post",dependency.getSupplier().getName());
 	}
 	
 	@Test
 	public void whenDependencyNotHaveANameSetDefault() throws Exception{
 		DocumentManager doc = givenADocument("dependencySemNome");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc,null);
 		
-		String klassId = op.forClass().createClass("bar").build().get("id");
-		String fooId = op.forClass().createClass("Foo").build().get("id");
+		String postId = op.forClass().createClass(post).build().get("id");
+		String commentId = op.forClass().createClass(comment).build().get("id");
 		
-		op.forDependency().createRelation("").between(fooId).and(klassId).build();
-		op.forDependency().createRelation(null).between(fooId).and(klassId).build();
+		op.forDependency().createRelation("").between(commentId).and(postId).build();
+		op.forDependency().createRelation(null).between(commentId).and(postId).build();
 
 		Architecture a = givenAArchitecture2("dependencySemNome");
 		

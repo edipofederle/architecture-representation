@@ -12,6 +12,7 @@ import org.w3c.dom.Node;
 import arquitetura.exceptions.NullReferenceFoundException;
 import arquitetura.helpers.UtilResources;
 import arquitetura.helpers.XmiHelper;
+import arquitetura.representation.Architecture;
 import arquitetura.representation.Variant;
 
 /**
@@ -34,6 +35,7 @@ public class ElementXmiGenerator extends XmiHelper {
 	private Node umlModelChild;
 	private Element notationBasicOperation;
 	private String id;
+	private Architecture a;
 
 	private Node klass;
 	private static final String PROPERTY_ID = "3012";
@@ -42,30 +44,31 @@ public class ElementXmiGenerator extends XmiHelper {
 	private ClassNotation notation;
 	/**
 	 * documentUml é o arquivo .uml
+	 * @param a 
 	 * 
 	 * @param documentUml
 	 */
-	public ElementXmiGenerator(DocumentManager documentManager){
+	public ElementXmiGenerator(DocumentManager documentManager, Architecture a){
 		this.documentManager = documentManager;
 		this.umlModelChild = documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
 		this.notatioChildren = documentManager.getDocNotation().getElementsByTagName("notation:Diagram").item(0);
 		notation = new ClassNotation(this.documentManager, notatioChildren);
+		this.a = a;
 	}
 
-	public Node generateClass(final String klassName, final String idPackage){
+	public Node generateClass(final arquitetura.representation.Element _klass, final String idPackage){
 		
 		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 
 			public void useTransformation() {
-				id = UtilResources.getRandonUUID();
 				element = documentManager.getDocUml().createElement("packagedElement");
 				element.setAttribute("xmi:type", "uml:Class");
-				element.setAttribute("xmi:id", id);
-				element.setAttribute("name", klassName);
+				element.setAttribute("xmi:id", _klass.getId());
+				element.setAttribute("name", _klass.getName());
 				klass = element;
 				try {
 					
-					notation.createXmiForClassInNotationFile(id, idPackage);
+					notation.createXmiForClassInNotationFile(_klass.getId(), idPackage);
 					
 					if((idPackage != null) && !("".equals(idPackage))){
 						//Busca pacote para adicionar a class;
@@ -95,17 +98,18 @@ public class ElementXmiGenerator extends XmiHelper {
 		
 
 		for (Argument arg : method.getArguments()) {
-			System.out.println("PARMS---");
-			Element ownedParameter  = documentManager.getDocUml().createElement("ownedParameter");
-			ownedParameter.setAttribute("xmi:id", UtilResources.getRandonUUID());
-			ownedParameter.setAttribute("name", arg.getName());
-			ownedParameter.setAttribute("isUnique", "false");
-			
-			Element typeOperation = documentManager.getDocUml().createElement("type");
-			typeOperation.setAttribute("xmi:type", "uml:PrimitiveType");
-			typeOperation.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#"+arg.getType().getName());
-			ownedParameter.appendChild(typeOperation);
-			ownedOperation.appendChild(ownedParameter);
+			if(arg.getDirection().equals("in")){
+				Element ownedParameter  = documentManager.getDocUml().createElement("ownedParameter");
+				ownedParameter.setAttribute("xmi:id", UtilResources.getRandonUUID());
+				ownedParameter.setAttribute("name", arg.getName());
+				ownedParameter.setAttribute("isUnique", "false");
+				
+				Element typeOperation = documentManager.getDocUml().createElement("type");
+				typeOperation.setAttribute("xmi:type", "uml:PrimitiveType");
+				typeOperation.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#"+arg.getType().getName());
+				ownedParameter.appendChild(typeOperation);
+				ownedOperation.appendChild(ownedParameter);
+			}
 		}
 		
 	  	Element ownedParameterReturnType  = documentManager.getDocUml().createElement("ownedParameter");
@@ -154,7 +158,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		klass.appendChild(ownedAttribute);
 		
 		if(Types.isCustomType(attribute.getType())){
-			String id = findIdByName(attribute.getType(), documentManager.getDocUml());
+			String id = findIdByName(attribute.getType(), a.getElements());
 			if ("".equals(id))	LOGGER.warn("Type " + attribute.getType() + " not found");
 			ownedAttribute.setAttribute("type", id);
 		}else{
@@ -182,7 +186,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		ownedAttribute.appendChild(defaultValue);
 		
 		Element value = documentManager.getDocUml().createElement("value");
-		value.setAttribute("xmi:nil", "true"); // TODO VER ISSO
+		value.setAttribute("xmi:nil", "true");
 		defaultValue.appendChild(value);
 		return attribute.getId();
 	}
@@ -344,13 +348,13 @@ public class ElementXmiGenerator extends XmiHelper {
 	}
 
 
-	public void createConcern(String name) {
+	public void createConcern(String name, String idClass) {
 		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
 		Element stereotype = this.documentManager.getDocUml().createElement("perfilConcerns:"+name);
 		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		stereotype.setAttribute("base_Class", id); // A classe que tem o estereotype
+		stereotype.setAttribute("base_Class", idClass); // A classe que tem o estereotype
 		nodeXmi.getParentNode().appendChild(stereotype);
-		notation.createXmiForStereotype(name, id, "concern");
+		notation.createXmiForStereotype(name, idClass, "concern");
 	}
 	
 }

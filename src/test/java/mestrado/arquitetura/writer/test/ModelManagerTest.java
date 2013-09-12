@@ -18,10 +18,13 @@ import mestrado.arquitetura.helpers.test.TestHelper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
+import arquitetura.representation.Element;
 import arquitetura.representation.Method;
+import arquitetura.representation.Package;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.touml.Argument;
 import arquitetura.touml.Attribute;
@@ -32,9 +35,42 @@ import arquitetura.touml.VisibilityKind;
 public class ModelManagerTest extends TestHelper {
 	
 	
-	@Before @After
+	private Element employee;
+	private Element person;
+	private Element casa;
+	private Element city;
+	private Package pacote;
+
+
+	@After
+	public void tearDown(){
+		cleanManipulationFolder();
+	}
+	
+	@Before
 	public void setUp(){
 		cleanManipulationFolder();
+		
+		employee = Mockito.mock(Class.class);
+		Mockito.when(employee.getName()).thenReturn("Employee");
+		Mockito.when(employee.getId()).thenReturn("199339390");
+		
+		person = Mockito.mock(Class.class);
+		Mockito.when(person.getName()).thenReturn("Person");
+		Mockito.when(person.getId()).thenReturn("1993393123");
+		
+		casa = Mockito.mock(Class.class);
+		Mockito.when(casa.getName()).thenReturn("Casa");
+		Mockito.when(casa.getId()).thenReturn("123123123123");
+		
+		city = Mockito.mock(Class.class);
+		Mockito.when(city.getName()).thenReturn("City");
+		Mockito.when(city.getId()).thenReturn("123123123123");
+		
+		pacote = Mockito.mock(Package.class);
+		Mockito.when(pacote.getName()).thenReturn("Pacote");
+		Mockito.when(pacote.getId()).thenReturn("2343242");
+		
 	}
 	
 	private void cleanManipulationFolder() {
@@ -63,11 +99,11 @@ public class ModelManagerTest extends TestHelper {
 	@Test
 	public void shouldCreateAssociationBetweenClasses() throws Exception{
 		DocumentManager doc = givenADocument("teste3");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
-		Map<String, String> idPerson = op.forClass().createClass("Person").build();
-		Map<String, String> idEmployee = op.forClass().createClass("Employee").build();
-		Map<String, String> idManager = op.forClass().createClass("Casa").build();
+		Map<String, String> idPerson = op.forClass().createClass(person).build();
+		Map<String, String> idEmployee = op.forClass().createClass(employee).build();
+		Map<String, String> idManager = op.forClass().createClass(casa).build();
 		
 		op.forAssociation().createAssociation()
 							 .betweenClass(idPerson.get("id"))
@@ -86,8 +122,8 @@ public class ModelManagerTest extends TestHelper {
 	@Test
 	public void shouldRemoveAClass() throws Exception{
 		DocumentManager doc = givenADocument("testeRemover");
-		Operations op = new Operations(doc);
-		String cityId = op.forClass().createClass("City").build().get("id");
+		Operations op = new Operations(doc, null);
+		String cityId = op.forClass().createClass(city).build().get("id");
 		assertTrue(modelContainId("testeRemover", cityId));
 		 op.forClass().removeClassById(cityId);
 		assertFalse(modelContainId("testeRemover", cityId));
@@ -96,28 +132,28 @@ public class ModelManagerTest extends TestHelper {
 	@Test
 	public void shouldCreateAClass() throws Exception{
 		DocumentManager doc = givenADocument("teste2");
-		Operations op = new Operations(doc);
-		assertNotNull(op.forClass().createClass("Helper"));
+		Operations op = new Operations(doc, null);
+		assertNotNull(op.forClass().createClass(casa));
 		Architecture a = givenAArchitecture2("teste2");
-		assertContains(a.getAllClasses(), "Helper");
-		assertFalse(a.findClassByName("Helper").get(0).isAbstract());
+		assertContains(a.getAllClasses(), "Casa");
+		assertFalse(a.findClassByName("Casa").get(0).isAbstract());
 	}
 	
 	@Test
 	public void shouldCreateAAbstractClass() throws Exception{
 		DocumentManager doc = givenADocument("classAbstrata");
-		Operations op = new Operations(doc);
-		op.forClass().createClass("ClasseAbstrata").isAbstract().build();
+		Operations op = new Operations(doc, null);
+		op.forClass().createClass(casa).isAbstract().build();
 		Architecture a = givenAArchitecture2("classAbstrata");
-		assertContains(a.getAllClasses(), "ClasseAbstrata");
-		Class klass = a.findClassByName("ClasseAbstrata").get(0);
+		assertContains(a.getAllClasses(), "Casa");
+		Class klass = a.findClassByName("Casa").get(0);
 		assertTrue(klass.isAbstract());
 	}
 	
 	@Test
 	public void shouldCreateAClassWithAttribute() throws Exception{
 		DocumentManager doc = givenADocument("testeCreateClassWithAttribute");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
 		Attribute xpto = Attribute.create()
 				 .withName("xpto")
@@ -147,8 +183,8 @@ public class ModelManagerTest extends TestHelper {
 		classInfoAttrs2.add(id);
 		classInfoAttrs2.add(name);
 		
-		Map<String, String> classInfo = op.forClass().createClass("Class43").withAttribute(classInfoAttrs).build();
-		op.forClass().createClass("ControllerHome").withAttribute(classInfoAttrs2).build();
+		Map<String, String> classInfo = op.forClass().createClass(casa).withAttribute(classInfoAttrs).build();
+		op.forClass().createClass(person).withAttribute(classInfoAttrs2).build();
 		
 		assertNotNull(classInfo);
 		String[] idsProperty = classInfo.get("idsProperties").split(" ");
@@ -157,9 +193,9 @@ public class ModelManagerTest extends TestHelper {
 		assertThat("should contain two attributes", idsProperty.length, equalTo(2));
 		
 		Architecture a = givenAArchitecture2("testeCreateClassWithAttribute");
-		assertContains(a.getAllClasses(), "Class43");
+		assertContains(a.getAllClasses(), "Casa");
 		
-		Class klass43 = a.findClassByName("Class43").get(0);
+		Class klass43 = a.findClassByName("Casa").get(0);
 		arquitetura.representation.Attribute attrXpto = klass43.findAttributeByName("xpto");
 		assertNotNull(attrXpto);
 		assertNotNull(attrXpto.getId());
@@ -173,7 +209,7 @@ public class ModelManagerTest extends TestHelper {
 	@Test
 	public void shouldRemoveAttributeFromClasse() throws Exception{
 		DocumentManager doc = givenADocument("testRemoveAttribute");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
 		Attribute name = Attribute.create()
 				 .withName("name")
@@ -189,7 +225,7 @@ public class ModelManagerTest extends TestHelper {
 		classInfoAttrs2.add(name);
 		classInfoAttrs2.add(age);
 		
-		op.forClass().createClass("Foo").withAttribute(classInfoAttrs2).build();
+		op.forClass().createClass(casa).withAttribute(classInfoAttrs2).build();
 		
 		assertTrue(modelContainId("testRemoveAttribute", name.getId()));
 		
@@ -202,17 +238,17 @@ public class ModelManagerTest extends TestHelper {
 	@Test
 	public void shouldCreatAClassWithMethod() throws Exception{
 		DocumentManager doc = givenADocument("teste4");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
 		List<Argument> arguments = new ArrayList<Argument>();
-		arguments.add(Argument.create("name", Types.STRING));
+		arguments.add(Argument.create("name", Types.STRING, "in"));
 		
 		arquitetura.touml.Method foo = arquitetura.touml.Method.create().withName("foo").withArguments(arguments)
 							 .withVisibility(VisibilityKind.PRIVATE_LITERAL)
 							 .withReturn(Types.INTEGER).build();
 		
 		List<Argument> argumentsTeste = new ArrayList<Argument>();
-		argumentsTeste.add(Argument.create("name", Types.STRING));
+		argumentsTeste.add(Argument.create("name", Types.STRING, "in"));
 		
 		arquitetura.touml.Method teste = arquitetura.touml.Method.create().withName("teste").withArguments(argumentsTeste)
 							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
@@ -230,7 +266,7 @@ public class ModelManagerTest extends TestHelper {
 		methods.add(foo);
 		methods.add(teste);
 		
-		op.forClass().createClass("Person").withMethod(methods).withAttribute(classInfoAttrs2).build();
+		op.forClass().createClass(person).withMethods(methods).withAttribute(classInfoAttrs2).build();
 		Architecture arch = givenAArchitecture2("teste4");
 		Class barKlass = arch.findClassByName("Person").get(0);
 		
@@ -249,11 +285,11 @@ public class ModelManagerTest extends TestHelper {
 	@Test
 	public void testeMethod() throws Exception{
 		DocumentManager doc = givenADocument("teste666");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
 		List<Argument> arguments = new ArrayList<Argument>();
-		arguments.add(Argument.create("name", Types.STRING));
-		arguments.add(Argument.create("name", Types.INTEGER_WRAPPER));
+		arguments.add(Argument.create("name", Types.STRING, "in"));
+		arguments.add(Argument.create("name", Types.INTEGER_WRAPPER, "in"));
 		
 		arquitetura.touml.Method foo = arquitetura.touml.Method.create().withName("foo").withArguments(arguments)
 							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
@@ -261,17 +297,17 @@ public class ModelManagerTest extends TestHelper {
 		
 		List<arquitetura.touml.Method> methods = new ArrayList<arquitetura.touml.Method>();
 		methods.add(foo);
-		op.forClass().createClass("Bar").withMethod(methods).build();
+		op.forClass().createClass(person).withMethods(methods).build();
 	}
 	
 	@Test
 	public void shouldCreateAMethodWithMethodAbstract() throws Exception{
 		DocumentManager doc = givenADocument("testeMethodoAbastrato");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
 		List<Argument> arguments = new ArrayList<Argument>();
-		arguments.add(Argument.create("name", Types.STRING));
-		arguments.add(Argument.create("name", Types.INTEGER_WRAPPER));
+		arguments.add(Argument.create("name", Types.STRING, "in"));
+		arguments.add(Argument.create("name", Types.INTEGER_WRAPPER, "in"));
 		
 		arquitetura.touml.Method bar = arquitetura.touml.Method.create()
 							 						.withName("bar").withArguments(arguments)
@@ -282,7 +318,7 @@ public class ModelManagerTest extends TestHelper {
 		List<arquitetura.touml.Method> methods = new ArrayList<arquitetura.touml.Method>();
 		methods.add(bar);
 		
-		op.forClass().createClass("Person").withMethod(methods).build();
+		op.forClass().createClass(person).withMethods(methods).build();
 		
 		Architecture arch = givenAArchitecture2("testeMethodoAbastrato");
 		
@@ -294,10 +330,10 @@ public class ModelManagerTest extends TestHelper {
 	@Test
 	public void shouldRemoveMethodFromClass() throws Exception{
 		DocumentManager doc = givenADocument("testeRemoveMethod");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
 		List<Argument> arguments = new ArrayList<Argument>();
-		arguments.add(Argument.create("name", Types.STRING));
+		arguments.add(Argument.create("name", Types.STRING, "in"));
 		
 		arquitetura.touml.Method foo = arquitetura.touml.Method.create()
 							 						.withName("bar").withArguments(arguments)
@@ -306,7 +342,7 @@ public class ModelManagerTest extends TestHelper {
 							 						.build();
 		
 		List<Argument> arguments2 = new ArrayList<Argument>();
-		arguments.add(Argument.create("name", Types.STRING));
+		arguments.add(Argument.create("name", Types.STRING, "in"));
 		
 		arquitetura.touml.Method teste = arquitetura.touml.Method.create()
 							 						.withName("teste").withArguments(arguments2)
@@ -323,7 +359,7 @@ public class ModelManagerTest extends TestHelper {
 		List<arquitetura.touml.Method> methods = new ArrayList<arquitetura.touml.Method>();
 		methods.add(foo);
 		methods.add(teste);
-		op.forClass().createClass("Person").withMethod(methods).withAttribute(classInfoAttrs2).build();
+		op.forClass().createClass(person).withMethods(methods).withAttribute(classInfoAttrs2).build();
 		
 		assertTrue(modelContainId("testeRemoveMethod", teste.getId()));
 		
@@ -335,13 +371,13 @@ public class ModelManagerTest extends TestHelper {
 	@Test
 	public void shouldAddNewAttributeToExistClass() throws Exception{
 		DocumentManager doc = givenADocument("addNewAttributeToClass");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
 		Architecture arch = givenAArchitecture2("addNewAttributeToClass");
 		assertNotNull(arch);
 		assertEquals(0, arch.getAllClasses().size());
 		
-		String idClass = op.forClass().createClass("Foo").build().get("id");
+		String idClass = op.forClass().createClass(casa).build().get("id");
 		
 		Attribute xpto = Attribute.create()
 				 .withName("xpto")
@@ -358,12 +394,12 @@ public class ModelManagerTest extends TestHelper {
 	@Test
 	public void shouldAddNewPrivateAttributeToExistClass() throws Exception{
 		DocumentManager doc = givenADocument("addNewPrivateAttributeToClass");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
 		Architecture arch = givenAArchitecture("simples");
 		assertNotNull(arch);
 		
-		String idClass = op.forClass().createClass("foo").build().get("id");
+		String idClass = op.forClass().createClass(person).build().get("id");
 		
 		Attribute xpto = Attribute.create()
 				 .withName("xpto")
@@ -375,24 +411,24 @@ public class ModelManagerTest extends TestHelper {
 		op.forClass().addAttributeToClass(idClass, xpto);
 		assertTrue(modelContainId("addNewPrivateAttributeToClass", xpto.getId()));
 		Architecture arch2 = givenAArchitecture2("addNewPrivateAttributeToClass");
-		assertEquals("private", arch2.findClassByName("foo").get(0).getAllAttributes().get(0).getVisibility());
+		assertEquals("private", arch2.findClassByName("Person").get(0).getAllAttributes().get(0).getVisibility());
 	}
 	
 	@Test
 	public void shouldAddANewMethodInExistClass() throws Exception{
 		DocumentManager doc = givenADocument("addNewMethodToClass");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
 		Architecture arch = givenAArchitecture2("addNewMethodToClass");
 		assertNotNull(arch);
 		assertEquals(0, arch.getAllClasses().size());
 		
-		String idClass = op.forClass().createClass("Teste").build().get("id");
+		String idClass = op.forClass().createClass(casa).build().get("id");
 		assertNotNull("class id should not be null", idClass);
 		assertTrue("model should contain class id", modelContainId("addNewMethodToClass", idClass));
 		
 		List<Argument> arguments2 = new ArrayList<Argument>();
-		arguments2.add(Argument.create("name", Types.STRING));
+		arguments2.add(Argument.create("name", Types.STRING, "in"));
 		
 		arquitetura.touml.Method teste = arquitetura.touml.Method.create()
 							 						.withName("teste").withArguments(arguments2)
@@ -401,7 +437,7 @@ public class ModelManagerTest extends TestHelper {
 							 						.build();
 		
 		List<Argument> arguments3 = new ArrayList<Argument>();
-		arguments3.add(Argument.create("age", Types.INTEGER_WRAPPER));
+		arguments3.add(Argument.create("age", Types.INTEGER_WRAPPER, "in"));
 		
 		arquitetura.touml.Method xpto = arquitetura.touml.Method.create()
 							 						.withName("xpto").withArguments(arguments3)
@@ -421,21 +457,26 @@ public class ModelManagerTest extends TestHelper {
 	public void shouldCreateAAttributeWithCustonType() throws Exception{
 		
 		DocumentManager doc = givenADocument("classWithAttrCuston");
-		Operations op = new Operations(doc);
+		Architecture a = Mockito.mock(Architecture.class);
+		ArrayList<Element> list = new ArrayList<Element>();
+		list.add(employee);
 		
-		op.forClass().createClass("MyClass");
+		Mockito.when(a.getElements()).thenReturn(list);
+		Operations op = new Operations(doc, a);
+		
+		op.forClass().createClass(employee);
 		
 		Attribute xpto = Attribute.create()
 				 .withName("xpto")
 				 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
-				 .withType(Types.custom("MyClass"));
+				 .withType(Types.custom("Employee"));
 		
 		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
 		classInfoAttrs2.add(xpto);
-		op.forClass().createClass("Foo").withAttribute(classInfoAttrs2);
+		op.forClass().createClass(casa).withAttribute(classInfoAttrs2);
 		
 		Architecture arch = givenAArchitecture2("classWithAttrCuston");
-		Class klassFoo = arch.findClassByName("Foo").get(0);
+		Class klassFoo = arch.findClassByName("Casa").get(0);
 		assertNotNull(klassFoo);
 		assertTrue(modelContainId("classWithAttrCuston", xpto.getId()));
 	}
@@ -454,40 +495,40 @@ public class ModelManagerTest extends TestHelper {
 	@Test
 	public void shouldCreateAPackage() throws Exception{
 		DocumentManager doc = givenADocument("testePacote");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
-		op.forPackage().createPacakge("meuPacote");
+		op.forPackage().createPacakge(pacote);
 		
 		Architecture arch = givenAArchitecture2("testePacote");
 		
 		assertThat("Should have one package", arch.getAllPackages().size() == 1);
-		assertEquals("meuPacote", arch.getAllPackages().get(0).getName());
+		assertEquals("Pacote", arch.getAllPackages().get(0).getName());
 	}
 	
 	@Test
 	public void shouldCreateAClassInsideAPackage() throws Exception{
 		DocumentManager doc = givenADocument("testePacoteComClasse");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
-		Map<String, String> foo = op.forClass().createClass("foo").build();
-		Map<String, String> teste = op.forClass().createClass("teste").build();
-		op.forPackage().createPacakge("Bar").withClass(foo.get("id")).withClass(teste.get("id")).build();
+		Map<String, String> foo = op.forClass().createClass(casa).build();
+		Map<String, String> teste = op.forClass().createClass(person).build();
+		op.forPackage().createPacakge(pacote).withClass(foo.get("id")).withClass(teste.get("id")).build();
 		
 		Architecture arch = givenAArchitecture2("testePacote");
 		
 		assertThat("Should have one package", arch.getAllPackages().size() == 1);
-		assertEquals("meuPacote", arch.getAllPackages().get(0).getName());
+		assertEquals("Pacote", arch.getAllPackages().get(0).getName());
 	}
 	
 	@Test
 	public void shouldCreateAClassInsideAPackageWithAssociation() throws Exception{
 		DocumentManager doc = givenADocument("testePacoteClassAsssociation");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
-		Map<String, String> foo = op.forClass().createClass("foo").build();
-		Map<String, String> teste = op.forClass().createClass("Teste").build();
+		Map<String, String> foo = op.forClass().createClass(casa).build();
+		Map<String, String> teste = op.forClass().createClass(person).build();
 		
-		op.forPackage().createPacakge("Bar").withClass(foo.get("id")).withClass(teste.get("id")).build();
+		op.forPackage().createPacakge(pacote).withClass(foo.get("id")).withClass(teste.get("id")).build();
 
 		
 		
@@ -503,13 +544,13 @@ public class ModelManagerTest extends TestHelper {
 	@Test
 	public void associationClassPakackeClass() throws Exception{
 		DocumentManager doc = givenADocument("testeAssociationPackageClassClass");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
-		Map<String, String> foo = op.forClass().createClass("foo").build();
+		Map<String, String> foo = op.forClass().createClass(casa).build();
 
-		op.forPackage().createPacakge("PacoteTeste").withClass(foo.get("id")).build();
+		op.forPackage().createPacakge(pacote).withClass(foo.get("id")).build();
 	
-		Map<String, String> infosClass = op.forClass().createClass("Person").build();
+		Map<String, String> infosClass = op.forClass().createClass(person).build();
 		String idClassPerson = infosClass.get("id");
 		
 		op.forAssociation().createAssociation()
@@ -526,16 +567,16 @@ public class ModelManagerTest extends TestHelper {
 	@Test
 	public void shouldCreateAAbstractClassInsideAPackage() throws Exception{
 		DocumentManager doc = givenADocument("classAbstrataDentroPacote");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
-		Map<String, String> infosClass = op.forClass().createClass("teste").isAbstract().build();
+		Map<String, String> infosClass = op.forClass().createClass(casa).isAbstract().build();
 		String idClassPerson = infosClass.get("id");
 		
-		op.forPackage().createPacakge("fooPkg").withClass(idClassPerson).build();
+		op.forPackage().createPacakge(pacote).withClass(idClassPerson).build();
 		
 		Architecture a = givenAArchitecture2("classAbstrataDentroPacote");
-		assertContains(a.getAllClasses(), "teste");
-		Class klass = a.findClassByName("teste").get(0);
+		assertContains(a.getAllClasses(), "Casa");
+		Class klass = a.findClassByName("Casa").get(0);
 		assertTrue(klass.isAbstract());
 	}
 
@@ -544,7 +585,7 @@ public class ModelManagerTest extends TestHelper {
 	public void shouldCreateAPacakgeWithTwoClasses() throws Exception{
 		
 		DocumentManager doc = givenADocument("novoTest");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
 		Attribute xpto = Attribute.create()
 				 .withName("xpto")
@@ -555,15 +596,15 @@ public class ModelManagerTest extends TestHelper {
 		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
 		classInfoAttrs2.add(xpto);
 		
-		 Map<String, String> k = op.forClass().createClass("xpto").withAttribute(classInfoAttrs2).build();
-		 Map<String, String> k1 = op.forClass().createClass("Teste").build();
+		 Map<String, String> k = op.forClass().createClass(casa).withAttribute(classInfoAttrs2).build();
+		 Map<String, String> k1 = op.forClass().createClass(person).build();
 		 
-		op.forPackage().createPacakge("xpto").withClass(k.get("id")).withClass(k1.get("id")).build();
+		op.forPackage().createPacakge(pacote).withClass(k.get("id")).withClass(k1.get("id")).build();
 		
 		Architecture a = givenAArchitecture2("novoTest");
 		
 		assertEquals(1, a.getAllPackages().size());
-		assertEquals(2 ,a.findPackageByName("xpto").getAllClassIdsForThisPackage().size());
+		assertEquals(2 ,a.findPackageByName("Pacote").getAllClassIdsForThisPackage().size());
 	}
 	
 

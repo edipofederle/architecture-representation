@@ -1,6 +1,7 @@
 package arquitetura.touml;
 
 import arquitetura.exceptions.NotSuppportedOperation;
+import arquitetura.representation.Architecture;
 
 /**
  * 
@@ -15,13 +16,13 @@ public class UsageOperations implements Relationship  {
 	private String supplierElement;
 	private String name;
 	
-	public UsageOperations(DocumentManager doc) {
+	public UsageOperations(DocumentManager doc, Architecture a) {
 		this.documentManager = doc;
 	}
 
-	public UsageOperations(DocumentManager documentManager2, String name2) {
-		this.documentManager = documentManager2;
-		this.name = name2;
+	public UsageOperations(DocumentManager documentManager, String name) {
+		this.documentManager = documentManager;
+		this.name = name;
 	}
 
 	public Relationship createRelation(String name) {
@@ -40,7 +41,7 @@ public class UsageOperations implements Relationship  {
 	}
 
 	public String build() {
-		final DependencyNode dependencyNode = new DependencyNode(this.documentManager, this.name, this.clientElement, this.supplierElement);
+		final DependencyNode dependencyNode = new DependencyNode(this.documentManager, this.name, this.clientElement, this.supplierElement, null);
 		
 		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {

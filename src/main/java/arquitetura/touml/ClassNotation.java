@@ -19,6 +19,7 @@ import arquitetura.helpers.XmiHelper;
 public class ClassNotation extends XmiHelper {
 	
 	
+	private static final String SHOW_PROPERTY_TYPE = "7066";
 	private String xmitype = "notation:Shape";
 	private final String fontName = "Lucida Grande";
 	private final String fontHeight = "11";
@@ -62,7 +63,7 @@ public class ClassNotation extends XmiHelper {
       	details.setAttribute("xmi:type", "ecore:EStringToStringMapEntry");
       	details.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		details.setAttribute("key", "CustomAppearance_MaskValue");
-      	details.setAttribute("value", "7050");
+      	details.setAttribute("value", SHOW_PROPERTY_TYPE); 
       	eAnnotations.appendChild(details);
       	
       	node.appendChild(eAnnotations);

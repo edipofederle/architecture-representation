@@ -10,17 +10,36 @@ import java.util.List;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.eclipse.uml2.uml.Stereotype;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import arquitetura.helpers.StereotypeHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
+import arquitetura.representation.Element;
 import arquitetura.representation.Variability;
 import arquitetura.representation.Variant;
 import arquitetura.touml.BindingTime;
 import arquitetura.touml.DocumentManager;
 import arquitetura.touml.Operations;
 public class StereotypeTest extends TestHelper {
+	
+	
+	private Element employee;
+	private Element casa;
+	
+	@Before
+	public void setUp() throws Exception{
+		employee = Mockito.mock(Class.class);
+		Mockito.when(employee.getName()).thenReturn("Employee");
+		Mockito.when(employee.getId()).thenReturn("199339390");
+		
+		casa = Mockito.mock(Class.class);
+		Mockito.when(casa.getName()).thenReturn("Casa");
+		Mockito.when(casa.getId()).thenReturn("123123123123");
+	}
+	
 	
 	
 	@Test
@@ -100,24 +119,24 @@ public class StereotypeTest extends TestHelper {
 	public void shouldCreateClassWithSteretorypeMandatoryAndVariationPoint() throws Exception{
 		
 		DocumentManager doc = givenADocument("edipo2");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc, null);
 		
-		String idMenuGameClass = op.forClass().createClass("TicTacToe").build().get("id");
+		String idEmployee = op.forClass().createClass(employee).build().get("id");
 		
 		
 		String idFoo = op.forClass()
-				         .createClass("MenuGame").isVariationPoint("Bar1,Bar2,Bar3", "variability", BindingTime.DESIGN_TIME)
+				         .createClass(casa).isVariationPoint("Bar1,Bar2,Bar3", "variability", BindingTime.DESIGN_TIME)
 				         .build().get("id");
 		
 		Variant mandatory = givenAVariant("mandatory", idFoo, "mandatory");
 		op.forClass().addStereotype(idFoo, mandatory);
 		
-		op.forGeneralization().between(idMenuGameClass).and(idFoo).build();
+		op.forGeneralization().between(idEmployee).and(idFoo).build();
 		
 		
 		Architecture a = givenAArchitecture2("edipo2");
 		
-		Class klassFoo = a.findClassByName("MenuGame").get(0);
+		Class klassFoo = a.findClassByName("Employee").get(0);
 		assertNotNull(klassFoo);
 		
 		//assertTrue(klassFoo.isVariationPoint());
@@ -128,24 +147,24 @@ public class StereotypeTest extends TestHelper {
 	public void shouldCreateClassWithSteretorypeMandatory() throws Exception{
 		
 		DocumentManager doc = givenADocument("somenteComMandatory");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc,null);
 		
-		String idMenuGameClass = op.forClass().createClass("TicTacToe").build().get("id");
+		String idEmployee = op.forClass().createClass(employee).build().get("id");
 		
 		
 		String idFoo = op.forClass()
-				         .createClass("MenuGame")
+				         .createClass(casa)
 				         .build().get("id");
 		
 		Variant mandatory = givenAVariant("mandatory", idFoo, "mandatory");
 		op.forClass().addStereotype(idFoo, mandatory);
 		
-		op.forGeneralization().between(idMenuGameClass).and(idFoo).build();
+		op.forGeneralization().between(idEmployee).and(idFoo).build();
 		
 		
 		Architecture a = givenAArchitecture2("somenteComMandatory");
 		
-		Class klassFoo = a.findClassByName("MenuGame").get(0);
+		Class klassFoo = a.findClassByName("Employee").get(0);
 		assertNotNull(klassFoo);
 		
 		assertFalse(klassFoo.isVariationPoint());
@@ -158,16 +177,16 @@ public class StereotypeTest extends TestHelper {
 	public void shouldCreateClassWithSteretorypeOptional() throws Exception{
 		
 		DocumentManager doc = givenADocument("ste2");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc,null);
 		
 		
-		String idFoo = op.forClass().createClass("foo").build().get("id");
+		String idFoo = op.forClass().createClass(casa).build().get("id");
 		Variant optional = givenAVariant("optional", idFoo, "optional");
 		op.forClass().addStereotype(idFoo, optional);
 		
 		Architecture a = givenAArchitecture2("ste2");
 		
-		Class klassFoo = a.findClassByName("foo").get(0);
+		Class klassFoo = a.findClassByName("Casa").get(0);
 		assertNotNull(klassFoo);
 		
 		assertFalse(klassFoo.isVariationPoint());
@@ -177,48 +196,48 @@ public class StereotypeTest extends TestHelper {
 	@Test
 	public void shouldAddStereotypeToClass() throws Exception{
 		DocumentManager doc = givenADocument("ste3");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc,null);
 		
-		String id = op.forClass().createClass("foo").build().get("id");
+		String id = op.forClass().createClass(casa).build().get("id");
 		
 		Variant optional = givenAVariant("optional", id, "optional");
 		op.forClass().addStereotype(id, optional);
 		
 		Architecture a = givenAArchitecture2("ste3");
-		Class klassFoo = a.findClassByName("foo").get(0);
+		Class klassFoo = a.findClassByName("Casa").get(0);
 		assertNotNull(klassFoo);
 		
 		assertFalse(klassFoo.isVariationPoint());
-		assertNotNull(StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("foo", a.getModel()), "optional"));
+		assertNotNull(StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", a.getModel()), "optional"));
 	}
 	
 	
 	@Test
 	public void shouldAddMandatoryAndVariationPointToClass() throws Exception{
 		DocumentManager doc = givenADocument("ste4");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc,null);
 		
-		String idClassFoo = op.forClass().createClass("foo").isVariationPoint("Bar1,Bar2,Bar3", "variability", BindingTime.DESIGN_TIME)
+		String idClassFoo = op.forClass().createClass(casa).isVariationPoint("Bar1,Bar2,Bar3", "variability", BindingTime.DESIGN_TIME)
 					.build().get("id");
 		Variant mandatory = givenAVariant("mandatory", idClassFoo, "mandatory");
 		op.forClass().addStereotype(idClassFoo, mandatory);
 		
 		Architecture a = givenAArchitecture2("ste4");
-		Class klassFoo = a.findClassByName("foo").get(0);
+		Class klassFoo = a.findClassByName("Casa").get(0);
 		
 		assertNotNull(klassFoo);
 		
-		assertNotNull(StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("foo", a.getModel()), "mandatory"));
-		assertNotNull(StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("foo", a.getModel()), "variationPoint"));
+		assertNotNull(StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", a.getModel()), "mandatory"));
+		assertNotNull(StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", a.getModel()), "variationPoint"));
 		
 	}
 	
 	@Test
 	public void shouldAddMandatoryAndVariationPointToClassInvertOrder() throws Exception{
 		DocumentManager doc = givenADocument("ste5");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc,null);
 		
-		String idClass = op.forClass().createClass("foo").isVariationPoint("Bar1,Bar2,Bar3", "variability", BindingTime.DESIGN_TIME).build().get("id");
+		String idClass = op.forClass().createClass(casa).isVariationPoint("Bar1,Bar2,Bar3", "variability", BindingTime.DESIGN_TIME).build().get("id");
 		Variant mandatory = givenAVariant("mandatory", idClass, "mandatory");
 		/*
 		 * Inverte ordem dos estereotipos em relação ao caso de teste anterior. Esses testes servem para ver se alguma informação
@@ -227,12 +246,12 @@ public class StereotypeTest extends TestHelper {
 		op.forClass().addStereotype(idClass, mandatory);
 		
 		Architecture a = givenAArchitecture2("ste4");
-		Class klassFoo = a.findClassByName("foo").get(0);
+		Class klassFoo = a.findClassByName("Casa").get(0);
 		
 		assertNotNull(klassFoo);
 		
-		Stereotype steMandatory = StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("foo", a.getModel()), "mandatory");
-		Stereotype steVariationPoint = StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("foo", a.getModel()), "variationPoint");
+		Stereotype steMandatory = StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", a.getModel()), "mandatory");
+		Stereotype steVariationPoint = StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", a.getModel()), "variationPoint");
 		
 		assertNotNull(steMandatory);
 		assertEquals("mandatory", steMandatory.getName());
@@ -243,17 +262,17 @@ public class StereotypeTest extends TestHelper {
 	@Test
 	public void shouldAddConcernToClass() throws Exception{
 		DocumentManager doc = givenADocument("addConcern");
-		Operations op = new Operations(doc);
+		Operations op = new Operations(doc,null);
 		
 			op.forClass()
-			   .createClass("foo")
-			   .withConcern("Persistence")
+			   .createClass(casa)
+			   .withConcern("persistence")
 			   .build().get("id");
 		
 		Architecture a = givenAArchitecture2("addConcern");
 		assertNotNull(a.getAllConcerns());
 		assertEquals("deve ter um interesse", 1, a.getAllConcerns().size());
-		assertEquals("interese deve ser Persistence", "Persistence", a.getAllConcerns().entrySet().iterator().next().getValue().getName());
+		assertEquals("interese deve ser Persistence", "persistence", a.getAllConcerns().entrySet().iterator().next().getValue().getName());
 		
 	}
 

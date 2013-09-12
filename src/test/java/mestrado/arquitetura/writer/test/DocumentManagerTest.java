@@ -2,7 +2,6 @@ package mestrado.arquitetura.writer.test;
 
 import static org.junit.Assert.assertNotNull;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import arquitetura.exceptions.CustonTypeNotFound;

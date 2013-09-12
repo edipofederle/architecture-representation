@@ -43,7 +43,7 @@ public class MethodBuilder extends ElementBuilder<Method> {
 		for (Parameter parameter : params){
 			if(parameter.getDirection().getName().equals("out"))
 				type = parameter.getType().getName();
-			parameterMethodReceives.add(new ParameterMethod(parameter.getName(), parameter.getType().getName()));
+			parameterMethodReceives.add(new ParameterMethod(parameter.getName(), parameter.getType().getName(), parameter.getDirection().getName()));
 		}
 		
 		String namespace = modelElement.getNamespace().getQualifiedName();

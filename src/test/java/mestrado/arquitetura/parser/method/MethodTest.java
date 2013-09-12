@@ -19,7 +19,7 @@ public class MethodTest {
 	public void methodTest(){
 		
 		List<Argument> arguments = new ArrayList<Argument>();
-		arguments.add(Argument.create("name", Types.INTEGER_WRAPPER));
+		arguments.add(Argument.create("name", Types.INTEGER_WRAPPER, "in"));
 		Method foo = Method.create().withName("foo").withArguments(arguments)
 							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 .withReturn(Types.INTEGER_WRAPPER)
@@ -41,7 +41,7 @@ public class MethodTest {
 	public void methodTest2(){
 		
 		List<Argument> arguments = new ArrayList<Argument>();
-		arguments.add(Argument.create("a", Types.INTEGER_WRAPPER));
+		arguments.add(Argument.create("a", Types.INTEGER_WRAPPER, "in"));
 		Method foo = Method.create().withName("foo").withArguments(arguments)
 							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 .withReturn(Types.INTEGER_WRAPPER)

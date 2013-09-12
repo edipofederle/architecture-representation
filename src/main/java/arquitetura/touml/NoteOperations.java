@@ -2,6 +2,7 @@ package arquitetura.touml;
 
 import arquitetura.helpers.UtilResources;
 import arquitetura.helpers.XmiHelper;
+import arquitetura.representation.Architecture;
 
 /**
  * 
@@ -14,9 +15,9 @@ public class NoteOperations extends XmiHelper {
 	private ElementXmiGenerator elementXmiGenerator;
 	private String id;
 	
-	public NoteOperations(DocumentManager documentManager){
+	public NoteOperations(DocumentManager documentManager, Architecture a){
 		this.documentManager = documentManager;
-		this.elementXmiGenerator = new ElementXmiGenerator(documentManager);
+		this.elementXmiGenerator = new ElementXmiGenerator(documentManager,a);
 
 	}
 
