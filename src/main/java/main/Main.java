@@ -15,6 +15,7 @@ import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
+import arquitetura.representation.Concern;
 import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Package;
@@ -98,35 +99,36 @@ public class Main extends ArchitectureBase {
 				List<arquitetura.touml.Attribute> attributesForClass = createAttributes(op, klass);
 				List<Method> methodsForClass = createMethods(klass);
 				
+				//Interesses para classe
+				List<Concern> klassConcerns = klass.getOwnConcerns();
 				
 				if(attributesForClass.isEmpty() )
-					op.forClass().createClass(klass).build();
+					op.forClass().createClass(klass).withConcerns(klassConcerns).build();
 				else{
 					op.forClass()
 				      .createClass(klass)
 				      .withMethods(methodsForClass)
+				      .withConcerns(klassConcerns)
 				      .withAttribute(attributesForClass)
 				      .build();
 				}
 				
 			}
 			
-			
 			for(Interface _interface : a.getAllInterfaces()){
 				List<Method> methodsForClass = createMethods(_interface);
-				op.forClass().createClass(_interface).withMethods(methodsForClass).build();
+				op.forClass()
+				  .createClass(_interface)
+				  .withMethods(methodsForClass)
+				  .asInterface()
+				  .build();
 			}
-
 			
 			for (Package pack : packages) {
 				//Todas as classes do pacote
 				List<String> ids = pack.getAllClassIdsForThisPackage();
 				op.forPackage().createPacakge(pack).withClass(ids).build();
 			}
-			
-			
-			
-			
 			
 			
 //			

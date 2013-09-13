@@ -371,4 +371,14 @@ public class ElementXmiGenerator extends XmiHelper {
 		notation.createXmiForStereotype(name, idClass, "concern");
 	}
 	
+	public void interfaceStereoptye(String idClass) {
+		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
+		Element stereotype = this.documentManager.getDocUml().createElement("smartyProfile:interface");
+		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		stereotype.setAttribute("base_Class", idClass); // A classe que tem o estereotype
+		nodeXmi.getParentNode().appendChild(stereotype);
+		
+		notation.createXmiForStereotype("interface", idClass, "smarty");
+	}
+	
 }

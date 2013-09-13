@@ -21,6 +21,7 @@ import arquitetura.helpers.Uml2HelperFactory;
 import arquitetura.helpers.UtilResources;
 import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Concern;
 import arquitetura.representation.Variant;
 
 /**
@@ -355,13 +356,37 @@ public class ClassOperations extends XmiHelper {
 	/**
 	 * Adiciona um <b>concern</b> na classe.
 	 * 
-	 * @param name - Nome do <b>concern</b> esse deve estar definido no profile <b>perfilConcerns.profile.uml</b>
+	 * @param klassConcers - Nome do <b>concern</b> esse deve estar definido no profile <b>perfilConcerns.profile.uml</b>
 	 * @return ClassOperations
 	 */
-	public ClassOperations withConcern(final String name) {
+	public ClassOperations withConcerns(final List<Concern> klassConcerns) {
+		
+		if(!klassConcerns.isEmpty()){
+			for(final Concern concern : klassConcerns){
+				generateConcern(concern);
+			}
+		}
+		
+		return this;
+	}
+	
+	public ClassOperations withConcern(final Concern concern) {
+		generateConcern(concern);
+		return this;
+	}
+
+	private void generateConcern(final Concern concern) {
 		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
-				elementXmiGenerator.createConcern(name, idClass);
+				elementXmiGenerator.createConcern(concern.getName(), idClass);
+			}
+		});
+	}
+
+	public ClassOperations asInterface() {
+		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
+			public void useTransformation()  {
+				elementXmiGenerator.interfaceStereoptye(idClass);
 			}
 		});
 		

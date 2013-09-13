@@ -2,6 +2,10 @@ package mestrado.arquitetura.writer.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+
+import java.util.Arrays;
+import java.util.List;
+
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.eclipse.uml2.uml.Stereotype;
@@ -12,6 +16,7 @@ import org.mockito.Mockito;
 import arquitetura.helpers.StereotypeHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
+import arquitetura.representation.Concern;
 import arquitetura.representation.Element;
 import arquitetura.representation.Variant;
 import arquitetura.touml.BindingTime;
@@ -184,9 +189,13 @@ public class StereotypeTest extends TestHelper {
 		DocumentManager doc = givenADocument("addConcern");
 		Operations op = new Operations(doc,null);
 		
+		Concern persistence = Mockito.mock(Concern.class);
+		Mockito.when(persistence.getName()).thenReturn("persistence");
+		
+		
 			op.forClass()
 			   .createClass(casa)
-			   .withConcern("persistence")
+			   .withConcern(persistence)
 			   .build().get("id");
 		
 		Architecture a = givenAArchitecture2("addConcern");

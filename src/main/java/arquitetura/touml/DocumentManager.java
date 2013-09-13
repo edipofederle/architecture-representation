@@ -58,7 +58,6 @@ public class DocumentManager extends XmiHelper {
 			copyProfilesToDestination();
 		}
 		
-		
 		this.saveAndCopy(outputModelName);
 	}
 
@@ -70,7 +69,7 @@ public class DocumentManager extends XmiHelper {
 		String pathSmarty = ReaderConfig.getPathToProfileSMarty();
 		String pathConcern = ReaderConfig.getPathToProfileConcerns();
 		
-		//TODO criar pasta resouces se nao existir
+		createResourcesDirectoryIfNotExist();
 		
 		final File sourceFileSmarty = new File(pathSmarty);
 		final File destFileSmarty = new File(ReaderConfig.getDirExportTarget()+"/resources/smarty.profile.uml");
@@ -86,6 +85,12 @@ public class DocumentManager extends XmiHelper {
 			e.printStackTrace();
 		}
 		
+	}
+
+	private void createResourcesDirectoryIfNotExist() {
+		File resourcesDir = new File(ReaderConfig.getDirExportTarget()+"/resources/");
+		if(!resourcesDir.exists())
+			resourcesDir.mkdir();
 	}
 
 
@@ -302,7 +307,7 @@ public class DocumentManager extends XmiHelper {
 					node = getReference(profileName, tagName);
 				Node nodeAttr = node.getAttributes().getNamedItem("href");
 				String oldValueAttr = nodeAttr.getNodeValue().substring(0,nodeAttr.getNodeValue().indexOf("#"));
-				nodeAttr.setNodeValue(oldValueAttr+"#"+idApplied);
+				nodeAttr.setNodeValue("resources/"+oldValueAttr+"#"+idApplied);
 			}
 		});
 	}

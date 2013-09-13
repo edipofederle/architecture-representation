@@ -328,7 +328,7 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateAMethodWithOneCustonParameter() throws Exception{
-		DocumentManager doc = givenADocument("empty");
+		DocumentManager doc = givenADocument("empty_2");
 		
 		Class klassBar = Mockito.mock(Class.class);
 		Mockito.when(klassBar.getName()).thenReturn("Bar");
@@ -356,7 +356,7 @@ public class ModelManagerTest extends TestHelper {
 		methods.add(bar);
 		op.forClass().createClass(person).withMethods(methods).build();
 		
-		Architecture a = givenAArchitecture2("empty");
+		Architecture a = givenAArchitecture2("empty_2");
 		assertNotNull(a);
 		assertEquals(2,a.getAllClasses().size());
 		Class personKlass = a.findClassByName("Person").get(0);
@@ -648,6 +648,5 @@ public class ModelManagerTest extends TestHelper {
 		assertEquals(1, a.getAllPackages().size());
 		assertEquals(2 ,a.findPackageByName("Pacote").getAllClassIdsForThisPackage().size());
 	}
-	
 
 }
