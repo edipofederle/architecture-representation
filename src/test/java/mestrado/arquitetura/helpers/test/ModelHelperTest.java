@@ -172,11 +172,11 @@ public class ModelHelperTest extends TestHelper {
 		assertTrue(c.get(2).isAbstract());
 	}
 	
-	@Test
-	public void shouldReturnAllVariabilities() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
-		Package model = givenAModel("variability");
-		assertEquals(1, modelHelper.getAllVariabilities(model).size());
-	}
+//	@Test
+//	public void shouldReturnAllVariabilities() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+//		Package model = givenAModel("variability");
+//		assertEquals(1, modelHelper.getAllVariabilities(model).size());
+//	}
 	
 	@Test
 	public void shouldLoadAllClassesOfAllPackages() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{

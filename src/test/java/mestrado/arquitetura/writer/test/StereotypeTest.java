@@ -2,11 +2,6 @@ package mestrado.arquitetura.writer.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.eclipse.uml2.uml.Stereotype;
@@ -18,7 +13,6 @@ import arquitetura.helpers.StereotypeHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
-import arquitetura.representation.Variability;
 import arquitetura.representation.Variant;
 import arquitetura.touml.BindingTime;
 import arquitetura.touml.DocumentManager;
@@ -40,81 +34,7 @@ public class StereotypeTest extends TestHelper {
 		Mockito.when(casa.getId()).thenReturn("123123123123");
 	}
 	
-	
-	
-	@Test
-	public void testStereotypes() throws Exception{
-		Architecture a = givenAArchitecture("edipo");
-		
-		assertEquals(1, a.getAllVariationPoints().size());
-		assertEquals(2, a.getAllVariabilities().size());
-		assertEquals(6, a.getAllVariants().size());
-		
-		Variability variabilidade1 = a.getAllVariabilities().get(1);
-		Variability variabilidade0 = a.getAllVariabilities().get(0);
-		
-		assertEquals("variabilidade "+ variabilidade1.getName()  + " deve ter 2 variants", 2, variabilidade1.getVariants().size());
-		assertEquals("variabilidade "+ variabilidade0.getName() + " deve ter 3 variants", 3, a.getAllVariabilities().get(0).getVariants().size());
-		
-		assertNotNull(a.getAllVariabilities().get(0).getVariationPoint());
-		assertNotNull(a.getAllVariabilities().get(1).getVariationPoint());
 
-		assertTrue(a.findClassByName("GameMenu").get(0).isVariationPoint());
-		assertEquals("Ponto de variação deve ter 5 variants", 5, a.findClassByName("GameMenu").get(0).getVariationPoint().getVariants().size());
-		
-		List<Variant> listVariants = a.findClassByName("GameMenu").get(0).getVariationPoint().getVariants();
-		List<String> variantNames = new ArrayList<String>();
-		for (Variant string : listVariants) {
-			variantNames.add(string.getName());
-		}
-		assertEquals("[BricklesGameMenu, PongGameMenu, BowlingGameMenu, Class1, Class2]", variantNames.toString());
-	}
-	
-	@Test
-	public void timer() throws Exception{
-		Architecture a = givenAArchitecture("times");
-		
-		List<Variability> variabilities = a.getAllVariabilities();
-		
-		assertEquals(7, a.getAllVariants().size());
-		assertEquals(2 ,a.getAllVariationPoints().size());
-		assertEquals(2, variabilities.size());
-		
-		assertEquals(1, a.findClassByName("Class7").get(0).getVariant().getVariabilities().size());
-		
-		
-		
-//		System.out.println(k1.getVariant().getVariantType());
-//		
-//		System.out.println("Variabilidade "+variabilities.get(1).getName());
-//		for(VariationPoint variationPoint : a.getAllVariantionsPoints()){
-//			System.out.println("\tVariationPoint: "+ variationPoint.getVariationPointElement().getName() + ":" + variationPoint.getVariabilities().size());
-//			System.out.println("\t"+ variationPoint.getVariationPointElement().getVariant().getVariantType()); //TODO VER sobre isso
-//		}
-//		System.out.println("Variantes");
-//		for(Variant variant : a.getAllVariants()){
-//			System.out.println("\t"+variant.getName() + ":" + variant.getVariantType() + ":" + variant.getVariabilities().size());
-//		}
-//		
-//		System.out.println(variabilities.get(0).getName()+":"+variabilities.get(0).getVariationPoints().get(0).getVariationPointElement());
-//		System.out.println(variabilities.get(0).getName()+":"+variabilities.get(0).getVariationPoints().get(1).getVariationPointElement());
-//		System.out.println("\n");
-//		
-//		System.out.println(variabilities.get(1).getName()+":"+variabilities.get(1).getVariationPoints().get(0).getVariationPointElement());
-//		System.out.println(variabilities.get(1).getName()+":"+variabilities.get(1).getVariationPoints().get(1).getVariationPointElement());
-//		System.out.println("\n");
-//		
-//		System.out.println(variabilities.get(1).getName()+":"+variabilities.get(1).getVariationPoints().get(0).getVariants());
-//		System.out.println(variabilities.get(1).getName()+":"+variabilities.get(1).getVariationPoints().get(1).getVariants());
-//		System.out.println("Variants da Variabilidade 1");
-//		
-//		for(Variant variant : variabilities.get(1).getVariants()){
-//			System.out.println(variant.getName());
-//		}
-		
-	//	assertEquals(variabilities.get(0).getVariationPoints().get(0).getVariationPointElement(), variabilities.get(1).getVariationPoints().get(0).getVariationPointElement());
-	}
-	
 	@Test
 	public void shouldCreateClassWithSteretorypeMandatoryAndVariationPoint() throws Exception{
 		
