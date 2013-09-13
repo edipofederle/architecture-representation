@@ -98,16 +98,29 @@ public class ElementXmiGenerator extends XmiHelper {
 
 		for (Argument arg : method.getArguments()) {
 			if(arg.getDirection().equals("in")){
-				Element ownedParameter  = documentManager.getDocUml().createElement("ownedParameter");
-				ownedParameter.setAttribute("xmi:id", UtilResources.getRandonUUID());
-				ownedParameter.setAttribute("name", arg.getName());
-				ownedParameter.setAttribute("isUnique", "false");
 				
-				Element typeOperation = documentManager.getDocUml().createElement("type");
-				typeOperation.setAttribute("xmi:type", "uml:PrimitiveType");
-				typeOperation.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#"+arg.getType().getName());
-				ownedParameter.appendChild(typeOperation);
-				ownedOperation.appendChild(ownedParameter);
+				if((Types.isCustomType(arg.getType().getName())) && (arg.getType().getName() != "Real" )){ //TODO VER REAL incluir nos types
+					String id = findIdByName(arg.getType().getName(), a.getElements());
+					if ("".equals(id))	LOGGER.warn("Type " + arg.getType().getName() + " not found");
+					Element ownedParameter  = documentManager.getDocUml().createElement("ownedParameter");
+					ownedParameter.setAttribute("xmi:id", UtilResources.getRandonUUID());
+					ownedParameter.setAttribute("name", arg.getName());
+					ownedParameter.setAttribute("isUnique", "false");
+					ownedParameter.setAttribute("type", id);
+					ownedOperation.appendChild(ownedParameter);
+				}else{
+				
+					Element ownedParameter  = documentManager.getDocUml().createElement("ownedParameter");
+					ownedParameter.setAttribute("xmi:id", UtilResources.getRandonUUID());
+					ownedParameter.setAttribute("name", arg.getName());
+					ownedParameter.setAttribute("isUnique", "false");
+					
+					Element typeOperation = documentManager.getDocUml().createElement("type");
+					typeOperation.setAttribute("xmi:type", "uml:PrimitiveType");
+					typeOperation.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#"+arg.getType().getName());
+					ownedParameter.appendChild(typeOperation);
+					ownedOperation.appendChild(ownedParameter);
+				}
 			}
 		}
 		
@@ -115,12 +128,14 @@ public class ElementXmiGenerator extends XmiHelper {
 	  	ownedParameterReturnType.setAttribute("xmi:id", UtilResources.getRandonUUID());
 	  	ownedParameterReturnType.setAttribute("name", "");
 	  	ownedParameterReturnType.setAttribute("direction", "return");
-		
-		Element typeOperationReturn = documentManager.getDocUml().createElement("type");
-		typeOperationReturn.setAttribute("xmi:type", "uml:PrimitiveType");
-		typeOperationReturn.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#"+method.getReturnMethod());
-		ownedParameterReturnType.appendChild(typeOperationReturn);
-		ownedOperation.appendChild(ownedParameterReturnType);
+
+	  	if(!method.getReturnMethod().equals("")){
+			Element typeOperationReturn = documentManager.getDocUml().createElement("type");
+			typeOperationReturn.setAttribute("xmi:type", "uml:PrimitiveType");
+			typeOperationReturn.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#"+method.getReturnMethod());
+			ownedParameterReturnType.appendChild(typeOperationReturn);
+			ownedOperation.appendChild(ownedParameterReturnType);
+	  	}
 
 		if(idClass != null){
 			final Node klassToAddMethod = findByID(documentManager.getDocUml(), idClass, "packagedElement");

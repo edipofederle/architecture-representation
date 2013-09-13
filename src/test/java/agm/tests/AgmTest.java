@@ -172,7 +172,7 @@ public class AgmTest extends TestHelper {
 	
 	@Test
 	public void deveCarregarTodosOsInteresses(){
-		assertEquals("Deve ter 11 interesses", 12, architecture.getAllConcerns().size());
+		assertEquals("Deve ter 11 interesses", 11, architecture.getAllConcerns().size());
 	}
 	
 	@Test

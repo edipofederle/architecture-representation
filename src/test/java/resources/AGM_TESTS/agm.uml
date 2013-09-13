@@ -716,7 +716,7 @@
         </ownedOperation>
         <ownedOperation xmi:id="_56sIQBVmEeODAq4Tm5H6GQ" name="hasScore">
           <ownedParameter xmi:id="_BI9s0BVnEeODAq4Tm5H6GQ" name="game" type="_prZDoBSsEeOYorUb5NKqTw" isUnique="false"/>
-          <ownedParameter xmi:id="_Dw4xUBVnEeODAq4Tm5H6GQ" name="" isUnique="false">
+          <ownedParameter xmi:id="_Dw4xUBVnEeODAq4Tm5H6GQ" name="" isUnique="false" direction="return">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           </ownedParameter>
         </ownedOperation>
@@ -1372,5 +1372,4 @@
   <perfilConcerns:bowling xmi:id="_LEngABWbEeObs-pQrJ2skQ" base_Operation="_mPYgsBS1EeOYorUb5NKqTw"/>
   <perfilConcerns:brickles xmi:id="_LE5z4BWbEeObs-pQrJ2skQ" base_Operation="_mPYgsBS1EeOYorUb5NKqTw"/>
   <perfilConcerns:pong xmi:id="_LFMHwBWbEeObs-pQrJ2skQ" base_Operation="_mPYgsBS1EeOYorUb5NKqTw"/>
-  <perfilConcerns:action xmi:id="_UXIysBoZEeOk250Bzk-p3A" base_Package="_hOsL0BSmEeOYorUb5NKqTw"/>
 </xmi:XMI>

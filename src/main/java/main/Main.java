@@ -15,6 +15,7 @@ import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
+import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Package;
 import arquitetura.representation.ParameterMethod;
@@ -112,13 +113,12 @@ public class Main extends ArchitectureBase {
 				      .build();
 				}
 				
-				
-					
 			}
 			
 			
 			for(Interface _interface : a.getAllInterfaces()){
-				op.forClass().createClass(_interface).build();
+				List<Method> methodsForClass = createMethods(_interface);
+				op.forClass().createClass(_interface).withMethods(methodsForClass).build();
 			}
 
 			
@@ -277,10 +277,15 @@ public class Main extends ArchitectureBase {
 		
 	}
 
-	private static List<Method> createMethods(Class klass) {
+	private static List<Method> createMethods(Element klass) {
 		List<arquitetura.touml.Method> methods = new ArrayList<arquitetura.touml.Method>();
+		List<arquitetura.representation.Method> methodsClass = new ArrayList<arquitetura.representation.Method>();
 		
-		List<arquitetura.representation.Method> methodsClass = klass.getAllMethods();
+		if(klass instanceof Class){
+			methodsClass = ((Class) klass).getAllMethods();
+		}else{
+			methodsClass = ((Interface) klass).getOperations();
+		}
 		for (arquitetura.representation.Method method : methodsClass) {
 			
 			List<ParameterMethod> paramsMethod = method.getParameters();
