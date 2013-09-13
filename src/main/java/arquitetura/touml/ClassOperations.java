@@ -278,11 +278,13 @@ public class ClassOperations extends XmiHelper {
 	 * @throws InvalidMultiplictyForAssociationException
 	 */
 	public ClassOperations isVariationPoint(final String variants, final String variabilities, final String bidingTime)   {
-		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
-			public void useTransformation() {
-				elementXmiGenerator.createStereotypeVariationPoint(idClass, variants, variabilities, bidingTime);
-			}
-		});
+		if((!variants.isEmpty()) || (!variabilities.isEmpty())){
+			arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
+				public void useTransformation() {
+					elementXmiGenerator.createStereotypeVariationPoint(idClass, variants, variabilities, bidingTime);
+				}
+			});
+		}
 		
 		return this;
 	}

@@ -360,6 +360,15 @@ public class AgmTest extends TestHelper {
 	/* Variabilidades */
 	
 	
+	@Test
+	public void b() throws Exception{
+		Architecture aarch  = givenAArchitecture2("optionalTest");
+		assertEquals(1,aarch.getAllVariabilities().size());
+		
+		System.out.println(aarch.getAllVariabilities().get(0).getVariants());
+	}
+	
+	
 	
 	@Test
 	public void teste_1() throws Exception{

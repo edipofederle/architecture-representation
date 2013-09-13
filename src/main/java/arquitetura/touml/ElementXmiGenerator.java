@@ -10,6 +10,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import arquitetura.exceptions.NullReferenceFoundException;
+import arquitetura.helpers.Strings;
 import arquitetura.helpers.UtilResources;
 import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
@@ -314,14 +315,15 @@ public class ElementXmiGenerator extends XmiHelper {
 		notation.createXmiForStereotype(variant.getVariantType(), idClass, "smarty");
 	}
 
-	private void addStereotypeToUmlFile(Variant mandatory, String idClass) {
+	private void addStereotypeToUmlFile(Variant variant, String idClass) {
 		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
-		Element stereotype = this.documentManager.getDocUml().createElement("smartyProfile:"+mandatory.getVariantType());
+		Element stereotype = this.documentManager.getDocUml().createElement("smartyProfile:"+variant.getVariantType());
 		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		stereotype.setAttribute("base_Class", idClass); // A classe que tem o estereotype
 		
 		
-		stereotype.setAttribute("rootVP", mandatory.getRootVP());
+		stereotype.setAttribute("rootVP", variant.getRootVP());
+		stereotype.setAttribute("variabilities", Strings.spliterVariabilities(variant.getVariabilities()));
 		nodeXmi.getParentNode().appendChild(stereotype);
 	}
 

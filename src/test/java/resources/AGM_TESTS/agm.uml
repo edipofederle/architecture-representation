@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:perfilConcerns="http:///schemas/perfilConcerns/_SsrrUBWgEeObs-pQrJ2skQ/19" xmlns:smartyProfile="http:///schemas/smartyProfile/_UxXRUMerEeKEj-QXx-6k3A/0" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/perfilConcerns/_SsrrUBWgEeObs-pQrJ2skQ/19 perfilConcerns.profile.uml#_SsrrURWgEeObs-pQrJ2skQ http:///schemas/smartyProfile/_UxXRUMerEeKEj-QXx-6k3A/0 smarty.profile.uml#_Uxa7scerEeKEj-QXx-6k3A">
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:perfilConcerns="http:///schemas/perfilConcerns/_SsrrUBWgEeObs-pQrJ2skQ/19" xmlns:smartyProfile="http:///schemas/smartyProfile/_HFLycBygEeOSUsTHUSsmgQ/1" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/perfilConcerns/_SsrrUBWgEeObs-pQrJ2skQ/19 perfilConcerns.profile.uml#_SsrrURWgEeObs-pQrJ2skQ http:///schemas/smartyProfile/_HFLycBygEeOSUsTHUSsmgQ/1 smarty.profile.uml#_HFMZgBygEeOSUsTHUSsmgQ">
   <uml:Model xmi:id="_dx4GsBSmEeOYorUb5NKqTw" name="model">
     <packageImport xmi:id="_cH7wkBSqEeOYorUb5NKqTw">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -180,7 +180,7 @@
       <ownedComment xmi:id="_GAVbsBV4EeODAq4Tm5H6GQ" annotatedElement="_fFmg8BS9EeOYorUb5NKqTw">
         <body> </body>
       </ownedComment>
-      <ownedComment xmi:id="_5OwxMBV4EeODAq4Tm5H6GQ" annotatedElement="_xScE0BS9EeOYorUb5NKqTw">
+      <ownedComment xmi:id="_5OwxMBV4EeODAq4Tm5H6GQ" annotatedElement="_NJM_EBS4EeOYorUb5NKqTw">
         <body> </body>
       </ownedComment>
       <packagedElement xmi:type="uml:Class" xmi:id="_Uo_ggBSvEeOYorUb5NKqTw" name="MovableSprites">
@@ -1051,7 +1051,7 @@
     </profileApplication>
     <profileApplication xmi:id="_vdx9IBVpEeODAq4Tm5H6GQ">
       <eAnnotations xmi:id="_veK-sBVpEeODAq4Tm5H6GQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_Uxa7scerEeKEj-QXx-6k3A"/>
+        <references xmi:type="ecore:EPackage" href="smarty.profile.uml#_HFMZgBygEeOSUsTHUSsmgQ"/>
       </eAnnotations>
       <appliedProfile href="smarty.profile.uml#_9ppH0MeqEeK-FvYCaEYIKA"/>
     </profileApplication>
@@ -1110,25 +1110,25 @@
   <perfilConcerns:play xmi:id="_cwiI8BVrEeODAq4Tm5H6GQ" base_Class="_4L4Z4BViEeODAq4Tm5H6GQ"/>
   <perfilConcerns:play xmi:id="_kUgQsBVrEeODAq4Tm5H6GQ" base_Class="_4kumcBVcEeODAq4Tm5H6GQ"/>
   <perfilConcerns:pause xmi:id="_kUzysBVrEeODAq4Tm5H6GQ" base_Class="_4kumcBVcEeODAq4Tm5H6GQ"/>
-  <smartyProfile:mandatory xmi:id="_XZ3CYBVvEeODAq4Tm5H6GQ" base_Class="_Ru2b4BS1EeOYorUb5NKqTw"/>
+  <smartyProfile:mandatory xmi:id="_XZ3CYBVvEeODAq4Tm5H6GQ" base_Class="_Ru2b4BS1EeOYorUb5NKqTw" rootVP="MovableSprites"/>
   <smartyProfile:variationPoint xmi:id="_XaMZkBVvEeODAq4Tm5H6GQ" base_Class="_Ru2b4BS1EeOYorUb5NKqTw" numberOfVariants="2" variants="" variabilities="sprit"/>
   <smartyProfile:variationPoint xmi:id="_bsnRABVvEeODAq4Tm5H6GQ" base_Class="_fFmg8BS9EeOYorUb5NKqTw" numberOfVariants="4" variants="Ceiling, Floor, Wall, Brick, BrickPile" variabilities="stationay_sprit"/>
   <smartyProfile:alternative_OR xmi:id="_bs4WwBVvEeODAq4Tm5H6GQ" base_Class="_fFmg8BS9EeOYorUb5NKqTw"/>
   <smartyProfile:alternative_OR xmi:id="_hQ5Y8BVvEeODAq4Tm5H6GQ" base_Class="_Uo_ggBSvEeOYorUb5NKqTw"/>
   <smartyProfile:variationPoint xmi:id="_hRM68BVvEeODAq4Tm5H6GQ" base_Class="_Uo_ggBSvEeOYorUb5NKqTw" numberOfVariants="2" variabilities="movable_sprite"/>
-  <smartyProfile:alternative_OR xmi:id="_qMvSkBVvEeODAq4Tm5H6GQ" base_Class="_L2zx0BSyEeOYorUb5NKqTw"/>
-  <smartyProfile:alternative_OR xmi:id="_rkg90BVvEeODAq4Tm5H6GQ" base_Class="_IXCC0BSzEeOYorUb5NKqTw"/>
-  <smartyProfile:alternative_OR xmi:id="_s3aJEBVvEeODAq4Tm5H6GQ" base_Class="_AMfYYBS1EeOYorUb5NKqTw"/>
-  <smartyProfile:alternative_OR xmi:id="_w1ZooBVvEeODAq4Tm5H6GQ" base_Class="_8CTh0BSyEeOYorUb5NKqTw"/>
-  <smartyProfile:alternative_OR xmi:id="_06AGgBVvEeODAq4Tm5H6GQ" base_Class="_PMm-EBS0EeOYorUb5NKqTw"/>
-  <smartyProfile:alternative_OR xmi:id="_2d7XYBVvEeODAq4Tm5H6GQ" base_Class="_5CPtUBS2EeOYorUb5NKqTw"/>
-  <smartyProfile:alternative_OR xmi:id="_4_eHEBVvEeODAq4Tm5H6GQ" base_Class="_7YIxMBS3EeOYorUb5NKqTw"/>
-  <smartyProfile:optional xmi:id="_RwGvIBVwEeODAq4Tm5H6GQ" base_Class="_NJM_EBS4EeOYorUb5NKqTw"/>
-  <smartyProfile:alternative_OR xmi:id="_ZUREIBVwEeODAq4Tm5H6GQ" base_Class="_KbxQ0BSqEeOYorUb5NKqTw"/>
+  <smartyProfile:alternative_OR xmi:id="_qMvSkBVvEeODAq4Tm5H6GQ" base_Class="_L2zx0BSyEeOYorUb5NKqTw" rootVP="MovableSprites"/>
+  <smartyProfile:alternative_OR xmi:id="_rkg90BVvEeODAq4Tm5H6GQ" base_Class="_IXCC0BSzEeOYorUb5NKqTw" rootVP="MovableSprites"/>
+  <smartyProfile:alternative_OR xmi:id="_s3aJEBVvEeODAq4Tm5H6GQ" base_Class="_AMfYYBS1EeOYorUb5NKqTw" rootVP="StationarySprite"/>
+  <smartyProfile:alternative_OR xmi:id="_w1ZooBVvEeODAq4Tm5H6GQ" base_Class="_8CTh0BSyEeOYorUb5NKqTw" rootVP="StationarySprite"/>
+  <smartyProfile:alternative_OR xmi:id="_06AGgBVvEeODAq4Tm5H6GQ" base_Class="_PMm-EBS0EeOYorUb5NKqTw" rootVP="StationarySprite"/>
+  <smartyProfile:alternative_OR xmi:id="_2d7XYBVvEeODAq4Tm5H6GQ" base_Class="_5CPtUBS2EeOYorUb5NKqTw" rootVP="StationarySprite"/>
+  <smartyProfile:alternative_OR xmi:id="_4_eHEBVvEeODAq4Tm5H6GQ" base_Class="_7YIxMBS3EeOYorUb5NKqTw" rootVP="StationarySprite"/>
+  <smartyProfile:optional xmi:id="_RwGvIBVwEeODAq4Tm5H6GQ" base_Class="_NJM_EBS4EeOYorUb5NKqTw" rootVP="" variabilities="ranking"/>
+  <smartyProfile:alternative_OR xmi:id="_ZUREIBVwEeODAq4Tm5H6GQ" base_Class="_KbxQ0BSqEeOYorUb5NKqTw" rootVP="Game"/>
   <smartyProfile:mandatory xmi:id="_bLxYUBVwEeODAq4Tm5H6GQ" base_Class="_prZDoBSsEeOYorUb5NKqTw"/>
   <smartyProfile:variationPoint xmi:id="_bMLoABVwEeODAq4Tm5H6GQ" base_Class="_prZDoBSsEeOYorUb5NKqTw" numberOfVariants="3" variants="PongGame,BricklesGame,BowlingGame" variabilities="game"/>
-  <smartyProfile:alternative_OR xmi:id="_gf0E0BVwEeODAq4Tm5H6GQ" base_Class="_AfsXUBSsEeOYorUb5NKqTw"/>
-  <smartyProfile:alternative_OR xmi:id="_hAaQcBVwEeODAq4Tm5H6GQ" base_Class="_IFYy0BSrEeOYorUb5NKqTw"/>
+  <smartyProfile:alternative_OR xmi:id="_gf0E0BVwEeODAq4Tm5H6GQ" base_Class="_AfsXUBSsEeOYorUb5NKqTw" rootVP="Game"/>
+  <smartyProfile:alternative_OR xmi:id="_hAaQcBVwEeODAq4Tm5H6GQ" base_Class="_IFYy0BSrEeOYorUb5NKqTw" rootVP="Game"/>
   <smartyProfile:interface xmi:id="_i9VQIBVwEeODAq4Tm5H6GQ" base_Class="_R38k4BViEeODAq4Tm5H6GQ"/>
   <perfilConcerns:configuration xmi:id="_nz9A0BVwEeODAq4Tm5H6GQ" base_Class="_R38k4BViEeODAq4Tm5H6GQ"/>
   <perfilConcerns:play xmi:id="_n0Rw8BVwEeODAq4Tm5H6GQ" base_Class="_R38k4BViEeODAq4Tm5H6GQ"/>
@@ -1140,7 +1140,6 @@
   <smartyProfile:variability xmi:id="_Qa4kcBV3EeODAq4Tm5H6GQ" base_Comment="_PrnqsBV3EeODAq4Tm5H6GQ" name="sprit" minSelection="1" maxSelection="2" allowAddingVar="true" variants="MovableSprites, StationarySprite"/>
   <smartyProfile:variability xmi:id="_HUWoUBV4EeODAq4Tm5H6GQ" base_Comment="_GAVbsBV4EeODAq4Tm5H6GQ" name="stationay_sprit" minSelection="1" maxSelection="4" allowAddingVar="true" variants="Ceiling, Floor, Wall, Brick, BrickPile"/>
   <smartyProfile:variability xmi:id="_8UJ00BV4EeODAq4Tm5H6GQ" base_Comment="_5OwxMBV4EeODAq4Tm5H6GQ" name="ranking" maxSelection="1" allowAddingVar="true" variants="Player"/>
-  <smartyProfile:optional xmi:id="_DK5DIBV5EeODAq4Tm5H6GQ" base_Class="_xScE0BS9EeOYorUb5NKqTw"/>
   <smartyProfile:variability xmi:id="_yPsIcBWHEeObs-pQrJ2skQ" base_Comment="_QvpgQBWHEeODAq4Tm5H6GQ" name="game" minSelection="1" maxSelection="3" allowAddingVar="true" variants="PongGame,BricklesGame,BowlingGame"/>
   <perfilConcerns:play xmi:id="_yXOygBWVEeObs-pQrJ2skQ" base_Operation="_az2zIBVmEeODAq4Tm5H6GQ"/>
   <perfilConcerns:play xmi:id="_z13TsBWVEeObs-pQrJ2skQ" base_Operation="_56sIQBVmEeODAq4Tm5H6GQ"/>

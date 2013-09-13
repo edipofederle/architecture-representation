@@ -11,6 +11,7 @@ import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.exceptions.ModelIncompleteException;
 import arquitetura.exceptions.ModelNotFoundException;
 import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import arquitetura.helpers.Strings;
 import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
@@ -20,8 +21,11 @@ import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Package;
 import arquitetura.representation.ParameterMethod;
+import arquitetura.representation.Variant;
+import arquitetura.representation.VariationPoint;
 import arquitetura.touml.ArchitectureBase;
 import arquitetura.touml.Argument;
+import arquitetura.touml.BindingTime;
 import arquitetura.touml.DocumentManager;
 import arquitetura.touml.Method;
 import arquitetura.touml.Operations;
@@ -102,6 +106,17 @@ public class Main extends ArchitectureBase {
 				//Interesses para classe
 				List<Concern> klassConcerns = klass.getOwnConcerns();
 				
+				//Variation Point
+				VariationPoint variationPoint = klass.getVariationPoint();
+				String variants = "";
+				String variabilities = "";
+				
+				if(variationPoint != null){
+					variants = Strings.spliterVariants(variationPoint.getVariants());
+					variabilities = Strings.spliterVariabilities(variationPoint.getVariabilities());
+				}
+				//Variation Point
+				
 				if(attributesForClass.isEmpty() )
 					op.forClass().createClass(klass).withConcerns(klassConcerns).build();
 				else{
@@ -110,8 +125,42 @@ public class Main extends ArchitectureBase {
 				      .withMethods(methodsForClass)
 				      .withConcerns(klassConcerns)
 				      .withAttribute(attributesForClass)
+				      .isVariationPoint(variants, variabilities, BindingTime.DESIGN_TIME)
 				      .build();
 				}
+				
+				//Variant Type
+				
+				Variant v = null;
+				
+				Variant variant = klass.getVariant();
+				if(variant != null){
+					try{
+						Element elementRootVp = a.findElementByName(variant.getRootVP(), "class");
+						String rootVp = null;
+						
+						if(elementRootVp != null)
+							rootVp = elementRootVp.getName();
+						else
+							rootVp = ""; //TODO Ver essa questao
+						v = Variant.createVariant()
+								   .withName(variant.getVariantName())
+								   .andRootVp(rootVp)
+								   .wihtVariabilities(variant.getVariabilities())
+								   .withVariantType(variant.getVariantType()).build();
+						
+						//Se tem variant adicionar na classe
+						if(v != null){
+							op.forClass().addStereotype(klass.getId(), v);
+						}
+					
+					}catch(Exception e){
+						System.out.println("Error when try create Variant."+ e.getMessage());
+						System.exit(0);
+					}
+				}
+				
+				//Variant Type
 				
 			}
 			
@@ -128,7 +177,11 @@ public class Main extends ArchitectureBase {
 				//Todas as classes do pacote
 				List<String> ids = pack.getAllClassIdsForThisPackage();
 				op.forPackage().createPacakge(pack).withClass(ids).build();
+				
 			}
+			
+			
+			
 			
 			
 //			
@@ -327,24 +380,5 @@ public class Main extends ArchitectureBase {
 		
 		return attributes;
 	}
-
-//	private static String spliterVariants(List<Variant> list) {
-//		List<String> names = new ArrayList<String>();
-//		
-//		for (Variant variant : list)
-//			names.add(variant.getName());
-//		
-//		return Joiner.on(", ").skipNulls().join(names);
-//	}
-//	
-//	private static String spliterVariabilities(List<Variability> list) {
-//		List<String> names = new ArrayList<String>();
-//		
-//		for(Variability variability : list)
-//			names.add(variability.getName());
-//		
-//		return Joiner.on(", ").skipNulls().join(names);
-//	}
-	
 
 }

@@ -171,6 +171,10 @@ public class Variant implements Stereotype{
 			return false;
 		return true;
 	}
+	public Variant wihtVariabilities(List<Variability> variabilities2) {
+		this.variabilities = variabilities2;
+		return this;
+	}
 	
 	
 }

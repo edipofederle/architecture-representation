@@ -118,7 +118,8 @@ public class Variability {
 		
 		while (i.hasNext()) {
 			Variant s = i.next();
-			if (s.getName().equalsIgnoreCase(this.getOwnerClass())){ i.remove(); }
+			if(!s.getVariantType().equalsIgnoreCase("optional"))
+				if (s.getName().equalsIgnoreCase(this.getOwnerClass())){ i.remove(); }
 		}
 		return variants;
 	}

@@ -1894,11 +1894,11 @@
           <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_xSfIJRS9EeOYorUb5NKqTw" key="QualifiedNameDepth" value="1000"/>
         </eAnnotations>
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_XH3zYBTTEeOYorUb5NKqTw" source="Stereotype_Annotation">
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_DLMlIBV5EeODAq4Tm5H6GQ" key="StereotypeWithQualifiedNameList" value=""/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_DLMlIRV5EeODAq4Tm5H6GQ" key="StereotypeList" value="perfilConcerns::play,smartyProfile::optional"/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_DLMlIhV5EeODAq4Tm5H6GQ" key="Stereotype_Presentation_Kind" value="HorizontalStereo"/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_DLMlIxV5EeODAq4Tm5H6GQ" key="PropStereoDisplay" value=""/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_DLMlJBV5EeODAq4Tm5H6GQ" key="StereotypePropertyLocation" value="Compartment"/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Z8BqsByiEeOSUsTHUSsmgQ" key="StereotypeWithQualifiedNameList" value=""/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Z8BqsRyiEeOSUsTHUSsmgQ" key="StereotypeList" value="perfilConcerns::play"/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Z8BqshyiEeOSUsTHUSsmgQ" key="Stereotype_Presentation_Kind" value="HorizontalStereo"/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Z8BqsxyiEeOSUsTHUSsmgQ" key="PropStereoDisplay" value=""/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Z8BqtByiEeOSUsTHUSsmgQ" key="StereotypePropertyLocation" value="Compartment"/>
         </eAnnotations>
         <children xmi:type="notation:DecorationNode" xmi:id="_xSfIJhS9EeOYorUb5NKqTw" type="5014"/>
         <children xmi:type="notation:BasicCompartment" xmi:id="_xSfIJxS9EeOYorUb5NKqTw" type="7011">
@@ -5027,12 +5027,12 @@
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GgVKYBV4EeODAq4Tm5H6GQ" id="(1.0,0.6166666666666667)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GgVKYRV4EeODAq4Tm5H6GQ" id="(0.9194630872483222,0.6101694915254238)"/>
   </edges>
-  <edges xmi:type="notation:Connector" xmi:id="_6ZMkABV4EeODAq4Tm5H6GQ" type="4013" source="_5OymYBV4EeODAq4Tm5H6GQ" target="_xSehEBS9EeOYorUb5NKqTw" lineColor="0">
+  <edges xmi:type="notation:Connector" xmi:id="_6ZMkABV4EeODAq4Tm5H6GQ" type="4013" source="_5OymYBV4EeODAq4Tm5H6GQ" target="_NJPbUBS4EeOYorUb5NKqTw" lineColor="0">
     <styles xmi:type="notation:FontStyle" xmi:id="_6ZMkARV4EeODAq4Tm5H6GQ" fontName="Lucida Grande" fontHeight="11"/>
     <element xsi:nil="true"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_6ZMkAhV4EeODAq4Tm5H6GQ" points="[-8, -33, 66, 307]$[-69, -315, 5, 25]"/>
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6ZPnUBV4EeODAq4Tm5H6GQ" id="(0.41,0.016666666666666666)"/>
-    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6ZQOYBV4EeODAq4Tm5H6GQ" id="(0.47767857142857145,0.9509803921568627)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6ZQOYBV4EeODAq4Tm5H6GQ" id="(0.49709302325581395,0.9794721407624634)"/>
   </edges>
   <edges xmi:type="notation:Connector" xmi:id="_RJPsABWHEeODAq4Tm5H6GQ" type="4013" source="_QvqHUBWHEeODAq4Tm5H6GQ" target="_prcG8BSsEeOYorUb5NKqTw" lineColor="0">
     <styles xmi:type="notation:FontStyle" xmi:id="_RJPsARWHEeODAq4Tm5H6GQ" fontName="Lucida Grande" fontHeight="11"/>
