@@ -1,6 +1,10 @@
 package arquitetura.touml;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import arquitetura.helpers.UtilResources;
+import arquitetura.representation.Concern;
 
 /**
  * 
@@ -13,6 +17,16 @@ public class Attribute {
 	private String name;
 	private VisibilityKind visibility;
 	private Types.Type type;
+	private List<Concern> concerns = new ArrayList<Concern>();
+	
+	
+	/**
+	 * @return the concerns
+	 */
+	public List<Concern> getConcerns() {
+		return concerns;
+	}
+
 	/**
 	 * @return the id
 	 */
@@ -80,6 +94,10 @@ public class Attribute {
 		this.type = type;
 		return this;
 	}
-	
+
+	public Attribute withConcerns(List<Concern> ownConcerns) {
+		this.concerns = ownConcerns;
+		return this;
+	}
 
 }

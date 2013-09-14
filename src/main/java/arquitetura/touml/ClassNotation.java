@@ -162,6 +162,7 @@ public class ClassNotation extends XmiHelper {
 	    return element;
 	}
 
+	//TODO MOVER PAR PACKAGEOPERATIONS
 	public void createXmiForPackageInNotationFile(String id) {
 		
 		Element nodeChildren = documentManager.getDocNotation().createElement("children");
@@ -201,8 +202,8 @@ public class ClassNotation extends XmiHelper {
 	    layoutConstraint2.setAttribute("xmi:id", UtilResources.getRandonUUID());
 	    layoutConstraint2.setAttribute("xmi:type", "notation:Bounds");
 	    layoutConstraint2.setAttribute("y", randomNum());
-	    layoutConstraint2.setAttribute("width", "230"); //TODO ver uma maneira de criar conforme necessidade	
-	    layoutConstraint2.setAttribute("height", "230"); //TODO ver uma maneira de criar conforme necessidade	
+	    layoutConstraint2.setAttribute("width", "450"); //TODO ver uma maneira de criar conforme necessidade	
+	    layoutConstraint2.setAttribute("height", "630"); //TODO ver uma maneira de criar conforme necessidade	
 	    nodeChildren.appendChild(layoutConstraint2);
 	    
 	    notatioChildren.appendChild(nodeChildren);

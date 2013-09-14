@@ -77,30 +77,13 @@ public class Main extends ArchitectureBase {
 		try {
 			a = new ArchitectureBuilder().create(path);
 			op = new Operations(doc,a);
-//			
-//			//Alguma manipulação sobre a arquitetura
-//			List<Class> classes = a.getAllClasses();
-//			
-//			for (Class klass : classes) {		
-//				klass.createAttribute("attr", Types.STRING, VisibilityKind.PUBLIC_LITERAL);
-//				
-//				List<ParameterMethod> parameters = new ArrayList<ParameterMethod>();
-//				ParameterMethod p1 = new ParameterMethod("name", "String");
-//				parameters.add(p1);
-//				
-//				klass.createMethod("fooBar1", "String", false, parameters);
-//				Class class1 = a.createClass(klass.getName()+"AlgumaCoias");
-//				Class class2 = a.createClass(klass.getName()+"AlgumaCoias_2");
-//				a.createAssociation(class1, class2);
-//			}
-//			
-//			//Fim manipulação
-			
 			
 			List<Package> packages = a.getAllPackages();
 
 			for(Class klass : a.getAllClasses()){
 				List<arquitetura.touml.Attribute> attributesForClass = createAttributes(op, klass);
+				
+				
 				List<Method> methodsForClass = createMethods(klass);
 				
 				//Interesses para classe
@@ -118,16 +101,31 @@ public class Main extends ArchitectureBase {
 				//Variation Point
 				
 				if(attributesForClass.isEmpty() )
-					op.forClass().createClass(klass).withConcerns(klassConcerns).build();
+					op.forClass().createClass(klass).withMethods(methodsForClass).build();
 				else{
 					op.forClass()
 				      .createClass(klass)
 				      .withMethods(methodsForClass)
-				      .withConcerns(klassConcerns)
 				      .withAttribute(attributesForClass)
 				      .isVariationPoint(variants, variabilities, BindingTime.DESIGN_TIME)
 				      .build();
 				}
+				
+				//Adiciona Interesses nas classes
+				op.forConcerns().withConcerns(klass.getOwnConcerns(), klass.getId());
+				//Adiciona Interesses nas classes
+				
+				//Adiciona Interesses nos atributos
+				for (arquitetura.touml.Attribute attr : attributesForClass) {
+					op.forConcerns().withConcerns(attr.getConcerns(), attr.getId());
+				}
+				//Adiciona Interesses nos atributos
+				
+				//Adiciona Interesses nos métodos
+				for(Method m : methodsForClass){
+					op.forConcerns().withConcerns(m.getConcerns(), m.getId());
+				}
+				//Adiciona Interesses nas classes
 				
 				//Variant Type
 				
@@ -142,7 +140,7 @@ public class Main extends ArchitectureBase {
 						if(elementRootVp != null)
 							rootVp = elementRootVp.getName();
 						else
-							rootVp = ""; //TODO Ver essa questao
+							rootVp = "";
 						v = Variant.createVariant()
 								   .withName(variant.getVariantName())
 								   .andRootVp(rootVp)
@@ -159,9 +157,7 @@ public class Main extends ArchitectureBase {
 						System.exit(0);
 					}
 				}
-				
 				//Variant Type
-				
 			}
 			
 			for(Interface _interface : a.getAllInterfaces()){
@@ -350,12 +346,14 @@ public class Main extends ArchitectureBase {
 				arquitetura.touml.Method m = arquitetura.touml.Method.create()
 					  .withName(method.getName()).abstractMethod()
 					  .withArguments(currentMethodParams)
+					  .withConcerns(method.getOwnConcerns())
 					  .withReturn(Types.getByName(method.getReturnType())).build();
 				methods.add(m);
 			}else{
 				arquitetura.touml.Method m = arquitetura.touml.Method.create()
 						  .withName(method.getName())
 						  .withArguments(currentMethodParams)
+						  .withConcerns(method.getOwnConcerns())
 						  .withReturn(Types.getByName(method.getReturnType())).build();
 				methods.add(m);
 			}
@@ -372,6 +370,7 @@ public class Main extends ArchitectureBase {
 		for(Attribute attribute : klass.getAllAttributes()){
 			arquitetura.touml.Attribute attr = arquitetura.touml.Attribute.create()
 					 .withName(attribute.getName())
+					 .withConcerns(attribute.getOwnConcerns())
 					 .withVisibility(VisibilityKind.getByName(attribute.getVisibility()))
 					 .withType(Types.getByName(attribute.getType()));
 			

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import arquitetura.helpers.UtilResources;
+import arquitetura.representation.Concern;
 
 
 /**
@@ -20,6 +21,7 @@ public class Method {
 	private List<Argument> arguments = new ArrayList<Argument>();
 	private Types.Type typeReturn;
 	private boolean isAbstract = false;
+	private List<Concern> concerns = new ArrayList<Concern>();
 
 	private Method(){}
 	
@@ -54,7 +56,14 @@ public class Method {
 	public Method getMethod() {
 		return method;
 	}
+	
 
+	/**
+	 * @return the concerns
+	 */
+	public List<Concern> getConcerns() {
+		return concerns;
+	}
 
 	/**
 	 * @return the visibility
@@ -117,6 +126,11 @@ public class Method {
 
 	public String getId() {
 		return this.id;
+	}
+
+	public Method withConcerns(List<Concern> ownConcerns) {
+		this.concerns  = ownConcerns;
+		return this;
 	}
 	
 }

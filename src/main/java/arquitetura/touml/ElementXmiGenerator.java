@@ -14,6 +14,7 @@ import arquitetura.helpers.Strings;
 import arquitetura.helpers.UtilResources;
 import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Concern;
 import arquitetura.representation.Variant;
 
 /**
@@ -148,7 +149,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		}
 	}
 	
-	public void generateAttribute(Attribute attribute, String idClass) {
+	public void generateAttribute(arquitetura.touml.Attribute attribute, String idClass) {
 		if(idClass != null){
 			this.klass = findByID(documentManager.getDocUml(), idClass, "packagedElement");
 			writeAttributeIntoUmlFile(attribute);
@@ -157,14 +158,14 @@ public class ElementXmiGenerator extends XmiHelper {
 			writeAttributeIntoUmlFile(attribute);
 			writeOnNotationFile(attribute.getId(), PROPERTY_ID, PROPERTY_TYPE, null);
 		}
+		
 	}
-	
 	
 	private void writeOnNotationFile(String idProperty, String typeId, String typeElement, Element appendTo) {
 		notation.createNodeForElementType(idProperty, typeId, typeElement, appendTo);
 	}
 	
-	private String writeAttributeIntoUmlFile(Attribute attribute)  {
+	private String writeAttributeIntoUmlFile(arquitetura.touml.Attribute attribute)  {
 		Element ownedAttribute = documentManager.getDocUml().createElement("ownedAttribute");
 		ownedAttribute.setAttribute("xmi:id", attribute.getId());
 		ownedAttribute.setAttribute("name", attribute.getName());
@@ -364,7 +365,7 @@ public class ElementXmiGenerator extends XmiHelper {
 	}
 
 
-	public void createConcern(String name, String idClass) {
+	private void createConcern(String name, String idClass) {
 		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
 		Element stereotype = this.documentManager.getDocUml().createElement("perfilConcerns:"+name);
 		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
@@ -381,6 +382,14 @@ public class ElementXmiGenerator extends XmiHelper {
 		nodeXmi.getParentNode().appendChild(stereotype);
 		
 		notation.createXmiForStereotype("interface", idClass, "smarty");
+	}
+	
+	public void generateConcern(final Concern concern, final String idElement) {
+		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
+			public void useTransformation() {
+				createConcern(concern.getName(), idElement);
+			}
+		});
 	}
 	
 }

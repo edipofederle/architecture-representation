@@ -193,10 +193,11 @@ public class StereotypeTest extends TestHelper {
 		Mockito.when(persistence.getName()).thenReturn("persistence");
 		
 		
-			op.forClass()
+			String id = op.forClass()
 			   .createClass(casa)
-			   .withConcern(persistence)
 			   .build().get("id");
+			
+			op.forConcerns().withConcern(persistence, id);
 		
 		Architecture a = givenAArchitecture2("addConcern");
 		assertNotNull(a.getAllConcerns());
