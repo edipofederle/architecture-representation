@@ -6,6 +6,7 @@ import java.util.List;
 
 import arquitetura.exceptions.ConcernCannotBeAppliedToPackagesException;
 import arquitetura.helpers.UtilResources;
+import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.relationship.Relationship;
 
 
@@ -26,6 +27,14 @@ public class Package extends Element {
 	private final List<Element> implementedInterfaces = new ArrayList<Element>();
 	private final List<Element> requiredInterfaces = new ArrayList<Element>();
 	private List<String> idsClasses = new ArrayList<String>();
+
+	private String widht;
+
+	private String height;
+
+	private String x;
+
+	private String y;
 	
 	/**
 	 * Construtor Para um Elemento do Tipo Pacote
@@ -38,6 +47,13 @@ public class Package extends Element {
 	 */
 	public Package(Architecture architecture, String name, Variant variantType,  String namespace, String id) {
 		super(architecture, name,  variantType, "package", namespace, id);
+		
+//		//Posição Original
+//		this.x = XmiHelper.getXValueForElement(id);
+//		this.y = XmiHelper.getYValueForElement(id);
+//		
+//		this.widht = XmiHelper.getWidhtForPackage(id);
+//		this.height =	XmiHelper.getHeightForPackage(id);
 	}
 	
 	public Package(Architecture architecture, String name, String id) {
@@ -56,6 +72,34 @@ public class Package extends Element {
 		return elements;
 	}
 	
+	/**
+	 * @return the widht
+	 */
+	public String getWidht() {
+		return widht;
+	}
+
+	/**
+	 * @return the x
+	 */
+	public String getX() {
+		return x;
+	}
+
+	/**
+	 * @return the y
+	 */
+	public String getY() {
+		return y;
+	}
+
+	/**
+	 * @return the height
+	 */
+	public String getHeight() {
+		return height;
+	}
+
 	/**
 	 * Retorna todas as classes ({@link Class}) que pertencem ao pacote. 
 	 * 

@@ -21,6 +21,7 @@ public class Operations {
 	 private AggregationOperations aggregationOperations;
 	 private NoteOperations noteOperations;
 	 private ConcernOperations concernOperation;
+	 private RealizationsOperations realizationOperations;
 
 	 public Operations(DocumentManager doc2, Architecture a) {
 		 this.doc = doc2;
@@ -34,7 +35,12 @@ public class Operations {
 		 createAggrationOperations(a);
 		 createNoteOperations(a);
 		 createConcernOperation();
+		 createRealaizationsOperations();
 	 }
+
+	private void createRealaizationsOperations() {
+		this.realizationOperations = new RealizationsOperations(doc);
+	}
 
 	private void createConcernOperation() {
 		this.concernOperation = new ConcernOperations(doc);
@@ -86,5 +92,6 @@ public class Operations {
 	public CompositionOperations forComposition(){ return compositionOperations; }
 	public AggregationOperations forAggregation(){ return aggregationOperations; }
 	public NoteOperations forNote() {return noteOperations;}
+	public RealizationsOperations forRealization() {return realizationOperations; }
 
 }

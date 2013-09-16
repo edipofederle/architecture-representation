@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -19,12 +18,16 @@ import arquitetura.representation.relationship.DependencyRelationship;
  */
 public class Interface extends Element {
 	
+	
 	static Logger LOGGER = LogManager.getLogger(Interface.class.getName());
 	private final List<Method> operations = new ArrayList<Method>();
 	
 
 	public Interface(Architecture architecture, String name, Variant variantType, String namespace, String id) {
 		super(architecture, name, variantType, "interface", namespace, id);
+//		//Posição Original
+//		this.x = XmiHelper.getXValueForElement(id);
+//		this.y = XmiHelper.getYValueForElement(id);
 	}
 	
 	public Interface(Architecture architecture, String name, String id) {

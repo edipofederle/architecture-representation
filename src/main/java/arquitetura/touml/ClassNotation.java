@@ -153,10 +153,10 @@ public class ClassNotation extends XmiHelper {
 		element.appendChild(notationBounds);
 		
 	    Element layoutConstraint = doc.createElement("layoutConstraint");
-	    layoutConstraint.setAttribute("x", randomNum());
+	    layoutConstraint.setAttribute("x", "10");
 	    layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
 	    layoutConstraint.setAttribute("xmi:type", "notation:Bounds");
-	    layoutConstraint.setAttribute("y", randomNum());
+	    layoutConstraint.setAttribute("y", "10");
 	    node.appendChild(layoutConstraint);
 	    
 	    return element;

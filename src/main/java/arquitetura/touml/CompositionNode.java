@@ -78,7 +78,7 @@ public class CompositionNode extends XmiHelper {
 		Element pkgElement = doc.getDocUml().createElement("packagedElement");
 		pkgElement.setAttribute("xmi:type", "uml:Association");
 		pkgElement.setAttribute("xmi:id", associationId);
-		pkgElement.setAttribute("name", name); 
+		pkgElement.setAttribute("name", verifyName(name)); 
 		pkgElement.setAttribute("memberEnd", ownedEnd1 + " " + ownedEnd2);
 		
 	
@@ -130,6 +130,12 @@ public class CompositionNode extends XmiHelper {
 		
 		modelRoot.appendChild(pkgElement);
 		
+	}
+
+	private String verifyName(String name) {
+		if ((name == null) || (name == ""))
+			return "";
+		return name;
 	}
 	
 }

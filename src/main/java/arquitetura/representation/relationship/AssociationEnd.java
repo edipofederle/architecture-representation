@@ -16,6 +16,7 @@ public class AssociationEnd {
 
 	private Element klass;
 	private boolean isNavigable;
+	//TODO Tipo da associação mudar nome da variavel
 	private String aggregation;
 	private Multiplicity multiplicity;
 
@@ -71,7 +72,6 @@ public class AssociationEnd {
 		
 	}
 
-	
 	private void setAggregation(String aggregation) {
 		this.aggregation = aggregation;
 	}
@@ -82,6 +82,14 @@ public class AssociationEnd {
 
 	public Multiplicity getMultiplicity() {
 		return multiplicity;
+	}
+
+	public boolean isComposite() {
+		return getAggregation().equals("Composition");
+	}
+
+	public boolean isAggregation() {
+		return getAggregation().equals("Aggregation");
 	}
 	
 }

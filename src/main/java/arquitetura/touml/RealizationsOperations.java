@@ -3,32 +3,28 @@ package arquitetura.touml;
 import arquitetura.exceptions.NotSuppportedOperation;
 import arquitetura.representation.Architecture;
 
-/**
- * 
- * @author edipofederle<edipofederle@gmail.com>
- *
- */
-public class UsageOperations implements Relationship  {
+public class RealizationsOperations implements Relationship {
+	
+private static final String REALIZATION = "realization";
 
-	private static final String USAGE = "usage";
-
-	private DocumentManager documentManager;
+private DocumentManager documentManager;
 	
 	private String clientElement;
 	private String supplierElement;
 	private String name;
+	private Architecture a;
 	
-	public UsageOperations(DocumentManager doc, Architecture a) {
+	public RealizationsOperations(DocumentManager doc) {
 		this.documentManager = doc;
 	}
 
-	public UsageOperations(DocumentManager documentManager, String name) {
-		this.name = name;
-		this.documentManager = documentManager;
+	public RealizationsOperations(DocumentManager documentManager2, String name2) {
+		this.documentManager = documentManager2;
+		this.name = name2;
 	}
 
 	public Relationship createRelation(String name) {
-		return new UsageOperations(this.documentManager, name);
+		return new DependencyOperations(this.documentManager, name);
 	}
 
 	public Relationship between(String idElement) {
@@ -42,11 +38,11 @@ public class UsageOperations implements Relationship  {
 	}
 
 	public String build() {
-		final DependencyNode dependencyNode = new DependencyNode(this.documentManager, this.name, this.clientElement, this.supplierElement, null);
+		final DependencyNode dependencyNode = new DependencyNode(this.documentManager, this.name, this.clientElement, this.supplierElement,a);
 		
 		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
-				dependencyNode.createDependency(USAGE);
+				dependencyNode.createDependency(REALIZATION);
 			}
 		});
 		
@@ -55,7 +51,8 @@ public class UsageOperations implements Relationship  {
 	}
 
 	public Relationship withMultiplicy(String string) throws NotSuppportedOperation {
-		throw new NotSuppportedOperation("Usage dont have multiplicy");
+		throw new NotSuppportedOperation("Realization dont have multiplicy");
 	}
+
 
 }

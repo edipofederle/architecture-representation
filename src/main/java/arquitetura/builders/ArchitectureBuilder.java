@@ -28,6 +28,7 @@ import arquitetura.helpers.ModelElementHelper;
 import arquitetura.helpers.ModelHelper;
 import arquitetura.helpers.ModelHelperFactory;
 import arquitetura.helpers.StereotypeHelper;
+import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
@@ -95,6 +96,7 @@ public class ArchitectureBuilder {
 		model = modelHelper.getModel(xmiFilePath);
 		Architecture architecture = new Architecture(modelHelper.getName(xmiFilePath));
 		architecture.setModel(model);
+		XmiHelper.setNotationOriginalFile(xmiFilePath); // Para posicionamento, tamanhos, etc....
 		
 		initialize(architecture);
 		

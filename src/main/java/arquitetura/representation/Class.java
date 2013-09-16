@@ -27,6 +27,9 @@ public class Class extends Element {
 	private boolean isAbstract;
 	private final List<Attribute> attributes = new ArrayList<Attribute>();
 	private final List<Method> methods = new ArrayList<Method>();
+
+//	private String x;
+//	private String y;
 	
 	/**
 	 * 
@@ -40,9 +43,12 @@ public class Class extends Element {
 	 * @param packageName
 	 */
 	public Class(Architecture architecture, String name, Variant variantType, boolean isAbstract, String namespace, String id) {
-		
 		super(architecture, name, variantType, "klass", namespace, id);
 		setAbstract(isAbstract);
+		
+//		//Posição Original
+//		this.x = XmiHelper.getXValueForElement(id);
+//		this.y = XmiHelper.getYValueForElement(id);
 	}
 
 	public Class(Architecture architecture, String name, String id) {
@@ -219,6 +225,7 @@ public class Class extends Element {
 		
 		return concerns;
 	}
+
 	
 //	/**
 //	 * se classe for um ponto de variação retorna todas as variantes
@@ -240,5 +247,7 @@ public class Class extends Element {
 //		}
 //		return variants;
 //	}
+	
+	
 	
 }

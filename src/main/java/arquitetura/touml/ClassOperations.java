@@ -55,7 +55,6 @@ public class ClassOperations extends XmiHelper {
 	
 	public ClassOperations createClass(final arquitetura.representation.Element _klass){
 		klass = elementXmiGenerator.generateClass(_klass, WITHOUT_PACKAGE);
-		//this.idClass = klass.getAttributes().getNamedItem("xmi:id").getNodeValue();
 		this.idClass = _klass.getId();
 		return this;
 	}

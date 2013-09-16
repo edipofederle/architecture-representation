@@ -53,14 +53,10 @@ public class CompositionTest extends TestHelper {
 		String barKlass =  op.forClass().createClass(foo).build().get("id");
 		String fooKlass = op.forClass().createClass(bar).build().get("id");
 		
-		String classUm =  op.forClass().createClass(classeUm).build().get("id");
-		String classDois = op.forClass().createClass(classeDois).build().get("id");
-		
 		op.forComposition().createComposition().between(barKlass).and(fooKlass).build();
-		op.forComposition().createComposition().between(classDois).and(classUm).build();
 		Architecture a = givenAArchitecture2("Composicao");
 		
-		assertEquals(2,a.getAllAssociations().size());
+		assertEquals(1,a.getAllAssociations().size());
 		
 		AssociationRelationship composition = a.getAllAssociations().get(0);
 		assertEquals(2,composition.getParticipants().size());

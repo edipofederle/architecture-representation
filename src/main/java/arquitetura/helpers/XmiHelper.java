@@ -1,8 +1,12 @@
 package arquitetura.helpers;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -13,6 +17,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import arquitetura.exceptions.NodeIdNotFound;
 import arquitetura.representation.Element;
@@ -28,6 +33,9 @@ import com.google.common.base.Joiner;
 public class XmiHelper {
 	
 	static Logger LOGGER = LogManager.getLogger(XmiHelper.class.getName());
+	
+	
+	private static Document originalNotation;
 	
 	/**
 	 * Busca por {@link Node} dado um id e um {@link Documnet}.
@@ -167,5 +175,74 @@ public class XmiHelper {
 
 	public String splitVariants(List<Variant> list) {
 		return Joiner.on(", ").join(list);
+	}
+
+
+	private static String getXYValueForElement(Document docNotation, String elementId, String type) {
+		Node x = XmiHelper.findByIDInNotationFile(docNotation, elementId);
+		NodeList nodes = x.getChildNodes();
+		for (int i = 0; i < nodes.getLength(); i++) {
+			if(nodes.item(i).getNodeName().equals("layoutConstraint")){
+				if("position".equals(type)){
+					String xy = nodes.item(i).getAttributes().getNamedItem("x").getNodeValue() + ",";
+					xy += nodes.item(i).getAttributes().getNamedItem("y").getNodeValue();
+					return xy;
+				}else if("size".equals(type)){
+					String xy = nodes.item(i).getAttributes().getNamedItem("width").getNodeValue() + ",";
+					xy += nodes.item(i).getAttributes().getNamedItem("height").getNodeValue();
+					return xy;
+				}
+			}
+			
+		}
+		return null;
+	}
+
+
+	public static String getXValueForElement(String id) {
+		return getXYValueForElement(getOriginalNotation(),id, "position").split(",")[0];
+	}
+	
+	public static String getYValueForElement(String id) {
+		return getXYValueForElement(getOriginalNotation(),id, "position").split(",")[1];
+	}
+
+
+	public static String getWidhtForPackage(String idPackage) {
+		return  getXYValueForElement(getOriginalNotation(), idPackage, "size").split(",")[0];
+	}
+	
+	public static String getHeightForPackage( String idPackage) {
+		return  getXYValueForElement(getOriginalNotation(), idPackage, "size").split(",")[1];
+	}
+
+
+	public static void setNotationOriginalFile(String xmiFilePath) {
+		String pathToNotation =  xmiFilePath.substring(0,xmiFilePath.length()-4)+".notation";
+		
+		DocumentBuilderFactory docBuilderFactoryNotation = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilderNotation = null;
+		try {
+			docBuilderNotation = docBuilderFactoryNotation.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			setOriginalNotation(docBuilderNotation.parse(pathToNotation));
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	private static void setOriginalNotation(Document notation) {
+		originalNotation = notation;
+	}
+	
+	public static Document getOriginalNotation(){
+		return originalNotation;
 	}
 }

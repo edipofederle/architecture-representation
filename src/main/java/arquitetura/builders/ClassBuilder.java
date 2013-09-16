@@ -57,6 +57,7 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 		packageName = packageName !=null ? packageName : "";
 		
 		
+		
 		klass = new Class(architecture, name, variantType, isAbstract, packageName, getXmiId(modelElement));
 		klass.getAllAttributes().addAll(getAttributes(modelElement));
 		klass.getAllMethods().addAll(getMethods(modelElement, klass));

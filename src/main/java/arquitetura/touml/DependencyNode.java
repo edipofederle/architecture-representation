@@ -33,10 +33,10 @@ public class DependencyNode extends XmiHelper {
 		this.name = name;
 	}
 
-	public void createDependency(String dependency) {
+	public void createDependency(String type) {
 		//Primeiramente cria o xmi necessário no document UML.
 		
-		createDependencyInUmlFile(dependency);
+		createDependencyInUmlFile(type);
 		
 		Node node = this.docNotation.getElementsByTagName("notation:Diagram").item(0);
 		Element edges = this.docNotation.createElement("edges");
@@ -66,10 +66,12 @@ public class DependencyNode extends XmiHelper {
 		edges.setAttribute("lineColor", "0");
 		
 		 Element element = docNotation.createElement("element");
-		 if("dependency".equalsIgnoreCase(dependency)){
+		 if("dependency".equalsIgnoreCase(type)){
 			 element.setAttribute("xmi:type", "uml:Dependency");
-		 }else if("usage".equalsIgnoreCase(dependency)){
+		 }else if("usage".equalsIgnoreCase(type)){
 			 element.setAttribute("xmi:type", "uml:Usage");
+		 }else if("realization".equalsIgnoreCase(type)){
+			 element.setAttribute("xmi:type", "uml:Realization");
 		 }
 		 element.setAttribute("href", documentManager.getNewModelName()+".uml#"+this.id); 
 		 edges.appendChild(element);
