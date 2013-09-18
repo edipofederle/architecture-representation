@@ -161,6 +161,7 @@ public class XmiHelper {
 		}
 	}
 	
+	
 	/**
 	 * Retorna o atributo xmi:id como uma <b>String</b> para um dado eObject.
 	 * Retrona <b>null</b>caso xmiResources for null.
@@ -197,7 +198,6 @@ public class XmiHelper {
 		}
 		return null;
 	}
-
 
 	public static String getXValueForElement(String id) {
 		return getXYValueForElement(getOriginalNotation(),id, "position").split(",")[0];

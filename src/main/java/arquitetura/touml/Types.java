@@ -55,6 +55,11 @@ public class Types {
 			return "Double";
 		}
 	};
+	public static final Type REAL = new Type() {
+		public String getName() {
+			return "Real";
+		}
+	};
 	public static final Type FLOAT = new Type() {
 		public String getName() {
 			return "float";

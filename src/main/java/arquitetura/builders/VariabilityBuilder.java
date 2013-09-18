@@ -46,31 +46,26 @@ public class VariabilityBuilder {
 		for (Comment comment : commentVariability) {
 			Map<String, String> variabilityAttributes = StereotypeHelper.getVariabilityAttributes(klass, comment);
 			if(variabilityAttributes != null) { 
-				//Passado o nome da classe junto para saber o owner da variabilidade
 				variability = variabilityFlyweight.getOrCreateVariability(klass.getName(), variabilityAttributes);
 			}
 				
-			
 			VariationPointFlyweight variationPointFlyweight = VariationPointFlyweight.getInstance();
 			variationPointFlyweight.setArchitecture(architecture);
 			VariationPoint variationPoint = variationPointFlyweight.getOrCreateVariationPoint(klass);
-			
 			
 			if((variationPoint != null)){
 				Stereotype varitionPointSte = StereotypeHelper.getStereotypeByName(klass, "variationPoint");
 				List<String> variabilitiesForVariationPoint = Arrays.asList(StereotypeHelper.getValueOfAttribute(klass, varitionPointSte, "variabilities").split(","));
 				for (int i = 0; i < variabilitiesForVariationPoint.size(); i++) {
-					variabilitiesForVariationPoint.set(i,variabilitiesForVariationPoint.get(i).trim());
+					variabilitiesForVariationPoint.set(i, variabilitiesForVariationPoint.get(i).trim());
 				}
 				
 				if(variabilitiesForVariationPoint.contains(variability.getName().trim())){
 					variationPoint.getVariabilities().add(variability);
 					variability.addVariationPoint(variationPoint);
 				}
-				
 			}
 		}
-			
 		
 		return variabilityFlyweight.getVariabilities();
 	}

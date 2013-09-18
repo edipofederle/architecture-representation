@@ -83,7 +83,7 @@ public class PackageOperations extends XmiHelper {
 				public void useTransformation() {
 					packageToAdd.appendChild(classToMove);
 					packageToAddNotation.appendChild(classToMoveNotation);
-			}});
+				}});
 		}
 		
 		return this;

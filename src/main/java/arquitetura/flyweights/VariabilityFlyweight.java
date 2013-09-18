@@ -48,7 +48,8 @@ public class VariabilityFlyweight {
                                           variabilityAttributes.get("maxSelection"),
                                           variabilityAttributes.get("bindingTime"),
                                           allowAddingVar(variabilityAttributes),
-                                          owner);
+                                          owner,
+                                          variabilityAttributes.get("idOwnerPackage"));
 			
 			variabilities.put(variability.getName(), variability);	
 		}

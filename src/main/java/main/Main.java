@@ -20,7 +20,6 @@ import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
-import arquitetura.representation.Concern;
 import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Package;
@@ -65,7 +64,6 @@ public class Main extends ArchitectureBase {
 		
 		System.out.println("Working....");
 
-		
 		String pathToModel = args[0];
 		
 		Architecture a;
@@ -98,8 +96,6 @@ public class Main extends ArchitectureBase {
 				
 				List<Method> methodsForClass = createMethods(klass);
 				
-				//Interesses para classe
-				List<Concern> klassConcerns = klass.getOwnConcerns();
 				
 				//Variation Point
 				VariationPoint variationPoint = klass.getVariationPoint();
@@ -113,7 +109,9 @@ public class Main extends ArchitectureBase {
 				//Variation Point
 				
 				if(attributesForClass.isEmpty() )
-					op.forClass().createClass(klass).withMethods(methodsForClass).build();
+					op.forClass().createClass(klass)
+								 .withMethods(methodsForClass)
+								 .isVariationPoint(variants, variabilities, BindingTime.DESIGN_TIME).build();
 				else{
 					op.forClass()
 				      .createClass(klass)
@@ -131,8 +129,6 @@ public class Main extends ArchitectureBase {
 				for (arquitetura.touml.Attribute attr : attributesForClass) {
 					op.forConcerns().withConcerns(attr.getConcerns(), attr.getId());
 				}
-				//Adiciona Interesses nos atributos
-				
 				//Adiciona Interesses nos métodos
 				for(Method m : methodsForClass){
 					op.forConcerns().withConcerns(m.getConcerns(), m.getId());
@@ -143,8 +139,7 @@ public class Main extends ArchitectureBase {
 				
 				Variant v = null;
 				
-				Variant variant = klass.getVariant();
-				if(variant != null){
+				Variant variant = klass.getVariant();				if(variant != null){
 					try{
 						Element elementRootVp = a.findElementByName(variant.getRootVP(), "class");
 						String rootVp = null;
@@ -181,6 +176,22 @@ public class Main extends ArchitectureBase {
 				  .build();
 			}
 			
+			for(Interface _interface : a.getAllInterfaces()){
+				//Adiciona Interesses nos métodos da interface
+				op.forConcerns().withConcerns(_interface.getOwnConcerns(), _interface.getId());
+			}
+			
+			for(Interface _interface : a.getAllInterfaces()){
+				List<Method> methodsForClass = createMethods(_interface);
+				for (Method method : methodsForClass) {
+					op.forConcerns().withConcerns(_interface.getOwnConcerns(), method.getId());
+				}
+				
+			}
+			
+			
+			
+			
 			for (Package pack : packages) {
 				//Todas as classes do pacote
 				List<String> ids = pack.getAllClassIdsForThisPackage();
@@ -188,14 +199,12 @@ public class Main extends ArchitectureBase {
 				
 			}
 			
-			
 			//Relacionamentos
 			for (AssociationRelationship r : a.getAllAssociations()) {
 				generateComposition(op, r);
 				generateSimpleAssociation(op, r);
 				generateAggregation(op, r);
 			}
-			
 			
 			for(GeneralizationRelationship g : a.getAllGeneralizations()){
 				op.forGeneralization().createRelation("Ge").between(g.getChild().getId()).and(g.getParent().getId()).build();
@@ -232,10 +241,10 @@ public class Main extends ArchitectureBase {
 				}
 				
 				String idNote = op.forNote().createNote().build();
-				VariabilityStereotype var = new VariabilityStereotype(variability.getName(), variability.getMinSelection(), variability.getMaxSelection()
-						,variability.allowAddingVar(), variability.getBindingTime(), Strings.spliterVariants(variability.getVariants()));
-					op.forNote().addVariability(idNote, var).build();
-					op.forClass().withId(idOwner).linkToNote(idNote);
+				VariabilityStereotype var = new VariabilityStereotype(variability);
+				
+				op.forNote().addVariability(idNote, var).build();
+				op.forClass().withId(idOwner).linkToNote(idNote);
 				
 			}
 			
@@ -306,6 +315,7 @@ public class Main extends ArchitectureBase {
 			
 			if(method.isAbstract()){
 				arquitetura.touml.Method m = arquitetura.touml.Method.create()
+					  .withId(method.getId())
 					  .withName(method.getName()).abstractMethod()
 					  .withArguments(currentMethodParams)
 					  .withConcerns(method.getOwnConcerns())
@@ -313,6 +323,7 @@ public class Main extends ArchitectureBase {
 				methods.add(m);
 			}else{
 				arquitetura.touml.Method m = arquitetura.touml.Method.create()
+						  .withId(method.getId())
 						  .withName(method.getName())
 						  .withArguments(currentMethodParams)
 						  .withConcerns(method.getOwnConcerns())

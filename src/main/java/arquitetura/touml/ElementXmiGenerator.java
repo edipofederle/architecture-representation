@@ -101,7 +101,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		for (Argument arg : method.getArguments()) {
 			if(arg.getDirection().equals("in")){
 				
-				if((Types.isCustomType(arg.getType().getName())) && (arg.getType().getName() != "Real" )){ //TODO VER REAL incluir nos types
+				if((Types.isCustomType(arg.getType().getName())) ){
 					String id = findIdByName(arg.getType().getName(), a.getElements());
 					if ("".equals(id))	LOGGER.warn("Type " + arg.getType().getName() + " not found");
 					Element ownedParameter  = documentManager.getDocUml().createElement("ownedParameter");
@@ -131,12 +131,14 @@ public class ElementXmiGenerator extends XmiHelper {
 	  	ownedParameterReturnType.setAttribute("name", "");
 	  	ownedParameterReturnType.setAttribute("direction", "return");
 
-	  	if(!method.getReturnMethod().equals("")){
-			Element typeOperationReturn = documentManager.getDocUml().createElement("type");
-			typeOperationReturn.setAttribute("xmi:type", "uml:PrimitiveType");
-			typeOperationReturn.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#"+method.getReturnMethod());
-			ownedParameterReturnType.appendChild(typeOperationReturn);
-			ownedOperation.appendChild(ownedParameterReturnType);
+	  	if(method.getReturnMethod() != null){
+		  	if(!method.getReturnMethod().equals("")){
+				Element typeOperationReturn = documentManager.getDocUml().createElement("type");
+				typeOperationReturn.setAttribute("xmi:type", "uml:PrimitiveType");
+				typeOperationReturn.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#"+method.getReturnMethod());
+				ownedParameterReturnType.appendChild(typeOperationReturn);
+				ownedOperation.appendChild(ownedParameterReturnType);
+		  	}
 	  	}
 
 		if(idClass != null){

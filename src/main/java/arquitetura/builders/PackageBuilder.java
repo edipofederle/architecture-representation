@@ -8,6 +8,7 @@ import org.eclipse.uml2.uml.NamedElement;
 
 import arquitetura.helpers.ModelHelper;
 import arquitetura.helpers.ModelHelperFactory;
+import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
@@ -35,8 +36,8 @@ public class PackageBuilder extends ElementBuilder<Package> {
 
 	@Override
 	public Package buildElement(NamedElement modelElement) {
-		Package pkg = new Package(architecture, name, variantType, modelElement.getNamespace().getQualifiedName(), getXmiId(modelElement));
-		pkg.setElements(getNestedPackages(modelElement)); //TODO ver sobre pai
+		Package pkg = new Package(architecture, name, variantType, modelElement.getNamespace().getQualifiedName(), XmiHelper.getXmiId(modelElement));
+		pkg.setElements(getNestedPackages(modelElement));
 		getNestedPackages(modelElement);
 		pkg.setElements(getClasses(modelElement, pkg));
 		

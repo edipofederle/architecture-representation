@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Stereotype;
 
 import arquitetura.helpers.ModelElementHelper;
 import arquitetura.helpers.StereotypeHelper;
+import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Variant;
 
@@ -51,14 +48,14 @@ public abstract class ElementBuilder<T extends arquitetura.representation.Elemen
 		name = modelElement.getName();
 		T element = buildElement(modelElement);
 		element.addConcerns(concerns);
-		createdElements.put(getXmiId(modelElement), element);
+		createdElements.put(XmiHelper.getXmiId(modelElement), element);
 		addIdToListOfElements(modelElement);
 		return element;
 	}
 
 	private void addIdToListOfElements(NamedElement modelElement) {
-		if(!architecture.getAllIds().contains(getXmiId(modelElement)))
-			architecture.getAllIds().add(getXmiId(modelElement));
+		if(!architecture.getAllIds().contains(XmiHelper.getXmiId(modelElement)))
+			architecture.getAllIds().add(XmiHelper.getXmiId(modelElement));
 	}
 	
 	private void inspectStereotypes(NamedElement modelElement) {
@@ -104,19 +101,6 @@ public abstract class ElementBuilder<T extends arquitetura.representation.Elemen
 		isVariationPoint = false;
 		variantType = null;
 		concerns = new ArrayList<String>();
-	}
-	
-	
-	/**
-	 * Retorna o atributo xmi:id como uma <b>String</b> para um dado eObject.
-	 * Retrona <b>null</b>caso xmiResources for null.
-	 * 
-	 * @param eObject
-	 * @return <b>String</b>
-	 */
-	public static String getXmiId (EObject eObject) {
-		Resource xmiResource = eObject.eResource();
-		return ((XMLResource) xmiResource).getID(eObject);
 	}
 	
 }

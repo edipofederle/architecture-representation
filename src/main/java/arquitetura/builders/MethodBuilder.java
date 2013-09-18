@@ -10,6 +10,7 @@ import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.Type;
 
+import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Method;
 import arquitetura.representation.ParameterMethod;
@@ -40,15 +41,16 @@ public class MethodBuilder extends ElementBuilder<Method> {
 		
 		isAbstract = method.isAbstract();
 		EList<Parameter> params = method.getOwnedParameters();
+		
 		for (Parameter parameter : params){
 			if(parameter.getDirection().getName().equals("out"))
 				type = parameter.getType().getName();
-			parameterMethodReceives.add(new ParameterMethod(parameter.getName(), parameter.getType().getName(), parameter.getDirection().getName()));
+				parameterMethodReceives.add(new ParameterMethod(parameter.getName(), parameter.getType().getName(), parameter.getDirection().getName()));
 		}
 		
 		String namespace = modelElement.getNamespace().getQualifiedName();
 			
-		Method m = new Method(architecture, name, variantType, type, isAbstract, parameterMethodReceives, namespace, getXmiId(modelElement));
+		Method m = new Method(architecture, name, variantType, type, isAbstract, parameterMethodReceives, namespace, XmiHelper.getXmiId(modelElement));
 		return m;
 	}
 

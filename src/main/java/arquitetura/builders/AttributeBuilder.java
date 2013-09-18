@@ -5,6 +5,7 @@ import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Type;
 
+import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 
@@ -29,7 +30,7 @@ public class AttributeBuilder extends ElementBuilder<Attribute> {
 		Type attributeType = ((Property) modelElement).getType();
 		String type = attributeType != null ? attributeType.getName() : "";
 		String visibilityKind = modelElement.getVisibility() != null ? modelElement.getVisibility().getName() : "";
-		return new Attribute(architecture, name, visibilityKind, variantType, type,  modelElement.getNamespace().getQualifiedName(), getXmiId(modelElement) );
+		return new Attribute(architecture, name, visibilityKind, variantType, type,  modelElement.getNamespace().getQualifiedName(), XmiHelper.getXmiId(modelElement) );
 	}
 
 }

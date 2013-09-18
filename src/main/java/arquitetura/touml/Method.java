@@ -100,13 +100,14 @@ public class Method {
 
 
 	public Method build() {
+		if(this.id == null)
+			setId(UtilResources.getRandonUUID());
 		return this;
 	}
 
 
 	public static Method create() {
 		Method method = new Method();
-		method.setId(UtilResources.getRandonUUID());
 		return method;
 	}
 
@@ -130,6 +131,11 @@ public class Method {
 
 	public Method withConcerns(List<Concern> ownConcerns) {
 		this.concerns  = ownConcerns;
+		return this;
+	}
+
+	public Method withId(String id2) {
+		this.id = id2;
 		return this;
 	}
 	

@@ -10,6 +10,7 @@ import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 
 import arquitetura.helpers.ModelHelper;
 import arquitetura.helpers.ModelHelperFactory;
+import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
@@ -58,7 +59,7 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 		
 		
 		
-		klass = new Class(architecture, name, variantType, isAbstract, packageName, getXmiId(modelElement));
+		klass = new Class(architecture, name, variantType, isAbstract, packageName, XmiHelper.getXmiId(modelElement));
 		klass.getAllAttributes().addAll(getAttributes(modelElement));
 		klass.getAllMethods().addAll(getMethods(modelElement, klass));
 		return klass;

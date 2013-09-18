@@ -38,7 +38,6 @@ public class VariationPointFlyweight {
 		
 		Element variationPointElement = architecture.findElementByName(klass.getName(), "class"); // Busca Classe ja na representacao
 		Stereotype variantTypeForVariationPointElement = StereotypeHelper.getVariantType(klass);
-		
 		VariationPoint variationPoint = variationPoints.get(variationPointElement.getId());
 		
 		if(variationPoint == null){

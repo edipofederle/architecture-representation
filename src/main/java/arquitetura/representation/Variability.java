@@ -18,22 +18,35 @@ public class Variability {
 	private String bindingTime;
 	private boolean allowsAddingVar;
 	private String ownerClass; // Classe na qual a variabilidade esta ligada
+	private String idPackageOwner; //Pacote a qual a classe pertence
 	
 	private VariationPoint variationPoint; 
 	private List<Variant> variants = new ArrayList<Variant>();
 	
-	public Variability(String name, String minSelection, String maxSelection, String bindingTime, boolean allowsAddingVar, String ownerClass) {
+	public Variability(String name, String minSelection, String maxSelection, String bindingTime, boolean allowsAddingVar, String ownerClass, String idPackageOwner) {
 		setName(name);
 		setMinSelection(minSelection);
 		setMaxSelection(maxSelection);
 		setAllowsAddingVar(allowsAddingVar);
 		setBindingTime(bindingTime);
 		setOwner(ownerClass);
+		setIdPackageOwner(idPackageOwner);
 	}
 	
 
+	private void setIdPackageOwner(String idPackageOwner) {
+		this.idPackageOwner = idPackageOwner;
+	}
+
 	private void setOwner(String ownerClass) {
 		this.ownerClass = ownerClass;
+	}
+
+	/**
+	 * @return the idPackageOwner
+	 */
+	public String getIdPackageOwner() {
+		return idPackageOwner;
 	}
 
 

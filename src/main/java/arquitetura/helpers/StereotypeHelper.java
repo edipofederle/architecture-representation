@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
@@ -205,6 +204,7 @@ public class StereotypeHelper {
 			variabilityProps.put("minSelection", minSelection);
 			variabilityProps.put("variants", variants);
 			variabilityProps.put("allowAddingVar", allowAddingVar);
+			variabilityProps.put("idOwnerPackage", XmiHelper.getXmiId(comment.getOwner()));
 			
 			return variabilityProps;
 		}

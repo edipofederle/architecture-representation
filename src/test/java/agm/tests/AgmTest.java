@@ -27,7 +27,7 @@ public class AgmTest extends TestHelper {
 	
 	@Before
 	public void setUp() throws Exception{
-		String uriToArchitecture = getUrlToModel("AGM_TESTS/agm");
+		String uriToArchitecture = getUrlToModel("agmfinal/agm");
 		architecture = new ArchitectureBuilder().create(uriToArchitecture);
 	}
 	
@@ -86,8 +86,8 @@ public class AgmTest extends TestHelper {
 	}
 	
 	@Test
-	public void testClasseMovableSpritesStereotypes(){
-		Class klass = architecture.getAllClasses().get(5);
+	public void testClasseMovableSpritesStereotypes()throws ClassNotFound{
+		Class klass = architecture.findClassByName("MovableSprites").get(0);
 		
 		assertEquals("MovableSprites",klass.getName());
 		assertEquals("alternative_OR",klass.getVariantType());
@@ -98,8 +98,8 @@ public class AgmTest extends TestHelper {
 	}
 	
 	@Test
-	public void testClasseVelocityStereotypes(){
-		Class klass = architecture.getAllClasses().get(6);
+	public void testClasseVelocityStereotypes() throws ClassNotFound{
+		Class klass = architecture.findClassByName("Velocity").get(0);
 		
 		assertEquals("Velocity",klass.getName());
 		assertNull(klass.getVariantType());
@@ -108,8 +108,8 @@ public class AgmTest extends TestHelper {
 	}
 	
 	@Test
-	public void testClassePuckStereotypes(){
-		Class klass = architecture.getAllClasses().get(7);
+	public void testClassePuckStereotypes() throws ClassNotFound{
+		Class klass = architecture.findClassByName("Puck").get(0);
 		
 		assertEquals("Puck",klass.getName());
 		assertEquals("alternative_OR",klass.getVariantType());
@@ -120,8 +120,8 @@ public class AgmTest extends TestHelper {
 	
 	
 	@Test
-	public void testClasseWallStereotypes(){
-		Class klass = architecture.getAllClasses().get(8);
+	public void testClasseWallStereotypes()throws ClassNotFound{
+		Class klass = architecture.findClassByName("Wall").get(0);
 		
 		assertEquals("Wall",klass.getName());
 		assertEquals("alternative_OR",klass.getVariantType());
@@ -131,8 +131,8 @@ public class AgmTest extends TestHelper {
 	}
 	
 	@Test
-	public void testClassePaddleStereotypes(){
-		Class klass = architecture.getAllClasses().get(9);
+	public void testClassePaddleStereotypes() throws ClassNotFound{
+		Class klass = architecture.findClassByName("Paddle").get(0);
 		
 		assertEquals("Paddle",klass.getName());
 		assertEquals("alternative_OR",klass.getVariantType());
@@ -142,8 +142,8 @@ public class AgmTest extends TestHelper {
 	}
 	
 	@Test
-	public void testClasseFloorStereotypes(){
-		Class klass = architecture.getAllClasses().get(10);
+	public void testClasseFloorStereotypes() throws ClassNotFound{
+		Class klass = architecture.findClassByName("Floor").get(0);
 		
 		assertEquals("Floor",klass.getName());
 		assertEquals("alternative_OR",klass.getVariantType());
@@ -317,8 +317,8 @@ public class AgmTest extends TestHelper {
 		
 		assertNotNull(var.getVariationPoint());
 		assertEquals(2, var.getVariants().size());
-		assertEquals("MovableSprites", var.getVariants().get(0).getName());
-		assertEquals("StationarySprite", var.getVariants().get(1).getName());
+		assertEquals("MovableSprites", var.getVariants().get(1).getName());
+		assertEquals("StationarySprite", var.getVariants().get(0).getName());
 		
 		assertEquals("Sprit", var.getVariationPoint().getVariationPointElement().getName());
 	}
@@ -358,16 +358,6 @@ public class AgmTest extends TestHelper {
 	}
 	
 	/* Variabilidades */
-	
-	
-	@Test
-	public void b() throws Exception{
-		Architecture aarch  = givenAArchitecture2("optionalTest");
-		assertEquals(1,aarch.getAllVariabilities().size());
-		
-		System.out.println(aarch.getAllVariabilities().get(0).getVariants());
-	}
-	
 	
 	
 	@Test

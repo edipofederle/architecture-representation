@@ -234,7 +234,6 @@ public class ArchitectureBuilder {
 		
 		VariabilityFlyweight.getInstance().createVariants();
 		
-		
 		List<VariationPoint> variationsPoints = VariationPointFlyweight.getInstance().getVariationPoints();
 		
 		for (VariationPoint variationPoint : variationsPoints) {

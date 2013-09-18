@@ -1,5 +1,8 @@
 package arquitetura.touml;
 
+import arquitetura.helpers.Strings;
+import arquitetura.representation.Variability;
+
 
 /**
  * Classe usada para definir o estereótipo Variability para ser setado em uma note.(Comment)
@@ -16,14 +19,20 @@ public class VariabilityStereotype  implements Stereotype{
 	private boolean allowAddingVar;
 	private String bindingTime;
 	private String variants; // Nomes separados por virgulas(,)
+	private String idPackageOwner;
 
-	public VariabilityStereotype(String name, String minSelection, String maxSelecion, boolean allowAddingVar, String bindingTime, String variants) {
-		setName(name);
-		setMinSelection(minSelection);
-		setMaxSelection(maxSelecion);
-		setAllowAddingVar(allowAddingVar);
-		setBindingTime(bindingTime);
-		setVariants(variants);
+	public VariabilityStereotype(Variability variabilityStereotype) {
+		setName(variabilityStereotype.getName());
+		setMinSelection(variabilityStereotype.getMinSelection());
+		setMaxSelection(variabilityStereotype.getMaxSelection());
+		setAllowAddingVar(variabilityStereotype.allowAddingVar());
+		setBindingTime(variabilityStereotype.getBindingTime());
+		setVariants(Strings.spliterVariants(variabilityStereotype.getVariants()));
+		setidForPackageOwner(variabilityStereotype.getIdPackageOwner());
+	}
+
+	private void setidForPackageOwner(String idPackageOwner) {
+		this.idPackageOwner = idPackageOwner;
 	}
 
 	private void setBindingTime(String bindingTime) {
@@ -79,6 +88,13 @@ public class VariabilityStereotype  implements Stereotype{
 	 */
 	public String getBindingTime() {
 		return bindingTime;
+	}
+	
+	/**
+	 * @return the idPackageOwner
+	 */
+	public String getIdPackageOwner() {
+		return idPackageOwner;
 	}
 
 	/**
