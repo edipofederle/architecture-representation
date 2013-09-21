@@ -18,14 +18,14 @@ public class AssociationRelationship extends Relationship {
 	
 	public AssociationRelationship(String id) {setId(id);}
 	
-	public AssociationRelationship(Class class1, Class class2) {
-		setId(UtilResources.getRandonUUID());
-		getParticipants().add(new AssociationEnd(class1));
-		getParticipants().add(new AssociationEnd(class2));
-		
-		setTypeRelationship("associacao");
-
-	}
+//	public AssociationRelationship(Class class1, Class class2) {
+//		setId(UtilResources.getRandonUUID());
+//		getParticipants().add(new AssociationEnd(class1));
+//		getParticipants().add(new AssociationEnd(class2));
+//		
+//		setTypeRelationship("associacao");
+//
+//	}
 
 	public List<AssociationEnd> getParticipants() {
 		return participants;

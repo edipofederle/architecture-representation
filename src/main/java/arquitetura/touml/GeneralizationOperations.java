@@ -18,14 +18,12 @@ public class GeneralizationOperations extends XmiHelper implements Relationship 
 	
 	private String general;
 	private String client;
-	private String name;
 	
 	public GeneralizationOperations(DocumentManager doc) {
 		this.documentManager = doc;
 	}
 
-	public Relationship createRelation(String name) {
-		this.name = name;
+	public Relationship createRelation() {
 		return this;
 	}
 
@@ -62,7 +60,7 @@ public class GeneralizationOperations extends XmiHelper implements Relationship 
 	}
 
 	public String build() {
-		final GeneralizationNode generalizationNode = new GeneralizationNode(this.documentManager, this.general, this.client, this.name);
+		final GeneralizationNode generalizationNode = new GeneralizationNode(this.documentManager, this.general, this.client);
 		
 		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
@@ -73,8 +71,9 @@ public class GeneralizationOperations extends XmiHelper implements Relationship 
 		return "";
 	}
 
+	//TODO Remover, refatorar essas classes urgente.
 	public Relationship withMultiplicy(String string)throws NotSuppportedOperation {
-		return null;
+		throw new NotSuppportedOperation("Generalization not support multiplicity");
 	}
 
 }

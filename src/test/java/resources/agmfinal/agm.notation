@@ -4561,7 +4561,7 @@
       <layoutConstraint xmi:type="notation:Location" xmi:id="_l0bhuRTDEeOYorUb5NKqTw" y="20"/>
     </children>
     <children xmi:type="notation:DecorationNode" xmi:id="_l0cIwBTDEeOYorUb5NKqTw" type="6034">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="_l0cIwRTDEeOYorUb5NKqTw" y="-20"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_l0cIwRTDEeOYorUb5NKqTw" x="-13" y="12"/>
     </children>
     <styles xmi:type="notation:FontStyle" xmi:id="_l0a6oRTDEeOYorUb5NKqTw" fontName="Lucida Grande" fontHeight="11"/>
     <element xmi:type="uml:Association" href="agm.uml#_l0X3UBTDEeOYorUb5NKqTw"/>

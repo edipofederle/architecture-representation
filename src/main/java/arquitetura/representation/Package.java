@@ -6,7 +6,6 @@ import java.util.List;
 
 import arquitetura.exceptions.ConcernCannotBeAppliedToPackagesException;
 import arquitetura.helpers.UtilResources;
-import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.relationship.Relationship;
 
 

@@ -9,7 +9,7 @@ import arquitetura.exceptions.NotSuppportedOperation;
  */
 public interface Relationship {
 	
-	public Relationship createRelation(String name);
+	public Relationship createRelation();
 	public Relationship between(String idElement) throws NotSuppportedOperation;
 	public Relationship and(String idElement) throws NotSuppportedOperation;
 	public String build();

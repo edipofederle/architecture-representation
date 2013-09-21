@@ -18,8 +18,15 @@ public class Attribute {
 	private VisibilityKind visibility;
 	private Types.Type type;
 	private List<Concern> concerns = new ArrayList<Concern>();
+	private boolean generateVisualAttribute;
 	
-	
+	/**
+	 * @return the generateVisualAttribute
+	 */
+	public boolean isGenerateVisualAttribute() {
+		return generateVisualAttribute;
+	}
+
 	/**
 	 * @return the concerns
 	 */
@@ -97,6 +104,17 @@ public class Attribute {
 
 	public Attribute withConcerns(List<Concern> ownConcerns) {
 		this.concerns = ownConcerns;
+		return this;
+	}
+
+	/**
+	 * Gera ou não graticamente o atributo
+	 * 
+	 * @param generatVisualAttribute
+	 * @return
+	 */
+	public Attribute grafics(boolean generatVisualAttribute) {
+		this.generateVisualAttribute = generatVisualAttribute;
 		return this;
 	}
 

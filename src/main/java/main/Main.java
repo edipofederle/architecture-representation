@@ -81,9 +81,6 @@ public class Main extends ArchitectureBase {
 		String path = new File(pathToModel).getAbsolutePath(); 
 		Operations op = null;
 		
-		
-		
-		
 		try {
 			a = new ArchitectureBuilder().create(path);
 			op = new Operations(doc,a);
@@ -189,14 +186,10 @@ public class Main extends ArchitectureBase {
 				
 			}
 			
-			
-			
-			
 			for (Package pack : packages) {
 				//Todas as classes do pacote
 				List<String> ids = pack.getAllClassIdsForThisPackage();
 				op.forPackage().createPacakge(pack).withClass(ids).build();
-				
 			}
 			
 			//Relacionamentos
@@ -207,17 +200,17 @@ public class Main extends ArchitectureBase {
 			}
 			
 			for(GeneralizationRelationship g : a.getAllGeneralizations()){
-				op.forGeneralization().createRelation("Ge").between(g.getChild().getId()).and(g.getParent().getId()).build();
+				op.forGeneralization().createRelation().between(g.getChild().getId()).and(g.getParent().getId()).build();
 			}
 			
 			for(DependencyRelationship d : a.getAllDependencies()){
-				op.forDependency().createRelation("")
+				op.forDependency().createRelation()
 							  .between(d.getClient().getId())
 							  .and(d.getSupplier().getId()).build();
 			}
 			
 			for(RealizationRelationship r : a.getAllRealizations()){
-				op.forRealization().createRelation("").between(r.getClient().getId()).and(r.getSupplier().getId()).build();
+				op.forRealization().createRelation().withName(r.getName()).between(r.getClient().getId()).and(r.getSupplier().getId()).build();
 			}
 			
 			for(UsageRelationship u : a.getAllUsage()){
@@ -255,7 +248,7 @@ public class Main extends ArchitectureBase {
 		
 		long end = System.currentTimeMillis();
 		System.out.println("\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget()+doc.getNewModelName());
-		System.out.println("Time:" + (end - init) + "Millis");
+		System.out.println("Time:" + (end - init) + " Millis");
 		
 	}
 
@@ -264,19 +257,29 @@ public class Main extends ArchitectureBase {
 		AssociationEnd p2 = r.getParticipants().get(1);
 		
 		if(p1.isAggregation()){
-			op.forAggregation().createRelation("").between(p1.getCLSClass().getId()).and(p2.getCLSClass().getId()).build();
+			op.forAggregation().createRelation()
+								.withName(r.getName())
+								.between(p1)
+								.and(p2)
+								.build();
 		}else if(p2.isAggregation()){
-			op.forAggregation().createRelation("").between(p2.getCLSClass().getId()).and(p1.getCLSClass().getId()).build();
+			op.forAggregation().createRelation()
+							   .withName(r.getName())
+							   .between(p2)
+							   .and(p1)
+							   .build();
 		}
 	}
 
 	private static void generateSimpleAssociation(Operations op, AssociationRelationship r) {
 		AssociationEnd p1 = r.getParticipants().get(0);
 		AssociationEnd p2 = r.getParticipants().get(1);
+		
 		if(p1.getAggregation().equalsIgnoreCase("none") && (p2.getAggregation().equalsIgnoreCase("none"))){
 			op.forAssociation().createAssociation()
-			  .betweenClass(r.getParticipants().get(0).getCLSClass().getId())
-			  .andClass(r.getParticipants().get(1).getCLSClass().getId()).build();
+			  .withName(r.getName())
+			  .betweenClass(p1)
+			  .andClass(p2).build();
 		}
 	}
 
@@ -286,12 +289,16 @@ public class Main extends ArchitectureBase {
 		
 		if(p1.isComposite()){
 			op.forComposition().createComposition()
-							   .between(p1.getCLSClass().getId())
-							   .and(p2.getCLSClass().getId()).build();
+			                   .withName(r.getName())
+							   .between(p1)
+							   .and(p2)
+							   .build();
 		}else if(p2.isComposite()){
 			op.forComposition().createComposition()
-			   .between(p2.getCLSClass().getId())
-			   .and(p1.getCLSClass().getId()).build();
+			.withName(r.getName())
+			   .between(p2)
+			   .and(p1)
+			   .build();
 		}
 	}
 
@@ -330,7 +337,6 @@ public class Main extends ArchitectureBase {
 						  .withReturn(Types.getByName(method.getReturnType())).build();
 				methods.add(m);
 			}
-				
 				 
 		}
 		
@@ -343,6 +349,7 @@ public class Main extends ArchitectureBase {
 		for(Attribute attribute : klass.getAllAttributes()){
 			arquitetura.touml.Attribute attr = arquitetura.touml.Attribute.create()
 					 .withName(attribute.getName())
+					 .grafics(attribute.isGeneratVisualAttribute())
 					 .withConcerns(attribute.getOwnConcerns())
 					 .withVisibility(VisibilityKind.getByName(attribute.getVisibility()))
 					 .withType(Types.getByName(attribute.getType()));

@@ -16,13 +16,13 @@ public class Multiplicity {
 	}
 	
 	public String getLowerValue() {
-		return lowerValue;
+		return lowerValue == null ? "1" : lowerValue;
 	}
 	public void setLowerValue(String lowerValue) {
 		this.lowerValue = lowerValue;
 	}
 	public String getUpperValue() {
-		return upperValue;
+		return upperValue == null ? "1" : upperValue;
 	}
 	public void setUpperValue(String upperValue) {
 		this.upperValue = upperValue;

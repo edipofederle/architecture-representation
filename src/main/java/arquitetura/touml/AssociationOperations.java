@@ -1,5 +1,7 @@
 package arquitetura.touml;
 
+import arquitetura.representation.relationship.AssociationEnd;
+
 
 
 /**
@@ -11,11 +13,10 @@ public class AssociationOperations {
 	
 	private DocumentManager documentManager;
 	
-	private String idClassOwnnerAssociation;
-	private String idClassDestinationAssociation;
+	private AssociationEnd idClassOwnnerAssociation;
+	private AssociationEnd idClassDestinationAssociation;
+	private String name;
 	
-	private String multiplicityClassOwnner;
-	private String multiplicityClassDestination;
 
 	public AssociationOperations(DocumentManager documentManager){
 		this.documentManager = documentManager;
@@ -25,21 +26,13 @@ public class AssociationOperations {
 		return new AssociationOperations(documentManager);
 	}
 
-	public AssociationOperations betweenClass(String idClass) {
-		this.idClassOwnnerAssociation = idClass;
+	public AssociationOperations betweenClass(AssociationEnd associationEnd) {
+		this.idClassOwnnerAssociation = associationEnd;
 		return this;
 	}
 
-	public AssociationOperations withMultiplicy(String multiplicity) {
-		if(this.idClassDestinationAssociation != null)
-			this.multiplicityClassDestination = multiplicity;
-		else if(this.idClassOwnnerAssociation != null)
-			this.multiplicityClassOwnner = multiplicity;
-		return this;
-	}
-
-	public AssociationOperations andClass(String idClass) {
-		this.idClassDestinationAssociation = idClass;
+	public AssociationOperations andClass(AssociationEnd associationEnd) {
+		this.idClassDestinationAssociation = associationEnd;
 		return this;
 	}
 	
@@ -49,11 +42,16 @@ public class AssociationOperations {
 		
 		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
-				associationNode.createAssociation(idClassOwnnerAssociation, idClassDestinationAssociation, multiplicityClassDestination, multiplicityClassOwnner);
+				associationNode.createAssociation(idClassOwnnerAssociation, idClassDestinationAssociation, name, "none");
 			}
 		});
 		
 		return associationNode.getIdAssocation();
+	}
+
+	public AssociationOperations withName(String name) {
+		this.name = name;
+		return this;
 	}
 
 }

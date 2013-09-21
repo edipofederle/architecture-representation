@@ -2,9 +2,6 @@ package arquitetura.touml;
 
 import org.w3c.dom.Node;
 
-import arquitetura.exceptions.CustonTypeNotFound;
-import arquitetura.exceptions.InvalidMultiplictyForAssociationException;
-import arquitetura.exceptions.NodeNotFound;
 import arquitetura.helpers.UtilResources;
 import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;

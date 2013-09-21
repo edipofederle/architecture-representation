@@ -19,20 +19,18 @@ public class AssociationEnd {
 	//TODO Tipo da associação mudar nome da variavel
 	private String aggregation;
 	private Multiplicity multiplicity;
-
-	public AssociationEnd(Element klass, boolean isNavigable, String aggregation, Multiplicity multiplicity) {
+	private String name;
+	
+	public AssociationEnd(Element klass, boolean isNavigable, String aggregation, Multiplicity multiplicity, String name) {
 		setCLSClass(klass);
 		setNavigable(isNavigable);
 		setAggregation(aggregation);
 		setMultiplicity(multiplicity);
+		setName(name);
 	}
 
 	private void setMultiplicity(Multiplicity multiplicity) {
 		this.multiplicity = multiplicity;
-	}
-
-	public AssociationEnd(Element klass) {
-		this(klass, false, "", null);
 	}
 
 	public Element getCLSClass() {
@@ -49,6 +47,21 @@ public class AssociationEnd {
 
 	private void setNavigable(boolean isNavigable) {
 		this.isNavigable = isNavigable;
+	}
+	
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**

@@ -27,16 +27,16 @@ public class UsageOperations implements Relationship  {
 		this.documentManager = documentManager;
 	}
 
-	public Relationship createRelation(String name) {
+	public UsageOperations createRelation(String name) {
 		return new UsageOperations(this.documentManager, name);
 	}
 
-	public Relationship between(String idElement) {
+	public UsageOperations between(String idElement) {
 		this.clientElement = idElement;
 		return this;
 	}
 
-	public Relationship and(String idElement) {
+	public UsageOperations and(String idElement) {
 		this.supplierElement = idElement;
 		return this;
 	}
@@ -54,8 +54,12 @@ public class UsageOperations implements Relationship  {
 
 	}
 
-	public Relationship withMultiplicy(String string) throws NotSuppportedOperation {
+	public UsageOperations withMultiplicy(String string) throws NotSuppportedOperation {
 		throw new NotSuppportedOperation("Usage dont have multiplicy");
+	}
+
+	public Relationship createRelation() {
+		return this;
 	}
 
 }

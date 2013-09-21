@@ -3,6 +3,7 @@ package arquitetura.representation.relationship;
 import java.util.ArrayList;
 import java.util.List;
 
+import arquitetura.representation.Attribute;
 import arquitetura.representation.Element;
 
 
@@ -16,6 +17,8 @@ public class AssociationClassRelationship extends	Relationship {
 	public String name;
 	public List<Element> memebersEnd = new ArrayList<Element>();
 	private Element ownedEnd;
+	
+	private List<Attribute> attributes = new ArrayList<Attribute>();
 
 	public AssociationClassRelationship(String name, List<Element> ends, Element ownedEnd, String id) {
 		super();
@@ -23,9 +26,9 @@ public class AssociationClassRelationship extends	Relationship {
 		this.memebersEnd = ends;
 		this.ownedEnd = ownedEnd;
 		setId(id);
-		for(Element element : memebersEnd)
-			setTypeRelationship(element.getId());
-		setTypeRelationship(ownedEnd.getId());
+//		for(Element element : memebersEnd)
+//			setTypeRelationship(element.getId());
+//		setTypeRelationship(ownedEnd.getId());
 	}
 
 	public String getName() {

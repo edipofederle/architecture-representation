@@ -3,6 +3,7 @@ package arquitetura.touml;
 import arquitetura.exceptions.CustonTypeNotFound;
 import arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import arquitetura.exceptions.NodeNotFound;
+import arquitetura.representation.relationship.AssociationEnd;
 
 /**
  * 
@@ -12,10 +13,8 @@ import arquitetura.exceptions.NodeNotFound;
 public class CompositionOperations {
 
 	private DocumentManager doc;
-	private String client;
-	private String target;
-	private String multiplicityClassTarget;
-	private String multiplicityClassClient;
+	private AssociationEnd client;
+	private AssociationEnd target;
 	private String name;
 
 	public CompositionOperations(DocumentManager doc) {
@@ -26,31 +25,38 @@ public class CompositionOperations {
 		return new CompositionOperations(doc);
 	}
 
-	public CompositionOperations between(String idElement) {
+	public CompositionOperations between(AssociationEnd idElement) {
 		this.client = idElement;
 		return this;
 	}
 
-	public CompositionOperations and(String idElement) {
+	public CompositionOperations and(AssociationEnd idElement) {
 		this.target = idElement;
 		return this;
 	}
 	
-	public CompositionOperations withMultiplicy(String multiplicity) {
-		if(this.target != null)
-			this.multiplicityClassTarget = multiplicity;
-		else if(this.client != null)
-			this.multiplicityClassClient = multiplicity;
+	public CompositionOperations withName(String name){
+		this.name = name;
 		return this;
 	}
 	
+	//TODO REMOVER
+//	
+//	public CompositionOperations withMultiplicy(String multiplicity) {
+//		if(this.target != null)
+//			this.multiplicityClassTarget = multiplicity;
+//		else if(this.client != null)
+//			this.multiplicityClassClient = multiplicity;
+//		return this;
+//	}
+//	
 
 	public void build() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
-		final CompositionNode cn = new CompositionNode(doc,null);
+		final AssociationNode cn = new AssociationNode(doc,null);
 		
 		arquitetura.touml.Document.executeTransformation(doc, new Transformation(){
 			public void useTransformation() {
-				cn.createComposition(name, client, target, multiplicityClassClient, multiplicityClassTarget, "composite");
+				cn.createAssociation(client, target, name, "composite");
 			}
 		});
 	}

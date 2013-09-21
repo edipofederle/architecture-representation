@@ -12,6 +12,7 @@ public class Attribute extends Element {
 
 	private String type;
 	private String visibilityKind;
+	private boolean generatVisualAttribute;
 
 	/**
 	 * 
@@ -24,14 +25,27 @@ public class Attribute extends Element {
 	 * @param namesapce
 	 * @param id
 	 */
-	public Attribute(Architecture architecture, String name, String visibilityKind, Variant variantType, String type, String namesapce, String id) {
+	public Attribute(Architecture architecture, String name, String visibilityKind, Variant variantType, String type, String namesapce, String id, boolean shouldGenerateVisualAttribute) {
 		super(architecture, name, variantType, "attribute", namesapce, id);
 		setType(type);
 		setVisibilityKind(visibilityKind);
+		setGeneratVisualAttribute(shouldGenerateVisualAttribute);
+	}
+
+	private void setGeneratVisualAttribute(boolean shouldGenerateVisualAttribute) {
+		this.generatVisualAttribute = shouldGenerateVisualAttribute;
 	}
 
 	private void setVisibilityKind(String visibilityKind) {
 		this.visibilityKind = visibilityKind;
+	}
+	
+
+	/**
+	 * @return the generatVisualAttribute
+	 */
+	public boolean isGeneratVisualAttribute() {
+		return generatVisualAttribute;
 	}
 
 	/**
@@ -44,7 +58,7 @@ public class Attribute extends Element {
 	 * @param id
 	 */
 	public Attribute(Architecture architecture, String name, String visibilityKind, String type, String namespace, String id) {
-		this(architecture, name, visibilityKind, null, type, namespace, id);
+		this(architecture, name, visibilityKind, null, type, namespace, id, true);
 	}
 
 	public String getType() {

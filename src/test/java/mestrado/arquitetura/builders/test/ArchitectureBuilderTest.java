@@ -237,18 +237,14 @@ public class ArchitectureBuilderTest extends TestHelper {
 		String uriToArchitecture8 = getUrlToModel("associationClass");
 		Architecture architecture8 = new ArchitectureBuilder().create(uriToArchitecture8);
 
-		List<Relationship> relations = architecture8.getInterClassRelationships();
-		assertEquals(2, relations.size());
+		List<AssociationClassRelationship> associationClass = architecture8.getAllAssociationsClass();
 
-		AssociationClassRelationship associationClass = (AssociationClassRelationship) relations.get(1);
-
-		assertEquals("Should return three classes", 3, architecture8.getAllClasses().size());
-		assertEquals(2, associationClass.getMemebersEnd().size());
-		assertEquals("Employee", associationClass.getMemebersEnd().get(0).getName());
-		assertEquals("Class1", associationClass.getMemebersEnd().get(1).getName());
-		assertEquals("Employee", associationClass.getOwnedEnd().getName());
-		assertTrue(associationClass.getOwnedEnd() instanceof Class);
-		assertEquals("AssociationClass1", associationClass.getName());
+		assertEquals(2, associationClass.get(0).getMemebersEnd().size());
+		assertEquals("Employee", associationClass.get(0).getMemebersEnd().get(0).getName());
+		assertEquals("Class1", associationClass.get(0).getMemebersEnd().get(1).getName());
+//		assertEquals("Employee", associationClass.getOwnedEnd().getName());
+//		assertTrue(associationClass.getOwnedEnd() instanceof Class);
+		assertEquals("AssociationClass1", associationClass.get(0).getName());
 	}
 
 	/**
@@ -257,18 +253,15 @@ public class ArchitectureBuilderTest extends TestHelper {
 	 * @throws Exception
 	 */
 	@Test
-	public void shouldLoadSimpleAssociationOnModelWithAssociationClassRelationship()
-			throws Exception {
+	public void shouldLoadSimpleAssociationOnModelWithAssociationClassRelationship() throws Exception {
 
-		String uriToArchitecture8 = getUrlToModel("associationClass");
-		Architecture architecture8 = new ArchitectureBuilder()
-				.create(uriToArchitecture8);
+		String uriToArchitecture8 = getUrlToModel("associationClassAndAssociations");
+		Architecture architecture8 = new ArchitectureBuilder().create(uriToArchitecture8);
 
-		List<Relationship> relations = architecture8
-				.getInterClassRelationships();
+		assertEquals(1, architecture8.getAllAssociations().size());
+		assertEquals(1, architecture8.getAllAssociationsClass().size());
 
-		AssociationRelationship association = (AssociationRelationship) relations
-				.get(0);
+		AssociationRelationship association =  architecture8.getAllAssociations().get(0);
 
 		assertNotNull(association);
 		assertEquals(2, association.getParticipants().size());

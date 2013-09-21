@@ -187,6 +187,30 @@ public class Architecture {
 		return allAssociations;
 
 	}
+	
+	public List<AssociationRelationship> getAllCompositions() {
+		List<AssociationRelationship> associations = getAllAssociations();
+		List<AssociationRelationship> compositions = new ArrayList<AssociationRelationship>();
+		for (AssociationRelationship associationRelationship : associations) {
+			if((associationRelationship.getParticipants().get(0).isComposite()) || (associationRelationship.getParticipants().get(0).isComposite())){
+				compositions.add(associationRelationship);
+			}
+		}
+		if (compositions.isEmpty())  return Collections.emptyList();
+		return compositions; 
+	}
+	
+	public List<AssociationRelationship> getAllAgragations() {
+		List<AssociationRelationship> associations = getAllAssociations();
+		List<AssociationRelationship> agragation = new ArrayList<AssociationRelationship>();
+		for (AssociationRelationship associationRelationship : associations) {
+			if((associationRelationship.getParticipants().get(0).isAggregation()) || (associationRelationship.getParticipants().get(0).isAggregation())){
+				agragation.add(associationRelationship);
+			}
+		}
+		if (agragation.isEmpty())  return Collections.emptyList();
+		return agragation; 
+	}
 
 	public List<UsageRelationship> getAllUsage() {
 		Predicate<Relationship> isValid = new Predicate<Relationship>() {
@@ -405,12 +429,12 @@ public class Architecture {
 		return klass;
 	}
 	
-	public void createAssociation(Class class1, Class class2){
-		AssociationRelationship a = new AssociationRelationship(class1, class2);
-		a.setName("default_association");
-		this.relationships.add(a);
-		allIds.add(a.getId());
-	}
+//	public void createAssociation(Class class1, Class class2){
+//		AssociationRelationship a = new AssociationRelationship(class1, class2);
+//		a.setName("default_association");
+//		this.relationships.add(a);
+//		allIds.add(a.getId());
+//	}
 
 	public void removeInterface(Interface interfacee) {
 		if (!elements.remove(interfacee))
@@ -479,5 +503,6 @@ public class Architecture {
 		
 		throw new ClassNotFound("Class " + idClass + " can not found.\n");
 	}
+
 
 }

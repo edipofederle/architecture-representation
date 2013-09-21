@@ -28,9 +28,12 @@ import arquitetura.helpers.Uml2Helper;
 import arquitetura.helpers.Uml2HelperFactory;
 import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Class;
 import arquitetura.representation.Element;
 import arquitetura.representation.Variant;
+import arquitetura.representation.relationship.AssociationEnd;
 import arquitetura.touml.DocumentManager;
+import arquitetura.touml.Operations;
 
 /**
  * 
@@ -163,6 +166,25 @@ public abstract class TestHelper {
 				                   .withVariantType(variantName)
 				                   .build();
 		return mandatory;
+	}
+	
+	protected void generateClasses(Architecture a, Operations op) {
+		for (Class klass : a.getAllClasses()) {
+			op.forClass().createClass(klass).build();
+		}
+	}
+	
+	
+	protected void assertBothAssociationEndIsFalse(AssociationEnd associationEnd1, AssociationEnd associationEnd2) {
+		if((associationEnd1.isNavigable()) || (associationEnd2.isNavigable())){
+			Assert.fail("Expect false but returns true");
+		}
+	}
+	
+	protected void assertBothAssociationEndIsTrue(AssociationEnd associationEnd1, AssociationEnd associationEnd2) {
+		if((!associationEnd1.isNavigable()) || (!associationEnd2.isNavigable())){
+			Assert.fail("Expect true but returns false");
+		}
 	}
 		
 }

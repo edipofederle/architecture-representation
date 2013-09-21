@@ -113,7 +113,6 @@ public class ClassOperations extends XmiHelper {
 	}
 
 	private void createMethod(final arquitetura.touml.Method method) {
-		System.out.println("-----------------METODO"+method.getName());
 		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
 				elementXmiGenerator.generateMethod(method, idClass);

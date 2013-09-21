@@ -69,7 +69,7 @@ public class ElementXmiGenerator extends XmiHelper {
 				klass = element;
 				try {
 					
-					notation.createXmiForClassInNotationFile(_klass.getId(), idPackage);
+					notation.createXmiForClassInNotationFile(_klass.getId(), idPackage, "class");
 					
 					if((idPackage != null) && !("".equals(idPackage))){
 						//Busca pacote para adicionar a class;
@@ -155,10 +155,12 @@ public class ElementXmiGenerator extends XmiHelper {
 		if(idClass != null){
 			this.klass = findByID(documentManager.getDocUml(), idClass, "packagedElement");
 			writeAttributeIntoUmlFile(attribute);
-			writeOnNotationFile(attribute.getId(), PROPERTY_ID, PROPERTY_TYPE, getNodeToAddMethodInNotationFile(idClass, LOCATION_TO_ADD_ATTR_IN_NOTATION_FILE));
+			if(attribute.isGenerateVisualAttribute())
+				writeOnNotationFile(attribute.getId(), PROPERTY_ID, PROPERTY_TYPE, getNodeToAddMethodInNotationFile(idClass, LOCATION_TO_ADD_ATTR_IN_NOTATION_FILE));
 		}else{
 			writeAttributeIntoUmlFile(attribute);
-			writeOnNotationFile(attribute.getId(), PROPERTY_ID, PROPERTY_TYPE, null);
+			if(attribute.isGenerateVisualAttribute())
+				writeOnNotationFile(attribute.getId(), PROPERTY_ID, PROPERTY_TYPE, null);
 		}
 		
 	}
@@ -227,7 +229,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		return nodeNotationToAddMethod.getChildNodes().item(i).getAttributes().getNamedItem("type").getNodeValue().equals(location);
 	}
 	
-	public void createEgdeAssocationOnNotationFile(Document docNotation, String newModelName, String client, String target, String idEdge){
+	public String createEgdeAssocationOnNotationFile(Document docNotation, String newModelName, String client, String target, String idEdge){
 		
 		Node node = docNotation.getElementsByTagName("notation:Diagram").item(0);
 		
@@ -238,7 +240,8 @@ public class ElementXmiGenerator extends XmiHelper {
 		
 		Element edges = docNotation.createElement("edges");
 		edges.setAttribute("xmi:type", "notation:Connector");
-		edges.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		String id = UtilResources.getRandonUUID();
+		edges.setAttribute("xmi:id", id);
 		edges.setAttribute("type", "4001");
 		edges.setAttribute("source", idSource);
 		edges.setAttribute("target", idTarget);
@@ -249,6 +252,7 @@ public class ElementXmiGenerator extends XmiHelper {
 		childrenDecorationNode.setAttribute("xmi:type", "notation:DecorationNode");
 		childrenDecorationNode.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		childrenDecorationNode.setAttribute("type", "6033");
+		edges.appendChild(childrenDecorationNode);
 		
 		Element childrenDecorationNodeName = docNotation.createElement("children");
 		childrenDecorationNodeName.setAttribute("xmi:type", "notation:DecorationNode");
@@ -293,7 +297,6 @@ public class ElementXmiGenerator extends XmiHelper {
 		Element styles = docNotation.createElement("styles");
 		styles.setAttribute("xmi:type", "notation:FontStyle");
 		styles.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		styles.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		styles.setAttribute("fontName", "Lucida Grande");
 		styles.setAttribute("fontHeight", "11");
 		edges.appendChild(styles);
@@ -311,6 +314,8 @@ public class ElementXmiGenerator extends XmiHelper {
 		edges.appendChild(sourceAnchor);
 		
 		node.appendChild(edges);
+		
+		return id;
 	}
 
 	public void createStereotype(Variant variant, String idClass) {
@@ -392,6 +397,51 @@ public class ElementXmiGenerator extends XmiHelper {
 				createConcern(concern.getName(), idElement);
 			}
 		});
+	}
+	
+//	  <edges xmi:type="notation:Connector" xmi:id="_9v-S0IwhEeK_29491DjJRg" type="4016" source="_9vxegIwhEeK_29491DjJRg" target="_9v4MMIwhEeK_29491DjJRg" lineColor="0">
+//	    <styles xmi:type="notation:FontStyle" xmi:id="_9v-S0YwhEeK_29491DjJRg" fontName="Lucida Grande" fontHeight="11"/>
+//	    <element xsi:nil="true"/>
+//	    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_9v-S0owhEeK_29491DjJRg" points="[-50, -50, 0, 0]$[-50, -50, 0, 0]"/>
+//	    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_9v-54IwhEeK_29491DjJRg" id="(0.496551724137931,0.49624060150375937)"/>
+//	  </edges>
+
+	public String createEgdgeAssociationClassOnNotationFile(String idChildren, String idEdge) {
+		Node node = this.documentManager.getDocNotation().getElementsByTagName("notation:Diagram").item(0);
+		
+		Element edges = this.documentManager.getDocNotation().createElement("edges");
+		edges.setAttribute("xmi:type", "notation:Connector");
+		String id = UtilResources.getRandonUUID();
+		edges.setAttribute("xmi:id", id);
+		edges.setAttribute("type", "4016");
+		edges.setAttribute("source", idEdge);
+		edges.setAttribute("target", idChildren);
+		edges.setAttribute("lineColor", "0");
+		
+		Element styles = this.documentManager.getDocNotation().createElement("styles");
+		styles.setAttribute("xmi:type", "notation:FontStyle");
+		styles.setAttribute("xmi:id", id);
+		styles.setAttribute("fontName", "Lucida Grande");
+		styles.setAttribute("fontHeight", "11");
+		
+		Element bendpoints = this.documentManager.getDocNotation().createElement("bendpoints");
+		bendpoints.setAttribute("xmi:type", "notation:RelativeBendpoints");
+		bendpoints.setAttribute("xmi:id",  id);
+		bendpoints.setAttribute("points", "[-50, -50, 0, 0]$[-50, -50, 0, 0]");
+		edges.appendChild(bendpoints);
+		
+		Element sourceAnchor = this.documentManager.getDocNotation().createElement("sourceAnchor");
+		sourceAnchor.setAttribute("xmi:type", "notation:IdentityAnchor");
+		sourceAnchor.setAttribute("xmi:id", id);
+		sourceAnchor.setAttribute("id", "(1.0,0.36)");
+		edges.appendChild(sourceAnchor);
+		
+		edges.appendChild(styles);
+		edges.appendChild(sourceAnchor);
+		node.appendChild(edges);
+		
+		return id;
+		
 	}
 	
 }

@@ -85,11 +85,19 @@ public class ClassNotation extends XmiHelper {
 			notationBasicProperty.appendChild(node);
 	}
 	
-	public void createXmiForClassInNotationFile(String id, String idPackage) throws NullReferenceFoundException {
+	/**
+	 * 
+	 * @param id - ID da class ou associationClass no arquivo uml
+	 * @param idPackage - ID do pacote se tiver
+	 * @param type - "associationClass" se for para associationClass qualquer outra coisa para clas
+	 * @throws NullReferenceFoundException
+	 */
+	public String createXmiForClassInNotationFile(String id, String idPackage, String type) throws NullReferenceFoundException {
 		
 		Element node = documentManager.getDocNotation().createElement("children");
 		node.setAttribute("xmi:type", this.xmitype);
-		node.setAttribute("xmi:id", UtilResources.getRandonUUID());
+		String idChildren = UtilResources.getRandonUUID();
+		node.setAttribute("xmi:id", idChildren);
 		node.setAttribute("type", TYPE_CLASS);
 		node.setAttribute("fontName", this.fontName);
 		node.setAttribute("fontHeight", this.fontHeight);
@@ -108,8 +116,11 @@ public class ClassNotation extends XmiHelper {
 	    }
 	    
 	   	klass.setAttribute("href", documentManager.getModelName()+".uml#"+ id);
-	    	
-	    klass.setAttribute("xmi:type", "uml:Class");
+	    
+	   	if("associationClass".equalsIgnoreCase(type))
+	   		klass.setAttribute("xmi:type", "uml:AssociationClass");
+	   	else
+	   		klass.setAttribute("xmi:type", "uml:Class");
 		
 	    this.notationBasicProperty = createChildrenComportament(documentManager.getDocNotation(), node, LOCATION_TO_ADD_ATTR_IN_NOTATION_FILE); //onde vai as props
 	    createChildrenComportament(documentManager.getDocNotation(), node, LOCATION_TO_ADD_METHOD_IN_NOTATION_FILE); //onde vai os methods
@@ -121,6 +132,8 @@ public class ClassNotation extends XmiHelper {
 	    }else{
 	    	notatioChildren.appendChild(node);
 	    }
+	    
+	    return idChildren;
 	    
 	}
 	

@@ -27,17 +27,17 @@ public class DependencyOperations implements Relationship {
 		this.name = name2;
 	}
 
-	public Relationship createRelation(String name) {
+	public DependencyOperations createRelation() {
 		if(("".equals(name) || name == null)) name = "dependency";
 		return new DependencyOperations(this.documentManager, name);
 	}
 
-	public Relationship between(String idElement) {
+	public DependencyOperations between(String idElement) {
 		this.clientElement = idElement;
 		return this;
 	}
 
-	public Relationship and(String idElement) {
+	public DependencyOperations and(String idElement) {
 		this.supplierElement = idElement;
 		return this;
 	}
@@ -55,8 +55,18 @@ public class DependencyOperations implements Relationship {
 
 	}
 
-	public Relationship withMultiplicy(String string) throws NotSuppportedOperation {
+	public DependencyOperations withMultiplicy(String string) throws NotSuppportedOperation {
 		throw new NotSuppportedOperation("Dependency dont have multiplicy");
+	}
+
+	//TODO mover - duplicado
+	public Relationship withName(String relationshipName) {
+		if(relationshipName == null)
+			this.name = "";
+		else
+			this.name = relationshipName;
+		
+		return this;
 	}
 
 }

@@ -23,7 +23,7 @@ public class GeneralizationNode extends XmiHelper {
 	private String general;
 	private String id;
 
-	public GeneralizationNode(DocumentManager documentManager, String general, String client, String name) {
+	public GeneralizationNode(DocumentManager documentManager, String general, String client) {
 		this.documentManager = documentManager;
 		this.docUml = documentManager.getDocUml();
 		this.docNotation = documentManager.getDocNotation();

@@ -76,7 +76,7 @@ public class GeneralizationTest extends TestHelper {
 		Map<String, String> managerKlass = op.forClass().createClass(casa).build();
 		
 		op.forGeneralization()
-		  .createRelation("Generalization #1")
+		  .createRelation()
 		  .between(employeeKlass.get("id"))
 		  .and(managerKlass.get("id")).build();
 		
@@ -99,12 +99,12 @@ public class GeneralizationTest extends TestHelper {
 		Map<String, String> userInfo = op.forClass().createClass(user).build();
 		
 		op.forGeneralization()
-		  .createRelation("Generalization #2")
+		  .createRelation()
 		  .between(postInfo.get("id"))
 		  .and(commentInfo.get("id")).build();
 		
 		op.forGeneralization()
-		  .createRelation("Generalization #1")
+		  .createRelation()
 		  .between(userInfo.get("id"))
 		  .and(commentInfo.get("id")).build();
 		
@@ -131,7 +131,7 @@ public class GeneralizationTest extends TestHelper {
 		op.forPackage().createPacakge(pacote).withClass(postClass).build();
 		
 		op.forGeneralization()
-		  .createRelation("Ge")
+		  .createRelation()
 		  .between(postClass).and(categoryClass).build();
 	}
 	
@@ -143,7 +143,7 @@ public class GeneralizationTest extends TestHelper {
 		String id1 = op.forPackage().createPacakge(pacote).build().get("packageId");
 		String id2 = op.forPackage().createPacakge(pacote2).build().get("packageId");
 			
-		op.forGeneralization().createRelation("G invalida").between(id1).and(id2);
+		op.forGeneralization().createRelation().between(id1).and(id2);
 	}
 	
 	@Test(expected=NotSuppportedOperation.class)
@@ -154,7 +154,7 @@ public class GeneralizationTest extends TestHelper {
 		String id1 = op.forPackage().createPacakge(pacote).build().get("packageId");
 		String postClass = op.forClass().createClass(post).build().get("id");
 			
-		op.forGeneralization().createRelation("G invalida").between(postClass).and(id1);
+		op.forGeneralization().createRelation().between(postClass).and(id1);
 	}
 
 }

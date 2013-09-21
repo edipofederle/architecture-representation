@@ -19,9 +19,11 @@ public class AssociationEndBuilder {
 		boolean isNavigable = property.isNavigable();
 		String aggregation = property.getAggregation().getName();
 		
+		//TODO refatorar duas linhas abaixo
 		String upperValue = property.getUpperValue() == null ? "" : property.getUpperValue().stringValue();
 		Multiplicity multiplicity = new  Multiplicity(property.getLowerValue().stringValue(), upperValue );
-		return new AssociationEnd(klass, isNavigable, aggregation, multiplicity);
+		String nameAssociationEnd = property.getName();
+		return new AssociationEnd(klass, isNavigable, aggregation, multiplicity, nameAssociationEnd);
 	}
 
 }

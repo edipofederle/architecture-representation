@@ -26,14 +26,25 @@ public class AssociationsTest extends TestHelper {
 	}
 	
 	@Test
+	public void testAssociationEndNavegability() throws Exception{
+		Architecture a = givenAArchitecture("associations/nevegability");
+		
+		List<AssociationRelationship> associations = a.getAllAssociations();
+		AssociationRelationship association = associations.get(0);
+		List<AssociationEnd> parts = association.getParticipants();
+		
+		assertFalse(parts.get(0).isNavigable());
+		assertTrue(parts.get(1).isNavigable());
+	}
+	
+	@Test
 	public void testAssociations() throws Exception {
 		Architecture architecture2 = givenAArchitecture("association");
 
-		List<Relationship> r = architecture2.getInterClassRelationships();
+		List<AssociationRelationship> r = architecture2.getAllAssociations();
 		assertNotNull(r);
-		assertTrue(r.get(0) instanceof AssociationRelationship);
 
-		AssociationRelationship association = (AssociationRelationship) r.get(0);
+		AssociationRelationship association = r.get(0);
 		List<AssociationEnd> participants = association.getParticipants();
 
 		assertEquals(2, participants.size());

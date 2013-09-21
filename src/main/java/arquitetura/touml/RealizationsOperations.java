@@ -23,16 +23,16 @@ private DocumentManager documentManager;
 		this.name = name2;
 	}
 
-	public Relationship createRelation(String name) {
-		return new DependencyOperations(this.documentManager, name);
+	public RealizationsOperations createRelation() {
+		return new RealizationsOperations(this.documentManager);
 	}
 
-	public Relationship between(String idElement) {
+	public RealizationsOperations between(String idElement) {
 		this.clientElement = idElement;
 		return this;
 	}
 
-	public Relationship and(String idElement) {
+	public RealizationsOperations and(String idElement) {
 		this.supplierElement = idElement;
 		return this;
 	}
@@ -54,5 +54,12 @@ private DocumentManager documentManager;
 		throw new NotSuppportedOperation("Realization dont have multiplicy");
 	}
 
+	public RealizationsOperations withName(String realizationName) {
+		if(realizationName == null)
+			this.name = "";
+		else
+			this.name = realizationName;
+		return this;
+	}
 
 }

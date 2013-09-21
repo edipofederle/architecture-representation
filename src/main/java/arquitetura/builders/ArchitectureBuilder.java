@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Abstraction;
 import org.eclipse.uml2.uml.Association;
@@ -36,6 +35,7 @@ import arquitetura.representation.Interface;
 import arquitetura.representation.Variability;
 import arquitetura.representation.Variant;
 import arquitetura.representation.VariationPoint;
+import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.Relationship;
 
 /**
@@ -158,7 +158,7 @@ public class ArchitectureBuilder {
 	}
 
 	private List<? extends Relationship> loadAssociationClassAssociation() {
-		List<Relationship> associationClasses = new ArrayList<Relationship>();
+		List<AssociationClassRelationship> associationClasses = new ArrayList<AssociationClassRelationship>();
 		List<AssociationClass> associationsClass = modelHelper.getAllAssociationsClass(model);
 		
 		for (AssociationClass associationClass : associationsClass) {

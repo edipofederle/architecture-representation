@@ -529,16 +529,6 @@ public class ArchitectureTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldCreateAssociation(){
-		Class klass1 = architecture.createClass("Bar");
-		Class klass2 = architecture.createClass("Foo");
-		
-		architecture.createAssociation(klass1, klass2);
-		
-		assertEquals(2, architecture.getAllAssociations().size());
-	}
-	
-	@Test
 	public void shouldRemoveClass(){
 		assertEquals(3, architecture.getAllClasses().size());
 		Class klass = architecture.getAllClasses().get(0);
