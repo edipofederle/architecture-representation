@@ -27,6 +27,7 @@ import arquitetura.representation.ParameterMethod;
 import arquitetura.representation.Variability;
 import arquitetura.representation.Variant;
 import arquitetura.representation.VariationPoint;
+import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationEnd;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
@@ -215,6 +216,13 @@ public class Main extends ArchitectureBase {
 			
 			for(UsageRelationship u : a.getAllUsage()){
 				op.forUsage().createRelation("").between(u.getClient().getId()).and(u.getSupplier().getId()).build();
+			}
+			
+			for(AssociationClassRelationship asr : a.getAllAssociationsClass()){
+				op.forAssociationClass()
+				  .createAssociationClass(asr).build();
+				
+				op.forPackage().withId(asr.getPackageOwner()).add(asr.getId());
 			}
 			
 			//Variabilidades - Notes

@@ -73,7 +73,7 @@ public class ClassOperations extends XmiHelper {
 		for (final Attribute attribute : attributes) {
 			arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 				public void useTransformation() {
-					elementXmiGenerator.generateAttribute(attribute, null);
+					elementXmiGenerator.generateAttribute(attribute, idClass);
 					idsProperties += attribute.getId() + " ";
 				
 				}

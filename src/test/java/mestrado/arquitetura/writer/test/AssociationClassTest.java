@@ -1,6 +1,7 @@
 package mestrado.arquitetura.writer.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -23,8 +24,14 @@ public class AssociationClassTest extends TestHelper {
 		List<AssociationClassRelationship> associationClasses = a.getAllAssociationsClass();
 		
 		assertEquals(1, associationClasses.size());
-		
 		assertEquals(2, associationClasses.get(0).getMemebersEnd().size());
+	}
+	
+	@Test
+	public void associationClassShouldBelongsToPackage() throws Exception{
+		Architecture a = givenAArchitecture("associationClass/associationClassComPacote");
+		assertNotNull(a.getAllAssociationsClass().get(0).getPackageOwner());
+		
 	}
 	
 	@Test
@@ -43,6 +50,8 @@ public class AssociationClassTest extends TestHelper {
 		}
 
 		Architecture genereted = givenAArchitecture2("associationClassGerado");
+		assertNotNull(genereted);
+		assertEquals(1,genereted.getAllAssociationsClass().get(0).getAttributes().size());
 	}
 	
 	@Test
@@ -76,7 +85,6 @@ public class AssociationClassTest extends TestHelper {
 		generateClasses(a, op);
 		
 		List<Package> packages = a.getAllPackages();
-		String id = packages.get(0).getId();
 		
 		for (Package pack : packages) {
 			//Todas as classes do pacote
@@ -88,14 +96,42 @@ public class AssociationClassTest extends TestHelper {
 			op.forAssociationClass()
 			  .createAssociationClass(asr).build();
 			
-			op.forPackage().withClass(asr.getId());
+			op.forPackage().withId(asr.getPackageOwner()).add(asr.getId());
 		}
 		
 
 		Architecture genereted = givenAArchitecture2("associationClassComPacoteGerado");
-		
+		assertNotNull(genereted);
 	}
 	
-
+	@Test
+	public void comAttrEMethod() throws Exception{
+		DocumentManager doc = givenADocument("associationClassWithAttrAndMethodGerado");
+		
+		Architecture a = givenAArchitecture("associationClass/associationClassWithAttrAndMethod");
+		Operations op = new Operations(doc, a);
+		
+		generateClasses(a, op);
+		
+		List<Package> packages = a.getAllPackages();
+		
+		for (Package pack : packages) {
+			//Todas as classes do pacote
+			List<String> ids = pack.getAllClassIdsForThisPackage();
+			op.forPackage().createPacakge(pack).withClass(ids).build();
+		}
+		
+		for(AssociationClassRelationship asr : a.getAllAssociationsClass()){
+			op.forAssociationClass()
+			  .createAssociationClass(asr).build();
+			
+			op.forPackage().withId(asr.getPackageOwner()).add(asr.getId());
+		}
+		
+		Architecture ar = givenAArchitecture2("associationClassWithAttrAndMethodGerado");
+		assertEquals(1 ,ar.getAllAssociationsClass().size());
+		assertEquals(1, ar.getAllAssociationsClass().get(0).getAttributes().size());
+		assertEquals(1, ar.getAllAssociationsClass().get(0).getMethods().size());
+	}
 
 }
