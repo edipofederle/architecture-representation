@@ -1,5 +1,0 @@
-script: .buildDeps.sh
-
-language: java
-jdk:
-  - oraclejdk7
