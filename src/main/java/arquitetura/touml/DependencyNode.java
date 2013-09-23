@@ -98,6 +98,8 @@ public class DependencyNode extends XmiHelper {
 			elementDependency.setAttribute("xmi:type", "uml:Dependency");
 		else if("usage".equalsIgnoreCase(dependency))
 			elementDependency.setAttribute("xmi:type", "uml:Usage");
+		else if("realization".equalsIgnoreCase(dependency))
+			elementDependency.setAttribute("xmi:type", "uml:Realization");
 		elementDependency.setAttribute("xmi:id", idDependency);
 		elementDependency.setAttribute("name", this.name);
 		elementDependency.setAttribute("client", this.clientElement);

@@ -244,8 +244,9 @@ public class Main extends ArchitectureBase {
 				String idNote = op.forNote().createNote().build();
 				VariabilityStereotype var = new VariabilityStereotype(variability);
 				
-				op.forNote().addVariability(idNote, var).build();
-				op.forClass().withId(idOwner).linkToNote(idNote);
+					op.forNote().addVariability(idNote, var).build();
+					op.forClass().withId(idOwner).linkToNote(idNote);
+					
 				
 			}
 			

@@ -95,9 +95,13 @@ public class XmiHelper {
 				elementId = element.getChildNodes().item(i).getAttributes().getNamedItem("xmi:id").getNodeValue();
 			}catch(Exception e){}
 			if("packagedElement".equalsIgnoreCase(elementName)){
-				String elementValue = element.getChildNodes().item(i).getAttributes().getNamedItem("xmi:type").getNodeValue();
-				if("uml:Class".equalsIgnoreCase(elementValue) && (id.equalsIgnoreCase(elementId)))
-					return "class";
+				try{
+					String elementValue = element.getChildNodes().item(i).getAttributes().getNamedItem("xmi:type").getNodeValue();
+					if("uml:Class".equalsIgnoreCase(elementValue) && (id.equalsIgnoreCase(elementId)))
+						return "class";
+				}catch (NullPointerException e){
+					
+				}
 			}else{
 				if("ownedComment".equalsIgnoreCase(elementName) && (id.equalsIgnoreCase(elementId))) return "comment";
 			}
