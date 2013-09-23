@@ -74,3 +74,4 @@ export/*
 log.log
 log.log.1
 *.ucls
+*.png
