@@ -21,7 +21,6 @@ import arquitetura.representation.Variability;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
-import arquitetura.representation.relationship.Relationship;
 
 /**
  * 

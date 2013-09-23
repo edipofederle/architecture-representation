@@ -27,7 +27,6 @@ public class PackageOperations extends XmiHelper {
 	private ClassNotation notation;
 	private String id;
 	private String packageRecieve;
-	private String idElementTomove;
 	
 	public PackageOperations(DocumentManager documentManager) {
 		this.documentManager = documentManager;
@@ -42,7 +41,6 @@ public class PackageOperations extends XmiHelper {
 		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 
 			public void useTransformation() {
-				
 				pkg = documentManager.getDocUml().createElement("packagedElement");
 				pkg.setAttribute("xmi:type", "uml:Package");
 				pkg.setAttribute("xmi:id", pack.getId());
@@ -56,7 +54,6 @@ public class PackageOperations extends XmiHelper {
 		
 		return this;
 	}
-
 	
 	private void setIdPackage(String randonUUID) {
 		this.id = randonUUID;
@@ -70,9 +67,8 @@ public class PackageOperations extends XmiHelper {
 	
 
 	public PackageOperations withClass(final List<String> ids) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
-		for (final String _id : ids) {
+		for (final String _id : ids)
 			move(_id, null);
-		}
 		return this;
 	}
 
@@ -90,9 +86,9 @@ public class PackageOperations extends XmiHelper {
 	
 	
 	private void move(final String _id, final String idPackage) {
-		if(idPackage != null){
+		if(idPackage != null)
 			id = idPackage;
-		}
+		
 		if(id != null){
 			arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 				

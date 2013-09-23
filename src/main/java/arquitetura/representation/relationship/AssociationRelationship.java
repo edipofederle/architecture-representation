@@ -3,9 +3,6 @@ package arquitetura.representation.relationship;
 import java.util.ArrayList;
 import java.util.List;
 
-import arquitetura.helpers.UtilResources;
-import arquitetura.representation.Class;
-
 
 /**
  * 
