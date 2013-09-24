@@ -39,6 +39,16 @@ public class ArchitectureBuilderTest extends TestHelper {
 		architecture = new ArchitectureBuilder().create(uriToArchitecture);
 		package1 = getPackageByName("Package1");
 	}
+	
+	/**
+	 * Baseado no arquivo de profile informado no arquivo de configuração.
+	 * 
+	 */
+	@Test
+	public void shouldHaveAListOfAllowedConcerns() throws Exception{
+		Architecture a = givenAArchitecture("concerns/completeClass");
+		assertNotNull(a.allowedConcerns());
+	}
 
 	@Test
 	public void shouldHaveTwoConcerns() {
@@ -149,15 +159,15 @@ public class ArchitectureBuilderTest extends TestHelper {
 	public void shouldContainsAClassWithConcern() {
 		List<Concern> concerns = package1.getClasses().get(0).getOwnConcerns();
 		assertFalse(concerns.isEmpty());
-		assertEquals("sorting", concerns.get(1).getName());
+		assertEquals("pong", concerns.get(1).getName());
 	}
 
 	@Test
 	public void shouldContainTwoConcerns() {
 		List<Concern> concerns = package1.getClasses().get(0).getOwnConcerns();
 		assertEquals(2, concerns.size());
-		assertEquals("sorting", concerns.get(1).getName());
-		assertEquals("Persistence", concerns.get(0).getName());
+		assertEquals("pong", concerns.get(1).getName());
+		assertEquals("play", concerns.get(0).getName());
 	}
 
 	@Test

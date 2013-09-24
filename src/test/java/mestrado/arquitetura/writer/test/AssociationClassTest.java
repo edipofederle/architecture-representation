@@ -51,7 +51,7 @@ public class AssociationClassTest extends TestHelper {
 
 		Architecture genereted = givenAArchitecture2("associationClassGerado");
 		assertNotNull(genereted);
-		assertEquals(1,genereted.getAllAssociationsClass().get(0).getAttributes().size());
+		assertEquals(3,genereted.getAllAssociationsClass().get(0).getAttributes().size());
 	}
 	
 	@Test
@@ -110,8 +110,10 @@ public class AssociationClassTest extends TestHelper {
 		
 		Architecture a = givenAArchitecture("associationClass/associationClassWithAttrAndMethod");
 		Operations op = new Operations(doc, a);
+
 		
 		generateClasses(a, op);
+		
 		
 		List<Package> packages = a.getAllPackages();
 		
@@ -130,7 +132,7 @@ public class AssociationClassTest extends TestHelper {
 		
 		Architecture ar = givenAArchitecture2("associationClassWithAttrAndMethodGerado");
 		assertEquals(1 ,ar.getAllAssociationsClass().size());
-		assertEquals(1, ar.getAllAssociationsClass().get(0).getAttributes().size());
+		assertEquals(3, ar.getAllAssociationsClass().get(0).getAttributes().size());
 		assertEquals(1, ar.getAllAssociationsClass().get(0).getMethods().size());
 	}
 

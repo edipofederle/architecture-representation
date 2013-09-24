@@ -1,6 +1,7 @@
 package arquitetura.builders;
 
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Generalization;
 
 import arquitetura.base.ArchitectureHelper;
@@ -25,6 +26,13 @@ public class GeneralizationRelationshipBuilder extends ArchitectureHelper {
 	public Relationship create(Generalization generalization) {
 		String generalKlassId = getModelHelper().getXmiId(generalization.getGeneral());
 		String specificKlassId = getModelHelper().getXmiId(generalization.getSpecific());
+		
+		EList<org.eclipse.uml2.uml.Element> relatedElements = generalization.getRelatedElements();
+		
+		for (org.eclipse.uml2.uml.Element element : relatedElements) {
+			arquitetura.representation.Element e = architecture.getElementByXMIID(getModelHelper().getXmiId(element));
+			e.getIdsRelationships().add((getModelHelper().getXmiId(generalization)));
+		}
 		
 		Element general = architecture.getElementByXMIID(generalKlassId);
 		Element specific = architecture.getElementByXMIID(specificKlassId);

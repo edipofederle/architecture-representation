@@ -261,7 +261,7 @@ public class Uml2Helper extends Base {
 		return enumerationLiteral;
 	}
 
-	public org.eclipse.uml2.uml.Package load(String pathAbsolute)throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
+	public org.eclipse.uml2.uml.Package load(String pathAbsolute) throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion {
 
 		File file = new File(pathAbsolute);
 		FilenameFilter filter = new OnlyCompleteResources();
@@ -379,12 +379,19 @@ public class Uml2Helper extends Base {
 	/**
 	 * Retorno o Profile SMarty. O Path para esse arquivo deve ser configurado dentro do arquivo <b>application.yml</b>
 	 * 
-	 * @return
-	 * @throws ModelNotFoundException
-	 * @throws ModelIncompleteException
+	 * @return Profile
 	 */
 	public Profile loadSMartyProfile() {
 		return (Profile) getExternalResources(ReaderConfig.getPathToProfileSMarty());
+	}
+	
+	/**
+	 * Retorno o Profile Concern. O Path para esse arquivo deve ser configurado dentro do arquivo <b>application.yml</b>
+	 * 
+	 * @return Profile
+	 */
+	public Profile loadConcernProfile() {
+		return (Profile) getExternalResources(ReaderConfig.getPathToProfileConcerns());
 	}
 
 	public Profile getSMartyProfile() {

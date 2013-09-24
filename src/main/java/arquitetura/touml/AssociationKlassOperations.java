@@ -3,7 +3,10 @@ package arquitetura.touml;
 import java.util.ArrayList;
 import java.util.List;
 
+import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
+import arquitetura.representation.Class;
+import arquitetura.representation.Concern;
 import arquitetura.representation.ParameterMethod;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 
@@ -17,24 +20,28 @@ public class AssociationKlassOperations {
 	private ElementXmiGenerator elementXmiGenerator;
 	private List<arquitetura.touml.Attribute> attrs;
 	private List<arquitetura.touml.Method> methods;
+	private Architecture architecture;
+	private Class associationClass;
 	
-	public AssociationKlassOperations(DocumentManager doc) {
+	public AssociationKlassOperations(DocumentManager doc, Architecture a) {
 		this.documentManager = doc;
+		this.architecture = a;
 	}
 
 	public AssociationKlassOperations createAssociationClass(AssociationClassRelationship asr) {
 		this.id = asr.getId();
 		this.ownedEnd = asr.getMemebersEnd().get(0).getId();
 		this.associationEnd2 = asr.getMemebersEnd().get(1).getId();
-		this.elementXmiGenerator = new ElementXmiGenerator(documentManager, null);
+		this.elementXmiGenerator = new ElementXmiGenerator(documentManager, this.architecture);
 		this.attrs = buildAttributes(asr);
 		this.methods = createMethods(asr);
+		this.associationClass = asr.getAssociationClass();
 		return this;
 	}
 
 	private List<arquitetura.touml.Attribute> buildAttributes(AssociationClassRelationship asr) {
 		List<arquitetura.touml.Attribute> attrs = new ArrayList<arquitetura.touml.Attribute>();
-		for(Attribute attribute : asr.getAttributes()){
+		for(Attribute attribute : asr.getAssociationClass().getAllAttributes()){
 			arquitetura.touml.Attribute attr = arquitetura.touml.Attribute.create()
 					 .withName(attribute.getName())
 					 .grafics(attribute.isGeneratVisualAttribute())
@@ -110,6 +117,32 @@ public class AssociationKlassOperations {
 					elementXmiGenerator.generateMethod(method, id);
 				}
 			});
+		}
+		
+		//Adiciona Interesses nos atributos
+		for (arquitetura.touml.Attribute attribute : attrs) {
+			for (Concern c : attribute.getConcerns()) {
+				elementXmiGenerator.generateConcern(c, attribute.getId());
+			}
+		}
+		
+		//Adiciona Interesses nos métodos
+		for (arquitetura.touml.Method method : methods) {
+			for (Concern c : method.getConcerns()) {
+				elementXmiGenerator.generateConcern(c, method.getId());
+			}
+		}
+		
+		//Adiciona Interesses nos métodos
+		for (arquitetura.touml.Method method : methods) {
+			for (Concern c : method.getConcerns()) {
+				elementXmiGenerator.generateConcern(c, method.getId());
+			}
+		}
+		
+		//Adiciona Interesses na associationClass
+		for (Concern c : associationClass.getOwnConcerns()) {
+			elementXmiGenerator.generateConcern(c, associationClass.getId());
 		}
 		
 	}

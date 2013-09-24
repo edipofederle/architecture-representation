@@ -311,4 +311,8 @@ public class ModelHelper extends ElementHelper {
 		return null;
 	}
 
+	public Package loadConcernProfile() {
+		return uml2Helper.loadConcernProfile();
+	}
+
 }

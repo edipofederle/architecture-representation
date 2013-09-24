@@ -1,6 +1,7 @@
 package arquitetura.builders;
 
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Realization;
 
 import arquitetura.base.ArchitectureHelper;
@@ -25,6 +26,13 @@ public class RealizationRelationshipBuilder extends ArchitectureHelper {
 		
 		String idClient = getModelHelper().getXmiId(realization.getClients().get(0));
 		String idSupplier = getModelHelper().getXmiId(realization.getSuppliers().get(0));
+		
+		EList<org.eclipse.uml2.uml.Element> relatedElements = realization.getRelatedElements();
+		
+		for (org.eclipse.uml2.uml.Element element : relatedElements) {
+			arquitetura.representation.Element e = architecture.getElementByXMIID(getModelHelper().getXmiId(element));
+			e.getIdsRelationships().add((getModelHelper().getXmiId(realization)));
+		}
 		
 		
 		Element clientElement = architecture.getElementByXMIID(idClient);

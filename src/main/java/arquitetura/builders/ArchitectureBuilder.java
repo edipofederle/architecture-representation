@@ -14,6 +14,7 @@ import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Realization;
+import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Usage;
 
 import arquitetura.exceptions.ModelIncompleteException;
@@ -27,9 +28,9 @@ import arquitetura.helpers.ModelElementHelper;
 import arquitetura.helpers.ModelHelper;
 import arquitetura.helpers.ModelHelperFactory;
 import arquitetura.helpers.StereotypeHelper;
-import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
+import arquitetura.representation.Concern;
 import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Variability;
@@ -96,15 +97,23 @@ public class ArchitectureBuilder {
 		model = modelHelper.getModel(xmiFilePath);
 		Architecture architecture = new Architecture(modelHelper.getName(xmiFilePath));
 		architecture.setModel(model);
-		XmiHelper.setNotationOriginalFile(xmiFilePath); // Para posicionamento, tamanhos, etc....
+		//XmiHelper.setNotationOriginalFile(xmiFilePath); // Para posicionamento, tamanhos, etc.... NAO USADO AINDA....
 		
 		initialize(architecture);
+		
+		Package concerns = modelHelper.loadConcernProfile();
+		EList<Stereotype> concernsAllowed = concerns.getOwnedStereotypes();
+		
+		for (Stereotype stereotype : concernsAllowed)
+			architecture.allowedConcerns().add(new Concern(stereotype.getName()));
 		
 		architecture.getElements().addAll(loadPackages()); // Classes que possuem pacotes são carregadas juntamente com seus pacotes
 		architecture.getElements().addAll(loadClasses()); // Classes que nao possuem pacotes
 		architecture.getElements().addAll(loadInterfaces());
 		architecture.getAllVariabilities().addAll(loadVariability());
 		architecture.getInterClassRelationships().addAll(loadInterClassRelationships());
+		
+		architecture.getAllAssociationsClass().addAll(loadAssociationClassAssociation());
 		
 		return architecture;
 	}
@@ -131,7 +140,6 @@ public class ArchitectureBuilder {
 		List<Relationship> relationships = new ArrayList<Relationship>();
 		relationships.addAll(loadGeneralizations());
 		relationships.addAll(loadAssociations());
-		relationships.addAll(loadAssociationClassAssociation());
 		relationships.addAll(loadInterClassDependencies()); //Todo renomear carrega todo tipo de depdenencias( pacote -> classe, class -> pacote)
 		relationships.addAll(loadRealizations());
 		relationships.addAll(loadUsageInterClass());
@@ -157,7 +165,7 @@ public class ArchitectureBuilder {
 		return usageClass;
 	}
 
-	private List<? extends Relationship> loadAssociationClassAssociation() {
+	private List<AssociationClassRelationship> loadAssociationClassAssociation() {
 		List<AssociationClassRelationship> associationClasses = new ArrayList<AssociationClassRelationship>();
 		List<AssociationClass> associationsClass = modelHelper.getAllAssociationsClass(model);
 		

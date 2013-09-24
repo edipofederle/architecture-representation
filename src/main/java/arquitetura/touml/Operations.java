@@ -37,11 +37,11 @@ public class Operations {
 		 createNoteOperations(a);
 		 createConcernOperation();
 		 createRealaizationsOperations();
-		 createAssociationKlassOperations();
+		 createAssociationKlassOperations(a);
 	 }
 
-	private void createAssociationKlassOperations() {
-		this.associationKlassOperations = new AssociationKlassOperations(doc);
+	private void createAssociationKlassOperations(Architecture a) {
+		this.associationKlassOperations = new AssociationKlassOperations(doc,a);
 	}
 
 	private void createRealaizationsOperations() {

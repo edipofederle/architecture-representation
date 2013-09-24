@@ -85,9 +85,17 @@ public class Class extends Element {
 	}
 
 
-	public void removeAttribute(Attribute att) {
-		removeIdOfElementFromList(att	.getId());
-		getAllAttributes().remove(att);
+	/**
+	 * 
+	 * @param attribute
+	 * @return
+	 */
+	public boolean removeAttribute(Attribute attribute) {
+		if (!getAllAttributes().contains(attribute)) return false;
+		
+		removeIdOfElementFromList(attribute	.getId());
+		getAllAttributes().remove(attribute);
+		return true;
 	}
 
 	public Attribute findAttributeByName(String name) throws AttributeNotFoundException {
@@ -100,11 +108,13 @@ public class Class extends Element {
 		throw new AttributeNotFoundException(message);
 	}
 
-	public void moveAttributeToClass(Attribute att, Class destinationKlass) {
-		if (!getAllAttributes().contains(att)) return;
-		removeAttribute(att);
-		destinationKlass.getAllAttributes().add(att);
-		att.setNamespace(getArchitecture().getName() + "::" + destinationKlass.getName());
+	
+	public boolean moveAttributeToClass(Attribute attribute, Class destinationKlass) {
+		if (!getAllAttributes().contains(attribute)) return false;
+		removeAttribute(attribute);
+		destinationKlass.getAllAttributes().add(attribute);
+		attribute.setNamespace(getArchitecture().getName() + "::" + destinationKlass.getName());
+		return true;
 	}
 	
 
@@ -144,17 +154,37 @@ public class Class extends Element {
 		throw new MethodNotFoundException(message);
 	}
 
-	public void moveMethodToClass(Method m, arquitetura.representation.Class destinationKlass) {
-		if (!getAllMethods().contains(m)) return;
+	/**
+	 * Move um método de uma classe para outra.
+	 * 
+	 * @param method - Método a ser movido
+	 * @param destinationKlass - Classe que irá receber o método
+	 * 
+	 * @return -false se o método a ser movido não existir na classe.<br/> -true se o método for movido com sucesso.
+	 */
+	public boolean moveMethodToClass(Method method, arquitetura.representation.Class destinationKlass) {
+		if (!getAllMethods().contains(method)) return false;
 		
-		removeMethod(m);
-		m.setNamespace(getArchitecture().getName() + "::" + destinationKlass.getName());
-		destinationKlass.getAllMethods().add(m);
+		removeMethod(method);
+		method.setNamespace(getArchitecture().getName() + "::" + destinationKlass.getName());
+		destinationKlass.getAllMethods().add(method);
+		return true;
 	}
 
-	public void removeMethod(Method foo) {
-		removeIdOfElementFromList(foo.getId());
-		getAllMethods().remove(foo);
+	/**
+	 * Remove Método da classe
+	 * 
+	 * @param method - Método a ser removido.
+	 * 
+	 * @return -true se o método for removido.<br/>-false se método não existir na classe.
+	 * 
+	 */
+	public boolean removeMethod(Method method) {
+		if (!getAllMethods().contains(method)) return false;
+		
+		removeIdOfElementFromList(method.getId());
+		getAllMethods().remove(method);
+		return true;
 	}
 
 	private void removeIdOfElementFromList(String id) {

@@ -43,6 +43,18 @@ public class Architecture {
 	private Set<String> allIds = new HashSet<String>();
 	private String name;
 	private org.eclipse.uml2.uml.Package model;
+	
+	/**
+	 * Esta lista é carregada a partir do arquivo de concerns indica no arquivo de configuração.<br/>
+	 * 
+	 * Ela serve para sabermos quais concern são passiveis de manipulação.<Br />
+	 * 
+	 * Ex: Ao adicionar um  concern em uma classe, o mesmo deve estar presente nesta lista.
+	 * 
+	 */
+	private List<Concern> allowedConcerns = new ArrayList<Concern>();
+	private List<AssociationClassRelationship> allAssociationClass = new ArrayList<AssociationClassRelationship>();
+	 
 
 	public Architecture(String name) {
 		setName(name);
@@ -60,15 +72,24 @@ public class Architecture {
 		return elements;
 	}
 
-	public Concern getOrCreateConcernByName(String name) {
-		Concern concern = concerns.get(name.toLowerCase());
-		if (concern == null) {
-			concern = new Concern(name);
+	/**
+	 * Procura concern por nome.
+	 * 
+	 * Se o concern não estiver no arquivo de profile é lançada uma Exception.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public Concern getOrCreateConcern(String name) {
+		Concern concern = allowedConcernContains(name.toLowerCase());
+		if(concerns.containsValue(concern)) return concern;
+		if(concern != null){
 			concerns.put(name.toLowerCase(), concern);
+			return concern;
 		}
-
-		return concern;
+		return null; // MAL
 	}
+
 
 	public HashMap<String, Concern> getAllConcerns() {
 		return concerns;
@@ -266,14 +287,14 @@ public class Architecture {
 	
 
 	public List<AssociationClassRelationship> getAllAssociationsClass() {
-		Predicate<Relationship> associationClass = new Predicate<Relationship>() {
-			public boolean apply(Relationship parent) {
-				return AssociationClassRelationship.class.isInstance(parent);
-			}
-		};
-
-		List<AssociationClassRelationship> allAssociationClass = UtilResources.filter(relationships, associationClass);
-		if (allAssociationClass.isEmpty())  return Collections.emptyList();
+//		Predicate<Relationship> associationClass = new Predicate<Relationship>() {
+//			public boolean apply(Relationship parent) {
+//				return AssociationClassRelationship.class.isInstance(parent);
+//			}
+//		};
+//
+//		List<AssociationClassRelationship> allAssociationClass = UtilResources.filter(relationships, associationClass);
+//		if (allAssociationClass.isEmpty())  return Collections.emptyList();
 		return allAssociationClass;
 	}
 
@@ -334,7 +355,7 @@ public class Architecture {
 	}
 
 	public void removeAssociationClass(AssociationClassRelationship associationClass){
-		if (!removeRelationship(associationClass))
+		if (!allAssociationClass.remove(associationClass))
 			LOGGER.info("Cannot remove AssociationClass " + associationClass + ".\n");
 	}
 
@@ -504,5 +525,20 @@ public class Architecture {
 		throw new ClassNotFound("Class " + idClass + " can not found.\n");
 	}
 
+	public List<Concern> allowedConcerns() {
+		return allowedConcerns;
+	}
+	
+	private Concern allowedConcernContains(String concernName) {
+		for (Concern concern : allowedConcerns){
+			if(concern.getName().equalsIgnoreCase(concernName))
+				return concern;
+		}
+		return null;
+	}
+
+	public Concern getConcernByName(String concernName) {
+		return concerns.get(concernName);
+	}		
 
 }

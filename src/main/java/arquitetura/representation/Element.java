@@ -109,9 +109,24 @@ public abstract class Element {
 			addConcern(name);
 	}
 	
-	public void addConcern(String concernName) {
-		Concern concern = architecture.getOrCreateConcernByName(concernName);
+	/**
+	 * Adiciona um interesse a classe.<br/>
+	 * 
+	 * Somente irá incluir o interesse se o mesmo estive presente no arquivo de perfil que contêm os interesses</br>
+	 * 
+	 * 
+	 * @param concernName
+	 * @return - true se incluir o interesse<br/>- false se não incluir o interesse
+	 */
+	public boolean addConcern(String concernName) {
+		Concern concern = architecture.getOrCreateConcern(concernName);
+		if(concern == null) return false;
 		concerns.add(concern);
+		return true;
+	}
+	
+	public void removeConcern(String concernName){
+		concerns.remove(architecture.getConcernByName(concernName));
 	}
 
 	/**

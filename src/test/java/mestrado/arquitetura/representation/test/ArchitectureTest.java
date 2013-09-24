@@ -86,22 +86,6 @@ public class ArchitectureTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldCreateConcernWhenNotExists(){
-		assertEquals("core", arch.getOrCreateConcernByName("core").getName());
-		assertEquals(1,arch.getAllConcerns().size());
-	}
-	
-	@Test
-	public void shouldNotCreateConcernWhenExists(){
-		assertEquals(0, arch.getAllConcerns().size());
-		assertEquals("core", arch.getOrCreateConcernByName("core").getName());
-		assertEquals(1, arch.getAllConcerns().size());
-		
-		Concern concern = arch.getOrCreateConcernByName("core");
-		assertSame(arch.getAllConcerns().get("core"), concern);
-	}
-	
-	@Test
 	public void shouldReturnAllPackages(){
 		Package pkg = new Package(arch, "Pacote", null, "","id");
 		arch.getElements().add(pkg);
@@ -385,24 +369,6 @@ public class ArchitectureTest extends TestHelper {
 		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
 		a.removeAbstractionRelationship(null);
 		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
-	}
-	
-	
-	@Test 
-	public void shouldAddConcerns(){
-		List<Package> packages = architecture.getAllPackages();
-		assertEquals("Number of concerns should be 0", 0, architecture.getAllConcerns().size());
-		
-		packages.get(0).addConcern("concern1");
-		assertNotNull(architecture.getOrCreateConcernByName("concern1"));
-		assertEquals("Number of concerns should be 1", 1, architecture.getAllConcerns().size());
-		
-		architecture.getAllClasses().get(0).addConcern("teste1");
-		architecture.getAllClasses().get(1).addConcern("teste2");
-		
-		assertEquals("Number of concerns should be 3", 3 , architecture.getAllConcerns().size());
-		assertNotNull(architecture.getOrCreateConcernByName("teste1"));
-		assertNotNull(architecture.getOrCreateConcernByName("teste2"));
 	}
 	
 	@Test
