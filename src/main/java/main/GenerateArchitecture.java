@@ -174,7 +174,7 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			}
 			
 			//Relacionamentos
-			for (AssociationRelationship r : a.getAllAssociations()) {
+			for (AssociationRelationship r : a.getAllAssociationsRelationships()) {
 				generateComposition(op, r);
 				generateSimpleAssociation(op, r);
 				generateAggregation(op, r);

@@ -15,8 +15,6 @@ import org.mockito.Mockito;
 import arquitetura.builders.ClassBuilder;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Method;
-import arquitetura.representation.relationship.AssociationClassRelationship;
-import arquitetura.representation.relationship.GeneralizationRelationship;
 
 public class ClassTest extends TestHelper {
 	

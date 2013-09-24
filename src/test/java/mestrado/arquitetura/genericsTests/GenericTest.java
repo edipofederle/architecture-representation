@@ -87,7 +87,7 @@ public class GenericTest extends TestHelper {
 		
 		assertEquals(3, a.getAllRelationships().size());
 		assertEquals(1, a.getAllGeneralizations().size());
-		assertEquals(1, a.getAllAssociations().size());
+		assertEquals(1, a.getAllAssociationsRelationships().size());
 		assertEquals(1, a.getAllUsage().size());
 		assertEquals(2, a.getAllPackages().size());
 		assertEquals(4, a.getAllClasses().size());
@@ -102,7 +102,7 @@ public class GenericTest extends TestHelper {
 		assertEquals("Class2", usage.getClient().getName());
 		assertEquals("Class3", usage.getSupplier().getName());
 		
-		AssociationRelationship association = a.getAllAssociations().get(0);
+		AssociationRelationship association = a.getAllAssociationsRelationships().get(0);
 		assertEquals(2, association.getParticipants().size());
 		
 		AssociationEnd p1 = association.getParticipants().get(0);

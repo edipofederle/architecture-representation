@@ -193,8 +193,29 @@ public class Architecture {
 		if (generalizations.isEmpty())  return Collections.emptyList();
 		return generalizations;
 	}
+	
+	public List<AssociationRelationship> getAllAssociationsRelationships() {
+		List<AssociationRelationship> associations = getAllAssociations();
+		List<AssociationRelationship> association = new ArrayList<AssociationRelationship>();
+		for (AssociationRelationship associationRelationship : associations) {
+			if((notComposition(associationRelationship)) && (notAgregation(associationRelationship))){
+				association.add(associationRelationship);
+			}
+		}
+		if (association.isEmpty())  return Collections.emptyList();
+		return association; 
 
-	public List<AssociationRelationship> getAllAssociations() {
+	}
+
+	private boolean notAgregation(AssociationRelationship associationRelationship) {
+		return ((!associationRelationship.getParticipants().get(0).isAggregation()) && (!associationRelationship.getParticipants().get(1).isAggregation()));
+	}
+
+	private boolean notComposition(AssociationRelationship associationRelationship) {
+		return ((!associationRelationship.getParticipants().get(0).isComposite()) && (!associationRelationship.getParticipants().get(1).isComposite()));
+	}
+
+	private List<AssociationRelationship> getAllAssociations() {
 		Predicate<Relationship> isValid = new Predicate<Relationship>() {
 			public boolean apply(Relationship parent) {
 				return AssociationRelationship.class.isInstance(parent);
@@ -213,7 +234,7 @@ public class Architecture {
 		List<AssociationRelationship> associations = getAllAssociations();
 		List<AssociationRelationship> compositions = new ArrayList<AssociationRelationship>();
 		for (AssociationRelationship associationRelationship : associations) {
-			if((associationRelationship.getParticipants().get(0).isComposite()) || (associationRelationship.getParticipants().get(0).isComposite())){
+			if((associationRelationship.getParticipants().get(0).isComposite()) || (associationRelationship.getParticipants().get(1).isComposite())){
 				compositions.add(associationRelationship);
 			}
 		}

@@ -31,7 +31,7 @@ public class AggregationTest extends TestHelper {
 		
 		Architecture genereted = givenAArchitecture2("agregacaoGerada");
 		
-		List<AssociationRelationship> asoci = genereted.getAllAssociations();
+		List<AssociationRelationship> asoci = genereted.getAllAgragations();
 		
 		assertEquals("class1_class2_1", asoci.get(0).getName());
 		AssociationEnd associationEnd1 = asoci.get(0).getParticipants().get(1);

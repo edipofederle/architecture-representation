@@ -267,10 +267,10 @@ public class ArchitectureBuilderTest extends TestHelper {
 		String uriToArchitecture8 = getUrlToModel("associationClassAndAssociations");
 		Architecture architecture8 = new ArchitectureBuilder().create(uriToArchitecture8);
 
-		assertEquals(1, architecture8.getAllAssociations().size());
+		assertEquals(1, architecture8.getAllAssociationsRelationships().size());
 		assertEquals(1, architecture8.getAllAssociationsClass().size());
 
-		AssociationRelationship association =  architecture8.getAllAssociations().get(0);
+		AssociationRelationship association =  architecture8.getAllAssociationsRelationships().get(0);
 
 		assertNotNull(association);
 		assertEquals(2, association.getParticipants().size());

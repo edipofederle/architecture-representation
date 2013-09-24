@@ -20,7 +20,6 @@ import arquitetura.exceptions.PackageNotFound;
 import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
-import arquitetura.representation.Concern;
 import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Package;
@@ -167,7 +166,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllAssociations(){
-		assertEquals(1, architecture.getAllAssociations().size());
+		assertEquals(1, architecture.getAllAssociationsRelationships().size());
 	}
 	
 	@Test
@@ -272,19 +271,19 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldRemoveAssociationRelationship() throws Exception{
 		Architecture a = givenAArchitecture("association");
-		AssociationRelationship as = a.getAllAssociations().get(0);
-		assertEquals("Architecture should contain 4 associations", 4, a.getAllAssociations().size());
+		AssociationRelationship as = a.getAllAssociationsRelationships().get(0);
+		assertEquals("Architecture should contain 2 associations", 2, a.getAllAssociationsRelationships().size());
 		assertEquals(8, a.getAllClasses().size());
 		a.removeAssociationRelationship(as);
-		assertEquals("Architecture should contain 3 associations", 3, a.getAllAssociations().size());
+		assertEquals("Architecture should contain 3 associations", 1, a.getAllAssociationsRelationships().size());
 	}
 	
 	@Test
 	public void shouldNotChangeListWhenTryRemoveAssociationRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("association");
-		assertEquals("Architecture should contain 4 associations", 4,	a.getAllAssociations().size());
+		assertEquals("Architecture should contain 2 associations", 2,	a.getAllAssociationsRelationships().size());
 		a.removeAssociationRelationship(null);
-		assertEquals("Architecture should contain 4 associations", 4,	a.getAllAssociations().size());
+		assertEquals("Architecture should contain 2 associations", 2,	a.getAllAssociationsRelationships().size());
 	}
 	
 	@Test
@@ -426,13 +425,13 @@ public class ArchitectureTest extends TestHelper {
 		Architecture a = givenAArchitecture("removePacoteTeste2");
 		
 		assertEquals(2, a.getAllClasses().size());
-		assertEquals(1, a.getAllAssociations().size());
+		assertEquals(1, a.getAllAssociationsRelationships().size());
 		assertEquals(4, a.getAllIds().size());
 		
 		a.removePackage(a.getAllPackages().get(0));
 		
 		assertEquals(1, a.getAllClasses().size());
-		assertEquals(0, a.getAllAssociations().size());
+		assertEquals(0, a.getAllAssociationsRelationships().size());
 		assertEquals(1, a.getAllIds().size());
 	}
 	
@@ -441,14 +440,14 @@ public class ArchitectureTest extends TestHelper {
 		Architecture a = givenAArchitecture("removePacote3");
 		
 		assertEquals(3,a.getAllClasses().size());
-		assertEquals(2, a.getAllAssociations().size());
+		assertEquals(2, a.getAllAssociationsRelationships().size());
 		
-		assertEquals(2, a.getAllAssociations().get(1).getParticipants().size());
+		assertEquals(2, a.getAllAssociationsRelationships().get(1).getParticipants().size());
 		
 		a.removePackage(a.getAllPackages().get(0));
 		
 		assertEquals(1, a.getAllClasses().size());
-		assertEquals(0, a.getAllAssociations().size());
+		assertEquals(0, a.getAllAssociationsRelationships().size());
 		
 	}
 	

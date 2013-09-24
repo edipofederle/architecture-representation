@@ -89,7 +89,7 @@ public class CompositionTest extends TestHelper {
 
 
 	private void generateComposition(Architecture a, Operations op) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
-		for(AssociationRelationship r : a.getAllAssociations()){
+		for(AssociationRelationship r : a.getAllCompositions()){
 			AssociationEnd p1 = r.getParticipants().get(0);
 			AssociationEnd p2 = r.getParticipants().get(1);
 			if(p1.isComposite()){
