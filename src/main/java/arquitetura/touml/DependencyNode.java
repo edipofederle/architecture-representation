@@ -72,6 +72,8 @@ public class DependencyNode extends XmiHelper {
 			 element.setAttribute("xmi:type", "uml:Usage");
 		 }else if("realization".equalsIgnoreCase(type)){
 			 element.setAttribute("xmi:type", "uml:Realization");
+		 }else if("abstraction".equals(type)){
+			 element.setAttribute("xmi:type", "uml:Abstraction");
 		 }
 		 element.setAttribute("href", documentManager.getNewModelName()+".uml#"+this.id); 
 		 edges.appendChild(element);
@@ -100,6 +102,8 @@ public class DependencyNode extends XmiHelper {
 			elementDependency.setAttribute("xmi:type", "uml:Usage");
 		else if("realization".equalsIgnoreCase(dependency))
 			elementDependency.setAttribute("xmi:type", "uml:Realization");
+		else if("abstraction".equalsIgnoreCase(dependency))
+			elementDependency.setAttribute("xmi:type", "uml:Abstraction");
 		elementDependency.setAttribute("xmi:id", idDependency);
 		elementDependency.setAttribute("name", this.name);
 		elementDependency.setAttribute("client", this.clientElement);

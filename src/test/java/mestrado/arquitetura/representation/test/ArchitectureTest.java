@@ -370,7 +370,7 @@ public class ArchitectureTest extends TestHelper {
 		Architecture a = givenAArchitecture("abstractionInterElement");
 		AbstractionRelationship ab = a.getAllAbstractions().get(0);
 		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
-		a.operationsOverRelationship().removeAbstractionRelationship(ab);
+		a.operationsOverAbstraction().remove(ab);
 		assertEquals("Architecture should contain 0 Abstraction", 0,	a.getAllAbstractions().size());
 	}
 	
@@ -378,7 +378,7 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldNotChangeListWhenTryRemoveAbstractionRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("abstractionInterElement");
 		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
-		a.operationsOverRelationship().removeAbstractionRelationship(null);
+		a.operationsOverAbstraction().remove(null);
 		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
 	}
 	

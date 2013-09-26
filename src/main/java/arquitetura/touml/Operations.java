@@ -23,6 +23,7 @@ public class Operations {
 	 private ConcernOperations concernOperation;
 	 private RealizationsOperations realizationOperations;
 	 private AssociationKlassOperations associationKlassOperations;
+	 private AbstractionOperations abstractionOperations;
 
 	 public Operations(DocumentManager doc2, Architecture a) {
 		 this.doc = doc2;
@@ -38,7 +39,12 @@ public class Operations {
 		 createConcernOperation();
 		 createRealaizationsOperations();
 		 createAssociationKlassOperations(a);
+		 createAbstractionOperations(a);
 	 }
+
+	private void createAbstractionOperations(Architecture a) {
+		this.abstractionOperations = new AbstractionOperations(doc);
+	}
 
 	private void createAssociationKlassOperations(Architecture a) {
 		this.associationKlassOperations = new AssociationKlassOperations(doc,a);
@@ -100,5 +106,6 @@ public class Operations {
 	public NoteOperations forNote() {return noteOperations;}
 	public RealizationsOperations forRealization() {return realizationOperations; }
 	public AssociationKlassOperations forAssociationClass() { return associationKlassOperations; }
+	public AbstractionOperations forAbstraction() { return abstractionOperations; }
 
 }

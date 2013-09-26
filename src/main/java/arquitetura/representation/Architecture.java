@@ -542,4 +542,19 @@ public class Architecture {
 		package1.getAllClassIdsForThisPackage().add(klass1.getId());
 	}
 
+	public OperationsOverGeneralization forGeneralization() {
+		return new OperationsOverGeneralization(this);
+	}
+
+
+	public OperationsOverAbstraction operationsOverAbstraction() {
+		return new OperationsOverAbstraction(this);
+	}
+	
+	protected boolean removeRelationship(Relationship as) {
+		if(as == null) return false;
+		this.allIds.remove(as.getId());
+		return relationships.remove(as);
+	}
+
 }

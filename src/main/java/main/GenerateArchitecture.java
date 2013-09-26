@@ -25,6 +25,7 @@ import arquitetura.representation.ParameterMethod;
 import arquitetura.representation.Variability;
 import arquitetura.representation.Variant;
 import arquitetura.representation.VariationPoint;
+import arquitetura.representation.relationship.AbstractionRelationship;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationEnd;
 import arquitetura.representation.relationship.AssociationRelationship;
@@ -197,6 +198,10 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			
 			for(RealizationRelationship r : a.getAllRealizations()){
 				op.forRealization().createRelation().withName(r.getName()).between(r.getClient().getId()).and(r.getSupplier().getId()).build();
+			}
+			
+			for(AbstractionRelationship r : a.getAllAbstractions()){
+				op.forAbstraction().createRelation().withName(r.getName()).between(r.getClient().getId()).and(r.getSupplier().getId()).build();
 			}
 			
 			for(UsageRelationship u : a.getAllUsage()){

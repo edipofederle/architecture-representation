@@ -32,20 +32,31 @@ public class OperationsOverRelationships {
 		this.allAssociationClass = allAssociationClass;
 	}
 
-	public void moveAssociation(AssociationRelationship association, Class idclass1, Class idclass2) {
-		association.getParticipants().get(0).setCLSClass(idclass1);
-		association.getParticipants().get(1).setCLSClass(idclass2);
+	public void moveAssociation(AssociationRelationship association, Class class1, Class class2) {
+		class1.getIdsRelationships().remove(association.getId());
+		class2.getIdsRelationships().remove(association.getId());
+		
+		association.getParticipants().get(0).setCLSClass(class1);
+		association.getParticipants().get(1).setCLSClass(class2);
+		
+		class1.getIdsRelationships().add(association.getId());
+		class2.getIdsRelationships().add(association.getId());
 	}
 	
-	public void moveAssociation(AssociationClassRelationship association, Class idclass1, Class idclass2) {
+	public void moveAssociationClass(AssociationClassRelationship association, Class member1, Class member2) {
 		association.getMemebersEnd().clear();
-		association.getMemebersEnd().add(new MemberEnd("none", null, "public", idclass1));
-		association.getMemebersEnd().add(new MemberEnd("none", null, "public", idclass2));
+		association.getMemebersEnd().add(new MemberEnd("none", null, "public", member1));
+		association.getMemebersEnd().add(new MemberEnd("none", null, "public", member2));
+		
+		member1.getIdsRelationships().add(association.getId());
+		member2.getIdsRelationships().add(association.getId());
 	}
 	
-	public void moveDependency(DependencyRelationship dependency, Class idclass6, Class idclass8) {
-		dependency.setClient(idclass6);
-		dependency.setSupplier(idclass8);
+	public void moveDependency(DependencyRelationship dependency, Class client, Class supplier) {
+		dependency.setClient(client);
+		dependency.setSupplier(supplier);
+		client.getIdsRelationships().add(dependency.getId());
+		supplier.getIdsRelationships().add(dependency.getId());
 	}
 
 
@@ -74,11 +85,6 @@ public class OperationsOverRelationships {
 			LOGGER.info("Cannot remove Generalization " + generalization + ".\n");
 	}
 
-	public void removeAbstractionRelationship(AbstractionRelationship ab) {
-		if (!removeRelationship(ab))
-			LOGGER.info("Cannot remove Abstraction " + ab + ".\n");
-	}
-	
 	private boolean removeRelationship(Relationship as) {
 		if(as == null) return false;
 		this.allIds.remove(as.getId());
@@ -108,7 +114,9 @@ public class OperationsOverRelationships {
 	 * @param newClient
 	 */
 	public void moveRealizationClient(RealizationRelationship realization, Element newClient) {
+		realization.getSupplier().getIdsRelationships().remove(realization.getId());
 		realization.setClient(newClient);
+		newClient.getIdsRelationships().add(realization.getId());
 	}
 
 	/**
@@ -118,7 +126,28 @@ public class OperationsOverRelationships {
 	 * @param newSupplier
 	 */
 	public void moveRealizationSupplier(RealizationRelationship realization, Element newSupplier) {
+		realization.getSupplier().getIdsRelationships().remove(realization.getId());
 		realization.setSupplier(newSupplier);
+		newSupplier.getIdsRelationships().add(realization.getId());
+	}
+	
+	/**
+	 * Move uma realizacão inteira.
+	 * 
+	 * @param realization - Realização a ser movida
+	 * @param client - Novo Cliente
+	 * @param supplier - Novo Supplier
+	 */
+	public void moveRealization(RealizationRelationship realization, Element client, Element supplier) {
+		
+		realization.getClient().getIdsRelationships().remove(realization.getId());
+		realization.getSupplier().getIdsRelationships().remove(realization.getId());
+		
+		realization.setClient(client);
+		realization.setSupplier(supplier);
+		
+		client.getIdsRelationships().add(realization.getId());
+		supplier.getIdsRelationships().add(realization.getId());
 		
 	}
 
