@@ -527,7 +527,7 @@ public class Architecture {
 	 * @return OperationsOverRelationships
 	 */
 	public OperationsOverRelationships operationsOverRelationship() {
-		return new OperationsOverRelationships(this.relationships, allAssociationClass, this.allIds);
+		return new OperationsOverRelationships(this);
 	}
 
 	public OperationsOverAssociation forAssociation() {
@@ -555,6 +555,10 @@ public class Architecture {
 		if(as == null) return false;
 		this.allIds.remove(as.getId());
 		return relationships.remove(as);
+	}
+
+	public OperationsOverUsage forUsage() {
+		return new OperationsOverUsage(this);
 	}
 
 }

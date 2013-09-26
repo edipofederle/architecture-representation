@@ -6,7 +6,7 @@ import java.util.Set;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import arquitetura.representation.relationship.AbstractionRelationship;
+import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationEnd;
 import arquitetura.representation.relationship.AssociationRelationship;
@@ -15,7 +15,6 @@ import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.MemberEnd;
 import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
-import arquitetura.representation.relationship.UsageRelationship;
 
 public class OperationsOverRelationships {
 	
@@ -24,12 +23,13 @@ public class OperationsOverRelationships {
 	private List<Relationship> relationships;
 	private Set<String> allIds;
 	private List<AssociationClassRelationship> allAssociationClass;
-
+	private Architecture  architecture;
 	
-	public OperationsOverRelationships(List<Relationship> relationships, List<AssociationClassRelationship> allAssociationClass, Set<String> allIds) {
-		this.relationships = relationships;
-		this.allIds = allIds;
-		this.allAssociationClass = allAssociationClass;
+	public OperationsOverRelationships(Architecture architecture) {
+		this.architecture = architecture;
+		this.relationships = architecture.getAllRelationships();
+		this.allIds = architecture.getAllIds();
+		this.allAssociationClass = architecture.getAllAssociationsClass();
 	}
 
 	public void moveAssociation(AssociationRelationship association, Class class1, Class class2) {
@@ -68,11 +68,6 @@ public class OperationsOverRelationships {
 	public void removeDependencyRelationship(DependencyRelationship dp) {
 		if (!removeRelationship(dp))
 			LOGGER.info("Cannot remove Dependency " + dp + ".\n");
-	}
-
-	public void removeUsageRelationship(UsageRelationship usage) {
-		if (!removeRelationship(usage))
-			LOGGER.info("Cannot remove Usage " + usage + ".\n");
 	}
 
 	public void removeAssociationClass(AssociationClassRelationship associationClass){
@@ -149,6 +144,14 @@ public class OperationsOverRelationships {
 		client.getIdsRelationships().add(realization.getId());
 		supplier.getIdsRelationships().add(realization.getId());
 		
+	}
+
+	public void createNewRealization(Element client, Element supplier) {
+		String id = UtilResources.getRandonUUID();
+		RealizationRelationship realization = new RealizationRelationship(client, supplier, "", id);
+		client.getIdsRelationships().add(id);
+		supplier.getIdsRelationships().add(id);
+		this.architecture.getAllRelationships().add(realization);
 	}
 
 }

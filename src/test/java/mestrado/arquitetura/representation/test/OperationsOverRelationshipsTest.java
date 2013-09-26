@@ -24,6 +24,7 @@ import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.RealizationRelationship;
+import arquitetura.representation.relationship.UsageRelationship;
 
 public class OperationsOverRelationshipsTest extends TestHelper {
 
@@ -523,6 +524,21 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		assertFalse(supplier.getIdsRelationships().contains(realization.getId()));
 	}
 	
+	@Test
+	public void shouldCreateNewRealization() throws Exception{
+		Architecture a = givenAArchitecture("realization");
+		
+		Class client = a.createClass("Foo");
+		Class supplier = a.createClass("Bar");
+		
+		a.operationsOverRelationship().createNewRealization(client, supplier);
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "realizationNova");
+		Architecture architecture = givenAArchitecture2("realizationNova");
+		assertEquals(2, architecture.getAllRealizations().size());
+	}
+	
 	/* Fim Realização testes */
 	
 	/* Abstração testes */
@@ -538,7 +554,21 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		g.generate(a, "abstractionInterElementRemoved");
 		Architecture architecture = givenAArchitecture2("abstractionInterElementRemoved");
 		assertEquals(0, architecture.getAllAbstractions().size());
+	}
+	
+	@Test
+	public void shouldCreateNewAbstraction() throws Exception{
+		Architecture a = givenAArchitecture("abstractionInterElement");
 		
+		Class newClient = a.createClass("NewClient");
+		Class newSupplier = a.createClass("NewSupplier");
+		
+		a.operationsOverAbstraction().create(newClient, newSupplier);
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "newAbstraction");
+		Architecture architecture = givenAArchitecture2("newAbstraction");
+		assertEquals(2, architecture.getAllAbstractions().size());
 	}
 	
 	@Test
@@ -607,10 +637,94 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		AbstractionRelationship ab = architecture.getAllAbstractions().get(0);
 		assertEquals("NewSupplier", ab.getSupplier().getName());
 		assertEquals("NewClient", ab.getClient().getName());
+	}
+	
+	/* Fim testes abstração */
+	
+	@Test
+	public void shouldRemoveUsage() throws Exception{
+		Architecture a = givenAArchitecture("usage3");
 		
+		assertEquals(1,a.getAllUsage().size());
+		a.forUsage().remove(a.getAllUsage().get(0));
+		
+		assertEquals(0,a.getAllUsage().size());
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "usageRemove");
+		Architecture architecture = givenAArchitecture2("usageRemove");
+		
+		assertEquals(0,architecture.getAllUsage().size());
 	}
 	
 	
-	/* Fim testes */
+	@Test
+	public void shouldMoveClientUsage() throws Exception{
+		Architecture a = givenAArchitecture("usage3");
+		
+		Class newClient = a.createClass("newClient");
+		
+		a.forUsage().moveClient(a.getAllUsage().get(0), newClient);
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "usageMoveClient");
+		Architecture architecture = givenAArchitecture2("usageMoveClient");
+		
+		assertEquals("newClient",architecture.getAllUsage().get(0).getClient().getName());
+	}
 	
+	@Test
+	public void shouldMoveSupplierUsage() throws Exception{
+		Architecture a = givenAArchitecture("usage3");
+		
+		Class newSupplier = a.createClass("newSupplier");
+		
+		a.forUsage().moveSupplier(a.getAllUsage().get(0), newSupplier);
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "usageMoveSupplier");
+		Architecture architecture = givenAArchitecture2("usageMoveSupplier");
+		
+		assertEquals("newSupplier",architecture.getAllUsage().get(0).getSupplier().getName());
+	}
+	
+	@Test
+	public void shouldCreateNewUsage() throws Exception{
+		Architecture a = givenAArchitecture("usage3");
+		
+		Class newSupplier = a.createClass("newSupplier");
+		Class newClient = a.createClass("newClient");
+		
+		a.forUsage().create(newClient, newSupplier);
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "usageNova");
+		Architecture architecture = givenAArchitecture2("usageNova");
+		UsageRelationship usage = architecture.getAllUsage().get(1);
+		
+		assertEquals("newClient", usage.getClient().getName());
+		assertEquals("newSupplier", usage.getSupplier().getName());
+		
+	}
+	
+	@Test
+	public void shouldMoveEntireUsage() throws Exception{
+		Architecture a = givenAArchitecture("usage3");
+		
+		Class newSupplier = a.createClass("newSupplier");
+		Class newClient = a.createClass("newClient");
+		
+		a.forUsage().move(a.getAllUsage().get(0), newSupplier, newClient);
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "usageMovida");
+		Architecture architecture = givenAArchitecture2("usageMovida");
+		
+		assertEquals(1,a.getAllUsage().size());
+		assertEquals("newSupplier", architecture.getAllUsage().get(0).getSupplier().getName());
+		assertEquals("newClient", architecture.getAllUsage().get(0).getClient().getName());
+		
+	}
 }
+
+

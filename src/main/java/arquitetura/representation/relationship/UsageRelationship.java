@@ -1,6 +1,5 @@
 package arquitetura.representation.relationship;
 
-import arquitetura.representation.Class;
 import arquitetura.representation.Element;
 
 /**
@@ -38,7 +37,7 @@ public class UsageRelationship extends Relationship {
 	public Element getClient() {
 		return client;
 	}
-	public void setClient(Class client) {
+	public void setClient(Element client) {
 		this.client = client;
 	}
 	

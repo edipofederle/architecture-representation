@@ -3,6 +3,7 @@ package arquitetura.representation;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.AbstractionRelationship;
 
 public class OperationsOverAbstraction {
@@ -43,7 +44,13 @@ public class OperationsOverAbstraction {
 		newSupplier.getIdsRelationships().add(abstractionRelationship.getId());
 		newCliente.getIdsRelationships().add(abstractionRelationship.getId());
 	}
-	
-	
+
+	public void create(Class newClient, Class newSupplier) {
+		String id = UtilResources.getRandonUUID();
+		AbstractionRelationship abs = new AbstractionRelationship(newClient, newSupplier, id);
+		newClient.getIdsRelationships().add(id);
+		newSupplier.getIdsRelationships().add(id);
+		this.architecture.getAllRelationships().add(abs);
+	}
 
 }

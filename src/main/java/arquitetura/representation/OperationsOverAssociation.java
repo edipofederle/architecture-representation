@@ -7,7 +7,6 @@ import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationEnd;
 import arquitetura.representation.relationship.AssociationRelationship;
-import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.MemberEnd;
 import arquitetura.representation.relationship.Multiplicity;
 import arquitetura.representation.relationship.Relationship;
