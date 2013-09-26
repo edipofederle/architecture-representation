@@ -13,6 +13,7 @@ import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.MemberEnd;
+import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 import arquitetura.representation.relationship.UsageRelationship;
 
@@ -98,6 +99,27 @@ public class OperationsOverRelationships {
 
 	public void moveMemberEndOf(MemberEnd memberEnd, Class klass) {
 		memberEnd.setType(klass);
+	}
+
+	/**
+	 * Move o client de uma {@link RealizationRelationship} para outro elemento (Classe ou Package).
+	 *
+	 * @param realization
+	 * @param newClient
+	 */
+	public void moveRealizationClient(RealizationRelationship realization, Element newClient) {
+		realization.setClient(newClient);
+	}
+
+	/**
+	 * Move o supplier de uma {@link RealizationRelationship} para outro elemento (Classe ou Package).
+	 * 
+	 * @param realization
+	 * @param newSupplier
+	 */
+	public void moveRealizationSupplier(RealizationRelationship realization, Element newSupplier) {
+		realization.setSupplier(newSupplier);
+		
 	}
 
 }

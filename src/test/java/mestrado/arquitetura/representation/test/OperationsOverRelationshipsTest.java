@@ -21,6 +21,7 @@ import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
+import arquitetura.representation.relationship.RealizationRelationship;
 
 public class OperationsOverRelationshipsTest extends TestHelper {
 
@@ -452,6 +453,42 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		
 		Architecture architecture = givenAArchitecture2("generalizacaoNovaGeneralizacao");
 		assertEquals(2, architecture.getAllGeneralizations().size());
+	}
+	
+	/* Fim generalizacao */
+	
+	@Test
+	public void shouldMoveRealizationClient() throws Exception{
+		Architecture a = givenAArchitecture("realization");
+		
+		Class klassFooBar = a.createClass("FooBar");
+		RealizationRelationship realization = a.getAllRealizations().get(0);
+		
+		a.operationsOverRelationship().moveRealizationClient(realization, klassFooBar);
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "realizationMoveClientGerada");
+		
+		Architecture architecture = givenAArchitecture2("realizationMoveClientGerada");
+		assertEquals(1,architecture.getAllRealizations().size());
+		assertEquals("FooBar",architecture.getAllRealizations().get(0).getClient().getName());
+	}
+	
+	@Test
+	public void shouldMoveRealizationSupplier() throws Exception{
+		Architecture a = givenAArchitecture("realization");
+		
+		Class klassFooBar = a.createClass("FooBar");
+		RealizationRelationship realization = a.getAllRealizations().get(0);
+		
+		a.operationsOverRelationship().moveRealizationSupplier(realization, klassFooBar);
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "realizationMoveSupplierGerada");
+		
+		Architecture architecture = givenAArchitecture2("realizationMoveSupplierGerada");
+		assertEquals(1,architecture.getAllRealizations().size());
+		assertEquals("FooBar",architecture.getAllRealizations().get(0).getSupplier().getName());
 	}
 	
 }

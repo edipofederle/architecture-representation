@@ -32,7 +32,7 @@ public class RealizationRelationship extends Relationship {
 	/**
 	 * @param client the client to set
 	 */
-	private void setClient(Element client) {
+	public void setClient(Element client) {
 		this.client = client;
 	}
 
@@ -48,7 +48,7 @@ public class RealizationRelationship extends Relationship {
 	/**
 	 * @param supplier the supplier to set
 	 */
-	private void setSupplier(Element supplier) {
+	public void setSupplier(Element supplier) {
 		this.supplier = supplier;
 	}
 
