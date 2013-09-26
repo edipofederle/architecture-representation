@@ -269,6 +269,18 @@ public class ArchitectureTest extends TestHelper {
 	}
 	
 	@Test
+	public void shouldMoveClassToPackage() throws Exception{
+		Architecture a = givenAArchitecture("classPackage");
+		Class klass1 = a.findClassByName("Class1").get(0);
+		Package package1 = a.findPackageByName("Package1");
+		
+		a.moveClassToPackage(klass1,package1);
+		
+		assertEquals(1,package1.getAllClassIdsForThisPackage().size());
+		
+	}
+	
+	@Test
 	public void shouldRemoveAssociationRelationship() throws Exception{
 		Architecture a = givenAArchitecture("association");
 		AssociationRelationship as = a.getAllAssociationsRelationships().get(0);

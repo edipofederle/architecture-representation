@@ -3,15 +3,11 @@ package arquitetura.representation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.uml2.uml.AssociationClass;
-import org.eclipse.uml2.uml.Type;
-
-import arquitetura.builders.ClassBuilder;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationEnd;
 import arquitetura.representation.relationship.AssociationRelationship;
+import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.MemberEnd;
 import arquitetura.representation.relationship.Multiplicity;
 import arquitetura.representation.relationship.Relationship;
@@ -112,5 +108,34 @@ public class OperationsOverAssociation {
 		this.architecture.getAllAssociationsClass().add(asc);
 		
 	}
-	
+
+	public void moveGeneralizationParent(GeneralizationRelationship gene, Class targetClass) {
+		gene.setParent(targetClass);
+	}
+
+	public void moveGeneralizationSubClass(GeneralizationRelationship gene, Class class1) {
+		gene.setChild(class1);
+	}
+
+	/**
+	 * 
+	 * @param gene
+	 * @param parent
+	 * @param child
+	 */
+	public void moveGeneralization(GeneralizationRelationship gene, Class parent, Class child) {
+		gene.setParent(parent);
+		gene.setChild(child);
+	}
+
+	public void addChildToGeneralization(GeneralizationRelationship generalizationRelationship,	Class newChild) {
+		GeneralizationRelationship g = new GeneralizationRelationship(generalizationRelationship.getParent(), newChild, this.architecture, UtilResources.getRandonUUID());
+		this.architecture.getAllRelationships().add(g);
+	}
+
+	public void createGeneralization(Class parent, Class child) {
+		GeneralizationRelationship g = new GeneralizationRelationship(parent, child, this.architecture, UtilResources.getRandonUUID());
+		this.architecture.getAllRelationships().add(g);
+	}
+
 }

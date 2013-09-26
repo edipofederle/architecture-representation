@@ -48,7 +48,7 @@ public class GeneralizationRelationship extends Relationship {
 		return parent;
 	}
 
-	private void setParent(Element parent) {
+	public void setParent(Element parent) {
 		this.parent = parent;
 	}
 

@@ -538,4 +538,8 @@ public class Architecture {
 		return new OperationsOverDependency(this);
 	}
 
+	public void moveClassToPackage(Class klass1, Package package1) {
+		package1.getAllClassIdsForThisPackage().add(klass1.getId());
+	}
+
 }

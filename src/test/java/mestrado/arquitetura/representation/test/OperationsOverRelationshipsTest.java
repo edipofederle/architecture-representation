@@ -1,6 +1,7 @@
 package mestrado.arquitetura.representation.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -14,10 +15,12 @@ import org.junit.Test;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
+import arquitetura.representation.Element;
 import arquitetura.representation.Method;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
+import arquitetura.representation.relationship.GeneralizationRelationship;
 
 public class OperationsOverRelationshipsTest extends TestHelper {
 
@@ -347,6 +350,108 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		
 		assertEquals(1, klass.getAllAssociationClass().size());
 		
+	}
+	
+	
+	
+	//Generalizacao
+	
+	@Test
+	public void shouldMoveSuperClass() throws Exception{
+		Architecture a = givenAArchitecture("generalizacaoMove");
+		
+		GeneralizationRelationship gene = a.getAllGeneralizations().get(0);
+		
+		assertNotNull(gene);
+		assertEquals("Class1",gene.getParent().getName());
+		
+		a.forAssociation().moveGeneralizationParent(gene, a.findClassByName("Class3").get(0));
+		
+		assertEquals("Class3",gene.getParent().getName());
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "generalizacaoMoveGerada");
+		
+		Architecture architecture = givenAArchitecture2("generalizacaoMoveGerada");
+		GeneralizationRelationship geneg = architecture.getAllGeneralizations().get(0);
+		assertEquals("Class3",geneg.getParent().getName());
+	}
+	
+	@Test
+	public void shouldMoveSubClass() throws Exception{
+		Architecture a = givenAArchitecture("generalizacaoMove");
+		
+		GeneralizationRelationship gene = a.getAllGeneralizations().get(0);
+		
+		a.forAssociation().moveGeneralizationSubClass(gene, a.findClassByName("Class5").get(0));
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "generalizacaoMoveSubGerada");
+		
+		Architecture architecture = givenAArchitecture2("generalizacaoMoveSubGerada");
+		GeneralizationRelationship geneg = architecture.getAllGeneralizations().get(0);
+		
+		assertEquals("Class5",geneg.getChild().getName());
+		assertEquals(1,geneg.getAllChildrenForGeneralClass().size());
+	}
+	
+	@Test
+	public void shouldMoveEntiereGeneralization() throws Exception{
+		Architecture a = givenAArchitecture("generalizacaoMove");
+		
+		Class klass5 = a.findClassByName("Class5").get(0);
+		Class klass4 = a.findClassByName("Class4").get(0);
+		
+		GeneralizationRelationship gene = a.getAllGeneralizations().get(0);
+		
+		a.forAssociation().moveGeneralization(gene, klass5, klass4);
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "generalizacaoMovidaInteira");
+		
+		
+		Architecture architecture = givenAArchitecture2("generalizacaoMovidaInteira");
+		GeneralizationRelationship geneg = architecture.getAllGeneralizations().get(0);
+		assertEquals("Class5",geneg.getParent().getName());
+		assertEquals("Class4",geneg.getChild().getName());
+	}
+	
+	@Test
+	public void shouldAddNewSubClassToGeneralization() throws Exception{
+		Architecture a = givenAArchitecture("generalizacaoMove");
+		
+		GeneralizationRelationship generalizationRelationship = a.getAllGeneralizations().get(0);
+		Class klass5 = a.findClassByName("Class5").get(0);
+		
+		a.forAssociation().addChildToGeneralization(generalizationRelationship, klass5);
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "generalizacaoNovoFilho");
+		
+		Architecture architecture = givenAArchitecture2("generalizacaoNovoFilho");
+		
+		assertEquals(2, architecture.getAllGeneralizations().size());
+		
+		List<Element> generalization = architecture.getAllGeneralizations().get(0).getAllChildrenForGeneralClass();
+		assertEquals(2, generalization.size());
+		assertEquals("Class2", generalization.get(0).getName());
+		assertEquals("Class5", generalization.get(1).getName());
+	}
+	
+	@Test
+	public void shouldCreateNewGeneralization() throws Exception{
+		Architecture a = givenAArchitecture("generalizacaoMove");
+		
+		Class klass5 = a.findClassByName("Class5").get(0);
+		Class klass4= a.findClassByName("Class4").get(0);
+		
+		a.forAssociation().createGeneralization(klass5,klass4);
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "generalizacaoNovaGeneralizacao");
+		
+		Architecture architecture = givenAArchitecture2("generalizacaoNovaGeneralizacao");
+		assertEquals(2, architecture.getAllGeneralizations().size());
 	}
 	
 }
