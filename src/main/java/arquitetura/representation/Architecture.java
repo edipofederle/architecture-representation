@@ -426,13 +426,6 @@ public class Architecture {
 		allIds.add(id);
 		return klass;
 	}
-	
-//	public void createAssociation(Class class1, Class class2){
-//		AssociationRelationship a = new AssociationRelationship(class1, class2);
-//		a.setName("default_association");
-//		this.relationships.add(a);
-//		allIds.add(a.getId());
-//	}
 
 	public void removeInterface(Interface interfacee) {
 		if (!elements.remove(interfacee))
