@@ -15,7 +15,7 @@ import arquitetura.representation.Element;
 public class AssociationEnd {
 
 	private Element klass;
-	private boolean isNavigable;
+	private boolean isNavigable = false;
 	//TODO Tipo da associação mudar nome da variavel
 	private String aggregation;
 	private Multiplicity multiplicity;
@@ -29,7 +29,9 @@ public class AssociationEnd {
 		setName(name);
 	}
 
-	private void setMultiplicity(Multiplicity multiplicity) {
+	public AssociationEnd() {}
+
+	public void setMultiplicity(Multiplicity multiplicity) {
 		this.multiplicity = multiplicity;
 	}
 
@@ -45,7 +47,7 @@ public class AssociationEnd {
 		return isNavigable;
 	}
 
-	private void setNavigable(boolean isNavigable) {
+	public void setNavigable(boolean isNavigable) {
 		this.isNavigable = isNavigable;
 	}
 	
@@ -85,7 +87,7 @@ public class AssociationEnd {
 		
 	}
 
-	private void setAggregation(String aggregation) {
+	public void setAggregation(String aggregation) {
 		this.aggregation = aggregation;
 	}
 	

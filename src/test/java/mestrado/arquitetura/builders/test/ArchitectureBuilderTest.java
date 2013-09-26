@@ -249,8 +249,8 @@ public class ArchitectureBuilderTest extends TestHelper {
 		List<AssociationClassRelationship> associationClass = architecture8.getAllAssociationsClass();
 
 		assertEquals(2, associationClass.get(0).getMemebersEnd().size());
-		assertEquals("Employee", associationClass.get(0).getMemebersEnd().get(0).getName());
-		assertEquals("Class1", associationClass.get(0).getMemebersEnd().get(1).getName());
+		assertEquals("Employee", associationClass.get(0).getMemebersEnd().get(0).getType().getName());
+		assertEquals("Class1", associationClass.get(0).getMemebersEnd().get(1).getType().getName());
 //		assertEquals("Employee", associationClass.getOwnedEnd().getName());
 //		assertTrue(associationClass.getOwnedEnd() instanceof Class);
 		assertEquals("AssociationClass1", associationClass.get(0).getName());

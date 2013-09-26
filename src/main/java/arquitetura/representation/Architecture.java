@@ -54,6 +54,8 @@ public class Architecture {
 	 */
 	private List<Concern> allowedConcerns = new ArrayList<Concern>();
 	private List<AssociationClassRelationship> allAssociationClass = new ArrayList<AssociationClassRelationship>();
+
+	private AssociationRelationship associationToNome;
 	 
 
 	public Architecture(String name) {
@@ -308,14 +310,6 @@ public class Architecture {
 	
 
 	public List<AssociationClassRelationship> getAllAssociationsClass() {
-//		Predicate<Relationship> associationClass = new Predicate<Relationship>() {
-//			public boolean apply(Relationship parent) {
-//				return AssociationClassRelationship.class.isInstance(parent);
-//			}
-//		};
-//
-//		List<AssociationClassRelationship> allAssociationClass = UtilResources.filter(relationships, associationClass);
-//		if (allAssociationClass.isEmpty())  return Collections.emptyList();
 		return allAssociationClass;
 	}
 
@@ -354,41 +348,6 @@ public class Architecture {
 		throw new PackageNotFound("Pakcage " + packageName + " can not found.\n");
 	}
 
-	public void removeAssociationRelationship(AssociationRelationship as) {
-		if (!removeRelationship(as))
-			LOGGER.info("Cannot remove Association " + as + ".\n");
-	}
-
-	private boolean removeRelationship(Relationship as) {
-		if(as == null) return false;
-		getAllIds().remove(as.getId());
-		return relationships.remove(as);
-	}
-
-	public void removeDependencyRelationship(DependencyRelationship dp) {
-		if (!removeRelationship(dp))
-			LOGGER.info("Cannot remove Dependency " + dp + ".\n");
-	}
-
-	public void removeUsageRelationship(UsageRelationship usage) {
-		if (!removeRelationship(usage))
-			LOGGER.info("Cannot remove Usage " + usage + ".\n");
-	}
-
-	public void removeAssociationClass(AssociationClassRelationship associationClass){
-		if (!allAssociationClass.remove(associationClass))
-			LOGGER.info("Cannot remove AssociationClass " + associationClass + ".\n");
-	}
-
-	public void removeGeneralizationRelationship(GeneralizationRelationship generalization) {
-		if (!removeRelationship(generalization))
-			LOGGER.info("Cannot remove Generalization " + generalization + ".\n");
-	}
-
-	public void removeAbstractionRelationship(AbstractionRelationship ab) {
-		if (!removeRelationship(ab))
-			LOGGER.info("Cannot remove Abstraction " + ab + ".\n");
-	}
 
 	public Package createPackage(String packageName) {
 		String id = UtilResources.getRandonUUID();
@@ -560,6 +519,23 @@ public class Architecture {
 
 	public Concern getConcernByName(String concernName) {
 		return concerns.get(concernName);
-	}		
+	}
+
+	/**
+	 * Retorna classe contendo método para manipular relacionamentos
+	 * 
+	 * @return OperationsOverRelationships
+	 */
+	public OperationsOverRelationships operationsOverRelationship() {
+		return new OperationsOverRelationships(this.relationships, allAssociationClass, this.allIds);
+	}
+
+	public OperationsOverAssociation forAssociation() {
+		return new OperationsOverAssociation(this);
+	}
+
+	public OperationsOverDependency forDependency() {
+		return new OperationsOverDependency(this);
+	}
 
 }

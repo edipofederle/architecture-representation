@@ -10,9 +10,13 @@ public class Multiplicity {
 	private String lowerValue;
 	private String upperValue;
 	
-	public Multiplicity(String string, String string2) {
-		this.lowerValue = string;
-		this.upperValue = string2;
+	/**
+	 * @param lowerValue
+	 * @param upperValue
+	 */
+	public Multiplicity(String lowerValue, String upperValue) {
+		this.lowerValue = lowerValue;
+		this.upperValue = upperValue;
 	}
 	
 	public String getLowerValue() {

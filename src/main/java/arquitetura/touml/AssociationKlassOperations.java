@@ -30,8 +30,8 @@ public class AssociationKlassOperations {
 
 	public AssociationKlassOperations createAssociationClass(AssociationClassRelationship asr) {
 		this.id = asr.getId();
-		this.ownedEnd = asr.getMemebersEnd().get(0).getId();
-		this.associationEnd2 = asr.getMemebersEnd().get(1).getId();
+		this.ownedEnd = asr.getMemebersEnd().get(0).getType().getId();
+		this.associationEnd2 = asr.getMemebersEnd().get(1).getType().getId();
 		this.elementXmiGenerator = new ElementXmiGenerator(documentManager, this.architecture);
 		this.attrs = buildAttributes(asr);
 		this.methods = createMethods(asr);
@@ -60,7 +60,7 @@ public class AssociationKlassOperations {
 		List<arquitetura.touml.Method> methods = new ArrayList<arquitetura.touml.Method>();
 		List<arquitetura.representation.Method> methodsClass = new ArrayList<arquitetura.representation.Method>();
 		
-		methodsClass = klass.getMethods();
+		methodsClass = klass.getAllMethods();
 		for (arquitetura.representation.Method method : methodsClass) {
 			
 			List<ParameterMethod> paramsMethod = method.getParameters();

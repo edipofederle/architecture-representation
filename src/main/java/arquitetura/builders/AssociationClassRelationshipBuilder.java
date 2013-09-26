@@ -12,6 +12,7 @@ import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
 import arquitetura.representation.relationship.AssociationClassRelationship;
+import arquitetura.representation.relationship.MemberEnd;
 
 /**
  * 
@@ -29,12 +30,14 @@ public class AssociationClassRelationshipBuilder extends ArchitectureHelper {
 	}
 
 	public AssociationClassRelationship create(AssociationClass associationClass) {
-		List<Element> membersEnd = new ArrayList<Element>();
+		List<MemberEnd> membersEnd = new ArrayList<MemberEnd>();
 		
 		Class classAssociation = classBuilder.create(associationClass);
 		
-		for (Type t : associationClass.getEndTypes())
-			membersEnd.add(architecture.getElementByXMIID(getModelHelper().getXmiId(t)));
+		for (Type t : associationClass.getEndTypes()){
+			//membersEnd.add(architecture.getElementByXMIID(getModelHelper().getXmiId(t)));
+			membersEnd.add(new MemberEnd("none", null, "public", architecture.getElementByXMIID(getModelHelper().getXmiId(t))));
+		}
 
 		Type ownedEnd = associationClass.getOwnedEnds().get(0).getType();
 		

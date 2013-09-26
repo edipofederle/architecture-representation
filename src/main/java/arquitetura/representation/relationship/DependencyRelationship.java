@@ -21,6 +21,8 @@ public class DependencyRelationship extends Relationship {
 	private Architecture architecture;
 	String  name;
 	
+	public DependencyRelationship(){}
+	
 	public DependencyRelationship(Element supplier, Element client, String name, Architecture architecture, String id) {
 		setSupplier(supplier);
 		setClient(client);
@@ -38,7 +40,7 @@ public class DependencyRelationship extends Relationship {
 		return client;
 	}
 
-	private void setClient(Element client) {
+	public void setClient(Element client) {
 		this.client = client;
 	}
 
@@ -46,7 +48,7 @@ public class DependencyRelationship extends Relationship {
 		return supplier;
 	}
 
-	private void setSupplier(Element supplier) {
+	public void setSupplier(Element supplier) {
 		this.supplier = supplier;
 	}
 	

@@ -1,6 +1,6 @@
 package arquitetura.representation.relationship;
 
-import arquitetura.representation.Class;
+import arquitetura.representation.Element;
 
 /**
  * MemberEnd usada nas associações do tipo AssociationClass
@@ -14,9 +14,9 @@ public class MemberEnd {
 	private String aggregation;
 	private Multiplicity multiplicity;
 	private String visibility;
-	private Class type;
+	private Element type;
 	
-	public MemberEnd(String aggregation, Multiplicity multiplicity,	String visibility, Class type) {
+	public MemberEnd(String aggregation, Multiplicity multiplicity,	String visibility, Element type) {
 		super();
 		this.aggregation = aggregation;
 		this.multiplicity = multiplicity;
@@ -42,10 +42,10 @@ public class MemberEnd {
 	public void setVisibility(String visibility) {
 		this.visibility = visibility;
 	}
-	public Class getType() {
+	public Element getType() {
 		return type;
 	}
-	public void setType(Class type) {
+	public void setType(Element type) {
 		this.type = type;
 	}
 	

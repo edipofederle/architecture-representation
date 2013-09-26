@@ -3,6 +3,7 @@ package arquitetura.representation;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -11,6 +12,7 @@ import arquitetura.exceptions.AttributeNotFoundException;
 import arquitetura.exceptions.MethodNotFoundException;
 import arquitetura.flyweights.VariantFlyweight;
 import arquitetura.helpers.UtilResources;
+import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.Relationship;
 import arquitetura.touml.Types.Type;
 import arquitetura.touml.VisibilityKind;
@@ -27,9 +29,6 @@ public class Class extends Element {
 	private boolean isAbstract;
 	private final List<Attribute> attributes = new ArrayList<Attribute>();
 	private final List<Method> methods = new ArrayList<Method>();
-
-//	private String x;
-//	private String y;
 	
 	/**
 	 * 
@@ -54,7 +53,7 @@ public class Class extends Element {
 	public Class(Architecture architecture, String name, String id) {
 		this(architecture, name,  null, false,  UtilResources.createNamespace(getArchitecture().getName(), name), id);
 	}
-
+	
 	public Attribute createAttribute(String name, Type type, VisibilityKind visibility) {
 		String id = UtilResources.getRandonUUID();
 		//Attribute a = new Attribute(getArchitecture(), name, VisibilityKind..toString(), type, getArchitecture().getName()+"::"+this.getName(), UtilResources.getRandonUUID());
@@ -254,6 +253,20 @@ public class Class extends Element {
 			concerns.addAll(attribute.getAllConcerns());
 		
 		return concerns;
+	}
+
+	public List<AssociationClassRelationship> getAllAssociationClass() {
+		List<AssociationClassRelationship> associationsClasses = getArchitecture().getAllAssociationsClass();
+		List<AssociationClassRelationship> foundAssociationsClasses = new ArrayList<AssociationClassRelationship>();
+	
+		for(String id : this.getIdsRelationships()){
+			for(AssociationClassRelationship asc : associationsClasses){
+				if(asc.getId().equals(id))
+					foundAssociationsClasses.add(asc);
+			}
+		}
+		
+		return foundAssociationsClasses;
 	}
 
 	

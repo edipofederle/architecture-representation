@@ -174,11 +174,15 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			}
 			
 			//Relacionamentos
-			for (AssociationRelationship r : a.getAllAssociationsRelationships()) {
-				generateComposition(op, r);
+			for (AssociationRelationship r : a.getAllAssociationsRelationships()) 
 				generateSimpleAssociation(op, r);
+			
+			for (AssociationRelationship r : a.getAllCompositions()) 
+				generateComposition(op, r);
+			
+			for (AssociationRelationship r : a.getAllAgragations()) 
 				generateAggregation(op, r);
-			}
+			
 			
 			for(GeneralizationRelationship g : a.getAllGeneralizations()){
 				op.forGeneralization().createRelation().between(g.getChild().getId()).and(g.getParent().getId()).build();
@@ -186,6 +190,7 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			
 			for(DependencyRelationship d : a.getAllDependencies()){
 				op.forDependency().createRelation()
+							  .withName(d.getName())
 							  .between(d.getClient().getId())
 							  .and(d.getSupplier().getId()).build();
 			}

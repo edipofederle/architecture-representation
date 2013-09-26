@@ -274,7 +274,7 @@ public class ArchitectureTest extends TestHelper {
 		AssociationRelationship as = a.getAllAssociationsRelationships().get(0);
 		assertEquals("Architecture should contain 2 associations", 2, a.getAllAssociationsRelationships().size());
 		assertEquals(8, a.getAllClasses().size());
-		a.removeAssociationRelationship(as);
+		a.operationsOverRelationship().removeAssociationRelationship(as);
 		assertEquals("Architecture should contain 3 associations", 1, a.getAllAssociationsRelationships().size());
 	}
 	
@@ -282,7 +282,7 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldNotChangeListWhenTryRemoveAssociationRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("association");
 		assertEquals("Architecture should contain 2 associations", 2,	a.getAllAssociationsRelationships().size());
-		a.removeAssociationRelationship(null);
+		a.operationsOverRelationship().removeAssociationRelationship(null);
 		assertEquals("Architecture should contain 2 associations", 2,	a.getAllAssociationsRelationships().size());
 	}
 	
@@ -291,7 +291,7 @@ public class ArchitectureTest extends TestHelper {
 		Architecture a = givenAArchitecture("dependency");
 		DependencyRelationship dp = a.getAllDependencies().get(0);
 		assertEquals("Architecture should contain 5 dependency", 5,	a.getAllDependencies().size());
-		a.removeDependencyRelationship(dp);
+		a.operationsOverRelationship().removeDependencyRelationship(dp);
 		assertEquals("Architecture should contain 4 dependency", 4,	a.getAllDependencies().size());
 	}
 	
@@ -299,7 +299,7 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldNotChangeListWhenTryRemoveDependencyRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("dependency");
 		assertEquals("Architecture should contain 5 dependency", 5,	a.getAllDependencies().size());
-		a.removeDependencyRelationship(null);
+		a.operationsOverRelationship().removeDependencyRelationship(null);
 		assertEquals("Architecture should contain 4 dependency", 5,	a.getAllDependencies().size());
 	}
 	
@@ -308,7 +308,7 @@ public class ArchitectureTest extends TestHelper {
 		Architecture a = givenAArchitecture("usage3");
 		UsageRelationship usage = a.getAllUsage().get(0);
 		assertEquals("Architecture should contain 1 usage", 1,	a.getAllUsage().size());
-		a.removeUsageRelationship(usage);
+		a.operationsOverRelationship().removeUsageRelationship(usage);
 		assertEquals("Architecture should contain 0 usage", 0,	a.getAllUsage().size());
 	}
 	
@@ -316,7 +316,7 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldNotChangeListWhenTryRemoveUsageRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("usage3");
 		assertEquals("Architecture should contain 1 usage", 1,	a.getAllUsage().size());
-		a.removeUsageRelationship(null);
+		a.operationsOverRelationship().removeUsageRelationship(null);
 		assertEquals("Architecture should contain 0 usage", 1,	a.getAllUsage().size());
 	}
 	
@@ -325,7 +325,7 @@ public class ArchitectureTest extends TestHelper {
 		Architecture a = givenAArchitecture("associationClass");
 		AssociationClassRelationship associationClass = a.getAllAssociationsClass().get(0);
 		assertEquals("Architecture should contain 1 AssociationClass", 1,	a.getAllAssociationsClass().size());
-		a.removeAssociationClass(associationClass);
+		a.operationsOverRelationship().removeAssociationClass(associationClass);
 		assertEquals("Architecture should contain 0 AssociationClass", 0,	a.getAllAssociationsClass().size());
 	}
 	
@@ -341,7 +341,7 @@ public class ArchitectureTest extends TestHelper {
 		Architecture a = givenAArchitecture("generalizationArch");
 		GeneralizationRelationship g = a.getAllGeneralizations().get(0);
 		assertEquals("Architecture should contain 3 generalization", 3,	a.getAllGeneralizations().size());
-		a.removeGeneralizationRelationship(g);
+		a.operationsOverRelationship().removeGeneralizationRelationship(g);
 		assertEquals("Architecture should contain 2 generalization", 2,	a.getAllGeneralizations().size());
 	}
 	
@@ -349,7 +349,7 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldNotChangeListWhenTryRemoveGeneralizationRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("generalizationArch");
 		assertEquals("Architecture should contain 3 generalization", 3,	a.getAllGeneralizations().size());
-		a.removeGeneralizationRelationship(null);
+		a.operationsOverRelationship().removeGeneralizationRelationship(null);
 		assertEquals("Architecture should contain 2 generalization", 3,	a.getAllGeneralizations().size());
 	}
 	
@@ -358,7 +358,7 @@ public class ArchitectureTest extends TestHelper {
 		Architecture a = givenAArchitecture("abstractionInterElement");
 		AbstractionRelationship ab = a.getAllAbstractions().get(0);
 		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
-		a.removeAbstractionRelationship(ab);
+		a.operationsOverRelationship().removeAbstractionRelationship(ab);
 		assertEquals("Architecture should contain 0 Abstraction", 0,	a.getAllAbstractions().size());
 	}
 	
@@ -366,7 +366,7 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldNotChangeListWhenTryRemoveAbstractionRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("abstractionInterElement");
 		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
-		a.removeAbstractionRelationship(null);
+		a.operationsOverRelationship().removeAbstractionRelationship(null);
 		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
 	}
 	

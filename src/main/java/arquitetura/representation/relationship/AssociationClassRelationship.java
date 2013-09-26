@@ -21,20 +21,27 @@ import arquitetura.representation.Variant;
 public class AssociationClassRelationship extends Class {
 
 	public String name;
-	public List<Element> memebersEnd = new ArrayList<Element>();
+	public List<MemberEnd> memebersEnd = new ArrayList<MemberEnd>();
 	private Element ownedEnd;
-//	private List<Attribute> attributes = new ArrayList<Attribute>();
-//	private List<Method> methods = new ArrayList<Method>();
-	
 	private Class associationClass;
-	
 	private String idOwner;
+	
 	
 	public AssociationClassRelationship(Architecture architecture, String name, Variant variantType, boolean isAbstract, String namespace, String id) {
 		super(architecture, name, variantType, isAbstract, namespace, id);
 	}
 
-	public AssociationClassRelationship(Architecture a, String name, List<Element> ends, Element ownedEnd, String id, String idOwner, Class associationClass) {
+	/**
+	 * 
+	 * @param architecture
+	 * @param name
+	 * @param ends
+	 * @param ownedEnd
+	 * @param id - associationEnd
+	 * @param idOwner - ex: pacote
+	 * @param associationClass
+	 */
+	public AssociationClassRelationship(Architecture a, String name, List<MemberEnd> ends, Element ownedEnd, String id, String idOwner, Class associationClass) {
 		super(a, name, null, false, "", id);
 		this.name = name;
 		this.memebersEnd = ends;
@@ -44,25 +51,6 @@ public class AssociationClassRelationship extends Class {
 	}
 
 
-//	/**
-//	 * 
-//	 * @param name
-//	 * @param ends
-//	 * @param ownedEnd
-//	 * @param id
-//	 * @param idOwner - Pacote
-//	 * @param props 
-//	 */
-//	public AssociationClassRelationship(String name, List<Element> ends, Element ownedEnd, String id, String idOwner, List<Attribute> props, List<Method> methods) {
-//		super(architecture, name, variantType, isAbstract, namespace, id);
-//		this.name = name;
-//		this.memebersEnd = ends;
-//		this.ownedEnd = ownedEnd;
-//		this.idOwner = idOwner;
-//		this.attributes = props;
-//		this.methods = methods;
-//	}
-
 	public String getName() {
 		return name;
 	}
@@ -71,12 +59,13 @@ public class AssociationClassRelationship extends Class {
 	/**
 	 * @return the attributes
 	 */
-	public List<Attribute> getAttributes() {
-		return associationClass.getAllAttributes();
+	@Override
+	public List<Attribute> getAllAttributes() {
+		return this.associationClass.getAllAttributes();
 	}
 	
 
-	public List<Element> getMemebersEnd() {
+	public List<MemberEnd> getMemebersEnd() {
 		return memebersEnd;
 	}
 
@@ -103,20 +92,21 @@ public class AssociationClassRelationship extends Class {
 	 * 
 	 * @return {@link Method}
 	 */
-	public List<Method> getMethods() {
-		return associationClass.getAllMethods();
+	@Override
+	public List<Method> getAllMethods() {
+		return this.associationClass.getAllMethods();
 	}
 	
 	@Override
 	public List<Concern> getOwnConcerns() {
-		return associationClass.getOwnConcerns();
+		return this.associationClass.getOwnConcerns();
 	}
 	
 	@Override
 	public Collection<Concern> getAllConcerns() {
 		Collection<Concern> concerns = new ArrayList<Concern>(getOwnConcerns());
 
-		for (Method method : associationClass.getAllMethods())
+		for (Method method : this.associationClass.getAllMethods())
 			concerns.addAll(method.getAllConcerns());
 		for (Attribute attribute : associationClass.getAllAttributes())
 			concerns.addAll(attribute.getAllConcerns());
