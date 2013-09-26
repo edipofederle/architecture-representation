@@ -55,9 +55,6 @@ public class Architecture {
 	private List<Concern> allowedConcerns = new ArrayList<Concern>();
 	private List<AssociationClassRelationship> allAssociationClass = new ArrayList<AssociationClassRelationship>();
 
-	private AssociationRelationship associationToNome;
-	 
-
 	public Architecture(String name) {
 		setName(name);
 	}
@@ -547,7 +544,7 @@ public class Architecture {
 	}
 
 
-	public OperationsOverAbstraction operationsOverAbstraction() {
+	public OperationsOverAbstraction forAbstraction() {
 		return new OperationsOverAbstraction(this);
 	}
 	

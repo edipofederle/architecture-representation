@@ -547,7 +547,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 	public void shouldRemoveAbstraction() throws Exception {
 		Architecture a = givenAArchitecture("abstractionInterElement");
 		assertEquals(1, a.getAllAbstractions().size());
-		a.operationsOverAbstraction().remove(a.getAllAbstractions().get(0));
+		a.forAbstraction().remove(a.getAllAbstractions().get(0));
 		assertEquals(0,a.getAllAbstractions().size());
 		
 		GenerateArchitecture g = new GenerateArchitecture();
@@ -563,7 +563,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		Class newClient = a.createClass("NewClient");
 		Class newSupplier = a.createClass("NewSupplier");
 		
-		a.operationsOverAbstraction().create(newClient, newSupplier);
+		a.forAbstraction().create(newClient, newSupplier);
 		
 		GenerateArchitecture g = new GenerateArchitecture();
 		g.generate(a, "newAbstraction");
@@ -581,7 +581,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		
 		assertEquals(0, newClient.getIdsRelationships().size());
 		
-		a.operationsOverAbstraction().moveClient(abstractionRelationship, newClient);
+		a.forAbstraction().moveClient(abstractionRelationship, newClient);
 		assertEquals(1,a.getAllAbstractions().size());
 		assertEquals(1,newClient.getIdsRelationships().size());
 		
@@ -603,7 +603,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		
 		assertEquals(0, newSupplier.getIdsRelationships().size());
 		
-		a.operationsOverAbstraction().moveSupplier(abstractionRelationship, newSupplier);
+		a.forAbstraction().moveSupplier(abstractionRelationship, newSupplier);
 		assertEquals(1,a.getAllAbstractions().size());
 		assertEquals(1,newSupplier.getIdsRelationships().size());
 		
@@ -626,7 +626,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		
 		assertEquals(0, newSupplier.getIdsRelationships().size());
 		
-		a.operationsOverAbstraction().move(abstractionRelationship, newSupplier, newCliente);
+		a.forAbstraction().move(abstractionRelationship, newSupplier, newCliente);
 		assertEquals(1,a.getAllAbstractions().size());
 		assertEquals(1,newSupplier.getIdsRelationships().size());
 		

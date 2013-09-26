@@ -320,7 +320,7 @@ public class ArchitectureTest extends TestHelper {
 		Architecture a = givenAArchitecture("usage3");
 		UsageRelationship usage = a.getAllUsage().get(0);
 		assertEquals("Architecture should contain 1 usage", 1,	a.getAllUsage().size());
-		a.operationsOverRelationship().removeUsageRelationship(usage);
+		a.forUsage().remove(usage);
 		assertEquals("Architecture should contain 0 usage", 0,	a.getAllUsage().size());
 	}
 	
@@ -328,7 +328,7 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldNotChangeListWhenTryRemoveUsageRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("usage3");
 		assertEquals("Architecture should contain 1 usage", 1,	a.getAllUsage().size());
-		a.operationsOverRelationship().removeUsageRelationship(null);
+		a.forUsage().remove(null);
 		assertEquals("Architecture should contain 0 usage", 1,	a.getAllUsage().size());
 	}
 	
@@ -370,7 +370,7 @@ public class ArchitectureTest extends TestHelper {
 		Architecture a = givenAArchitecture("abstractionInterElement");
 		AbstractionRelationship ab = a.getAllAbstractions().get(0);
 		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
-		a.operationsOverAbstraction().remove(ab);
+		a.forAbstraction().remove(ab);
 		assertEquals("Architecture should contain 0 Abstraction", 0,	a.getAllAbstractions().size());
 	}
 	
@@ -378,7 +378,7 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldNotChangeListWhenTryRemoveAbstractionRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("abstractionInterElement");
 		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
-		a.operationsOverAbstraction().remove(null);
+		a.forAbstraction().remove(null);
 		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
 	}
 	
