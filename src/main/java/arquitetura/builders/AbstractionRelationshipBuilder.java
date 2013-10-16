@@ -46,7 +46,7 @@ public class AbstractionRelationshipBuilder extends ArchitectureHelper {
 		}
 		
 		architecture.getAllIds().add(getModelHelper().getXmiId(modelElement));
-		return new AbstractionRelationship(client,supplier, getModelHelper().getXmiId(modelElement));
+		return new AbstractionRelationship(client, supplier, getModelHelper().getXmiId(modelElement));
 	}
 
 }

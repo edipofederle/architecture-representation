@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import arquitetura.exceptions.NotFoundException;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
+import arquitetura.representation.Interface;
+import arquitetura.representation.Package;
 
 
 /**
@@ -30,7 +33,47 @@ public class DependencyRelationship extends Relationship {
 		this.architecture = architecture;
 		setId(id);
 		setTypeRelationship("dependency");
+
+		if((client instanceof Package) && (supplier instanceof Interface)){
+			((Package) client).addImplementedInterface(supplier);
+		}
+		
+		if((supplier instanceof Package) && (client instanceof Interface)){
+			((Package) supplier).addImplementedInterface(client);
+		}
 	}
+	
+	/**
+	 * Retorna o {@link Package} 
+	 * 
+	 * @return Package se existir.
+	 * @throws arquitetura.exceptions.NotFoundException caso não exista pacote envolvido na dependencia.
+	 */
+	public Package getPackageOfDependency() throws NotFoundException {
+		if(this.client instanceof Package)
+			return (Package) this.client;
+		else if (this.supplier instanceof Package)
+			return (Package) this.supplier;
+		
+		throw new NotFoundException("There is no Package in this dependency.");
+	}
+	
+	/**
+	 * Retorna a {@link Interface} 
+	 * 
+	 * @return Interface se existir.
+	 * @throws arquitetura.exceptions.NotFoundException caso não exista interface envolvido na dependencia.
+	 */
+	public Interface getInterfaceOfDependency() throws NotFoundException {
+		if(this.client instanceof Interface)
+			return (Interface) this.client;
+		else if (this.supplier instanceof Interface)
+			return (Interface) this.supplier;
+		
+		throw new NotFoundException("There is no Interface in this dependency.");
+	}
+	
+	
 
 	public void setName(String name) {
 		this.name = name;

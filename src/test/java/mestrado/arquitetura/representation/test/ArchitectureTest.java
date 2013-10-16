@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +13,7 @@ import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.exceptions.ClassNotFound;
@@ -28,6 +30,7 @@ import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
+import arquitetura.representation.relationship.Relationship;
 import arquitetura.representation.relationship.UsageRelationship;
 
 public class ArchitectureTest extends TestHelper {
@@ -519,4 +522,41 @@ public class ArchitectureTest extends TestHelper {
 		assertEquals(7, architecture.getAllIds().size());	
 	}
 	
+	
+	@Test
+	public void shouldFindPackageOfClass() throws Exception{
+		Architecture arch = givenAArchitecture("classPacote");
+		Class klass = arch.findClassByName("Class1").get(0);
+		
+		assertEquals("Class1",klass.getName());
+		
+		assertEquals("Package1", arch.findPackageOfClass(klass).getName());
+	}
+	
+	@Test(expected=PackageNotFound.class)
+	public void shouldThrowsPackageNotFound() throws Exception{
+		Architecture arch = givenAArchitecture("classPacote");
+		
+		Class klass = Mockito.mock(Class.class);
+		Mockito.when(klass.getName()).thenReturn("XPTO");
+		
+		arch.findPackageOfClass(klass);
+	}
+	
+	@Test
+	public void shouldReturnAllRelationshipsOfPackage() throws Exception{
+		Architecture a = givenAArchitecture("PackageClassUsage");
+		
+		Package p = a.getAllPackages().get(0);
+		List<Relationship> relationships = p.getRelationships();
+		
+		assertEquals(1, relationships.size());
+		assertTrue(relationships.get(0) instanceof UsageRelationship);
+	}
+	
+	@Test
+	public void shouldReturnEmptyListWhenNotFoundRelationships() throws Exception{
+		Architecture a = givenAArchitecture("Package");
+		assertTrue(a.getAllPackages().get(0).getRelationships().isEmpty());
+	}
 }

@@ -108,7 +108,7 @@ public abstract class TestHelper {
 			}
 		}
 	protected void hasClassesNames(arquitetura.representation.Package pkg, String ... names){
-		List<Element> klasses = pkg.getClasses();	
+		List<Class> klasses = pkg.getClasses();	
 		List<String> namesKlasses = new ArrayList<String>();
 		for (Element name : klasses) 
 			namesKlasses.add(name.getName());

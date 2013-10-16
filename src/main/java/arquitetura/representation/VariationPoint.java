@@ -14,10 +14,10 @@ import arquitetura.exceptions.VariationPointElementTypeErrorException;
  */
 public class VariationPoint {
 
-	private final Element variationPointElement;
-	private final List<Variant> variants;
-	private final List<Variability> variabilities = new ArrayList<Variability>();
-	private final String bindingTime;
+	private Element variationPointElement;
+	private List<Variant> variants;
+	private List<Variability> variabilities = new ArrayList<Variability>();
+	private String bindingTime;
 	
 	/**
 	 * 
@@ -71,6 +71,10 @@ public class VariationPoint {
 	 */
 	public String getBindingTime() {
 		return bindingTime;
+	}
+	
+	public void replaceVariationPointElement(Element newVPElement) {
+		this.variationPointElement = newVPElement;
 	}
 
 //	@Override

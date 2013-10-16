@@ -15,11 +15,11 @@ import arquitetura.representation.Element;
  */
 public class GeneralizationRelationship extends Relationship {
 
-	private Element parent;
+	private Class parent;
 	private Architecture architecture;
-	private Element child;
+	private Class child;
 	
-	public GeneralizationRelationship(Element parentClass, Element childClass, Architecture architecture, String id) {
+	public GeneralizationRelationship(Class parentClass, Class childClass, Architecture architecture, String id) {
 		setParent(parentClass);
 		setChild(childClass);
 		this.architecture = architecture;
@@ -31,24 +31,24 @@ public class GeneralizationRelationship extends Relationship {
 	/**
 	 * @return the child
 	 */
-	public Element getChild() {
+	public Class getChild() {
 		return child;
 	}
 
 	/**
 	 * @param child the child to set
 	 */
-	public void setChild(Element child) {
+	public void setChild(Class child) {
 		this.child = child;
 	}
 
 
 
-	public Element getParent() {
+	public Class getParent() {
 		return parent;
 	}
 
-	public void setParent(Element parent) {
+	public void setParent(Class parent) {
 		this.parent = parent;
 	}
 

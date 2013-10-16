@@ -45,15 +45,15 @@ public class XmiHelperTest extends TestHelper {
 		assertEquals("45", XmiHelper.getYValueForElement(idPackage));
 	}
 	
-	@Test
-	public void getWidthForPackage(){
-		assertEquals("308", XmiHelper.getWidhtForPackage(idPackage));
-	}
+//	@Test
+//	public void getWidthForPackage(){
+//		assertEquals("308", XmiHelper.getWidhtForPackage(idPackage));
+//	}
 	
-	@Test
-	public void getHeightForPackage(){
-		assertEquals("240", XmiHelper.getHeightForPackage(idPackage));
-	}
+//	@Test
+//	public void getHeightForPackage(){
+//		assertEquals("240", XmiHelper.getHeightForPackage(idPackage));
+//	}
 	
 	@Test
 	public void setNotationOriginalFile(){

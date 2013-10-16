@@ -23,16 +23,13 @@ public class Package extends Element {
 
 	private List<Element> elements = new ArrayList<Element>();
 	
-	private final List<Element> implementedInterfaces = new ArrayList<Element>();
-	private final List<Element> requiredInterfaces = new ArrayList<Element>();
+	private final List<Interface> implementedInterfaces = new ArrayList<Interface>();
+	private final List<Interface> requiredInterfaces = new ArrayList<Interface>();
 	private List<String> idsClasses = new ArrayList<String>();
 
 	private String widht;
-
 	private String height;
-
 	private String x;
-
 	private String y;
 	
 	/**
@@ -104,14 +101,14 @@ public class Package extends Element {
 	 * 
 	 * @return List<{@link Class}>
 	 */
-	public List<Element> getClasses(){
-		List<Element> paks = new ArrayList<Element>();
+	public List<Class> getClasses(){
+		List<Class> classes = new ArrayList<Class>();
 		
 		for (Element element : getArchitecture().getElements())
 			if(UtilResources.extractPackageName(element.getNamespace()).equalsIgnoreCase(this.getName()))
-				paks.add(element);
+				classes.add((Class) element);
 
-		return paks;
+		return classes;
 	}
 	
 	/**
@@ -130,10 +127,17 @@ public class Package extends Element {
 	}
 
 	public void addImplementedInterface(Element interfacee) {
-		implementedInterfaces.add(interfacee);
+		implementedInterfaces.add((Interface) interfacee);
+	}
+	
+	/**
+	 * @return the implementedInterfaces
+	 */
+	public List<Interface> getImplementedInterfaces() {
+		return implementedInterfaces;
 	}
 
-	public void addRequiredInterface(Class interfacee) {
+	public void addRequiredInterface(Interface interfacee) {
 		requiredInterfaces.add(interfacee);
 	}
 
@@ -141,6 +145,13 @@ public class Package extends Element {
 		return idsClasses;
 	}
 	
+	/**
+	 * @return the requiredInterfaces
+	 */
+	public List<Interface> getRequiredInterfaces() {
+		return requiredInterfaces;
+	}
+
 	public List<Relationship> getRelationships() {
 		List<Relationship> relations = new ArrayList<Relationship>();
 
@@ -151,6 +162,13 @@ public class Package extends Element {
 		return relations;
 	}
 
+	
+	public Class createClass(String className) throws Exception {
+		String idClass = UtilResources.getRandonUUID();
+		Class c = new Class(getArchitecture(), className, idClass);
+		idsClasses.add(idClass);
+		return c;
+	}
 	/**
 	 * Eu sei, eu sei,  princípio da substituição de Liskov.
 	 * Desculpe :D 
@@ -174,4 +192,31 @@ public class Package extends Element {
 			return true;
 		return false;
 	}
+
+	public void moveClassToPackage(Class klass, Package packageToMove) {
+		if (!idsClasses.contains(klass.getId())) return;
+		
+		removeClass(klass);
+		packageToMove.addExternalClass(klass);
+	}
+
+	private void addExternalClass(Class klass) {
+		idsClasses.add(klass.getId());
+	}
+	
+	public void removeClass(Class klass) {
+		idsClasses.remove(klass.getId());
+		getArchitecture().getAllClasses().remove(klass);
+	}
+	
+	public boolean removeImplementedInterface(Interface interface_) {
+		if (!implementedInterfaces.contains(interface_)) return false;
+		
+		implementedInterfaces.remove(interface_);
+		return true;
+	}
+
+	
+	
+
 }

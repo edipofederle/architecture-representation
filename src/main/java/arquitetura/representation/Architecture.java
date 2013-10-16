@@ -1,12 +1,15 @@
 package arquitetura.representation;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+import jmetal.core.Variable;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -28,13 +31,16 @@ import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 import arquitetura.representation.relationship.UsageRelationship;
 
+import com.rits.cloning.Cloner;
+
 /**
  * 
  * @author edipofederle<edipofederle@gmail.com>
  *
  */
-public class Architecture {
-	
+public class Architecture extends Variable {
+	private static final long serialVersionUID = -7764906574709840088L;
+
 	static Logger LOGGER = LogManager.getLogger(Architecture.class.getName());
 
 	private List<Element> elements = new ArrayList<Element>();
@@ -510,6 +516,28 @@ public class Architecture {
 	public Concern getConcernByName(String concernName) {
 		return concerns.get(concernName);
 	}
+	
+	public Collection<Concern> getConcerns() {
+		Set<Concern> concerns = new HashSet<Concern>();
+		for (Package component : getAllPackages()) 
+			concerns.addAll(component.getAllConcerns());
+		
+		for (Interface interface_ : getAllInterfaces())
+			concerns.addAll(interface_.getAllConcerns());
+		
+		return concerns;
+	}
+
+	/**
+	 * @param concerns the concerns to set
+	 */
+	public void setConcerns(HashMap<String, Concern> concerns) {
+		this.concerns = concerns;
+	}
+	
+	public void addExternalInterface(Interface interface_){
+		elements.add(interface_);
+	}
 
 	/**
 	 * Retorna classe contendo método para manipular relacionamentos
@@ -541,7 +569,7 @@ public class Architecture {
 		return new OperationsOverAbstraction(this);
 	}
 	
-	protected boolean removeRelationship(Relationship as) {
+	public boolean removeRelationship(Relationship as) {
 		if(as == null) return false;
 		this.allIds.remove(as.getId());
 		return relationships.remove(as);
@@ -549,6 +577,68 @@ public class Architecture {
 
 	public OperationsOverUsage forUsage() {
 		return new OperationsOverUsage(this);
+	}
+	
+	/**
+	 * Create an exact copy of the <code>Architecture</code> object.
+	 * 
+	 * @return An exact copy of the object.
+	 */
+	public Variable deepCopy() {
+		return this.deepClone();
+	}
+
+	// private static int count = 1;
+	public Architecture deepClone() {
+		Architecture newArchitecture = new Cloner().deepClone(this);
+		// newArchitecture.setNumber(count++);
+		// newArchitecture.addAncestor(this);
+		// Dummy.addAncestor(newArchitecture, this);
+		return newArchitecture;
+	}
+	
+	
+	public void addImplementedInterfaceToComponent(Interface interface_, Package pkg) {
+		if (pkg.getImplementedInterfaces().contains(interface_)) return;
+		
+		//TODO mudar para Realization
+		getAllRelationships().add(new RealizationRelationship(interface_, pkg, "", UtilResources.getRandonUUID()));
+	}
+	
+	public void addRequiredInterfaceToComponent(Interface interface_, Package pkg) {
+		if (pkg.getRequiredInterfaces().contains(interface_)) return;
+		getAllRelationships().add(new DependencyRelationship(interface_, pkg, "", this, UtilResources.getRandonUUID()));
+	}
+	
+	public void removeImplementedInterfaceFromPackage(Interface interface_, Package component) {
+		if (!component.removeImplementedInterface(interface_)) return;
+
+		for (AbstractionRelationship relationship : getAllAbstractions()) {
+			if (relationship.getSupplier().equals(interface_) && relationship.getClient().equals(component)){
+				getAllRelationships().remove(relationship);
+				return;
+			}
+		}
+	}
+	
+	//TODO - Edipo  - ver isso - Código morto
+	public void deleteClassRelationships(Class class_){
+		Collection<Relationship> relationships = new ArrayList<Relationship>(class_.getRelationships());
+		
+		if (relationships!=null) {
+		for (Relationship relationship : relationships) {
+			this.removeRelationship(relationship);
+		}
+	  }
+	}
+
+	public void addRelationship(Relationship relationship) {
+		this.relationships.add(relationship);
+	}
+
+	public Package findPackageOfClass(Class targetClass) throws PackageNotFound {
+		String packageName = UtilResources.extractPackageName(targetClass.getNamespace());
+		return findPackageByName(packageName);
 	}
 
 }

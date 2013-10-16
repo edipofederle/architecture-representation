@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import arquitetura.representation.relationship.Relationship;
+
 /**
  * 
  * @author edipofederle<edipofederle@gmail.com>
@@ -167,6 +169,16 @@ public abstract class Element {
 	 */
 	public void setVariationPoint(VariationPoint variationPoint) {
 		this.variationPoint = variationPoint;
+	}
+	
+	public List<Relationship> getRelationships() {
+		List<Relationship> relations = new ArrayList<Relationship>();
+
+		for (Relationship relationship : getArchitecture().getAllRelationships())
+			if(this.getIdsRelationships().contains(relationship.getId()))
+				relations.add(relationship);
+		
+		return relations;
 	}
 	
 	

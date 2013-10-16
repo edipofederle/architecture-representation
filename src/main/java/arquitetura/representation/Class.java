@@ -12,7 +12,6 @@ import arquitetura.exceptions.MethodNotFoundException;
 import arquitetura.flyweights.VariantFlyweight;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.AssociationClassRelationship;
-import arquitetura.representation.relationship.Relationship;
 import arquitetura.touml.Types.Type;
 import arquitetura.touml.VisibilityKind;
 
@@ -198,15 +197,6 @@ public class Class extends Element {
 		return abstractMethods;
 	}
 
-	public List<Relationship> getRelationships() {
-		List<Relationship> relations = new ArrayList<Relationship>();
-
-		for (Relationship relationship : getArchitecture().getAllRelationships())
-			if(this.getIdsRelationships().contains(relationship.getId()))
-				relations.add(relationship);
-		
-		return relations;
-	}
 
 	public boolean dontHaveAnyRelationship() {
 		

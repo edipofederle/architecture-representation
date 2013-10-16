@@ -87,5 +87,16 @@ public class Interface extends Element {
 		
 		return concerns;
 	}
+	
+	public Collection<DependencyRelationship> getDependencies() {
+		Collection<DependencyRelationship> dependencies = new ArrayList<DependencyRelationship>();
+		
+		for (DependencyRelationship dependency : getArchitecture().getAllDependencies()) {
+			if (dependency.getSupplier().equals(this))
+				dependencies.add(dependency);
+		}
+		
+		return dependencies;
+	}
 
 }

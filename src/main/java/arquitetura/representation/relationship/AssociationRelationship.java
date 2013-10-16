@@ -3,6 +3,9 @@ package arquitetura.representation.relationship;
 import java.util.ArrayList;
 import java.util.List;
 
+import arquitetura.helpers.UtilResources;
+import arquitetura.representation.Element;
+
 
 /**
  * 
@@ -15,14 +18,14 @@ public class AssociationRelationship extends Relationship {
 	
 	public AssociationRelationship(String id) {setId(id);}
 	
-//	public AssociationRelationship(Class class1, Class class2) {
-//		setId(UtilResources.getRandonUUID());
-//		getParticipants().add(new AssociationEnd(class1));
-//		getParticipants().add(new AssociationEnd(class2));
-//		
-//		setTypeRelationship("associacao");
-//
-//	}
+	public AssociationRelationship(Element class1, Element class2) {
+		setId(UtilResources.getRandonUUID());
+		getParticipants().add(new AssociationEnd(class1, false, "association", null,""));
+		getParticipants().add(new AssociationEnd(class2, false, "association", null,""));
+		
+		setTypeRelationship("associacao");
+
+	}
 
 	public List<AssociationEnd> getParticipants() {
 		return participants;

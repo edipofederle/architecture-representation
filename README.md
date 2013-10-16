@@ -1,3 +1,7 @@
-# Ainda não tem documentação. Leia o código fonte. 
+Você precisa:
+- Eclipse (Recomendável)
+- Maven (http://maven.apache.org) - (Dependências)
 
-[]s
+Leia o arquivo docs/howto_maven.txt
+
+Abraços
