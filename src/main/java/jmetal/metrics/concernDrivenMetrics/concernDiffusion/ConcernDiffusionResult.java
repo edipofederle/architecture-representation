@@ -3,6 +3,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
 import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
@@ -49,6 +50,31 @@ public abstract class ConcernDiffusionResult<T extends Element> {
 	
 	public Set<T> getElements() {
 		return elements;
+	}
+	
+	protected boolean classContainsConcern(Class cls) {
+		return cls.containsConcern(concern);
+	}
+	
+	protected boolean classContainsConcernViaMethod(Class cls) {
+		for (Method method : cls.getAllMethods()) {
+			if (method.containsConcern(concern))
+				return true;
+		}
+		return false;
+	}
+	
+	//TODO implementar o metodo abaixo para representacao do Edipo
+	
+	// Uma classe realizar um interface.
+	// Deve retornar a interface.
+	
+	protected boolean classContainsConcernViaInterface(Class cls) {
+//		for (Interface i : cls.getImplementedInterfaces()) {
+//			if (interfaceContainsConcern(i) || interfaceContainsConcernViaOperation(i))
+//				return true;
+//		}
+		return false;
 	}
 	
 	@Override

@@ -28,17 +28,22 @@ public class UsageRelationshipBuilder extends ArchitectureHelper {
 		EList<NamedElement> suppliers = element.getSuppliers();
 		EList<NamedElement> clieents = element.getClients();
 		
-		EList<org.eclipse.uml2.uml.Element> relatedElements = element.getRelatedElements();
-		
-		for (org.eclipse.uml2.uml.Element el : relatedElements) {
-			arquitetura.representation.Element e = architecture.getElementByXMIID(getModelHelper().getXmiId(el));
-			e.getIdsRelationships().add((getModelHelper().getXmiId(element)));
-		}
+//		EList<org.eclipse.uml2.uml.Element> relatedElements = element.getRelatedElements();
+//		
+//		for (org.eclipse.uml2.uml.Element el : relatedElements) {
+//			arquitetura.representation.Element e = architecture.getElementByXMIID(getModelHelper().getXmiId(el));
+//			e.getIdsRelationships().add((getModelHelper().getXmiId(element)));
+//		}
 		
 		Element client = architecture.getElementByXMIID(getModelHelper().getXmiId(clieents.get(0)));
 		Element supplier = architecture.getElementByXMIID(getModelHelper().getXmiId(suppliers.get(0)));
 		architecture.getAllIds().add(getModelHelper().getXmiId(element));
-		return new UsageRelationship(element.getName(), supplier, client, getModelHelper().getXmiId(element));
+		UsageRelationship usageRelationship = new UsageRelationship(element.getName(), supplier, client, getModelHelper().getXmiId(element));
+		
+		usageRelationship.getClient().getRelationships().add(usageRelationship);
+		usageRelationship.getSupplier().getRelationships().add(usageRelationship);
+		
+		return usageRelationship;
 	}
 
 }

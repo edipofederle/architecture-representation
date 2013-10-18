@@ -22,15 +22,15 @@ public class OperationsOverUsage {
 	}
 
 	public void moveClient(UsageRelationship usageRelationship, Element newClient) {
-		usageRelationship.getClient().getIdsRelationships().remove(usageRelationship.getId());
+		usageRelationship.getClient().getRelationships().remove(usageRelationship);
 		usageRelationship.setClient(newClient);
-		newClient.getIdsRelationships().add(usageRelationship.getId());
+		newClient.getRelationships().add(usageRelationship);
 	}
 	
 	public void moveSupplier(UsageRelationship usageRelationship, Element newSupplier) {
-		usageRelationship.getSupplier().getIdsRelationships().remove(usageRelationship.getId());
+		usageRelationship.getSupplier().getRelationships().remove(usageRelationship);
 		usageRelationship.setSupplier(newSupplier);
-		newSupplier.getIdsRelationships().add(usageRelationship.getId());
+		newSupplier.getRelationships().add(usageRelationship);
 	}
 
 	/**
@@ -39,11 +39,10 @@ public class OperationsOverUsage {
 	 * @param newSupplier
 	 */
 	public void create(Element newClient, Element newSupplier) {
-		String idUsage = UtilResources.getRandonUUID();
-		UsageRelationship usage = new UsageRelationship("", newSupplier, newClient, idUsage);
+		UsageRelationship usage = new UsageRelationship("", newSupplier, newClient, UtilResources.getRandonUUID());
 		this.architecture.getAllRelationships().add(usage);
-		newClient.getIdsRelationships().add(idUsage);
-		newSupplier.getIdsRelationships().add(idUsage);
+		newClient.getRelationships().add(usage);
+		newSupplier.getRelationships().add(usage);
 	}
 
 	/**
@@ -54,14 +53,14 @@ public class OperationsOverUsage {
 	 * @param newClient
 	 */
 	public void move(UsageRelationship usageRelationship, Class newSupplier, Class newClient) {
-		usageRelationship.getClient().getIdsRelationships().remove(usageRelationship.getId());
-		usageRelationship.getSupplier().getIdsRelationships().remove(usageRelationship.getId());
+		usageRelationship.getClient().getRelationships().remove(usageRelationship);
+		usageRelationship.getSupplier().getRelationships().remove(usageRelationship);
 		
 		usageRelationship.setClient(newClient);
 		usageRelationship.setSupplier(newSupplier);
 		
-		newSupplier.getIdsRelationships().add(usageRelationship.getId());
-		newClient.getIdsRelationships().add(usageRelationship.getId());
+		newSupplier.getRelationships().add(usageRelationship);
+		newClient.getRelationships().add(usageRelationship);
 	}
 
 }

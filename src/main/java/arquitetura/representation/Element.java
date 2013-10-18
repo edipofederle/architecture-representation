@@ -21,7 +21,8 @@ public abstract class Element {
 	private static Architecture architecture;
 	private String typeElement;
 	private String namespace;
-	private List<String> idsRelationships = new ArrayList<String>();
+	//private List<String> idsRelationships = new ArrayList<String>();
+	private List<Relationship> relationships = new ArrayList<Relationship>();
 	
 	public Element(Architecture architecture, String name, Variant variant, String typeElement, String namespace, String id) {
 		setArchitecture(architecture);
@@ -142,21 +143,6 @@ public abstract class Element {
 		return architecture;
 	}
 
-
-	/**
-	 * @return the idsRelationships
-	 */
-	public List<String> getIdsRelationships() {
-		return idsRelationships;
-	}
-
-	/**
-	 * @param idsRelationships the idsRelationships to set
-	 */
-	public void setIdsRelationships(List<String> idsRelationships) {
-		this.idsRelationships = idsRelationships;
-	}
-
 	/**
 	 * @return the variationPoint
 	 */
@@ -172,15 +158,39 @@ public abstract class Element {
 	}
 	
 	public List<Relationship> getRelationships() {
-		List<Relationship> relations = new ArrayList<Relationship>();
-
-		for (Relationship relationship : getArchitecture().getAllRelationships())
-			if(this.getIdsRelationships().contains(relationship.getId()))
-				relations.add(relationship);
-		
-		return relations;
+		return relationships;
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Element other = (Element) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 	
 	
 }

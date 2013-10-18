@@ -22,34 +22,34 @@ public class OperationsOverAbstraction {
 	}
 
 	public void moveClient(AbstractionRelationship abstractionRelationship,	Class newClient) {
-		abstractionRelationship.getClient().getIdsRelationships().remove(abstractionRelationship.getId());
+		abstractionRelationship.getClient().getRelationships().remove(abstractionRelationship);
 		abstractionRelationship.setClient(newClient);
-		newClient.getIdsRelationships().add(abstractionRelationship.getId());
+		newClient.getRelationships().add(abstractionRelationship);
 	}
 
 	public void moveSupplier(AbstractionRelationship abstractionRelationship, Class newSupplier) {
-		abstractionRelationship.getSupplier().getIdsRelationships().remove(abstractionRelationship.getId());
+		abstractionRelationship.getSupplier().getRelationships().remove(abstractionRelationship);
 		abstractionRelationship.setSupplier(newSupplier);
-		newSupplier.getIdsRelationships().add(abstractionRelationship.getId());
+		newSupplier.getRelationships().add(abstractionRelationship);
 		
 	}
 
 	public void move(AbstractionRelationship abstractionRelationship, Class newSupplier, Class newCliente) {
-		abstractionRelationship.getClient().getIdsRelationships().remove(abstractionRelationship.getId());
-		abstractionRelationship.getSupplier().getIdsRelationships().remove(abstractionRelationship.getId());
+		abstractionRelationship.getClient().getRelationships().remove(abstractionRelationship);
+		abstractionRelationship.getSupplier().getRelationships().remove(abstractionRelationship);
 		
 		abstractionRelationship.setSupplier(newSupplier);
 		abstractionRelationship.setClient(newCliente);
 		
-		newSupplier.getIdsRelationships().add(abstractionRelationship.getId());
-		newCliente.getIdsRelationships().add(abstractionRelationship.getId());
+		newSupplier.getRelationships().add(abstractionRelationship);
+		newCliente.getRelationships().add(abstractionRelationship);
 	}
 
 	public void create(Class newClient, Class newSupplier) {
 		String id = UtilResources.getRandonUUID();
 		AbstractionRelationship abs = new AbstractionRelationship(newClient, newSupplier, id);
-		newClient.getIdsRelationships().add(id);
-		newSupplier.getIdsRelationships().add(id);
+		newClient.getRelationships().add(abs);
+		newSupplier.getRelationships().add(abs);
 		this.architecture.getAllRelationships().add(abs);
 	}
 

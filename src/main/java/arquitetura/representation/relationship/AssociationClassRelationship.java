@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import arquitetura.helpers.ElementsTypes;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
 import arquitetura.representation.Element;
 import arquitetura.representation.Method;
-import arquitetura.representation.Variant;
 
 
 /**
@@ -18,19 +18,14 @@ import arquitetura.representation.Variant;
  * @author edipofederle<edipofederle@gmail.com>
  *
  */
-public class AssociationClassRelationship extends Class {
+public class AssociationClassRelationship extends Relationship {
 
-	public String name;
 	public List<MemberEnd> memebersEnd = new ArrayList<MemberEnd>();
 	private Element ownedEnd;
 	private Class associationClass;
 	private String idOwner;
 	
 	
-	public AssociationClassRelationship(Architecture architecture, String name, Variant variantType, boolean isAbstract, String namespace, String id) {
-		super(architecture, name, variantType, isAbstract, namespace, id);
-	}
-
 	/**
 	 * 
 	 * @param architecture
@@ -42,24 +37,19 @@ public class AssociationClassRelationship extends Class {
 	 * @param associationClass
 	 */
 	public AssociationClassRelationship(Architecture a, String name, List<MemberEnd> ends, Element ownedEnd, String id, String idOwner, Class associationClass) {
-		super(a, name, null, false, "", id);
-		this.name = name;
+		super.setName(name);
 		this.memebersEnd = ends;
 		this.ownedEnd = ownedEnd;
 		this.idOwner = idOwner;
 		this.associationClass = associationClass;
-	}
-
-
-	public String getName() {
-		return name;
-	}
+		super.setId(id);
+		super.setType(ElementsTypes.CLASS);
+		}
 
 
 	/**
 	 * @return the attributes
 	 */
-	@Override
 	public List<Attribute> getAllAttributes() {
 		return this.associationClass.getAllAttributes();
 	}
@@ -92,17 +82,14 @@ public class AssociationClassRelationship extends Class {
 	 * 
 	 * @return {@link Method}
 	 */
-	@Override
 	public List<Method> getAllMethods() {
 		return this.associationClass.getAllMethods();
 	}
 	
-	@Override
 	public List<Concern> getOwnConcerns() {
 		return this.associationClass.getOwnConcerns();
 	}
 	
-	@Override
 	public Collection<Concern> getAllConcerns() {
 		Collection<Concern> concerns = new ArrayList<Concern>(getOwnConcerns());
 

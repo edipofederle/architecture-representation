@@ -362,22 +362,22 @@ public class Architecture extends Variable {
 
 	public void removePackage(Package p) {
 		List<Element> elements = getElements();
-		List<String> ids = new ArrayList<String>();
+		//List<String> ids = new ArrayList<String>();
 		List<String> idsClasses = p.getAllClassIdsForThisPackage(); //Ids de todas as classes que pertencem ao pacote que esta sendo deletado.
 		
 		for (Iterator<Element> i = this.elements.iterator(); i.hasNext();) {
 			Element e = i.next();
 			String packageName = UtilResources.extractPackageName(e.getNamespace());
 			if(e.getName().equalsIgnoreCase(packageName)){
-				ids.addAll(e.getIdsRelationships());
+			//	ids.addAll(e.getIdsRelationships());
 			}
 		}
 		
 		for(Element c : p.getClasses()){
-			List<String> res = c.getIdsRelationships();
+			List<Relationship> res = c.getRelationships();
 			for (Iterator<Relationship> i = relationships.iterator(); i.hasNext();) {
 				Relationship r = i.next();
-				if(res.contains(r.getId())){
+				if(res.contains(r)){
 					i.remove();
 					removeIdOfElementFromList(r.getId(), "Relacionamento");
 				}
@@ -390,7 +390,7 @@ public class Architecture extends Variable {
 		for (Relationship relationship : rp) {
 			for (Iterator<Relationship> r = this.relationships.iterator(); r.hasNext();) {
 				Relationship relacion = r.next();
-				if(relationship.getId().equalsIgnoreCase(relacion.getId())){
+				if(relationship.equals(relacion)){
 					r.remove();
 					removeIdOfElementFromList(relacion.getId(), "Relacionamento");
 				}

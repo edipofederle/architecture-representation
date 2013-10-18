@@ -6,16 +6,23 @@ import jmetal.core.Problem;
 import jmetal.core.Solution;
 import jmetal.core.SolutionSet;
 import jmetal.encodings.solutionType.ArchitectureSolutionType;
+import jmetal.metrics.PLAMetrics.extensibility.ExtensPLA;
 import jmetal.metrics.concernDrivenMetrics.concernCohesion.LCC;
+import jmetal.metrics.concernDrivenMetrics.concernCohesion.LCCClass;
+import jmetal.metrics.concernDrivenMetrics.concernCohesion.LCCClassComponentResult;
 import jmetal.metrics.concernDrivenMetrics.concernCohesion.LCCComponentResult;
 import jmetal.metrics.concernDrivenMetrics.concernDiffusion.CDAC;
 import jmetal.metrics.concernDrivenMetrics.concernDiffusion.CDACResult;
+import jmetal.metrics.concernDrivenMetrics.concernDiffusion.CDAClass;
+import jmetal.metrics.concernDrivenMetrics.concernDiffusion.CDAClassResult;
 import jmetal.metrics.concernDrivenMetrics.concernDiffusion.CDAI;
 import jmetal.metrics.concernDrivenMetrics.concernDiffusion.CDAIResult;
 import jmetal.metrics.concernDrivenMetrics.concernDiffusion.CDAO;
 import jmetal.metrics.concernDrivenMetrics.concernDiffusion.CDAOResult;
 import jmetal.metrics.concernDrivenMetrics.interactionBeteweenConcerns.CIBC;
 import jmetal.metrics.concernDrivenMetrics.interactionBeteweenConcerns.CIBCResult;
+import jmetal.metrics.concernDrivenMetrics.interactionBeteweenConcerns.CIBClass;
+import jmetal.metrics.concernDrivenMetrics.interactionBeteweenConcerns.CIBClassResult;
 import jmetal.metrics.concernDrivenMetrics.interactionBeteweenConcerns.IIBC;
 import jmetal.metrics.concernDrivenMetrics.interactionBeteweenConcerns.IIBCResult;
 import jmetal.metrics.concernDrivenMetrics.interactionBeteweenConcerns.OOBC;
@@ -23,6 +30,7 @@ import jmetal.metrics.concernDrivenMetrics.interactionBeteweenConcerns.OOBCResul
 import jmetal.metrics.conventionalMetrics.ClassDependencyIn;
 import jmetal.metrics.conventionalMetrics.ClassDependencyOut;
 import jmetal.metrics.conventionalMetrics.DependencyIn;
+import jmetal.metrics.conventionalMetrics.DependencyOut;
 import jmetal.metrics.conventionalMetrics.MeanDepComponents;
 import jmetal.metrics.conventionalMetrics.MeanNumOpsByInterface;
 import jmetal.metrics.conventionalMetrics.RelationalCohesion;
@@ -47,7 +55,7 @@ public class OPLA extends Problem {
 	public OPLA(String xmiFilePath) throws Exception {
 	        
 			numberOfVariables_ = 1;
-	        numberOfObjectives_ = 2;
+	        numberOfObjectives_ = 3;
 	        numberOfConstraints_ = 0;
 	        problemName_ = "OPLA";
 	        solutionType_ = new ArchitectureSolutionType(this);
@@ -67,11 +75,22 @@ public class OPLA extends Problem {
 	    public void evaluate(Solution solution) {
 	        double fitness0 = 0.0;
 	        double fitness1 = 0.0;
-			//Architecture architecture = (Architecture) solution.getDecisionVariables()[0];
-            fitness0 = evaluateMSIFitness((Architecture) solution.getDecisionVariables()[0]);
+	        double fitness2 = 0.0;
+	        
+	        // double fitness3 = 0.0;
+			
+	        //DesignOutset
+	        fitness0 = evaluateMSIFitnessDesignOutset((Architecture) solution.getDecisionVariables()[0]);
+            //fitness0 = evaluateMSIFitness((Architecture) solution.getDecisionVariables()[0]);
 	        fitness1 = evaluateMACFitness((Architecture) solution.getDecisionVariables()[0]);
+	        //fitness2 = evaluateElegance((Architecture) solution.getDecisionVariables()[0]);
+	        fitness2 = evaluatePLAExtensibility((Architecture) solution.getDecisionVariables()[0]);
+	        
+	        
 	        solution.setObjective(0, fitness0);
 	        solution.setObjective(1, fitness1);
+	        solution.setObjective(2, fitness2);
+	       // solution.setObjective(3, fitness3);
 	       
 	    }
 	    //  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
@@ -151,6 +170,7 @@ public class OPLA extends Problem {
 	    	double sumClassesDepOut = 0.0;
 	    	double sumDepIn = 0.0;
 	    	double sumDepOut = 0.0;
+	    	double iCohesion = 0.0;
 	    	
 	    	
 	    	MeanNumOpsByInterface numOps = new MeanNumOpsByInterface(architecture);
@@ -165,15 +185,18 @@ public class OPLA extends Problem {
 	    	ClassDependencyIn classesDepIn = new ClassDependencyIn(architecture);
 	    	sumClassesDepIn = classesDepIn.getResults();
 	    		    	
-	    	//TODO _ VER ISSO - EDIpo
-//	    	DependencyOut DepOut = new DependencyOut(architecture);
-//	    	sumDepOut = DepOut.getResults();
+	    	DependencyOut DepOut = new DependencyOut(architecture);
+	    	sumDepOut = DepOut.getResults();
 	    	
 	    	DependencyIn DepIn = new DependencyIn(architecture);
 	    	sumDepIn = DepIn.getResults();
 	    		    	
 	    	RelationalCohesion cohesion = new RelationalCohesion(architecture);
 	    	sumCohesion = cohesion.getResults();
+	    	if (sumCohesion==0){
+	    		iCohesion = 1.0;
+	    	} 
+	    	else iCohesion = 1 / sumCohesion;
 	    	
 //	    	System.out.println("MeanNumOps: "+meanNumOps);
 //	    	System.out.println("meanDepComps: "+meanDepComps);
@@ -181,9 +204,13 @@ public class OPLA extends Problem {
 //	    	System.out.println("sumClassesDepOut: "+sumClassesDepOut);
 //	    	System.out.println("sumDepIn: "+sumDepIn);
 //	    	System.out.println("sumDepOut: "+sumDepOut);
-//	    	System.out.println("sumCohesion: "+sumCohesion);
+//	    	System.out.println("sumCohesion: "+iCohesion);
 //	    	
-	    	MACFitness = meanNumOps + meanDepComps  + sumClassesDepIn + sumClassesDepOut + sumDepIn + sumDepOut + (1 / sumCohesion); 
+	    	
+	    	// MACFitness = meanNumOps + meanDepComps  + sumClassesDepIn + sumClassesDepOut + sumDepIn + sumDepOut + (1 / sumCohesion);
+	    	//Design Outset
+	    	MACFitness = sumClassesDepIn + sumClassesDepOut + sumDepIn + sumDepOut + iCohesion; 
+	    	
 	    	return MACFitness;
 	    }
 	
@@ -267,113 +294,7 @@ public class OPLA extends Problem {
 	        return result;
 	    }
 	    
-////---------------------------------------------------------------------------------
-//	    public Solution tratarRestricoes(Solution solution){
-//	    
-//	    	List<Component> allComponents = new ArrayList<Component> (((Architecture) solution.getDecisionVariables()[0]).getComponents());
-//		    for (Component comp: allComponents){
-//		    	if ((comp.getClasses().isEmpty()) && (comp.getImplementedInterfaces().isEmpty())){
-//		    		removeComponentRelationships(comp, (Architecture)solution.getDecisionVariables()[0]);
-//		    		((Architecture) solution.getDecisionVariables()[0]).removeComponent(comp);
-//		    		//return solution;
-//		    	}
-//		    	List<Class> allClasses = new ArrayList<Class>(comp.getClasses());
-//		    	Iterator<Class> iteratorClasses = allClasses.iterator();
-//                while (iteratorClasses.hasNext()){
-//                        Class c= iteratorClasses.next();
-//                        if ((c.getMethods().isEmpty()) && (c.getAttributes().isEmpty())){
-//		      			    removeClassRelationships(c,(Architecture)solution.getDecisionVariables()[0]);
-//                        	comp.removeClass(c);
-//		      			 }
-//                }
-//		    	Collection<Interface> allItfs = comp.getImplementedInterfaces();
-//		    	Iterator<Interface> iteratorItfs = allItfs.iterator();
-//                while (iteratorItfs.hasNext()){
-//                        Interface itf = iteratorItfs.next();
-//                       if (itf.getOperations().isEmpty()) {
-//                   			removeInterfaceRelationships(itf, (Architecture)solution.getDecisionVariables()[0]);
-//                    	    iteratorItfs.remove(); 
-//		      		   }
-//		      	}
-//                
-//		    }
-//		    return solution;
-//	    }
-//	   
-//	    
-//	  //-------------------------------------------------------------------------------------
-//	    private void removeComponentRelationships(Component comp, Architecture architecture){
-////	    	if (!comp.getRequiredInterfaces().isEmpty()){
-////    			Collection<DependencyComponentInterfaceRelationship> allDeps = architecture.getDependencyComponentInterfaceRelationships();
-////    			for (DependencyComponentInterfaceRelationship relationship : allDeps){
-////    				if (relationship.getComponent().equals(comp)){
-////    					architecture.removeInterElementComponentRelationship(relationship);
-////    				}
-////    				
-////    			}
-////    		}
-////	    	if (!comp.getImplementedInterfaces().isEmpty()){
-////	    		Collection<AbstractionInterElementRelationship> allItfs = architecture.getAbstractionInterElementRelationships();
-////    			for (AbstractionInterElementRelationship relationship : allItfs){
-////    				if (relationship.getChild().equals(comp)){
-////    					architecture.removeInterElementComponentRelationship(relationship);
-////    				}
-////    				
-////    			}
-////	    	}
-//	    	
-//	    	InterElementRelationship[] allInterElementRelationships = architecture.getInterElementRelationships().toArray(new InterElementRelationship[0]);
-//            for (InterElementRelationship relationship : allInterElementRelationships){
-//    				 if (relationship instanceof AbstractionInterElementRelationship){
-//    					 AbstractionInterElementRelationship abstraction = (AbstractionInterElementRelationship) relationship;
-// 	        	  		 if (abstraction.getChild().equals(comp)){
-//    					      architecture.removeInterElementComponentRelationship(relationship);
-// 	        	  		 }
-//    				 }
-//    				 if (relationship instanceof DependencyComponentInterfaceRelationship){
-//    					 DependencyComponentInterfaceRelationship dependency = (DependencyComponentInterfaceRelationship) relationship;
-// 	        	  		 if (dependency.getComponent().equals(comp)){
-//    					      architecture.removeInterElementComponentRelationship(relationship);
-// 	        	  		 }
-//    				 }
-//    			}
-//	    		
-//	    }
-//	    
-//	  //---------------------------------------------------------------------------------------
-//		 private void removeInterfaceRelationships (Interface itf, Architecture architecture){
-//			 if (!(itf.getDependents().isEmpty())){
-//				 
-//				 Collection<DependencyComponentInterfaceRelationship> allDeps = architecture.getDependencyComponentInterfaceRelationships();
-//				 for (DependencyComponentInterfaceRelationship relationship : allDeps){
-//	    				if (relationship.getInterface().equals(itf)){
-//	    					architecture.removeInterElementComponentRelationship(relationship);
-//	    				}
-//				 }
-//			 }
-//	         if (!(itf.getImplementors().isEmpty())){
-//	        	 Collection<AbstractionInterElementRelationship> allRelations = architecture.getAbstractionInterElementRelationships();
-//	        	 for (AbstractionInterElementRelationship relationship : allRelations){
-//					 if (relationship.getParent().equals(itf)){
-//						 architecture.removeInterElementComponentRelationship(relationship);
-//					 }
-//				 }
-//	       	} 
-//
-//		 }
-//	  //---------------------------------------------------------------------------------------
-//	  private void removeClassRelationships(Class cls, Architecture architecture){
-//		    
-//		List<InterClassRelationship> relationshipsCls = new ArrayList<InterClassRelationship>(cls.getRelationships());
-//		if (!relationshipsCls.isEmpty()){                						
-//			Iterator<InterClassRelationship> iteratorRelationships = relationshipsCls.iterator();
-//            while (iteratorRelationships.hasNext()){
-//            	InterClassRelationship relationship= iteratorRelationships.next();
-//            	architecture.removeInterClassRelationship(relationship);
-//			}//end while relationships
-//		}// end if
-//	 }// end removeClassRelationships
-	 
+
 
 	  //método para verificar se algum dos relacionamentos recebidos � generaliza��o
 	    private boolean searchForGeneralizations(Collection<Relationship> Relationships){
@@ -386,58 +307,89 @@ public class OPLA extends Problem {
 	    	return found;
 	    }
 	    
-//	 //---------------------------------------------------------------------------------------
-//	  public void evaluateConstraints(Solution solution) throws JMException {
-//		  List<Component> allComponents = new ArrayList<Component> (((Architecture) solution.getDecisionVariables()[0]).getComponents());
-//		  if (allComponents.isEmpty()) System.out.println("Arquitetura chegou sem componentes no evaluate constraints");
-//		  
-//		  for (Component comp: allComponents){
-//		    	List<Class> allClasses = new ArrayList<Class> (comp.getClasses());
-//		    	if (!(allClasses.isEmpty())){                						
-//					Iterator<Class> iteratorClasses = allClasses.iterator();
-//		            while (iteratorClasses.hasNext()){
-//		            	Class cls= iteratorClasses.next();
-//		            	if ((cls.getAttributes().isEmpty()) && (cls.getMethods().isEmpty()) && !(searchForGeneralizations(cls.getRelationships())) && (cls.getVariantType().toString().equals(""))){
-//		            		comp.removeClass(cls);
-//		            		this.removeClassRelationships(cls,(Architecture) solution.getDecisionVariables()[0]);
-//		            	}
-//		            }
-//		    	}
-//		    	List<Interface> allItfsComp = new ArrayList<Interface> (comp.getImplementedInterfaces());
-//		    	if (!(allItfsComp.isEmpty())){                						
-//					Iterator<Interface> iteratorInterfaces = allItfsComp.iterator();
-//		            while (iteratorInterfaces.hasNext()){
-//		            	Interface itf= iteratorInterfaces.next();
-//		            	boolean ultimaInterface=false;
-//		            	if (comp.getImplementedInterfaces().size()==1) ultimaInterface=true;
-//		            	if (itf.getOperations().isEmpty() && !ultimaInterface){
-//		            		try {
-//								((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
-//							} catch (Exception e) {
-//								// TODO Auto-generated catch block
-//								e.printStackTrace();
-//							}
-////		            		this.removeInterfaceRelationships(itf, (Architecture) solution.getDecisionVariables()[0]);
-//		            	}
-//		            	if (itf.getOperations().isEmpty() && ultimaInterface && comp.getClasses().size()<1){
-//		            		try {
-//								((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
-//							} catch (Exception e) {
-//								// TODO Auto-generated catch block
-//								e.printStackTrace();
-//							}
-//		            	}
-//		            }
-//		    	}
-//		    	
-//		    	if (comp.getClasses().isEmpty() && comp.getImplementedInterfaces().isEmpty()){
-//		    		((Architecture) solution.getDecisionVariables()[0]).removeComponent(comp);
-//		    		this.removeComponentRelationships(comp, (Architecture)solution.getDecisionVariables()[0]);
-//		    	}
-//		    }
-//	  }
+	    private double evaluateMSIFitnessDesignOutset (Architecture architecture) {
+	    	double sumCIBC = 0.0;
+	        double sumIIBC = 0.0;
+	        double sumOOBC = 0.0;
+	        double sumCDAC = 0.0;
+	        double sumCDAI = 0.0;
+	        double sumCDAO = 0.0;
+	        double sumLCC = 0.0;
+	        double MSIFitness = 0.0;
+	        double sumCDAClass = 0.0;
+	        double sumCIBClass = 0.0;
+	        double sumLCCClass = 0.0;
+	        
+	    	sumLCC = evaluateLCC(architecture);
+	        
+	    	sumLCCClass = evaluateLCCClass(architecture);
+	    	
+			CIBC cibc = new CIBC(architecture);
+			for (CIBCResult c : cibc.getResults().values()) {
+				sumCIBC += c.getInterlacedConcerns().size();
+			}
+			
+			CIBClass cibclass = new CIBClass(architecture);
+			for (CIBClassResult c : cibclass.getResults().values()) {
+				sumCIBClass += c.getInterlacedConcerns().size();
+			}
+			
+			IIBC iibc = new IIBC(architecture);
+			for (IIBCResult c : iibc.getResults().values()) {
+				sumIIBC += c.getInterlacedConcerns().size();
+			}
+			
+			OOBC oobc = new OOBC(architecture);
+			for (OOBCResult c : oobc.getResults().values()) {
+				sumOOBC += c.getInterlacedConcerns().size();
+			}
+			
+			
+			CDAC cdac = new CDAC (architecture);
+			for (CDACResult c: cdac.getResults()) {
+				sumCDAC += c.getElements().size();
+			}
+			
+			CDAClass cdaclass = new CDAClass (architecture);
+			for (CDAClassResult c: cdaclass.getResults()) {
+				sumCDAClass += c.getElements().size();
+			}
+			
+			CDAI cdai = new CDAI (architecture);
+			for (CDAIResult c: cdai.getResults()) {
+				sumCDAI += c.getElements().size();
+			}
+			
+			CDAO cdao = new CDAO (architecture);
+			for (CDAOResult c: cdao.getResults()) {
+				sumCDAO += c.getElements().size();
+			}
+			
+			MSIFitness = sumLCC + sumLCCClass + sumCDAC + sumCDAClass + sumCDAI + sumCDAO + sumCIBC + sumCIBClass + sumIIBC + sumOOBC;
+			return MSIFitness;
+	    }
 
-	  
-	 //-----------------------------------------------------------------------------------------
+				
+		private double evaluateLCCClass(Architecture architecture) {
+			double sumLCCClass = 0.0;
+			LCCClass result = new LCCClass(architecture);
+
+	        for (LCCClassComponentResult cls : result.getResults()) {
+				sumLCCClass += cls.numberOfConcerns();
+				
+			}
+			return sumLCCClass;
+		}
+		
+		private float evaluatePLAExtensibility (Architecture architecture){
+			float ExtensibilityFitness = 0;
+			float Extensibility;
+			ExtensPLA PLAExtens = new ExtensPLA(architecture);
+			ExtensibilityFitness = PLAExtens.getValue();
+			if (ExtensibilityFitness == 0)
+				Extensibility = 1000;
+			else Extensibility = 1/ExtensibilityFitness;
+			return (Extensibility);
+		}
 	 
 }

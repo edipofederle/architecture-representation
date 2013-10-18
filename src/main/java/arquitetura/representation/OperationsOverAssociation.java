@@ -101,8 +101,8 @@ public class OperationsOverAssociation {
 																			asClass.getId(),
 																			null,
 																			asClass);
-		owner.getIdsRelationships().add(asClass.getId());
-		klass.getIdsRelationships().add(asClass.getId());
+		owner.getRelationships().add(asc);
+		klass.getRelationships().add(asc);
 		
 		this.architecture.getAllAssociationsClass().add(asc);
 		

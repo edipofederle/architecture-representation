@@ -33,14 +33,14 @@ public class OperationsOverRelationships {
 	}
 
 	public void moveAssociation(AssociationRelationship association, Class class1, Class class2) {
-		class1.getIdsRelationships().remove(association.getId());
-		class2.getIdsRelationships().remove(association.getId());
+		class1.getRelationships().remove(association);
+		class2.getRelationships().remove(association);
 		
 		association.getParticipants().get(0).setCLSClass(class1);
 		association.getParticipants().get(1).setCLSClass(class2);
 		
-		class1.getIdsRelationships().add(association.getId());
-		class2.getIdsRelationships().add(association.getId());
+		class1.getRelationships().add(association);
+		class2.getRelationships().add(association);
 	}
 	
 	public void moveAssociationClass(AssociationClassRelationship association, Class member1, Class member2) {
@@ -48,15 +48,15 @@ public class OperationsOverRelationships {
 		association.getMemebersEnd().add(new MemberEnd("none", null, "public", member1));
 		association.getMemebersEnd().add(new MemberEnd("none", null, "public", member2));
 		
-		member1.getIdsRelationships().add(association.getId());
-		member2.getIdsRelationships().add(association.getId());
+		member1.getRelationships().add(association);
+		member2.getRelationships().add(association);
 	}
 	
 	public void moveDependency(DependencyRelationship dependency, Class client, Class supplier) {
 		dependency.setClient(client);
 		dependency.setSupplier(supplier);
-		client.getIdsRelationships().add(dependency.getId());
-		supplier.getIdsRelationships().add(dependency.getId());
+		client.getRelationships().add(dependency);
+		supplier.getRelationships().add(dependency);
 	}
 
 
@@ -109,9 +109,9 @@ public class OperationsOverRelationships {
 	 * @param newClient
 	 */
 	public void moveRealizationClient(RealizationRelationship realization, Element newClient) {
-		realization.getSupplier().getIdsRelationships().remove(realization.getId());
+		realization.getSupplier().getRelationships().remove(realization);
 		realization.setClient(newClient);
-		newClient.getIdsRelationships().add(realization.getId());
+		newClient.getRelationships().add(realization);
 	}
 
 	/**
@@ -121,9 +121,9 @@ public class OperationsOverRelationships {
 	 * @param newSupplier
 	 */
 	public void moveRealizationSupplier(RealizationRelationship realization, Element newSupplier) {
-		realization.getSupplier().getIdsRelationships().remove(realization.getId());
+		realization.getSupplier().getRelationships().remove(realization);
 		realization.setSupplier(newSupplier);
-		newSupplier.getIdsRelationships().add(realization.getId());
+		newSupplier.getRelationships().add(realization);
 	}
 	
 	/**
@@ -135,22 +135,22 @@ public class OperationsOverRelationships {
 	 */
 	public void moveRealization(RealizationRelationship realization, Element client, Element supplier) {
 		
-		realization.getClient().getIdsRelationships().remove(realization.getId());
-		realization.getSupplier().getIdsRelationships().remove(realization.getId());
+		realization.getClient().getRelationships().remove(realization);
+		realization.getSupplier().getRelationships().remove(realization);
 		
 		realization.setClient(client);
 		realization.setSupplier(supplier);
 		
-		client.getIdsRelationships().add(realization.getId());
-		supplier.getIdsRelationships().add(realization.getId());
+		client.getRelationships().add(realization);
+		supplier.getRelationships().add(realization);
 		
 	}
 
 	public void createNewRealization(Element client, Element supplier) {
 		String id = UtilResources.getRandonUUID();
 		RealizationRelationship realization = new RealizationRelationship(client, supplier, "", id);
-		client.getIdsRelationships().add(id);
-		supplier.getIdsRelationships().add(id);
+		client.getRelationships().add(realization);
+		supplier.getRelationships().add(realization);
 		this.architecture.getAllRelationships().add(realization);
 	}
 

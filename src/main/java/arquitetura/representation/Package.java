@@ -6,7 +6,6 @@ import java.util.List;
 
 import arquitetura.exceptions.ConcernCannotBeAppliedToPackagesException;
 import arquitetura.helpers.UtilResources;
-import arquitetura.representation.relationship.Relationship;
 
 
 /**
@@ -152,17 +151,6 @@ public class Package extends Element {
 		return requiredInterfaces;
 	}
 
-	public List<Relationship> getRelationships() {
-		List<Relationship> relations = new ArrayList<Relationship>();
-
-		for (Relationship relationship : getArchitecture().getAllRelationships())
-			if(this.getIdsRelationships().contains(relationship.getId()))
-				relations.add(relationship);
-		
-		return relations;
-	}
-
-	
 	public Class createClass(String className) throws Exception {
 		String idClass = UtilResources.getRandonUUID();
 		Class c = new Class(getArchitecture(), className, idClass);

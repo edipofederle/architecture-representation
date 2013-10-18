@@ -12,7 +12,6 @@ import arquitetura.representation.Package;
 
 
 public class IIBC {
-
 	private final Architecture architecture;
 	private final HashMap<Concern, IIBCResult> results = new HashMap<Concern, IIBCResult>();
 

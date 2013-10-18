@@ -12,6 +12,7 @@ import arquitetura.exceptions.MethodNotFoundException;
 import arquitetura.flyweights.VariantFlyweight;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.AssociationClassRelationship;
+import arquitetura.representation.relationship.Relationship;
 import arquitetura.touml.Types.Type;
 import arquitetura.touml.VisibilityKind;
 
@@ -200,7 +201,7 @@ public class Class extends Element {
 
 	public boolean dontHaveAnyRelationship() {
 		
-		if(getIdsRelationships().size() == 0){
+		if(getRelationships().isEmpty()){
 			return true;
 		}else{
 			return false;
@@ -245,17 +246,14 @@ public class Class extends Element {
 	}
 
 	public List<AssociationClassRelationship> getAllAssociationClass() {
-		List<AssociationClassRelationship> associationsClasses = getArchitecture().getAllAssociationsClass();
-		List<AssociationClassRelationship> foundAssociationsClasses = new ArrayList<AssociationClassRelationship>();
-	
-		for(String id : this.getIdsRelationships()){
-			for(AssociationClassRelationship asc : associationsClasses){
-				if(asc.getId().equals(id))
-					foundAssociationsClasses.add(asc);
-			}
+		List<AssociationClassRelationship> associationsClasses = new ArrayList<AssociationClassRelationship>();
+		
+		for(Relationship r : getRelationships()){
+			if(r instanceof AssociationClassRelationship)
+				associationsClasses.add((AssociationClassRelationship) r);
 		}
 		
-		return foundAssociationsClasses;
+		return associationsClasses;
 	}
 
 	

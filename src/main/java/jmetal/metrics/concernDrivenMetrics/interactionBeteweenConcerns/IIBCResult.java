@@ -9,7 +9,6 @@ import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
 
 public class IIBCResult {
-
 	private final Concern concern;
 	private final Set<Concern> interlacedConcerns = new HashSet<Concern>();
 

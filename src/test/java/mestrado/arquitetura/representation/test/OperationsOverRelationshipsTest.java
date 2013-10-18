@@ -334,8 +334,8 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		Class owner = a.findClassByName("Class1").get(0);
 		Class klass = a.findClassByName("Class2").get(0);
 		
-		assertEquals(0,owner.getIdsRelationships().size());
-		assertEquals(0,klass.getIdsRelationships().size());
+		assertEquals(0,owner.getRelationships().size());
+		assertEquals(0,klass.getRelationships().size());
 		
 		a.forAssociation().createAssociationClass(listAttrs, listMethods, owner, klass);
 		
@@ -349,10 +349,10 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		assertEquals("Class2",generated.getAllAssociationsClass().get(0).getMemebersEnd().get(0).getType().getName());
 		assertEquals("Class1",generated.getAllAssociationsClass().get(0).getMemebersEnd().get(1).getType().getName());
 		
-		assertEquals(1, owner.getIdsRelationships().size());
-		assertEquals(1, klass.getIdsRelationships().size());
+		assertEquals(1, owner.getRelationships().size());
+		assertEquals(1, klass.getRelationships().size());
 		
-		assertEquals(1, klass.getAllAssociationClass().size());
+		assertEquals("Deve ter 1 associactionClass", 1, klass.getAllAssociationClass().size());
 		
 	}
 	
@@ -506,8 +506,8 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		Element client = realization.getClient();
 		Element supplier = realization.getSupplier();
 		
-		assertTrue(client.getIdsRelationships().contains(realization.getId()));
-		assertTrue(supplier.getIdsRelationships().contains(realization.getId()));
+		assertTrue(client.getRelationships().contains(realization));
+		assertTrue(supplier.getRelationships().contains(realization));
 		
 		a.operationsOverRelationship().moveRealization(realization, klassFoo, klassBar);
 		
@@ -520,8 +520,8 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		assertEquals("Bar",architecture.getAllRealizations().get(0).getSupplier().getName());
 		assertEquals("Foo",architecture.getAllRealizations().get(0).getClient().getName());
 		
-		assertFalse(client.getIdsRelationships().contains(realization.getId()));
-		assertFalse(supplier.getIdsRelationships().contains(realization.getId()));
+		assertFalse(client.getRelationships().contains(realization.getId()));
+		assertFalse(supplier.getRelationships().contains(realization.getId()));
 	}
 	
 	@Test
@@ -579,11 +579,11 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		
 		Class newClient = a.createClass("NewClient");
 		
-		assertEquals(0, newClient.getIdsRelationships().size());
+		assertEquals(0, newClient.getRelationships().size());
 		
 		a.forAbstraction().moveClient(abstractionRelationship, newClient);
 		assertEquals(1,a.getAllAbstractions().size());
-		assertEquals(1,newClient.getIdsRelationships().size());
+		assertEquals(1,newClient.getRelationships().size());
 		
 		GenerateArchitecture g = new GenerateArchitecture();
 		g.generate(a, "abstractionInterElementMoveClient");
@@ -601,11 +601,11 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		
 		Class newSupplier = a.createClass("NewSupplier");
 		
-		assertEquals(0, newSupplier.getIdsRelationships().size());
+		assertEquals(0, newSupplier.getRelationships().size());
 		
 		a.forAbstraction().moveSupplier(abstractionRelationship, newSupplier);
 		assertEquals(1,a.getAllAbstractions().size());
-		assertEquals(1,newSupplier.getIdsRelationships().size());
+		assertEquals(1,newSupplier.getRelationships().size());
 		
 		GenerateArchitecture g = new GenerateArchitecture();
 		g.generate(a, "abstractionInterElementMoveSupplier");
@@ -624,11 +624,11 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		Class newSupplier = a.createClass("NewSupplier");
 		Class newCliente = a.createClass("NewClient");
 		
-		assertEquals(0, newSupplier.getIdsRelationships().size());
+		assertEquals(0, newSupplier.getRelationships().size());
 		
 		a.forAbstraction().move(abstractionRelationship, newSupplier, newCliente);
 		assertEquals(1,a.getAllAbstractions().size());
-		assertEquals(1,newSupplier.getIdsRelationships().size());
+		assertEquals(1,newSupplier.getRelationships().size());
 		
 		GenerateArchitecture g = new GenerateArchitecture();
 		g.generate(a, "abstractionInterElementMoveAll");

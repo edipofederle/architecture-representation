@@ -3,7 +3,6 @@ package arquitetura.builders;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.AssociationClass;
 import org.eclipse.uml2.uml.Type;
 
@@ -48,21 +47,26 @@ public class AssociationClassRelationshipBuilder extends ArchitectureHelper {
 		String idOwner = null;
 		if(!associationClass.getPackage().getName().equalsIgnoreCase("model"))
 			idOwner = getModelHelper().getXmiId(associationClass.getOwner());
+	
+		//TODO REMOVER
+//		EList<org.eclipse.uml2.uml.Element> relatedElements = associationClass.getRelatedElements();
 		
-		EList<org.eclipse.uml2.uml.Element> relatedElements = associationClass.getRelatedElements();
-		
-		for (org.eclipse.uml2.uml.Element element : relatedElements) {
-			arquitetura.representation.Element e = architecture.getElementByXMIID(getModelHelper().getXmiId(element));
-			e.getIdsRelationships().add((getModelHelper().getXmiId(associationClass)));
-		}
+//		for (org.eclipse.uml2.uml.Element element : relatedElements) {
+//			arquitetura.representation.Element e = architecture.getElementByXMIID(getModelHelper().getXmiId(element));
+//			e.getIdsRelationships().add((getModelHelper().getXmiId(associationClass)));
+//		}
 
-		//TODO passar oBJ
-		return new AssociationClassRelationship(architecture, associationClass.getName(),
+		AssociationClassRelationship ascc = new AssociationClassRelationship(architecture, associationClass.getName(),
 											    membersEnd,
 											    onewd,
 											    getModelHelper().getXmiId(associationClass),
 											    idOwner,
 											    classAssociation);
+		for(MemberEnd member : ascc.getMemebersEnd()){
+			member.getType().getRelationships().add(ascc);
+		}
+		
+		return ascc;
 	}
 
 }
