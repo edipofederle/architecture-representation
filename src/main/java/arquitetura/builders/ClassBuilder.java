@@ -42,9 +42,6 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 		modelHelper = ModelHelperFactory.getModelHelper();
 	}
 	
-	/**
-	 * Constrói um elemento do tipo {@link Class}.
-	 */
 	@Override
 	protected arquitetura.representation.Class buildElement(NamedElement modelElement) {
 		arquitetura.representation.Class klass = null; // TODO VER ISTO. 
@@ -57,11 +54,10 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 		String packageName = ((NamedElement)modelElement).getNamespace().getQualifiedName();
 		packageName = packageName !=null ? packageName : "";
 		
-		
-		
 		klass = new Class(architecture, name, variantType, isAbstract, packageName, XmiHelper.getXmiId(modelElement));
 		klass.getAllAttributes().addAll(getAttributes(modelElement));
 		klass.getAllMethods().addAll(getMethods(modelElement, klass));
+		
 		return klass;
 	}
 	

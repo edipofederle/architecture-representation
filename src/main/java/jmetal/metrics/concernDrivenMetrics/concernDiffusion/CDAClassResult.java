@@ -13,8 +13,6 @@ public class CDAClassResult extends ConcernDiffusionResult<Class> {
 	@Override
 	protected void loadElements(Architecture architecture) {
 		for (Class cls : architecture.getAllClasses()) {
-			// TODO incluir quando implementar o metodo em ConcernDiffusionResult
-			// || classContaisConcernViaInterface(cls) ))
 			if (classContainsConcern(cls) || (classContainsConcernViaMethod(cls))) 
 				getElements().add(cls);
 		}

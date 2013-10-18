@@ -166,7 +166,15 @@ public class ClassTest extends TestHelper {
 		klass1.removeConcern("xpto");
 		assertEquals(1, klass1.getOwnConcerns().size());
 	}
-	
 	//Concerns
+	
+	@Test
+	public void testGetImplementedInterfaces() throws Exception {
+		Architecture a = givenAArchitecture("classRealizationInterface");
+		
+		arquitetura.representation.Class klass1 = a.findClassByName("Class2").get(0);
+		assertEquals("Deve retornar 2 interfaces", 2, klass1.getImplementedInterfaces().size());
+		
+	}
 	
 }

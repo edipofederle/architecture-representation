@@ -28,7 +28,7 @@ public class Class extends Element {
 	private boolean isAbstract;
 	private final List<Attribute> attributes = new ArrayList<Attribute>();
 	private final List<Method> methods = new ArrayList<Method>();
-	
+	private List<Interface> implementedInterfaces = new ArrayList<Interface>();
 	/**
 	 * 
 	 * @param architecture
@@ -254,6 +254,10 @@ public class Class extends Element {
 		}
 		
 		return associationsClasses;
+	}
+
+	public List<Interface> getImplementedInterfaces() {
+		return implementedInterfaces;
 	}
 
 	

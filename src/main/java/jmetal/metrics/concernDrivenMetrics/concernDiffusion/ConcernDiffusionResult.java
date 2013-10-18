@@ -70,10 +70,10 @@ public abstract class ConcernDiffusionResult<T extends Element> {
 	// Deve retornar a interface.
 	
 	protected boolean classContainsConcernViaInterface(Class cls) {
-//		for (Interface i : cls.getImplementedInterfaces()) {
-//			if (interfaceContainsConcern(i) || interfaceContainsConcernViaOperation(i))
-//				return true;
-//		}
+		for (Interface i : cls.getImplementedInterfaces()) {
+			if (interfaceContainsConcern(i) || interfaceContainsConcernViaOperation(i))
+				return true;
+		}
 		return false;
 	}
 	
