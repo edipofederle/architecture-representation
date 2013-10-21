@@ -33,7 +33,7 @@ public class NSGAII_OPLA_FeatMut {
 
          int runsNumber = 5; //30;
          populationSize_ = 100; //100
-         maxEvaluations_ = 30000; //300 gera��es
+         maxEvaluations_ = 30000; //300 gerações
          
          crossoverProbability_ = 0.2; 
          mutationProbability_ = 0.8;
@@ -43,7 +43,7 @@ public class NSGAII_OPLA_FeatMut {
          File directory = new File("experiment/OPLA/NSGA-II/FeatureMutation" + "/");
          if (!directory.exists()) {
              if (!directory.mkdir()) {
-             	System.out.println("N�o foi poss�vel criar o diret�rio do resultado");
+             	System.out.println("Não foi possível criar o diretório do resultado");
              	System.exit(0);
              }
          }
@@ -52,24 +52,21 @@ public class NSGAII_OPLA_FeatMut {
          String plas[] = new String[]{
          		 //"resources/AGM-Final-concerns.xmi", 
          		"resources/ECommerce-1-v1.xmi",
-    /*             "resources/AGM-improvement.xmi", 
+         		/*"resources/AGM-improvement.xmi", 
                  "resources/MM-v6-completa.xmi",
                "resources/LPS-BET.xmi",
                 "resources/MM-Final.xmi"*/
          };
+         
          String xmiFilePath;
                  
          for (String pla : plas) {
-
-
                	xmiFilePath = pla;
-//                    	
          
      	OPLA problem = null;
 			try {
 				problem = new OPLA(xmiFilePath);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

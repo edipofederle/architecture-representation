@@ -11,6 +11,8 @@ import java.util.Set;
 
 import jmetal.core.Variable;
 
+import main.GenerateArchitecture;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -621,7 +623,6 @@ public class Architecture extends Variable {
 		}
 	}
 	
-	//TODO - Edipo  - ver isso - Código morto
 	public void deleteClassRelationships(Class class_){
 		Collection<Relationship> relationships = new ArrayList<Relationship>(class_.getRelationships());
 		
@@ -639,6 +640,11 @@ public class Architecture extends Variable {
 	public Package findPackageOfClass(Class targetClass) throws PackageNotFound {
 		String packageName = UtilResources.extractPackageName(targetClass.getNamespace());
 		return findPackageByName(packageName);
+	}
+
+	public void save(Architecture architecture, int i) {
+		GenerateArchitecture generate = new GenerateArchitecture();
+		generate.generate(architecture, architecture.getName() + i);
 	}
 
 }

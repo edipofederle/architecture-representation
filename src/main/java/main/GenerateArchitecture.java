@@ -72,9 +72,7 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			for(Class klass : a.getAllClasses()){
 				List<arquitetura.touml.Attribute> attributesForClass = createAttributes(op, klass);
 				
-				
 				List<Method> methodsForClass = createMethods(klass);
-				
 				
 				//Variation Point
 				VariationPoint variationPoint = klass.getVariationPoint();
