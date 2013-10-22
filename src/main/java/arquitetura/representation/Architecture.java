@@ -41,6 +41,7 @@ public class Architecture extends Variable implements Cloneable {
 	private static final long serialVersionUID = -7764906574709840088L;
 
 	static Logger LOGGER = LogManager.getLogger(Architecture.class.getName());
+	public static String ARCHITECTURE_TYPE = "arquitetura.representation.Architecture"; 
 
 	private List<Element> elements = new ArrayList<Element>();
 	private HashMap<String, Concern> concerns = new HashMap<String, Concern>();
@@ -518,9 +519,9 @@ public class Architecture extends Variable implements Cloneable {
 	
 	public Collection<Concern> getConcerns() {
 		Set<Concern> concerns = new HashSet<Concern>();
-		for (Package component : getAllPackages()) 
-			concerns.addAll(component.getAllConcerns());
-		
+//		for (Package component : getAllPackages()) 
+//			concerns.addAll(component.getAllConcerns());
+//		
 		for (Interface interface_ : getAllInterfaces())
 			concerns.addAll(interface_.getAllConcerns());
 		

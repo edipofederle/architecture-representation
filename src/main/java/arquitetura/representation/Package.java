@@ -105,7 +105,8 @@ public class Package extends Element {
 		
 		for (Element element : getArchitecture().getElements())
 			if(UtilResources.extractPackageName(element.getNamespace()).equalsIgnoreCase(this.getName()))
-				classes.add((Class) element);
+				if(element instanceof Class)
+					classes.add((Class) element);
 
 		return classes;
 	}

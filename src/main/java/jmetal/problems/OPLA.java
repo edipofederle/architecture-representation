@@ -61,7 +61,7 @@ public class OPLA extends Problem {
 	        solutionType_ = new ArchitectureSolutionType(this);
 	        variableType_ = new java.lang.Class[numberOfVariables_];
 	        length_ = new int[numberOfVariables_];
-	        variableType_[0] = java.lang.Class.forName("arquitetura.representation.Architecture"); 
+	        variableType_[0] = java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE); 
 	      
 	        architecture_ = new ArchitectureBuilder().create(xmiFilePath);
 	       //length_[0] = numberOfElements_; 
