@@ -1110,8 +1110,8 @@
   <perfilConcerns:play xmi:id="_cwiI8BVrEeODAq4Tm5H6GQ" base_Class="_4L4Z4BViEeODAq4Tm5H6GQ"/>
   <perfilConcerns:play xmi:id="_kUgQsBVrEeODAq4Tm5H6GQ" base_Class="_4kumcBVcEeODAq4Tm5H6GQ"/>
   <perfilConcerns:pause xmi:id="_kUzysBVrEeODAq4Tm5H6GQ" base_Class="_4kumcBVcEeODAq4Tm5H6GQ"/>
-  <smartyProfile:mandatory xmi:id="_XZ3CYBVvEeODAq4Tm5H6GQ" base_Class="_Ru2b4BS1EeOYorUb5NKqTw" rootVP="MovableSprites" variabilities="sprit"/>
-  <smartyProfile:variationPoint xmi:id="_XaMZkBVvEeODAq4Tm5H6GQ" base_Class="_Ru2b4BS1EeOYorUb5NKqTw" numberOfVariants="2" variants="" variabilities="sprit"/>
+  <smartyProfile:mandatory xmi:id="_XZ3CYBVvEeODAq4Tm5H6GQ" base_Class="_Ru2b4BS1EeOYorUb5NKqTw" rootVP="MovableSprites" variabilities=""/>
+  <smartyProfile:variationPoint xmi:id="_XaMZkBVvEeODAq4Tm5H6GQ" base_Class="_Ru2b4BS1EeOYorUb5NKqTw" numberOfVariants="2" variants="StationarySprite, MovableSprites" variabilities="sprit"/>
   <smartyProfile:variationPoint xmi:id="_bsnRABVvEeODAq4Tm5H6GQ" base_Class="_fFmg8BS9EeOYorUb5NKqTw" numberOfVariants="4" variants="Ceiling, Floor, Wall, Brick, BrickPile" variabilities="stationay_sprit"/>
   <smartyProfile:alternative_OR xmi:id="_bs4WwBVvEeODAq4Tm5H6GQ" base_Class="_fFmg8BS9EeOYorUb5NKqTw" rootVP="Sprit" variabilities="sprit"/>
   <smartyProfile:alternative_OR xmi:id="_hQ5Y8BVvEeODAq4Tm5H6GQ" base_Class="_Uo_ggBSvEeOYorUb5NKqTw" rootVP="Sprite" variabilities="sprit"/>

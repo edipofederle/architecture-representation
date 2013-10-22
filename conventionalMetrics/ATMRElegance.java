@@ -1,6 +1,5 @@
 package br.uem.din.metrics.conventionalMetrics;
 
-import br.uem.din.architectureEvolution.representation.Architecture;
 import br.uem.din.architectureEvolution.representation.Class;
 
 //Attributes to methods ratio elegance metric
@@ -18,7 +17,7 @@ public class ATMRElegance {
 	double ratiosAttributesMethods[]= new double[10000];
     int i = 0;
         
-	//Instancia a classe utilitária
+	//Instancia a classe utilitï¿½ria
 
     Estatistica e = new Estatistica();
      

@@ -118,7 +118,6 @@ public class AgmTest extends TestHelper {
 		assertEquals("play", klass.getOwnConcerns().get(0).getName());
 	}
 	
-	
 	@Test
 	public void testClasseWallStereotypes()throws ClassNotFound{
 		Class klass = architecture.findClassByName("Wall").get(0);
@@ -270,11 +269,13 @@ public class AgmTest extends TestHelper {
 		
 		assertEquals("1", var1.getMinSelection());
 		assertEquals("2", var1.getMaxSelection());
-
 		assertEquals("DESIGN_TIME", var1.getBindingTime());
-		
 		assertNotNull(var1.getVariationPoint());
+		for(arquitetura.representation.Variant v : var1.getVariants()){
+			System.out.println(v.getName());
+		}
 		assertEquals(2, var1.getVariants().size());
+		
 		assertEquals("Puck", var1.getVariants().get(0).getName());
 		assertEquals("Paddle", var1.getVariants().get(1).getName());
 		
@@ -312,11 +313,16 @@ public class AgmTest extends TestHelper {
 		
 		assertEquals("1", var.getMinSelection());
 		assertEquals("2", var.getMaxSelection());
-
 		assertEquals("DESIGN_TIME", var.getBindingTime());
-		
 		assertNotNull(var.getVariationPoint());
+		
+		
+		assertTrue(var.getVariationPoint().getVariationPointElement().getVariant().getVariabilities().isEmpty());
+		
 		assertEquals(2, var.getVariants().size());
+		
+		assertTrue(var.getVariants().get(0).getVariabilities().contains(var));
+		
 		assertEquals("MovableSprites", var.getVariants().get(1).getName());
 		assertEquals("StationarySprite", var.getVariants().get(0).getName());
 		

@@ -55,20 +55,18 @@ public class VariationPointFlyweight {
 				for (String variantElement : variantsElements) {
 					if((variantElement != null) && (!"".equals(variantElement.trim()))){
 						Classifier klasss = modelHelper.getClassByName(variantElement.trim(), architecture.getModel());
-						if (klasss != null) {
+						if (klasss != null) 
 							variants.add(variantFlyweight.getOrCreateVariant(klasss));
-						}
 					}
 				}
 				
-				if(variantTypeForVariationPointElement != null){
+				if(variantTypeForVariationPointElement != null)
 					variantFlyweight.getOrCreateVariant(klass);
-				}
 				
 				 variationPoint = new VariationPoint(variationPointElement, variants, bindingTime);
-				 for(Variant variantTemp : variants){
+				 for(Variant variantTemp : variants)
 					 variantTemp.getVariationPoints().add(variationPoint);
-				 }
+				 
 				 variationPoints.put(variationPointElement.getId(), variationPoint);
 			}
 		}

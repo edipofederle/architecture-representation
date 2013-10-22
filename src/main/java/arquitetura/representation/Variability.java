@@ -2,7 +2,6 @@ package arquitetura.representation;
 
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -62,7 +61,7 @@ public class Variability {
 	}
 
 
-	public void addVariationPoint(VariationPoint variationPoint) {
+	public void setVariationPoint(VariationPoint variationPoint) {
 			this.variationPoint = variationPoint;
 	}
 
@@ -126,14 +125,6 @@ public class Variability {
 
 
 	public List<Variant> getVariants() {
-		List<Variant> variantsNames = variants;
-		Iterator<Variant> i = variantsNames.iterator();
-		
-		while (i.hasNext()) {
-			Variant s = i.next();
-			if(!s.getVariantType().equalsIgnoreCase("optional"))
-				if (s.getName().equalsIgnoreCase(this.getOwnerClass())){ i.remove(); }
-		}
 		return variants;
 	}
 

@@ -143,7 +143,7 @@ public class PLAFeatureMutation extends Mutation {
     
     public void MoveMethodMutation(double probability, Solution solution, String scope) throws JMException{
     	try { 
-            if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName("br.uem.din.architectureEvolution.representation.Architecture")) {
+            if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName("arquitetura.representation.Architecture")) {
             	Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
             	
             	if (PseudoRandom.randDouble() < probability) {
@@ -210,7 +210,7 @@ public class PLAFeatureMutation extends Mutation {
     
     public void MoveOperationMutation(double probability, Solution solution) throws JMException{
     try { 
-          if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName("br.uem.din.architectureEvolution.representation.Architecture")) {
+          if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName("arquitetura.representation.Architecture")) {
         	if (PseudoRandom.randDouble() < probability) {
         	Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
             
@@ -258,7 +258,7 @@ public class PLAFeatureMutation extends Mutation {
     public void AddClassMutation(double probability, Solution solution, String scope) throws JMException {
     	
     	try { 
-            if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName("br.uem.din.architectureEvolution.representation.Architecture")) {
+            if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName("arquiteura.representation.Architecture")) {
               if (PseudoRandom.randDouble() < probability) {  
                Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
                Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
@@ -398,7 +398,7 @@ public class PLAFeatureMutation extends Mutation {
     public void AddManagerClassMutation(double probability, Solution solution) throws JMException {
     	    	
     try { 
-        if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName("br.uem.din.architectureEvolution.representation.Architecture")) {
+        if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName("arquitetura.representation.Architecture")) {
           if (PseudoRandom.randDouble() < probability) {  	
             Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
             
@@ -446,7 +446,7 @@ public class PLAFeatureMutation extends Mutation {
     
 	public void FeatureMutation(double probability, Solution solution, String scope) throws JMException {
         try { 
-        	if (solution.getDecisionVariables()[0].getVariableType().toString().equals("class br.uem.din.architectureEvolution.representation.Architecture")){ 
+        	if (solution.getDecisionVariables()[0].getVariableType().toString().equals("arquitetura.representation.Architecture")){ 
               if (PseudoRandom.randDouble() < probability) {
             	  Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
             	  List<Package> allComponents = new ArrayList<Package> (arch.getAllPackages());

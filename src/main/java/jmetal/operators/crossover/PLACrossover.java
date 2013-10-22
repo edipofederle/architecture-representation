@@ -57,7 +57,7 @@ import arquitetura.representation.relationship.Relationship;
 
 				        
 	    //--------------------------------------------------------------------------
-	    public Solution[] doCrossover(double probability, Solution parent1, Solution parent2) throws JMException {
+	    public Solution[] doCrossover(double probability, Solution parent1, Solution parent2) throws JMException, CloneNotSupportedException {
 
 	    	String scopeLevel = "allLevels"; //use "oneLevel" para n�o verificar a presen�a de interesses nos atributos e m�todos
 	        Solution[] offspring = new Solution[2];
@@ -73,7 +73,7 @@ import arquitetura.representation.relationship.Relationship;
 	    
 	     
 	  //--------------------------------------------------------------------------
-	    public Solution[] crossoverFeatures(double probability, Solution parent1, Solution parent2, String scope) throws JMException {
+	    public Solution[] crossoverFeatures(double probability, Solution parent1, Solution parent2, String scope) throws JMException, CloneNotSupportedException {
 
 	    	// STEP 0: Create two offsprings
 	        Solution[] offspring = new Solution[2];
@@ -115,7 +115,7 @@ import arquitetura.representation.relationship.Relationship;
 	        return offspring;
 	    }
 	    
-	    private void obtainChild(Concern feature, Architecture parent, Architecture offspring, String scope){
+	    private void obtainChild(Concern feature, Architecture parent, Architecture offspring, String scope) throws CloneNotSupportedException{
 	    	//eliminar os elementos arquiteturais que realizam feature em offspring
 	    	removeOffspringArchitecturalElementsRealizingFeature(feature,offspring, scope);
 	    	//adicionar em offspring os elementos arquiteturais que realizam feature em parent
@@ -845,6 +845,7 @@ import arquitetura.representation.relationship.Relationship;
 		 * @param object An object containing an array of two solutions 
 		 * @return An object containing an array with the offSprings
 		 * @throws JMException 
+	     * @throws  
 		 */
 		public Object execute(Object object) throws JMException {
 			Solution [] parents = (Solution [])object;
@@ -870,7 +871,12 @@ import arquitetura.representation.relationship.Relationship;
 				throw new JMException("Exception in " + name + ".execute()") ;      
 			}
 
-			Solution [] offspring = doCrossover(crossoverProbability_, parents[0], parents[1]); 
+			Solution[] offspring = null;
+			try {
+				offspring = doCrossover(crossoverProbability_, parents[0], parents[1]);
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace();
+			} 
 
 			//problem.evaluateConstraints(offspring[0]);
 			//problem.evaluateConstraints(offspring[1]);

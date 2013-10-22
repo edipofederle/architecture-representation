@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Set;
 
 import jmetal.core.Variable;
-
 import main.GenerateArchitecture;
 
 import org.apache.log4j.LogManager;
@@ -33,14 +32,12 @@ import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 import arquitetura.representation.relationship.UsageRelationship;
 
-import com.rits.cloning.Cloner;
-
 /**
  * 
  * @author edipofederle<edipofederle@gmail.com>
  *
  */
-public class Architecture extends Variable {
+public class Architecture extends Variable implements Cloneable {	
 	private static final long serialVersionUID = -7764906574709840088L;
 
 	static Logger LOGGER = LogManager.getLogger(Architecture.class.getName());
@@ -587,12 +584,17 @@ public class Architecture extends Variable {
 	 * @return An exact copy of the object.
 	 */
 	public Variable deepCopy() {
-		return this.deepClone();
+		try {
+			return this.deepClone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	// private static int count = 1;
-	public Architecture deepClone() {
-		Architecture newArchitecture = new Cloner().deepClone(this);
+	public Architecture deepClone() throws CloneNotSupportedException {
+		Architecture newArchitecture = (Architecture) this.clone();
 		// newArchitecture.setNumber(count++);
 		// newArchitecture.addAncestor(this);
 		// Dummy.addAncestor(newArchitecture, this);
@@ -603,7 +605,6 @@ public class Architecture extends Variable {
 	public void addImplementedInterfaceToComponent(Interface interface_, Package pkg) {
 		if (pkg.getImplementedInterfaces().contains(interface_)) return;
 		
-		//TODO mudar para Realization
 		getAllRelationships().add(new RealizationRelationship(interface_, pkg, "", UtilResources.getRandonUUID()));
 	}
 	

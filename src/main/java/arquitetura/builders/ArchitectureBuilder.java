@@ -34,8 +34,6 @@ import arquitetura.representation.Concern;
 import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Variability;
-import arquitetura.representation.Variant;
-import arquitetura.representation.VariationPoint;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.Relationship;
 
@@ -241,39 +239,10 @@ public class ArchitectureBuilder {
 				variabilityBuilder.create(classifier);
 		
 		VariabilityFlyweight.getInstance().createVariants();
-		
-		List<VariationPoint> variationsPoints = VariationPointFlyweight.getInstance().getVariationPoints();
-		
-		for (VariationPoint variationPoint : variationsPoints) {
-			for(Variability variability : variationPoint.getVariabilities()){
-				String name = variability.getName();
-				Variability foundVariability = VariabilityFlyweight.getInstance().getVariability(name);
-				if(foundVariability != null){
-					if(variationPoint.getVariabilities().contains(foundVariability)){
-						List<Variant> variants = foundVariability.getVariants();
-						boolean variantExists = variantExistsOnVariant(variants, variationPoint.getVariationPointElement().getName());
-						if(!variantExists)
-							foundVariability.getVariants().add(VariantFlyweight.getInstance().getVariant(variationPoint.getVariationPointElement().getName()));
-					}
-				}
-			}
-		}
-
-		
-		
 		variabilities.addAll(VariabilityFlyweight.getInstance().getVariabilities());
-		
 		
 		if (!variabilities.isEmpty()) return variabilities;
 		return Collections.emptyList();
-	}
-
-	private boolean variantExistsOnVariant(List<Variant> variants, String name) {
-		for (Variant variant : variants) {
-			if(variant.getName().equals(name))
-				return true;
-		}
-		return false;
 	}
 
 	private List<? extends Element> loadClasses() {

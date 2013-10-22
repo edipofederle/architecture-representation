@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.eclipse.uml2.uml.Classifier;
 
 import arquitetura.helpers.ModelHelper;
@@ -75,18 +74,17 @@ public class VariabilityFlyweight {
 				}
 			}
 			
-			Variability vari = this.getVariability(v.getName());
+			//Variability vari = this.getVariability(v.getName());
 			
 		  	for(Variant variant : variants){
-		  		
-		  		if(!vari.getVariants().contains(variant)){
-		  			vari.getVariants().add(variant);
+		  		if(!v.getVariants().contains(variant)){
+		  			v.getVariants().add(variant);
 		  		}
 		  	}
 			
 			for(Variant variantTemp : variants){
-				if(!variantTemp.getVariabilities().contains(vari))
-					variantTemp.getVariabilities().add(vari);
+				if(!variantTemp.getVariabilities().contains(v))
+					variantTemp.getVariabilities().add(v);
 			}
 		}
 			
@@ -94,7 +92,7 @@ public class VariabilityFlyweight {
 	
 	
 	public Variability getVariability(String name){
-		return variabilities.get(name);
+		return this.variabilities.get(name);
 	}
 	
 	/**

@@ -29,8 +29,6 @@ public class NSGAII_OPLA_FeatMut {
 //--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
  public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
 
- 	 	 	 	
-
          int runsNumber = 5; //30;
          populationSize_ = 100; //100
          maxEvaluations_ = 30000; //300 gerações
@@ -51,7 +49,7 @@ public class NSGAII_OPLA_FeatMut {
 
          String plas[] = new String[]{
          		 //"resources/AGM-Final-concerns.xmi", 
-         		"resources/ECommerce-1-v1.xmi",
+         		"/Users/edipofederle/sourcesMestrado/arquitetura/src/test/java/resources/agmfinal/agm.uml",
          		/*"resources/AGM-improvement.xmi", 
                  "resources/MM-v6-completa.xmi",
                "resources/LPS-BET.xmi",

@@ -37,6 +37,7 @@ public class VariantFlyweight  extends XmiHelper{
 		if(variant == null){
 			Stereotype variantType = StereotypeHelper.getVariantType(klass);
 			VariantType type = VariantType.getByName(variantType.getName());
+			
 			if ((type != null)){
 				Class variantElement;
 				try {
@@ -54,6 +55,7 @@ public class VariantFlyweight  extends XmiHelper{
 				} catch (ClassNotFound e) {
 					e.printStackTrace();
 				}
+				
 				String[] variabilitiesForVariant = StereotypeHelper.getValueOfAttribute(klass, variantType, "variabilities").split(",");
 				for (String variability : variabilitiesForVariant) {
 					Variability variabilityVariant = VariabilityFlyweight.getInstance().getVariability(variability.trim());

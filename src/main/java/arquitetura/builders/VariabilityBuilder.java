@@ -45,6 +45,7 @@ public class VariabilityBuilder {
 		
 		for (Comment comment : commentVariability) {
 			Map<String, String> variabilityAttributes = StereotypeHelper.getVariabilityAttributes(klass, comment);
+			
 			if(variabilityAttributes != null) { 
 				variability = variabilityFlyweight.getOrCreateVariability(klass.getName(), variabilityAttributes);
 			}
@@ -62,7 +63,7 @@ public class VariabilityBuilder {
 				
 				if(variabilitiesForVariationPoint.contains(variability.getName().trim())){
 					variationPoint.getVariabilities().add(variability);
-					variability.addVariationPoint(variationPoint);
+					variability.setVariationPoint(variationPoint);
 				}
 			}
 		}
