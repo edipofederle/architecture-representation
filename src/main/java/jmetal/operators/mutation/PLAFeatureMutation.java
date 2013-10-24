@@ -501,69 +501,76 @@ public class PLAFeatureMutation extends Mutation {
 		return allComponentsAssignedToConcern;
 	}
 	
-	private void modularizeConcernInComponent(Package targetComponent, Concern concern, Architecture arch){
-		List<Package> allComponents = new ArrayList<Package> (arch.getAllPackages());
-		for (Package comp: allComponents){
-			if (!comp.equals(targetComponent) && checkSameLayer(comp,targetComponent)){// && !comp.containsConcern(concern)){
-				List<Interface> allInterfaces = new ArrayList<Interface> (comp.getImplementedInterfaces());
-				if (allInterfaces.size()>=1) {
-					for (Interface interfaceComp: allInterfaces){
-						if (interfaceComp.containsConcern(concern) && interfaceComp.getOwnConcerns().size()==1){
-							moveInterfaceToComponent(interfaceComp,targetComponent, comp, arch);
-						}
-						else{
-							List<Method> operationsInterfaceComp = new ArrayList<Method> (interfaceComp.getOperations());
-							if (operationsInterfaceComp.size()>=1){
-								for (Method operation : operationsInterfaceComp){
-									if (operation.containsConcern(concern) && operation.getOwnConcerns().size()==1){
-										moveOperationToComponent(operation,interfaceComp,targetComponent, comp, arch, concern);
+	private void modularizeConcernInComponent(Package targetComponent,	Concern concern, Architecture arch) {
+		List<Package> allComponents = new ArrayList<Package>(arch.getAllPackages());
+		for (Package comp : allComponents) {
+			if (!comp.equals(targetComponent) && checkSameLayer(comp, targetComponent)) {// &&// !comp.containsConcern(concern)){
+				List<Interface> allInterfaces = new ArrayList<Interface>(comp.getImplementedInterfaces());
+				if (allInterfaces.size() >= 1) {
+					for (Interface interfaceComp : allInterfaces) {
+						if (interfaceComp.containsConcern(concern)	&& interfaceComp.getOwnConcerns().size() == 1) {
+							moveInterfaceToComponent(interfaceComp, targetComponent, comp, arch);
+						} else {
+							List<Method> operationsInterfaceComp = new ArrayList<Method>(interfaceComp.getOperations());
+							if (operationsInterfaceComp.size() >= 1) {
+								for (Method operation : operationsInterfaceComp) {
+									if (operation.containsConcern(concern) && operation.getOwnConcerns().size() == 1) {
+										moveOperationToComponent(operation, interfaceComp, targetComponent, comp, arch, concern);
 									}
 								}
-							}							
+							}
 						}
 					}
 				}
 			}
 		}
-		for (Package comp: allComponents){
-			if (!comp.equals(targetComponent) && checkSameLayer(comp,targetComponent)){// && !comp.containsConcern(concern)){
-					List<Class> allClasses = new ArrayList<Class> (comp.getClasses());
-					if (allClasses.size() >= 1) {
-						for (Class classComp: allClasses){
-							if ((classComp.containsConcern(concern)) && (classComp.getOwnConcerns().size()==1)){
-								if (!searchForGeneralizations(classComp)){//só realiza a mutcao se a classe nao estiver numa hierarquia de heranca
-									if ((classComp.containsConcern(concern)) && (classComp.getOwnConcerns().size()==1)){
-										moveClassToComponent(classComp,targetComponent, comp, arch,concern);
-									}else{
-										moveHierarchyToComponent(classComp,targetComponent, comp, arch,concern);
-									}
-								}//realiza a mutação em classes estão numa hierarquia de herança
-								else{
-									if (!isVarPointOfConcern(arch, classComp, concern) && !isVariantOfConcern(arch, classComp, concern)){
+
+		for (Package comp : allComponents) {
+
+			if (!comp.equals(targetComponent)
+					&& checkSameLayer(comp, targetComponent)) {// &&
+																// !comp.containsConcern(concern)){
+				List<Class> allClasses = new ArrayList<Class>(comp.getClasses());
+				if (allClasses.size() >= 1) {
+					for (Class classComp : allClasses) {
+						// ThelmaNew: nova condicao adicionada - FEITO
+						if (comp.getClasses().contains(classComp)) {
+							if ((classComp.containsConcern(concern))
+									&& (classComp.getOwnConcerns().size() == 1)) {
+								if (!searchForGeneralizations(classComp)) //realiza a mutaÁ„o em classe que n„o est· numa hierarquia de heranÁa
+									moveClassToComponent(classComp,	targetComponent, comp, arch, concern);
+								else
+									moveHierarchyToComponent(classComp, targetComponent, comp, arch, concern); //realiza a mutação em classes estão numa hierarquia de herarquia 
+							} else {
+								// ThelmaNew: condicao adicionada
+								if (!searchForGeneralizations(classComp)) {
+									if (!isVarPointOfConcern(arch, classComp, concern) && !isVariantOfConcern(arch, classComp, concern)) {
 										List<Attribute> attributesClassComp = new ArrayList<Attribute>(classComp.getAllAttributes());
-										if (attributesClassComp.size()>=1) {
-											for (Attribute attribute: attributesClassComp){
-												if (attribute.containsConcern(concern) && attribute.getOwnConcerns().size()==1){
-													moveAttributeToComponent(attribute,classComp,targetComponent, comp, arch,concern);
+										if (attributesClassComp.size() >= 1) {
+											for (Attribute attribute : attributesClassComp) {
+												if (attribute.containsConcern(concern) && attribute.getOwnConcerns().size() == 1) {
+													moveAttributeToComponent(attribute,	classComp, targetComponent, comp, arch, concern);
+												}
+											}
+										}
+										List<Method> methodsClassComp = new ArrayList<Method>(classComp.getAllMethods());
+										if (methodsClassComp.size() >= 1) {
+											for (Method method : methodsClassComp) {
+												if (method.containsConcern(concern) && method.getOwnConcerns().size() == 1) {
+													moveMethodToComponent(method, classComp, targetComponent, comp, arch, concern);
 												}
 											}
 										}
 									}
-									List<Method> methodsClassComp = new ArrayList<Method>(classComp.getAllMethods());
-									if (methodsClassComp.size()>=1){
-										for (Method method: methodsClassComp){
-											if (method.containsConcern(concern) && method.getOwnConcerns().size()==1){
-												moveMethodToComponent(method,classComp,targetComponent, comp, arch,concern);
-											}
-										}
-									}
 								}
-							}							
+
+							}
 						}
 					}
 				}
 			}
 		}
+	}
 
 	
 	private void moveClassToComponent(Class classComp, Package targetComp, Package sourceComp, Architecture architecture, Concern concern){
@@ -572,7 +579,29 @@ public class PLAFeatureMutation extends Mutation {
 			Iterator<Relationship> iteratorRelationships = allRelationships.iterator();
 			while (iteratorRelationships.hasNext()){
 				Relationship relationship= iteratorRelationships.next();
-				architecture.removeRelationship(relationship);
+				//ThelmaNew: ifs adicionados
+				if (relationship instanceof DependencyRelationship){
+					DependencyRelationship dependency = (DependencyRelationship) relationship;
+					if (dependency.getClient().equals(classComp) || dependency.getSupplier().equals(classComp))
+						architecture.removeRelationship(dependency);
+				}
+				
+				if (relationship instanceof AssociationRelationship){
+					AssociationRelationship association = (AssociationRelationship) relationship;
+					for (AssociationEnd associationEnd : association.getParticipants()) {
+						if (associationEnd.getCLSClass().equals(classComp)){
+							architecture.removeRelationship(association);
+							break;
+						}
+					}
+				}
+										
+				if (relationship instanceof GeneralizationRelationship){
+					GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
+					if ((generalization.getChild().equals(classComp)) || (generalization.getParent().equals(classComp))){
+						architecture.removeRelationship(generalization);
+					}
+				}
 			}
 		}
 		for (Relationship relationship: classComp.getRelationships()){
@@ -876,11 +905,12 @@ private void moveHierarchyToComponent(Class classComp, Package targetComp, Packa
 		while (isChild(parent)){
 			parent = getParent(parent);				
 		}
-		moveChildrenToComponent(parent,sourceComp,targetComp,architecture);		
-
+		
+		moveChildrenToComponent(parent,sourceComp,targetComp,architecture, concern);		
 		
 		List<Interface> allInterfacesTargetComp = new ArrayList<Interface> (targetComp.getImplementedInterfaces());
 		Interface targetInterface = null;
+		
 		if (allInterfacesTargetComp.size()==0){
 			targetInterface = architecture.createInterface("Interface"+ OPLA.contInt_++);
 			targetInterface.addConcern(concern.getName());
@@ -908,17 +938,61 @@ private void moveHierarchyToComponent(Class classComp, Package targetComp, Packa
 		
 	}
 
-//metodo para mover os filhos para o novo componente que está modularizando o interesse
-private void moveChildrenToComponent(Class parent, Package sourceComp, Package targetComp, Architecture architecture){
-	Collection<Class> children = getChildren(parent);
-	for (Class child: children){
-		moveChildrenToComponent(child, sourceComp, targetComp, architecture);
+	//metodo para mover os filhos para o novo componente que está modularizando o interesse
+	private void moveChildrenToComponent(Class parent, Package sourceComp, Package targetComp, Architecture architecture, Concern concern){
+		Collection<Class> children = getChildren(parent);
+		for (Class child: children){
+			moveChildrenToComponent(child, sourceComp, targetComp, architecture, concern);
+		}
+		
+		//ThelmaNew: if adicionado para acomodar hierarquias em diferentes componentes
+		if (sourceComp.getClasses().contains(parent)){
+			removeRelationshipsofClassInHierarchy(parent,architecture);
+			sourceComp.moveClassToPackage(parent, targetComp);
+		} else{		
+			Package auxComp=null;
+			List<Package> allCompsArch = new ArrayList<Package> (architecture.getAllPackages());
+			if (!allCompsArch.isEmpty()) {
+				Iterator<Package> iteratorCompsArch = allCompsArch.iterator();
+				while (iteratorCompsArch.hasNext()){
+					auxComp= iteratorCompsArch.next();
+					if (auxComp.getClasses().contains(parent)){
+						removeRelationshipsofClassInHierarchy(parent,architecture);
+						auxComp.moveClassToPackage(parent, targetComp);
+						break;
+					}
+				}
+				List<Interface> allInterfacesTargetComp = new ArrayList<Interface> (targetComp.getImplementedInterfaces());
+				Interface targetInterface = null;
+				if (allInterfacesTargetComp.size()==0){
+					targetInterface = architecture.createInterface("Interface"+ OPLA.contInt_++);
+					targetInterface.addConcern(concern.getName());
+					architecture.addImplementedInterfaceToComponent(targetInterface, targetComp);
+					architecture.addRequiredInterfaceToComponent(targetInterface, auxComp);
+				}
+				else{
+					if (allInterfacesTargetComp.size()== 1) {
+						targetInterface = allInterfacesTargetComp.get(0);
+						architecture.addRequiredInterfaceToComponent(targetInterface, auxComp);
+					}
+					else{
+						List<Interface> allInterfacesConcernTargetComponent = new ArrayList<Interface> ();
+						for (Interface itf: allInterfacesTargetComp){
+							if (itf.containsConcern(concern)) allInterfacesConcernTargetComponent.add(itf);
+						}
+						try {
+							targetInterface = randomObject(allInterfacesConcernTargetComponent);
+						} catch (JMException e) {
+							e.printStackTrace();
+						}
+						architecture.addRequiredInterfaceToComponent(targetInterface, auxComp);				
+					}
+				}
+			}		
+		}
 	}
-	removeRelationshipsofClassInHierarchy(parent,architecture);
-	sourceComp.moveClassToPackage(parent, targetComp);
-}
 
-//metodo adicionado para eliminar os relacionamentos de uma classe que faz parte de uma hierarquia, com excecao das generalizacoes
+	//metodo adicionado para eliminar os relacionamentos de uma classe que faz parte de uma hierarquia, com excecao das generalizacoes
 	private void removeRelationshipsofClassInHierarchy(Class cls, Architecture architecture){
 		List<Relationship> allRelationships = new ArrayList<Relationship> (cls.getRelationships());
 		if (!allRelationships.isEmpty()) {
@@ -944,7 +1018,5 @@ private void moveChildrenToComponent(Class parent, Package sourceComp, Package t
 			}
 		}
 	}
-
-
         
 }
