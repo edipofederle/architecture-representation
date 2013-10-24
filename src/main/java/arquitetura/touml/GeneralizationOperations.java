@@ -71,7 +71,6 @@ public class GeneralizationOperations extends XmiHelper implements Relationship 
 		return "";
 	}
 
-	//TODO Remover, refatorar essas classes urgente.
 	public Relationship withMultiplicy(String string)throws NotSuppportedOperation {
 		throw new NotSuppportedOperation("Generalization not support multiplicity");
 	}

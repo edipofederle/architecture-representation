@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Set;
 
 import jmetal.core.Variable;
-import main.GenerateArchitecture;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -32,6 +31,8 @@ import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 import arquitetura.representation.relationship.UsageRelationship;
 
+import com.rits.cloning.Cloner;
+
 /**
  * 
  * @author edipofederle<edipofederle@gmail.com>
@@ -48,7 +49,6 @@ public class Architecture extends Variable implements Cloneable {
 	private List<Relationship> relationships = new ArrayList<Relationship>();
 	private Set<String> allIds = new HashSet<String>();
 	private String name;
-	private org.eclipse.uml2.uml.Package model;
 	
 	/**
 	 * Esta lista é carregada a partir do arquivo de concerns indica no arquivo de configuração.<br/>
@@ -467,19 +467,19 @@ public class Architecture extends Variable implements Cloneable {
 		return allIds.size();
 	}
 
-	/**
-	 * @return the model
-	 */
-	public org.eclipse.uml2.uml.Package getModel() {
-		return model;
-	}
-
-	/**
-	 * @param model the model to set
-	 */
-	public void setModel(org.eclipse.uml2.uml.Package model) {
-		this.model = model;
-	}
+//	/**
+//	 * @return the model
+//	 */
+//	public org.eclipse.uml2.uml.Package getModel() {
+//		return model;
+//	}
+//
+//	/**
+//	 * @param model the model to set
+//	 */
+//	public void setModel(org.eclipse.uml2.uml.Package model) {
+//		this.model = model;
+//	}
 
 	public List<VariationPoint> getAllVariationPoints() {
 		return VariationPointFlyweight.getInstance().getVariationPoints();
@@ -595,7 +595,8 @@ public class Architecture extends Variable implements Cloneable {
 
 	// private static int count = 1;
 	public Architecture deepClone() throws CloneNotSupportedException {
-		Architecture newArchitecture = (Architecture) this.clone();
+		Cloner cloner = new Cloner();
+		Architecture newArchitecture = (Architecture) cloner.deepClone(this);
 		// newArchitecture.setNumber(count++);
 		// newArchitecture.addAncestor(this);
 		// Dummy.addAncestor(newArchitecture, this);
@@ -645,8 +646,8 @@ public class Architecture extends Variable implements Cloneable {
 	}
 
 	public void save(Architecture architecture, int i) {
-		GenerateArchitecture generate = new GenerateArchitecture();
-		generate.generate(architecture, architecture.getName() + i);
+//		GenerateArchitecture generate = new GenerateArchitecture();
+//		generate.generate(architecture, architecture.getName() + i);
 	}
 
 }

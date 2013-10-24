@@ -141,7 +141,6 @@ public class StereotypeHelper {
 	 * @param attrName name
 	 * @return
 	 */
-	//TODO mudar nome da variabel variability
 	public static String getValueOfAttribute(Element element, Stereotype variability, String attrName) {
 		Object attr = element.getValue(variability, attrName);
 		if(attr != null){

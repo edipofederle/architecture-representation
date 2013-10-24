@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Package;
 
 import arquitetura.helpers.ModelHelper;
 import arquitetura.helpers.ModelHelperFactory;
@@ -25,6 +26,8 @@ public class VariabilityFlyweight {
 	private ModelHelper modelHelper;
 
 	private Map<String, Map<String, String>> variabilityAttributes = new HashMap<String, Map<String, String>>();
+
+	private Package model;
 	
 	private VariabilityFlyweight(){
 		modelHelper = ModelHelperFactory.getModelHelper();
@@ -67,13 +70,13 @@ public class VariabilityFlyweight {
 			
 			for (String variantElement : variantsElements) {
 				if((variantElement != null) && (!"".equals(variantElement.trim()))){
-					Classifier klasss = modelHelper.getClassByName(variantElement.trim(), architecture.getModel());
+					Classifier klasss = modelHelper.getClassByName(variantElement.trim(), this.model);
 					if (klasss != null) {
 						variants.add(variantFlyweight.getOrCreateVariant(klasss));
 					}
 				}
 			}
-			
+//			
 			//Variability vari = this.getVariability(v.getName());
 			
 		  	for(Variant variant : variants){
@@ -115,6 +118,10 @@ public class VariabilityFlyweight {
 	
 	public void resetVariabilities(){
 		this.variabilities.clear();
+	}
+
+	public void addModel(Package model2) {
+		this.model = model2;
 	}
 
 }

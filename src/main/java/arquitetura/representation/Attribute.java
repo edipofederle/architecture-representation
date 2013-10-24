@@ -10,6 +10,8 @@ import java.util.Collection;
  */
 public class Attribute extends Element {
 
+	private static final long serialVersionUID = 8852796737816675507L;
+	
 	private String type;
 	private String visibilityKind;
 	private boolean generatVisualAttribute;

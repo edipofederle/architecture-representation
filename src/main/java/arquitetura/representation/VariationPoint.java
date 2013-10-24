@@ -27,7 +27,7 @@ public class VariationPoint {
 	 * @param type 
 	 * @throws VariationPointElementTypeErrorException 
 	 */
-	public VariationPoint(Element variationPointElement, List<Variant> variants, String bindingTime) throws VariationPointElementTypeErrorException { //TODO VER SOBRE TIPO
+	public VariationPoint(Element variationPointElement, List<Variant> variants, String bindingTime) throws VariationPointElementTypeErrorException {
 		if (variationPointElement == null)
 			throw new InvalidParameterException("A variation point must have an element");
 		

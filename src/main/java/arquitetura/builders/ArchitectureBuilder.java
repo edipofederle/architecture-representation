@@ -93,8 +93,10 @@ public class ArchitectureBuilder {
 	 */
 	public Architecture create(String xmiFilePath) throws Exception {
 		model = modelHelper.getModel(xmiFilePath);
+		VariationPointFlyweight.getInstance().addModel(model);
+		VariabilityFlyweight.getInstance().addModel(model);
+		
 		Architecture architecture = new Architecture(modelHelper.getName(xmiFilePath));
-		architecture.setModel(model);
 		//XmiHelper.setNotationOriginalFile(xmiFilePath); // Para posicionamento, tamanhos, etc.... NAO USADO AINDA....
 		
 		initialize(architecture);

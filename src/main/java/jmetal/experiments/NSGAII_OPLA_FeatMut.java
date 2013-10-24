@@ -30,8 +30,8 @@ public class NSGAII_OPLA_FeatMut {
  public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
 
          int runsNumber = 5; //30;
-         populationSize_ = 100; //100
-         maxEvaluations_ = 30000; //300 gerações
+         populationSize_ = 50; //100
+         maxEvaluations_ = 3000; //300 gerações
          
          crossoverProbability_ = 0.2; 
          mutationProbability_ = 0.8;

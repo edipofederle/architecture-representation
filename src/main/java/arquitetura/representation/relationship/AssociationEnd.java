@@ -1,5 +1,7 @@
 package arquitetura.representation.relationship;
 
+import java.io.Serializable;
+
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
 
@@ -12,8 +14,12 @@ import arquitetura.representation.Element;
  * @author edipofederle<edipofederle@gmail.com>
  *
  */
-public class AssociationEnd {
+public class AssociationEnd implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1246465575711005213L;
 	private Element klass;
 	private boolean isNavigable = false;
 	//TODO Tipo da associação mudar nome da variavel

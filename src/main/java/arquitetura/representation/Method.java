@@ -14,6 +14,8 @@ import arquitetura.helpers.UtilResources;
  */
 public class Method extends Element{
 	
+	private static final long serialVersionUID = -2564107958435833184L;
+	
 	private String returnType;
 	private final List<ParameterMethod> parameters = new ArrayList<ParameterMethod>();
 	private boolean isAbstract;

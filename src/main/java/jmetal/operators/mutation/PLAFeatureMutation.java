@@ -445,50 +445,50 @@ public class PLAFeatureMutation extends Mutation {
     //--------------------------------------------------------------------------
     
 	public void FeatureMutation(double probability, Solution solution, String scope) throws JMException {
-        try { 
-        	if (solution.getDecisionVariables()[0].getVariableType().toString().equals(Architecture.ARCHITECTURE_TYPE)){ 
-              if (PseudoRandom.randDouble() < probability) {
-            	  Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
-            	  List<Package> allComponents = new ArrayList<Package> (arch.getAllPackages());
-            	  if (!allComponents.isEmpty()){
-            		  Package selectedComp = randomObject(allComponents);
-                	  List<Concern> allConcernsSelectedComp = new ArrayList<Concern> (selectedComp.getAllConcerns());
-                	  List<Concern> ConcernsSelectedComp = new ArrayList<Concern> ();
-                	  for (Concern concern:allConcernsSelectedComp){
-                		  if (!ConcernsSelectedComp.contains(concern)) ConcernsSelectedComp.add(concern);
-                	  }
-                	  if (ConcernsSelectedComp.size() > 1){
-                		Concern selectedConcern = randomObject(ConcernsSelectedComp);
-                		List<Package> allComponentsAssignedOnlyToConcern = new ArrayList<Package> (searchComponentsAssignedToConcern(selectedConcern,allComponents));
-                		if (allComponentsAssignedOnlyToConcern.size() == 0 ){
-                			Package newComponent = arch.createPackage("Package"+ OPLA.contComp_ + getSuffix(selectedComp));
-                			OPLA.contComp_++;
-                			newComponent.addConcern(selectedConcern.getName());
-                    		modularizeConcernInComponent(newComponent,selectedConcern,arch);
-                		}
-                		else{
-                			if (allComponentsAssignedOnlyToConcern.size() == 1 ){
-                				Package targetComponent = allComponentsAssignedOnlyToConcern.get(0);
-                    			modularizeConcernInComponent(targetComponent,selectedConcern,arch);
-                    		} 
-                    		else {
-                    			Package targetComponent = randomObject(allComponentsAssignedOnlyToConcern);
-                    			modularizeConcernInComponent(targetComponent,selectedConcern,arch);
-                    		}
-                		}          		
-                	  }
-            	  }      	  
-              }
-        	}
-          else {
-                Configuration.logger_.log(Level.SEVERE, "FeatureMutation.doMutation: invalid type. " + "{0}", solution.getDecisionVariables()[0].getVariableType());
-                java.lang.Class<String> cls = java.lang.String.class;
-                String name = cls.getName();
-                throw new JMException("Exception in " + name + ".doMutation()");
-           }            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }        
+//        try { 
+//        	if (solution.getDecisionVariables()[0].getVariableType().toString().equals("class "+ Architecture.ARCHITECTURE_TYPE)){ 
+//              if (PseudoRandom.randDouble() < probability) {
+//            	  Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
+//            	  List<Package> allComponents = new ArrayList<Package> (arch.getAllPackages());
+//            	  if (!allComponents.isEmpty()){
+//            		  Package selectedComp = randomObject(allComponents);
+//                	  List<Concern> allConcernsSelectedComp = new ArrayList<Concern> (selectedComp.getAllConcerns());
+//                	  List<Concern> ConcernsSelectedComp = new ArrayList<Concern> ();
+//                	  for (Concern concern:allConcernsSelectedComp){
+//                		  if (!ConcernsSelectedComp.contains(concern)) ConcernsSelectedComp.add(concern);
+//                	  }
+//                	  if (ConcernsSelectedComp.size() > 1){
+//                		Concern selectedConcern = randomObject(ConcernsSelectedComp);
+//                		List<Package> allComponentsAssignedOnlyToConcern = new ArrayList<Package> (searchComponentsAssignedToConcern(selectedConcern,allComponents));
+//                		if (allComponentsAssignedOnlyToConcern.size() == 0 ){
+//                			Package newComponent = arch.createPackage("Package"+ OPLA.contComp_ + getSuffix(selectedComp));
+//                			OPLA.contComp_++;
+//                			newComponent.addConcern(selectedConcern.getName());
+//                    		modularizeConcernInComponent(newComponent,selectedConcern,arch);
+//                		}
+//                		else{
+//                			if (allComponentsAssignedOnlyToConcern.size() == 1 ){
+//                				Package targetComponent = allComponentsAssignedOnlyToConcern.get(0);
+//                    			modularizeConcernInComponent(targetComponent,selectedConcern,arch);
+//                    		} 
+//                    		else {
+//                    			Package targetComponent = randomObject(allComponentsAssignedOnlyToConcern);
+//                    			modularizeConcernInComponent(targetComponent,selectedConcern,arch);
+//                    		}
+//                		}          		
+//                	  }
+//            	  }      	  
+//              }
+//        	}
+//          else {
+//                Configuration.logger_.log(Level.SEVERE, "FeatureMutation.doMutation: invalid type. " + "{0}", solution.getDecisionVariables()[0].getVariableType());
+//                java.lang.Class<String> cls = java.lang.String.class;
+//                String name = cls.getName();
+//                throw new JMException("Exception in " + name + ".doMutation()");
+//           }            
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }        
     }
 	
 	private List<Package> searchComponentsAssignedToConcern(Concern concern, List<Package> allComponents){
@@ -858,9 +858,7 @@ public class PLAFeatureMutation extends Mutation {
     }
     
     //atualizar os pontos de variacao de cada variabilidade
-    //TODO verificar se é preciso verificar isso.
     private void updateVariabilitiesOffspring(Architecture offspring){ 
-    	
     	for (Variability variability: offspring.getAllVariabilities()){	    		
     		VariationPoint variationPoint = variability.getVariationPoint();
 			Element elementVP = variationPoint.getVariationPointElement();

@@ -63,7 +63,6 @@ public class PAES_OPLA_FeatMut {
 			try {
 				problem = new OPLA(xmiFilePath);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

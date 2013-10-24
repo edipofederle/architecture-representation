@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Stereotype;
 
 import arquitetura.exceptions.VariationPointElementTypeErrorException;
@@ -25,6 +25,7 @@ public class VariationPointFlyweight {
 	private static final VariationPointFlyweight INSTANCE = new VariationPointFlyweight();
 	private HashMap<String, VariationPoint> variationPoints = new HashMap<String, VariationPoint>();
 	private ModelHelper modelHelper;
+	private Package model;
 	
 	private VariationPointFlyweight(){
 		modelHelper = ModelHelperFactory.getModelHelper();
@@ -54,7 +55,7 @@ public class VariationPointFlyweight {
 				
 				for (String variantElement : variantsElements) {
 					if((variantElement != null) && (!"".equals(variantElement.trim()))){
-						Classifier klasss = modelHelper.getClassByName(variantElement.trim(), architecture.getModel());
+						Classifier klasss = modelHelper.getClassByName(variantElement.trim(), this.model);
 						if (klasss != null) 
 							variants.add(variantFlyweight.getOrCreateVariant(klasss));
 					}
@@ -94,6 +95,10 @@ public class VariationPointFlyweight {
 
 	public void resertVariationPoints() {
 		this.variationPoints.clear();
+	}
+
+	public void addModel(Package model) {
+		this.model = model;
 	}
 
 }

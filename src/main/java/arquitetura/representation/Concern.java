@@ -1,12 +1,15 @@
 package arquitetura.representation;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author edipofederle<edipofederle@gmail.com>
  *
  */
-public class Concern {
+public class Concern implements Serializable {
 
+	private static final long serialVersionUID = -1282322275180618366L;
 	private String name;
 
 	public Concern(String name) {

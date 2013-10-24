@@ -39,17 +39,6 @@ public class CompositionOperations {
 		this.name = name;
 		return this;
 	}
-	
-	//TODO REMOVER
-//	
-//	public CompositionOperations withMultiplicy(String multiplicity) {
-//		if(this.target != null)
-//			this.multiplicityClassTarget = multiplicity;
-//		else if(this.client != null)
-//			this.multiplicityClassClient = multiplicity;
-//		return this;
-//	}
-//	
 
 	public void build() throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		final AssociationNode cn = new AssociationNode(doc,null);

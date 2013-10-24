@@ -1,5 +1,7 @@
 package arquitetura.representation.relationship;
 
+import java.io.Serializable;
+
 import arquitetura.representation.Element;
 
 /**
@@ -9,8 +11,12 @@ import arquitetura.representation.Element;
  * @author edipofederle<edipofederle@gmail.com>
  *
  */
-public class MemberEnd {
+public class MemberEnd implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6273724849151075349L;
 	private String aggregation;
 	private Multiplicity multiplicity;
 	private String visibility;

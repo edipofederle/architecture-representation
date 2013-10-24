@@ -1,12 +1,18 @@
 package arquitetura.representation.relationship;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author edipofederle<edipofederle@gmail.com>
  *
  */
-public class Multiplicity {
+public class Multiplicity implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2679645297119128578L;
 	private String lowerValue;
 	private String upperValue;
 	

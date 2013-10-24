@@ -64,11 +64,6 @@ public abstract class ConcernDiffusionResult<T extends Element> {
 		return false;
 	}
 	
-	//TODO implementar o metodo abaixo para representacao do Edipo
-	
-	// Uma classe realizar um interface.
-	// Deve retornar a interface.
-	
 	protected boolean classContainsConcernViaInterface(Class cls) {
 		for (Interface i : cls.getImplementedInterfaces()) {
 			if (interfaceContainsConcern(i) || interfaceContainsConcernViaOperation(i))

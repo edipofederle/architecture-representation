@@ -549,7 +549,6 @@ public class Solution implements Serializable {
 	          (variable_[i].getVariableType() == Class.forName("jmetal.base.variable.BinaryReal")))
 	        bits += ((Binary)(variable_[i])).getNumberOfBits() ;
       } catch (ClassNotFoundException e) {
-	      // TODO Auto-generated catch block
 	      e.printStackTrace();
       }
     

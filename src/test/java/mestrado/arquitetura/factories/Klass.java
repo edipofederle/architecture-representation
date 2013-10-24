@@ -34,7 +34,7 @@ public class Klass extends TestHelper {
 		}
 		
 		public Klass withStereotypes(String ... stereotypes) throws ModelNotFoundException , ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
-			Profile perfil = (Profile) givenAModel("smarty.profile"); // TODO Verificar isto.
+			Profile perfil = (Profile) givenAModel("smarty.profile");
 			model.applyProfile(perfil);
 			for (String sterotype : stereotypes)
 				klasse.applyStereotype(perfil.getOwnedStereotype(sterotype));

@@ -1,5 +1,6 @@
 package mestrado.arquitetura.representation.test;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -14,6 +15,8 @@ import mestrado.arquitetura.helpers.test.TestHelper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import com.rits.cloning.Cloner;
 
 import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.exceptions.ClassNotFound;
@@ -557,6 +560,16 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldReturnEmptyListWhenNotFoundRelationships() throws Exception{
 		Architecture a = givenAArchitecture("Package");
+		
 		assertTrue(a.getAllPackages().get(0).getRelationships().isEmpty());
+	}
+	
+	@Test
+	public void testClone() throws Exception{
+		Architecture a = givenAArchitecture("agmfinal/agm");
+		Architecture cloneA = a.deepClone();
+		
+		assertNotNull(cloneA);
+		assertNotSame(a, cloneA);
 	}
 }

@@ -44,7 +44,7 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 	
 	@Override
 	protected arquitetura.representation.Class buildElement(NamedElement modelElement) {
-		arquitetura.representation.Class klass = null; // TODO VER ISTO. 
+		arquitetura.representation.Class klass = null;
 		
 		boolean isAbstract = false;
 		

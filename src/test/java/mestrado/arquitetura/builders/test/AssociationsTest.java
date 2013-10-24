@@ -112,7 +112,6 @@ public class AssociationsTest extends TestHelper {
 		assertFalse(associationComposite.getParticipants().get(1).isNavigable());
 		assertEquals("Class6", participants.get(1).getCLSClass().getName());
 		assertEquals("none", associationComposite.getParticipants().get(0).getAggregation());
-		// TODO rever nome do metodo getAggregation para getTypeAssociation?
 
 		assertEquals("0..*", associationComposite.getParticipants().get(0).getMultiplicity().toString());
 		assertEquals("1", associationComposite.getParticipants().get(1).getMultiplicity().toString());

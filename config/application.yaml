@@ -1,5 +1,5 @@
 --- !DirTarget
 directoryToSaveModels: manipulation/
 directoryToExportModels: /Users/edipofederle/Documents/modelingParaEscrita/AGM_SAIDA/
-pathToProfile: /Users/edipofederle/sourcesMestrado/arquitetura/src/test/java/resources/agm_gerada/resources/smarty.profile.uml
-pathToProfileConcern: /Users/edipofederle/sourcesMestrado/arquitetura/src/test/java/resources/agm_gerada/resources/perfilConcerns.profile.uml
+pathToProfile: src/test/java/resources/agm_gerada/resources/smarty.profile.uml
+pathToProfileConcern: src/test/java/resources/agm_gerada/resources/perfilConcerns.profile.uml

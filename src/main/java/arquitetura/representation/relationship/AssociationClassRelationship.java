@@ -25,7 +25,6 @@ public class AssociationClassRelationship extends Relationship {
 	private Class associationClass;
 	private String idOwner;
 	
-	
 	/**
 	 * 
 	 * @param architecture

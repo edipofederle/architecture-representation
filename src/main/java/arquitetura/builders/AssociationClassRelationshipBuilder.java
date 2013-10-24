@@ -47,14 +47,6 @@ public class AssociationClassRelationshipBuilder extends ArchitectureHelper {
 		String idOwner = null;
 		if(!associationClass.getPackage().getName().equalsIgnoreCase("model"))
 			idOwner = getModelHelper().getXmiId(associationClass.getOwner());
-	
-		//TODO REMOVER
-//		EList<org.eclipse.uml2.uml.Element> relatedElements = associationClass.getRelatedElements();
-		
-//		for (org.eclipse.uml2.uml.Element element : relatedElements) {
-//			arquitetura.representation.Element e = architecture.getElementByXMIID(getModelHelper().getXmiId(element));
-//			e.getIdsRelationships().add((getModelHelper().getXmiId(associationClass)));
-//		}
 
 		AssociationClassRelationship ascc = new AssociationClassRelationship(architecture, associationClass.getName(),
 											    membersEnd,

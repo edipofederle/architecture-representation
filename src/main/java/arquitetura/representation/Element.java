@@ -1,5 +1,6 @@
 package arquitetura.representation;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -11,8 +12,10 @@ import arquitetura.representation.relationship.Relationship;
  * @author edipofederle<edipofederle@gmail.com>
  *
  */
-public abstract class Element {
+public abstract class Element implements Serializable {
 
+	private static final long serialVersionUID = 4736685073967472613L;
+	
 	protected String id;
 	private String name;
 	private VariationPoint variationPoint;

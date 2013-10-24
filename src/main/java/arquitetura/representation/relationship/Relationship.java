@@ -1,5 +1,6 @@
 package arquitetura.representation.relationship;
 
+
 /**
  * 
  * @author edipofederle<edipofederle@gmail.com>

@@ -19,6 +19,8 @@ import arquitetura.representation.relationship.DependencyRelationship;
 public class Interface extends Element {
 	
 	
+	private static final long serialVersionUID = -1779316062511432020L;
+
 	static Logger LOGGER = LogManager.getLogger(Interface.class.getName());
 	private final List<Method> operations = new ArrayList<Method>();
 	

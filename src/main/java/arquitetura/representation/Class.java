@@ -23,6 +23,8 @@ import arquitetura.touml.VisibilityKind;
  */
 public class Class extends Element {
 	
+	private static final long serialVersionUID = -5450511036321846093L;
+
 	static Logger LOGGER = LogManager.getLogger(Class.class.getName());
 	
 	private boolean isAbstract;

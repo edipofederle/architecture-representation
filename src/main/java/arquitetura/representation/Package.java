@@ -20,6 +20,8 @@ import arquitetura.helpers.UtilResources;
  */
 public class Package extends Element {
 
+	private static final long serialVersionUID = -3080328928563871488L;
+
 	private List<Element> elements = new ArrayList<Element>();
 	
 	private final List<Interface> implementedInterfaces = new ArrayList<Interface>();

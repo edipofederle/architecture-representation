@@ -4,7 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
-import org.eclipse.uml2.uml.Stereotype;
+import org.eclipse.uml2.uml.Package;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -111,7 +111,7 @@ public class StereotypeTest extends TestHelper {
 		assertNotNull(klassFoo);
 		
 		assertFalse(klassFoo.isVariationPoint());
-		StereotypeHelper.getStereotypeByName(a.getModel(), "optional");
+		//StereotypeHelper.getStereotypeByName(a.getModel(), "optional");
 	}
 	
 	@Test
@@ -129,7 +129,7 @@ public class StereotypeTest extends TestHelper {
 		assertNotNull(klassFoo);
 		
 		assertFalse(klassFoo.isVariationPoint());
-		assertNotNull(StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", a.getModel()), "optional"));
+		//assertNotNull(StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", a.getModel()), "optional"));
 	}
 	
 	
@@ -147,9 +147,9 @@ public class StereotypeTest extends TestHelper {
 		Class klassFoo = a.findClassByName("Casa").get(0);
 		
 		assertNotNull(klassFoo);
-		
-		assertNotNull(StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", a.getModel()), "mandatory"));
-		assertNotNull(StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", a.getModel()), "variationPoint"));
+		Package model = modelHelper.getModel("/Users/edipofederle/Documents/modelingParaEscrita/AGM_SAIDA/ste4.uml");
+		assertNotNull(StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", model), "mandatory"));
+		assertNotNull(StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", model), "variationPoint"));
 		
 	}
 	
@@ -171,8 +171,9 @@ public class StereotypeTest extends TestHelper {
 		
 		assertNotNull(klassFoo);
 		
-		Stereotype steMandatory = StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", a.getModel()), "mandatory");
-		Stereotype steVariationPoint = StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", a.getModel()), "variationPoint");
+		Package model = modelHelper.getModel("/Users/edipofederle/Documents/modelingParaEscrita/AGM_SAIDA/ste5.uml");
+		org.eclipse.uml2.uml.Stereotype steMandatory = StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", model), "mandatory");
+		org.eclipse.uml2.uml.Stereotype steVariationPoint = StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", model), "variationPoint");
 		
 		assertNotNull(steMandatory);
 		assertEquals("mandatory", steMandatory.getName());

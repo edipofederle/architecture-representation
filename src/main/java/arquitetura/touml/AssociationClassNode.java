@@ -67,7 +67,6 @@ public class AssociationClassNode extends XmiHelper {
 		ownedAttibute(nodeToAddOwnedAttributeForAssociationClass, idOwnedAttribute, associationEndDestination);
 		
 		try {
-			//TODO Ver do pacote para associationClass
 			String idChildren = notation.createXmiForClassInNotationFile(this.idAssociation, null, "associationClass");
 			String idEdge = elementXmiGenerator.createEgdeAssocationOnNotationFile(docNotation, newModelName, ownedEndElement, associationEndDestination, this.idAssociation);
 			elementXmiGenerator.createEgdgeAssociationClassOnNotationFile(idChildren, idEdge);

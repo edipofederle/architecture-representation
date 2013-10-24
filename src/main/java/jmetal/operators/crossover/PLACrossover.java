@@ -830,10 +830,12 @@ import arquitetura.representation.relationship.Relationship;
 	private void updateVariabilitiesOffspring(Architecture offspring) {
 		for (Variability variability : offspring.getAllVariabilities()) {
 			VariationPoint variationPoint = variability.getVariationPoint();
-			Element elementVP = variationPoint.getVariationPointElement();
-			if (!(offspring.findElementByName(elementVP.getName(), "class")	.equals(elementVP))) {
-				// procura o elemento em offspring e substitui o variationPoint
-				variationPoint.replaceVariationPointElement(offspring.findElementByName(elementVP.getName(), "class"));
+			if (variationPoint != null){
+				Element elementVP = variationPoint.getVariationPointElement();
+				if (!(offspring.findElementByName(elementVP.getName(), "class")	.equals(elementVP))) {
+					// procura o elemento em offspring e substitui o variationPoint
+					variationPoint.replaceVariationPointElement(offspring.findElementByName(elementVP.getName(), "class"));
+				}
 			}
 		}
 	}

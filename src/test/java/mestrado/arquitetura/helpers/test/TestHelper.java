@@ -133,7 +133,6 @@ public abstract class TestHelper {
 	
 	public DocumentManager givenADocument(String outputModelName) throws ModelNotFoundException, ModelIncompleteException {
 		DocumentManager documentManager = new DocumentManager(outputModelName);
-		
 		return documentManager;
 	}
 

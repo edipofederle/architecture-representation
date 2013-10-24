@@ -386,11 +386,10 @@ public class SolutionSet implements Serializable {
 					bw.write("Number of variabilities: "
 							+ arch.getAllVariabilities().size());
 
-					// EDIPO - Ajustar para Pacotes?
-					// for (Package comp: arch.getAllPackages()){
-					// contClass += comp.getClasses().size();
-					// contIntfs+= comp.getImplementedInterfaces().size();
-					// }
+					 for (arquitetura.representation.Package comp: arch.getAllPackages()){
+						 contClass += comp.getClasses().size();
+						 contIntfs+= comp.getImplementedInterfaces().size();
+					 }
 
 					bw.newLine();
 					bw.newLine();
@@ -400,30 +399,29 @@ public class SolutionSet implements Serializable {
 					bw.write("Number of classes: " + contClass);
 					bw.newLine();
 					bw.newLine();
-					// EDIPO - VER ISSO
-					// bw.write("Number of DependencyInterElementRelationships: "+
-					// arch.getDependencyComponentInterfaceRelationships().size());
+					bw.write("Number of DependencyInterElementRelationships: "+
+					arch.getAllDependencies().size());
 					bw.newLine();
 					bw.newLine();
 					bw.write("Number of AbstractionInterElementRelationships: "
 							+ arch.getAllAbstractions().size());
 					bw.newLine();
 					bw.newLine();
-					int contGeneralizations = 0;
-					int contAssociations = 0;
-					for (Relationship relationship : arch.getAllRealizations()) {
-						if (relationship instanceof GeneralizationRelationship)
-							contGeneralizations++;
-						else if (relationship instanceof AssociationRelationship)
-							contAssociations++;
-					}
+//					int contGeneralizations = 0;
+//					int contAssociations = 0;
+//					for (Relationship relationship : arch.getAllRealizations()) {
+//						if (relationship instanceof GeneralizationRelationship)
+//							contGeneralizations++;
+//						else if (relationship instanceof AssociationRelationship)
+//							contAssociations++;
+//					}
 
 					bw.write("Number of GeneralizationsRelationships: "
-							+ contGeneralizations);
+							+ arch.getAllGeneralizations().size());
 					bw.newLine();
 					bw.newLine();
 					bw.write("Number of AssociationsRelationships: "
-							+ contAssociations);
+							+ arch.getAllAssociationsRelationships().size());
 					bw.newLine();
 					bw.newLine();
 					contIntfs = 0;
