@@ -143,7 +143,7 @@ public class GenericTest extends TestHelper {
 		
 		Profile profile = (Profile) helper.getExternalResources(ReaderConfig.getPathToProfileConcerns());
 		model.applyProfile(profile);
-		URI uri = URI.createFileURI("/Users/edipofederle/Desktop/output.uml");
+		URI uri = URI.createFileURI("src/test/java/resources/output.uml");
 		helper.saveResources(model, uri);
 	}
 	

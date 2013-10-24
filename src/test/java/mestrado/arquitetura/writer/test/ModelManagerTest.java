@@ -21,6 +21,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
@@ -74,8 +75,8 @@ public class ModelManagerTest extends TestHelper {
 	}
 	
 	private void cleanManipulationFolder() {
-		File file = new File("/Users/edipofederle/sourcesMestrado/arquitetura/manipulation/");     
-		File file2 = new File("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/");
+		File file = new File("manipulation/");     
+		File file2 = new File(ReaderConfig.getDirExportTarget());
 
         String[] myFiles2;    
         if(file.isDirectory()){
@@ -525,12 +526,12 @@ public class ModelManagerTest extends TestHelper {
 
 	@Test
 	public void shouldSaveModificationAndCopyFilesToDestination() throws Exception{
-		
 		givenADocument("teste5");
+		String dirExportTarget = ReaderConfig.getDirExportTarget();
 		
-		Assert.assertTrue("should copy exist", new File("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/teste5.notation").exists());
-		Assert.assertTrue("should copy exist", new File("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/teste5.uml").exists());
-		Assert.assertTrue("should copy exist", new File("/Users/edipofederle/Documents/modelingParaEscrita/TesteVisualizacao/teste5.di").exists());
+		Assert.assertTrue("should copy exist", new File(dirExportTarget+"teste5.notation").exists());
+		Assert.assertTrue("should copy exist", new File(dirExportTarget+"teste5.uml").exists());
+		Assert.assertTrue("should copy exist", new File(dirExportTarget+"teste5.di").exists());
 	}
 
 	/* Pacote Testes */

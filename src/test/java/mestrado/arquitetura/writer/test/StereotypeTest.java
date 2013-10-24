@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import arquitetura.helpers.StereotypeHelper;
+import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
@@ -147,7 +148,7 @@ public class StereotypeTest extends TestHelper {
 		Class klassFoo = a.findClassByName("Casa").get(0);
 		
 		assertNotNull(klassFoo);
-		Package model = modelHelper.getModel("/Users/edipofederle/Documents/modelingParaEscrita/AGM_SAIDA/ste4.uml");
+		Package model = modelHelper.getModel(ReaderConfig.getDirExportTarget()+"ste4.uml");
 		assertNotNull(StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", model), "mandatory"));
 		assertNotNull(StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", model), "variationPoint"));
 		
@@ -171,7 +172,7 @@ public class StereotypeTest extends TestHelper {
 		
 		assertNotNull(klassFoo);
 		
-		Package model = modelHelper.getModel("/Users/edipofederle/Documents/modelingParaEscrita/AGM_SAIDA/ste5.uml");
+		Package model = modelHelper.getModel(ReaderConfig.getDirExportTarget()+"ste5.uml");
 		org.eclipse.uml2.uml.Stereotype steMandatory = StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", model), "mandatory");
 		org.eclipse.uml2.uml.Stereotype steVariationPoint = StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", model), "variationPoint");
 		

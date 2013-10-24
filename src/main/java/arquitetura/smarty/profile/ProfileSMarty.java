@@ -17,6 +17,9 @@ import arquitetura.helpers.Uml2Helper;
 import arquitetura.helpers.Uml2HelperFactory;
 
 /**
+ * Classe usada para gerar o arquivo de profile do smarty
+ * 
+ * Mude o Path onde vc quer salvar o arquivo.
  * 
  * @author edipofederle<edipofederle@gmail.com>
  *
@@ -46,7 +49,7 @@ public class ProfileSMarty {
 		createConcernStereotype();
 
 		try {
-			URI profileURI = URI.createFileURI("/Users/edipofederle/Desktop/"+profileName);
+			URI profileURI = URI.createFileURI("/Users/edipofederle/Desktop/"+profileName); // Local para salvar o arquivo
 			helper.saveResources(this.profile, profileURI);
 			System.out.println("\n");
 			System.out.println("Perfil " + profileName + " salvo com sucesso em: " + profileURI);
