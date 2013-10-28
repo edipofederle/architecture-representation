@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.helpers.StereotypeHelper;
 import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
@@ -130,7 +131,8 @@ public class StereotypeTest extends TestHelper {
 		assertNotNull(klassFoo);
 		
 		assertFalse(klassFoo.isVariationPoint());
-		//assertNotNull(StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", a.getModel()), "optional"));
+		Package model = modelHelper.getModel(ReaderConfig.getDirExportTarget()+"ste3.uml");
+		assertNotNull(StereotypeHelper.getStereotypeByName(modelHelper.getClassByName("Casa", model), "optional"));
 	}
 	
 	
@@ -167,7 +169,7 @@ public class StereotypeTest extends TestHelper {
 		*/ 
 		op.forClass().addStereotype(idClass, mandatory);
 		
-		Architecture a = givenAArchitecture2("ste4");
+		Architecture a = givenAArchitecture2("ste5");
 		Class klassFoo = a.findClassByName("Casa").get(0);
 		
 		assertNotNull(klassFoo);
@@ -197,7 +199,8 @@ public class StereotypeTest extends TestHelper {
 			
 			op.forConcerns().withConcern(persistence, id);
 		
-		Architecture a = givenAArchitecture2("addConcern");
+		ArchitectureBuilder builder = new ArchitectureBuilder();
+		Architecture a = builder.create(ReaderConfig.getDirExportTarget()+"addConcern.uml");
 		assertNotNull(a.getAllConcerns());
 		assertEquals("deve ter um interesse", 1, a.getAllConcerns().size());
 		assertEquals("interese deve ser Persistence", "persistence", a.getAllConcerns().entrySet().iterator().next().getValue().getName());

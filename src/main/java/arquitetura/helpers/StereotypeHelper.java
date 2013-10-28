@@ -229,9 +229,6 @@ public class StereotypeHelper {
 		return null;
 	}
 
-//	private static boolean commentBelongsToKlass(NamedElement element, String nameOfElement) {
-//		return element.getName().equals(nameOfElement);
-//	}
 	
 	/**
 	 * Busca por concern em todos os estereótipos aplicados em um elemento.
