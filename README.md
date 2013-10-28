@@ -1,7 +1,1 @@
-Você precisa:
-- Eclipse (Recomendável)
-- Maven (http://maven.apache.org) - (Dependências)
-
-Leia o arquivo docs/howto_maven.txt
-
-Abraços
+LEIA: https://gist.github.com/edipofederle/7170052

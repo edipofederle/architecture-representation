@@ -12,8 +12,13 @@
     </eAnnotations>
     <appliedProfile href="resources/perfilConcerns.profile.uml#_9v_84HqaEeK1gM_kVgXLQw"/>
   </profileApplication>
+<<<<<<< HEAD
   <profileApplication xmi:id="_-78XkD_XEeOK5LkNBBxwXA">
     <eAnnotations xmi:id="_-78XkT_XEeOK5LkNBBxwXA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+=======
+  <profileApplication xmi:id="_f6v_QD5JEeOn1Md3l9HZWQ">
+    <eAnnotations xmi:id="_f6wmUD5JEeOn1Md3l9HZWQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+>>>>>>> ae33d747cb02a1c9b9c0f8982f651282142aeec4
       <references xmi:type="ecore:EPackage" href="src/test/java/resources/agm_gerada/resources/perfilConcerns.profile.uml#_SsrrURWgEeObs-pQrJ2skQ"/>
     </eAnnotations>
     <appliedProfile href="src/test/java/resources/agm_gerada/resources/perfilConcerns.profile.uml#_9v_84HqaEeK1gM_kVgXLQw"/>
