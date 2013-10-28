@@ -118,8 +118,9 @@ public abstract class TestHelper {
 	
 	protected boolean modelContainId(String modelName, String id){
 		File file = new File(getUrlToModelManipulation(modelName));
+		Scanner scanner = null;
 		try {
-			Scanner scanner = new Scanner(file);
+			scanner = new Scanner(file);
 			
 			while (scanner.hasNextLine()) {
 			    String line = scanner.nextLine();
@@ -127,7 +128,13 @@ public abstract class TestHelper {
 				    if(line.contains(id))
 				        return true;
 			}
-		}catch(FileNotFoundException e) {e.printStackTrace(); }
+			scanner.close();
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}finally{
+			scanner.close();
+		}
+		
 		return false;
 	}
 	
