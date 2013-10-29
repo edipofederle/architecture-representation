@@ -31,6 +31,8 @@ public class Class extends Element {
 	private final List<Attribute> attributes = new ArrayList<Attribute>();
 	private final List<Method> methods = new ArrayList<Method>();
 	private List<Interface> implementedInterfaces = new ArrayList<Interface>();
+	private List<Interface> requiredInterfaces = new ArrayList<Interface>();
+	
 	/**
 	 * 
 	 * @param architecture
@@ -52,7 +54,7 @@ public class Class extends Element {
 	}
 
 	public Class(Architecture architecture, String name, String id) {
-		this(architecture, name,  null, false,  UtilResources.createNamespace(getArchitecture().getName(), name), id);
+		this(architecture, name,  null, false,  UtilResources.createNamespace(architecture.getName(), name), id);
 	}
 	
 	public Attribute createAttribute(String name, Type type, VisibilityKind visibility) {
@@ -260,6 +262,10 @@ public class Class extends Element {
 
 	public List<Interface> getImplementedInterfaces() {
 		return implementedInterfaces;
+	}
+
+	public List<Interface> getRequiredInterfaces() {
+		return requiredInterfaces;
 	}
 
 	

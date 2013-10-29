@@ -1,10 +1,8 @@
 package arquitetura.representation;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import arquitetura.exceptions.ConcernCannotBeAppliedToPackagesException;
 import arquitetura.helpers.UtilResources;
 
 
@@ -160,14 +158,17 @@ public class Package extends Element {
 		idsClasses.add(idClass);
 		return c;
 	}
-	/**
-	 * Eu sei, eu sei,  princípio da substituição de Liskov.
-	 * Desculpe :D 
-	 */
+
 	@Override
-	public Collection<Concern> getAllConcerns() {
-		 new ConcernCannotBeAppliedToPackagesException();
-		return null;
+	public List<Concern> getAllConcerns() {
+		List<Concern> concerns = new ArrayList<Concern>();
+		
+		for (Class class_ : getClasses()) 
+			concerns.addAll(class_.getAllConcerns());
+		for (Interface interfc:getImplementedInterfaces())
+			concerns.addAll(interfc.getAllConcerns());
+		
+		return concerns;
 	}
 
 	public void setElements(List<? extends Element> elements) {

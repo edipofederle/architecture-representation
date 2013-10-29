@@ -37,7 +37,7 @@ public class AssociationRelationshipBuilder extends ArchitectureHelper {
 		
 		AssociationRelationship associationRelationship = new AssociationRelationship(getModelHelper().getXmiId(association));
 		associationRelationship.getParticipants().addAll(associationHelper.getParticipants(association));
-		associationRelationship.setTypeRelationship("association");
+		associationRelationship.setType("association");
 		associationRelationship.setName(association.getName());
 		architecture.getAllIds().add(getModelHelper().getXmiId(association));
 		

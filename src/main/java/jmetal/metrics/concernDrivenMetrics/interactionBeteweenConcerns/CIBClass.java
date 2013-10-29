@@ -1,10 +1,12 @@
 package jmetal.metrics.concernDrivenMetrics.interactionBeteweenConcerns;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Concern;
 import arquitetura.representation.Element;
+import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
 import arquitetura.representation.Class;
 
@@ -20,20 +22,19 @@ public class CIBClass {
 			inspectConcernsOfElement(cls, cls);
 			inspectMethods(cls);
 			//TODO incluir as interfaces que as classes podem realizar
-			//inspectInterfaces(component, component.getRequiredInterfaces());
+			inspectInterfaces(cls, cls.getRequiredInterfaces());
+			inspectInterfaces(cls, cls.getImplementedInterfaces());
 		}
 	}
 
-	/*
-	private void inspectInterfaces(Component component, Collection<Interface> interfaces) {
+	private void inspectInterfaces(Class cls, Collection<Interface> interfaces) {
 		for (Interface i : interfaces) {
-			inspectConcernsOfElement(i, component);
-			for (Operation operation : i.getOperations()) {
-				inspectConcernsOfElement(operation, component);
+			inspectConcernsOfElement(i, cls);
+			for (Method operation : i.getOperations()) {
+				inspectConcernsOfElement(operation, cls);
 			}
 		}
 	}
-	*/
 
 	private void inspectMethods(Class cls) {
 		

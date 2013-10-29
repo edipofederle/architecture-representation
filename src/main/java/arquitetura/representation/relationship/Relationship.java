@@ -25,15 +25,6 @@ public abstract class Relationship {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	public void setTypeRelationship(String type){
-		this.type = type;
-	}
-	
-	public String getTypeRelationship(){
-		return this.type;
-	}
-
 	/**
 	 * @return the type
 	 */

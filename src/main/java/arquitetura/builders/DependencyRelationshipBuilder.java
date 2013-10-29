@@ -7,7 +7,9 @@ import org.eclipse.uml2.uml.NamedElement;
 
 import arquitetura.base.ArchitectureHelper;
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Class;
 import arquitetura.representation.Element;
+import arquitetura.representation.Interface;
 import arquitetura.representation.relationship.DependencyRelationship;
 
 /**
@@ -37,6 +39,9 @@ public class DependencyRelationshipBuilder  extends ArchitectureHelper{
 		Element client = architecture.getElementByXMIID(getModelHelper().getXmiId(clieents.get(0)));
 		Element supplier = architecture.getElementByXMIID(getModelHelper().getXmiId(suppliers.get(0)));
 		architecture.getAllIds().add(getModelHelper().getXmiId(element));
+		
+		if((client instanceof Interface) && (supplier instanceof Class))
+			((Class) supplier).getRequiredInterfaces().add((Interface) client);
 		
 		DependencyRelationship dependency =  new DependencyRelationship(supplier, client, element.getName(), architecture, getModelHelper().getXmiId(element));
 		

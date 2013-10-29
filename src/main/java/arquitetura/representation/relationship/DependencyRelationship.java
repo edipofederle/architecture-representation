@@ -32,7 +32,7 @@ public class DependencyRelationship extends Relationship {
 		setName(name);
 		this.architecture = architecture;
 		setId(id);
-		setTypeRelationship("dependency");
+		setType("dependency");
 
 		if((client instanceof Package) && (supplier instanceof Interface)){
 			((Package) client).addImplementedInterface(supplier);

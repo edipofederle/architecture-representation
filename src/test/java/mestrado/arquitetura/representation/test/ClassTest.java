@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.eclipse.uml2.uml.Class;
@@ -14,11 +17,11 @@ import org.mockito.Mockito;
 
 import arquitetura.builders.ClassBuilder;
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
 
 public class ClassTest extends TestHelper {
 	
-
 	private arquitetura.representation.Class class1, class2;
 	
 
@@ -123,9 +126,6 @@ public class ClassTest extends TestHelper {
 		assertFalse(class2.moveMethodToClass(method, class1));
 	}
 	
-	
-	//Concerns
-	
 	@Test
 	public void shouldNotAddConcernWhenNotExists() throws Exception{
 		Architecture a = givenAArchitecture("concerns/completeClass");
@@ -166,14 +166,26 @@ public class ClassTest extends TestHelper {
 		klass1.removeConcern("xpto");
 		assertEquals(1, klass1.getOwnConcerns().size());
 	}
-	//Concerns
 	
 	@Test
 	public void testGetImplementedInterfaces() throws Exception {
 		Architecture a = givenAArchitecture("classRealizationInterface");
 		
 		arquitetura.representation.Class klass1 = a.findClassByName("Class2").get(0);
+		
 		assertEquals("Deve retornar 2 interfaces", 2, klass1.getImplementedInterfaces().size());
+	}
+	
+	@Test
+	public void testGetRequiredInterfaces() throws Exception{
+		Architecture a = givenAArchitecture("classInterface/classrealizationInterface");
+		arquitetura.representation.Class klass1 = a.findClassByName("Class2").get(0);
+		
+		List<Interface> requiredInterface = klass1.getRequiredInterfaces();
+		
+		assertNotNull(requiredInterface);
+		assertEquals(1,requiredInterface.size());
+		assertEquals("Class1", requiredInterface.get(0).getName());
 		
 	}
 	

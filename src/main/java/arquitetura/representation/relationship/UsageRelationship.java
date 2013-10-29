@@ -19,7 +19,7 @@ public class UsageRelationship extends Relationship {
 		this.supplier = supplier;
 		this.client = client;
 		setId(id);
-		setTypeRelationship("usage");
+		setType("usage");
 	}
 	
 	public String getName() {

@@ -21,7 +21,7 @@ public abstract class Element implements Serializable {
 	private VariationPoint variationPoint;
 	private Variant variant;
 	private final List<Concern> concerns = new ArrayList<Concern>();
-	private static Architecture architecture;
+	private Architecture architecture;
 	private String typeElement;
 	private String namespace;
 	//private List<String> idsRelationships = new ArrayList<String>();
@@ -88,7 +88,6 @@ public abstract class Element implements Serializable {
 		return getName();
 	}
 	
-	@SuppressWarnings("static-access")
 	private void setArchitecture(Architecture architecture) {
 		this.architecture = architecture;
 	}
@@ -142,7 +141,7 @@ public abstract class Element implements Serializable {
 		return namespace;
 	}
 	
-	public static Architecture getArchitecture(){
+	public Architecture getArchitecture(){
 		return architecture;
 	}
 

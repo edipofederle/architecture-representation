@@ -23,7 +23,7 @@ public class AssociationRelationship extends Relationship {
 		getParticipants().add(new AssociationEnd(class1, false, "association", null,""));
 		getParticipants().add(new AssociationEnd(class2, false, "association", null,""));
 		
-		setTypeRelationship("associacao");
+		setType("associacao");
 
 	}
 
