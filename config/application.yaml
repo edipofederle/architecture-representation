@@ -1,5 +1,0 @@
---- !DirTarget
-directoryToSaveModels: manipulation/
-directoryToExportModels: /Users/elf/Documents/workspaceModeling/exportacao/
-pathToProfile: src/test/java/resources/agm_gerada/resources/smarty.profile.uml
-pathToProfileConcern: src/test/java/resources/agm_gerada/resources/perfilConcerns.profile.uml
