@@ -1,0 +1,31 @@
+Number of solutions: 1
+--------  NEW SOLUTION ------------------
+
+Solution: 0
+
+Concern: play
+Concern: bowling
+Concern: pong
+Concern: save
+Concern: brickles
+Concern: ranking
+Concern: pause
+Concern: logging
+Concern: configuration
+
+Number of Packages: 9
+
+Number of variabilities: 5
+
+Number of interfaces: 0
+
+Number of classes: 30
+
+Number of DependencyInterElementRelationships: 14
+
+Number of AbstractionInterElementRelationships: 0
+
+Number of GeneralizationsRelationships: 12
+
+Number of AssociationsRelationships: 4
+
