@@ -112,8 +112,7 @@ public class ArchitectureBuilder {
 		architecture.getElements().addAll(loadInterfaces());
 		architecture.getAllVariabilities().addAll(loadVariability());
 		architecture.getInterClassRelationships().addAll(loadInterClassRelationships());
-		
-		architecture.getAllAssociationsClass().addAll(loadAssociationClassAssociation());
+		architecture.getInterClassRelationships().addAll(loadAssociationClassAssociation());
 		
 		return architecture;
 	}

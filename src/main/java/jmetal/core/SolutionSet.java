@@ -423,6 +423,8 @@ public class SolutionSet implements Serializable {
 					bw.write("Number of AssociationsRelationships: "
 							+ arch.getAllAssociationsRelationships().size());
 					bw.newLine();
+					bw.write("Number of AssociationClasses: "
+							+ arch.getAllAssociationsClass().size());
 					bw.newLine();
 					contIntfs = 0;
 					contClass = 0;

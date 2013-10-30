@@ -29,7 +29,7 @@ public class NSGAII_OPLA_FeatMut {
 //--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
  public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
 
-         int runsNumber = 5; //30;
+         int runsNumber = 1; //30;
          populationSize_ = 50; //100
          maxEvaluations_ = 3000; //300 gerações
          
@@ -49,7 +49,7 @@ public class NSGAII_OPLA_FeatMut {
 
          String plas[] = new String[]{
          		 //"resources/AGM-Final-concerns.xmi", 
-         		"/Users/edipofederle/sourcesMestrado/arquitetura/src/test/java/resources/agmfinal/agm.uml",
+         		"/Users/elf/mestrado/sourcesMestrado/arquitetura/src/test/java/resources/agmfinal/agm.uml",
          		/*"resources/AGM-improvement.xmi", 
                  "resources/MM-v6-completa.xmi",
                "resources/LPS-BET.xmi",
@@ -118,7 +118,10 @@ public class NSGAII_OPLA_FeatMut {
          heapSize = (heapSize / 1024) / 1024;
          System.out.println("Heap Size: " + heapSize + "Mb\n");
 
-         String PLAName = pla.substring(10,18);
+         int beginIndex = pla.lastIndexOf("/") + 1;
+         int endIndex = pla.length() -4;
+         String PLAName = pla.substring(beginIndex, endIndex);
+         
          long time[] = new long[runsNumber];
          
          for (int runs = 0; runs < runsNumber; runs++) {
@@ -128,7 +131,7 @@ public class NSGAII_OPLA_FeatMut {
          	 long initTime = System.currentTimeMillis();
              SolutionSet resultFront = algorithm.execute();
              long estimatedTime = System.currentTimeMillis() - initTime;
-             //System.out.println("Iruns: " + runs + "\tTotal time: " + estimatedTime);
+             //System.out.println("Iruns: " + runs + "\tTo tal time: " + estimatedTime);
              time[runs] = estimatedTime;
              
              resultFront = problem.removeDominadas(resultFront);

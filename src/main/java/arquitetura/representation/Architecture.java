@@ -59,7 +59,6 @@ public class Architecture extends Variable implements Cloneable {
 	 * 
 	 */
 	private List<Concern> allowedConcerns = new ArrayList<Concern>();
-	private List<AssociationClassRelationship> allAssociationClass = new ArrayList<AssociationClassRelationship>();
 
 	public Architecture(String name) {
 		setName(name);
@@ -313,7 +312,16 @@ public class Architecture extends Variable implements Cloneable {
 	
 
 	public List<AssociationClassRelationship> getAllAssociationsClass() {
-		return allAssociationClass;
+		Predicate<Relationship> realizations = new Predicate<Relationship>() {
+			public boolean apply(Relationship parent) {
+				return AssociationClassRelationship.class.isInstance(parent);
+			}
+		};
+
+		List<AssociationClassRelationship> allAbstractions = UtilResources.filter(relationships, realizations);
+		
+		if (allAbstractions.isEmpty())  return Collections.emptyList();
+		return allAbstractions;
 	}
 
 

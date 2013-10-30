@@ -34,7 +34,6 @@ public class AssociationClassRelationshipBuilder extends ArchitectureHelper {
 		Class classAssociation = classBuilder.create(associationClass);
 		
 		for (Type t : associationClass.getEndTypes()){
-			//membersEnd.add(architecture.getElementByXMIID(getModelHelper().getXmiId(t)));
 			membersEnd.add(new MemberEnd("none", null, "public", architecture.getElementByXMIID(getModelHelper().getXmiId(t))));
 		}
 

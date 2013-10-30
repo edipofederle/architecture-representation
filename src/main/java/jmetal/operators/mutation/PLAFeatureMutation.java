@@ -797,7 +797,6 @@ public class PLAFeatureMutation extends Mutation {
   		Collection<Variability> variabilities = arch.getAllVariabilities();
   		for (Variability variability: variabilities){
   			VariationPoint varPoint = variability.getVariationPoint();
-			//Collection<Element> variants = ;
 			for (Variant variant : varPoint.getVariants()){
 				if (variant.getVariantElement().equals(cls) && variability.getName().equals(concern.getName())) 
 					isVariantConcern=true;		

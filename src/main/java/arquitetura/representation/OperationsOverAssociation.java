@@ -104,7 +104,7 @@ public class OperationsOverAssociation {
 		owner.getRelationships().add(asc);
 		klass.getRelationships().add(asc);
 		
-		this.architecture.getAllAssociationsClass().add(asc);
+		this.architecture.addRelationship(asc);
 		
 	}
 
