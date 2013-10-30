@@ -16,7 +16,6 @@ import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
-import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
 import arquitetura.representation.Package;
@@ -818,22 +817,22 @@ public class PLAFeatureMutation extends Mutation {
   		return isVariantConcern;
   }
     
-  //-------------------------------------------------------------------------
-    //método para identificar se a classe é superclasse na hierarquia de herança
-    private boolean isParent(Class cls){
-    	boolean parent=false;
-    	
-    	for (Relationship relationship: cls.getRelationships()){
-  	    	if (relationship instanceof GeneralizationRelationship){
-  	    		GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-  	    		if (generalization.getParent().equals(cls)) {
-  	    			parent = true;
-  	    			return parent;
-  	    		}	    		
-  	    	}
-  	    }
-    	return parent;
-    }
+//  //-------------------------------------------------------------------------
+//    //método para identificar se a classe é superclasse na hierarquia de herança
+//    private boolean isParent(Class cls){
+//    	boolean parent=false;
+//    	
+//    	for (Relationship relationship: cls.getRelationships()){
+//  	    	if (relationship instanceof GeneralizationRelationship){
+//  	    		GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
+//  	    		if (generalization.getParent().equals(cls)) {
+//  	    			parent = true;
+//  	    			return parent;
+//  	    		}	    		
+//  	    	}
+//  	    }
+//    	return parent;
+//    }
 
   //--------------------------------------------------------------------------
     //método para identificar se a classe é subclasse na hierarquia de herança
@@ -883,32 +882,32 @@ public class PLAFeatureMutation extends Mutation {
   	  return parent;
     }
     
-  //--------------------------------------------------------------------------
-    //método para identificar os irmaos na hierarquia de herança
-    private List<Class> getSibling(Class parent, Class child){
-  	  List<Class> sibling = new ArrayList<Class> ();
-  	  for (Relationship relationship: parent.getRelationships()){
-  	    	if (relationship instanceof GeneralizationRelationship){
-  	    		GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-  	    		if ((generalization.getParent().equals(parent)) && (!(generalization.getChild().equals(child)))){
-  	    			sibling.add(generalization.getChild());
-  	    		}
-  	    	}
-  	  }	    			
-  	  return sibling;
-    }
+//  //--------------------------------------------------------------------------
+//    //método para identificar os irmaos na hierarquia de herança
+//    private List<Class> getSibling(Class parent, Class child){
+//  	  List<Class> sibling = new ArrayList<Class> ();
+//  	  for (Relationship relationship: parent.getRelationships()){
+//  	    	if (relationship instanceof GeneralizationRelationship){
+//  	    		GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
+//  	    		if ((generalization.getParent().equals(parent)) && (!(generalization.getChild().equals(child)))){
+//  	    			sibling.add(generalization.getChild());
+//  	    		}
+//  	    	}
+//  	  }	    			
+//  	  return sibling;
+//    }
     
-    //atualizar os pontos de variacao de cada variabilidade
-    private void updateVariabilitiesOffspring(Architecture offspring){ 
-    	for (Variability variability: offspring.getAllVariabilities()){	    		
-    		VariationPoint variationPoint = variability.getVariationPoint();
-			Element elementVP = variationPoint.getVariationPointElement();
-			if (!(offspring.findElementByName(elementVP.getName(), "class").equals(elementVP))){
-				//procura o elemento em offspring e substitui o variationPoint 
-				variationPoint.replaceVariationPointElement(offspring.findElementByName(elementVP.getName(), "class"));
-			}
-    	}
-    }
+//    //atualizar os pontos de variacao de cada variabilidade
+//    private void updateVariabilitiesOffspring(Architecture offspring){ 
+//    	for (Variability variability: offspring.getAllVariabilities()){	    		
+//    		VariationPoint variationPoint = variability.getVariationPoint();
+//			Element elementVP = variationPoint.getVariationPointElement();
+//			if (!(offspring.findElementByName(elementVP.getName(), "class").equals(elementVP))){
+//				//procura o elemento em offspring e substitui o variationPoint 
+//				variationPoint.replaceVariationPointElement(offspring.findElementByName(elementVP.getName(), "class"));
+//			}
+//    	}
+//    }
     
 	//metodo adicionado para mover a hierarquia de classes para um outro componente que esta modularizando o interesse concern	
 private void moveHierarchyToComponent(Class classComp, Package targetComp, Package sourceComp, Architecture architecture, Concern concern){
