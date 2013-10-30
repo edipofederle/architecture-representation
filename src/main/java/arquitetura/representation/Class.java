@@ -234,6 +234,7 @@ public class Class extends Element {
 			if(v.getName().equalsIgnoreCase(this.getName()))
 				return v.getVariantType();
 		}
+		
 		return null;
 	}
 

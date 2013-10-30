@@ -3,6 +3,3 @@
 - No Papyrus, não é possível adicionar um estereótipo por meio da interface visual em um pacote. Isso pode ser feito 
 fora da interface gráfica, entretanto, o esterótipo não é apresentado na representação visual. (04 Setembro 2013)
 
-- Sempre que existir uma variabilidade, a classe que a mesma é linkada deve ser vartionPoint. (29 Outubro 2013)
-
-

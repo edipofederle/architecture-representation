@@ -3,15 +3,15 @@ Number of solutions: 1
 
 Solution: 0
 
-Concern: configuration
-Concern: logging
-Concern: bowling
-Concern: ranking
-Concern: play
-Concern: pause
 Concern: pong
-Concern: brickles
+Concern: logging
+Concern: ranking
+Concern: bowling
+Concern: configuration
+Concern: play
 Concern: save
+Concern: brickles
+Concern: pause
 
 Number of Packages: 9
 
@@ -27,5 +27,5 @@ Number of AbstractionInterElementRelationships: 0
 
 Number of GeneralizationsRelationships: 12
 
-Number of AssociationsRelationships: 4
-
+Number of AssociationsRelationships: 3
+Number of AssociationClasses: 0

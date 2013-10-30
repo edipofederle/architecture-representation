@@ -782,9 +782,11 @@ public class PLAFeatureMutation extends Mutation {
   		Collection<Variability> variabilities = arch.getAllVariabilities();
   		for (Variability variability: variabilities){
   			VariationPoint varPoint = variability.getVariationPoint();
-			Class classVP = (Class) varPoint.getVariationPointElement();
-			if (classVP.equals(cls) && variability.getName().equals(concern.getName())) 
-				isVariationPointConcern=true;				
+  			if(varPoint != null){
+	  			Class classVP = (Class) varPoint.getVariationPointElement();
+				if (classVP.equals(cls) && variability.getName().equals(concern.getName())) 
+					isVariationPointConcern = true;
+  			}
   		}
   		return isVariationPointConcern;
      }
@@ -796,11 +798,22 @@ public class PLAFeatureMutation extends Mutation {
   	   boolean isVariantConcern = false;
   		Collection<Variability> variabilities = arch.getAllVariabilities();
   		for (Variability variability: variabilities){
+  			
   			VariationPoint varPoint = variability.getVariationPoint();
-			for (Variant variant : varPoint.getVariants()){
-				if (variant.getVariantElement().equals(cls) && variability.getName().equals(concern.getName())) 
-					isVariantConcern=true;		
-			}
+  			
+  			
+  			if(varPoint != null){
+				for (Variant variant : varPoint.getVariants()){
+					if (variant.getVariantElement().equals(cls) && variability.getName().equals(concern.getName())) 
+						isVariantConcern = true;		
+				}
+  			}else{
+  				if(cls.getVariantType() != null){
+					if(cls.getVariantType().equalsIgnoreCase("optional")){
+						isVariantConcern = true;
+					}
+  				}
+  			}
   		}
   		return isVariantConcern;
   }

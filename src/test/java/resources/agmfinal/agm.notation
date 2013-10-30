@@ -2041,11 +2041,11 @@
           <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_NJQCZRS4EeOYorUb5NKqTw" key="QualifiedNameDepth" value="1000"/>
         </eAnnotations>
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_T7NqIBTTEeOYorUb5NKqTw" source="Stereotype_Annotation">
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_iClGEEDIEeOXAeLGT-es7A" key="StereotypeWithQualifiedNameList" value=""/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_iCltIEDIEeOXAeLGT-es7A" key="StereotypeList" value="perfilConcerns::logging,perfilConcerns::ranking,smartyProfile::optional,smartyProfile::variationPoint"/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_iCltIUDIEeOXAeLGT-es7A" key="Stereotype_Presentation_Kind" value="HorizontalStereo"/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_iCltIkDIEeOXAeLGT-es7A" key="PropStereoDisplay" value=""/>
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_iCltI0DIEeOXAeLGT-es7A" key="StereotypePropertyLocation" value="Compartment"/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_RwWmwBVwEeODAq4Tm5H6GQ" key="StereotypeWithQualifiedNameList" value=""/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_RwWmwRVwEeODAq4Tm5H6GQ" key="StereotypeList" value="perfilConcerns::logging,perfilConcerns::ranking,smartyProfile::optional"/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_RwWmwhVwEeODAq4Tm5H6GQ" key="Stereotype_Presentation_Kind" value="HorizontalStereo"/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_RwWmwxVwEeODAq4Tm5H6GQ" key="PropStereoDisplay" value=""/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_RwWmxBVwEeODAq4Tm5H6GQ" key="StereotypePropertyLocation" value="Compartment"/>
         </eAnnotations>
         <children xmi:type="notation:DecorationNode" xmi:id="_NJQCZhS4EeOYorUb5NKqTw" type="5014"/>
         <children xmi:type="notation:BasicCompartment" xmi:id="_NJQpcBS4EeOYorUb5NKqTw" type="7011">
