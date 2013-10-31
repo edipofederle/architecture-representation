@@ -24,7 +24,6 @@ public abstract class Element implements Serializable {
 	private Architecture architecture;
 	private String typeElement;
 	private String namespace;
-	//private List<String> idsRelationships = new ArrayList<String>();
 	private List<Relationship> relationships = new ArrayList<Relationship>();
 	
 	public Element(Architecture architecture, String name, Variant variant, String typeElement, String namespace, String id) {
@@ -67,7 +66,7 @@ public abstract class Element implements Serializable {
 		return name;
 	}
 
-	protected void setName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 		
@@ -163,36 +162,31 @@ public abstract class Element implements Serializable {
 		return relationships;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((namespace == null) ? 0 : namespace.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Element other = (Element) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
-	
+	 @Override
+	 public boolean equals(Object obj) {
+	        if (this == obj)
+	                return true;
+	        if (obj == null)
+	                return false;
+	        if (!(obj instanceof Element))
+	                return false;
+	                
+	        Element other = (Element) obj;
+	        return (
+	                this.getName().equals(other.getName()) &&
+	                this.getNamespace().equals(other.getNamespace())
+	        );
+	 }
+
 	
 }

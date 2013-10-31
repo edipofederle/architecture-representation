@@ -22,14 +22,12 @@ public class OperationsOverRelationships {
 	
 	private List<Relationship> relationships;
 	private Set<String> allIds;
-	private List<AssociationClassRelationship> allAssociationClass;
 	private Architecture  architecture;
 	
 	public OperationsOverRelationships(Architecture architecture) {
 		this.architecture = architecture;
 		this.relationships = architecture.getAllRelationships();
 		this.allIds = architecture.getAllIds();
-		this.allAssociationClass = architecture.getAllAssociationsClass();
 	}
 
 	public void moveAssociation(AssociationRelationship association, Class class1, Class class2) {
@@ -71,7 +69,7 @@ public class OperationsOverRelationships {
 	}
 
 	public void removeAssociationClass(AssociationClassRelationship associationClass){
-		if (!allAssociationClass.remove(associationClass))
+		if (!removeRelationship(associationClass))
 			LOGGER.info("Cannot remove AssociationClass " + associationClass + ".\n");
 	}
 

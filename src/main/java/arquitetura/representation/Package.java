@@ -185,18 +185,18 @@ public class Package extends Element {
 		return false;
 	}
 
-	public void moveClassToPackage(Class klass, Package packageToMove) {
+	public void moveClassToPackage(Element klass, Package packageToMove) {
 		if (!idsClasses.contains(klass.getId())) return;
 		
 		removeClass(klass);
 		packageToMove.addExternalClass(klass);
 	}
 
-	private void addExternalClass(Class klass) {
+	private void addExternalClass(Element klass) {
 		idsClasses.add(klass.getId());
 	}
 	
-	public void removeClass(Class klass) {
+	public void removeClass(Element klass) {
 		idsClasses.remove(klass.getId());
 		getArchitecture().getAllClasses().remove(klass);
 	}

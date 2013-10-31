@@ -30,7 +30,7 @@ public class OperationsOverGeneralization {
 		gene.setChild(child);
 	}
 
-	public void addChildToGeneralization(GeneralizationRelationship generalizationRelationship,	Class newChild) {
+	public void addChildToGeneralization(GeneralizationRelationship generalizationRelationship,	Element newChild) {
 		GeneralizationRelationship g = new GeneralizationRelationship(generalizationRelationship.getParent(), newChild, this.architecture, UtilResources.getRandonUUID());
 		this.architecture.getAllRelationships().add(g);
 	}

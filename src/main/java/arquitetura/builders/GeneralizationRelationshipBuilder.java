@@ -5,7 +5,6 @@ import org.eclipse.uml2.uml.Generalization;
 
 import arquitetura.base.ArchitectureHelper;
 import arquitetura.representation.Architecture;
-import arquitetura.representation.Class;
 import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 
@@ -33,8 +32,8 @@ public class GeneralizationRelationshipBuilder extends ArchitectureHelper {
 //			e.getIdsRelationships().add((getModelHelper().getXmiId(generalization)));
 //		}
 		
-		arquitetura.representation.Class general = (Class) architecture.getElementByXMIID(generalKlassId);
-		arquitetura.representation.Class specific = (Class) architecture.getElementByXMIID(specificKlassId);
+		arquitetura.representation.Element general = architecture.getElementByXMIID(generalKlassId);
+		arquitetura.representation.Element specific = architecture.getElementByXMIID(specificKlassId);
 		architecture.getAllIds().add(getModelHelper().getXmiId(generalization));
 		GeneralizationRelationship generalizationRelation = new GeneralizationRelationship(general, specific, architecture, getModelHelper().getXmiId(generalization));
 		

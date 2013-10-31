@@ -16,6 +16,7 @@ import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
+import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
 import arquitetura.representation.Package;
@@ -836,7 +837,7 @@ public class PLAFeatureMutation extends Mutation {
 
   //--------------------------------------------------------------------------
     //método para identificar se a classe é subclasse na hierarquia de herança
-    private boolean isChild(Class cls){
+    private boolean isChild(Element cls){
     	boolean child=false;
     	
     	for (Relationship relationship: cls.getRelationships()){
@@ -853,8 +854,8 @@ public class PLAFeatureMutation extends Mutation {
     
   //--------------------------------------------------------------------------
     //método para identificar as subclasses da classe pai na hierarquia de herança
-    private List<Class> getChildren(Class cls){
-  	  List<Class> children = new ArrayList<Class>();
+    private List<Element> getChildren(Element cls){
+  	  List<Element> children = new ArrayList<Element>();
   	  for (Relationship relationship: cls.getRelationships()){
   	    	if (relationship instanceof GeneralizationRelationship){
   	    		GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
@@ -868,8 +869,8 @@ public class PLAFeatureMutation extends Mutation {
 
   //--------------------------------------------------------------------------
     //método para identificar as subclasses da classe pai na hierarquia de herança
-    private Class getParent(Class cls){
-  	  Class parent = null;
+    private Element getParent(Element cls){
+  	  Element parent = null;
   	  for (Relationship relationship: cls.getRelationships()){
   	    	if (relationship instanceof GeneralizationRelationship){
   	    		GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
@@ -912,7 +913,7 @@ public class PLAFeatureMutation extends Mutation {
 	//metodo adicionado para mover a hierarquia de classes para um outro componente que esta modularizando o interesse concern	
 private void moveHierarchyToComponent(Class classComp, Package targetComp, Package sourceComp, Architecture architecture, Concern concern){
 
-		Class parent = classComp;
+		Element parent = classComp;
 		while (isChild(parent)){
 			parent = getParent(parent);				
 		}
@@ -950,9 +951,9 @@ private void moveHierarchyToComponent(Class classComp, Package targetComp, Packa
 	}
 
 	//metodo para mover os filhos para o novo componente que está modularizando o interesse
-	private void moveChildrenToComponent(Class parent, Package sourceComp, Package targetComp, Architecture architecture, Concern concern){
-		Collection<Class> children = getChildren(parent);
-		for (Class child: children){
+	private void moveChildrenToComponent(Element parent, Package sourceComp, Package targetComp, Architecture architecture, Concern concern){
+		Collection<Element> children = getChildren(parent);
+		for (Element child: children){
 			moveChildrenToComponent(child, sourceComp, targetComp, architecture, concern);
 		}
 		
@@ -1004,7 +1005,7 @@ private void moveHierarchyToComponent(Class classComp, Package targetComp, Packa
 	}
 
 	//metodo adicionado para eliminar os relacionamentos de uma classe que faz parte de uma hierarquia, com excecao das generalizacoes
-	private void removeRelationshipsofClassInHierarchy(Class cls, Architecture architecture){
+	private void removeRelationshipsofClassInHierarchy(Element cls, Architecture architecture){
 		List<Relationship> allRelationships = new ArrayList<Relationship> (cls.getRelationships());
 		if (!allRelationships.isEmpty()) {
 			Iterator<Relationship> iteratorRelationships = allRelationships.iterator();

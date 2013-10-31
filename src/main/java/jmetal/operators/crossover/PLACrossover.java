@@ -347,7 +347,7 @@ import arquitetura.representation.relationship.Relationship;
 	            		}
 	            		if (relationship instanceof GeneralizationRelationship){
 	            			GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-	            				Class parentClass = generalization.getParent();
+	            				Element parentClass = generalization.getParent();
 	            				if (parentClass.equals(classComp)) {
 	            					Class targetClass = null;
 									try {
@@ -399,7 +399,7 @@ import arquitetura.representation.relationship.Relationship;
 	            					}
 	            				}
 	            				else{
-	            					Class childClass = generalization.getChild();
+	            					Element childClass = generalization.getChild();
 	            				    if (childClass.equals(classComp)) {
 	            					   Class targetClass = null;
 									try {
@@ -617,7 +617,7 @@ import arquitetura.representation.relationship.Relationship;
 		        				}
 		        				if (relationship instanceof GeneralizationRelationship){
 		        					GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-		            				Class parentClass = generalization.getParent();
+		            				Element parentClass = generalization.getParent();
 		            				if (parentClass.equals(classComp)) {
 		            					Class targetClass = null;
 										try {
@@ -668,7 +668,7 @@ import arquitetura.representation.relationship.Relationship;
 		            					}
 		            				}
 		            				else{
-		            					Class childClass = generalization.getChild();
+		            					Element childClass = generalization.getChild();
 			            				if (childClass.equals(classComp)) {
 			            					Class targetClass = null;
 											try {

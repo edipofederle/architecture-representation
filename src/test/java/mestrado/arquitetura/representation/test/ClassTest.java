@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 
@@ -13,7 +15,6 @@ import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Package;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import arquitetura.builders.ClassBuilder;
 import arquitetura.representation.Architecture;
@@ -24,6 +25,7 @@ public class ClassTest extends TestHelper {
 	
 	private arquitetura.representation.Class class1, class2;
 	
+	private Architecture architecture;
 
 	@Before
 	public void setUp()	throws Exception {
@@ -32,8 +34,8 @@ public class ClassTest extends TestHelper {
 		Class klass = modelHelper.getAllClasses(model).get(0);
 		Class klass2 = modelHelper.getAllClasses(model).get(1);
 		
-		Architecture architecture = Mockito.mock(Architecture.class);
-		Mockito.when(architecture.getName()).thenReturn("MyArch");
+		architecture = mock(Architecture.class);
+		when(architecture.getName()).thenReturn("MyArch");
 		ClassBuilder classBuilder = new ClassBuilder(architecture);
 		class1 = classBuilder.create(klass);
 		class2 = classBuilder.create(klass2);
@@ -44,6 +46,32 @@ public class ClassTest extends TestHelper {
 	public void shouldHaveAName() throws Exception {
 		assertNotNull(class1);
 		assertNotNull("Class1",class1.getName());
+	}
+	
+	@Test
+	public void shouldUpdateNameOfClass() throws Exception{
+		class1.setName("newNameClass");
+		assertEquals("newNameClass", class1.getName());
+	}
+	
+	@Test
+	public void classShouldBeEqualsWhenNameAndNamespaceAreEquals(){
+		class1.setName("Foo");
+		class2.setName("Foo");
+		class1.setName("foo.bar");
+		class2.setName("foo.bar");
+		
+		assertTrue(class1.equals(class2));
+	}
+	
+	@Test
+	public void classShouldNotEqualsWhenNameAndNamespaceAreEquals(){
+		class1.setName("Foo");
+		class2.setName("Foo");
+		class1.setName("foo.bar1");
+		class2.setName("foo.bar");
+		
+		assertFalse(class1.equals(class2));
 	}
 	
 	@Test
@@ -186,7 +214,6 @@ public class ClassTest extends TestHelper {
 		assertNotNull(requiredInterface);
 		assertEquals(1,requiredInterface.size());
 		assertEquals("Class1", requiredInterface.get(0).getName());
-		
 	}
 	
 }

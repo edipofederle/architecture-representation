@@ -1,9 +1,11 @@
 package mestrado.arquitetura.writer.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 
+import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Before;
@@ -14,6 +16,7 @@ import arquitetura.exceptions.NotSuppportedOperation;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
+import arquitetura.representation.Interface;
 import arquitetura.representation.Package;
 import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.touml.DocumentManager;
@@ -86,6 +89,26 @@ public class GeneralizationTest extends TestHelper {
 		GeneralizationRelationship g = arch.getAllGeneralizations().get(0);
 		assertEquals("Casa",g.getParent().getName());
 		assertEquals("Employee",g.getChild().getName());
+	}
+	
+	@Test
+	public void shouldCreateGeneralizationBetweenIntefaceAndClass() throws Exception{
+		String path = "herancaInterfaceClass/";
+		Architecture arch = givenAArchitecture(path+"herancaInterfaceClass");
+		
+		GenerateArchitecture generateArch = new GenerateArchitecture();
+		generateArch.generate(arch, "xpto");
+		
+		Architecture arch2 = givenAArchitecture2("xpto");
+		
+		assertEquals(1,arch2.getAllGeneralizations().size());
+		
+		GeneralizationRelationship g = arch.getAllGeneralizations().get(0);
+		
+		assertEquals("Class2",g.getParent().getName());
+		assertEquals("Class1",g.getChild().getName());
+		assertTrue(g.getChild() instanceof Interface);
+		assertTrue(g.getParent() instanceof Class);
 	}
 	
 	
