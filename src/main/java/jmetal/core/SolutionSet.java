@@ -386,17 +386,13 @@ public class SolutionSet implements Serializable {
 					bw.write("Number of variabilities: "
 							+ arch.getAllVariabilities().size());
 
-					 for (arquitetura.representation.Package comp: arch.getAllPackages()){
-						 contClass += comp.getClasses().size();
-						 contIntfs+= comp.getImplementedInterfaces().size();
-					 }
 
 					bw.newLine();
 					bw.newLine();
-					bw.write("Number of interfaces: " + contIntfs);
+					bw.write("Number of interfaces: " + arch.getAllInterfaces().size());
 					bw.newLine();
 					bw.newLine();
-					bw.write("Number of classes: " + contClass);
+					bw.write("Number of classes: " + arch.getAllClasses().size());
 					bw.newLine();
 					bw.newLine();
 					bw.write("Number of DependencyInterElementRelationships: "+
