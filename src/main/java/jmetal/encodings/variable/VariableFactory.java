@@ -22,7 +22,6 @@
 package jmetal.encodings.variable;
 
 import jmetal.core.Variable;
-import jmetal.encodings.variable.*;
 import jmetal.util.Configuration;
 import jmetal.util.JMException;
 

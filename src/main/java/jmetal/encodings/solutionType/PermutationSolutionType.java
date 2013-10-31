@@ -24,10 +24,7 @@ package jmetal.encodings.solutionType;
 import jmetal.core.Problem;
 import jmetal.core.SolutionType;
 import jmetal.core.Variable;
-import jmetal.encodings.variable.Int;
 import jmetal.encodings.variable.Permutation;
-import jmetal.encodings.variable.Real;
-import jmetal.util.Configuration;
 
 /** 
  * Class representing the solution type of solutions composed of Permutation

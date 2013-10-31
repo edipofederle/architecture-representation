@@ -25,7 +25,6 @@ import jmetal.core.Variable;
 import jmetal.util.Configuration;
 import jmetal.util.JMException;
 import jmetal.util.PseudoRandom;
-import jmetal.util.Configuration.*;
 
 
 /**
@@ -34,6 +33,11 @@ import jmetal.util.Configuration.*;
 public class Real extends Variable{
 
   /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5616809484038914366L;
+
+/**
    * Stores the value of the real variable
    */
   private double value_;

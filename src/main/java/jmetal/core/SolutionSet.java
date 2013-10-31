@@ -35,9 +35,6 @@ import java.util.List;
 import jmetal.util.Configuration;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Concern;
-import arquitetura.representation.relationship.AssociationRelationship;
-import arquitetura.representation.relationship.GeneralizationRelationship;
-import arquitetura.representation.relationship.Relationship;
 
 /**
  * Class representing a SolutionSet (a set of solutions)

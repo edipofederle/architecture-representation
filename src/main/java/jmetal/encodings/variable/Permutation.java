@@ -22,8 +22,6 @@
 package jmetal.encodings.variable;
 
 import jmetal.core.Variable;
-import jmetal.util.PseudoRandom;
-import jmetal.util.Configuration.*;
 
 /**
  * Class implementing a permutation of integer decision variable
@@ -31,6 +29,11 @@ import jmetal.util.Configuration.*;
 public class Permutation extends Variable {
   
   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2657470069340722041L;
+
+/**
    * Stores a permutation of <code>int</code> values
    */
   public int [] vector_;

@@ -25,7 +25,6 @@ import jmetal.core.Problem;
 import jmetal.core.SolutionType;
 import jmetal.core.Variable;
 import jmetal.encodings.variable.ArrayReal;
-import jmetal.encodings.variable.Real;
 
 /**
   * Class representing the solution type of solutions composed of an ArrayReal 

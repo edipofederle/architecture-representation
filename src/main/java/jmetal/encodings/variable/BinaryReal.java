@@ -21,17 +21,18 @@
 
 package jmetal.encodings.variable;
 
-import java.util.BitSet;
-
 import jmetal.core.Variable;
-import jmetal.util.PseudoRandom;
-import jmetal.util.Configuration.*;
 
 /** This class extends the Binary class to represent a Real variable encoded by
  * a binary string
  */
 public class BinaryReal extends Binary {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8316631672696965713L;
+
 	/**
    * Defines the default number of bits used for binary coded variables.
    */	

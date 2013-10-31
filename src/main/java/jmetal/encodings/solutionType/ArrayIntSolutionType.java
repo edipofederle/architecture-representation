@@ -24,7 +24,6 @@ package jmetal.encodings.solutionType;
 import jmetal.core.Problem;
 import jmetal.core.SolutionType;
 import jmetal.core.Variable;
-import jmetal.encodings.variable.ArrayInt;
 import jmetal.encodings.variable.ArrayReal;
 
 /**

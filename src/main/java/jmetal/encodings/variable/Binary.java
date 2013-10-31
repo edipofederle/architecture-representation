@@ -25,7 +25,6 @@ import java.util.BitSet;
 
 import jmetal.core.Variable;
 import jmetal.util.PseudoRandom;
-import jmetal.util.Configuration.*;
 
 /**
  * This class implements a generic binary string variable.It can be used as
@@ -35,6 +34,11 @@ import jmetal.util.Configuration.*;
 public class Binary extends Variable {
   
   /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3553927010701150789L;
+
+/**
    * Stores the bits constituting the binary string. It is
    * implemented using a BitSet object
    */

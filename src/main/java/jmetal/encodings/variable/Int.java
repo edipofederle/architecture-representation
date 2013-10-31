@@ -25,13 +25,16 @@ import jmetal.core.Variable;
 import jmetal.util.Configuration;
 import jmetal.util.JMException;
 import jmetal.util.PseudoRandom;
-import jmetal.util.Configuration.*;
 
 /**
  * This class implements an integer decision variable 
  */
 public class Int extends Variable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -220713455225959427L;
 	private int value_;       //Stores the value of the variable
 	private int lowerBound_;  //Stores the lower limit of the variable
 	private int upperBound_;  //Stores the upper limit of the variable
