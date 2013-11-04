@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import jmetal.core.Variable;
+import main.GenerateArchitecture;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -653,9 +654,9 @@ public class Architecture extends Variable implements Cloneable {
 		return findPackageByName(packageName);
 	}
 
-	public void save(Architecture architecture, int i) {
-//		GenerateArchitecture generate = new GenerateArchitecture();
-//		generate.generate(architecture, architecture.getName() + i);
+	public void save(Architecture architecture, String pathToSave, int i) {
+		GenerateArchitecture generate = new GenerateArchitecture();
+		generate.generate(architecture, pathToSave +architecture.getName() + i);
 	}
 
 }

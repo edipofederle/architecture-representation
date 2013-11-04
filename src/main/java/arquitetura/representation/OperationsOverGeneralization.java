@@ -35,9 +35,10 @@ public class OperationsOverGeneralization {
 		this.architecture.getAllRelationships().add(g);
 	}
 
-	public void createGeneralization(Class parent, Class child) {
+	public GeneralizationRelationship createGeneralization(Element parent, Element child) {
 		GeneralizationRelationship g = new GeneralizationRelationship(parent, child, this.architecture, UtilResources.getRandonUUID());
 		this.architecture.getAllRelationships().add(g);
+		return g;
 	}
 
 }

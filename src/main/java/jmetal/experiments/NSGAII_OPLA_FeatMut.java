@@ -29,9 +29,9 @@ public class NSGAII_OPLA_FeatMut {
 //--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
  public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
 
-	  int runsNumber = 30; //30;
-      populationSize_ = 100; //100
-      maxEvaluations_ = 3000; //300 gera��es
+	  int runsNumber = 5; //30;
+      populationSize_ = 20; //100
+      maxEvaluations_ = 150; //300 gera��es
          
          crossoverProbability_ = 0.0; 
          mutationProbability_ = 0.8;

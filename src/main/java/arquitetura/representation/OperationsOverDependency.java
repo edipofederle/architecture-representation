@@ -11,7 +11,13 @@ public class OperationsOverDependency {
 	public OperationsOverDependency(Architecture architecture) {
 		this.architecture = architecture;
 	}
-
+	
+	/**
+	 * Criar relacionamento do tipo dependencia
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public OperationsOverDependency create(String name) {
 		dependency = new DependencyRelationship();
 		dependency.setId(UtilResources.getRandonUUID());
@@ -20,20 +26,37 @@ public class OperationsOverDependency {
 		return this;
 	}
 
+	/**
+	 * Configura client
+	 * 
+	 * @param client
+	 * @return
+	 */
 	public OperationsOverDependency withClient(Element client) {
 		dependency.setClient(client);
 		return this;
 	}
 
+	/**
+	 * Configura Supplier
+	 * 
+	 * @param supplier
+	 * @return
+	 */
 	public OperationsOverDependency withSupplier(Element supplier) {
 		dependency.setSupplier(supplier);
 		return this;
 	}
 
-	public void build() {
+	/**
+	 * Adiciona na lista de relacionamentos
+	 * 
+	 */
+	public DependencyRelationship build() {
 		this.architecture.getAllRelationships().add(dependency);
 		this.architecture.getAllIds().add(dependency.getId());
 		
+		return dependency;
 	}
 
 }
