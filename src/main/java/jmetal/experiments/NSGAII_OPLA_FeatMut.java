@@ -31,7 +31,7 @@ public class NSGAII_OPLA_FeatMut {
 
 	  int runsNumber = 5; //30;
       populationSize_ = 20; //100
-      maxEvaluations_ = 150; //300 gera��es
+      maxEvaluations_ = 100; //300 gera��es
          
          crossoverProbability_ = 0.0; 
          mutationProbability_ = 0.8;

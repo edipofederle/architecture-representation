@@ -60,8 +60,9 @@ public class XmiHelper {
 				}
 			}
 		}	
+		
 		if(nodeFound == null){
-			LOGGER.warn("Node with id " + id + " cannot be found. Retuns null");
+			LOGGER.warn("\nNode with id " + id + " cannot be found. Retuns null");
 			return null;
 		}
 		return nodeFound;

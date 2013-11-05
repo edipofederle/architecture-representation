@@ -19,16 +19,30 @@ public class ParameterMethod {
 		this.direction = direction;
 	}
 	
+
 	public String getName() {
 		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getType() {
 		return type;
 	}
-	
-	public String getDirection(){
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+	public String getDirection() {
 		return direction;
+	}
+
+	public void setDirection(String direction) {
+		this.direction = direction;
 	}
 
 	@Override

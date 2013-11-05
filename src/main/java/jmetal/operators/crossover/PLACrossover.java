@@ -85,7 +85,7 @@ import arquitetura.representation.relationship.Relationship;
 	      	     
 	               
 	        try {
-	            if (parent1.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName("br.uem.din.architectureEvolution.representation.Architecture")) {
+	            if (parent1.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
 	               if (PseudoRandom.randDouble() < probability) {
 	              
 	                    // STEP 1: Get feature to crossover
