@@ -49,7 +49,7 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 		boolean isAbstract = false;
 		
 		if(modelElement instanceof ClassImpl)
-			isAbstract = ((org.eclipse.uml2.uml.Classifier)modelElement).isAbstract();
+			isAbstract = ((org.eclipse.uml2.uml.Class)modelElement).isAbstract();
 		
 		String packageName = ((NamedElement)modelElement).getNamespace().getQualifiedName();
 		packageName = packageName !=null ? packageName : "";

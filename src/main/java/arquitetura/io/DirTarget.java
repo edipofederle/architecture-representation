@@ -6,6 +6,7 @@ public class DirTarget {
 	private String directoryToExportModels;
 	private String pathToProfile;
 	private String pathToProfileConcern;
+	private String pathToTemplateModelsDirectory;
 
 	/**
 	 * @return the directoryToSaveModels
@@ -56,7 +57,14 @@ public class DirTarget {
 	public String getPathToProfileConcern() {
 		return pathToProfileConcern;
 	}
-	
+
+	public String getPathToTemplateModelsDirectory() {
+		return pathToTemplateModelsDirectory;
+	}
+
+	public void setPathToTemplateModelsDirectory(String pathToTemplateModelsDirectory) {
+		this.pathToTemplateModelsDirectory = pathToTemplateModelsDirectory;
+	}
 	
 	
 }

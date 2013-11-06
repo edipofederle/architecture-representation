@@ -134,7 +134,7 @@ public class DocumentManager extends XmiHelper {
 	 */
 	private void makeACopy(String modelName) throws ModelNotFoundException, ModelIncompleteException {
 		
-		LOGGER.info("makeACopy(String pathToFiles, String modelName) - Enter");
+		LOGGER.info("makeACopy(String modelName) - Enter");
 		
 		
 		String notationCopy = ReaderConfig.getDirTarget()+BASE_DOCUMENT+".notation";
@@ -145,53 +145,41 @@ public class DocumentManager extends XmiHelper {
 		URL u = null;
 		URL d = null;
 		  try {
-		     URL baseUrl = DocumentManager.class.getResource(".");
+		     URL baseUrl = new URL("file:"+ReaderConfig.getPathToTemplateModelsDirectory());
 		     if (baseUrl != null) {
 		    	//Arquivos vazios usados para geração da nova arquitetura
 		        n = new URL(baseUrl, modelName+".notation");
 		        u = new URL(baseUrl, modelName+".uml");
 		        d = new URL(baseUrl, modelName+".di");
-		     } else {
-		         InputStream n1 = this.getClass().getResourceAsStream(modelName+".notation");
-		         InputStream u1 = this.getClass().getResourceAsStream(modelName+".uml");
-		         InputStream d1 = this.getClass().getResourceAsStream(modelName+".di");
-		        
-		         copyFileToDest(notationCopy, n1);
-		         copyFileToDest(umlCopy, u1);
-		         copyFileToDest(diCopy, d1);
-					
-
-				return ;
-		        
 		     }
 		  } catch (MalformedURLException e) {
-		     // Do something appropriate
+		     LOGGER.error("makeACopy(String modelName) - Could not find template files directory: " + ReaderConfig.getPathToTemplateModelsDirectory());
 		  }
 		
 		CopyFile.copyFile(new File(n.getPath()), new File(notationCopy));
 		CopyFile.copyFile(new File(u.getPath()),  new File(umlCopy));
 		CopyFile.copyFile(new File(d.getPath()),  new File(diCopy));
 						
-		LOGGER.info("makeACopy(String pathToFiles, String modelName) - Exit");
+		LOGGER.info("makeACopy(String modelName) - Exit");
 		
 	}
 
-	private void copyFileToDest(String notationCopy, InputStream n1) {
-		if (n1 == null) {
-		     //send your exception or warning
-		 }
-		 OutputStream resStreamOut;
-		 int readBytes;
-		 byte[] buffer = new byte[4096];
-		 try {
-		     resStreamOut = new FileOutputStream(new File(notationCopy));
-		     while ((readBytes = n1.read(buffer)) > 0) {
-		         resStreamOut.write(buffer, 0, readBytes);
-		     }
-		 } catch (IOException e1) {
-		     e1.printStackTrace();
-		 }
-	}
+//	private void copyFileToDest(String notationCopy, InputStream n1) {
+//		if (n1 == null) {
+//		     //send your exception or warning
+//		 }
+//		 OutputStream resStreamOut;
+//		 int readBytes;
+//		 byte[] buffer = new byte[4096];
+//		 try {
+//		     resStreamOut = new FileOutputStream(new File(notationCopy));
+//		     while ((readBytes = n1.read(buffer)) > 0) {
+//		         resStreamOut.write(buffer, 0, readBytes);
+//		     }
+//		 } catch (IOException e1) {
+//		     e1.printStackTrace();
+//		 }
+//	}
 
 	/**
 	 * @return the docUml

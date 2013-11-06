@@ -30,10 +30,11 @@ public class InterfaceBuilder extends ElementBuilder<arquitetura.representation.
 		
 		Interface interfacee = new Interface(architecture, name, variantType, modelElement.getNamespace().getQualifiedName(), XmiHelper.getXmiId(modelElement));
 		
-		List<Operation> elements = ((org.eclipse.uml2.uml.Class)modelElement).getAllOperations();
-		for (Operation operation : elements) {
+		List<Operation> elements = ((org.eclipse.uml2.uml.Class)modelElement).getOperations();
+		
+		for (Operation operation : elements)
 			interfacee.getOperations().add(methodBuilder.create(operation));
-		}
+		
 		return interfacee;
 	}
 

@@ -52,6 +52,10 @@ public class ReaderConfig {
 	public static String getPathToProfileConcerns() {
 		return dir.getPathToProfileConcern();
 	}
+	
+	public static String getPathToTemplateModelsDirectory(){
+		return dir.getPathToTemplateModelsDirectory();
+	}
 
 
 	/**

@@ -70,4 +70,10 @@ public class ReaderConfigTest {
 		assertTrue(ReaderConfig.hasProfilesSeted());
 	}
 	
+	@Test
+	public void getPathToTemplateModelsDirectory(){
+		String path = ReaderConfig.getPathToTemplateModelsDirectory();
+		assertNotNull(path);
+	}
+	
 }

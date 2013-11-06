@@ -27,9 +27,6 @@ public class Interface extends Element {
 
 	public Interface(Architecture architecture, String name, Variant variantType, String namespace, String id) {
 		super(architecture, name, variantType, "interface", namespace, id);
-//		//Posição Original
-//		this.x = XmiHelper.getXValueForElement(id);
-//		this.y = XmiHelper.getYValueForElement(id);
 	}
 	
 	public Interface(Architecture architecture, String name, String id) {
