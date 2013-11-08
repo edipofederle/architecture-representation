@@ -42,13 +42,22 @@ public class DependencyNode extends XmiHelper {
 		Element edges = this.docNotation.createElement("edges");
 		edges.setAttribute("xmi:type", "notation:Connector");
 		edges.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		edges.setAttribute("type", "4008");
-		
+		if("dependency".equalsIgnoreCase(type))
+			edges.setAttribute("type", "4008");
+		if("realization".equalsIgnoreCase(type))
+			edges.setAttribute("type", "4005");
+		if("usage".equalsIgnoreCase(type))
+			edges.setAttribute("type", "4007");
 		
 		Element childrenDocorationnode1 = this.docNotation.createElement("children");
 		childrenDocorationnode1.setAttribute("xmi:type", "notation:DecorationNode");
 		childrenDocorationnode1.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		childrenDocorationnode1.setAttribute("type", "6026");
+		if("dependency".equalsIgnoreCase(type))
+			childrenDocorationnode1.setAttribute("type", "6026");
+		if("realization".equalsIgnoreCase(type))
+			childrenDocorationnode1.setAttribute("type", "6012");
+		if("usage".equalsIgnoreCase(type))
+			childrenDocorationnode1.setAttribute("type", "6016");
 		
 		Element layoutConstraint = this.docNotation.createElement("layoutConstraint");
 		layoutConstraint.setAttribute("xmi:type", "notation:Location");
