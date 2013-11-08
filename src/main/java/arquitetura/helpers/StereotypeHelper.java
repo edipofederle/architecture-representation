@@ -203,7 +203,8 @@ public class StereotypeHelper {
 			variabilityProps.put("minSelection", minSelection);
 			variabilityProps.put("variants", variants);
 			variabilityProps.put("allowAddingVar", allowAddingVar);
-			variabilityProps.put("idOwnerPackage", XmiHelper.getXmiId(comment.getOwner()));
+			if(!comment.getNearestPackage().getName().equalsIgnoreCase("model")) // nao esta em nenhum pacote
+				variabilityProps.put("idOwnerPackage", XmiHelper.getXmiId(comment.getOwner()));
 			
 			return variabilityProps;
 		}

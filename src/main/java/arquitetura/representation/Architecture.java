@@ -528,9 +528,6 @@ public class Architecture extends Variable implements Cloneable {
 	
 	public Collection<Concern> getConcerns() {
 		Set<Concern> concerns = new HashSet<Concern>();
-//		for (Package component : getAllPackages()) 
-//			concerns.addAll(component.getAllConcerns());
-//		
 		for (Interface interface_ : getAllInterfaces())
 			concerns.addAll(interface_.getAllConcerns());
 		

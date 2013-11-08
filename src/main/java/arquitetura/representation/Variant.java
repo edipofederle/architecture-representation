@@ -30,6 +30,8 @@ public class Variant implements Stereotype{
 	
 	
 	/**
+	 * Retorna o nome da classe que tem a variant em questão.
+	 * 
 	 * @return the variantType
 	 */
 	public String getVariantName() {

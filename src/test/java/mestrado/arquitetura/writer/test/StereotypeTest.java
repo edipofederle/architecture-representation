@@ -2,6 +2,7 @@ package mestrado.arquitetura.writer.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.eclipse.uml2.uml.Package;
@@ -67,36 +68,6 @@ public class StereotypeTest extends TestHelper {
  	}
 	
 	@Test
-	public void shouldCreateClassWithSteretorypeMandatory() throws Exception{
-		
-		DocumentManager doc = givenADocument("somenteComMandatory");
-		Operations op = new Operations(doc,null);
-		
-		String idEmployee = op.forClass().createClass(employee).build().get("id");
-		
-		
-		String idFoo = op.forClass()
-				         .createClass(casa)
-				         .build().get("id");
-		
-		Variant mandatory = givenAVariant("mandatory", idFoo, "mandatory");
-		op.forClass().addStereotype(idFoo, mandatory);
-		
-		op.forGeneralization().between(idEmployee).and(idFoo).build();
-		
-		
-		Architecture a = givenAArchitecture2("somenteComMandatory");
-		
-		Class klassFoo = a.findClassByName("Employee").get(0);
-		assertNotNull(klassFoo);
-		
-		assertFalse(klassFoo.isVariationPoint());
-		//assertEquals("mandatory", klassFoo.getVariantType().getVariantName());
- 	}
-
-
-	
-	@Test
 	public void shouldCreateClassWithSteretorypeOptional() throws Exception{
 		
 		DocumentManager doc = givenADocument("ste2");
@@ -113,7 +84,6 @@ public class StereotypeTest extends TestHelper {
 		assertNotNull(klassFoo);
 		
 		assertFalse(klassFoo.isVariationPoint());
-		//StereotypeHelper.getStereotypeByName(a.getModel(), "optional");
 	}
 	
 	@Test
@@ -205,6 +175,21 @@ public class StereotypeTest extends TestHelper {
 		assertEquals("deve ter um interesse", 1, a.getAllConcerns().size());
 		assertEquals("interese deve ser Persistence", "persistence", a.getAllConcerns().entrySet().iterator().next().getValue().getName());
 		
+	}
+	
+	
+	@Test
+	public void mandatoryCaseWhithoutPackage() throws Exception{
+		Architecture a = givenAArchitecture("mandatory/somenteComMandatory");
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "saidaTeste4444");
+		
+		Architecture output = givenAArchitecture2("saidaTeste4444");
+		assertNotNull(output);
+		
+		Class klassCasa = output.findClassByName("Casa").get(0);
+		assertNotNull(klassCasa.getVariant().getName());
+		assertEquals("mandatory",klassCasa.getVariant().getVariantType());
 	}
 
 }
