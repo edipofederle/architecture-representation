@@ -84,7 +84,6 @@ public class GenerateArchitecture  extends ArchitectureBase{
 					variabilities = Strings.spliterVariabilities(variationPoint.getVariabilities());
 				}
 				//Variation Point
-				
 				if(attributesForClass.isEmpty() )
 					op.forClass().createClass(klass)
 								 .withMethods(methodsForClass)
@@ -118,7 +117,10 @@ public class GenerateArchitecture  extends ArchitectureBase{
 				
 				Variant variant = klass.getVariant();				if(variant != null){
 					try{
-						Element elementRootVp = a.findElementByName(variant.getRootVP(), "class");
+						Element elementRootVp = null;
+						elementRootVp = a.findElementByName(variant.getRootVP(), "class");
+						if(elementRootVp == null)
+							elementRootVp = a.findElementByName(variant.getRootVP(), "interface");
 						String rootVp = null;
 						
 						if(elementRootVp != null)
@@ -145,26 +147,72 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			}
 			
 			for(Interface _interface : a.getAllInterfaces()){
+				
+				//Variation Point
+				VariationPoint variationPoint = _interface.getVariationPoint();
+				String variants = "";
+				String variabilities = "";
+				
+				if(variationPoint != null){
+					variants = Strings.spliterVariants(variationPoint.getVariants());
+					variabilities = Strings.spliterVariabilities(variationPoint.getVariabilities());
+				}
+				
+				
 				List<Method> methodsForClass = createMethods(_interface);
 				op.forClass()
 				  .createClass(_interface)
 				  .withMethods(methodsForClass)
+				  .isVariationPoint(variants, variabilities, BindingTime.DESIGN_TIME)
 				  .asInterface()
 				  .build();
-			}
-			
-			for(Interface _interface : a.getAllInterfaces()){
-				//Adiciona Interesses nos métodos da interface
-				op.forConcerns().withConcerns(_interface.getOwnConcerns(), _interface.getId());
-			}
-			
-			for(Interface _interface : a.getAllInterfaces()){
-				List<Method> methodsForClass = createMethods(_interface);
-				for (Method method : methodsForClass) {
-					op.forConcerns().withConcerns(_interface.getOwnConcerns(), method.getId());
-				}
 				
+				
+				//Variant Type
+				
+				Variant v = null;
+				
+				Variant variant = _interface.getVariant();		
+				if(variant != null){
+					try{
+						Element elementRootVp = null;
+						elementRootVp = a.findElementByName(variant.getRootVP(), "class");
+						if(elementRootVp == null)
+							elementRootVp = a.findElementByName(variant.getRootVP(), "interface");
+						String rootVp = null;
+						
+						if(elementRootVp != null)
+							rootVp = elementRootVp.getName();
+						else
+							rootVp = "";
+						v = Variant.createVariant()
+								   .withName(variant.getVariantName())
+								   .andRootVp(rootVp)
+								   .wihtVariabilities(variant.getVariabilities())
+								   .withVariantType(variant.getVariantType()).build();
+						
+						//Se tem variant adicionar na classe
+						if(v != null){
+							op.forClass().addStereotype(_interface.getId(), v);
+						}
+					
+					}catch(Exception e){
+						System.out.println("Error when try create Variant."+ e.getMessage());
+						System.exit(0);
+					}
+				}
+				//Variant Type
+	
 			}
+			
+			for(Interface inter : a.getAllInterfaces()){
+				//Adiciona Interesses nos métodos da interface
+				for (arquitetura.representation.Method operation : inter.getOperations()) {
+					op.forConcerns().withConcerns(operation.getOwnConcerns(), operation.getId());
+				}
+				op.forConcerns().withConcerns(inter.getOwnConcerns(), inter.getId());
+			}
+			
 			
 			for (Package pack : packages) {
 				//Todas as classes do pacote

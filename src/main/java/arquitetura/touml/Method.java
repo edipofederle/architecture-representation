@@ -95,7 +95,7 @@ public class Method {
 	 * @return the returnMethod
 	 */
 	public String getReturnMethod() {
-		return typeReturn.getName();
+		return typeReturn != null ? typeReturn.getName() : "";
 	}
 
 

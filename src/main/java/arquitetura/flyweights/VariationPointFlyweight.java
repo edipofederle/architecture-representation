@@ -36,8 +36,10 @@ public class VariationPointFlyweight {
 	}
 	
 	public VariationPoint getOrCreateVariationPoint(Classifier klass) throws VariationPointElementTypeErrorException{
-		
-		Element variationPointElement = architecture.findElementByName(klass.getName(), "class"); // Busca Classe ja na representacao
+		Element variationPointElement = null;
+		variationPointElement = architecture.findElementByName(klass.getName(), "class"); // Busca Classe ja na representacao
+		if(variationPointElement == null)
+			variationPointElement = architecture.findElementByName(klass.getName(), "interface"); // Busca Classe ja na representacao
 		Stereotype variantTypeForVariationPointElement = StereotypeHelper.getVariantType(klass);
 		VariationPoint variationPoint = variationPoints.get(variationPointElement.getId());
 		

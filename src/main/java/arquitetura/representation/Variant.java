@@ -52,7 +52,7 @@ public class Variant implements Stereotype{
 	/**
 	 * @param rootVP the rootVP to set
 	 */
-	private void setRootVP(String rootVP) {
+	public void setRootVP(String rootVP) {
 		this.rootVP = rootVP;
 	}
 
@@ -66,7 +66,9 @@ public class Variant implements Stereotype{
 	}
 	
 	/**
-	 * rootVP, representa o ponto de variação ao qual está associado 
+	 * rootVP, representa o ponto de variação ao qual está associado .
+	 * 
+	 * Deve ser o nome da classe/interface que representa o rootVP
 	 * 
 	 * @param rootVP
 	 * @return

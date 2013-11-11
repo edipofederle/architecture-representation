@@ -166,9 +166,9 @@ public abstract class TestHelper {
 	 * @param idRootVpClass
 	 * @return
 	 */
-	protected Variant givenAVariant(String name, String idRootVpClass, String variantName) {
+	protected Variant givenAVariant(String name, String rootVpName, String variantName) {
 		Variant mandatory = Variant.createVariant().withName(name)
-				                   .andRootVp(idRootVpClass)
+				                   .andRootVp(rootVpName)
 				                   .withVariantType(variantName)
 				                   .build();
 		return mandatory;

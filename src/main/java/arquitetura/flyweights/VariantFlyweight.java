@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Stereotype;
 
@@ -13,6 +12,7 @@ import arquitetura.helpers.StereotypeHelper;
 import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
+import arquitetura.representation.Element;
 import arquitetura.representation.Variability;
 import arquitetura.representation.Variant;
 import arquitetura.representation.VariantType;
@@ -39,9 +39,9 @@ public class VariantFlyweight  extends XmiHelper{
 			VariantType type = VariantType.getByName(variantType.getName());
 			
 			if ((type != null)){
-				Class variantElement;
+				Element variantElement;
 				try {
-					variantElement = architecture.findClassById(getXmiId(klass));
+					variantElement = architecture.findElementById(getXmiId(klass));
 					
 					String rootVp = StereotypeHelper.getValueOfAttribute(klass, variantType, "rootVP");
 					VariabilityFlyweight.getInstance().getVariabilities();
@@ -52,7 +52,7 @@ public class VariantFlyweight  extends XmiHelper{
 					variant.setVariantElement(variantElement);
 					variantElement.setVariant(variant);
 					
-				} catch (ClassNotFound e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				

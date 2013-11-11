@@ -126,6 +126,7 @@ public class NotesTest extends TestHelper {
 		
 		
 		String idNote = op.forNote().createNote().build();
+		
 		Variability v = Mockito.mock(Variability.class);
 		Mockito.when(v.getName()).thenReturn("Variabilidade1");
 		Mockito.when(v.getMinSelection()).thenReturn("1");

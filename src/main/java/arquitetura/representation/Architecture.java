@@ -509,6 +509,14 @@ public class Architecture extends Variable implements Cloneable {
 		
 		throw new ClassNotFound("Class " + idClass + " can not found.\n");
 	}
+	
+	public Interface findIntefaceById(String idClass) throws ClassNotFound {
+		for (Interface klass : getAllInterfaces()) 
+			if(idClass.equalsIgnoreCase(klass.getId().trim()))
+				return klass;
+		
+		throw new ClassNotFound("Class " + idClass + " can not found.\n");
+	}
 
 	public List<Concern> allowedConcerns() {
 		return allowedConcerns;
@@ -654,6 +662,14 @@ public class Architecture extends Variable implements Cloneable {
 	public void save(Architecture architecture, String pathToSave, int i) {
 		GenerateArchitecture generate = new GenerateArchitecture();
 		generate.generate(architecture, pathToSave +architecture.getName() + i);
+	}
+
+	public Element findElementById(String xmiId) {
+		for (Element element : this.elements) {
+			if(element.getId().equals(xmiId))
+				return element;
+		}
+		return null;
 	}
 
 }

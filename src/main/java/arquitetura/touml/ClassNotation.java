@@ -256,7 +256,7 @@ public class ClassNotation extends XmiHelper {
 
 	/**
 	 * Verifica se o arquivo xmi já tem os nodes resposnveis por apresentar os estereotipos.
-	 * Se tiver retorna o node para que se possa adicinar o estereotipos.
+	 * Se tiver retorna o node para que se possa adicinar o estereotipo.
 	 * 
 	 * @param idClass
 	 * @return

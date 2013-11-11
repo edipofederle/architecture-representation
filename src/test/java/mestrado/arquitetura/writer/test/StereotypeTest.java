@@ -178,6 +178,7 @@ public class StereotypeTest extends TestHelper {
 	}
 	
 	
+	
 	@Test
 	public void mandatoryCaseWhithoutPackage() throws Exception{
 		Architecture a = givenAArchitecture("mandatory/somenteComMandatory");
