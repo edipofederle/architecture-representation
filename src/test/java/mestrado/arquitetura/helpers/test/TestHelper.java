@@ -107,14 +107,6 @@ public abstract class TestHelper {
 				Assert.fail("list there is no element called " + requiredElementName);
 			}
 		}
-	protected void hasClassesNames(arquitetura.representation.Package pkg, String ... names){
-		List<Class> klasses = pkg.getClasses();	
-		List<String> namesKlasses = new ArrayList<String>();
-		for (Element name : klasses) 
-			namesKlasses.add(name.getName());
-		
-		Assert.assertTrue(namesKlasses.containsAll(Arrays.asList(names)));
-	}
 	
 	protected boolean modelContainId(String modelName, String id){
 		File file = new File(getUrlToModelManipulation(modelName));

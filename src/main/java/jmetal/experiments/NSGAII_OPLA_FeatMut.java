@@ -29,12 +29,12 @@ public class NSGAII_OPLA_FeatMut {
 //--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
  public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
 
-	  int runsNumber = 5; //30;
-      populationSize_ = 20; //100
-      maxEvaluations_ = 200; //300 gera��es
+	  int runsNumber = 1; //30;
+      populationSize_ = 50; //100
+      maxEvaluations_ = 1000; //300 gera��es
          
          crossoverProbability_ = 0.0; 
-         mutationProbability_ = 0.8;
+         mutationProbability_ = 1.0;
          String context = "OPLA";
 
          //File directory = new File("resultado/nsgaii/" + context);

@@ -1,6 +1,8 @@
 package arquitetura.representation.relationship;
 
 import arquitetura.representation.Element;
+import arquitetura.representation.Interface;
+import arquitetura.representation.Package;
 
 /**
  * 
@@ -18,8 +20,11 @@ public class RealizationRelationship extends Relationship {
 		setSupplier(supplier);
 		setId(id);
 		super.setName(name);
+		
+		if((client instanceof Package) && (supplier instanceof Interface)){
+			((Package) client).addImplementedInterface(supplier);
+		}
 	}
-
 
 	/**
 	 * @return the client

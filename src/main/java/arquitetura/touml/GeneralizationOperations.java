@@ -31,24 +31,24 @@ public class GeneralizationOperations extends XmiHelper implements Relationship 
 	 * A client
 	 */
 	public Relationship between(String idElement) throws NotSuppportedOperation {
-		if(isElementAClass(idElement)){
+		//if(isElementAClass(idElement)){
 			this.client = idElement;
 			return this;
-		}else{
-			throw new NotSuppportedOperation("Cannot create generaliazation with package");
-		}
+//		}else{
+//			throw new NotSuppportedOperation("Cannot create generaliazation with package");
+//		}
 	}
 	
 	/**
 	 * A general
 	 */
 	public Relationship and(String idElement) throws NotSuppportedOperation {
-		if(isElementAClass(idElement)){
+//		if(isElementAClass(idElement)){
 			this.general = idElement;
 			return this;
-		}else{
-			throw new NotSuppportedOperation("Cannot create generaliazation with package");
-		}
+//		}else{
+//			throw new NotSuppportedOperation("Cannot create generaliazation with package");
+//		}
 	}
 
 

@@ -1,8 +1,6 @@
 package arquitetura.representation.relationship;
 
 import arquitetura.representation.Element;
-import arquitetura.representation.Interface;
-import arquitetura.representation.Package;
 
 /**
  * 
@@ -17,15 +15,6 @@ public class AbstractionRelationship extends Relationship{
 	public AbstractionRelationship(Element client, Element supplier, String id) {
 		setClient(client);
 		setSupplier(supplier);
-		
-		if((client instanceof Package) && (supplier instanceof Interface)){
-			((Package) client).addImplementedInterface(supplier);
-		}
-		
-		if((supplier instanceof Package) && (client instanceof Interface)){
-			((Package) supplier).addImplementedInterface(client);
-		}
-		
 		setId(id);
 	}
 

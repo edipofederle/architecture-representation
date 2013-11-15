@@ -54,8 +54,6 @@ public class OperationsOverDependency {
 	 */
 	public DependencyRelationship build() {
 		this.architecture.getAllRelationships().add(dependency);
-		this.architecture.getAllIds().add(dependency.getId());
-		
 		return dependency;
 	}
 

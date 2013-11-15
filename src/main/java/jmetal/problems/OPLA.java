@@ -1,6 +1,9 @@
 package jmetal.problems;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 import jmetal.core.Problem;
 import jmetal.core.Solution;
@@ -27,15 +30,26 @@ import jmetal.metrics.concernDrivenMetrics.interactionBeteweenConcerns.IIBC;
 import jmetal.metrics.concernDrivenMetrics.interactionBeteweenConcerns.IIBCResult;
 import jmetal.metrics.concernDrivenMetrics.interactionBeteweenConcerns.OOBC;
 import jmetal.metrics.concernDrivenMetrics.interactionBeteweenConcerns.OOBCResult;
+import jmetal.metrics.conventionalMetrics.ATMRElegance;
 import jmetal.metrics.conventionalMetrics.ClassDependencyIn;
 import jmetal.metrics.conventionalMetrics.ClassDependencyOut;
 import jmetal.metrics.conventionalMetrics.DependencyIn;
 import jmetal.metrics.conventionalMetrics.DependencyOut;
+import jmetal.metrics.conventionalMetrics.ECElegance;
 import jmetal.metrics.conventionalMetrics.MeanDepComponents;
 import jmetal.metrics.conventionalMetrics.MeanNumOpsByInterface;
+import jmetal.metrics.conventionalMetrics.NACElegance;
 import jmetal.metrics.conventionalMetrics.RelationalCohesion;
+import jmetal.util.JMException;
 import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Class;
+import arquitetura.representation.Interface;
+import arquitetura.representation.Package;
+import arquitetura.representation.relationship.AbstractionRelationship;
+import arquitetura.representation.relationship.AssociationEnd;
+import arquitetura.representation.relationship.AssociationRelationship;
+import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 
@@ -64,6 +78,7 @@ public class OPLA extends Problem {
 	        variableType_[0] = java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE); 
 	      
 	        architecture_ = new ArchitectureBuilder().create(xmiFilePath);
+	        System.out.println("Numero de classes na entrada: " + architecture_.getAllClasses().size());
 	       //length_[0] = numberOfElements_; 
 	    }
 
@@ -84,21 +99,24 @@ public class OPLA extends Problem {
             //fitness0 = evaluateMSIFitness((Architecture) solution.getDecisionVariables()[0]);
 	        fitness1 = evaluateMACFitness((Architecture) solution.getDecisionVariables()[0]);
 	        //fitness2 = evaluateElegance((Architecture) solution.getDecisionVariables()[0]);
-	        fitness2 = evaluatePLAExtensibility((Architecture) solution.getDecisionVariables()[0]);
+	      //  fitness2 = evaluatePLAExtensibility((Architecture) solution.getDecisionVariables()[0]);
 	        
 	        
 	        solution.setObjective(0, fitness0);
 	        solution.setObjective(1, fitness1);
-	        solution.setObjective(2, fitness2);
+	       // solution.setObjective(2, fitness2);
 	       // solution.setObjective(3, fitness3);
 	       
 	    }
-	    //  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
-    
-		//private double evaluateElegance (Architecture architecture) {
-		//	ECElegance NAC = new ECElegance(architecture);
-		//	return NAC.getResults();
-	//	}
+		
+		private double evaluateElegance (Architecture architecture) {
+			double EleganceFitness = 0.0;
+			ECElegance EC = new ECElegance(architecture);
+			ATMRElegance ATMR = new ATMRElegance(architecture);
+			NACElegance NAC = new NACElegance(architecture);
+			EleganceFitness = EC.getResults() + ATMR.getResults() + NAC.getResults();
+			return EleganceFitness;
+		}
 		
 		
 		
@@ -297,14 +315,16 @@ public class OPLA extends Problem {
 
 
 	  //método para verificar se algum dos relacionamentos recebidos � generaliza��o
-	    private boolean searchForGeneralizations(Collection<Relationship> Relationships){
-	    	boolean found=false;
+	    private boolean searchForGeneralizations(Class cls){ //ok
+	    	Collection<Relationship> Relationships = cls.getRelationships();
 	    	for (Relationship relationship: Relationships){
 		    	if (relationship instanceof GeneralizationRelationship){
+		    		GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
+		    		if (generalization.getChild().equals(cls) || generalization.getParent().equals(cls))
 		    		return true;
 		    	}
 		    }
-	    	return found;
+	    	return false;
 	    }
 	    
 	    private double evaluateMSIFitnessDesignOutset (Architecture architecture) {
@@ -391,5 +411,110 @@ public class OPLA extends Problem {
 			else Extensibility = 1/ExtensibilityFitness;
 			return (Extensibility);
 		}
-	 
-}
+		
+	private void removeComponentRelationships(Package comp,Architecture architecture) {
+		//
+		Relationship[] allInterElementRelationships = architecture.getAllRelationships().toArray(new Relationship[0]);
+		for (Relationship relationship : allInterElementRelationships) {
+			if (relationship instanceof AbstractionRelationship) {
+				AbstractionRelationship abstraction = (AbstractionRelationship) relationship;
+				if (abstraction.getClient().equals(comp)) {
+					architecture.removeRelationship(relationship);
+				}
+			}
+			if (relationship instanceof DependencyRelationship) {
+				DependencyRelationship dependency = (DependencyRelationship) relationship;
+				if (dependency.getClient().equals(comp)) {
+					architecture.removeRelationship(relationship);
+				}
+			}
+		}
+	}
+	
+	private void removeClassRelationships(Class cls, Architecture architecture){
+		List<Relationship> relationshipsCls = new ArrayList<Relationship>(cls.getRelationships());
+		if (!relationshipsCls.isEmpty()){                						
+			Iterator<Relationship> iteratorRelationships = relationshipsCls.iterator();
+	       while (iteratorRelationships.hasNext()){
+	    	   Relationship relationship= iteratorRelationships.next();
+	       	
+	       	if (relationship instanceof DependencyRelationship){
+	       		DependencyRelationship dependency = (DependencyRelationship) relationship;
+					if (dependency.getClient().equals(cls) || dependency.getSupplier().equals(cls))
+						architecture.removeRelationship(dependency);
+				}
+				
+				if (relationship instanceof AssociationRelationship){
+					AssociationRelationship association = (AssociationRelationship) relationship;
+					for (AssociationEnd associationEnd : association.getParticipants()) {
+						if (associationEnd.getCLSClass().equals(cls)){
+							architecture.removeRelationship(association);
+							break;
+						}
+					}
+				}
+										
+				if (relationship instanceof GeneralizationRelationship){
+					GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
+					if ((generalization.getChild().equals(cls)) || (generalization.getParent().equals(cls))){
+						architecture.removeRelationship(generalization);
+						
+					}
+				}            	
+	       	
+			}
+		}
+	}
+	
+	  public void evaluateConstraints(Solution solution) throws JMException {
+		  	  List<Package> allComponents = new ArrayList<Package> (((Architecture) solution.getDecisionVariables()[0]).getAllPackages());
+		  System.out.println("INciio"+((Architecture) solution.getDecisionVariables()[0]).getAllClasses().size());
+		  if (allComponents.isEmpty()) System.out.println("Arquitetura chegou sem componentes no evaluate constraints");
+		  
+		  for (Package comp: allComponents){
+		    	List<Class> allClasses = new ArrayList<Class> (comp.getClasses());
+		    	if (!(allClasses.isEmpty())){                						
+					Iterator<Class> iteratorClasses = allClasses.iterator();
+					
+		            while (iteratorClasses.hasNext()){
+		            	Class cls= iteratorClasses.next();
+		            	if ((cls.getAllAttributes().isEmpty()) && (cls.getAllMethods().isEmpty()) && (cls.getImplementedInterfaces().isEmpty()) //TODO verificar se esta ok
+		            			&& !(searchForGeneralizations(cls)) && (cls.getVariantType() == null)){
+		            		comp.removeClass(cls);
+		            		this.removeClassRelationships(cls,(Architecture) solution.getDecisionVariables()[0]);
+		            	}
+		            }
+		    	}
+		    	List<Interface> allItfsComp = new ArrayList<Interface> (comp.getImplementedInterfaces());
+		    	if (!(allItfsComp.isEmpty())){                						
+					Iterator<Interface> iteratorInterfaces = allItfsComp.iterator();
+		            while (iteratorInterfaces.hasNext()){
+		            	Interface itf= iteratorInterfaces.next();
+		            	boolean ultimaInterface=false;
+		            	if (comp.getImplementedInterfaces().size()==1) ultimaInterface=true;
+		            	if (itf.getOperations().isEmpty() && !ultimaInterface){
+		            		try {
+								((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+//		            		this.removeInterfaceRelationships(itf, (Architecture) solution.getDecisionVariables()[0]);
+		            	}
+		            	if (itf.getOperations().isEmpty() && ultimaInterface && comp.getClasses().size()<1){
+		            		try {
+								((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+		            	}
+		            }
+		    	}
+		    	
+		    	if (comp.getClasses().isEmpty() && comp.getImplementedInterfaces().isEmpty()){ // TODO verificar, pois deveria deletar todos pacotes *GUI.
+		    		this.removeComponentRelationships(comp, (Architecture)solution.getDecisionVariables()[0]);
+		    		((Architecture) solution.getDecisionVariables()[0]).removePackage(comp);
+		    	}
+		    }
+		  System.out.println("FINAL:"+((Architecture) solution.getDecisionVariables()[0]).getAllClasses().size());
+	  }
+	}

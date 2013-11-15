@@ -107,12 +107,12 @@ public class ArchitectureBuilder {
 		for (Stereotype stereotype : concernsAllowed)
 			architecture.allowedConcerns().add(new Concern(stereotype.getName()));
 		
-		architecture.getElements().addAll(loadPackages()); // Classes que possuem pacotes são carregadas juntamente com seus pacotes
-		architecture.getElements().addAll(loadClasses()); // Classes que nao possuem pacotes
-		architecture.getElements().addAll(loadInterfaces());
+		architecture.addElements(loadPackages()); // Classes que possuem pacotes são carregadas juntamente com seus pacotes
+		architecture.addElements(loadClasses()); // Classes que nao possuem pacotes
+		architecture.addElements(loadInterfaces());
 		architecture.getAllVariabilities().addAll(loadVariability());
-		architecture.getInterClassRelationships().addAll(loadInterClassRelationships());
-		architecture.getInterClassRelationships().addAll(loadAssociationClassAssociation());
+		architecture.getAllRelationships().addAll(loadInterClassRelationships());
+		architecture.getAllRelationships().addAll(loadAssociationClassAssociation());
 		
 		return architecture;
 	}
@@ -248,9 +248,9 @@ public class ArchitectureBuilder {
 
 	private List<? extends Element> loadClasses() {
 		List<Class> listOfClasses = new ArrayList<Class>();
-		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getAllClasses(model);
+		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getClasses(model);
 		
-		for (NamedElement element : classes)
+ 		for (NamedElement element : classes)
 			if(!ModelElementHelper.isInterface(element))
 				listOfClasses.add(classBuilder.create(element));
 		
@@ -260,7 +260,7 @@ public class ArchitectureBuilder {
 	
 	private List<? extends Element> loadInterfaces() {
 		List<Interface> listOfInterfaces = new ArrayList<Interface>();
-		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getAllClasses(model);
+		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getClasses(model);
 		
 		for (org.eclipse.uml2.uml.Class class1 : classes) 
 			if(ModelElementHelper.isInterface((NamedElement)class1))
@@ -280,7 +280,6 @@ public class ArchitectureBuilder {
 		for (NamedElement pkg : packagess)
 			packages.add(packageBuilder.create(pkg));
 		
-		
 		if (!packages.isEmpty()) return packages;
 		return packages;
 	}
@@ -296,7 +295,7 @@ public class ArchitectureBuilder {
 	private void initialize(Architecture architecture) throws ModelNotFoundException, ModelIncompleteException {
 		classBuilder = new ClassBuilder(architecture);
 		intefaceBuilder = new InterfaceBuilder(architecture);
-		packageBuilder = new PackageBuilder(architecture, classBuilder);
+		packageBuilder = new PackageBuilder(architecture, classBuilder, intefaceBuilder);
 		variabilityBuilder = new VariabilityBuilder(architecture);
 		
 		associationRelationshipBuilder = new AssociationRelationshipBuilder(architecture);

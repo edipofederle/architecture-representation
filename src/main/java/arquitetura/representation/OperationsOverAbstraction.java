@@ -17,8 +17,9 @@ public class OperationsOverAbstraction {
 	}
 
 	public void remove(AbstractionRelationship abstractionRelationship) {
-		if (!this.architecture.removeRelationship(abstractionRelationship))
-			LOGGER.info("Cannot remove Abstraction " + abstractionRelationship + ".\n");
+		if(abstractionRelationship !=null)
+			if (!this.architecture.removeRelationship(abstractionRelationship))
+				LOGGER.info("Cannot remove Abstraction " + abstractionRelationship + ".\n");
 	}
 
 	public void moveClient(AbstractionRelationship abstractionRelationship,	Class newClient) {

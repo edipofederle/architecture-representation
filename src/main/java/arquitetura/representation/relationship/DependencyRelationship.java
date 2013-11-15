@@ -35,12 +35,12 @@ public class DependencyRelationship extends Relationship {
 		setType("dependency");
 
 		if((client instanceof Package) && (supplier instanceof Interface)){
-			((Package) client).addImplementedInterface(supplier);
+			((Package) client).addRequiredInterface((Interface) supplier);
 		}
 		
-		if((supplier instanceof Package) && (client instanceof Interface)){
-			((Package) supplier).addImplementedInterface(client);
-		}
+//		if((supplier instanceof Package) && (client instanceof Interface)){
+//			((Package) supplier).addImplementedInterface(client);
+//		}
 	}
 	
 	/**
@@ -134,7 +134,7 @@ public class DependencyRelationship extends Relationship {
 	}
 
 	private List<Element> getClassesForSpecificTypePartOfDependency(String type) {
-		List<Relationship> relations = architecture.getInterClassRelationships();
+		List<Relationship> relations = architecture.getAllRelationships();
 		List<DependencyRelationship> dependencies = new ArrayList<DependencyRelationship>();
 		
 		List<Element> dependenciesTemp = new ArrayList<Element>();

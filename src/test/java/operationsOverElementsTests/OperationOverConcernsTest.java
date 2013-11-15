@@ -16,10 +16,8 @@ public class OperationOverConcernsTest extends TestHelper {
 		Architecture a = givenAArchitecture("associationClass/associationClassWithAttrAndMethod");
 		
 		AssociationClassRelationship associationClass = a.getAllAssociationsClass().get(0);
-		assertEquals(1,associationClass.getOwnConcerns().size());
-		
-		assertEquals(4,associationClass.getAllConcerns().size());
-		
+		assertEquals(1, associationClass.getOwnConcerns().size());
+		assertEquals(4, associationClass.getAllConcerns().size());
 	}
 	
 }

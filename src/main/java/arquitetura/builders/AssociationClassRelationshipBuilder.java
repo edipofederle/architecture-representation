@@ -34,14 +34,13 @@ public class AssociationClassRelationshipBuilder extends ArchitectureHelper {
 		Class classAssociation = classBuilder.create(associationClass);
 		
 		for (Type t : associationClass.getEndTypes()){
-			membersEnd.add(new MemberEnd("none", null, "public", architecture.getElementByXMIID(getModelHelper().getXmiId(t))));
+			membersEnd.add(new MemberEnd("none", null, "public", architecture.findElementById(getModelHelper().getXmiId(t))));
 		}
 
 		Type ownedEnd = associationClass.getOwnedEnds().get(0).getType();
 		
-		Element onewd = architecture.getElementByXMIID(getModelHelper().getXmiId(ownedEnd));
+		Element onewd = architecture.findElementById(getModelHelper().getXmiId(ownedEnd));
 
-		architecture.getAllIds().add(getModelHelper().getXmiId(associationClass));
 		
 		String idOwner = null;
 		if(!associationClass.getPackage().getName().equalsIgnoreCase("model"))

@@ -47,14 +47,14 @@ public class PLAFeatureMutation extends Mutation {
     	String scopeLevels = "allLevels"; //usar "oneLevel" para não verificar a presença de interesses nos atributos e métodos
 
   
-    	int r = PseudoRandom.randInt(0,5);
+    	int r = 1;
     	switch(r){
-        case 0: FeatureMutation(probability, solution, scopeLevels); break;
-        case 1: MoveMethodMutation(probability, solution, scope); break;
-        case 2: MoveAttributeMutation(probability, solution, scope); break;
-        case 3: MoveOperationMutation(probability, solution); break;
-        case 4: AddClassMutation(probability, solution, scope); break;
-        case 5: AddManagerClassMutation(probability, solution); break;
+    //    case 0: FeatureMutation(probability, solution, scopeLevels); break;
+          case 1: MoveMethodMutation(probability, solution, scope); break;
+//        case 2: MoveAttributeMutation(probability, solution, scope); break;
+//        case 3: MoveOperationMutation(probability, solution); break;
+//        case 4: AddClassMutation(probability, solution, scope); break;
+//        case 5: AddManagerClassMutation(probability, solution); break;
         }
     	
     	    	
@@ -271,13 +271,13 @@ public class PLAFeatureMutation extends Mutation {
                         		List<Attribute> AttributesClass = new ArrayList<Attribute> (sourceClass.getAllAttributes());
                         		if (AttributesClass.size()>=1) {
                         			if (scope=="sameComponent") {
-                        				Class newClass = sourceComp.createClass("Class"+ OPLA.contClass_++);
+                        				Class newClass = sourceComp.createClass("Class"+ OPLA.contClass_++,false);
                         				moveAttributeSameComponent(arch, sourceClass, AttributesClass, newClass);
                         			} else {
                         				if (scope=="allComponents") {
                         					Package targetComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
                         					if (checkSameLayer(sourceComp, targetComp)){
-                        						Class newClass = targetComp.createClass("Class"+ OPLA.contClass_++);
+                        						Class newClass = targetComp.createClass("Class"+ OPLA.contClass_++,false);
                         						moveAttributeAllComponents(arch, sourceComp, targetComp, sourceClass, AttributesClass, newClass);
                         					}
                         				}
@@ -287,13 +287,13 @@ public class PLAFeatureMutation extends Mutation {
                         		List<Method> MethodsClass = new ArrayList<Method> (sourceClass.getAllMethods());
                         		if (MethodsClass.size() >=1) {
                         			if (scope=="sameComponent") {
-                        				Class newClass = sourceComp.createClass("Class"+ OPLA.contClass_++);
+                        				Class newClass = sourceComp.createClass("Class"+ OPLA.contClass_++, false);
                         				moveMethodSameComponent(arch, sourceClass,	MethodsClass, newClass);
                         			} else {
                         				if (scope=="allComponents") {
                         					Package targetComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
                         					if (checkSameLayer(sourceComp, targetComp)){
-                        						Class newClass = targetComp.createClass("Class"+ OPLA.contClass_++);
+                        						Class newClass = targetComp.createClass("Class"+ OPLA.contClass_++,false);
                         						moveMethodAllComponents(arch, sourceComp, targetComp, sourceClass, MethodsClass, newClass);
                         					}
                         				}
@@ -505,7 +505,7 @@ public class PLAFeatureMutation extends Mutation {
 		List<Package> allComponents = new ArrayList<Package>(arch.getAllPackages());
 		for (Package comp : allComponents) {
 			if (!comp.equals(targetComponent) && checkSameLayer(comp, targetComponent)) {// &&// !comp.containsConcern(concern)){
-				List<Interface> allInterfaces = new ArrayList<Interface>(comp.getImplementedInterfaces());
+				List<Interface> allInterfaces = new ArrayList<Interface>(comp.getAllInterfaces());
 				if (allInterfaces.size() >= 1) {
 					for (Interface interfaceComp : allInterfaces) {
 						if (interfaceComp.containsConcern(concern)	&& interfaceComp.getOwnConcerns().size() == 1) {
@@ -645,7 +645,7 @@ public class PLAFeatureMutation extends Mutation {
 		}
 		if (targetClass==null){
 			try {
-				targetClass = targetComp.createClass("Class"+ OPLA.contClass_++);
+				targetClass = targetComp.createClass("Class"+ OPLA.contClass_++,false);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -671,7 +671,7 @@ public class PLAFeatureMutation extends Mutation {
 		}
 		if (targetClass==null)
 			try {
-				targetClass = targetComp.createClass("Class"+ OPLA.contClass_++);
+				targetClass = targetComp.createClass("Class"+ OPLA.contClass_++,false);
 				targetClass.addConcern(concern.getName());
 			} catch (Exception e1) {
 				e1.printStackTrace();

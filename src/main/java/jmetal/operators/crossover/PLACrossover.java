@@ -206,7 +206,7 @@ import arquitetura.representation.relationship.Relationship;
 									}
 		            			}
 		            			try {
-									targetClass=newComp.createClass(classComp.getName());
+									targetClass=newComp.createClass(classComp.getName(), false);
 									targetClass.addConcern(feature.getName());
 								} catch (Exception e) {
 									e.printStackTrace();
@@ -474,7 +474,7 @@ import arquitetura.representation.relationship.Relationship;
 									}
 		            			}
 		            			try {
-									targetClass=newComp.createClass(classComp.getName());
+									targetClass=newComp.createClass(classComp.getName(),false);
 									targetClass.addConcern(feature.getName());
 								} catch (Exception e) {
 									e.printStackTrace();

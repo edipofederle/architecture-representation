@@ -1,11 +1,11 @@
 package mestrado.arquitetura.writer.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.List;
 
+import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Before;
@@ -15,7 +15,6 @@ import org.mockito.Mockito;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
-import arquitetura.representation.Package;
 import arquitetura.representation.Variability;
 import arquitetura.representation.Variant;
 import arquitetura.representation.VariationPoint;
@@ -50,71 +49,14 @@ public class NotesTest extends TestHelper {
 	@Test
 	public void shouldGenerateVariabilityIntoPackage() throws Exception{
 		Architecture a = givenAArchitecture("varpacote");
-		DocumentManager doc = givenADocument("varpacote_4");
 		
-		Operations op = new Operations(doc, a);
-		
-		for(Class c : a.getAllClasses()){
-			op.forClass().createClass(c).build();
-		}
-		
-		for(Package p : a.getAllPackages()){
-			op.forPackage().createPacakge(p).withClass(p.getAllClassIdsForThisPackage()).build();
-		}
-		
-		
-		Variant v = null;
-		
-		Variant variant = a.getAllClasses().get(0).getVariant();
-		if(variant != null){
-			try{
-				Element elementRootVp = a.findElementByName(variant.getRootVP(), "class");
-				String rootVp = null;
-				
-				if(elementRootVp != null)
-					rootVp = elementRootVp.getName();
-				else
-					rootVp = "";
-				v = Variant.createVariant()
-						   .withName(variant.getVariantName())
-						   .andRootVp(rootVp)
-						   .wihtVariabilities(variant.getVariabilities())
-						   .withVariantType(variant.getVariantType()).build();
-				
-				//Se tem variant adicionar na classe
-				if(v != null){
-					op.forClass().addStereotype(a.getAllClasses().get(0).getId(), v);
-				}
-			
-			}catch(Exception e){
-				System.out.println("Error when try create Variant."+ e.getMessage());
-				System.exit(0);
-			}
-		}
-		//Variant Type
-		
-		List<Variability> variabilities = a.getAllVariabilities();
-		String idOwner = "";
-		for (Variability variability : variabilities) {
-			VariationPoint variationPointForVariability = variability.getVariationPoint();
-			if(variationPointForVariability == null){
-				idOwner = a.findClassByName(variability.getOwnerClass()).get(0).getId();
-			}else{
-				idOwner = variationPointForVariability.getVariationPointElement().getId();
-			}
-			
-			String idNote = op.forNote().createNote().build();
-			VariabilityStereotype var = new VariabilityStereotype(variability);
-			
-			op.forNote().addVariability(idNote, var).build();
-			op.forClass().withId(idOwner).linkToNote(idNote);
-		}
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "varpacote_4");
 		
 		Architecture varpacote_3 = givenAArchitecture2("varpacote_4");
 		assertNotNull(varpacote_3);
 		assertEquals(1, varpacote_3.getAllVariabilities().size());
 		assertEquals(1, varpacote_3.getAllClasses().size());
-		
 		Variability variability = varpacote_3.getAllVariabilities().get(0);
 		assertEquals(1,variability.getVariants().size());
 	}

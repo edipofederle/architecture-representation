@@ -43,7 +43,7 @@ public class AssociationClassRelationship extends Relationship {
 		this.associationClass = associationClass;
 		super.setId(id);
 		super.setType(ElementsTypes.CLASS);
-		}
+	}
 
 
 	/**

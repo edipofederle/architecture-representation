@@ -1,6 +1,8 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
@@ -47,8 +49,11 @@ public class GenerateArchitecture  extends ArchitectureBase{
 	
 	Logger LOGGER = LogManager.getLogger(GenerateArchitecture.class.getName());
 	
+	private Architecture architecture;
+	private List<String> packageCreated = new ArrayList<String>();
 	public void generate(Architecture a, String output){
 		
+		this.architecture = a;
 		
 		DocumentManager doc = null;
 		try {
@@ -70,6 +75,7 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			List<Package> packages = a.getAllPackages();
 
 			for(Class klass : a.getAllClasses()){
+				
 				List<arquitetura.touml.Attribute> attributesForClass = createAttributes(op, klass);
 				
 				List<Method> methodsForClass = createMethods(klass);
@@ -147,7 +153,6 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			}
 			
 			for(Interface _interface : a.getAllInterfaces()){
-				
 				//Variation Point
 				VariationPoint variationPoint = _interface.getVariationPoint();
 				String variants = "";
@@ -166,7 +171,6 @@ public class GenerateArchitecture  extends ArchitectureBase{
 				  .isVariationPoint(variants, variabilities, BindingTime.DESIGN_TIME)
 				  .asInterface()
 				  .build();
-				
 				
 				//Variant Type
 				
@@ -213,35 +217,29 @@ public class GenerateArchitecture  extends ArchitectureBase{
 				op.forConcerns().withConcerns(inter.getOwnConcerns(), inter.getId());
 			}
 			
+			if(!packages.isEmpty())
+				buildPackages(op, packages);
 			
-			for (Package pack : packages) {
-				//Todas as classes do pacote
-				List<String> ids = pack.getAllClassIdsForThisPackage();
-				op.forPackage().createPacakge(pack).withClass(ids).build();
-			}
-			
-			//Relacionamentos
+//			//Relacionamentos
 			for (AssociationRelationship r : a.getAllAssociationsRelationships()) 
 				generateSimpleAssociation(op, r);
-			
+//			
 			for (AssociationRelationship r : a.getAllCompositions()) 
 				generateComposition(op, r);
-			
-			for (AssociationRelationship r : a.getAllAgragations()) 
+//			
+		for (AssociationRelationship r : a.getAllAgragations()) 
 				generateAggregation(op, r);
-			
-			
+//			
+//			
 			for(GeneralizationRelationship g : a.getAllGeneralizations()){
 				op.forGeneralization().createRelation().between(g.getChild().getId()).and(g.getParent().getId()).build();
 			}
-			
 			for(DependencyRelationship d : a.getAllDependencies()){
 				op.forDependency().createRelation()
 							  .withName(d.getName())
 							  .between(d.getClient().getId())
 							  .and(d.getSupplier().getId()).build();
 			}
-			
 			for(RealizationRelationship r : a.getAllRealizations()){
 				op.forRealization().createRelation().withName(r.getName()).between(r.getClient().getId()).and(r.getSupplier().getId()).build();
 			}
@@ -259,8 +257,6 @@ public class GenerateArchitecture  extends ArchitectureBase{
 				  .createAssociationClass(asr).build();
 				
 				op.forPackage().withId(asr.getPackageOwner()).add(asr.getId());
-				
-	
 			}
 			
 			//Variabilidades - Notes
@@ -281,9 +277,8 @@ public class GenerateArchitecture  extends ArchitectureBase{
 				
 				String idNote = op.forNote().createNote().build();
 				VariabilityStereotype var = new VariabilityStereotype(variability);
-				
-					op.forNote().addVariability(idNote, var).build();
-					op.forClass().withId(idOwner).linkToNote(idNote);
+				op.forNote().addVariability(idNote, var).build();
+				op.forClass().withId(idOwner).linkToNote(idNote);
 					
 				
 			}
@@ -292,8 +287,53 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			e.printStackTrace();
 			System.exit(0);
 		}
-		System.out.println("\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget()+doc.getNewModelName());
+		LOGGER.info("\n\n\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget()+doc.getNewModelName());
 		
+	}
+	
+	private static Comparator<Package> COMPARATOR = new Comparator<Package>() {
+		  public int compare(Package p1, Package p2) {
+	          int p1ListSize = p1.getNestedPackages().size();
+	          int p2ListSize = p2.getNestedPackages().size();
+	          
+	          if (p1ListSize == p2ListSize) return 0;
+	          if (p1ListSize > p2ListSize) return -1;
+	          return 1;
+	  }
+	};
+
+	private void buildPackages(Operations op, List<Package> packages)	throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+		
+		Collections.sort(packages, COMPARATOR);
+		
+		buildPackage(op, packages.get(0));
+		
+		for(Package p : packages){
+			op.forPackage().createPacakge(p).withClass(getOnlyInterfacesAndClasses(p)).build();
+		}
+	}
+
+	private void buildPackage(Operations op, Package pack) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+		List<String> nestedIds = new ArrayList<String>();
+		for(Package p : pack.getNestedPackages()){
+			nestedIds.add(p.getId());
+			if(!p.getNestedPackages().isEmpty())
+				buildPackage(op, p);
+			if(!packageCreated.contains(p.getId())){
+				op.forPackage().createPacakge(p).withClass(getOnlyInterfacesAndClasses(p)).build();
+				packageCreated.add(p.getId());
+			}
+		}
+	}
+
+	private List<String> getOnlyInterfacesAndClasses(Package package1) {
+		List<String> elements = new ArrayList<String>();
+		for (Element element : package1.getElements()) {
+			if(!(element instanceof Package)){
+				elements.add(element.getId());
+			}
+		}
+		return elements;
 	}
 
 	private static void generateAggregation(Operations op,	AssociationRelationship r) throws NotSuppportedOperation {

@@ -1,5 +1,7 @@
 package mestrado.arquitetura.writer.test;
 
+import static org.junit.Assert.*;
+
 import java.util.Map;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
@@ -8,8 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import arquitetura.exceptions.ModelIncompleteException;
-import arquitetura.exceptions.ModelNotFoundException;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
@@ -49,6 +49,7 @@ public class RealizationTest extends TestHelper {
 			.build();
 		
 		Architecture a = givenAArchitecture2("realization");
+		assertNotNull(a.getAllRealizations());
 	}
 	
 }

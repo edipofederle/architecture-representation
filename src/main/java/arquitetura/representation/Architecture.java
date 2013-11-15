@@ -45,10 +45,9 @@ public class Architecture extends Variable implements Cloneable {
 	static Logger LOGGER = LogManager.getLogger(Architecture.class.getName());
 	public static String ARCHITECTURE_TYPE = "arquitetura.representation.Architecture"; 
 
-	private List<Element> elements = new ArrayList<Element>();
+	private Set<Element> elements = new HashSet<Element>();
 	private HashMap<String, Concern> concerns = new HashMap<String, Concern>();
 	private List<Relationship> relationships = new ArrayList<Relationship>();
-	private Set<String> allIds = new HashSet<String>();
 	private String name;
 	
 	/**
@@ -74,7 +73,12 @@ public class Architecture extends Variable implements Cloneable {
 	}
 
 	public List<Element> getElements() {
-		return elements;
+		List<Element> elts = new ArrayList<Element>();
+		for(Package p : getAllPackages())
+			for(Element element : p.getElements())
+				elts.add(element);
+		elts.addAll(this.elements);
+		return  elts;
 	}
 
 	/**
@@ -104,7 +108,7 @@ public class Architecture extends Variable implements Cloneable {
 		List<Package> paks = new ArrayList<Package>();
 
 		for (Element element : elements)
-			if (element.getTypeElement().equals("package"))
+			if (element instanceof Package)
 				paks.add(((Package) element));
 
 		if (paks.isEmpty())
@@ -114,18 +118,33 @@ public class Architecture extends Variable implements Cloneable {
 
 	public List<Class> getAllClasses() {
 		List<Class> klasses = new ArrayList<Class>();
+		
+		for(Package p : getAllPackages()){
+			for(Element element : p.getElements()){
+				if(element instanceof Class)
+					klasses.add((Class)element);
+			}
+		}
 
 		for (Element element : elements)
 			if (element.getTypeElement().equals("klass"))
 				klasses.add(((Class) element));
+		
+		excludeAssociationClassFromList(klasses);
 
-		if (klasses.isEmpty())
-			return Collections.emptyList();
 		return klasses;
 	}
 
-	public List<Relationship> getInterClassRelationships() {
-		return relationships;
+
+	private void excludeAssociationClassFromList(List<Class> klasses) {
+		for (Iterator<Class> i = klasses.iterator(); i.hasNext();) {
+			Element klass = i.next();
+			for(AssociationClassRelationship r : getAllAssociationsClass()){
+				if(r.getAssociationClass().equals(klass)){
+					i.remove();
+				}
+			}
+		}
 	}
 
 	public void setInterClassRelationships(List<Relationship> relationships) {
@@ -151,15 +170,30 @@ public class Architecture extends Variable implements Cloneable {
 
 	private Element findElement(String name, String type) {
 		if(type.equalsIgnoreCase("class")){
-			for(Element element : getAllClasses())
+			for(Element element : getAllClasses()){
 				if(element.getName().equalsIgnoreCase(name))
 					return element;
+			}
+			for(Package p : getAllPackages()){
+				for(Element element : p.getElements()){
+					if(element.getName().equalsIgnoreCase(name))
+						return element;
+				}
+			}
 		}
 		
 		if(type.equalsIgnoreCase("interface")){
-			for(Element element : getAllInterfaces())
+			for(Element element : getAllInterfaces()){
 				if(element.getName().equalsIgnoreCase(name))
 					return element;
+			}
+			
+			for(Package p : getAllPackages()){
+				for(Element element : p.getElements()){
+					if(element.getName().equalsIgnoreCase(name))
+						return element;
+				}
+			}
 		}
 		
 		if(type.equalsIgnoreCase("package")){
@@ -170,15 +204,19 @@ public class Architecture extends Variable implements Cloneable {
 		return null;
 	}
 
-	public List<Interface> getAllInterfaces() {
-		List<Interface> klasses = new ArrayList<Interface>();
+	public Set<Interface> getAllInterfaces() {
+		Set<Interface> interfaces = new HashSet<Interface>();
 
-		for (Element element : elements)
+		for (Element element : this.elements)
 			if (element.getTypeElement().equals("interface"))
-				klasses.add(((Interface) element));
+				interfaces.add(((Interface) element));
+		
+		for(Package pkg : this.getAllPackages())
+			for(Element element : pkg.getElements())
+				if (element.getTypeElement().equals("interface"))
+					interfaces.add(((Interface) element));
 
-		if (klasses.isEmpty())  return Collections.emptyList();
-		return klasses;
+		return interfaces;
 	}
 	
 	public List<Relationship> getAllRelationships(){
@@ -362,17 +400,15 @@ public class Architecture extends Variable implements Cloneable {
 
 
 	public Package createPackage(String packageName) {
-		String id = UtilResources.getRandonUUID();
-		Package pkg = new Package(this, packageName, id);
-		getAllIds().add(id);
-		elements.add(pkg);
+		Package pkg = new Package(this, packageName);
+		this.addElement(pkg);
 		return pkg;
 	}
 
 	public void removePackage(Package p) {
 		List<Element> elements = getElements();
 		//List<String> ids = new ArrayList<String>();
-		List<String> idsClasses = p.getAllClassIdsForThisPackage(); //Ids de todas as classes que pertencem ao pacote que esta sendo deletado.
+		Set<String> idsClasses = idsForAllElementsInPackage(p);
 		
 		for (Iterator<Element> i = this.elements.iterator(); i.hasNext();) {
 			Element e = i.next();
@@ -388,7 +424,6 @@ public class Architecture extends Variable implements Cloneable {
 				Relationship r = i.next();
 				if(res.contains(r)){
 					i.remove();
-					removeIdOfElementFromList(r.getId(), "Relacionamento");
 				}
 					
 			}
@@ -401,11 +436,9 @@ public class Architecture extends Variable implements Cloneable {
 				Relationship relacion = r.next();
 				if(relationship.equals(relacion)){
 					r.remove();
-					removeIdOfElementFromList(relacion.getId(), "Relacionamento");
 				}
 			}
 		}
-		
 		
 		if(!idsClasses.isEmpty()){
 			for (String id : idsClasses) {
@@ -413,67 +446,76 @@ public class Architecture extends Variable implements Cloneable {
 					Element element = i.next();
 					if(id.equalsIgnoreCase(element.getId())){
 						i.remove();
-						removeIdOfElementFromList(element.getId(), element.getTypeElement());
 					}
 				}
+				
+				for (Iterator<Package> i = this.getAllPackages().iterator(); i.hasNext();) {
+					Package pkg = i.next();
+					for (Iterator<Element> element = pkg.getElements().iterator(); element.hasNext();) {
+						Element e = element.next();
+						if(id.equalsIgnoreCase(e.getId()))
+							element.remove();
+					}
+				}
+				
 			}
+			
 		}
 
-		if (elements.remove(p))
-			removeIdOfElementFromList(p.getId(), "Package");
-		else	
+		if(!this.elements.remove(p))
 			LOGGER.info("Cannot remove Package " + p + ".");
 
 	}
 
+	private Set<String> idsForAllElementsInPackage(Package p) {
+		Set<String> ids = new HashSet<String>();
+		for(Element element : p.getElements() )
+			ids.add(element.getId());
+		return ids;
+	}
+
 	public Interface createInterface(String interfaceName) {
 		String id = UtilResources.getRandonUUID();
-		Interface interfacee = new Interface(this, interfaceName, id);
+		Interface interfacee = new Interface(this, interfaceName);
 		elements.add(interfacee);
-		allIds.add(id);
 		return interfacee;
 	}
 	
-	public Class createClass(String klassName) {
-		String id = UtilResources.getRandonUUID();
-		Class klass = new Class(this, klassName, id);
-		elements.add(klass);
-		allIds.add(id);
+	
+	public Class createClass(String klassName, boolean isAbstract) {
+		Class klass = new Class(this, klassName, isAbstract);
 		return klass;
 	}
 
 	public void removeInterface(Interface interfacee) {
 		if (!elements.remove(interfacee))
 			LOGGER.info("Cannot remove Interface " + interfacee + ".");
-	}
-
-	public Element getElementByXMIID(String xmiId) {
-		for (Element element : elements)
-			if(element.getId().equalsIgnoreCase(xmiId))
-				return element;
-
-		return null;
-	}
-
-	public Set<String> getAllIds() {
-		return allIds;
-	}
-	
-	private void removeIdOfElementFromList(String id, String message) {
-		allIds.remove(id);
-		LOGGER.info("Elemento ("+message+") : " + id + " removido.\n");
-	}
-
-	public void removeClass(Class klass) {
-		if(!elements.remove(klass))
-			LOGGER.info("Cannot remove Class " + klass + ".");
-		else{
-			removeIdOfElementFromList(klass.getId(), "Class removida com sucesso");
+		for(Package p : getAllPackages()){
+			p.getElements().remove(interfacee);
 		}
 	}
 
-	public int getNumberOfElements() {
-		return allIds.size();
+//	public Element getElementByXMIID(String xmiId) {
+//		for (Element element : elements)
+//			if(element.getId().equalsIgnoreCase(xmiId))
+//				return element;
+//
+//		return null;
+//	}
+
+	
+	/**
+	 * Remove classe que estão em um primeiro nível da arquitetura, ou seja, não pertencem a nenhum pacote.
+	 * 
+	 * @param klass
+	 */
+	public void removeClass(Class klass) {
+		if(!this.elements.contains(klass)){
+			LOGGER.info("A classe " + klass.getName()+"("+klass.getId()+") não encontrada");
+			return ;
+		}
+		this.elements.remove(klass);
+		LOGGER.info("A classe " + klass.getName()+"("+klass.getId()+") foi removida da arquitetura.");
 	}
 
 //	/**
@@ -570,8 +612,10 @@ public class Architecture extends Variable implements Cloneable {
 		return new OperationsOverDependency(this);
 	}
 
-	public void moveClassToPackage(Class klass1, Package package1) {
-		package1.getAllClassIdsForThisPackage().add(klass1.getId());
+	public void moveClassToPackage(Class klass, Package pkg) {
+		if (!pkg.getElements().contains(klass)) return;
+		removeClass(klass);
+		pkg.addExternalClass(klass);
 	}
 
 	public OperationsOverGeneralization forGeneralization() {
@@ -585,7 +629,6 @@ public class Architecture extends Variable implements Cloneable {
 	
 	public boolean removeRelationship(Relationship as) {
 		if(as == null) return false;
-		this.allIds.remove(as.getId());
 		return relationships.remove(as);
 	}
 
@@ -669,7 +712,34 @@ public class Architecture extends Variable implements Cloneable {
 			if(element.getId().equals(xmiId))
 				return element;
 		}
+		for(Package p : getAllPackages()){
+			for(Element element : p.getElements()){
+				if(element.getId().equalsIgnoreCase(xmiId))
+					return element;
+			}
+		}
+		
 		return null;
+	}
+
+	public void addElements(List<? extends Element> list) {
+		this.elements.addAll(list);
+	}
+	
+	/**
+	 * Método que adiciona um elemento na arquitetura.
+	 * 
+	 * Este método adiciona o elemento em uma lista "global" da arquitetura.<br/><br/>
+	 * 
+	 * <b>OBS:</b><br/>
+	 * Por exemplo: Caso queira adicionar uma classe chamada "Foo" dentro do pacote chamado "Bar",
+	 * Você primeiro precisa buscar o pacote "Bar" e então adicionar a classe "Foo" na lista de elementos
+	 * do pacote em questão.
+	 * 
+	 * @param element - {@link Element}
+	 */
+	public void addElement(Element element) {
+		this.elements.add(element);
 	}
 
 }

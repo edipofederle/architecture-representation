@@ -28,14 +28,13 @@ public class RealizationRelationshipBuilder extends ArchitectureHelper {
 		String idClient = getModelHelper().getXmiId(realization.getClients().get(0));
 		String idSupplier = getModelHelper().getXmiId(realization.getSuppliers().get(0));	
 		
-		Element clientElement = architecture.getElementByXMIID(idClient);
-		Element supplierElement = architecture.getElementByXMIID(idSupplier);
+		Element clientElement = architecture.findElementById(idClient);
+		Element supplierElement = architecture.findElementById(idSupplier);
 		String name = realization.getName() != null ? realization.getName() : "";
 		
 		if((clientElement instanceof Class) && (supplierElement instanceof Interface))
 			((Class) clientElement).getImplementedInterfaces().add((Interface) supplierElement);
 		
-		architecture.getAllIds().add(getModelHelper().getXmiId(realization));
 		RealizationRelationship realizationRelationship = new RealizationRelationship(clientElement, supplierElement, name, getModelHelper().getXmiId(realization));
 		
 		realizationRelationship.getClient().getRelationships().add(realizationRelationship);

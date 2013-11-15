@@ -27,7 +27,7 @@ public class RealizationsTest extends TestHelper {
 		Architecture architecture6 = givenAArchitecture("realization");
 		assertNotNull(architecture6);
 		
-		List<Relationship> relations = architecture6.getInterClassRelationships();
+		List<Relationship> relations = architecture6.getAllRelationships();
 		RealizationRelationship realization = (RealizationRelationship) relations.get(0);
 		
 		assertNotNull(realization);
@@ -64,7 +64,7 @@ public class RealizationsTest extends TestHelper {
 		Architecture a = givenAArchitecture("realizationPackageClass");
 		
 		assertNotNull(a.getAllRealizations());
-		assertEquals(1, a.getInterClassRelationships().size());
+		assertEquals(1, a.getAllRelationships().size());
 		assertEquals(1, a.getAllRealizations().size());
 		
 		assertEquals("Client should be Package1", "Package1", a.getAllRealizations().get(0).getClient().getName());

@@ -26,6 +26,7 @@ import arquitetura.representation.Class;
 import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Package;
+import arquitetura.representation.Variant;
 import arquitetura.representation.relationship.AbstractionRelationship;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationRelationship;
@@ -56,9 +57,9 @@ public class ArchitectureTest extends TestHelper {
 		String uriToArchitecture = getUrlToModel("f/Needless");
 		Architecture architecture = new ArchitectureBuilder().create(uriToArchitecture);
 		
-		assertEquals(2,architecture.getAllClasses().get(0).getOwnConcerns().size());
-		assertEquals("action",architecture.getAllClasses().get(0).getOwnConcerns().get(0).getName());
-		assertEquals("bowling",architecture.getAllClasses().get(0).getOwnConcerns().get(1).getName());
+		assertEquals(2, architecture.findClassByName("Class1").get(0).getOwnConcerns().size());
+		assertEquals("action", architecture.findClassByName("Class1").get(0).getOwnConcerns().get(0).getName());
+		assertEquals("bowling", architecture.findClassByName("Class1").get(0).getOwnConcerns().get(1).getName());
 	}
 	
 	@Test
@@ -90,8 +91,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllPackages(){
-		Package pkg = new Package(arch, "Pacote", null, "","id");
-		arch.getElements().add(pkg);
+		new Package(arch, "Pacote");
 		
 		assertEquals(1, arch.getAllPackages().size());
 		assertEquals("Pacote", arch.getAllPackages().get(0).getName());
@@ -103,17 +103,16 @@ public class ArchitectureTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldReturnAllClasses(){
-		Class klass = new Class(arch, "Klass", null, false, "namespace","id");
-		arch.getElements().add(klass);
+	public void shouldReturnAllClasses() throws ClassNotFound{
+		new Class(arch, "Klass", false);
 		
 		assertEquals(1, arch.getAllClasses().size());
-		assertEquals("Klass", arch.getAllClasses().get(0).getName());
+		assertEquals("Klass", arch.findClassByName("Klass").get(0).getName());
 	}
 	
 	@Test
 	public void shouldReturnEmptyListWhenNoClasses(){
-		assertEquals(Collections.emptyList(), arch.getAllClasses());
+		assertTrue(arch.getAllClasses().isEmpty());
 	}
 
 	@Test
@@ -128,7 +127,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnElementClassByName(){
-		arch.getElements().add(new Class(arch, "Klass",  null, false,  "namespace", "id"));
+		new Class(arch, "Klass", false);
 		Element klass = arch.findElementByName("klass","class");
 		
 		assertNotNull(klass);
@@ -137,7 +136,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnElementPackageByName(){
-		arch.getElements().add( new Package(arch, "Pacote", "id"));
+		arch.getElements().add( new Package(arch, "Pacote"));
 		Element pkg = arch.findElementByName("Pacote", "package");
 		
 		assertNotNull(pkg);
@@ -145,24 +144,25 @@ public class ArchitectureTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldReturnAllInterfaces(){
-		arch.getElements().add(new Class(arch, "Klass1",  null, false,  "namespace", "id"));
-		arch.getElements().add(new Interface(arch, "Interface1", null, "namesapce","id"));
-		arch.getElements().add(new Interface(arch, "Interface2", null, "namesapce","id"));
+	public void shouldReturnAllInterfaces() throws InterfaceNotFound{
+		new Class(arch, "Klass1", false);
+		new Interface(arch, "Interface1");
+		new Interface(arch, "Interface2");
 		
 		assertEquals(2, arch.getAllInterfaces().size());
 		assertEquals(1, arch.getAllClasses().size());
-		assertContains(arch.getAllInterfaces(), "Interface1", "Interface2");
+		assertNotNull(arch.findInterfaceByName("Interface1"));
+		assertNotNull(arch.findInterfaceByName("Interface2"));
 	}
 	
 	@Test
 	public void shouldReturnEmptyListWhenNoInterfaces(){
-		assertEquals(Collections.emptyList(), arch.getAllInterfaces());
+		assertTrue(arch.getAllInterfaces().isEmpty());
 	}
 	
 	@Test
 	public void shouldReturnAllGeneralizations() throws Exception{
-		assertEquals(3, architecture.getInterClassRelationships().size());
+		assertEquals(3, architecture.getAllRelationships().size());
 		assertNotNull(architecture.getAllGeneralizations());
 		assertEquals(1, architecture.getAllGeneralizations().size());
 	}
@@ -280,26 +280,24 @@ public class ArchitectureTest extends TestHelper {
 		
 		a.moveClassToPackage(klass1,package1);
 		
-		assertEquals(1,package1.getAllClassIdsForThisPackage().size());
-		
 	}
 	
 	@Test
 	public void shouldRemoveAssociationRelationship() throws Exception{
-		Architecture a = givenAArchitecture("association");
+		Architecture a = givenAArchitecture("associations/associationWithMultiplicity");
 		AssociationRelationship as = a.getAllAssociationsRelationships().get(0);
-		assertEquals("Architecture should contain 2 associations", 2, a.getAllAssociationsRelationships().size());
-		assertEquals(8, a.getAllClasses().size());
-		a.operationsOverRelationship().removeAssociationRelationship(as);
-		assertEquals("Architecture should contain 3 associations", 1, a.getAllAssociationsRelationships().size());
+		assertEquals("Architecture should contain 2 associations", 1, a.getAllAssociationsRelationships().size());
+		assertEquals(2, a.getAllClasses().size());
+		a.removeRelationship(as);
+		assertEquals("Architecture should contain 0 associations", 0, a.getAllAssociationsRelationships().size());
 	}
 	
 	@Test
 	public void shouldNotChangeListWhenTryRemoveAssociationRelationshipNotExist() throws Exception{
-		Architecture a = givenAArchitecture("association");
-		assertEquals("Architecture should contain 2 associations", 2,	a.getAllAssociationsRelationships().size());
+		Architecture a = givenAArchitecture("associations/associationWithMultiplicity");
+		assertEquals("Architecture should contain 2 associations", 1,	a.getAllAssociationsRelationships().size());
 		a.operationsOverRelationship().removeAssociationRelationship(null);
-		assertEquals("Architecture should contain 2 associations", 2,	a.getAllAssociationsRelationships().size());
+		assertEquals("Architecture should contain 2 associations", 1,	a.getAllAssociationsRelationships().size());
 	}
 	
 	@Test
@@ -373,67 +371,51 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldRemoveAbstractionRelationship() throws Exception{
 		Architecture a = givenAArchitecture("abstractionInterElement");
 		AbstractionRelationship ab = a.getAllAbstractions().get(0);
-		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
+		assertEquals("Architecture should contain 1 Abstraction", 2,	a.getAllAbstractions().size());
 		a.forAbstraction().remove(ab);
-		assertEquals("Architecture should contain 0 Abstraction", 0,	a.getAllAbstractions().size());
+		assertEquals("Architecture should contain 0 Abstraction", 1,	a.getAllAbstractions().size());
 	}
 	
 	@Test
 	public void shouldNotChangeListWhenTryRemoveAbstractionRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("abstractionInterElement");
-		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
+		assertEquals("Architecture should contain 1 Abstraction", 2, a.getAllAbstractions().size());
 		a.forAbstraction().remove(null);
-		assertEquals("Architecture should contain 1 Abstraction", 1,	a.getAllAbstractions().size());
+		assertEquals("Architecture should contain 1 Abstraction", 2, a.getAllAbstractions().size());
 	}
 	
 	@Test
-	public void shouldCreateAPackage(){
-		assertEquals(1, architecture.getAllPackages().size());
-		assertEquals(7, architecture.getAllIds().size());
-		
+	public void shouldCreateAPackage() throws PackageNotFound{
 		Package packageTest = architecture.createPackage("myPackage");
-		
 		assertEquals("generico::myPackage", packageTest.getNamespace());
 		
-		assertEquals(8, architecture.getAllIds().size());
-		
 		assertNotNull(packageTest.getId());
-		
-		assertEquals(2,architecture.getAllPackages().size());
-		assertSame(packageTest, architecture.getAllPackages().get(1));
+		assertEquals(2, architecture.getAllPackages().size());
+		assertSame(packageTest, architecture.findPackageByName("myPackage"));
 	}
 	
 	@Test
 	public void shouldRemoveAPackage() throws PackageNotFound{
-		assertEquals(1, architecture.getAllPackages().size());
-		
 		Package p = architecture.findPackageByName("Package1");
 		assertNotNull(p);
-		
-		assertEquals(7, architecture.getAllIds().size());
-		
 		architecture.removePackage(p);
 		assertEquals(0,architecture.getAllPackages().size());
-		
-		assertEquals(5, architecture.getAllIds().size());
 	}
 	
 	@Test
 	public void shouldRemoveAllElementRelatedWithPackageWhenPackageRemove1() throws Exception{
 		Architecture a = givenAArchitecture("testePackageRemove");
 		
-		assertEquals(1,a.getAllClasses().size());
+		assertEquals(1, a.getAllClasses().size());
 		assertEquals(0, a.getAllInterfaces().size());
 		assertEquals(1, a.getAllClasses().size());
 		
-		assertEquals(2, a.getAllIds().size());
 		
 		a.removePackage(a.getAllPackages().get(0));
 		
 		assertEquals(0, a.getAllClasses().size());
 		assertEquals(0, a.getAllClasses().size());
-		
-		assertEquals(0, a.getAllIds().size());
+		assertTrue(a.getAllPackages().isEmpty());
 	}
 	
 	@Test
@@ -442,27 +424,25 @@ public class ArchitectureTest extends TestHelper {
 		
 		assertEquals(2, a.getAllClasses().size());
 		assertEquals(1, a.getAllAssociationsRelationships().size());
-		assertEquals(4, a.getAllIds().size());
 		
 		a.removePackage(a.getAllPackages().get(0));
 		
 		assertEquals(1, a.getAllClasses().size());
 		assertEquals(0, a.getAllAssociationsRelationships().size());
-		assertEquals(1, a.getAllIds().size());
 	}
 	
 	@Test
 	public void shouldRemoveAllElementRelatedWithPackageWhenPackageRemove3() throws Exception{
 		Architecture a = givenAArchitecture("removePacote3");
 		
-		assertEquals(3,a.getAllClasses().size());
-		assertEquals(2, a.getAllAssociationsRelationships().size());
+		assertEquals("Deve ter tres clases", 3, a.getAllClasses().size());
+		assertEquals("Deve ter 2 associações",2, a.getAllAssociationsRelationships().size());
 		
 		assertEquals(2, a.getAllAssociationsRelationships().get(1).getParticipants().size());
 		
 		a.removePackage(a.getAllPackages().get(0));
 		
-		assertEquals(1, a.getAllClasses().size());
+		assertEquals("Deve ter uma classe", 1, a.getAllClasses().size());
 		assertEquals(0, a.getAllAssociationsRelationships().size());
 		
 	}
@@ -471,10 +451,8 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldCreateInterface() throws InterfaceNotFound{
 		assertEquals(0, architecture.getAllInterfaces().size());
-		assertEquals(7, architecture.getAllIds().size());
 		Interface interfacee = architecture.createInterface("myInterface");
 
-		assertEquals(8, architecture.getAllIds().size());
 		assertEquals("generico::myInterface", interfacee.getNamespace());
 		
 		assertNotNull(interfacee);
@@ -498,31 +476,24 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldCreateClass() throws ClassNotFound{
 		assertEquals(3, architecture.getAllClasses().size());
 		
-		assertEquals(7, architecture.getAllIds().size());
 		
-		Class klass = architecture.createClass("Bar");
+		Class klass = architecture.createClass("Bar", true);
 		assertEquals("generico::Bar", klass.getNamespace());
 		
 		assertEquals(4, architecture.getAllClasses().size());
 		
 		assertEquals(klass, architecture.findClassByName("Bar").get(0));
-		assertEquals(8, architecture.getAllIds().size());
+		assertTrue(architecture.findClassByName("Bar").get(0).isAbstract());
 	}
 	
 	@Test
-	public void shouldRemoveClass(){
+	public void shouldRemoveClass() throws ClassNotFound{
 		assertEquals(3, architecture.getAllClasses().size());
-		Class klass = architecture.getAllClasses().get(0);
+		Class klass = architecture.findClassByName("Class1").get(0);
 		
 		architecture.removeClass(klass);
 		assertEquals(2, architecture.getAllClasses().size());
 	}
-	
-	@Test
-	public void shouldArchitecuteHaveAListContainAllElementsId(){
-		assertEquals(7, architecture.getAllIds().size());	
-	}
-	
 	
 	@Test
 	public void shouldFindPackageOfClass() throws Exception{

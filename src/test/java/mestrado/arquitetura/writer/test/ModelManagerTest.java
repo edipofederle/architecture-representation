@@ -136,8 +136,9 @@ public class ModelManagerTest extends TestHelper {
 		Operations op = new Operations(doc, null);
 		assertNotNull(op.forClass().createClass(casa));
 		Architecture a = givenAArchitecture2("teste2");
-		assertContains(a.getAllClasses(), "Casa");
+		assertNotNull(a.findClassByName("Casa"));
 		assertFalse(a.findClassByName("Casa").get(0).isAbstract());
+		
 	}
 	
 	@Test
@@ -146,7 +147,7 @@ public class ModelManagerTest extends TestHelper {
 		Operations op = new Operations(doc, null);
 		op.forClass().createClass(casa).isAbstract().build();
 		Architecture a = givenAArchitecture2("classAbstrata");
-		assertContains(a.getAllClasses(), "Casa");
+		assertNotNull(a.findClassByName("Casa"));
 		Class klass = a.findClassByName("Casa").get(0);
 		assertTrue(klass.isAbstract());
 	}
@@ -194,7 +195,7 @@ public class ModelManagerTest extends TestHelper {
 		assertThat("should contain two attributes", idsProperty.length, equalTo(2));
 		
 		Architecture a = givenAArchitecture2("testeCreateClassWithAttribute");
-		assertContains(a.getAllClasses(), "Casa");
+		assertNotNull(a.findClassByName("Casa"));
 		
 		Class klass43 = a.findClassByName("Casa").get(0);
 		arquitetura.representation.Attribute attrXpto = klass43.findAttributeByName("xpto");
@@ -618,7 +619,7 @@ public class ModelManagerTest extends TestHelper {
 		op.forPackage().createPacakge(pacote).withClass(idClassPerson).build();
 		
 		Architecture a = givenAArchitecture2("classAbstrataDentroPacote");
-		assertContains(a.getAllClasses(), "Casa");
+		assertNotNull(a.findClassByName("Casa"));
 		Class klass = a.findClassByName("Casa").get(0);
 		assertTrue(klass.isAbstract());
 	}
@@ -647,7 +648,7 @@ public class ModelManagerTest extends TestHelper {
 		Architecture a = givenAArchitecture2("novoTest");
 		
 		assertEquals(1, a.getAllPackages().size());
-		assertEquals(2 ,a.findPackageByName("Pacote").getAllClassIdsForThisPackage().size());
+		assertEquals(2 ,a.findPackageByName("Pacote").getElements().size());
 	}
 
 }

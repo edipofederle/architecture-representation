@@ -65,7 +65,13 @@ public class PackageOperations extends XmiHelper {
 		return classesInfo;
 	}
 	
-
+	/**
+	 * @param ids
+	 * @return
+	 * @throws CustonTypeNotFound
+	 * @throws NodeNotFound
+	 * @throws InvalidMultiplictyForAssociationException
+	 */
 	public PackageOperations withClass(final List<String> ids) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		for (final String _id : ids)
 			move(_id, null);
@@ -110,6 +116,10 @@ public class PackageOperations extends XmiHelper {
 
 
 	public void add(String id2) {
+		move(id2, packageRecieve);
+	}
+	
+	public void add(String id2, String packageToRecieve) {
 		move(id2, packageRecieve);
 	}
 	

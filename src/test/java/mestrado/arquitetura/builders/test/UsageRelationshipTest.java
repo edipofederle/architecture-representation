@@ -28,7 +28,7 @@ public class UsageRelationshipTest extends HelperTest {
 		
 		assertNotNull(a.getAllUsage());
 		assertEquals(1, a.getAllUsage().size());
-		assertEquals(1, a.getInterClassRelationships().size());
+		assertEquals(1, a.getAllRelationships().size());
 		
 		 UsageRelationship u = a.getAllUsage().get(0);
 		 assertEquals("Class2", u.getClient().getName());
@@ -59,7 +59,7 @@ public class UsageRelationshipTest extends HelperTest {
 
 		assertNotNull(architecture8);
 
-		List<Relationship> relations2 = architecture8.getInterClassRelationships();
+		List<Relationship> relations2 = architecture8.getAllRelationships();
 
 		assertNotNull(relations2);
 		assertEquals(2, relations2.size());
@@ -73,19 +73,13 @@ public class UsageRelationshipTest extends HelperTest {
 	}
 	
 	
-	/**
-	 * @see <a href="https://dl.dropbox.com/u/6730822/Relacionamentos%20Testes/usageRelationshipTests/Screen%20Shot%202013-03-16%20at%203.17.51%20PM%201.png">Modelo usado no teste (Image)</a>
-	 * @throws Exception
-	 */
 	@Test
 	public void shouldLoadUsageClassesInsidePakages() throws Exception{
-		String uriToArchitecture8 = getUrlToModel("usage3");
-		Architecture architecture8 = new ArchitectureBuilder().create(uriToArchitecture8);
-
+		Architecture architecture8 = givenAArchitecture("usage3");
 		assertNotNull(architecture8);
 
-		List<Relationship> relations2 = architecture8.getInterClassRelationships();
-		assertEquals(1,relations2.size());
+		List<Relationship> relations2 = architecture8.getAllRelationships();
+		assertEquals(1, relations2.size());
 		
 		
 		 UsageRelationship u = architecture8.getAllUsage().get(0);
@@ -93,7 +87,7 @@ public class UsageRelationshipTest extends HelperTest {
 		 assertEquals("model::Package2", u.getClient().getNamespace());
 		 
 		 assertEquals("Class1", u.getSupplier().getName());
-		 assertEquals("model::Package1::Package1", u.getSupplier().getNamespace());
+		 assertEquals("model::Package1", u.getSupplier().getNamespace());
 	}
 	
 	
@@ -104,7 +98,7 @@ public class UsageRelationshipTest extends HelperTest {
 	@Test
 	public void shouldLoadUsageInterClassPackage() throws Exception{
 		Architecture a = givenAArchitecture("usageClassPackage");
-		List<Relationship> relations = a.getInterClassRelationships();
+		List<Relationship> relations = a.getAllRelationships();
 		assertNotNull(a);
 		UsageRelationship relation = (UsageRelationship)relations.get(0);
 		assertNotNull(relation);
@@ -122,7 +116,7 @@ public class UsageRelationshipTest extends HelperTest {
 	public void shouldLoadUsageInterPackageClass() throws Exception{
 		String uriToArchitecture = getUrlToModel("PackageClassUsage");
 		Architecture architecture2 = new ArchitectureBuilder().create(uriToArchitecture);
-		List<Relationship> relations2 = architecture2.getInterClassRelationships();
+		List<Relationship> relations2 = architecture2.getAllRelationships();
 		UsageRelationship relation2 = (UsageRelationship)relations2.get(0);
 		assertNotNull(relations2);
 		

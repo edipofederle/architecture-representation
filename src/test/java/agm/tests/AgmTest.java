@@ -39,8 +39,8 @@ public class AgmTest extends TestHelper {
 	/* Classes Stereotypes */
 	
 	@Test
-	public void testClasseBowlingGameStereotypes(){
-		Class klass = architecture.getAllClasses().get(0);
+	public void testClasseBowlingGameStereotypes() throws ClassNotFound{
+		Class klass = architecture.findClassByName("BowlingGame").get(0);
 		
 		assertEquals("BowlingGame",klass.getName());
 		assertEquals("alternative_OR",klass.getVariantType());
@@ -49,8 +49,8 @@ public class AgmTest extends TestHelper {
 	}
 	
 	@Test
-	public void testClassePongGameStereotypes(){
-		Class klass = architecture.getAllClasses().get(1);
+	public void testClassePongGameStereotypes() throws ClassNotFound{
+		Class klass = architecture.findClassByName("PongGame").get(0);
 		
 		assertEquals("PongGame",klass.getName());
 		assertEquals("alternative_OR",klass.getVariantType());
@@ -59,8 +59,8 @@ public class AgmTest extends TestHelper {
 	}
 	
 	@Test
-	public void testClasseBricklesGameStereotypes(){
-		Class klass = architecture.getAllClasses().get(2);
+	public void testClasseBricklesGameStereotypes() throws ClassNotFound{
+		Class klass = architecture.findClassByName("BricklesGame").get(0);
 		
 		assertEquals("BricklesGame",klass.getName());
 		assertEquals("alternative_OR",klass.getVariantType());
@@ -69,9 +69,8 @@ public class AgmTest extends TestHelper {
 	}
 	
 	@Test
-	public void testClasseGameStereotypes(){
-		Class klass = architecture.getAllClasses().get(3);
-		
+	public void testClasseGameStereotypes() throws ClassNotFound{
+		Class klass = architecture.findClassByName("Game").get(0);
 		assertEquals("Game",klass.getName());
 		assertEquals("mandatory",klass.getVariantType());
 		
@@ -80,8 +79,8 @@ public class AgmTest extends TestHelper {
 	}
 	
 	@Test
-	public void testClasseGameMgrStereotypes(){
-		Class klass = architecture.getAllClasses().get(4);
+	public void testClasseGameMgrStereotypes() throws ClassNotFound{
+		Class klass = architecture.findClassByName("GameMgr").get(0);
 		assertEquals("GameMgr",klass.getName());
 	}
 	

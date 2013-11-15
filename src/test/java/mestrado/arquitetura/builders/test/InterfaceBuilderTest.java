@@ -18,7 +18,7 @@ public class InterfaceBuilderTest extends TestHelper {
 		Architecture a = givenAArchitecture("interface");
 		assertEquals(1, a.getAllInterfaces().size());
 		
-		List<Method> operations = a.getAllInterfaces().get(0).getOperations();
+		List<Method> operations = a.findInterfaceByName("myInterface").getOperations();
 		
 		assertEquals(1, operations.size());
 		assertEquals("Operation1", operations.get(0).getName());

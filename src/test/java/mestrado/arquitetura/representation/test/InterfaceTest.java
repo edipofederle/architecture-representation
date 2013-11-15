@@ -42,7 +42,7 @@ public class InterfaceTest extends TestHelper {
 		Architecture a = givenAArchitecture("interface");
 		assertEquals(1, a.getAllInterfaces().size());
 		
-		Interface i = a.getAllInterfaces().get(0);
+		Interface i = a.findInterfaceByName("myInterface");
 		assertNotNull(i);
 		
 		Method o = i.getOperations().get(0);
@@ -56,7 +56,7 @@ public class InterfaceTest extends TestHelper {
 	@Test
 	public void shouldMoveOperationFromOneInterfaceToOther() throws Exception{
 		Architecture a = givenAArchitecture("interface");
-		Interface i = a.getAllInterfaces().get(0);
+		Interface i = a.findInterfaceByName("myInterface");
 		Interface i2 = a.createInterface("fooInterface");
 		
 		Method m = i2.createOperation("myOperation");

@@ -198,22 +198,20 @@ public class ClassTest extends TestHelper {
 	@Test
 	public void testGetImplementedInterfaces() throws Exception {
 		Architecture a = givenAArchitecture("classRealizationInterface");
-		
 		arquitetura.representation.Class klass1 = a.findClassByName("Class2").get(0);
-		
 		assertEquals("Deve retornar 2 interfaces", 2, klass1.getImplementedInterfaces().size());
 	}
 	
 	@Test
 	public void testGetRequiredInterfaces() throws Exception{
 		Architecture a = givenAArchitecture("classInterface/classrealizationInterface");
-		arquitetura.representation.Class klass1 = a.findClassByName("Class2").get(0);
+		arquitetura.representation.Class klass1 = a.findClassByName("Class1").get(0);
 		
 		List<Interface> requiredInterface = klass1.getRequiredInterfaces();
 		
 		assertNotNull(requiredInterface);
 		assertEquals(1,requiredInterface.size());
-		assertEquals("Class1", requiredInterface.get(0).getName());
+		assertEquals("Class2", requiredInterface.get(0).getName());
 	}
 	
 }

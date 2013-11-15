@@ -47,22 +47,22 @@ public class Class extends Element {
 	public Class(Architecture architecture, String name, Variant variantType, boolean isAbstract, String namespace, String id) {
 		super(architecture, name, variantType, "klass", namespace, id);
 		setAbstract(isAbstract);
-		
-//		//Posição Original
-//		this.x = XmiHelper.getXValueForElement(id);
-//		this.y = XmiHelper.getYValueForElement(id);
 	}
 
-	public Class(Architecture architecture, String name, String id) {
-		this(architecture, name,  null, false,  UtilResources.createNamespace(architecture.getName(), name), id);
+	public Class(Architecture architecture, String name, boolean isAbstract) {
+		this(architecture, name,  null, isAbstract,  UtilResources.createNamespace(architecture.getName(), name), UtilResources.getRandonUUID());
+		architecture.addElement(this);
 	}
 	
+	public Class(Architecture architecture, String name, boolean isAbstract, String packageName) {
+		this(architecture, name,  null, isAbstract,  UtilResources.createNamespace(architecture.getName()+"::"+packageName, name), UtilResources.getRandonUUID());
+		architecture.addElement(this);
+	}
+
 	public Attribute createAttribute(String name, Type type, VisibilityKind visibility) {
 		String id = UtilResources.getRandonUUID();
-		//Attribute a = new Attribute(getArchitecture(), name, VisibilityKind..toString(), type, getArchitecture().getName()+"::"+this.getName(), UtilResources.getRandonUUID());
 		Attribute a = new Attribute(getArchitecture(), name, visibility.toString(), type.getName(), getArchitecture().getName()+"::"+this.getName(), id);
 		getAllAttributes().add(a);
-		getArchitecture().getAllIds().add(id);
 		return a;
 	}
 
@@ -94,8 +94,6 @@ public class Class extends Element {
 	 */
 	public boolean removeAttribute(Attribute attribute) {
 		if (!getAllAttributes().contains(attribute)) return false;
-		
-		removeIdOfElementFromList(attribute	.getId());
 		getAllAttributes().remove(attribute);
 		return true;
 	}
@@ -127,7 +125,6 @@ public class Class extends Element {
 			if(parameters != null)
 				method.getParameters().addAll(parameters);
 			getAllMethods().add(method);
-			getArchitecture().getAllIds().add(id);
 			return method;
 		}
 		return null; 
@@ -183,14 +180,8 @@ public class Class extends Element {
 	 */
 	public boolean removeMethod(Method method) {
 		if (!getAllMethods().contains(method)) return false;
-		
-		removeIdOfElementFromList(method.getId());
 		getAllMethods().remove(method);
 		return true;
-	}
-
-	private void removeIdOfElementFromList(String id) {
-		getArchitecture().getAllIds().remove(id);
 	}
 
 	public List<Method> getAllAbstractMethods() {

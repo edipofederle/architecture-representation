@@ -45,30 +45,22 @@ public class NoteOperations extends XmiHelper {
 				elementXmiGenerator.createStereotypeVariability(idNote, variability);
 			}
 		});
-		
 		if(variability.getIdPackageOwner() != null)
 			moveToPakage(variability.getIdPackageOwner());
 		return this;
 	}
 	
 	private NoteOperations moveToPakage(final String idklass) {
-		
-		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
-			
-			//Agora buscamos no arquivo .notaiton
-			//Node classToMoveNotation = findByIDInNotationFile(documentManager.getDocNotation(), idklass);
-			//Node packageToAddNotation = findByIDInNotationFile(documentManager.getDocNotation(), id);
-			
+		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation() {
 			public void useTransformation() {
-				//Primeiramente é olhado para o arquivo .uml e movido a classe para o pacote.
-				final Node classToMove = findByID(documentManager.getDocUml(), idklass, "packagedElement");
+				// Primeiramente é olhado para o arquivo .uml e movido a
+				// classe para o pacote.
+				final Node classToMove = findByID(documentManager.getDocUml(), idklass,	"packagedElement");
 				final Node packageToAdd = findByID(documentManager.getDocUml(), id, "ownedComment");
 				classToMove.appendChild(packageToAdd);
-				//packageToAddNotation.appendChild(classToMoveNotation);
 			}
 		});
-	
-	return this;
-}
+		return this;
+	}
 	
 }

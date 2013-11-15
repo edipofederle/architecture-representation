@@ -3,15 +3,15 @@ package arquitetura.builders;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.eclipse.uml2.uml.NamedElement;
 
+import arquitetura.helpers.ModelElementHelper;
 import arquitetura.helpers.ModelHelper;
 import arquitetura.helpers.ModelHelperFactory;
 import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
-import arquitetura.representation.Element;
+import arquitetura.representation.Interface;
 import arquitetura.representation.Package;
 
 /**
@@ -23,28 +23,30 @@ import arquitetura.representation.Package;
 public class PackageBuilder extends ElementBuilder<Package> {
 
 	private ClassBuilder classBuilder;
+	private InterfaceBuilder interfaceBuilder;
 	private static ModelHelper modelHelper;
 
 	static{
 		modelHelper = ModelHelperFactory.getModelHelper();
 	}
 
-	public PackageBuilder(Architecture architecture,  ClassBuilder classBuilder) {
+	public PackageBuilder(Architecture architecture,  ClassBuilder classBuilder, InterfaceBuilder interfaceBuilder) {
 		super(architecture);
 		this.classBuilder = classBuilder;
+		this.interfaceBuilder = interfaceBuilder;
 	}
 
 	@Override
 	public Package buildElement(NamedElement modelElement) {
 		Package pkg = new Package(architecture, name, variantType, modelElement.getNamespace().getQualifiedName(), XmiHelper.getXmiId(modelElement));
 		pkg.setElements(getNestedPackages(modelElement));
-		getNestedPackages(modelElement);
 		pkg.setElements(getClasses(modelElement, pkg));
+		pkg.setElements(getInterfaces(modelElement,pkg));
 		
 		return pkg;
 	}
 	
-	private List<? extends Element> getNestedPackages(NamedElement modelElement) {
+	private List<Package> getNestedPackages(NamedElement modelElement) {
 		List<Package> listOfPackes = new ArrayList<Package>();
 		List<org.eclipse.uml2.uml.Package> paks = modelHelper.getAllPackages(modelElement);
 		
@@ -54,21 +56,31 @@ public class PackageBuilder extends ElementBuilder<Package> {
 		return listOfPackes;
 	}
 
-	/**
-	 * Retorna todas as classes de um dado pacote.
-	 * @param modelElement
-	 * @return List
-	 */
-	private List<Element> getClasses(NamedElement modelElement, Package pkg) {
-		List<Element> listOfClasses = new ArrayList<Element>();
+	private List<Class> getClasses(NamedElement modelElement, Package pkg) {
+		List<Class> listOfClasses = new ArrayList<Class>();
 		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getAllClasses(((org.eclipse.uml2.uml.Package) modelElement));
 
 		for (NamedElement element : classes){
-			Class klass = classBuilder.create(element);
-			pkg.getAllClassIdsForThisPackage().add(klass.getId());
-			listOfClasses.add(klass);
+			if(!ModelElementHelper.isInterface(element)){
+				Class klass = classBuilder.create(element);
+				listOfClasses.add(klass);
+			}
 		}
 
 		return listOfClasses;
+	}
+	
+	private List<Interface> getInterfaces(NamedElement modelElement, Package pkg) {
+		List<Interface> allInterfaces = new ArrayList<Interface>();
+		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getAllClasses(((org.eclipse.uml2.uml.Package) modelElement));
+
+		for (NamedElement element : classes){
+			if(ModelElementHelper.isInterface(element)){
+				Interface klass = interfaceBuilder.create(element);
+				allInterfaces.add(klass);
+			}
+		}
+
+		return allInterfaces;
 	}
 }

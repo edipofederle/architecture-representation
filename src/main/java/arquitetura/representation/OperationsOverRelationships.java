@@ -27,7 +27,6 @@ public class OperationsOverRelationships {
 	public OperationsOverRelationships(Architecture architecture) {
 		this.architecture = architecture;
 		this.relationships = architecture.getAllRelationships();
-		this.allIds = architecture.getAllIds();
 	}
 
 	public void moveAssociation(AssociationRelationship association, Class class1, Class class2) {
@@ -80,7 +79,6 @@ public class OperationsOverRelationships {
 
 	private boolean removeRelationship(Relationship as) {
 		if(as == null) return false;
-		this.allIds.remove(as.getId());
 		return relationships.remove(as);
 	}
 

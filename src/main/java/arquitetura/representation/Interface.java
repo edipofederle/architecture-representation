@@ -29,8 +29,18 @@ public class Interface extends Element {
 		super(architecture, name, variantType, "interface", namespace, id);
 	}
 	
-	public Interface(Architecture architecture, String name, String id) {
-		this(architecture, name, null, UtilResources.createNamespace(architecture.getName(), name), id);
+	/**
+	 * Use este construtor quando você deseja criar uma interface.<br /><br />
+	 * 
+	 * OBS 1: O ID para esta interface será gerado automaticamente.<br/>
+	 * OBS 2: Esse construtor automaticamente adicionar a interface na arquitetura<br/>
+	 * 
+	 * @param architecture Architecture em questão
+	 * @param name - Nome da interface
+	 */
+	public Interface(Architecture a, String name) {
+		this(a, name, null, UtilResources.createNamespace(a.getName(), name), UtilResources.getRandonUUID());
+		a.addElement(this);
 	}
 
 	public  List<Method> getOperations() {

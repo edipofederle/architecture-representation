@@ -77,18 +77,13 @@ public class GeneralizationNode extends XmiHelper {
 		targetAnchor.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		targetAnchor.setAttribute("id", "(0.82,0.89)");
 		edges.appendChild(targetAnchor);
-
 		
 		node.appendChild(edges);
-		
 	}
 
 	private void createNodeInUmlFile() {
 		this.id = UtilResources.getRandonUUID();
-		
-		//Pega id da classe client
 		Element classClient = (Element) findByID(this.docUml, this.clientElement, "packagedElement");
-		
 		Element generalization = this.docUml.createElement("generalization");
 		generalization.setAttribute("xmi:id",id);
 		generalization.setAttribute("general", this.general);

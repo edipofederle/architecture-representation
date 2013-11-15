@@ -106,7 +106,7 @@ public class NSGAII extends Algorithm {
 			mutationOperator.execute(newSolution);
 			problem_.evaluate(newSolution);
 
-			// problem_.evaluateConstraints(newSolution);
+			problem_.evaluateConstraints(newSolution);
 			evaluations++;
 			population.add(newSolution);
 		} // for

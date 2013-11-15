@@ -1,16 +1,27 @@
 package arquitetura.representation;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import arquitetura.helpers.UtilResources;
+import arquitetura.representation.relationship.AbstractionRelationship;
+import arquitetura.representation.relationship.AssociationEnd;
+import arquitetura.representation.relationship.AssociationRelationship;
+import arquitetura.representation.relationship.DependencyRelationship;
+import arquitetura.representation.relationship.GeneralizationRelationship;
+import arquitetura.representation.relationship.RealizationRelationship;
+import arquitetura.representation.relationship.Relationship;
 
 
 /**
  * 
  * {@link Package} representa um elemento Pacote dentro da arquitetura.
  * 
- * Pacotes podem conter {@link Class}'s e outros {@link Package}'s
+ * Pacotes podem conter {@link Class}'s {@link Interface} e outros {@link Package}'s
  * 
  * 
  * @author edipofederle <edipofederle@gmail.com>
@@ -20,16 +31,9 @@ public class Package extends Element {
 
 	private static final long serialVersionUID = -3080328928563871488L;
 
-	private List<Element> elements = new ArrayList<Element>();
-	
-	private final List<Interface> implementedInterfaces = new ArrayList<Interface>();
-	private final List<Interface> requiredInterfaces = new ArrayList<Interface>();
-	private List<String> idsClasses = new ArrayList<String>();
-
-	private String widht;
-	private String height;
-	private String x;
-	private String y;
+	private Set<Element> elements = new HashSet<Element>();
+	private final Set<Interface> implementedInterfaces = new HashSet<Interface>();
+	private final Set<Interface> requiredInterfaces = new HashSet<Interface>();
 	
 	/**
 	 * Construtor Para um Elemento do Tipo Pacote
@@ -42,77 +46,56 @@ public class Package extends Element {
 	 */
 	public Package(Architecture architecture, String name, Variant variantType,  String namespace, String id) {
 		super(architecture, name,  variantType, "package", namespace, id);
-		
-//		//Posição Original
-//		this.x = XmiHelper.getXValueForElement(id);
-//		this.y = XmiHelper.getYValueForElement(id);
-//		
-//		this.widht = XmiHelper.getWidhtForPackage(id);
-//		this.height =	XmiHelper.getHeightForPackage(id);
 	}
 	
-	public Package(Architecture architecture, String name, String id) {
-		this(architecture, name, null, UtilResources.createNamespace(architecture.getName(), name) , id); //receber id
+	public Package(Architecture architecture, String name) {
+		this(architecture, name, null, UtilResources.createNamespace(architecture.getName(), name), UtilResources.getRandonUUID());
+		architecture.addElement(this);
 	}
 
 	/**
 	 * 
 	 * Retorna todos os elementos que pertencem a um Pacote.
 	 * 
-	 * Esses elementos podem ser do tipo {@link Class} e/ou {@link Package}.
+	 * Esses elementos podem ser do tipo {@link Class}, {@link Package} e {@link Interface}.
 	 * 
 	 * @return List<{@link Element}>
 	 */
-	public List<Element> getElements() {
+	public Collection<Element> getElements() {
 		return elements;
 	}
 	
 	/**
-	 * @return the widht
+	 * Retorna todas as {@link Interface}  do pacote.
+	 * 
+	 * @return
 	 */
-	public String getWidht() {
-		return widht;
+	public List<Interface> getAllInterfaces(){
+		List<Interface> allInterfaces = new ArrayList<Interface>();
+		for (Element element : this.elements) {
+			if(element instanceof Interface)
+				allInterfaces.add((Interface)element);
+		}
+		
+		return allInterfaces;
 	}
-
 	/**
-	 * @return the x
-	 */
-	public String getX() {
-		return x;
-	}
-
-	/**
-	 * @return the y
-	 */
-	public String getY() {
-		return y;
-	}
-
-	/**
-	 * @return the height
-	 */
-	public String getHeight() {
-		return height;
-	}
-
-	/**
-	 * Retorna todas as classes ({@link Class}) que pertencem ao pacote. 
+	 * Retorna todas {@link Class} que pertencem ao pacote. 
 	 * 
 	 * @return List<{@link Class}>
 	 */
-	public List<Class> getClasses(){
-		List<Class> classes = new ArrayList<Class>();
+	public Set<Class> getClasses(){
+		Set<Class> classes = new HashSet<Class>();
 		
-		for (Element element : getArchitecture().getElements())
-			if(UtilResources.extractPackageName(element.getNamespace()).equalsIgnoreCase(this.getName()))
-				if(element instanceof Class)
-					classes.add((Class) element);
+		for (Element element : this.getElements())
+			if(element instanceof Class)
+				classes.add((Class) element);
 
 		return classes;
 	}
 	
 	/**
-	 * Retorna todos pacotes dentro do pacote em questão.
+	 * Retorna todos {@link Package} dentro do pacote em questão.
 	 * 
 	 * @return List<{@link Package}>
 	 */
@@ -120,8 +103,10 @@ public class Package extends Element {
 		List<Package> paks = new ArrayList<Package>();
 		
 		for (Element element : elements)
-			if(element.getTypeElement().equals("package"))
-				paks.add(((Package)element));
+			if(element.getTypeElement().equals("package")){
+				if(UtilResources.extractPackageName(((Package)element).getNamespace()).equalsIgnoreCase(this.getName()))
+					paks.add(((Package)element));	
+			}
 		
 		return paks;
 	}
@@ -130,10 +115,7 @@ public class Package extends Element {
 		implementedInterfaces.add((Interface) interfacee);
 	}
 	
-	/**
-	 * @return the implementedInterfaces
-	 */
-	public List<Interface> getImplementedInterfaces() {
+	public Collection<Interface> getImplementedInterfaces() {
 		return implementedInterfaces;
 	}
 
@@ -141,21 +123,21 @@ public class Package extends Element {
 		requiredInterfaces.add(interfacee);
 	}
 
-	public List<String> getAllClassIdsForThisPackage() {
-		return idsClasses;
-	}
-	
-	/**
-	 * @return the requiredInterfaces
-	 */
-	public List<Interface> getRequiredInterfaces() {
+	public Collection<Interface> getRequiredInterfaces() {
 		return requiredInterfaces;
 	}
 
-	public Class createClass(String className) throws Exception {
-		String idClass = UtilResources.getRandonUUID();
-		Class c = new Class(getArchitecture(), className, idClass);
-		idsClasses.add(idClass);
+	/**
+	 * Cria uma classe e adiciona no pacote em questão.
+	 * 
+	 * @param className - Nome da classe
+	 * @param isAbstract - abstrata ou não
+	 * @return {@link Class}
+	 * @throws Exception
+	 */
+	public Class createClass(String className, boolean isAbstract) throws Exception {
+		Class c = new Class(getArchitecture(), className, isAbstract, this.getName());
+		this.elements.add(c);
 		return c;
 	}
 
@@ -172,43 +154,60 @@ public class Package extends Element {
 	}
 
 	public void setElements(List<? extends Element> elements) {
-		for (Element element : elements) {
-			if (isPackageClassOrInterface(element)){
-				getElements().add(element);
-			}
-		}
-	}
-
-	private boolean isPackageClassOrInterface(Element element) {
-		if ((element instanceof Package) || (element instanceof Interface) || (element instanceof Class))
-			return true;
-		return false;
+		for (Element element : elements)
+			getElements().add(element);
 	}
 
 	public void moveClassToPackage(Element klass, Package packageToMove) {
-		if (!idsClasses.contains(klass.getId())) return;
+		if (!elements.contains(klass)) return;
 		
 		removeClass(klass);
 		packageToMove.addExternalClass(klass);
 	}
 
-	private void addExternalClass(Element klass) {
-		idsClasses.add(klass.getId());
+	public void addExternalClass(Element klass) {
+		elements.add(klass);
 	}
 	
 	public void removeClass(Element klass) {
-		idsClasses.remove(klass.getId());
-		getArchitecture().getAllClasses().remove(klass);
+		this.elements.remove(klass);
+		
+		for (Iterator<Relationship> i = getArchitecture().getAllRelationships().iterator(); i.hasNext();) {
+			Relationship r = i.next();
+			if(r instanceof GeneralizationRelationship){
+				if(((GeneralizationRelationship) r).getParent().equals(klass) || ((GeneralizationRelationship) r).getChild().equals(klass)){
+					i.remove();
+				}
+			}
+			if(r instanceof RealizationRelationship){
+				if(((RealizationRelationship) r).getClient().equals(klass) || ((RealizationRelationship) r).getSupplier().equals(klass)){
+					i.remove();
+				}
+			}
+			if(r instanceof DependencyRelationship){
+				if(((DependencyRelationship) r).getClient().equals(klass) || ((DependencyRelationship) r).getSupplier().equals(klass)){
+					i.remove();
+				}
+			}
+			if(r instanceof AbstractionRelationship){
+				if(((AbstractionRelationship) r).getClient().equals(klass) || ((AbstractionRelationship) r).getSupplier().equals(klass)){
+					i.remove();
+				}
+			}
+			if(r instanceof AssociationRelationship){
+				for(AssociationEnd a : ((AssociationRelationship)r).getParticipants()){
+					if(a.getCLSClass().equals(klass))
+						i.remove();
+				}
+			}
+		}
+	
 	}
 	
 	public boolean removeImplementedInterface(Interface interface_) {
 		if (!implementedInterfaces.contains(interface_)) return false;
-		
 		implementedInterfaces.remove(interface_);
 		return true;
 	}
-
-	
-	
 
 }

@@ -3,25 +3,21 @@ Number of solutions: 1
 
 Solution: 0
 
-Concern: save
-Concern: pong
-Concern: ranking
-Concern: configuration
 Concern: play
-Concern: logging
-Concern: brickles
-Concern: bowling
 Concern: pause
+Concern: configuration
+Concern: ranking
+Concern: save
 
-Number of Packages: 9
+Number of Packages: 5
 
 Number of variabilities: 5
 
-Number of interfaces: 14
+Number of interfaces: 7
 
-Number of classes: 30
+Number of classes: 24
 
-Number of DependencyInterElementRelationships: 14
+Number of DependencyInterElementRelationships: 2
 
 Number of AbstractionInterElementRelationships: 0
 

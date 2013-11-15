@@ -40,7 +40,6 @@ public class OperationsOverAssociation {
 		String id = UtilResources.getRandonUUID();
 		association = new AssociationRelationship(id);
 		this.relationships = architecture.getAllRelationships();
-		architecture.getAllIds().add(id);
 	}
 	
 	public OperationsOverAssociation createAssociationEnd() {
@@ -84,7 +83,8 @@ public class OperationsOverAssociation {
 	}
 
 	public void createAssociationClass(List<Attribute> listAttrs, List<Method> listMethods, Class owner, Class klass) {
-		Class asClass = new Class(this.architecture, "AssociationClass", UtilResources.getRandonUUID());
+		String namespace = UtilResources.createNamespace(architecture.getName(), "AssociationClass");
+		Class asClass = new Class(this.architecture, "AssociationClass", null, false, namespace, UtilResources.getRandonUUID());
 		
 		asClass.getAllAttributes().addAll(listAttrs);
 		asClass.getAllMethods().addAll(listMethods);

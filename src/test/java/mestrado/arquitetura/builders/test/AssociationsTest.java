@@ -139,7 +139,7 @@ public class AssociationsTest extends TestHelper {
 	@Test
 	public void testAssociationWithThreeClasses() throws Exception {
 		Architecture architecture3 = givenAArchitecture("complexAssociation");
-		List<Relationship> r = architecture3.getInterClassRelationships();
+		List<Relationship> r = architecture3.getAllRelationships();
 
 		assertNotNull(architecture3);
 		assertEquals("Should Contains Two Relationships", 2, r.size());

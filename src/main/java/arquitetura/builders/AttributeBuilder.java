@@ -33,7 +33,6 @@ public class AttributeBuilder extends ElementBuilder<Attribute> {
 		boolean shouldGenerateVisualAttribute = true;
 		if(modelElement.getRelationships().size() != 0) // para não criar atributos que são de relacionametos
 			shouldGenerateVisualAttribute = false;
-		
 		return new Attribute(architecture, name, visibilityKind, variantType, type, modelElement.getNamespace().getQualifiedName(), XmiHelper.getXmiId(modelElement), shouldGenerateVisualAttribute );
 			
 	}

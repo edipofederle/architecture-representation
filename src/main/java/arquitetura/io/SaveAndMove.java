@@ -68,8 +68,6 @@ public class SaveAndMove extends XmiHelper{
 		DOMSource sourceDi = new DOMSource(docDi);
 		StreamResult resultDi = new StreamResult(new File(diCopy));
 		transformer.transform(sourceDi, resultDi);
-		
-		System.out.print("*");
 
 		FileUtils.moveFiles(notationCopy, targetDirExport+ newModelName + ".notation");
 		FileUtils.moveFiles(umlCopy, targetDirExport+ newModelName +".uml");

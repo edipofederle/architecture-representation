@@ -36,12 +36,11 @@ public class DependencyRelationshipBuilder  extends ArchitectureHelper{
 //			e.getIdsRelationships().add((getModelHelper().getXmiId(element)));
 //		}
 		
-		Element client = architecture.getElementByXMIID(getModelHelper().getXmiId(clieents.get(0)));
-		Element supplier = architecture.getElementByXMIID(getModelHelper().getXmiId(suppliers.get(0)));
-		architecture.getAllIds().add(getModelHelper().getXmiId(element));
+		Element client = architecture.findElementById(getModelHelper().getXmiId(clieents.get(0)));
+		Element supplier = architecture.findElementById(getModelHelper().getXmiId(suppliers.get(0)));
 		
-		if((client instanceof Interface) && (supplier instanceof Class))
-			((Class) supplier).getRequiredInterfaces().add((Interface) client);
+		if((client instanceof Class) && (supplier instanceof Interface))
+			((Class) client).getRequiredInterfaces().add((Interface) supplier);
 		
 		DependencyRelationship dependency =  new DependencyRelationship(supplier, client, element.getName(), architecture, getModelHelper().getXmiId(element));
 		

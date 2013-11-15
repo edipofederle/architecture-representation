@@ -26,7 +26,7 @@ public class AssociationHelper extends ArchitectureHelper {
 		for (Property a : association.getMemberEnds()) {
 			try{
 				String id = getModelHelper().getXmiId(a.getType());
-				arquitetura.representation.Element c = architecture.getElementByXMIID(id);
+				arquitetura.representation.Element c = architecture.findElementById(id);
 				
 				elementsOfAssociation.add(associationEndBuilder.create(a,c));
 			}catch(Exception e){

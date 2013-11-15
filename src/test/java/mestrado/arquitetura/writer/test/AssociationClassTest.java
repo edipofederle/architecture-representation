@@ -3,13 +3,16 @@ package mestrado.arquitetura.writer.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Test;
 
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Element;
 import arquitetura.representation.Package;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.touml.DocumentManager;
@@ -51,7 +54,7 @@ public class AssociationClassTest extends TestHelper {
 
 		Architecture genereted = givenAArchitecture2("associationClassGerado");
 		assertNotNull(genereted);
-		assertEquals(3,genereted.getAllAssociationsClass().get(0).getAllAttributes().size());
+		assertEquals(3, genereted.getAllAssociationsClass().get(0).getAllAttributes().size());
 	}
 	
 	@Test
@@ -88,7 +91,10 @@ public class AssociationClassTest extends TestHelper {
 		
 		for (Package pack : packages) {
 			//Todas as classes do pacote
-			List<String> ids = pack.getAllClassIdsForThisPackage();
+			List<String> ids = new ArrayList<String>();
+			for (Element element : pack.getElements()) {
+				ids.add(element.getId());
+			}
 			op.forPackage().createPacakge(pack).withClass(ids).build();
 		}
 		
@@ -106,34 +112,18 @@ public class AssociationClassTest extends TestHelper {
 	
 	@Test
 	public void comAttrEMethod() throws Exception{
-		DocumentManager doc = givenADocument("associationClassWithAttrAndMethodGerado");
-		
 		Architecture a = givenAArchitecture("associationClass/associationClassWithAttrAndMethod");
-		Operations op = new Operations(doc, a);
 
-		
-		generateClasses(a, op);
-		
-		
-		List<Package> packages = a.getAllPackages();
-		
-		for (Package pack : packages) {
-			//Todas as classes do pacote
-			List<String> ids = pack.getAllClassIdsForThisPackage();
-			op.forPackage().createPacakge(pack).withClass(ids).build();
-		}
-		
-		for(AssociationClassRelationship asr : a.getAllAssociationsClass()){
-			op.forAssociationClass()
-			  .createAssociationClass(asr).build();
-			
-			op.forPackage().withId(asr.getPackageOwner()).add(asr.getId());
-		}
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "associationClassWithAttrAndMethodGerado");
 		
 		Architecture ar = givenAArchitecture2("associationClassWithAttrAndMethodGerado");
+		
+		assertEquals("deve ter somente duas classes", 2, ar.getAllClasses().size());
+		
 		assertEquals(1 ,ar.getAllAssociationsClass().size());
-		assertEquals(3, ar.getAllAssociationsClass().get(0).getAllAttributes().size());
-		assertEquals(1, ar.getAllAssociationsClass().get(0).getAllMethods().size());
+		assertEquals(3, ar.getAllAssociationsClass().get(0).getAssociationClass().getAllAttributes().size());
+		assertEquals(1, ar.getAllAssociationsClass().get(0).getAssociationClass().getAllMethods().size());
 	}
 
 }

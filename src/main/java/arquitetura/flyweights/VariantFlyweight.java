@@ -7,11 +7,9 @@ import java.util.List;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Stereotype;
 
-import arquitetura.exceptions.ClassNotFound;
 import arquitetura.helpers.StereotypeHelper;
 import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
-import arquitetura.representation.Class;
 import arquitetura.representation.Element;
 import arquitetura.representation.Variability;
 import arquitetura.representation.Variant;
