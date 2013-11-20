@@ -491,8 +491,6 @@ public class OPLA extends Problem {
 
 				while (iteratorClasses.hasNext()) {
 					Class cls = iteratorClasses.next();
-					if(cls.getName().equalsIgnoreCase("GameBoardCtrl"))
-						System.out.println("ok");
 					if ((cls.getAllAttributes().isEmpty())
 							&& (cls.getAllMethods().isEmpty())
 							&& (cls.getImplementedInterfaces().isEmpty()) 
