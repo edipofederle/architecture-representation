@@ -36,8 +36,8 @@ public class GeneralizationRelationshipBuilder extends ArchitectureHelper {
 		arquitetura.representation.Element specific = architecture.findElementById(specificKlassId);
 		GeneralizationRelationship generalizationRelation = new GeneralizationRelationship(general, specific, architecture, getModelHelper().getXmiId(generalization));
 		
-		generalizationRelation.getParent().getRelationships().add(generalizationRelation);
-		generalizationRelation.getChild().getRelationships().add(generalizationRelation);
+		generalizationRelation.getParent().addRelationship(generalizationRelation);
+		generalizationRelation.getChild().addRelationship(generalizationRelation);
 		return generalizationRelation;
 	}
 

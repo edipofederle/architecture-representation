@@ -53,7 +53,7 @@ public class AssociationClassRelationshipBuilder extends ArchitectureHelper {
 											    idOwner,
 											    classAssociation);
 		for(MemberEnd member : ascc.getMemebersEnd()){
-			member.getType().getRelationships().add(ascc);
+			member.getType().addRelationship(ascc);
 		}
 		
 		return ascc;

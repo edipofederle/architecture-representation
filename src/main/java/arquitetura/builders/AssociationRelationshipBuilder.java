@@ -32,7 +32,7 @@ public class AssociationRelationshipBuilder extends ArchitectureHelper {
 		associationRelationship.setName(association.getName());
 		
 		for(AssociationEnd associationEnd : associationRelationship.getParticipants()){
-			associationEnd.getCLSClass().getRelationships().add(associationRelationship);
+			associationEnd.getCLSClass().addRelationship(associationRelationship);
 		}
 		
 		return associationRelationship;

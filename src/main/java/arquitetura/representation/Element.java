@@ -3,6 +3,7 @@ package arquitetura.representation;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import arquitetura.exceptions.ConcernNotFoundException;
@@ -159,7 +160,7 @@ public abstract class Element implements Serializable {
 	}
 	
 	public List<Relationship> getRelationships() {
-		return relationships;
+		return Collections.unmodifiableList(relationships);
 	}
 
 	@Override
@@ -187,6 +188,16 @@ public abstract class Element implements Serializable {
 	                this.getNamespace().equals(other.getNamespace())
 	        );
 	 }
+
+	public void addRelationship(Relationship relationship) {
+		this.relationships.add(relationship);
+	}
+	
+	public void removeRelationship(Relationship relationship) {
+		this.relationships.remove(relationship);
+	}
+	
+	
 
 	
 }

@@ -37,8 +37,8 @@ public class RealizationRelationshipBuilder extends ArchitectureHelper {
 		
 		RealizationRelationship realizationRelationship = new RealizationRelationship(clientElement, supplierElement, name, getModelHelper().getXmiId(realization));
 		
-		realizationRelationship.getClient().getRelationships().add(realizationRelationship);
-		realizationRelationship.getSupplier().getRelationships().add(realizationRelationship);
+		realizationRelationship.getClient().addRelationship(realizationRelationship);
+		realizationRelationship.getSupplier().addRelationship(realizationRelationship);
 		
 		return realizationRelationship;
 	}

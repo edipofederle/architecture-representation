@@ -39,8 +39,8 @@ public class UsageRelationshipBuilder extends ArchitectureHelper {
 		Element supplier = architecture.findElementById(getModelHelper().getXmiId(suppliers.get(0)));
 		UsageRelationship usageRelationship = new UsageRelationship(element.getName(), supplier, client, getModelHelper().getXmiId(element));
 		
-		usageRelationship.getClient().getRelationships().add(usageRelationship);
-		usageRelationship.getSupplier().getRelationships().add(usageRelationship);
+		usageRelationship.getClient().addRelationship(usageRelationship);
+		usageRelationship.getSupplier().addRelationship(usageRelationship);
 		
 		return usageRelationship;
 	}

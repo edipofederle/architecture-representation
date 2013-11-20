@@ -23,34 +23,34 @@ public class OperationsOverAbstraction {
 	}
 
 	public void moveClient(AbstractionRelationship abstractionRelationship,	Class newClient) {
-		abstractionRelationship.getClient().getRelationships().remove(abstractionRelationship);
+		abstractionRelationship.getClient().removeRelationship(abstractionRelationship);
 		abstractionRelationship.setClient(newClient);
-		newClient.getRelationships().add(abstractionRelationship);
+		newClient.addRelationship(abstractionRelationship);
 	}
 
 	public void moveSupplier(AbstractionRelationship abstractionRelationship, Class newSupplier) {
-		abstractionRelationship.getSupplier().getRelationships().remove(abstractionRelationship);
+		abstractionRelationship.getSupplier().removeRelationship(abstractionRelationship);
 		abstractionRelationship.setSupplier(newSupplier);
-		newSupplier.getRelationships().add(abstractionRelationship);
+		newSupplier.addRelationship(abstractionRelationship);
 		
 	}
 
 	public void move(AbstractionRelationship abstractionRelationship, Class newSupplier, Class newCliente) {
-		abstractionRelationship.getClient().getRelationships().remove(abstractionRelationship);
-		abstractionRelationship.getSupplier().getRelationships().remove(abstractionRelationship);
+		abstractionRelationship.getClient().removeRelationship(abstractionRelationship);
+		abstractionRelationship.getSupplier().removeRelationship(abstractionRelationship);
 		
 		abstractionRelationship.setSupplier(newSupplier);
 		abstractionRelationship.setClient(newCliente);
 		
-		newSupplier.getRelationships().add(abstractionRelationship);
-		newCliente.getRelationships().add(abstractionRelationship);
+		newSupplier.addRelationship(abstractionRelationship);
+		newCliente.addRelationship(abstractionRelationship);
 	}
 
 	public void create(Class newClient, Class newSupplier) {
 		String id = UtilResources.getRandonUUID();
 		AbstractionRelationship abs = new AbstractionRelationship(newClient, newSupplier, id);
-		newClient.getRelationships().add(abs);
-		newSupplier.getRelationships().add(abs);
+		newClient.addRelationship(abs);
+		newSupplier.addRelationship(abs);
 		this.architecture.addRelationship(abs);
 	}
 

@@ -22,15 +22,15 @@ public class OperationsOverUsage {
 	}
 
 	public void moveClient(UsageRelationship usageRelationship, Element newClient) {
-		usageRelationship.getClient().getRelationships().remove(usageRelationship);
+		usageRelationship.getClient().removeRelationship(usageRelationship);
 		usageRelationship.setClient(newClient);
-		newClient.getRelationships().add(usageRelationship);
+		newClient.addRelationship(usageRelationship);
 	}
 	
 	public void moveSupplier(UsageRelationship usageRelationship, Element newSupplier) {
-		usageRelationship.getSupplier().getRelationships().remove(usageRelationship);
+		usageRelationship.getSupplier().removeRelationship(usageRelationship);
 		usageRelationship.setSupplier(newSupplier);
-		newSupplier.getRelationships().add(usageRelationship);
+		newSupplier.addRelationship(usageRelationship);
 	}
 
 	/**
@@ -41,8 +41,8 @@ public class OperationsOverUsage {
 	public void create(Element newClient, Element newSupplier) {
 		UsageRelationship usage = new UsageRelationship("", newSupplier, newClient, UtilResources.getRandonUUID());
 		this.architecture.addRelationship(usage);
-		newClient.getRelationships().add(usage);
-		newSupplier.getRelationships().add(usage);
+		newClient.addRelationship(usage);
+		newSupplier.addRelationship(usage);
 	}
 
 	/**
@@ -53,14 +53,14 @@ public class OperationsOverUsage {
 	 * @param newClient
 	 */
 	public void move(UsageRelationship usageRelationship, Class newSupplier, Class newClient) {
-		usageRelationship.getClient().getRelationships().remove(usageRelationship);
-		usageRelationship.getSupplier().getRelationships().remove(usageRelationship);
+		usageRelationship.getClient().removeRelationship(usageRelationship);
+		usageRelationship.getSupplier().removeRelationship(usageRelationship);
 		
 		usageRelationship.setClient(newClient);
 		usageRelationship.setSupplier(newSupplier);
 		
-		newSupplier.getRelationships().add(usageRelationship);
-		newClient.getRelationships().add(usageRelationship);
+		newSupplier.addRelationship(usageRelationship);
+		newClient.addRelationship(usageRelationship);
 	}
 
 }

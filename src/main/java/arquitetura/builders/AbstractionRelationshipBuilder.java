@@ -45,8 +45,8 @@ public class AbstractionRelationshipBuilder extends ArchitectureHelper {
 //		}
 		
 		AbstractionRelationship abs = new  AbstractionRelationship(client, supplier, getModelHelper().getXmiId(modelElement));
-		abs.getClient().getRelationships().add(abs);
-		abs.getSupplier().getRelationships().add(abs);
+		abs.getClient().addRelationship(abs);
+		abs.getSupplier().addRelationship(abs);
 		return abs;
 		
 		

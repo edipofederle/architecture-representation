@@ -20,9 +20,7 @@ import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
-import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
-import arquitetura.representation.Package;
 import arquitetura.representation.relationship.AbstractionRelationship;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationEnd;
@@ -33,7 +31,6 @@ import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.UsageRelationship;
 
 import com.google.common.collect.Lists;
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister.Pack;
 
 public class OperationsOverRelationshipsTest extends TestHelper {
 
