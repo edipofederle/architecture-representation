@@ -1,9 +1,9 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -49,11 +49,9 @@ public class GenerateArchitecture  extends ArchitectureBase{
 	
 	Logger LOGGER = LogManager.getLogger(GenerateArchitecture.class.getName());
 	
-	private Architecture architecture;
 	private List<String> packageCreated = new ArrayList<String>();
 	public void generate(Architecture a, String output){
 		
-		this.architecture = a;
 		
 		DocumentManager doc = null;
 		try {
@@ -72,13 +70,13 @@ public class GenerateArchitecture  extends ArchitectureBase{
 		try {
 			op = new Operations(doc,a);
 			
-			List<Package> packages = a.getAllPackages();
+			Set<Package> packages = a.getAllPackages();
 
 			for(Class klass : a.getAllClasses()){
 				
 				List<arquitetura.touml.Attribute> attributesForClass = createAttributes(op, klass);
 				
-				List<Method> methodsForClass = createMethods(klass);
+				Set<Method> methodsForClass = createMethods(klass);
 				
 				//Variation Point
 				VariationPoint variationPoint = klass.getVariationPoint();
@@ -164,7 +162,7 @@ public class GenerateArchitecture  extends ArchitectureBase{
 				}
 				
 				
-				List<Method> methodsForClass = createMethods(_interface);
+				Set<Method> methodsForClass = createMethods(_interface);
 				op.forClass()
 				  .createClass(_interface)
 				  .withMethods(methodsForClass)
@@ -209,7 +207,7 @@ public class GenerateArchitecture  extends ArchitectureBase{
 	
 			}
 			
-			for(Interface inter : a.getAllInterfaces()){
+			for(Interface inter : a.getInterfaces()){
 				//Adiciona Interesses nos métodos da interface
 				for (arquitetura.representation.Method operation : inter.getOperations()) {
 					op.forConcerns().withConcerns(operation.getOwnConcerns(), operation.getId());
@@ -227,7 +225,7 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			for (AssociationRelationship r : a.getAllCompositions()) 
 				generateComposition(op, r);
 //			
-		for (AssociationRelationship r : a.getAllAgragations()) 
+			for (AssociationRelationship r : a.getAllAgragations()) 
 				generateAggregation(op, r);
 //			
 //			
@@ -290,23 +288,10 @@ public class GenerateArchitecture  extends ArchitectureBase{
 		LOGGER.info("\n\n\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget()+doc.getNewModelName());
 		
 	}
-	
-	private static Comparator<Package> COMPARATOR = new Comparator<Package>() {
-		  public int compare(Package p1, Package p2) {
-	          int p1ListSize = p1.getNestedPackages().size();
-	          int p2ListSize = p2.getNestedPackages().size();
-	          
-	          if (p1ListSize == p2ListSize) return 0;
-	          if (p1ListSize > p2ListSize) return -1;
-	          return 1;
-	  }
-	};
 
-	private void buildPackages(Operations op, List<Package> packages)	throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
+	private void buildPackages(Operations op, Set<Package> packages)	throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
 		
-		Collections.sort(packages, COMPARATOR);
-		
-		buildPackage(op, packages.get(0));
+		buildPackage(op, packages.iterator().next());
 		
 		for(Package p : packages){
 			op.forPackage().createPacakge(p).withClass(getOnlyInterfacesAndClasses(p)).build();
@@ -386,9 +371,9 @@ public class GenerateArchitecture  extends ArchitectureBase{
 		}
 	}
 
-	private static List<Method> createMethods(Element klass) {
-		List<arquitetura.touml.Method> methods = new ArrayList<arquitetura.touml.Method>();
-		List<arquitetura.representation.Method> methodsClass = new ArrayList<arquitetura.representation.Method>();
+	private static Set<Method> createMethods(Element klass) {
+		Set<arquitetura.touml.Method> methods = new HashSet<arquitetura.touml.Method>();
+		Set<arquitetura.representation.Method> methodsClass = new HashSet<arquitetura.representation.Method>();
 		
 		if(klass instanceof Class){
 			methodsClass = ((Class) klass).getAllMethods();

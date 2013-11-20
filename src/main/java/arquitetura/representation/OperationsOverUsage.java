@@ -40,7 +40,7 @@ public class OperationsOverUsage {
 	 */
 	public void create(Element newClient, Element newSupplier) {
 		UsageRelationship usage = new UsageRelationship("", newSupplier, newClient, UtilResources.getRandonUUID());
-		this.architecture.getAllRelationships().add(usage);
+		this.architecture.addRelationship(usage);
 		newClient.getRelationships().add(usage);
 		newSupplier.getRelationships().add(usage);
 	}

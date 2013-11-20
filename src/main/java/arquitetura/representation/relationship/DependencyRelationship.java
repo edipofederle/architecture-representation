@@ -3,8 +3,10 @@ package arquitetura.representation.relationship;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import arquitetura.exceptions.NotFoundException;
+import arquitetura.helpers.ElementsTypes;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
@@ -32,7 +34,7 @@ public class DependencyRelationship extends Relationship {
 		setName(name);
 		this.architecture = architecture;
 		setId(id);
-		setType("dependency");
+		super.setType(ElementsTypes.DEPENDENCY);
 
 		if((client instanceof Package) && (supplier instanceof Interface)){
 			((Package) client).addRequiredInterface((Interface) supplier);
@@ -134,7 +136,7 @@ public class DependencyRelationship extends Relationship {
 	}
 
 	private List<Element> getClassesForSpecificTypePartOfDependency(String type) {
-		List<Relationship> relations = architecture.getAllRelationships();
+		Set<Relationship> relations = architecture.getAllRelationships();
 		List<DependencyRelationship> dependencies = new ArrayList<DependencyRelationship>();
 		
 		List<Element> dependenciesTemp = new ArrayList<Element>();
@@ -153,8 +155,8 @@ public class DependencyRelationship extends Relationship {
 					dependenciesTemp.add(dependencyInterClassRelationship.getSupplier());
 		}
 		
-		if(dependenciesTemp.isEmpty()) return Collections.emptyList();
-		return dependenciesTemp;
+		
+		return Collections.unmodifiableList(dependenciesTemp);
 	}
 	
 }

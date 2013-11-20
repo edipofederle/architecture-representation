@@ -51,7 +51,7 @@ public class OperationsOverAbstraction {
 		AbstractionRelationship abs = new AbstractionRelationship(newClient, newSupplier, id);
 		newClient.getRelationships().add(abs);
 		newSupplier.getRelationships().add(abs);
-		this.architecture.getAllRelationships().add(abs);
+		this.architecture.addRelationship(abs);
 	}
 
 }

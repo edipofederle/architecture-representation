@@ -6,10 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 
 import junitx.framework.Assert;
 
@@ -100,6 +100,14 @@ public abstract class TestHelper {
 		return targetDirExport+modelName+".uml";
 	}
 
+	protected <T extends Element> void assertContains(Set<T> list, String... expected) {
+		requiredElements: for (String requiredElementName : expected)  {
+				for (Element element : list)
+					if (requiredElementName.equalsIgnoreCase(element.getName())) continue requiredElements;
+				Assert.fail("list there is no element called " + requiredElementName);
+			}
+		}
+	
 	protected <T extends Element> void assertContains(List<T> list, String... expected) {
 		requiredElements: for (String requiredElementName : expected)  {
 				for (Element element : list)
@@ -167,7 +175,7 @@ public abstract class TestHelper {
 	}
 	
 	protected void generateClasses(Architecture a, Operations op) {
-		for (Class klass : a.getAllClasses()) {
+		for (Class klass : a.getClasses()) {
 			op.forClass().createClass(klass).build();
 		}
 	}

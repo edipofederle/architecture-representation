@@ -136,12 +136,10 @@ public class GeneralizationTest extends TestHelper {
 		
 		assertEquals(2,arch.getAllGeneralizations().size());
 		GeneralizationRelationship g = arch.getAllGeneralizations().get(0);
-		assertEquals("Comment",g.getParent().getName());
-		assertEquals("Post",g.getChild().getName());
+		assertEquals("Comment", g.getParent().getName());
 		
 		assertEquals(2, g.getAllChildrenForGeneralClass().size());
-		assertEquals("Post", g.getAllChildrenForGeneralClass().get(0).getName());
-		assertEquals("User", g.getAllChildrenForGeneralClass().get(1).getName());
+		assertContains(g.getAllChildrenForGeneralClass(), "Post",  "User");
 	}
 	
 	@Test

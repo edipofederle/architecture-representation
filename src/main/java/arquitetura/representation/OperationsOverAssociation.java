@@ -9,7 +9,6 @@ import arquitetura.representation.relationship.AssociationEnd;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.MemberEnd;
 import arquitetura.representation.relationship.Multiplicity;
-import arquitetura.representation.relationship.Relationship;
 
 /**
  * Classe usada para realizar operações sobre Associations. Seu uso é feito da seguinte forma:<br/><br/>
@@ -32,14 +31,12 @@ public class OperationsOverAssociation {
 
 	private AssociationEnd associationEnd1;
 	private AssociationRelationship association;
-	private List<Relationship> relationships;
 	private Architecture architecture;
 	
 	public OperationsOverAssociation(Architecture architecture){
 		this.architecture = architecture;
 		String id = UtilResources.getRandonUUID();
 		association = new AssociationRelationship(id);
-		this.relationships = architecture.getAllRelationships();
 	}
 	
 	public OperationsOverAssociation createAssociationEnd() {
@@ -69,11 +66,12 @@ public class OperationsOverAssociation {
 
 	public void build() {
 		this.association.getParticipants().add(associationEnd1);
+		this.architecture.addRelationship(this.association);
 	}
 
 	public OperationsOverAssociation and() {
 		this.association.getParticipants().add(associationEnd1);
-		this.relationships.add(association);
+		this.architecture.removeRelationship(association);
 		return this;
 	}
 
@@ -86,8 +84,11 @@ public class OperationsOverAssociation {
 		String namespace = UtilResources.createNamespace(architecture.getName(), "AssociationClass");
 		Class asClass = new Class(this.architecture, "AssociationClass", null, false, namespace, UtilResources.getRandonUUID());
 		
-		asClass.getAllAttributes().addAll(listAttrs);
-		asClass.getAllMethods().addAll(listMethods);
+		for(Attribute a : listAttrs)
+			asClass.addExternalAttribute(a);
+		
+		for(Method m : listMethods)
+			asClass.addExternalMethod(m);
 		
 		List<MemberEnd> ends = new ArrayList<MemberEnd>();
 		ends.add(new MemberEnd("none", null, "public", owner));

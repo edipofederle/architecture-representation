@@ -3,6 +3,7 @@ package arquitetura.representation.relationship;
 import java.util.ArrayList;
 import java.util.List;
 
+import arquitetura.helpers.ElementsTypes;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.Element;
 
@@ -23,7 +24,7 @@ public class AssociationRelationship extends Relationship {
 		getParticipants().add(new AssociationEnd(class1, false, "association", null,""));
 		getParticipants().add(new AssociationEnd(class2, false, "association", null,""));
 		
-		setType("associacao");
+		super.setType(ElementsTypes.ASSOCIATION);
 
 	}
 

@@ -39,9 +39,9 @@ public class PackageBuilder extends ElementBuilder<Package> {
 	@Override
 	public Package buildElement(NamedElement modelElement) {
 		Package pkg = new Package(architecture, name, variantType, modelElement.getNamespace().getQualifiedName(), XmiHelper.getXmiId(modelElement));
-		pkg.setElements(getNestedPackages(modelElement));
-		pkg.setElements(getClasses(modelElement, pkg));
-		pkg.setElements(getInterfaces(modelElement,pkg));
+		pkg.getNestedPackages().addAll(getNestedPackages(modelElement));
+		pkg.getClasses().addAll(getClasses(modelElement, pkg));
+		pkg.getAllInterfaces().addAll(getInterfaces(modelElement,pkg));
 		
 		return pkg;
 	}

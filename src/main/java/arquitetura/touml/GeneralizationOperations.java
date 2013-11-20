@@ -1,8 +1,6 @@
 package arquitetura.touml;
 
 
-import org.w3c.dom.Node;
-
 import arquitetura.exceptions.NotSuppportedOperation;
 import arquitetura.helpers.XmiHelper;
 
@@ -52,12 +50,12 @@ public class GeneralizationOperations extends XmiHelper implements Relationship 
 	}
 
 
-	private boolean isElementAClass(String idElement) {
-		Node element = findByID(documentManager.getDocUml(), idElement, "packagedElement");
-		if ("uml:Class".equalsIgnoreCase(element.getAttributes().getNamedItem("xmi:type").getNodeValue()))
-				return true;
-		return false;
-	}
+//	private boolean isElementAClass(String idElement) {
+//		Node element = findByID(documentManager.getDocUml(), idElement, "packagedElement");
+//		if ("uml:Class".equalsIgnoreCase(element.getAttributes().getNamedItem("xmi:type").getNodeValue()))
+//				return true;
+//		return false;
+//	}
 
 	public String build() {
 		final GeneralizationNode generalizationNode = new GeneralizationNode(this.documentManager, this.general, this.client);

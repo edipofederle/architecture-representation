@@ -9,8 +9,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import junit.framework.Assert;
 import mestrado.arquitetura.helpers.test.TestHelper;
@@ -264,7 +266,7 @@ public class ModelManagerTest extends TestHelper {
 		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
 		classInfoAttrs2.add(name);
 		
-		List<arquitetura.touml.Method> methods = new ArrayList<arquitetura.touml.Method>();
+		Set<arquitetura.touml.Method> methods = new HashSet<arquitetura.touml.Method>();
 		methods.add(foo);
 		methods.add(teste);
 		
@@ -297,7 +299,7 @@ public class ModelManagerTest extends TestHelper {
 							 .withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 .withReturn(Types.INTEGER).build();
 		
-		List<arquitetura.touml.Method> methods = new ArrayList<arquitetura.touml.Method>();
+		Set<arquitetura.touml.Method> methods = new HashSet<arquitetura.touml.Method>();
 		methods.add(foo);
 		op.forClass().createClass(person).withMethods(methods).build();
 	}
@@ -317,7 +319,8 @@ public class ModelManagerTest extends TestHelper {
 							 						.withReturn(Types.INTEGER)
 							 						.abstractMethod().build();
 		
-		List<arquitetura.touml.Method> methods = new ArrayList<arquitetura.touml.Method>();
+		Set<arquitetura.touml.Method> methods = new HashSet
+				<arquitetura.touml.Method>();
 		methods.add(bar);
 		
 		op.forClass().createClass(person).withMethods(methods).build();
@@ -354,17 +357,17 @@ public class ModelManagerTest extends TestHelper {
 							 						.withVisibility(VisibilityKind.PUBLIC_LITERAL)
 							 						.withReturn(Types.INTEGER)
 							 						.abstractMethod().build();
-		List<arquitetura.touml.Method> methods = new ArrayList<arquitetura.touml.Method>();
+		Set<arquitetura.touml.Method> methods = new HashSet<arquitetura.touml.Method>();
 		methods.add(bar);
 		op.forClass().createClass(person).withMethods(methods).build();
 		
 		Architecture a = givenAArchitecture2("empty_2");
 		assertNotNull(a);
-		assertEquals(2,a.getAllClasses().size());
+		assertEquals(2,a.getClasses().size());
 		Class personKlass = a.findClassByName("Person").get(0);
 		assertEquals(1,personKlass.getAllMethods().size());
 		
-		Method methodBarFromPerson = personKlass.getAllMethods().get(0);
+		Method methodBarFromPerson = personKlass.getAllMethods().iterator().next();
 		assertEquals("bar",methodBarFromPerson.getName());
 		assertEquals("name",methodBarFromPerson.getParameters().get(0).getName());
 		assertEquals("Bar",methodBarFromPerson.getParameters().get(0).getType());
@@ -400,7 +403,7 @@ public class ModelManagerTest extends TestHelper {
 								 .withType(Types.STRING);
 		List<Attribute> classInfoAttrs2 = new ArrayList<Attribute>();
 		classInfoAttrs2.add(xpto);
-		List<arquitetura.touml.Method> methods = new ArrayList<arquitetura.touml.Method>();
+		Set<arquitetura.touml.Method> methods = new HashSet<arquitetura.touml.Method>();
 		methods.add(foo);
 		methods.add(teste);
 		op.forClass().createClass(person).withMethods(methods).withAttribute(classInfoAttrs2).build();
@@ -419,7 +422,7 @@ public class ModelManagerTest extends TestHelper {
 		
 		Architecture arch = givenAArchitecture2("addNewAttributeToClass");
 		assertNotNull(arch);
-		assertEquals(0, arch.getAllClasses().size());
+		assertEquals(0, arch.getClasses().size());
 		
 		String idClass = op.forClass().createClass(casa).build().get("id");
 		
@@ -455,7 +458,7 @@ public class ModelManagerTest extends TestHelper {
 		op.forClass().addAttributeToClass(idClass, xpto);
 		assertTrue(modelContainId("addNewPrivateAttributeToClass", xpto.getId()));
 		Architecture arch2 = givenAArchitecture2("addNewPrivateAttributeToClass");
-		assertEquals("private", arch2.findClassByName("Person").get(0).getAllAttributes().get(0).getVisibility());
+		assertEquals("private", arch2.findClassByName("Person").get(0).getAllAttributes().iterator().next().getVisibility());
 	}
 	
 	@Test
@@ -465,7 +468,7 @@ public class ModelManagerTest extends TestHelper {
 		
 		Architecture arch = givenAArchitecture2("addNewMethodToClass");
 		assertNotNull(arch);
-		assertEquals(0, arch.getAllClasses().size());
+		assertEquals(0, arch.getClasses().size());
 		
 		String idClass = op.forClass().createClass(casa).build().get("id");
 		assertNotNull("class id should not be null", idClass);
@@ -546,7 +549,7 @@ public class ModelManagerTest extends TestHelper {
 		Architecture arch = givenAArchitecture2("testePacote");
 		
 		assertThat("Should have one package", arch.getAllPackages().size() == 1);
-		assertEquals("Pacote", arch.getAllPackages().get(0).getName());
+		assertEquals("Pacote", arch.getAllPackages().iterator().next().getName());
 	}
 	
 	@Test
@@ -561,7 +564,7 @@ public class ModelManagerTest extends TestHelper {
 		Architecture arch = givenAArchitecture2("testePacote");
 		
 		assertThat("Should have one package", arch.getAllPackages().size() == 1);
-		assertEquals("Pacote", arch.getAllPackages().get(0).getName());
+		assertEquals("Pacote", arch.getAllPackages().iterator().next().getName());
 	}
 	
 	@Test @Ignore

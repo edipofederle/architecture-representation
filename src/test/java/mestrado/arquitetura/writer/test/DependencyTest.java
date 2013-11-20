@@ -163,9 +163,7 @@ public class DependencyTest extends TestHelper {
 		assertEquals("Post", a.getAllDependencies().get(2).getClient().getName());
 		
 		assertEquals(3, a.getAllDependencies().get(0).getAllSuppliersForClientClass().size());
-		assertEquals("Comment", a.getAllDependencies().get(0).getAllSuppliersForClientClass().get(0).getName());
-		assertEquals("User", a.getAllDependencies().get(0).getAllSuppliersForClientClass().get(1).getName());
-		assertEquals("Category", a.getAllDependencies().get(0).getAllSuppliersForClientClass().get(2).getName());
+		assertContains(a.getAllDependencies().get(0).getAllSuppliersForClientClass(), "User", "Category", "Comment");
 	}
 	
 	@Test

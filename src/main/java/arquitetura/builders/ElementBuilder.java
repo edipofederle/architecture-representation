@@ -7,6 +7,7 @@ import java.util.List;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Stereotype;
 
+import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.helpers.ModelElementHelper;
 import arquitetura.helpers.StereotypeHelper;
 import arquitetura.helpers.XmiHelper;
@@ -46,7 +47,11 @@ public abstract class ElementBuilder<T extends arquitetura.representation.Elemen
 		inspectStereotypes(modelElement);
 		name = modelElement.getName();
 		T element = buildElement(modelElement);
-		element.addConcerns(concerns);
+		try {
+			element.addConcerns(concerns);
+		} catch (ConcernNotFoundException e) {
+			e.printStackTrace();
+		}
 		createdElements.put(XmiHelper.getXmiId(modelElement), element);
 		return element;
 	}

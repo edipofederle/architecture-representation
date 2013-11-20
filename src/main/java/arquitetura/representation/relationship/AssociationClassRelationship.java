@@ -3,6 +3,7 @@ package arquitetura.representation.relationship;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import arquitetura.helpers.ElementsTypes;
 import arquitetura.representation.Architecture;
@@ -42,14 +43,14 @@ public class AssociationClassRelationship extends Relationship {
 		this.idOwner = idOwner;
 		this.associationClass = associationClass;
 		super.setId(id);
-		super.setType(ElementsTypes.CLASS);
+		super.setType(ElementsTypes.ASSOCIATIONCLASS);
 	}
 
 
 	/**
 	 * @return the attributes
 	 */
-	public List<Attribute> getAllAttributes() {
+	public Set<Attribute> getAllAttributes() {
 		return this.associationClass.getAllAttributes();
 	}
 	
@@ -81,7 +82,7 @@ public class AssociationClassRelationship extends Relationship {
 	 * 
 	 * @return {@link Method}
 	 */
-	public List<Method> getAllMethods() {
+	public Set<Method> getAllMethods() {
 		return this.associationClass.getAllMethods();
 	}
 	

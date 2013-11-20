@@ -3,6 +3,7 @@ package arquitetura.touml;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -91,7 +92,7 @@ public class ClassOperations extends XmiHelper {
 	 * @param methods
 	 * @return
 	 */
-	public ClassOperations withMethods(final List<arquitetura.touml.Method> methods){
+	public ClassOperations withMethods(final Set<arquitetura.touml.Method> methods){
 		
 		for (final Method method : methods){
 			createMethod(method);

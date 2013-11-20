@@ -5,6 +5,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Before;
@@ -19,6 +23,7 @@ import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
+import arquitetura.representation.Package;
 import arquitetura.representation.Variability;
 
 public class AgmTest extends TestHelper {
@@ -33,7 +38,10 @@ public class AgmTest extends TestHelper {
 	
 	@Test
 	public void deveCarregarTodasAsClasses(){
-		assertEquals("Deve ter 30 classes", 30, architecture.getAllClasses().size());
+		Set<Class> all = new HashSet<Class>();
+		for(Package p : architecture.getAllPackages())
+			all.addAll(p.getClasses());
+		assertEquals("Deve ter 30 classes", 30, all.size());
 	}
 	
 	/* Classes Stereotypes */
@@ -155,7 +163,10 @@ public class AgmTest extends TestHelper {
 	
 	@Test
 	public void deveCarregarTodasAsInterfaces(){
-		assertEquals("Deve ter 14 interfaces", 14,architecture.getAllInterfaces().size());
+		Set<Interface> all = new HashSet<Interface>();
+		for(Package p : architecture.getAllPackages())
+			all.addAll(p.getAllInterfaces());
+		assertEquals("Deve ter 14 interfaces", 14, all.size());
 	}
 	
 	@Test
@@ -242,7 +253,7 @@ public class AgmTest extends TestHelper {
 		assertNotNull(iGameBoardData);
 		assertEquals(1, iGameBoardData.getOperations().size());
 		
-		Method operation = iGameBoardData.getOperations().get(0);
+		Method operation = iGameBoardData.getOperations().iterator().next();
 		assertEquals("getGameBoard", operation.getName());
 		
 		//Params

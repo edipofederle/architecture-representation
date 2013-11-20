@@ -40,12 +40,12 @@ public class InterfaceTest extends TestHelper {
 	@Test
 	public void shouldRemoveOperationFromInterface() throws Exception{
 		Architecture a = givenAArchitecture("interface");
-		assertEquals(1, a.getAllInterfaces().size());
+		assertEquals(1, a.getInterfaces().size());
 		
 		Interface i = a.findInterfaceByName("myInterface");
 		assertNotNull(i);
 		
-		Method o = i.getOperations().get(0);
+		Method o = i.getOperations().iterator().next();
 		assertNotNull(o);
 		assertEquals(1,i.getOperations().size());
 		

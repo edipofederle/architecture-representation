@@ -6,8 +6,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
+import junit.framework.Assert;
 import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
@@ -17,14 +20,20 @@ import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
+import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
+import arquitetura.representation.Package;
 import arquitetura.representation.relationship.AbstractionRelationship;
 import arquitetura.representation.relationship.AssociationClassRelationship;
+import arquitetura.representation.relationship.AssociationEnd;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.UsageRelationship;
+
+import com.google.common.collect.Lists;
+import com.sun.xml.internal.bind.v2.runtime.reflect.Lister.Pack;
 
 public class OperationsOverRelationshipsTest extends TestHelper {
 
@@ -32,7 +41,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 	public void removeAssociation() throws Exception {
 		Architecture a = givenAArchitecture("association");
 		
-		a.operationsOverRelationship().removeAssociationRelationship(a.getAllAssociationsRelationships().get(0));
+		a.operationsOverRelationship().removeAssociationRelationship(a.getAllAssociationsRelationships().iterator().next());
 		
 		GenerateArchitecture g = new GenerateArchitecture();
 		
@@ -45,7 +54,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 	@Test
 	public void moveEntireAssociation() throws Exception{
 		Architecture a = givenAArchitecture("association");
-		AssociationRelationship association = a.getAllAssociationsRelationships().get(0);
+		AssociationRelationship association = a.getAllAssociationsRelationships().iterator().next();
 		Class idclass6 = a.findClassByName("Class6").get(0);
 		Class idclass8 = a.findClassByName("Class8").get(0);
 		
@@ -61,7 +70,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 	@Test
 	public void moveMemberEndOfAssociation() throws Exception{
 		Architecture a = givenAArchitecture("association");
-		AssociationRelationship association = a.getAllAssociationsRelationships().get(0);
+		AssociationRelationship association = a.getAllAssociationsRelationships().iterator().next();
 		Class idclass8 = a.findClassByName("Class6").get(0);
 
 		a.operationsOverRelationship().moveAssociationEnd(association.getParticipants().get(1), idclass8);
@@ -101,13 +110,31 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		Architecture genereted = givenAArchitecture2("associationAddNova");
 		List<AssociationRelationship> associations = genereted.getAllAssociationsRelationships();
 		
-		assertEquals(3,associations.size());
+		assertEquals(3, associations.size());
 		
-		assertTrue(associations.get(2).getParticipants().get(0).isNavigable());
-		assertTrue(associations.get(2).getParticipants().get(1).isNavigable());
+		ArrayList<AssociationRelationship> listASsociations = Lists.newArrayList(associations) ;
 		
-		assertEquals("1",associations.get(2).getParticipants().get(1).getMultiplicity().toString());
-		assertEquals("1..*",associations.get(2).getParticipants().get(0).getMultiplicity().toString());
+		AssociationRelationship as = getAssociationForTest(listASsociations);
+		
+		for(AssociationEnd p : as.getParticipants()){
+			if(p.getCLSClass().getName().equals("Class1")){
+				assertTrue(p.isNavigable());
+			}
+			if(p.getCLSClass().getName().equals("Class8")){
+				assertTrue(p.isNavigable());
+			}
+		}
+		
+		
+	}
+
+	private AssociationRelationship getAssociationForTest(ArrayList<AssociationRelationship> listASsociations) {
+		for(AssociationRelationship r : listASsociations)
+			for(AssociationEnd ae : r.getParticipants())
+				if((ae.getCLSClass().getName().equals("Class1")) || (ae.getCLSClass().getName().equals("Class8")))
+					return r;
+		
+		return null;
 	}
 	
 	
@@ -134,7 +161,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		g.generate(a, "dependenciaNova");
 		
 		Architecture genereted = givenAArchitecture2("dependenciaNova");
-		DependencyRelationship dependency = genereted.getAllDependencies().get(0);
+		DependencyRelationship dependency = genereted.getAllDependencies().iterator().next();
 		
 		assertEquals("Class1",dependency.getClient().getName());
 		assertEquals("Class8",dependency.getSupplier().getName());
@@ -146,7 +173,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 	public void movendoEntireDependency() throws Exception{
 		Architecture a = givenAArchitecture("dependenciaMovendo");
 		
-		DependencyRelationship dependency = a.getAllDependencies().get(0);
+		DependencyRelationship dependency = a.getAllDependencies().iterator().next();
 		
 		Class idclass6 = a.findClassByName("Class4").get(0);
 		Class idclass8 = a.findClassByName("Class3").get(0);
@@ -157,7 +184,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		g.generate(a, "movendoDependencia");
 		Architecture genereted = givenAArchitecture2("movendoDependencia");
 		
-		DependencyRelationship dependency2 = genereted.getAllDependencies().get(0);
+		DependencyRelationship dependency2 = genereted.getAllDependencies().iterator().next();
 		assertEquals("Class4", dependency2.getSupplier().getName());
 		assertEquals("Class3", dependency2.getClient().getName());
 	}
@@ -166,7 +193,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 	public void movendoClientDependency() throws Exception{
 		Architecture a = givenAArchitecture("dependenciaMovendo");
 		
-		DependencyRelationship dependency = a.getAllDependencies().get(0);
+		DependencyRelationship dependency = a.getAllDependencies().iterator().next();
 		assertEquals("Class1",dependency.getClient().getName());
 		
 		Class newClient = a.findClassByName("Class3").get(0);
@@ -183,7 +210,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 	public void movendoSupplierDependency() throws Exception{
 		Architecture a = givenAArchitecture("dependenciaMovendo");
 		
-		DependencyRelationship dependency = a.getAllDependencies().get(0);
+		DependencyRelationship dependency = a.getAllDependencies().iterator().next();
 		assertEquals("Class2",dependency.getSupplier().getName());
 		
 		Class newSupplier = a.findClassByName("Class4").get(0);
@@ -202,7 +229,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 	@Test
 	public void removendoComposicao() throws Exception{
 		Architecture a = givenAArchitecture("compositions/composicao1");
-		a.operationsOverRelationship().removeAssociationRelationship(a.getAllCompositions().get(0));  
+		a.operationsOverRelationship().removeAssociationRelationship(a.getAllCompositions().iterator().next());  
 		
 		GenerateArchitecture g = new GenerateArchitecture();
 		g.generate(a, "composicao1Removida");
@@ -242,15 +269,15 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		Class idclass6 = a.findClassByName("Class4").get(0);
 		Class idclass8 = a.findClassByName("Class7").get(0);
 		
-		a.operationsOverRelationship().moveAssociation(a.getAllCompositions().get(0), idclass6, idclass8);  
+		a.operationsOverRelationship().moveAssociation(a.getAllCompositions().iterator().next(), idclass6, idclass8);  
 		
 		GenerateArchitecture g = new GenerateArchitecture();
 		g.generate(a, "movendoComposicao");
 		Architecture genereted = givenAArchitecture2("movendoComposicao");
 		
 		assertEquals(1, genereted.getAllCompositions().size());
-		assertEquals("Class7",genereted.getAllCompositions().get(0).getParticipants().get(0).getName());
-		assertEquals("Class4",genereted.getAllCompositions().get(0).getParticipants().get(1).getName());
+		assertEquals("Class7",genereted.getAllCompositions().iterator().next().getParticipants().get(0).getName());
+		assertEquals("Class4",genereted.getAllCompositions().iterator().next().getParticipants().get(1).getName());
 	}
 	
 	@Test
@@ -259,15 +286,15 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		
 		Class idclass6 = a.findClassByName("Class4").get(0);
 		
-		a.operationsOverRelationship().moveAssociationEnd(a.getAllCompositions().get(0).getParticipants().get(0), idclass6);  
+		a.operationsOverRelationship().moveAssociationEnd(a.getAllCompositions().iterator().next().getParticipants().get(0), idclass6);  
 		
 		GenerateArchitecture g = new GenerateArchitecture();
 		g.generate(a, "movendoPartOfComposicao");
 		Architecture genereted = givenAArchitecture2("movendoPartOfComposicao");
 		
 		assertEquals(1, genereted.getAllCompositions().size());
-		assertEquals("Class6",genereted.getAllCompositions().get(0).getParticipants().get(0).getName());
-		assertEquals("Class4",genereted.getAllCompositions().get(0).getParticipants().get(1).getName());
+		assertEquals("Class6",genereted.getAllCompositions().iterator().next().getParticipants().get(0).getName());
+		assertEquals("Class4",genereted.getAllCompositions().iterator().next().getParticipants().get(1).getName());
 	}
 	
 	
@@ -276,7 +303,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 	public void moverEntireAssociationClass() throws Exception{
 		Architecture a = givenAArchitecture("associationClass/movendoAssociationCLass");
 		
-		AssociationClassRelationship asc = a.getAllAssociationsClass().get(0);
+		AssociationClassRelationship asc = a.getAllAssociationsClass().iterator().next();
 		
 		assertEquals("Class1", asc.getMemebersEnd().get(0).getType().getName());
 		assertEquals("Class2", asc.getMemebersEnd().get(1).getType().getName());
@@ -292,7 +319,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		
 		Architecture genereted = givenAArchitecture2("associationClassMove");
 		
-		AssociationClassRelationship ascg = genereted.getAllAssociationsClass().get(0);
+		AssociationClassRelationship ascg = genereted.getAllAssociationsClass().iterator().next();
 		assertEquals("Class4", ascg.getMemebersEnd().get(0).getType().getName());
 		assertEquals("Class3", ascg.getMemebersEnd().get(1).getType().getName());
 		assertEquals("Class3", ascg.getMemebersEnd().get(1).getType().getName());
@@ -302,7 +329,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 	public void moverPartAssociationClass() throws Exception{
 		Architecture a = givenAArchitecture("associationClass/movendoAssociationCLass");
 		
-		AssociationClassRelationship asc = a.getAllAssociationsClass().get(0);
+		AssociationClassRelationship asc = a.getAllAssociationsClass().iterator().next();
 		
 		
 		Class idclass3 = a.findClassByName("Class3").get(0);
@@ -314,7 +341,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		
 		Architecture genereted = givenAArchitecture2("associationClassMovePart");
 		
-		AssociationClassRelationship ascg = genereted.getAllAssociationsClass().get(0);
+		AssociationClassRelationship ascg = genereted.getAllAssociationsClass().iterator().next();
 		assertEquals("Class2", ascg.getMemebersEnd().get(0).getType().getName());
 		assertEquals("Class3", ascg.getMemebersEnd().get(1).getType().getName());
 		assertEquals("Class3", ascg.getOwnedEnd().getName());
@@ -342,8 +369,8 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		
 		Architecture generated = givenAArchitecture2("associationClassNovo");
 		
-		assertEquals("Class2",generated.getAllAssociationsClass().get(0).getMemebersEnd().get(0).getType().getName());
-		assertEquals("Class1",generated.getAllAssociationsClass().get(0).getMemebersEnd().get(1).getType().getName());
+		assertEquals("Class2",generated.getAllAssociationsClass().iterator().next().getMemebersEnd().get(0).getType().getName());
+		assertEquals("Class1",generated.getAllAssociationsClass().iterator().next().getMemebersEnd().get(1).getType().getName());
 		
 		assertEquals(1, owner.getRelationships().size());
 		assertEquals(1, klass.getRelationships().size());
@@ -360,7 +387,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 	public void shouldMoveSuperClass() throws Exception{
 		Architecture a = givenAArchitecture("generalizacaoMove");
 		
-		GeneralizationRelationship gene = a.getAllGeneralizations().get(0);
+		GeneralizationRelationship gene = a.getAllGeneralizations().iterator().next();
 		
 		assertNotNull(gene);
 		assertEquals("Class1",gene.getParent().getName());
@@ -373,7 +400,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		g.generate(a, "generalizacaoMoveGerada");
 		
 		Architecture architecture = givenAArchitecture2("generalizacaoMoveGerada");
-		GeneralizationRelationship geneg = architecture.getAllGeneralizations().get(0);
+		GeneralizationRelationship geneg = architecture.getAllGeneralizations().iterator().next();
 		assertEquals("Class3",geneg.getParent().getName());
 	}
 	
@@ -381,7 +408,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 	public void shouldMoveSubClass() throws Exception{
 		Architecture a = givenAArchitecture("generalizacaoMove");
 		
-		GeneralizationRelationship gene = a.getAllGeneralizations().get(0);
+		GeneralizationRelationship gene = a.getAllGeneralizations().iterator().next();
 		
 		a.forGeneralization().moveGeneralizationSubClass(gene, a.findClassByName("Class5").get(0));
 		
@@ -389,7 +416,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		g.generate(a, "generalizacaoMoveSubGerada");
 		
 		Architecture architecture = givenAArchitecture2("generalizacaoMoveSubGerada");
-		GeneralizationRelationship geneg = architecture.getAllGeneralizations().get(0);
+		GeneralizationRelationship geneg = architecture.getAllGeneralizations().iterator().next();
 		
 		assertEquals("Class5",geneg.getChild().getName());
 		assertEquals(1,geneg.getAllChildrenForGeneralClass().size());
@@ -402,7 +429,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		Class klass5 = a.findClassByName("Class5").get(0);
 		Class klass4 = a.findClassByName("Class4").get(0);
 		
-		GeneralizationRelationship gene = a.getAllGeneralizations().get(0);
+		GeneralizationRelationship gene = a.getAllGeneralizations().iterator().next();
 		
 		a.forGeneralization().moveGeneralization(gene, klass5, klass4);
 		
@@ -411,7 +438,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		
 		
 		Architecture architecture = givenAArchitecture2("generalizacaoMovidaInteira");
-		GeneralizationRelationship geneg = architecture.getAllGeneralizations().get(0);
+		GeneralizationRelationship geneg = architecture.getAllGeneralizations().iterator().next();
 		assertEquals("Class5",geneg.getParent().getName());
 		assertEquals("Class4",geneg.getChild().getName());
 	}
@@ -420,7 +447,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 	public void shouldAddNewSubClassToGeneralization() throws Exception{
 		Architecture a = givenAArchitecture("generalizacaoMove");
 		
-		GeneralizationRelationship generalizationRelationship = a.getAllGeneralizations().get(0);
+		GeneralizationRelationship generalizationRelationship = a.getAllGeneralizations().iterator().next();
 		Class klass5 = a.findClassByName("Class5").get(0);
 		
 		a.forGeneralization().addChildToGeneralization(generalizationRelationship, klass5);
@@ -432,10 +459,15 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		
 		assertEquals(2, architecture.getAllGeneralizations().size());
 		
-		List<Element> generalization = architecture.getAllGeneralizations().get(0).getAllChildrenForGeneralClass();
+		Set<Element> generalization = architecture.getAllGeneralizations().iterator().next().getAllChildrenForGeneralClass();
 		assertEquals(2, generalization.size());
-		assertEquals("Class5", generalization.get(0).getName());
-		assertEquals("Class2", generalization.get(1).getName());
+		
+		Iterator<Element> iter = generalization.iterator();
+		while (iter.hasNext()) {
+			if(!(iter.next().getName().equals("Class5")) || !(iter.next().getName().equals("Class2")))
+				Assert.fail("Nao achou Class5 e Class2");
+		}
+		
 	}
 	
 	@Test
@@ -461,7 +493,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		Architecture a = givenAArchitecture("realization");
 		
 		Class klassFooBar = a.createClass("FooBar", false);
-		RealizationRelationship realization = a.getAllRealizations().get(0);
+		RealizationRelationship realization = a.getAllRealizations().iterator().next();
 		
 		a.operationsOverRelationship().moveRealizationClient(realization, klassFooBar);
 		
@@ -470,7 +502,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		
 		Architecture architecture = givenAArchitecture2("realizationMoveClientGerada");
 		assertEquals(1,architecture.getAllRealizations().size());
-		assertEquals("FooBar",architecture.getAllRealizations().get(0).getClient().getName());
+		assertEquals("FooBar",architecture.getAllRealizations().iterator().next().getClient().getName());
 	}
 	
 	@Test
@@ -478,7 +510,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		Architecture a = givenAArchitecture("realization");
 		
 		Class klassFooBar = a.createClass("FooBar",false);
-		RealizationRelationship realization = a.getAllRealizations().get(0);
+		RealizationRelationship realization = a.getAllRealizations().iterator().next();
 		
 		a.operationsOverRelationship().moveRealizationSupplier(realization, klassFooBar);
 		
@@ -487,7 +519,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		
 		Architecture architecture = givenAArchitecture2("realizationMoveSupplierGerada");
 		assertEquals(1,architecture.getAllRealizations().size());
-		assertEquals("FooBar",architecture.getAllRealizations().get(0).getSupplier().getName());
+		assertEquals("FooBar",architecture.getAllRealizations().iterator().next().getSupplier().getName());
 	}
 	
 	@Test
@@ -497,7 +529,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		Class klassFoo = a.createClass("Foo",false);
 		Class klassBar = a.createClass("Bar",false);
 		
-		RealizationRelationship realization = a.getAllRealizations().get(0);
+		RealizationRelationship realization = a.getAllRealizations().iterator().next();
 		
 		Element client = realization.getClient();
 		Element supplier = realization.getSupplier();
@@ -513,8 +545,8 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		Architecture architecture = givenAArchitecture2("realizationMoveInteiraGerada");
 		
 		assertEquals(1,architecture.getAllRealizations().size());
-		assertEquals("Bar",architecture.getAllRealizations().get(0).getSupplier().getName());
-		assertEquals("Foo",architecture.getAllRealizations().get(0).getClient().getName());
+		assertEquals("Bar",architecture.getAllRealizations().iterator().next().getSupplier().getName());
+		assertEquals("Foo",architecture.getAllRealizations().iterator().next().getClient().getName());
 		
 		assertFalse(client.getRelationships().contains(realization.getId()));
 		assertFalse(supplier.getRelationships().contains(realization.getId()));
@@ -543,7 +575,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 	public void shouldRemoveAbstraction() throws Exception {
 		Architecture a = givenAArchitecture("abstractionInterElement");
 		assertEquals(2, a.getAllAbstractions().size());
-		a.forAbstraction().remove(a.getAllAbstractions().get(0));
+		a.forAbstraction().remove(a.getAllAbstractions().iterator().next());
 		assertEquals(1,a.getAllAbstractions().size());
 		
 		GenerateArchitecture g = new GenerateArchitecture();
@@ -569,53 +601,56 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 	
 	@Test
 	public void shouldMoveClientAbstraction() throws Exception {
-		Architecture a = givenAArchitecture("abstractionInterElement");
-		AbstractionRelationship abstractionRelationship = a.getAllAbstractions().get(0);
-		assertEquals("myInterfaceClient", abstractionRelationship.getClient().getName());
+		Architecture a = givenAArchitecture("moveAbstraction");
+		AbstractionRelationship abstractionRelationship = a.getAllAbstractions().iterator().next();
+		
+		assertEquals("Class2", abstractionRelationship.getClient().getName());
+		assertEquals("Class2", abstractionRelationship.getClient().getName());
 		
 		Class newClient = a.createClass("NewClient",false);
 		
 		assertEquals(0, newClient.getRelationships().size());
 		
 		a.forAbstraction().moveClient(abstractionRelationship, newClient);
-		assertEquals(2, a.getAllAbstractions().size());
+		
+		assertEquals(1, a.getAllAbstractions().size());
 		assertEquals(1,newClient.getRelationships().size());
 		
 		GenerateArchitecture g = new GenerateArchitecture();
-		g.generate(a, "abstractionInterElementMoveClient");
-		Architecture architecture = givenAArchitecture2("abstractionInterElementMoveClient");
+		g.generate(a, "moveAbstractionGerada");
+		Architecture architecture = givenAArchitecture2("moveAbstractionGerada");
 		
-		assertEquals("NewClient", architecture.getAllAbstractions().get(0).getClient().getName());
+		assertEquals("NewClient", architecture.getAllAbstractions().iterator().next().getClient().getName());
 
 	}
 	
 	@Test
 	public void shouldMoveSupplierAbstraction() throws Exception {
-		Architecture a = givenAArchitecture("abstractionInterElement");
-		AbstractionRelationship abstractionRelationship = a.getAllAbstractions().get(0);
-		assertEquals("myInterfaceClient", abstractionRelationship.getClient().getName());
+		Architecture a = givenAArchitecture("moveAbstraction");
+		AbstractionRelationship abstractionRelationship = a.getAllAbstractions().iterator().next();
+		assertEquals("Class2", abstractionRelationship.getClient().getName());
 		
 		Class newSupplier = a.createClass("NewSupplier", false);
 		
 		assertEquals(0, newSupplier.getRelationships().size());
 		
 		a.forAbstraction().moveSupplier(abstractionRelationship, newSupplier);
-		assertEquals(2, a.getAllAbstractions().size());
-		assertEquals(1,newSupplier.getRelationships().size());
+		assertEquals(1, a.getAllAbstractions().size());
+		assertEquals(1, newSupplier.getRelationships().size());
 		
 		GenerateArchitecture g = new GenerateArchitecture();
-		g.generate(a, "abstractionInterElementMoveSupplier");
-		Architecture architecture = givenAArchitecture2("abstractionInterElementMoveSupplier");
+		g.generate(a, "moveAbstractionGeradaMoveSupplier");
+		Architecture architecture = givenAArchitecture2("moveAbstractionGeradaMoveSupplier");
 		
-		AbstractionRelationship ab = architecture.getAllAbstractions().get(0);
+		AbstractionRelationship ab = architecture.getAllAbstractions().iterator().next();
 		assertEquals("NewSupplier", ab.getSupplier().getName());
 		
 	}
 	
 	@Test
 	public void shouldMoveEntireAbstraction() throws Exception {
-		Architecture a = givenAArchitecture("abstractionInterElement");
-		AbstractionRelationship abstractionRelationship = a.getAllAbstractions().get(0);
+		Architecture a = givenAArchitecture("moveAbstraction");
+		AbstractionRelationship abstractionRelationship = a.getAllAbstractions().iterator().next();
 		
 		Class newSupplier = a.createClass("NewSupplier", false);
 		Class newCliente = a.createClass("NewClient", false);
@@ -623,14 +658,14 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		assertEquals(0, newSupplier.getRelationships().size());
 		
 		a.forAbstraction().move(abstractionRelationship, newSupplier, newCliente);
-		assertEquals(2 ,a.getAllAbstractions().size());
+		assertEquals(1 ,a.getAllAbstractions().size());
 		assertEquals(1,newSupplier.getRelationships().size());
 		
 		GenerateArchitecture g = new GenerateArchitecture();
-		g.generate(a, "abstractionInterElementMoveAll");
-		Architecture architecture = givenAArchitecture2("abstractionInterElementMoveAll");
+		g.generate(a, "moveAbstractionMoveAll");
+		Architecture architecture = givenAArchitecture2("moveAbstractionMoveAll");
 		
-		AbstractionRelationship ab = architecture.getAllAbstractions().get(0);
+		AbstractionRelationship ab = architecture.getAllAbstractions().iterator().next();
 		assertEquals("NewSupplier", ab.getSupplier().getName());
 		assertEquals("NewClient", ab.getClient().getName());
 	}
@@ -642,7 +677,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		Architecture a = givenAArchitecture("usage3");
 		
 		assertEquals(1,a.getAllUsage().size());
-		a.forUsage().remove(a.getAllUsage().get(0));
+		a.forUsage().remove(a.getAllUsage().iterator().next());
 		
 		assertEquals(0, a.getAllUsage().size());
 		
@@ -661,13 +696,13 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		
 		Class newClient = a.createClass("newClient",false);
 		
-		a.forUsage().moveClient(a.getAllUsage().get(0), newClient);
+		a.forUsage().moveClient(a.getAllUsage().iterator().next(), newClient);
 		
 		GenerateArchitecture g = new GenerateArchitecture();
 		g.generate(a, "usageMoveClient");
 		Architecture architecture = givenAArchitecture2("usageMoveClient");
 		
-		assertEquals("newClient",architecture.getAllUsage().get(0).getClient().getName());
+		assertEquals("newClient",architecture.getAllUsage().iterator().next().getClient().getName());
 	}
 	
 	@Test
@@ -676,18 +711,18 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		
 		Class newSupplier = a.createClass("newSupplier",false);
 		
-		a.forUsage().moveSupplier(a.getAllUsage().get(0), newSupplier);
+		a.forUsage().moveSupplier(a.getAllUsage().iterator().next(), newSupplier);
 		
 		GenerateArchitecture g = new GenerateArchitecture();
 		g.generate(a, "usageMoveSupplier");
 		Architecture architecture = givenAArchitecture2("usageMoveSupplier");
 		
-		assertEquals("newSupplier",architecture.getAllUsage().get(0).getSupplier().getName());
+		assertEquals("newSupplier",architecture.getAllUsage().iterator().next().getSupplier().getName());
 	}
 	
 	@Test
 	public void shouldCreateNewUsage() throws Exception{
-		Architecture a = givenAArchitecture("usage3");
+		Architecture a = givenAArchitecture("newUsage");
 		
 		Class newSupplier = a.createClass("newSupplier", false);
 		Class newClient = a.createClass("newClient", false);
@@ -697,10 +732,13 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		GenerateArchitecture g = new GenerateArchitecture();
 		g.generate(a, "usageNova");
 		Architecture architecture = givenAArchitecture2("usageNova");
-		UsageRelationship usage = architecture.getAllUsage().get(1);
 		
-		assertEquals("newClient", usage.getClient().getName());
-		assertEquals("newSupplier", usage.getSupplier().getName());
+		
+		ArrayList<UsageRelationship> listASsociations = Lists.newArrayList(architecture.getAllUsage());		
+		
+		
+		assertEquals("newClient", listASsociations.get(0).getClient().getName());
+		assertEquals("newSupplier", listASsociations.get(0).getSupplier().getName());
 		
 	}
 	
@@ -711,15 +749,15 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		Class newSupplier = a.createClass("newSupplier",false);
 		Class newClient = a.createClass("newClient",false);
 		
-		a.forUsage().move(a.getAllUsage().get(0), newSupplier, newClient);
+		a.forUsage().move(a.getAllUsage().iterator().next(), newSupplier, newClient);
 		
 		GenerateArchitecture g = new GenerateArchitecture();
 		g.generate(a, "usageMovida");
 		Architecture architecture = givenAArchitecture2("usageMovida");
 		
 		assertEquals(1,a.getAllUsage().size());
-		assertEquals("newSupplier", architecture.getAllUsage().get(0).getSupplier().getName());
-		assertEquals("newClient", architecture.getAllUsage().get(0).getClient().getName());
+		assertEquals("newSupplier", architecture.getAllUsage().iterator().next().getSupplier().getName());
+		assertEquals("newClient", architecture.getAllUsage().iterator().next().getClient().getName());
 		
 	}
 }

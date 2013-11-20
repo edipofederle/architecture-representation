@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
@@ -85,27 +86,9 @@ public class AssociationClassTest extends TestHelper {
 		Architecture a = givenAArchitecture("associationClass/associationClassComPacote");
 		Operations op = new Operations(doc, a);
 		
-		generateClasses(a, op);
-		
-		List<Package> packages = a.getAllPackages();
-		
-		for (Package pack : packages) {
-			//Todas as classes do pacote
-			List<String> ids = new ArrayList<String>();
-			for (Element element : pack.getElements()) {
-				ids.add(element.getId());
-			}
-			op.forPackage().createPacakge(pack).withClass(ids).build();
-		}
-		
-		for(AssociationClassRelationship asr : a.getAllAssociationsClass()){
-			op.forAssociationClass()
-			  .createAssociationClass(asr).build();
-			
-			op.forPackage().withId(asr.getPackageOwner()).add(asr.getId());
-		}
-		
-
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "associationClassComPacoteGerado");
+	
 		Architecture genereted = givenAArchitecture2("associationClassComPacoteGerado");
 		assertNotNull(genereted);
 	}
@@ -119,7 +102,7 @@ public class AssociationClassTest extends TestHelper {
 		
 		Architecture ar = givenAArchitecture2("associationClassWithAttrAndMethodGerado");
 		
-		assertEquals("deve ter somente duas classes", 2, ar.getAllClasses().size());
+		assertEquals("deve ter somente duas classes", 2, ar.getClasses().size());
 		
 		assertEquals(1 ,ar.getAllAssociationsClass().size());
 		assertEquals(3, ar.getAllAssociationsClass().get(0).getAssociationClass().getAllAttributes().size());

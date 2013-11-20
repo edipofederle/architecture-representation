@@ -2,7 +2,7 @@ package mestrado.arquitetura.builders.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.List;
+import java.util.Set;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
 
@@ -16,16 +16,17 @@ public class InterfaceBuilderTest extends TestHelper {
 	@Test
 	public void shouldLoadInterface() throws Exception{
 		Architecture a = givenAArchitecture("interface");
-		assertEquals(1, a.getAllInterfaces().size());
+		assertEquals(1, a.getInterfaces().size());
 		
-		List<Method> operations = a.findInterfaceByName("myInterface").getOperations();
+		Set<Method> operations = a.findInterfaceByName("myInterface").getOperations();
 		
 		assertEquals(1, operations.size());
-		assertEquals("Operation1", operations.get(0).getName());
-		assertEquals("String", operations.get(0).getReturnType());
-		assertEquals(2, operations.get(0).getParameters().size());
-		assertEquals("name", operations.get(0).getParameters().get(0).getName());
-		assertEquals("fullName", operations.get(0).getParameters().get(1).getName());
+		Method opreation = operations.iterator().next();
+		assertEquals("Operation1", opreation.getName());
+		assertEquals("String", opreation.getReturnType());
+		assertEquals(2, opreation.getParameters().size());
+		assertEquals("name", opreation.getParameters().get(0).getName());
+		assertEquals("fullName", opreation.getParameters().get(1).getName());
 	}
 
 }

@@ -2,7 +2,10 @@ package arquitetura.representation;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -22,7 +25,7 @@ public class Interface extends Element {
 	private static final long serialVersionUID = -1779316062511432020L;
 
 	static Logger LOGGER = LogManager.getLogger(Interface.class.getName());
-	private final List<Method> operations = new ArrayList<Method>();
+	private final Set<Method> operations = new HashSet<Method>();
 	
 
 	public Interface(Architecture architecture, String name, Variant variantType, String namespace, String id) {
@@ -40,10 +43,10 @@ public class Interface extends Element {
 	 */
 	public Interface(Architecture a, String name) {
 		this(a, name, null, UtilResources.createNamespace(a.getName(), name), UtilResources.getRandonUUID());
-		a.addElement(this);
+		a.addExternalInterface(this);
 	}
 
-	public  List<Method> getOperations() {
+	public  Set<Method> getOperations() {
 		return operations;
 	}
 	
@@ -69,32 +72,33 @@ public class Interface extends Element {
 		operations.add(operation);
 	}
 
-	public List<Package> getImplementors() {
-		List<Package> implementors = new ArrayList<Package>();
+	public Set<Package> getImplementors() {
+		Set<Package> implementors = new HashSet<Package>();
 		List<AbstractionRelationship> abs = getArchitecture().getAllAbstractions();
 		for (AbstractionRelationship abstractionRelationship : abs) 
 			if((abstractionRelationship.getClient() instanceof Interface) && (abstractionRelationship.getClient().equals(this)))
 					implementors.add((Package) abstractionRelationship.getSupplier());
 					
-		return implementors;
+		return Collections.unmodifiableSet(implementors);
 	}
 
-	public List<Package> getDependents() {
-		List<Package> implementors = new ArrayList<Package>();
+	public Set<Package> getDependents() {
+		Set<Package> implementors = new HashSet<Package>();
 		List<DependencyRelationship> abs = getArchitecture().getAllDependencies();
 		for (DependencyRelationship dependency : abs) 
 				if((dependency.getSupplier() instanceof Interface) && (dependency.getSupplier().equals(this)))
 					implementors.add((Package) dependency.getClient());
-		return implementors;
+		
+		return Collections.unmodifiableSet(implementors);
 	}
 
 	@Override
-	public Collection<Concern> getAllConcerns() {
-		Collection<Concern> concerns = new ArrayList<Concern>(getOwnConcerns());
+	public Set<Concern> getAllConcerns() {
+		Set<Concern> concerns = new HashSet<Concern>(getOwnConcerns());
 		for (Method operation : getOperations())
 			concerns.addAll(operation.getAllConcerns());
 		
-		return concerns;
+		return Collections.unmodifiableSet(concerns);
 	}
 	
 	public Collection<DependencyRelationship> getDependencies() {

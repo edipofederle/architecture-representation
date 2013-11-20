@@ -31,7 +31,6 @@ import arquitetura.helpers.StereotypeHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
-import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Variability;
 import arquitetura.representation.relationship.AssociationClassRelationship;
@@ -107,12 +106,18 @@ public class ArchitectureBuilder {
 		for (Stereotype stereotype : concernsAllowed)
 			architecture.allowedConcerns().add(new Concern(stereotype.getName()));
 		
-		architecture.addElements(loadPackages()); // Classes que possuem pacotes são carregadas juntamente com seus pacotes
-		architecture.addElements(loadClasses()); // Classes que nao possuem pacotes
-		architecture.addElements(loadInterfaces());
+		for(arquitetura.representation.Package p : loadPackages())
+			architecture.addPackage(p); // Classes que possuem pacotes são carregadas juntamente com seus pacotes
+		
+		for(Class klass : loadClasses())
+			architecture.addExternalClass(klass); // Classes que nao possuem pacotes
+		for(Interface inter : loadInterfaces())
+			architecture.addExternalInterface(inter);
 		architecture.getAllVariabilities().addAll(loadVariability());
-		architecture.getAllRelationships().addAll(loadInterClassRelationships());
-		architecture.getAllRelationships().addAll(loadAssociationClassAssociation());
+		for(Relationship r : loadInterClassRelationships())
+			architecture.addRelationship(r);
+		for(Relationship as : loadAssociationClassAssociation())
+			architecture.addRelationship(as);
 		
 		return architecture;
 	}
@@ -246,7 +251,7 @@ public class ArchitectureBuilder {
 		return Collections.emptyList();
 	}
 
-	private List<? extends Element> loadClasses() {
+	private List<Class> loadClasses() {
 		List<Class> listOfClasses = new ArrayList<Class>();
 		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getClasses(model);
 		
@@ -258,7 +263,7 @@ public class ArchitectureBuilder {
 		return listOfClasses;
 	}
 	
-	private List<? extends Element> loadInterfaces() {
+	private List<Interface> loadInterfaces() {
 		List<Interface> listOfInterfaces = new ArrayList<Interface>();
 		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getClasses(model);
 		

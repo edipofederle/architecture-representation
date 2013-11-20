@@ -2,7 +2,10 @@ package arquitetura.representation;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -28,10 +31,10 @@ public class Class extends Element {
 	static Logger LOGGER = LogManager.getLogger(Class.class.getName());
 	
 	private boolean isAbstract;
-	private final List<Attribute> attributes = new ArrayList<Attribute>();
-	private final List<Method> methods = new ArrayList<Method>();
-	private List<Interface> implementedInterfaces = new ArrayList<Interface>();
-	private List<Interface> requiredInterfaces = new ArrayList<Interface>();
+	private final Set<Attribute> attributes = new HashSet<Attribute>();
+	private final Set<Method> methods = new HashSet<Method>();
+	private Set<Interface> implementedInterfaces = new HashSet<Interface>();
+	private Set<Interface> requiredInterfaces = new HashSet<Interface>();
 	
 	/**
 	 * 
@@ -51,18 +54,18 @@ public class Class extends Element {
 
 	public Class(Architecture architecture, String name, boolean isAbstract) {
 		this(architecture, name,  null, isAbstract,  UtilResources.createNamespace(architecture.getName(), name), UtilResources.getRandonUUID());
-		architecture.addElement(this);
+		architecture.addExternalClass(this);
 	}
 	
 	public Class(Architecture architecture, String name, boolean isAbstract, String packageName) {
 		this(architecture, name,  null, isAbstract,  UtilResources.createNamespace(architecture.getName()+"::"+packageName, name), UtilResources.getRandonUUID());
-		architecture.addElement(this);
+		architecture.addExternalClass(this);
 	}
 
 	public Attribute createAttribute(String name, Type type, VisibilityKind visibility) {
 		String id = UtilResources.getRandonUUID();
 		Attribute a = new Attribute(getArchitecture(), name, visibility.toString(), type.getName(), getArchitecture().getName()+"::"+this.getName(), id);
-		getAllAttributes().add(a);
+		addExternalAttribute(a);
 		return a;
 	}
 
@@ -70,8 +73,8 @@ public class Class extends Element {
 		this.attributes.add(attr);
 	}
 	
-	public List<Attribute> getAllAttributes() {
-		return attributes;
+	public Set<Attribute> getAllAttributes() {
+		return Collections.unmodifiableSet(attributes);
 	}
 	
 	public void setAbstract(boolean isAbstract) {
@@ -82,8 +85,8 @@ public class Class extends Element {
 		return isAbstract;
 	}
 	
-	public List<Method> getAllMethods() {
-		return methods;
+	public Set<Method> getAllMethods() {
+		return Collections.unmodifiableSet(methods);
 	}
 
 
@@ -93,8 +96,8 @@ public class Class extends Element {
 	 * @return
 	 */
 	public boolean removeAttribute(Attribute attribute) {
-		if (!getAllAttributes().contains(attribute)) return false;
-		getAllAttributes().remove(attribute);
+		if (!this.attributes.contains(attribute)) return false;
+		this.attributes.remove(attribute);
 		return true;
 	}
 
@@ -110,9 +113,9 @@ public class Class extends Element {
 
 	
 	public boolean moveAttributeToClass(Attribute attribute, Class destinationKlass) {
-		if (!getAllAttributes().contains(attribute)) return false;
+		if (!this.attributes.contains(attribute)) return false;
 		removeAttribute(attribute);
-		destinationKlass.getAllAttributes().add(attribute);
+		destinationKlass.addExternalAttribute(attribute);
 		attribute.setNamespace(getArchitecture().getName() + "::" + destinationKlass.getName());
 		return true;
 	}
@@ -162,12 +165,20 @@ public class Class extends Element {
 	 * @return -false se o método a ser movido não existir na classe.<br/> -true se o método for movido com sucesso.
 	 */
 	public boolean moveMethodToClass(Method method, arquitetura.representation.Class destinationKlass) {
-		if (!getAllMethods().contains(method)) return false;
+		if(!this.methods.contains(method)) return false;
+		destinationKlass.addExternalMethod(method);
+		if(removeMethod(method))
+			LOGGER.info("Método: " + method.getName() + " removido da classe "+ this.getName());
 		
-		removeMethod(method);
+		LOGGER.info("Moveu método: "+  method.getName() + " de "+this.getName() +" para " + destinationKlass.getName());
 		method.setNamespace(getArchitecture().getName() + "::" + destinationKlass.getName());
-		destinationKlass.getAllMethods().add(method);
+		
 		return true;
+	}
+	
+	public void addExternalMethod(Method method) {
+		if(methods.add(method))
+			LOGGER.info("Metodo "+method.getName() + " adicionado na classe "+ this.getName());
 	}
 
 	/**
@@ -179,9 +190,7 @@ public class Class extends Element {
 	 * 
 	 */
 	public boolean removeMethod(Method method) {
-		if (!getAllMethods().contains(method)) return false;
-		getAllMethods().remove(method);
-		return true;
+		return methods.remove(method);
 	}
 
 	public List<Method> getAllAbstractMethods() {
@@ -252,12 +261,16 @@ public class Class extends Element {
 		return associationsClasses;
 	}
 
-	public List<Interface> getImplementedInterfaces() {
+	public Set<Interface> getImplementedInterfaces() {
 		return implementedInterfaces;
 	}
 
-	public List<Interface> getRequiredInterfaces() {
+	public Set<Interface> getRequiredInterfaces() {
 		return requiredInterfaces;
+	}
+
+	public void addExternalAttribute(Attribute a) {
+		this.attributes.add(a);
 	}
 
 	

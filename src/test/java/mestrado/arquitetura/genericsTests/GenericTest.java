@@ -6,6 +6,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
 
@@ -25,6 +27,7 @@ import arquitetura.helpers.Uml2Helper;
 import arquitetura.helpers.Uml2HelperFactory;
 import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Class;
 import arquitetura.representation.relationship.AssociationEnd;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
@@ -66,8 +69,14 @@ public class GenericTest extends TestHelper {
 		String uriToArchitecture = getUrlToModel("classPacote");
 		Architecture architecture = new ArchitectureBuilder().create(uriToArchitecture);
 		
+		Set<Class> allClasses = new HashSet<Class>();
+		for(arquitetura.representation.Package p : architecture.getAllPackages())
+			allClasses.addAll(p.getClasses());
+		
+		allClasses.addAll(architecture.getClasses());
+		
 		assertNotNull(architecture);
-		assertEquals(2, architecture.getAllClasses().size());
+		assertEquals(2, allClasses.size());
 		assertEquals(1, architecture.getAllRelationships().size());
 		
 		DependencyRelationship r = architecture.getAllDependencies().get(0);
@@ -85,12 +94,19 @@ public class GenericTest extends TestHelper {
 		Architecture a = givenAArchitecture("all");
 		assertNotNull(a);
 		
+
+		Set<Class> allClasses = new HashSet<Class>();
+		for(arquitetura.representation.Package p : a.getAllPackages())
+			allClasses.addAll(p.getClasses());
+		
+		allClasses.addAll(a.getClasses());
+		
 		assertEquals(3, a.getAllRelationships().size());
 		assertEquals(1, a.getAllGeneralizations().size());
 		assertEquals(1, a.getAllAssociationsRelationships().size());
 		assertEquals(1, a.getAllUsage().size());
 		assertEquals(2, a.getAllPackages().size());
-		assertEquals(4, a.getAllClasses().size());
+		assertEquals(4, allClasses.size());
 		
 		GeneralizationRelationship g = a.getAllGeneralizations().get(0);
 		assertEquals("Class2",g.getChild().getName());

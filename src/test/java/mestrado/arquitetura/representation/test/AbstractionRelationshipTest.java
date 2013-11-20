@@ -17,9 +17,9 @@ public class AbstractionRelationshipTest extends TestHelper {
 		assertEquals(1,a.getAllRelationships().size());
 		assertEquals(1,a.getAllAbstractions().size());
 		
-		System.out.println(a.getAllAbstractions().get(0).getClient().getName());
-		System.out.println(a.getAllAbstractions().get(0).getSupplier().getName());
-		System.out.println( ((Package) a.getAllAbstractions().get(0).getClient()).getImplementedInterfaces());
+		System.out.println(a.getAllAbstractions().iterator().next().getClient().getName());
+		System.out.println(a.getAllAbstractions().iterator().next().getSupplier().getName());
+		System.out.println( ((Package) a.getAllAbstractions().iterator().next().getClient()).getImplementedInterfaces());
 	}
 
 }

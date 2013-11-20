@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import jmetal.core.Variable;
@@ -16,6 +17,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import arquitetura.exceptions.ClassNotFound;
+import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.exceptions.InterfaceNotFound;
 import arquitetura.exceptions.PackageNotFound;
 import arquitetura.flyweights.VariabilityFlyweight;
@@ -25,9 +27,11 @@ import arquitetura.helpers.Predicate;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.AbstractionRelationship;
 import arquitetura.representation.relationship.AssociationClassRelationship;
+import arquitetura.representation.relationship.AssociationEnd;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
+import arquitetura.representation.relationship.MemberEnd;
 import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 import arquitetura.representation.relationship.UsageRelationship;
@@ -45,9 +49,11 @@ public class Architecture extends Variable implements Cloneable {
 	static Logger LOGGER = LogManager.getLogger(Architecture.class.getName());
 	public static String ARCHITECTURE_TYPE = "arquitetura.representation.Architecture"; 
 
-	private Set<Element> elements = new HashSet<Element>();
+	private Set<Package> packages = new HashSet<Package>();
+	private Set<Class> classes = new HashSet<Class>();
+	private Set<Interface> interfaces = new HashSet<Interface>();
 	private HashMap<String, Concern> concerns = new HashMap<String, Concern>();
-	private List<Relationship> relationships = new ArrayList<Relationship>();
+	private Set<Relationship> relationships = new HashSet<Relationship>();
 	private String name;
 	
 	/**
@@ -74,11 +80,17 @@ public class Architecture extends Variable implements Cloneable {
 
 	public List<Element> getElements() {
 		List<Element> elts = new ArrayList<Element>();
+		
 		for(Package p : getAllPackages())
 			for(Element element : p.getElements())
 				elts.add(element);
-		elts.addAll(this.elements);
-		return  elts;
+		
+		for(Class c : this.classes)
+			elts.add(c);
+		for(Interface i : this.interfaces)
+			elts.add(i);
+		
+		return  Collections.unmodifiableList(elts);
 	}
 
 	/**
@@ -88,70 +100,96 @@ public class Architecture extends Variable implements Cloneable {
 	 * 
 	 * @param name
 	 * @return
+	 * @throws ConcernNotFoundException 
 	 */
-	public Concern getOrCreateConcern(String name) {
+	public Concern getOrCreateConcern(String name) throws ConcernNotFoundException {
 		Concern concern = allowedConcernContains(name.toLowerCase());
 		if(concerns.containsValue(concern)) return concern;
 		if(concern != null){
 			concerns.put(name.toLowerCase(), concern);
 			return concern;
 		}
-		return null; // MAL
+		throw new ConcernNotFoundException("Concern " + name + " cannot be found");
 	}
 
 
-	public HashMap<String, Concern> getAllConcerns() {
-		return concerns;
+	/**
+	 * Retorna um Map imutável. É feito isso para garantir que nenhum modificação seja
+	 * feita diretamente na lista
+	 * 
+	 * @return Map<String, Concern>
+	 */
+	public Map<String, Concern> getAllConcerns() {
+		return Collections.unmodifiableMap(concerns);
 	}
-
-	public List<Package> getAllPackages() {
-		List<Package> paks = new ArrayList<Package>();
-
-		for (Element element : elements)
-			if (element instanceof Package)
-				paks.add(((Package) element));
-
-		if (paks.isEmpty())
-			return Collections.emptyList();
-		return paks;
-	}
-
-	public List<Class> getAllClasses() {
-		List<Class> klasses = new ArrayList<Class>();
-		
-		for(Package p : getAllPackages()){
-			for(Element element : p.getElements()){
-				if(element instanceof Class)
-					klasses.add((Class)element);
-			}
-		}
-
-		for (Element element : elements)
-			if (element.getTypeElement().equals("klass"))
-				klasses.add(((Class) element));
-		
-		excludeAssociationClassFromList(klasses);
-
-		return klasses;
-	}
-
-
-	private void excludeAssociationClassFromList(List<Class> klasses) {
-		for (Iterator<Class> i = klasses.iterator(); i.hasNext();) {
-			Element klass = i.next();
-			for(AssociationClassRelationship r : getAllAssociationsClass()){
-				if(r.getAssociationClass().equals(klass)){
-					i.remove();
-				}
-			}
-		}
-	}
-
-	public void setInterClassRelationships(List<Relationship> relationships) {
-		this.relationships = relationships;
-	}
-
 	
+	/**
+	 * Retorna um Map imutável. É feito isso para garantir que nenhum modificação seja
+	 * feita diretamente na lista
+	 * 
+	 * Set<Package>
+	 * 
+	 * @return Set<Package>
+	 */
+	public Set<Package> getAllPackages() {
+		return Collections.unmodifiableSet(this.packages);
+	}
+	
+	/**
+	 * Retorna interfaces que não tem nenhum pacote.
+	 * 
+	 * Retorna um Set imutável. É feito isso para garantir que nenhum modificação seja
+	 * feita diretamente na lista.
+	 * 
+	 * @return Set<Class>
+	 */
+	public Set<Interface> getInterfaces() {
+		return Collections.unmodifiableSet(this.interfaces);
+	}
+	
+	/**
+	 * Retorna todas as interfaces que existem na arquiteutra.
+	 * Este método faz um merge de todas as interfaces de todos os pacotes + as interfaces que não tem pacote
+	 * 
+	 * @return
+	 */
+	public Set<Interface> getAllInterfaces(){
+		Set<Interface> interfaces = new HashSet<Interface>();
+		for(Package p : this.packages)
+			interfaces.addAll(p.getAllInterfaces());
+		
+		interfaces.addAll(this.interfaces);
+		return Collections.unmodifiableSet(interfaces);
+	}
+	
+	/**
+	 * Retorna classes que não tem nenhum pacote.
+	 * 
+	 * Retorna um Set imutável. É feito isso para garantir que nenhum modificação seja
+	 * feita diretamente na lista
+	 * 
+	 * @return Set<Class>
+	 */
+	public Set<Class> getClasses() {
+		return Collections.unmodifiableSet(this.classes);
+	}
+	
+	/**
+	 * Retorna todas as classes que existem na arquiteutra.
+	 * Este método faz um merge de todas as classes de todos os pacotes + as classes que não tem pacote
+	 * 
+	 * @return
+	 */
+	public Set<Class> getAllClasses(){
+		Set<Class> klasses = new HashSet<Class>();
+		for(Package p : this.packages)
+			klasses.addAll(p.getClasses());
+		
+		klasses.addAll(this.classes);
+		return Collections.unmodifiableSet(klasses);
+		
+	}
+
 	/**
 	 * Busca elemento por nome.<br/>
 	 * 
@@ -170,7 +208,7 @@ public class Architecture extends Variable implements Cloneable {
 
 	private Element findElement(String name, String type) {
 		if(type.equalsIgnoreCase("class")){
-			for(Element element : getAllClasses()){
+			for(Element element : getClasses()){
 				if(element.getName().equalsIgnoreCase(name))
 					return element;
 			}
@@ -183,7 +221,7 @@ public class Architecture extends Variable implements Cloneable {
 		}
 		
 		if(type.equalsIgnoreCase("interface")){
-			for(Element element : getAllInterfaces()){
+			for(Element element : getInterfaces()){
 				if(element.getName().equalsIgnoreCase(name))
 					return element;
 			}
@@ -204,23 +242,9 @@ public class Architecture extends Variable implements Cloneable {
 		return null;
 	}
 
-	public Set<Interface> getAllInterfaces() {
-		Set<Interface> interfaces = new HashSet<Interface>();
-
-		for (Element element : this.elements)
-			if (element.getTypeElement().equals("interface"))
-				interfaces.add(((Interface) element));
-		
-		for(Package pkg : this.getAllPackages())
-			for(Element element : pkg.getElements())
-				if (element.getTypeElement().equals("interface"))
-					interfaces.add(((Interface) element));
-
-		return interfaces;
-	}
 	
-	public List<Relationship> getAllRelationships(){
-		return relationships;
+	public Set<Relationship> getAllRelationships(){
+		return Collections.unmodifiableSet(relationships);
 	}
 
 	public List<GeneralizationRelationship> getAllGeneralizations() {
@@ -230,11 +254,9 @@ public class Architecture extends Variable implements Cloneable {
 			}
 		};
 
-		List<GeneralizationRelationship> generalizations = UtilResources
-				.filter(relationships, isValid);
+		List<GeneralizationRelationship> generalizations = UtilResources.filter(relationships, isValid);
 		
-		if (generalizations.isEmpty())  return Collections.emptyList();
-		return generalizations;
+		return Collections.unmodifiableList(generalizations);
 	}
 	
 	public List<AssociationRelationship> getAllAssociationsRelationships() {
@@ -245,7 +267,6 @@ public class Architecture extends Variable implements Cloneable {
 				association.add(associationRelationship);
 			}
 		}
-		if (association.isEmpty())  return Collections.emptyList();
 		return association; 
 
 	}
@@ -265,10 +286,8 @@ public class Architecture extends Variable implements Cloneable {
 			}
 		};
 
-		List<AssociationRelationship> allAssociations = UtilResources.filter(
-				relationships, isValid);
+		List<AssociationRelationship> allAssociations = UtilResources.filter(relationships, isValid);
 		
-		if (allAssociations.isEmpty())  return Collections.emptyList();
 		return allAssociations;
 
 	}
@@ -281,7 +300,6 @@ public class Architecture extends Variable implements Cloneable {
 				compositions.add(associationRelationship);
 			}
 		}
-		if (compositions.isEmpty())  return Collections.emptyList();
 		return compositions; 
 	}
 	
@@ -293,7 +311,6 @@ public class Architecture extends Variable implements Cloneable {
 				agragation.add(associationRelationship);
 			}
 		}
-		if (agragation.isEmpty())  return Collections.emptyList();
 		return agragation; 
 	}
 
@@ -306,7 +323,6 @@ public class Architecture extends Variable implements Cloneable {
 
 		List<UsageRelationship> allUsages = UtilResources.filter(relationships, isValid);
 		
-		if (allUsages.isEmpty())  return Collections.emptyList();
 		return allUsages;
 	}
 
@@ -319,7 +335,6 @@ public class Architecture extends Variable implements Cloneable {
 
 		List<DependencyRelationship> allDependencies = UtilResources.filter(relationships, isValid);
 		
-		if (allDependencies.isEmpty())  return Collections.emptyList();
 		return allDependencies;
 	}
 
@@ -332,7 +347,6 @@ public class Architecture extends Variable implements Cloneable {
 
 		List<RealizationRelationship> allRealizations = UtilResources.filter(relationships, realizations);
 		
-		if (allRealizations.isEmpty())  return Collections.emptyList();
 		return allRealizations;
 	}
 
@@ -345,7 +359,6 @@ public class Architecture extends Variable implements Cloneable {
 
 		List<AbstractionRelationship> allAbstractions = UtilResources.filter(relationships, realizations);
 		
-		if (allAbstractions.isEmpty())  return Collections.emptyList();
 		return allAbstractions;
 	}
 	
@@ -359,7 +372,6 @@ public class Architecture extends Variable implements Cloneable {
 
 		List<AssociationClassRelationship> allAbstractions = UtilResources.filter(relationships, realizations);
 		
-		if (allAbstractions.isEmpty())  return Collections.emptyList();
 		return allAbstractions;
 	}
 
@@ -373,9 +385,14 @@ public class Architecture extends Variable implements Cloneable {
 	 */
 	public List<Class> findClassByName(String className) throws ClassNotFound {
 		List<Class> classesFound = new ArrayList<Class>();
-		for (Class klass : getAllClasses()) 
+		for (Class klass : getClasses()) 
 			if(className.trim().equalsIgnoreCase(klass.getName().trim()))
 				classesFound.add(klass);
+		
+		for(Package p : this.packages)
+			for(Class klass : p.getClasses())
+				if(className.trim().equalsIgnoreCase(klass.getName().trim()))
+					classesFound.add(klass);
 		
 		if(classesFound.isEmpty())
 			throw new ClassNotFound("Class " + className + " can not found.\n");
@@ -383,9 +400,13 @@ public class Architecture extends Variable implements Cloneable {
 	}
 
 	public Interface findInterfaceByName(String interfaceName) throws InterfaceNotFound {
-		for (Interface interfacee : getAllInterfaces())
+		for (Interface interfacee : getInterfaces())
 			if(interfaceName.equalsIgnoreCase(interfacee.getName()))
 				return interfacee;
+		for(Package p : this.packages)
+			for(Interface interfacee : p.getAllInterfaces())
+				if(interfaceName.equalsIgnoreCase(interfacee.getName()))
+					return interfacee;
 		
 		throw new InterfaceNotFound("Interface " + interfaceName + " can not found.\n");
 	}
@@ -401,86 +422,30 @@ public class Architecture extends Variable implements Cloneable {
 
 	public Package createPackage(String packageName) {
 		Package pkg = new Package(this, packageName);
-		this.addElement(pkg);
+		this.packages.add(pkg);
 		return pkg;
 	}
 
 	public void removePackage(Package p) {
-		List<Element> elements = getElements();
-		//List<String> ids = new ArrayList<String>();
-		Set<String> idsClasses = idsForAllElementsInPackage(p);
 		
-		for (Iterator<Element> i = this.elements.iterator(); i.hasNext();) {
-			Element e = i.next();
-			String packageName = UtilResources.extractPackageName(e.getNamespace());
-			if(e.getName().equalsIgnoreCase(packageName)){
-			//	ids.addAll(e.getIdsRelationships());
-			}
+		/**
+		 * Remove qualquer relacionamento que os elementos do pacote
+		 * que esta sendo deletado possa ter.
+		 */
+		for(Element element : p.getElements()){
+			this.removeRelatedRelationships(element);
 		}
+		//Remove os relacionamentos que o pacote possa pertencer
+		this.removeRelatedRelationships(p);
 		
-		for(Element c : p.getClasses()){
-			List<Relationship> res = c.getRelationships();
-			for (Iterator<Relationship> i = relationships.iterator(); i.hasNext();) {
-				Relationship r = i.next();
-				if(res.contains(r)){
-					i.remove();
-				}
-					
-			}
-		}
-		
-		//Relacionamentos em pacote
-		List<Relationship> rp = p.getRelationships();
-		for (Relationship relationship : rp) {
-			for (Iterator<Relationship> r = this.relationships.iterator(); r.hasNext();) {
-				Relationship relacion = r.next();
-				if(relationship.equals(relacion)){
-					r.remove();
-				}
-			}
-		}
-		
-		if(!idsClasses.isEmpty()){
-			for (String id : idsClasses) {
-				for (Iterator<Element> i = this.elements.iterator(); i.hasNext();) {
-					Element element = i.next();
-					if(id.equalsIgnoreCase(element.getId())){
-						i.remove();
-					}
-				}
-				
-				for (Iterator<Package> i = this.getAllPackages().iterator(); i.hasNext();) {
-					Package pkg = i.next();
-					for (Iterator<Element> element = pkg.getElements().iterator(); element.hasNext();) {
-						Element e = element.next();
-						if(id.equalsIgnoreCase(e.getId()))
-							element.remove();
-					}
-				}
-				
-			}
-			
-		}
-
-		if(!this.elements.remove(p))
-			LOGGER.info("Cannot remove Package " + p + ".");
-
-	}
-
-	private Set<String> idsForAllElementsInPackage(Package p) {
-		Set<String> ids = new HashSet<String>();
-		for(Element element : p.getElements() )
-			ids.add(element.getId());
-		return ids;
+		this.packages.remove(p);
+		LOGGER.info("Pacote:" + p.getName() + "removido");
 	}
 
 	public Interface createInterface(String interfaceName) {
-		String id = UtilResources.getRandonUUID();
 		Interface interfacee = new Interface(this, interfaceName);
-		elements.add(interfacee);
 		return interfacee;
 	}
-	
 	
 	public Class createClass(String klassName, boolean isAbstract) {
 		Class klass = new Class(this, klassName, isAbstract);
@@ -488,21 +453,14 @@ public class Architecture extends Variable implements Cloneable {
 	}
 
 	public void removeInterface(Interface interfacee) {
-		if (!elements.remove(interfacee))
-			LOGGER.info("Cannot remove Interface " + interfacee + ".");
+		this.removeRelatedRelationships(interfacee);
+		if (!interfaces.remove(interfacee))
+			LOGGER.info("Tentou remover Interface " + interfacee + " porém não consegiu");
 		for(Package p : getAllPackages()){
 			p.getElements().remove(interfacee);
 		}
+		LOGGER.info("Interface:" + interfacee.getName() + " removida da arquitetura");
 	}
-
-//	public Element getElementByXMIID(String xmiId) {
-//		for (Element element : elements)
-//			if(element.getId().equalsIgnoreCase(xmiId))
-//				return element;
-//
-//		return null;
-//	}
-
 	
 	/**
 	 * Remove classe que estão em um primeiro nível da arquitetura, ou seja, não pertencem a nenhum pacote.
@@ -510,27 +468,13 @@ public class Architecture extends Variable implements Cloneable {
 	 * @param klass
 	 */
 	public void removeClass(Class klass) {
-		if(!this.elements.contains(klass)){
-			LOGGER.info("A classe " + klass.getName()+"("+klass.getId()+") não encontrada");
+		if(!this.classes.contains(klass)){
+			LOGGER.info("TENTOU remover a  Classe " + klass.getName()+"("+klass.getId()+") da arquitetura, porém não consegiu");
 			return ;
 		}
-		this.elements.remove(klass);
-		LOGGER.info("A classe " + klass.getName()+"("+klass.getId()+") foi removida da arquitetura.");
+		this.classes.remove(klass);
+		LOGGER.info("Classe " + klass.getName()+"("+klass.getId()+") removida da arquitetura");
 	}
-
-//	/**
-//	 * @return the model
-//	 */
-//	public org.eclipse.uml2.uml.Package getModel() {
-//		return model;
-//	}
-//
-//	/**
-//	 * @param model the model to set
-//	 */
-//	public void setModel(org.eclipse.uml2.uml.Package model) {
-//		this.model = model;
-//	}
 
 	public List<VariationPoint> getAllVariationPoints() {
 		return VariationPointFlyweight.getInstance().getVariationPoints();
@@ -545,15 +489,20 @@ public class Architecture extends Variable implements Cloneable {
 	}
 
 	public Class findClassById(String idClass) throws ClassNotFound {
-		for (Class klass : getAllClasses()) 
+		for (Class klass : getClasses()) 
 			if(idClass.equalsIgnoreCase(klass.getId().trim()))
 				return klass;
+		
+		for(Package p : getAllPackages())
+			for(Class klass : p.getClasses())
+				if(idClass.equalsIgnoreCase(klass.getId().trim()))
+					return klass;
 		
 		throw new ClassNotFound("Class " + idClass + " can not found.\n");
 	}
 	
 	public Interface findIntefaceById(String idClass) throws ClassNotFound {
-		for (Interface klass : getAllInterfaces()) 
+		for (Interface klass : getInterfaces()) 
 			if(idClass.equalsIgnoreCase(klass.getId().trim()))
 				return klass;
 		
@@ -578,7 +527,7 @@ public class Architecture extends Variable implements Cloneable {
 	
 	public Collection<Concern> getConcerns() {
 		Set<Concern> concerns = new HashSet<Concern>();
-		for (Interface interface_ : getAllInterfaces())
+		for (Interface interface_ : getInterfaces())
 			concerns.addAll(interface_.getAllConcerns());
 		
 		return concerns;
@@ -592,7 +541,10 @@ public class Architecture extends Variable implements Cloneable {
 	}
 	
 	public void addExternalInterface(Interface interface_){
-		elements.add(interface_);
+		if(interfaces.add(interface_))
+			LOGGER.info("Interface: "+ interface_.getName() + " adicionada na arquiteutra");
+		else
+			LOGGER.info("TENTOU adicionar a interface : "+ interface_.getName() + " na arquiteutra, porém não conseguiu");
 	}
 
 	/**
@@ -629,7 +581,13 @@ public class Architecture extends Variable implements Cloneable {
 	
 	public boolean removeRelationship(Relationship as) {
 		if(as == null) return false;
-		return relationships.remove(as);
+		if(relationships.remove(as)){
+			LOGGER.info("Relacionamento : " + as.getType() + " removido da arquitetura");
+			return true;
+		}else{
+			LOGGER.info("TENTOU remover Relacionamento : " + as.getType() + " da arquitetura porém não consegiu");
+			return false;
+		}
 	}
 
 	public OperationsOverUsage forUsage() {
@@ -654,9 +612,6 @@ public class Architecture extends Variable implements Cloneable {
 	public Architecture deepClone() throws CloneNotSupportedException {
 		Cloner cloner = new Cloner();
 		Architecture newArchitecture = (Architecture) cloner.deepClone(this);
-		// newArchitecture.setNumber(count++);
-		// newArchitecture.addAncestor(this);
-		// Dummy.addAncestor(newArchitecture, this);
 		return newArchitecture;
 	}
 	
@@ -664,20 +619,31 @@ public class Architecture extends Variable implements Cloneable {
 	public void addImplementedInterfaceToComponent(Interface interface_, Package pkg) {
 		if (pkg.getImplementedInterfaces().contains(interface_)) return;
 		
-		getAllRelationships().add(new RealizationRelationship(interface_, pkg, "", UtilResources.getRandonUUID()));
+		if(addRelationship(new RealizationRelationship(interface_, pkg, "", UtilResources.getRandonUUID())))
+			LOGGER.info("ImplementedInterface: " + interface_.getName() + " adicionada ao pacote: " +pkg.getName());
+		else
+			LOGGER.info("TENTOU adicionar ImplementedInterface: "+ interface_.getName() + " ao pacote: "+pkg.getName() + " porém não consegiu");
 	}
 	
 	public void addRequiredInterfaceToComponent(Interface interface_, Package pkg) {
 		if (pkg.getRequiredInterfaces().contains(interface_)) return;
-		getAllRelationships().add(new DependencyRelationship(interface_, pkg, "", this, UtilResources.getRandonUUID()));
+		if(getAllRelationships().add(new DependencyRelationship(interface_, pkg, "", this, UtilResources.getRandonUUID())))
+			LOGGER.info("RequiredInterface: " + interface_.getName() + " adicionada ao pacote: " +pkg.getName());
+		else
+			LOGGER.info("TENTOU adicionar RequiredInterface: "+ interface_.getName() + " ao pacote: "+pkg.getName() + " porém não consegiu");
 	}
 	
 	public void removeImplementedInterfaceFromPackage(Interface interface_, Package component) {
-		if (!component.removeImplementedInterface(interface_)) return;
+		if(component.removeImplementedInterface(interface_)){
+			LOGGER.info("ImplementedInterface removida do pacote " + component.getName());
+		}else{
+			LOGGER.info("TENTOU remover ImplementedInterface do pacote " + component.getName() + " porém não consegiu");
+			return ;
+		}
 
 		for (AbstractionRelationship relationship : getAllAbstractions()) {
 			if (relationship.getSupplier().equals(interface_) && relationship.getClient().equals(component)){
-				getAllRelationships().remove(relationship);
+				removeRelationship(relationship);
 				return;
 			}
 		}
@@ -693,8 +659,14 @@ public class Architecture extends Variable implements Cloneable {
 	  }
 	}
 
-	public void addRelationship(Relationship relationship) {
-		this.relationships.add(relationship);
+	public boolean addRelationship(Relationship relationship) {
+		if(this.relationships.add(relationship)){
+			LOGGER.info("Relacionamento: " + relationship.getType() + " adicionado na arquitetura");
+			return true;
+		}else{
+			LOGGER.info("TENTOU adicionar Relacionamento: " + relationship.getType() + " na arquitetura porém não consegiu");
+			return false;
+		}
 	}
 
 	public Package findPackageOfClass(Class targetClass) throws PackageNotFound {
@@ -707,8 +679,20 @@ public class Architecture extends Variable implements Cloneable {
 		generate.generate(architecture, pathToSave +architecture.getName() + i);
 	}
 
+	/**
+	 * Procura um elemento por ID.<br>
+	 * Este método busca por elementos diretamente no primeiro nível da arquitetura (Ex: classes que não possuem pacotes)
+	 * , e também em pacotes.<br/><br/>
+	 * 
+	 * @param xmiId
+	 * @return
+	 */
 	public Element findElementById(String xmiId) {
-		for (Element element : this.elements) {
+		for (Class element : this.classes) {
+			if(element.getId().equals(xmiId))
+				return element;
+		}
+		for (Interface element : this.interfaces) {
 			if(element.getId().equals(xmiId))
 				return element;
 		}
@@ -719,27 +703,89 @@ public class Architecture extends Variable implements Cloneable {
 			}
 		}
 		
+		for(Package p : getAllPackages()){
+			if(p.getId().equalsIgnoreCase(xmiId))
+				return p;
+		}
+		
 		return null;
 	}
 
-	public void addElements(List<? extends Element> list) {
-		this.elements.addAll(list);
-	}
-	
 	/**
-	 * Método que adiciona um elemento na arquitetura.
+	 * Dado um {@link Element} remove todos relacionamentos em que o elemento esteja envolvido
 	 * 
-	 * Este método adiciona o elemento em uma lista "global" da arquitetura.<br/><br/>
-	 * 
-	 * <b>OBS:</b><br/>
-	 * Por exemplo: Caso queira adicionar uma classe chamada "Foo" dentro do pacote chamado "Bar",
-	 * Você primeiro precisa buscar o pacote "Bar" e então adicionar a classe "Foo" na lista de elementos
-	 * do pacote em questão.
-	 * 
-	 * @param element - {@link Element}
+	 * @param element
 	 */
-	public void addElement(Element element) {
-		this.elements.add(element);
+	public void removeRelatedRelationships(Element element) {
+		for (Iterator<Relationship> i = this.relationships.iterator(); i.hasNext();) {
+			Relationship r = i.next();
+			if(r instanceof GeneralizationRelationship){
+				if(((GeneralizationRelationship) r).getParent().equals(element) || ((GeneralizationRelationship) r).getChild().equals(element)){
+					i.remove();
+					LOGGER.info("Generalização removida");
+				}
+			}
+			if(r instanceof RealizationRelationship){
+				if(((RealizationRelationship) r).getClient().equals(element) || ((RealizationRelationship) r).getSupplier().equals(element)){
+					i.remove();
+					LOGGER.info("Realização removida");
+				}
+			}
+			if(r instanceof DependencyRelationship){
+				if(((DependencyRelationship) r).getClient().equals(element) || ((DependencyRelationship) r).getSupplier().equals(element)){
+					i.remove();
+					LOGGER.info("Dependência removida");
+				}
+			}
+			if(r instanceof AbstractionRelationship){
+				if(((AbstractionRelationship) r).getClient().equals(element) || ((AbstractionRelationship) r).getSupplier().equals(element)){
+					i.remove();
+					LOGGER.info("Abstraction removida");
+				}
+			}
+			if(r instanceof AssociationRelationship){
+				for(AssociationEnd a : ((AssociationRelationship)r).getParticipants()){
+					if(a.getCLSClass().equals(element)){
+						i.remove();
+						LOGGER.info("Associação removida");
+					}
+				}
+			}
+			
+			if(r instanceof AssociationClassRelationship){
+				for(MemberEnd memberEnd : ((AssociationClassRelationship) r).getMemebersEnd()){
+					if(memberEnd.getType().equals(element)){
+						i.remove();
+						LOGGER.info("AssociationClass removida");
+					}
+						
+				}
+			}
+		}
+	}
+
+	/**
+	 * Adiciona um pacote na lista de pacotes
+	 * 
+	 * @param {@link Package}
+	 */
+	public void addPackage(arquitetura.representation.Package p) {
+		if(this.packages.add(p))
+			LOGGER.info("Pacote: " + p.getName() + " adicionado na arquitetura");
+		else
+			LOGGER.info("TENTOU adicionar o Pacote: " + p.getName() + " na arquitetura porém não consegiu");
+	}
+
+	/**
+	 * Adiciona uma classe na lista de classes. 
+	 * 
+	 * @param {@link Class}
+	 */
+	public void addExternalClass(Class klass) {
+		if(this.classes.add(klass))
+			LOGGER.info("Classe: " + klass.getName() + " adicionado na arquitetura");
+		else
+			LOGGER.info("TENTOU adicionar a Classe: " + klass.getName() + " na arquitetura porém não consegiu");
 	}
 
 }

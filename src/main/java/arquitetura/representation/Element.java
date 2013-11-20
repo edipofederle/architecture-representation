@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.representation.relationship.Relationship;
 
 /**
@@ -108,7 +109,7 @@ public abstract class Element implements Serializable {
 		return false;
 	}
 	
-	public void addConcerns(List<String> concernsNames) {
+	public void addConcerns(List<String> concernsNames) throws ConcernNotFoundException {
 		for (String name : concernsNames) 
 			addConcern(name);
 	}
@@ -120,13 +121,12 @@ public abstract class Element implements Serializable {
 	 * 
 	 * 
 	 * @param concernName
-	 * @return - true se incluir o interesse<br/>- false se não incluir o interesse
+	 * @throws ConcernNotFoundException 
+	 * 
 	 */
-	public boolean addConcern(String concernName) {
+	public void addConcern(String concernName) throws ConcernNotFoundException {
 		Concern concern = architecture.getOrCreateConcern(concernName);
-		if(concern == null) return false;
 		concerns.add(concern);
-		return true;
 	}
 	
 	public void removeConcern(String concernName){

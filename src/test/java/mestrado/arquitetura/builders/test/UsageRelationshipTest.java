@@ -3,7 +3,7 @@ package mestrado.arquitetura.builders.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.List;
+import java.util.Set;
 
 import mestrado.arquitetura.helpers.test.HelperTest;
 
@@ -59,12 +59,12 @@ public class UsageRelationshipTest extends HelperTest {
 
 		assertNotNull(architecture8);
 
-		List<Relationship> relations2 = architecture8.getAllRelationships();
+		Set<Relationship> relations2 = architecture8.getAllRelationships();
 
 		assertNotNull(relations2);
 		assertEquals(2, relations2.size());
 
-		UsageRelationship usage = (UsageRelationship) relations2.get(0);
+		UsageRelationship usage = (UsageRelationship) relations2.iterator().next();
 
 		assertNotNull(usage);
 		assertEquals("Usage1", usage.getName());
@@ -78,11 +78,11 @@ public class UsageRelationshipTest extends HelperTest {
 		Architecture architecture8 = givenAArchitecture("usage3");
 		assertNotNull(architecture8);
 
-		List<Relationship> relations2 = architecture8.getAllRelationships();
+		Set<Relationship> relations2 = architecture8.getAllRelationships();
 		assertEquals(1, relations2.size());
 		
 		
-		 UsageRelationship u = architecture8.getAllUsage().get(0);
+		 UsageRelationship u = architecture8.getAllUsage().iterator().next();
 		 assertEquals("Class1", u.getClient().getName());
 		 assertEquals("model::Package2", u.getClient().getNamespace());
 		 
@@ -98,9 +98,9 @@ public class UsageRelationshipTest extends HelperTest {
 	@Test
 	public void shouldLoadUsageInterClassPackage() throws Exception{
 		Architecture a = givenAArchitecture("usageClassPackage");
-		List<Relationship> relations = a.getAllRelationships();
+		Set<Relationship> relations = a.getAllRelationships();
 		assertNotNull(a);
-		UsageRelationship relation = (UsageRelationship)relations.get(0);
+		UsageRelationship relation = (UsageRelationship)relations.iterator().next();
 		assertNotNull(relation);
 		
 		assertEquals("Class1", relation.getClient().getName());
@@ -116,8 +116,8 @@ public class UsageRelationshipTest extends HelperTest {
 	public void shouldLoadUsageInterPackageClass() throws Exception{
 		String uriToArchitecture = getUrlToModel("PackageClassUsage");
 		Architecture architecture2 = new ArchitectureBuilder().create(uriToArchitecture);
-		List<Relationship> relations2 = architecture2.getAllRelationships();
-		UsageRelationship relation2 = (UsageRelationship)relations2.get(0);
+		Set<Relationship> relations2 = architecture2.getAllRelationships();
+		UsageRelationship relation2 = (UsageRelationship)relations2.iterator().next();
 		assertNotNull(relations2);
 		
 		assertEquals("Package1", relation2.getClient().getName());

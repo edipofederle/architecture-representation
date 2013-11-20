@@ -1,7 +1,9 @@
 package arquitetura.touml;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
@@ -18,8 +20,8 @@ public class AssociationKlassOperations {
 	private String associationEnd2;
 	private String id;
 	private ElementXmiGenerator elementXmiGenerator;
-	private List<arquitetura.touml.Attribute> attrs;
-	private List<arquitetura.touml.Method> methods;
+	private Set<arquitetura.touml.Attribute> attrs;
+	private Set<arquitetura.touml.Method> methods;
 	private Architecture architecture;
 	private Class associationClass;
 	
@@ -39,8 +41,8 @@ public class AssociationKlassOperations {
 		return this;
 	}
 
-	private List<arquitetura.touml.Attribute> buildAttributes(AssociationClassRelationship asr) {
-		List<arquitetura.touml.Attribute> attrs = new ArrayList<arquitetura.touml.Attribute>();
+	private Set<arquitetura.touml.Attribute> buildAttributes(AssociationClassRelationship asr) {
+		Set<arquitetura.touml.Attribute> attrs = new HashSet<arquitetura.touml.Attribute>();
 		for(Attribute attribute : asr.getAssociationClass().getAllAttributes()){
 			arquitetura.touml.Attribute attr = arquitetura.touml.Attribute.create()
 					 .withName(attribute.getName())
@@ -56,9 +58,9 @@ public class AssociationKlassOperations {
 	}
 	
 	//TODO refatorar método do main - mover
-	private static List<arquitetura.touml.Method> createMethods(AssociationClassRelationship klass) {
-		List<arquitetura.touml.Method> methods = new ArrayList<arquitetura.touml.Method>();
-		List<arquitetura.representation.Method> methodsClass = new ArrayList<arquitetura.representation.Method>();
+	private static Set<arquitetura.touml.Method> createMethods(AssociationClassRelationship klass) {
+		Set<arquitetura.touml.Method> methods = new HashSet<arquitetura.touml.Method>();
+		Set<arquitetura.representation.Method> methodsClass = new HashSet<arquitetura.representation.Method>();
 		
 		methodsClass = klass.getAllMethods();
 		for (arquitetura.representation.Method method : methodsClass) {

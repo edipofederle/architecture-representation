@@ -14,15 +14,15 @@ public class AbstratictionsTest  extends TestHelper{
 	
 	@Test
 	public void shouldLoadAbstractionInterElement() throws Exception {
-		Architecture architecture7 = givenAArchitecture("abstractionInterElement");
+		Architecture architecture7 = givenAArchitecture("moveAbstraction");
 
 		assertNotNull(architecture7);
 
-		AbstractionRelationship abstractionInterElement = architecture7.getAllAbstractions().get(0);
+		AbstractionRelationship abstractionInterElement = architecture7.getAllAbstractions().iterator().next();
 
 		assertNotNull(abstractionInterElement);
-		assertEquals("Client should be myInterfaceSupplier", "myInterfaceClient",	abstractionInterElement.getClient().getName());
-		assertEquals("Supplier should be Package1Supplier", "Package1Supplier", abstractionInterElement.getSupplier().getName());
+		assertEquals("Client should be Class2", "Class2",	abstractionInterElement.getClient().getName());
+		assertEquals("Supplier should be Class1", "Class1", abstractionInterElement.getSupplier().getName());
 	}
 
 }

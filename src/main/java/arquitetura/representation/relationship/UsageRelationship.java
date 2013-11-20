@@ -1,5 +1,6 @@
 package arquitetura.representation.relationship;
 
+import arquitetura.helpers.ElementsTypes;
 import arquitetura.representation.Element;
 
 /**
@@ -19,7 +20,7 @@ public class UsageRelationship extends Relationship {
 		this.supplier = supplier;
 		this.client = client;
 		setId(id);
-		setType("usage");
+		super.setType(ElementsTypes.USAGE);
 	}
 	
 	public String getName() {

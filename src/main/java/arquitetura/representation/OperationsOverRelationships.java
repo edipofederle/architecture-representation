@@ -1,8 +1,5 @@
 package arquitetura.representation;
 
-import java.util.List;
-import java.util.Set;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -20,13 +17,10 @@ public class OperationsOverRelationships {
 	
 	static Logger LOGGER = LogManager.getLogger(OperationsOverRelationships.class.getName());
 	
-	private List<Relationship> relationships;
-	private Set<String> allIds;
 	private Architecture  architecture;
 	
 	public OperationsOverRelationships(Architecture architecture) {
 		this.architecture = architecture;
-		this.relationships = architecture.getAllRelationships();
 	}
 
 	public void moveAssociation(AssociationRelationship association, Class class1, Class class2) {
@@ -79,7 +73,7 @@ public class OperationsOverRelationships {
 
 	private boolean removeRelationship(Relationship as) {
 		if(as == null) return false;
-		return relationships.remove(as);
+		return this.architecture.removeRelationship(as);
 	}
 
 	public void moveAssociationEnd(AssociationEnd associationEnd, Class idclass8) {
@@ -147,7 +141,7 @@ public class OperationsOverRelationships {
 		RealizationRelationship realization = new RealizationRelationship(client, supplier, "", id);
 		client.getRelationships().add(realization);
 		supplier.getRelationships().add(realization);
-		this.architecture.getAllRelationships().add(realization);
+		this.architecture.addRelationship(realization);
 	}
 
 }

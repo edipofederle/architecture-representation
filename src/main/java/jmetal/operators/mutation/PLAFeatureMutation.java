@@ -12,6 +12,7 @@ import jmetal.problems.OPLA;
 import jmetal.util.Configuration;
 import jmetal.util.JMException;
 import jmetal.util.PseudoRandom;
+import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
@@ -148,16 +149,18 @@ public class PLAFeatureMutation extends Mutation {
             	
             	if (PseudoRandom.randDouble() < probability) {
             	if (scope == "sameComponent") {
-            		Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
+            	//	Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
+            		Package sourceComp = arch.findPackageByName("GameBoardCtrl");
             		List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getClasses());
             	   	if (ClassesComp.size() > 1) {
             	   		Class targetClass = randomObject(ClassesComp);
             	   		Class sourceClass = randomObject(ClassesComp);
-            	   		if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass)) && (sourceClass.getAllAttributes().size()>1) && (sourceClass.getAllMethods().size()>1)){
+            	   		//TODO DESCOMENTAR - so para teste
+            	   		//if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass)) && (sourceClass.getAllAttributes().size()>1) && (sourceClass.getAllMethods().size()>1)){
             	   			if ((targetClass!=null) && (!(targetClass.equals(sourceClass)))) 
                 	   			moveMethod(arch, targetClass, sourceClass, sourceComp, sourceComp);
-                	   		}
-            	   		}
+                	   //	}
+            	   	}
             	} else {
             		if (scope == "allComponents") {
             			Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages())); 
@@ -200,7 +203,7 @@ public class PLAFeatureMutation extends Mutation {
 			Method targetMethod = randomObject(MethodsClass);
 			if (sourceClass.moveMethodToClass(targetMethod,targetClass)){
 				AssociationRelationship newRelationship = new AssociationRelationship(targetClass, sourceClass);
-				arch.getAllRelationships().add(newRelationship);
+				arch.addRelationship(newRelationship);
 			}
 			
 		}
@@ -323,8 +326,13 @@ public class PLAFeatureMutation extends Mutation {
 		Method targetMethod = randomObject (MethodsClass);
 		sourceClass.moveMethodToClass(targetMethod, newClass);
 		//if (targetMethod.isAbstract()) targetMethod.setAbstract(false);
-		for (Concern con: targetMethod.getOwnConcerns())
-			newClass.addConcern(con.getName());
+		for (Concern con: targetMethod.getOwnConcerns()){
+			try {
+				newClass.addConcern(con.getName());
+			} catch (ConcernNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 		//DependencyRelationship newDep = new DependencyRelationship(newClass, sourceClass);
 		AssociationRelationship newRelationship = new AssociationRelationship(newClass, sourceClass);
 		arch.getAllRelationships().add(newRelationship);
@@ -335,8 +343,13 @@ public class PLAFeatureMutation extends Mutation {
 		Method targetMethod = randomObject (MethodsClass);
 		sourceClass.moveMethodToClass(targetMethod, newClass);
 		//if (targetMethod.isAbstract()) targetMethod.setAbstract(false);
-		for (Concern con: targetMethod.getOwnConcerns())
+		for (Concern con: targetMethod.getOwnConcerns()){
+			try {
 				newClass.addConcern(con.getName());
+			} catch (ConcernNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 		if (targetComp.equals(sourceComp)){
 			AssociationRelationship newRelationship = new AssociationRelationship(newClass, sourceClass);
 			arch.getAllRelationships().add(newRelationship);
@@ -356,12 +369,17 @@ public class PLAFeatureMutation extends Mutation {
 		}		
 	}
 
-	private void moveAttributeSameComponent(Architecture arch, Class sourceClass, List<Attribute> AttributesClass, Class newClass)
-			throws JMException {
+	private void moveAttributeSameComponent(Architecture arch, Class sourceClass, List<Attribute> AttributesClass, Class newClass) throws JMException {
 		Attribute targetAttribute = randomObject (AttributesClass);
 		sourceClass.moveAttributeToClass(targetAttribute, newClass);
-		for (Concern con: targetAttribute.getOwnConcerns())
-				newClass.addConcern(con.getName());
+		for (Concern con: targetAttribute.getOwnConcerns()){
+				try {
+					newClass.addConcern(con.getName());
+				} catch (ConcernNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
 		//DependencyRelationship newDep = new DependencyRelationship(newClass, sourceClass);
 		AssociationRelationship newRelationship = new AssociationRelationship(newClass, sourceClass);
 		arch.getAllRelationships().add(newRelationship);
@@ -371,8 +389,13 @@ public class PLAFeatureMutation extends Mutation {
 			throws JMException {
 		Attribute targetAttribute = randomObject (AttributesClass);
 		sourceClass.moveAttributeToClass(targetAttribute, newClass);
-		for (Concern con: targetAttribute.getOwnConcerns())
-				newClass.addConcern(con.getName());
+		for (Concern con: targetAttribute.getOwnConcerns()){
+				try {
+					newClass.addConcern(con.getName());
+				} catch (ConcernNotFoundException e) {
+					e.printStackTrace();
+				}
+		}
 		if (targetComp.equals(sourceComp)){
 			AssociationRelationship newRelationship = new AssociationRelationship(newClass, sourceClass);
 			arch.getAllRelationships().add(newRelationship);
@@ -613,7 +636,11 @@ public class PLAFeatureMutation extends Mutation {
 		Interface targetInterface = null;
 		if (allInterfacesTargetComp.size()==0){
 			targetInterface = architecture.createInterface("Interface"+ OPLA.contInt_++);
-			targetInterface.addConcern(concern.getName());
+			try {
+				targetInterface.addConcern(concern.getName());
+			} catch (ConcernNotFoundException e) {
+				e.printStackTrace();
+			}
 			architecture.addImplementedInterfaceToComponent(targetInterface, targetComp);
 			architecture.addRequiredInterfaceToComponent(targetInterface, sourceComp);
 		}
@@ -649,7 +676,11 @@ public class PLAFeatureMutation extends Mutation {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			targetClass.addConcern(concern.getName());
+			try {
+				targetClass.addConcern(concern.getName());
+			} catch (ConcernNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
 		classComp.moveAttributeToClass(attribute, targetClass);
 		Interface targetInterface=null;
@@ -658,7 +689,11 @@ public class PLAFeatureMutation extends Mutation {
 		}
 		if (targetInterface==null) {
 			targetInterface= architecture.createInterface("Interface"+ OPLA.contInt_++);
-			targetInterface.addConcern(concern.getName());
+			try {
+				targetInterface.addConcern(concern.getName());
+			} catch (ConcernNotFoundException e) {
+				e.printStackTrace();
+			}
 			architecture.addImplementedInterfaceToComponent(targetInterface, targetComp);
 		}
 		architecture.addRequiredInterfaceToComponent(targetInterface, sourceComp);
@@ -688,7 +723,11 @@ public class PLAFeatureMutation extends Mutation {
 		}
 		if (targetInterface==null) {
 			targetInterface= architecture.createInterface("Interface"+ OPLA.contInt_++);
-			targetInterface.addConcern(concern.getName());
+			try {
+				targetInterface.addConcern(concern.getName());
+			} catch (ConcernNotFoundException e) {
+				e.printStackTrace();
+			}
 			architecture.addImplementedInterfaceToComponent(targetInterface, targetComp);
 		}
 		architecture.addRequiredInterfaceToComponent(targetInterface, sourceComp);
@@ -709,7 +748,11 @@ public class PLAFeatureMutation extends Mutation {
 		}
 		if (targetInterface==null) {
 			targetInterface= architecture.createInterface("Interface"+ OPLA.contInt_++);
-			targetInterface.addConcern(concern.getName());
+			try {
+				targetInterface.addConcern(concern.getName());
+			} catch (ConcernNotFoundException e) {
+				e.printStackTrace();
+			}
 			architecture.addImplementedInterfaceToComponent(targetInterface, targetComp);
 		}
 		sourceInterface.moveOperationToInterface(operation, targetInterface);
@@ -925,7 +968,11 @@ private void moveHierarchyToComponent(Class classComp, Package targetComp, Packa
 		
 		if (allInterfacesTargetComp.size()==0){
 			targetInterface = architecture.createInterface("Interface"+ OPLA.contInt_++);
-			targetInterface.addConcern(concern.getName());
+			try {
+				targetInterface.addConcern(concern.getName());
+			} catch (ConcernNotFoundException e) {
+				e.printStackTrace();
+			}
 			architecture.addImplementedInterfaceToComponent(targetInterface, targetComp);
 			architecture.addRequiredInterfaceToComponent(targetInterface, sourceComp);
 		}
@@ -978,7 +1025,11 @@ private void moveHierarchyToComponent(Class classComp, Package targetComp, Packa
 				Interface targetInterface = null;
 				if (allInterfacesTargetComp.size()==0){
 					targetInterface = architecture.createInterface("Interface"+ OPLA.contInt_++);
-					targetInterface.addConcern(concern.getName());
+					try {
+						targetInterface.addConcern(concern.getName());
+					} catch (ConcernNotFoundException e) {
+						e.printStackTrace();
+					}
 					architecture.addImplementedInterfaceToComponent(targetInterface, targetComp);
 					architecture.addRequiredInterfaceToComponent(targetInterface, auxComp);
 				}

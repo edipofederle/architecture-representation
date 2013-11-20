@@ -1,8 +1,11 @@
 package arquitetura.representation.relationship;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import arquitetura.helpers.ElementsTypes;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
@@ -23,7 +26,7 @@ public class GeneralizationRelationship extends Relationship {
 		setChild(childClass);
 		this.architecture = architecture;
 		setId(id);
-		setType("generalization");
+		super.setType(ElementsTypes.GENERALIZATION);
 	}
 
 	/**
@@ -55,10 +58,9 @@ public class GeneralizationRelationship extends Relationship {
 	 * 
 	 * @return
 	 */
-	public List<Element> getAllChildrenForGeneralClass() {
-		List<GeneralizationRelationship> generalizations = architecture
-				.getAllGeneralizations();
-		List<Element> childreen = new ArrayList<Element>();
+	public Set<Element> getAllChildrenForGeneralClass() {
+		List<GeneralizationRelationship> generalizations = architecture.getAllGeneralizations();
+		Set<Element> childreen = new HashSet<Element>();
 
 		String general = this.parent.getName();
 
@@ -66,7 +68,7 @@ public class GeneralizationRelationship extends Relationship {
 			if (generalization.getParent().getName().equalsIgnoreCase(general))
 				childreen.add(generalization.getChild());
 
-		return childreen;
+		return Collections.unmodifiableSet(childreen);
 
 	}
 

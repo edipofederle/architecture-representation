@@ -3,7 +3,9 @@ package mestrado.arquitetura.writer.test;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
@@ -15,6 +17,7 @@ import org.mockito.Mockito;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
+import arquitetura.representation.Package;
 import arquitetura.representation.Variability;
 import arquitetura.representation.Variant;
 import arquitetura.representation.VariationPoint;
@@ -50,13 +53,19 @@ public class NotesTest extends TestHelper {
 	public void shouldGenerateVariabilityIntoPackage() throws Exception{
 		Architecture a = givenAArchitecture("varpacote");
 		
+		Set<Class> allClasses = new HashSet<Class>();
+		for(Package p : a.getAllPackages())
+			allClasses.addAll(p.getClasses());
+		
+		allClasses.addAll(a.getClasses());
+		
 		GenerateArchitecture g = new GenerateArchitecture();
 		g.generate(a, "varpacote_4");
 		
 		Architecture varpacote_3 = givenAArchitecture2("varpacote_4");
 		assertNotNull(varpacote_3);
 		assertEquals(1, varpacote_3.getAllVariabilities().size());
-		assertEquals(1, varpacote_3.getAllClasses().size());
+		assertEquals(1, varpacote_3.findPackageByName("Package1").getClasses().size());
 		Variability variability = varpacote_3.getAllVariabilities().get(0);
 		assertEquals(1,variability.getVariants().size());
 	}

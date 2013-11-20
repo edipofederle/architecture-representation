@@ -3,18 +3,13 @@ package arquitetura.representation;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import arquitetura.helpers.UtilResources;
-import arquitetura.representation.relationship.AbstractionRelationship;
-import arquitetura.representation.relationship.AssociationEnd;
-import arquitetura.representation.relationship.AssociationRelationship;
-import arquitetura.representation.relationship.DependencyRelationship;
-import arquitetura.representation.relationship.GeneralizationRelationship;
-import arquitetura.representation.relationship.RealizationRelationship;
-import arquitetura.representation.relationship.Relationship;
 
 
 /**
@@ -30,10 +25,14 @@ import arquitetura.representation.relationship.Relationship;
 public class Package extends Element {
 
 	private static final long serialVersionUID = -3080328928563871488L;
+	static Logger LOGGER = LogManager.getLogger(Package.class.getName());
 
-	private Set<Element> elements = new HashSet<Element>();
-	private final Set<Interface> implementedInterfaces = new HashSet<Interface>();
-	private final Set<Interface> requiredInterfaces = new HashSet<Interface>();
+	private Set<Class> classes = new HashSet<Class>();
+	private Set<Interface> interfaces = new HashSet<Interface>();
+	
+	private Set<Interface> implementedInterfaces = new HashSet<Interface>();
+	private Set<Interface> requiredInterfaces = new HashSet<Interface>();
+	public  Set<Package> nestedPackages = new HashSet<Package>();
 	
 	/**
 	 * Construtor Para um Elemento do Tipo Pacote
@@ -50,19 +49,7 @@ public class Package extends Element {
 	
 	public Package(Architecture architecture, String name) {
 		this(architecture, name, null, UtilResources.createNamespace(architecture.getName(), name), UtilResources.getRandonUUID());
-		architecture.addElement(this);
-	}
-
-	/**
-	 * 
-	 * Retorna todos os elementos que pertencem a um Pacote.
-	 * 
-	 * Esses elementos podem ser do tipo {@link Class}, {@link Package} e {@link Interface}.
-	 * 
-	 * @return List<{@link Element}>
-	 */
-	public Collection<Element> getElements() {
-		return elements;
+		architecture.addPackage(this);
 	}
 	
 	/**
@@ -70,14 +57,8 @@ public class Package extends Element {
 	 * 
 	 * @return
 	 */
-	public List<Interface> getAllInterfaces(){
-		List<Interface> allInterfaces = new ArrayList<Interface>();
-		for (Element element : this.elements) {
-			if(element instanceof Interface)
-				allInterfaces.add((Interface)element);
-		}
-		
-		return allInterfaces;
+	public Set<Interface> getAllInterfaces(){
+		return this.interfaces;
 	}
 	/**
 	 * Retorna todas {@link Class} que pertencem ao pacote. 
@@ -85,13 +66,7 @@ public class Package extends Element {
 	 * @return List<{@link Class}>
 	 */
 	public Set<Class> getClasses(){
-		Set<Class> classes = new HashSet<Class>();
-		
-		for (Element element : this.getElements())
-			if(element instanceof Class)
-				classes.add((Class) element);
-
-		return classes;
+		return this.classes;
 	}
 	
 	/**
@@ -99,16 +74,8 @@ public class Package extends Element {
 	 * 
 	 * @return List<{@link Package}>
 	 */
-	public List<Package> getNestedPackages(){
-		List<Package> paks = new ArrayList<Package>();
-		
-		for (Element element : elements)
-			if(element.getTypeElement().equals("package")){
-				if(UtilResources.extractPackageName(((Package)element).getNamespace()).equalsIgnoreCase(this.getName()))
-					paks.add(((Package)element));	
-			}
-		
-		return paks;
+	public Set<Package> getNestedPackages(){
+		return this.nestedPackages;
 	}
 
 	public void addImplementedInterface(Element interfacee) {
@@ -137,7 +104,7 @@ public class Package extends Element {
 	 */
 	public Class createClass(String className, boolean isAbstract) throws Exception {
 		Class c = new Class(getArchitecture(), className, isAbstract, this.getName());
-		this.elements.add(c);
+		this.classes.add(c);
 		return c;
 	}
 
@@ -145,8 +112,10 @@ public class Package extends Element {
 	public List<Concern> getAllConcerns() {
 		List<Concern> concerns = new ArrayList<Concern>();
 		
-		for (Class class_ : getClasses()) 
-			concerns.addAll(class_.getAllConcerns());
+		for (Element klass : this.classes) 
+			concerns.addAll(klass.getAllConcerns());
+		for (Element inter : this.interfaces) 
+			concerns.addAll(inter.getAllConcerns());
 		for (Interface interfc:getImplementedInterfaces())
 			concerns.addAll(interfc.getAllConcerns());
 		
@@ -159,55 +128,46 @@ public class Package extends Element {
 	}
 
 	public void moveClassToPackage(Element klass, Package packageToMove) {
-		if (!elements.contains(klass)) return;
+		if (!classes.contains(klass)) return;
 		
 		removeClass(klass);
 		packageToMove.addExternalClass(klass);
 	}
 
 	public void addExternalClass(Element klass) {
-		elements.add(klass);
+		classes.add((Class) klass);
+	}
+	
+
+	public void addExternalInterface(Interface inter) {
+		interfaces.add(inter);
 	}
 	
 	public void removeClass(Element klass) {
-		this.elements.remove(klass);
-		
-		for (Iterator<Relationship> i = getArchitecture().getAllRelationships().iterator(); i.hasNext();) {
-			Relationship r = i.next();
-			if(r instanceof GeneralizationRelationship){
-				if(((GeneralizationRelationship) r).getParent().equals(klass) || ((GeneralizationRelationship) r).getChild().equals(klass)){
-					i.remove();
-				}
-			}
-			if(r instanceof RealizationRelationship){
-				if(((RealizationRelationship) r).getClient().equals(klass) || ((RealizationRelationship) r).getSupplier().equals(klass)){
-					i.remove();
-				}
-			}
-			if(r instanceof DependencyRelationship){
-				if(((DependencyRelationship) r).getClient().equals(klass) || ((DependencyRelationship) r).getSupplier().equals(klass)){
-					i.remove();
-				}
-			}
-			if(r instanceof AbstractionRelationship){
-				if(((AbstractionRelationship) r).getClient().equals(klass) || ((AbstractionRelationship) r).getSupplier().equals(klass)){
-					i.remove();
-				}
-			}
-			if(r instanceof AssociationRelationship){
-				for(AssociationEnd a : ((AssociationRelationship)r).getParticipants()){
-					if(a.getCLSClass().equals(klass))
-						i.remove();
-				}
-			}
-		}
-	
+		this.classes.remove(klass);
+		LOGGER.info("Classe: "+klass.getName() + " removida do pacote: "+this.getName());
 	}
 	
+	public void removeInterface(Element klass) {
+		this.interfaces.remove(klass);
+		LOGGER.info("Interface: "+klass.getName() + " removida do pacote: "+this.getName());
+	}
+
 	public boolean removeImplementedInterface(Interface interface_) {
 		if (!implementedInterfaces.contains(interface_)) return false;
 		implementedInterfaces.remove(interface_);
 		return true;
 	}
+
+	public Set<Element> getElements() {
+		Set<Element> elementsPackage = new HashSet<Element>();
+		for(Class k : this.classes)
+			elementsPackage.add(k);
+		for(Interface i : this.interfaces)
+			elementsPackage.add(i);
+		
+		return elementsPackage;
+	}
+
 
 }

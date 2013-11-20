@@ -32,12 +32,12 @@ public class OperationsOverGeneralization {
 
 	public void addChildToGeneralization(GeneralizationRelationship generalizationRelationship,	Element newChild) {
 		GeneralizationRelationship g = new GeneralizationRelationship(generalizationRelationship.getParent(), newChild, this.architecture, UtilResources.getRandonUUID());
-		this.architecture.getAllRelationships().add(g);
+		this.architecture.addRelationship(g);
 	}
 
 	public GeneralizationRelationship createGeneralization(Element parent, Element child) {
 		GeneralizationRelationship g = new GeneralizationRelationship(parent, child, this.architecture, UtilResources.getRandonUUID());
-		this.architecture.getAllRelationships().add(g);
+		this.architecture.addRelationship(g);
 		return g;
 	}
 

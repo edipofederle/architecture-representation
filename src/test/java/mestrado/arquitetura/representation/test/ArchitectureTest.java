@@ -8,7 +8,9 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
 
@@ -26,7 +28,6 @@ import arquitetura.representation.Class;
 import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Package;
-import arquitetura.representation.Variant;
 import arquitetura.representation.relationship.AbstractionRelationship;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationRelationship;
@@ -67,14 +68,14 @@ public class ArchitectureTest extends TestHelper {
 		String uriToArchitecture = getUrlToModel("pacotesTesteRe/Needless");
 		Architecture architecture = new ArchitectureBuilder().create(uriToArchitecture);
 		
-		System.out.println(architecture.getAllRealizations().get(0).getName());
-		System.out.println("Client:"+architecture.getAllRealizations().get(0).getClient().getName());
-		System.out.println("Supplier:"+architecture.getAllRealizations().get(0).getSupplier().getName());
+		System.out.println(architecture.getAllRealizations().iterator().next().getName());
+		System.out.println("Client:"+architecture.getAllRealizations().iterator().next().getClient().getName());
+		System.out.println("Supplier:"+architecture.getAllRealizations().iterator().next().getSupplier().getName());
 		
 		System.out.println("\n");
-		System.out.println(architecture.getAllDependencies().get(0).getName());
-		System.out.println("Cliente:"+architecture.getAllDependencies().get(0).getClient().getName());
-		System.out.println("Supplier:"+architecture.getAllDependencies().get(0).getSupplier().getName());
+		System.out.println(architecture.getAllDependencies().iterator().next().getName());
+		System.out.println("Cliente:"+architecture.getAllDependencies().iterator().next().getClient().getName());
+		System.out.println("Supplier:"+architecture.getAllDependencies().iterator().next().getSupplier().getName());
 		
 	}
 	
@@ -94,25 +95,25 @@ public class ArchitectureTest extends TestHelper {
 		new Package(arch, "Pacote");
 		
 		assertEquals(1, arch.getAllPackages().size());
-		assertEquals("Pacote", arch.getAllPackages().get(0).getName());
+		assertEquals("Pacote", arch.getAllPackages().iterator().next().getName());
 	}
 	
 	@Test
 	public void shouldReturnEmptyListWhenNoPackages(){
-		assertEquals(Collections.emptyList(), arch.getAllPackages());
+		assertTrue(arch.getAllPackages().isEmpty());
 	}
 	
 	@Test
 	public void shouldReturnAllClasses() throws ClassNotFound{
 		new Class(arch, "Klass", false);
 		
-		assertEquals(1, arch.getAllClasses().size());
+		assertEquals(1, arch.getClasses().size());
 		assertEquals("Klass", arch.findClassByName("Klass").get(0).getName());
 	}
 	
 	@Test
 	public void shouldReturnEmptyListWhenNoClasses(){
-		assertTrue(arch.getAllClasses().isEmpty());
+		assertTrue(arch.getClasses().isEmpty());
 	}
 
 	@Test
@@ -136,11 +137,14 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnElementPackageByName(){
-		arch.getElements().add( new Package(arch, "Pacote"));
+		assertEquals(0, arch.getAllPackages().size());
+		
+		new Package(arch, "Pacote");
 		Element pkg = arch.findElementByName("Pacote", "package");
 		
 		assertNotNull(pkg);
 		assertEquals("Pacote", pkg.getName());
+		assertEquals(1, arch.getAllPackages().size());
 	}
 	
 	@Test
@@ -149,15 +153,15 @@ public class ArchitectureTest extends TestHelper {
 		new Interface(arch, "Interface1");
 		new Interface(arch, "Interface2");
 		
-		assertEquals(2, arch.getAllInterfaces().size());
-		assertEquals(1, arch.getAllClasses().size());
+		assertEquals(2, arch.getInterfaces().size());
+		assertEquals(1, arch.getClasses().size());
 		assertNotNull(arch.findInterfaceByName("Interface1"));
 		assertNotNull(arch.findInterfaceByName("Interface2"));
 	}
 	
 	@Test
 	public void shouldReturnEmptyListWhenNoInterfaces(){
-		assertTrue(arch.getAllInterfaces().isEmpty());
+		assertTrue(arch.getInterfaces().isEmpty());
 	}
 	
 	@Test
@@ -220,7 +224,6 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldFindClassById() throws Exception{
 		Architecture a = givenAArchitecture("classesComMesmoNome");
-		assertEquals(2,a.getAllClasses().size());
 		Class c = a.findClassById("_Tln8YMlrEeKhSNDKJvPCfQ");
 		
 		assertNotNull(c);
@@ -285,9 +288,9 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldRemoveAssociationRelationship() throws Exception{
 		Architecture a = givenAArchitecture("associations/associationWithMultiplicity");
-		AssociationRelationship as = a.getAllAssociationsRelationships().get(0);
+		AssociationRelationship as = a.getAllAssociationsRelationships().iterator().next();
 		assertEquals("Architecture should contain 2 associations", 1, a.getAllAssociationsRelationships().size());
-		assertEquals(2, a.getAllClasses().size());
+		assertEquals(2, a.getClasses().size());
 		a.removeRelationship(as);
 		assertEquals("Architecture should contain 0 associations", 0, a.getAllAssociationsRelationships().size());
 	}
@@ -303,7 +306,7 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldRemoveDependecyRelationship() throws Exception{
 		Architecture a = givenAArchitecture("dependency");
-		DependencyRelationship dp = a.getAllDependencies().get(0);
+		DependencyRelationship dp = a.getAllDependencies().iterator().next();
 		assertEquals("Architecture should contain 5 dependency", 5,	a.getAllDependencies().size());
 		a.operationsOverRelationship().removeDependencyRelationship(dp);
 		assertEquals("Architecture should contain 4 dependency", 4,	a.getAllDependencies().size());
@@ -320,7 +323,7 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldRemoveUsageRelationship() throws Exception{
 		Architecture a = givenAArchitecture("usage3");
-		UsageRelationship usage = a.getAllUsage().get(0);
+		UsageRelationship usage = a.getAllUsage().iterator().next();
 		assertEquals("Architecture should contain 1 usage", 1,	a.getAllUsage().size());
 		a.forUsage().remove(usage);
 		assertEquals("Architecture should contain 0 usage", 0,	a.getAllUsage().size());
@@ -337,7 +340,7 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldRemoveAssociationClassRelationship() throws Exception{
 		Architecture a = givenAArchitecture("associationClass");
-		AssociationClassRelationship associationClass = a.getAllAssociationsClass().get(0);
+		AssociationClassRelationship associationClass = a.getAllAssociationsClass().iterator().next();
 		assertEquals("Architecture should contain 1 AssociationClass", 1,	a.getAllAssociationsClass().size());
 		a.operationsOverRelationship().removeAssociationClass(associationClass);
 		assertEquals("Architecture should contain 0 AssociationClass", 0,	a.getAllAssociationsClass().size());
@@ -353,7 +356,7 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldRemoveGeneralizationRelationship() throws Exception{
 		Architecture a = givenAArchitecture("generalizationArch");
-		GeneralizationRelationship g = a.getAllGeneralizations().get(0);
+		GeneralizationRelationship g = a.getAllGeneralizations().iterator().next();
 		assertEquals("Architecture should contain 3 generalization", 3,	a.getAllGeneralizations().size());
 		a.operationsOverRelationship().removeGeneralizationRelationship(g);
 		assertEquals("Architecture should contain 2 generalization", 2,	a.getAllGeneralizations().size());
@@ -370,7 +373,7 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldRemoveAbstractionRelationship() throws Exception{
 		Architecture a = givenAArchitecture("abstractionInterElement");
-		AbstractionRelationship ab = a.getAllAbstractions().get(0);
+		AbstractionRelationship ab = a.getAllAbstractions().iterator().next();
 		assertEquals("Architecture should contain 1 Abstraction", 2,	a.getAllAbstractions().size());
 		a.forAbstraction().remove(ab);
 		assertEquals("Architecture should contain 0 Abstraction", 1,	a.getAllAbstractions().size());
@@ -406,15 +409,22 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldRemoveAllElementRelatedWithPackageWhenPackageRemove1() throws Exception{
 		Architecture a = givenAArchitecture("testePackageRemove");
 		
-		assertEquals(1, a.getAllClasses().size());
-		assertEquals(0, a.getAllInterfaces().size());
-		assertEquals(1, a.getAllClasses().size());
+		Set<Class> allClasses = new HashSet<Class>();
+		for(Package p : a.getAllPackages())
+			allClasses.addAll(p.getClasses());
+		
+		Set<Interface> allInterfaces = new HashSet<Interface>();
+		for(Package p : a.getAllPackages())
+			allInterfaces.addAll(p.getAllInterfaces());
+		
+		assertEquals(1, allClasses.size());
+		assertEquals(0, allInterfaces.size());
 		
 		
-		a.removePackage(a.getAllPackages().get(0));
+		a.removePackage(a.getAllPackages().iterator().next());
 		
-		assertEquals(0, a.getAllClasses().size());
-		assertEquals(0, a.getAllClasses().size());
+		assertEquals(0, a.getClasses().size());
+		assertEquals(0, a.getClasses().size());
 		assertTrue(a.getAllPackages().isEmpty());
 	}
 	
@@ -422,12 +432,19 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldRemoveAllElementRelatedWithPackageWhenPackageRemove2() throws Exception{
 		Architecture a = givenAArchitecture("removePacoteTeste2");
 		
-		assertEquals(2, a.getAllClasses().size());
+		Set<Class> allClasses = new HashSet<Class>();
+		for(Package p : a.getAllPackages())
+			allClasses.addAll(p.getClasses());
+		
+		allClasses.addAll(a.getClasses());
+		
+		
+		assertEquals(2, allClasses.size());
 		assertEquals(1, a.getAllAssociationsRelationships().size());
 		
-		a.removePackage(a.getAllPackages().get(0));
+		a.removePackage(a.getAllPackages().iterator().next());
 		
-		assertEquals(1, a.getAllClasses().size());
+		assertEquals(1, a.getClasses().size());
 		assertEquals(0, a.getAllAssociationsRelationships().size());
 	}
 	
@@ -435,14 +452,27 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldRemoveAllElementRelatedWithPackageWhenPackageRemove3() throws Exception{
 		Architecture a = givenAArchitecture("removePacote3");
 		
-		assertEquals("Deve ter tres clases", 3, a.getAllClasses().size());
+		Set<Class> allClasses = new HashSet<Class>();
+		for(Package p : a.getAllPackages())
+			allClasses.addAll(p.getClasses());
+		
+		allClasses.addAll(a.getClasses());
+		
+		assertEquals("Deve ter tres clases", 3, allClasses.size());
 		assertEquals("Deve ter 2 associações",2, a.getAllAssociationsRelationships().size());
 		
-		assertEquals(2, a.getAllAssociationsRelationships().get(1).getParticipants().size());
+		for(AssociationRelationship as : a.getAllAssociationsRelationships())
+			assertEquals(2, as.getParticipants().size());
 		
-		a.removePackage(a.getAllPackages().get(0));
+		a.removePackage(a.getAllPackages().iterator().next());
 		
-		assertEquals("Deve ter uma classe", 1, a.getAllClasses().size());
+		Set<Class> allClasses2 = new HashSet<Class>();
+		for(Package p : a.getAllPackages())
+			allClasses2.addAll(p.getClasses());
+		
+		allClasses2.addAll(a.getClasses());
+		
+		assertEquals("Deve ter uma classe", 1,allClasses2.size());
 		assertEquals(0, a.getAllAssociationsRelationships().size());
 		
 	}
@@ -450,14 +480,14 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateInterface() throws InterfaceNotFound{
-		assertEquals(0, architecture.getAllInterfaces().size());
+		assertEquals(0, architecture.getInterfaces().size());
 		Interface interfacee = architecture.createInterface("myInterface");
 
 		assertEquals("generico::myInterface", interfacee.getNamespace());
 		
 		assertNotNull(interfacee);
 		assertNotNull(interfacee.getId());
-		assertEquals(1, architecture.getAllInterfaces().size());
+		assertEquals(1, architecture.getInterfaces().size());
 		assertEquals(interfacee, architecture.findInterfaceByName("myInterface"));
 	}
 	
@@ -465,22 +495,22 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldRemoveInterface(){
 		Interface interfacee = architecture.createInterface("myInterface");
 		
-		assertEquals(1, architecture.getAllInterfaces().size());
+		assertEquals(1, architecture.getInterfaces().size());
 		
 		architecture.removeInterface(interfacee); 
 		
-		assertEquals(0, architecture.getAllInterfaces().size());
+		assertEquals(0, architecture.getInterfaces().size());
 	}
 	
 	@Test
 	public void shouldCreateClass() throws ClassNotFound{
-		assertEquals(3, architecture.getAllClasses().size());
+		assertEquals(3, architecture.getClasses().size());
 		
 		
 		Class klass = architecture.createClass("Bar", true);
 		assertEquals("generico::Bar", klass.getNamespace());
 		
-		assertEquals(4, architecture.getAllClasses().size());
+		assertEquals(4, architecture.getClasses().size());
 		
 		assertEquals(klass, architecture.findClassByName("Bar").get(0));
 		assertTrue(architecture.findClassByName("Bar").get(0).isAbstract());
@@ -488,11 +518,11 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldRemoveClass() throws ClassNotFound{
-		assertEquals(3, architecture.getAllClasses().size());
+		assertEquals(3, architecture.getClasses().size());
 		Class klass = architecture.findClassByName("Class1").get(0);
 		
 		architecture.removeClass(klass);
-		assertEquals(2, architecture.getAllClasses().size());
+		assertEquals(2, architecture.getClasses().size());
 	}
 	
 	@Test
@@ -519,7 +549,7 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldReturnAllRelationshipsOfPackage() throws Exception{
 		Architecture a = givenAArchitecture("PackageClassUsage");
 		
-		Package p = a.getAllPackages().get(0);
+		Package p = a.getAllPackages().iterator().next();
 		List<Relationship> relationships = p.getRelationships();
 		
 		assertEquals(1, relationships.size());
@@ -530,7 +560,7 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldReturnEmptyListWhenNotFoundRelationships() throws Exception{
 		Architecture a = givenAArchitecture("Package");
 		
-		assertTrue(a.getAllPackages().get(0).getRelationships().isEmpty());
+		assertTrue(a.getAllPackages().iterator().next().getRelationships().isEmpty());
 	}
 	
 	@Test
@@ -540,5 +570,16 @@ public class ArchitectureTest extends TestHelper {
 		
 		assertNotNull(cloneA);
 		assertNotSame(a, cloneA);
+	}
+	
+	@Test
+	public void testGetAllElements() throws Exception{
+		Architecture a = givenAArchitecture("recurPackages");
+		
+		assertEquals(7, a.getElements().size());
+		assertEquals("Deve ter 3 pacotes", 3, a.getAllPackages().size());
+		assertContains(a.getAllPackages(), "Package1", "Package2", "Package3");
+		
+		assertEquals("Deve ter 4 classes", 4, a.getAllClasses().size());
 	}
 }

@@ -7,8 +7,9 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.List;
+import java.util.Set;
 
+import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.eclipse.uml2.uml.Class;
@@ -17,6 +18,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import arquitetura.builders.ClassBuilder;
+import arquitetura.exceptions.AttributeNotFoundException;
+import arquitetura.exceptions.ClassNotFound;
+import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
@@ -88,7 +92,7 @@ public class ClassTest extends TestHelper {
 	public void shouldRemoveAAttribute() throws Exception{
 		assertEquals(1, class1.getAllAttributes().size());
 		
-		arquitetura.representation.Attribute att = class1.getAllAttributes().get(0);
+		arquitetura.representation.Attribute att = class1.getAllAttributes().iterator().next();
 		assertTrue(class1.removeAttribute(att));
 		
 		assertEquals(0, class1.getAllAttributes().size());
@@ -96,26 +100,27 @@ public class ClassTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnsFalseWhenTryRemoveAttributeNotExistOnClass(){
-		arquitetura.representation.Attribute att = class1.getAllAttributes().get(0);
+		arquitetura.representation.Attribute att = class1.getAllAttributes().iterator().next();
 		assertFalse(class2.removeAttribute(att));
 	}
 	
 	@Test
-	public void shouldMoveAttribute(){
+	public void shouldMoveAttribute() throws AttributeNotFoundException{
 		assertEquals(3, class2.getAllAttributes().size());
+		assertEquals(1, class1.getAllAttributes().size());
 		
-		arquitetura.representation.Attribute att = class1.getAllAttributes().get(0);
-		assertTrue(class1.moveAttributeToClass(att, class2));
+		arquitetura.representation.Attribute property1 = class1.getAllAttributes().iterator().next();
+		assertTrue(class1.moveAttributeToClass(property1, class2));
 		
 		assertEquals(4, class2.getAllAttributes().size());
 		assertEquals(0, class1.getAllAttributes().size());
 		
-		assertEquals("model::Class2", class2.getAllAttributes().get(2).getNamespace());
+		assertEquals("MyArch::Class2",class2.findAttributeByName("Property1").getNamespace());
 	}
 	
 	@Test
 	public void shouldReturnsFalseWhenTryMoveAttributeNotExistOnClass(){
-		arquitetura.representation.Attribute att = class1.getAllAttributes().get(0);
+		arquitetura.representation.Attribute att = class1.getAllAttributes().iterator().next();
 		assertFalse(class2.moveAttributeToClass(att, class1));
 	}
 	
@@ -123,17 +128,18 @@ public class ClassTest extends TestHelper {
 	@Test
 	public void shouldRemoveAMethod(){
 		assertEquals(1, class1.getAllMethods().size());
-		Method method = class1.getAllMethods().get(0);
+		Method method = class1.getAllMethods().iterator().next();
 		
 		assertTrue(class1.removeMethod(method));
 		assertEquals(0, class1.getAllMethods().size());
 	}
 	
 	@Test
-	public void shouldMoveAMethod(){
+	public void shouldMoveAMethod() throws ClassNotFound{
 		assertEquals(1, class1.getAllMethods().size());
+		assertEquals(0, class2.getAllMethods().size());
 		
-		Method method = class1.getAllMethods().get(0);
+		Method method = class1.getAllMethods().iterator().next();
 		assertTrue(class1.moveMethodToClass(method, class2));
 		
 		assertEquals(0, class1.getAllMethods().size());
@@ -141,8 +147,24 @@ public class ClassTest extends TestHelper {
 	}
 	
 	@Test
+	public void testMovendoMetodo() throws Exception{
+		Architecture a = givenAArchitecture("movendoMethod");
+		arquitetura.representation.Class k1 = a.findClassByName("Class1").get(0);
+		arquitetura.representation.Class k2 = a.findClassByName("Class2").get(0);
+		
+		Method m = k2.getAllMethods().iterator().next();
+		k2.moveMethodToClass(m, k1);
+		
+		assertEquals(2,a.findClassByName("Class1").get(0).getAllMethods().size());
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "metodoMovidoComSucesso");
+		
+	}
+	
+	@Test
 	public void shouldReturnFalseWhenTryRemoveMothodNotExists(){
-		Method method = class1.getAllMethods().get(0);
+		Method method = class1.getAllMethods().iterator().next();
 		
 		assertFalse(class2.removeMethod(method));
 		assertEquals(1, class1.getAllMethods().size());
@@ -150,17 +172,17 @@ public class ClassTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnFalseWhenTryMoveMothodNotExists(){
-		Method method = class1.getAllMethods().get(0);
+		Method method = class1.getAllMethods().iterator().next();
 		assertFalse(class2.moveMethodToClass(method, class1));
 	}
 	
-	@Test
+	@Test(expected=ConcernNotFoundException.class)
 	public void shouldNotAddConcernWhenNotExists() throws Exception{
 		Architecture a = givenAArchitecture("concerns/completeClass");
 		arquitetura.representation.Class klass1 = a.findClassByName("Class1").get(0);
-		
+
 		assertEquals(1, klass1.getOwnConcerns().size());
-		assertFalse(klass1.addConcern("foo666"));
+		klass1.addConcern("foo666");
 		assertEquals(1, klass1.getOwnConcerns().size());
 	}
 	
@@ -170,7 +192,7 @@ public class ClassTest extends TestHelper {
 		arquitetura.representation.Class klass1 = a.findClassByName("Class1").get(0);
 		
 		assertEquals(1, klass1.getOwnConcerns().size());
-		assertTrue(klass1.addConcern("play"));
+		klass1.addConcern("play");
 		assertEquals(2, klass1.getOwnConcerns().size());
 	}
 	
@@ -207,11 +229,11 @@ public class ClassTest extends TestHelper {
 		Architecture a = givenAArchitecture("classInterface/classrealizationInterface");
 		arquitetura.representation.Class klass1 = a.findClassByName("Class1").get(0);
 		
-		List<Interface> requiredInterface = klass1.getRequiredInterfaces();
+		Set<Interface> requiredInterface = klass1.getRequiredInterfaces();
 		
 		assertNotNull(requiredInterface);
 		assertEquals(1,requiredInterface.size());
-		assertEquals("Class2", requiredInterface.get(0).getName());
+		assertEquals("Class2", requiredInterface.iterator().next().getName());
 	}
 	
 }

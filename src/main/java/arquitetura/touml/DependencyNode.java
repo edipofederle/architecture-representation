@@ -48,6 +48,8 @@ public class DependencyNode extends XmiHelper {
 			edges.setAttribute("type", "4005");
 		if("usage".equalsIgnoreCase(type))
 			edges.setAttribute("type", "4007");
+		if("abstraction".equalsIgnoreCase(type))
+			edges.setAttribute("type", "4006");
 		
 		Element childrenDocorationnode1 = this.docNotation.createElement("children");
 		childrenDocorationnode1.setAttribute("xmi:type", "notation:DecorationNode");
@@ -58,6 +60,10 @@ public class DependencyNode extends XmiHelper {
 			childrenDocorationnode1.setAttribute("type", "6012");
 		if("usage".equalsIgnoreCase(type))
 			childrenDocorationnode1.setAttribute("type", "6016");
+		if("abstraction".equalsIgnoreCase(type))
+			childrenDocorationnode1.setAttribute("type", "6014");
+		
+		
 		
 		Element layoutConstraint = this.docNotation.createElement("layoutConstraint");
 		layoutConstraint.setAttribute("xmi:type", "notation:Location");

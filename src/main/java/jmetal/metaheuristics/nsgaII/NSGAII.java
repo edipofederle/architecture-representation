@@ -121,13 +121,10 @@ public class NSGAII extends Algorithm {
 			for (int i = 0; i < (populationSize / 2); i++) {
 				if (evaluations < maxEvaluations) {
 					// obtain parents
-					parents[0] = (Solution) selectionOperator
-							.execute(population);
-					parents[1] = (Solution) selectionOperator
-							.execute(population);
+					parents[0] = (Solution) selectionOperator.execute(population);
+					parents[1] = (Solution) selectionOperator.execute(population);
 
-					Solution[] offSpring = (Solution[]) crossoverOperator
-							.execute(parents);
+					Solution[] offSpring = (Solution[]) crossoverOperator.execute(parents);
 					problem_.evaluateConstraints(offSpring[0]);
 					problem_.evaluateConstraints(offSpring[1]);
 

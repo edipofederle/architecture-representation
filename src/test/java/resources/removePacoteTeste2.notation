@@ -80,7 +80,7 @@
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_SySA55C1EeKDaa5NsMvxvw"/>
     </children>
     <element xmi:type="uml:Package" href="removePacoteTeste2.uml#_SyQLsJC1EeKDaa5NsMvxvw"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_SyQywZC1EeKDaa5NsMvxvw" x="293" y="243"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_SyQywZC1EeKDaa5NsMvxvw" x="293" y="243" width="356" height="199"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_Q9u6EZC1EeKDaa5NsMvxvw"/>
   <element xmi:type="uml:Model" href="removePacoteTeste2.uml#_Q9tr8JC1EeKDaa5NsMvxvw"/>

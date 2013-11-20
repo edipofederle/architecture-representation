@@ -2,6 +2,7 @@ package arquitetura.helpers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 
@@ -25,7 +26,7 @@ public class UtilResources {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T, U extends T> List<U> filter(List<T> target, Predicate<T> predicate) {
+	public static <T, U extends T> List<U> filter(Set<T> target, Predicate<T> predicate) {
 		List<U> result = new ArrayList<U>();
 		for (T element: target) 
 			if (predicate.apply(element)) 

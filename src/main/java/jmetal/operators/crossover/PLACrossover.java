@@ -15,6 +15,7 @@ import jmetal.util.Configuration;
 import jmetal.util.JMException;
 import jmetal.util.PseudoRandom;
 import arquitetura.exceptions.ClassNotFound;
+import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.exceptions.InterfaceNotFound;
 import arquitetura.exceptions.NotFoundException;
 import arquitetura.exceptions.PackageNotFound;
@@ -241,7 +242,11 @@ import arquitetura.representation.relationship.Relationship;
 		    					} catch (Exception e) {
 		    						e.printStackTrace();
 		    						newItf = offspring.createInterface("Interface"+ OPLA.contInt_++);
-		    						newItf.addConcern(feature.getName());
+		    						try {
+										newItf.addConcern(feature.getName());
+									} catch (ConcernNotFoundException e1) {
+										e1.printStackTrace();
+									}
 		    						offspring.addImplementedInterfaceToComponent(newItf, newComp);
 		    						addDependenciesToInterface(newItf, offspring, parent, feature);
 		    						

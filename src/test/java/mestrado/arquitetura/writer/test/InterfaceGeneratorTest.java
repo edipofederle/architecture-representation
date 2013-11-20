@@ -30,8 +30,8 @@ public class InterfaceGeneratorTest extends TestHelper {
 		op.forClass().createClass(inter).asInterface().build();
 		
 		Architecture a = givenAArchitecture2("empty");
-		assertNotNull(a.getAllInterfaces());
-		assertEquals(1, a.getAllInterfaces().size());
+		assertNotNull(a.getInterfaces());
+		assertEquals(1, a.getInterfaces().size());
 	}
 	
 	@Test
@@ -39,18 +39,18 @@ public class InterfaceGeneratorTest extends TestHelper {
 		Architecture a = givenAArchitecture("package");
 		
 		assertEquals(1, a.getAllPackages().size());
-		assertEquals(2, a.getAllPackages().get(0).getElements().size());
+		assertEquals(2, a.findPackageByName("Package1").getElements().size());
 		
 		Interface inter = new Interface(a, "MyInterface");
-		a.getAllPackages().get(0).getElements().add(inter);
+		a.findPackageByName("Package1").addExternalInterface(inter);
 		
 		GenerateArchitecture generate = new GenerateArchitecture();
 		generate.generate(a, "saidaPacoteComInterface");
 		
 		Architecture gerada = givenAArchitecture2("saidaPacoteComInterface");
-		assertEquals(1,gerada.getAllInterfaces().size());
+		assertEquals(1,a.findPackageByName("Package1").getAllInterfaces().size());
 		assertEquals(1,gerada.getAllPackages().size());
-		assertEquals(3, gerada.getAllPackages().get(0).getElements().size());
+		assertEquals(3, gerada.findPackageByName("Package1").getElements().size());
 		
 	}
 	
@@ -77,8 +77,8 @@ public class InterfaceGeneratorTest extends TestHelper {
 		op.forConcerns().withConcern(persistence, inter.getId());
 		
 		Architecture a = givenAArchitecture2("IntefaceConcern");
-		assertNotNull(a.getAllInterfaces());
-		assertEquals(1, a.getAllInterfaces().size());
+		assertNotNull(a.getInterfaces());
+		assertEquals(1, a.getInterfaces().size());
 		
 		GenerateArchitecture generate = new GenerateArchitecture();
 		generate.generate(a, "regenerateIntefaceConcern");
@@ -90,7 +90,7 @@ public class InterfaceGeneratorTest extends TestHelper {
 		assertEquals(1,interf.getOwnConcerns().size());
 		assertEquals("persistence",interf.getOwnConcerns().get(0).getName());
 		
-		arquitetura.representation.Method operationFoo = interf.getOperations().get(0);
+		arquitetura.representation.Method operationFoo = interf.getOperations().iterator().next();
 		assertEquals("foo", operationFoo.getName());	
 		assertTrue(operationFoo.getOwnConcerns().isEmpty());
 		

@@ -5,7 +5,7 @@ package mestrado.arquitetura.builders.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.List;
+import java.util.Set;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
 
@@ -27,8 +27,8 @@ public class RealizationsTest extends TestHelper {
 		Architecture architecture6 = givenAArchitecture("realization");
 		assertNotNull(architecture6);
 		
-		List<Relationship> relations = architecture6.getAllRelationships();
-		RealizationRelationship realization = (RealizationRelationship) relations.get(0);
+		Set<Relationship> relations = architecture6.getAllRelationships();
+		RealizationRelationship realization = (RealizationRelationship) relations.iterator().next();
 		
 		assertNotNull(realization);
 		

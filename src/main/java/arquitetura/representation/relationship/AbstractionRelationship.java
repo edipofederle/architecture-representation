@@ -1,5 +1,6 @@
 package arquitetura.representation.relationship;
 
+import arquitetura.helpers.ElementsTypes;
 import arquitetura.representation.Element;
 
 /**
@@ -16,6 +17,7 @@ public class AbstractionRelationship extends Relationship{
 		setClient(client);
 		setSupplier(supplier);
 		setId(id);
+		super.setType(ElementsTypes.ABSTRACTION);
 	}
 
 	/**

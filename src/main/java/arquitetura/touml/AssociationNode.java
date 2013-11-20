@@ -102,25 +102,37 @@ public class AssociationNode extends XmiHelper{
 		Element lowerValue = this.docUml.createElement("lowerValue");
 		lowerValue.setAttribute("xmi:type", "uml:LiteralInteger");
 		lowerValue.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		lowerValue.setAttribute("value", memberEnd1.getMultiplicity().getLowerValue());
+		if(memberEnd1.getMultiplicity() == null)
+			lowerValue.setAttribute("value","1");
+		else
+			lowerValue.setAttribute("value", memberEnd1.getMultiplicity().getLowerValue());
 		ownedEnd1.appendChild(lowerValue);
 
 		Element upperValue = this.docUml.createElement("upperValue");
 		upperValue.setAttribute("xmi:type", "uml:LiteralUnlimitedNatural");
 		upperValue.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		upperValue.setAttribute("value", memberEnd1.getMultiplicity().getUpperValue());
+		if(memberEnd1.getMultiplicity() == null)
+			upperValue.setAttribute("value", "1");
+		else
+			upperValue.setAttribute("value", memberEnd1.getMultiplicity().getUpperValue());
 		ownedEnd1.appendChild(upperValue);
 		
 		Element lowerValue2 = this.docUml.createElement("lowerValue");
 		lowerValue2.setAttribute("xmi:type", "uml:LiteralInteger");
 		lowerValue2.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		lowerValue2.setAttribute("value", memberEnd2.getMultiplicity().getLowerValue());
+		if(memberEnd2.getMultiplicity() == null)
+			lowerValue2.setAttribute("value", "1");
+		else
+			lowerValue2.setAttribute("value", memberEnd2.getMultiplicity().getLowerValue());
 		ownedEnd2.appendChild(lowerValue2);
 
 		Element upperValue2 = this.docUml.createElement("upperValue");
 		upperValue2.setAttribute("xmi:type", "uml:LiteralUnlimitedNatural");
 		upperValue2.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		upperValue2.setAttribute("value", memberEnd2.getMultiplicity().getUpperValue());
+		if(memberEnd2.getMultiplicity() == null)
+			upperValue2.setAttribute("value","1");
+		else
+			upperValue2.setAttribute("value", memberEnd2.getMultiplicity().getUpperValue());
 		ownedEnd2.appendChild(upperValue2);
 		
 		modelRoot.appendChild(packageElement);
