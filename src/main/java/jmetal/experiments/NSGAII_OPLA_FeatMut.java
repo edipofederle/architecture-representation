@@ -31,11 +31,11 @@ public class NSGAII_OPLA_FeatMut {
 
 	  int runsNumber = 1; //30;
 	  
-      populationSize_ =20; //100
-      maxEvaluations_ = 100; //300 gera��es
+      populationSize_ = 1; //100
+      maxEvaluations_ = 80; //300 gera��es
          
          crossoverProbability_ = 0.0; 
-         mutationProbability_ = 1.0;
+         mutationProbability_ = 1.0; //antes tava 1.0
          String context = "OPLA";
 
          //File directory = new File("resultado/nsgaii/" + context);
@@ -135,8 +135,8 @@ public class NSGAII_OPLA_FeatMut {
              //System.out.println("Iruns: " + runs + "\tTo tal time: " + estimatedTime);
              time[runs] = estimatedTime;
              
-//             resultFront = problem.removeDominadas(resultFront);
-//             resultFront = problem.removeRepetidas(resultFront);
+             resultFront = problem.removeDominadas(resultFront);
+             resultFront = problem.removeRepetidas(resultFront);
 
              resultFront.printObjectivesToFile(directory + "/FUN_" + PLAName + "_" + runs + ".txt");
              //resultFront.printVariablesToFile(directory + "/VAR_" + runs);

@@ -149,17 +149,15 @@ public class PLAFeatureMutation extends Mutation {
             	
             	if (PseudoRandom.randDouble() < probability) {
             	if (scope == "sameComponent") {
-            	//	Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
-            		Package sourceComp = arch.findPackageByName("GameBoardCtrl");
+            		Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
             		List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getClasses());
             	   	if (ClassesComp.size() > 1) {
             	   		Class targetClass = randomObject(ClassesComp);
             	   		Class sourceClass = randomObject(ClassesComp);
-            	   		//TODO DESCOMENTAR - so para teste
-            	   		//if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass)) && (sourceClass.getAllAttributes().size()>1) && (sourceClass.getAllMethods().size()>1)){
+            	   		if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass)) && (sourceClass.getAllAttributes().size()>1) && (sourceClass.getAllMethods().size()>1)){
             	   			if ((targetClass!=null) && (!(targetClass.equals(sourceClass)))) 
                 	   			moveMethod(arch, targetClass, sourceClass, sourceComp, sourceComp);
-                	   //	}
+            	   		}
             	   	}
             	} else {
             		if (scope == "allComponents") {

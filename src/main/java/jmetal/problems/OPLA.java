@@ -420,11 +420,9 @@ public class OPLA extends Problem {
 		return (Extensibility);
 	}
 
-	private void removeComponentRelationships(Package comp,
-			Architecture architecture) {
+	private void removeComponentRelationships(Package comp, Architecture architecture) {
 		//
-		Relationship[] allInterElementRelationships = architecture
-				.getAllRelationships().toArray(new Relationship[0]);
+		Relationship[] allInterElementRelationships = architecture.getAllRelationships().toArray(new Relationship[0]);
 		for (Relationship relationship : allInterElementRelationships) {
 			if (relationship instanceof AbstractionRelationship) {
 				AbstractionRelationship abstraction = (AbstractionRelationship) relationship;
@@ -482,12 +480,9 @@ public class OPLA extends Problem {
 	}
 
 	public void evaluateConstraints(Solution solution) throws JMException {
-		List<Package> allComponents = new ArrayList<Package>(
-				((Architecture) solution.getDecisionVariables()[0])
-						.getAllPackages());
+		List<Package> allComponents = new ArrayList<Package>(((Architecture) solution.getDecisionVariables()[0]).getAllPackages());
 		if (allComponents.isEmpty())
-			System.out
-					.println("Arquitetura chegou sem componentes no evaluate constraints");
+			System.out.println("Arquitetura chegou sem componentes no evaluate constraints");
 
 		for (Package comp : allComponents) {
 			List<Class> allClasses = new ArrayList<Class>(comp.getClasses());
@@ -496,24 +491,19 @@ public class OPLA extends Problem {
 
 				while (iteratorClasses.hasNext()) {
 					Class cls = iteratorClasses.next();
+					if(cls.getName().equalsIgnoreCase("GameBoardCtrl"))
+						System.out.println("ok");
 					if ((cls.getAllAttributes().isEmpty())
 							&& (cls.getAllMethods().isEmpty())
-							&& (cls.getImplementedInterfaces().isEmpty()) // TODO
-																			// verificar
-																			// se
-																			// esta
-																			// ok
+							&& (cls.getImplementedInterfaces().isEmpty()) 
 							&& !(searchForGeneralizations(cls))
 							&& (cls.getVariantType() == null)) {
 						comp.removeClass(cls);
-						this.removeClassRelationships(
-								cls,
-								(Architecture) solution.getDecisionVariables()[0]);
+						this.removeClassRelationships(cls,(Architecture) solution.getDecisionVariables()[0]);
 					}
 				}
 			}
-			List<Interface> allItfsComp = new ArrayList<Interface>(
-					comp.getImplementedInterfaces());
+			List<Interface> allItfsComp = new ArrayList<Interface>(comp.getImplementedInterfaces());
 			if (!(allItfsComp.isEmpty())) {
 				Iterator<Interface> iteratorInterfaces = allItfsComp.iterator();
 				while (iteratorInterfaces.hasNext()) {
@@ -543,8 +533,7 @@ public class OPLA extends Problem {
 				}
 			}
 
-			if (comp.getClasses().isEmpty()
-					&& comp.getImplementedInterfaces().isEmpty()) { // TODO
+			if (comp.getClasses().isEmpty() && comp.getImplementedInterfaces().isEmpty()) { // TODO
 																	// verificar,
 																	// pois
 																	// deveria

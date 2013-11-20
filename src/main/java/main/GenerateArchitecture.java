@@ -16,6 +16,7 @@ import arquitetura.exceptions.NodeNotFound;
 import arquitetura.exceptions.NotSuppportedOperation;
 import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
 import arquitetura.helpers.Strings;
+import arquitetura.helpers.UtilResources;
 import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
@@ -52,6 +53,7 @@ public class GenerateArchitecture  extends ArchitectureBase{
 	private List<String> packageCreated = new ArrayList<String>();
 	public void generate(Architecture a, String output){
 		
+		UtilResources.clearConsole();
 		
 		DocumentManager doc = null;
 		try {
@@ -285,7 +287,7 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			e.printStackTrace();
 			System.exit(0);
 		}
-		LOGGER.info("\n\n\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget()+doc.getNewModelName());
+		LOGGER.info("\n\n\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget()+doc.getNewModelName() + "\n\n\n\n");
 		
 	}
 
