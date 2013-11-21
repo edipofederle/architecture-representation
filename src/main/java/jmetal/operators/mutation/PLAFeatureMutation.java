@@ -48,14 +48,14 @@ public class PLAFeatureMutation extends Mutation {
     	String scopeLevels = "allLevels"; //usar "oneLevel" para não verificar a presença de interesses nos atributos e métodos
 
   
-    	int r = 2;
+    	int r = 5;
     	switch(r){
-    //    case 0: FeatureMutation(probability, solution, scopeLevels); break;
+      //  case 0: FeatureMutation(probability, solution, scopeLevels); break;
   //        case 1: MoveMethodMutation(probability, solution, scope); break;
-        case 2: MoveAttributeMutation(probability, solution, scope); break;
-//        case 3: MoveOperationMutation(probability, solution); break;
-//        case 4: AddClassMutation(probability, solution, scope); break;
-//        case 5: AddManagerClassMutation(probability, solution); break;
+   //     case 2: MoveAttributeMutation(probability, solution, scope); break;
+   //     case 3: MoveOperationMutation(probability, solution); break;
+    	//case 4: AddClassMutation(probability, solution, scope); break;
+        case 5: AddManagerClassMutation(probability, solution); break;
         }
     	
     	    	
@@ -82,14 +82,11 @@ public class PLAFeatureMutation extends Mutation {
             	            	 
             	if (PseudoRandom.randDouble() < probability) {
             	if (scope == "sameComponent") {
-            		//Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
-            		Package sourceComp = arch.findPackageByName("GameBoardCtrl");
+            		Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
             		List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getClasses());
             		if (ClassesComp.size() > 1) {
-            			//Class targetClass = randomObject(ClassesComp);
-            		    //Class sourceClass = randomObject(ClassesComp);
-            			Class targetClass = arch.findClassByName("Sprit").get(0);
-            			Class sourceClass = arch.findClassByName("Velocity").get(0);
+            			Class targetClass = randomObject(ClassesComp);
+            		    Class sourceClass = randomObject(ClassesComp);
             		    if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass))&& (sourceClass.getAllAttributes().size()>1) && (sourceClass.getAllMethods().size()>1)){ //sourceClass n�o tem relacionamentos de generaliza��o
             		    	if ((targetClass!=null) && (!(targetClass.equals(sourceClass)))) 
             		    		moveAttribute(arch, targetClass, sourceClass);
@@ -264,10 +261,12 @@ public class PLAFeatureMutation extends Mutation {
             if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
               if (PseudoRandom.randDouble() < probability) {  
                Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
-               Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
+              // Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
+               Package sourceComp = arch.findPackageByName("GameBoardCtrl");
                List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getClasses());
                if (ClassesComp.size() >=1 ) {
-            	   Class sourceClass = randomObject(ClassesComp);
+            	   //Class sourceClass = randomObject(ClassesComp);
+            	   Class sourceClass = arch.findClassByName("GameBoard").get(0);
             	   if ((sourceClass != null) && (!searchForGeneralizations(sourceClass)) && (sourceClass.getAllAttributes().size()>1) && (sourceClass.getAllMethods().size()>1)){ 	
                         	int option = PseudoRandom.randInt(0,1);
                         	if (option == 0) { //attribute          	
@@ -335,7 +334,7 @@ public class PLAFeatureMutation extends Mutation {
 		}
 		//DependencyRelationship newDep = new DependencyRelationship(newClass, sourceClass);
 		AssociationRelationship newRelationship = new AssociationRelationship(newClass, sourceClass);
-		arch.getAllRelationships().add(newRelationship);
+		arch.addRelationship(newRelationship);
 	}
 	
 	private void moveMethodAllComponents(Architecture arch, Package sourceComp, Package targetComp, Class sourceClass, List<Method> MethodsClass, Class newClass)
@@ -425,7 +424,8 @@ public class PLAFeatureMutation extends Mutation {
           if (PseudoRandom.randDouble() < probability) {  	
             Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
             
-            Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
+            //Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
+            Package sourceComp = arch.findPackageByName("GameBoardCtrl");
             	
             List<Interface> InterfacesComp = new ArrayList<Interface> ();
             InterfacesComp.addAll(sourceComp.getImplementedInterfaces());
@@ -438,7 +438,8 @@ public class PLAFeatureMutation extends Mutation {
             	
             		Package newComp = arch.createPackage("Package"+ OPLA.contComp_ + getSuffix(sourceComp));
             		OPLA.contComp_++;
-            		Interface newInterface = arch.createInterface("Interface"+ OPLA.contInt_++);
+//            		/Interface newInterface = arch.createInterface("Interface"+ OPLA.contInt_++);
+            		Interface newInterface = newComp.createInterface("Interface"+ OPLA.contInt_++); // Edipo ver com Thelma
             		
             		arch.addImplementedInterfaceToComponent(newInterface, newComp);
             		sourceInterface.moveOperationToInterface(op, newInterface); 
@@ -477,8 +478,9 @@ public class PLAFeatureMutation extends Mutation {
             		  Package selectedComp = randomObject(allComponents);
                 	  List<Concern> allConcernsSelectedComp = new ArrayList<Concern> (selectedComp.getAllConcerns());
                 	  List<Concern> ConcernsSelectedComp = new ArrayList<Concern> ();
-                	  for (Concern concern:allConcernsSelectedComp){
-                		  if (!ConcernsSelectedComp.contains(concern)) ConcernsSelectedComp.add(concern);
+                	  for (Concern concern : allConcernsSelectedComp){
+                		  if (!ConcernsSelectedComp.contains(concern)) 
+                			  ConcernsSelectedComp.add(concern);
                 	  }
                 	  if (ConcernsSelectedComp.size() > 1){
                 		Concern selectedConcern = randomObject(ConcernsSelectedComp);
@@ -565,7 +567,6 @@ public class PLAFeatureMutation extends Mutation {
 								else
 									moveHierarchyToComponent(classComp, targetComponent, comp, arch, concern); //realiza a mutação em classes estão numa hierarquia de herarquia 
 							} else {
-								// ThelmaNew: condicao adicionada
 								if (!searchForGeneralizations(classComp)) {
 									if (!isVarPointOfConcern(arch, classComp, concern) && !isVariantOfConcern(arch, classComp, concern)) {
 										List<Attribute> attributesClassComp = new ArrayList<Attribute>(classComp.getAllAttributes());

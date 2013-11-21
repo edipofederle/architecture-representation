@@ -28,6 +28,14 @@ public class DependencyRelationship extends Relationship {
 	
 	public DependencyRelationship(){}
 	
+	/**
+	 * 
+	 * @param supplier
+	 * @param client
+	 * @param name
+	 * @param architecture
+	 * @param id
+	 */
 	public DependencyRelationship(Element supplier, Element client, String name, Architecture architecture, String id) {
 		setSupplier(supplier);
 		setClient(client);

@@ -66,5 +66,22 @@ public class Method extends Element{
 	public Collection<Concern> getAllConcerns() {
 		return new ArrayList<Concern>(getOwnConcerns());
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj != null && getClass() == obj.getClass()) {
+			final Method other = (Method) obj;
+			if ((this.getName() == null) ? (other.getName() == null) : this
+					.getName().equals(other.getName())) {
+				if ((this.returnType == null) ? (other.returnType == null)
+						: this.returnType.equals(other.returnType)) {
+					return this.parameters == other.parameters
+							|| (this.parameters != null && this.parameters
+									.equals(other.parameters));
+				}
+			}
+		}
+		return false;
+	}
 
 }

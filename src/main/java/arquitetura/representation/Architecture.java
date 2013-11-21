@@ -627,7 +627,7 @@ public class Architecture extends Variable implements Cloneable {
 	
 	public void addRequiredInterfaceToComponent(Interface interface_, Package pkg) {
 		if (pkg.getRequiredInterfaces().contains(interface_)) return;
-		if(getAllRelationships().add(new DependencyRelationship(interface_, pkg, "", this, UtilResources.getRandonUUID())))
+		if(addRelationship(new DependencyRelationship(interface_, pkg, "", this, UtilResources.getRandonUUID())))
 			LOGGER.info("RequiredInterface: " + interface_.getName() + " adicionada ao pacote: " +pkg.getName());
 		else
 			LOGGER.info("TENTOU adicionar RequiredInterface: "+ interface_.getName() + " ao pacote: "+pkg.getName() + " porém não consegiu");

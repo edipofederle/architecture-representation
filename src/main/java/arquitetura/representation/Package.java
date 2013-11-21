@@ -107,6 +107,18 @@ public class Package extends Element {
 		this.classes.add(c);
 		return c;
 	}
+	
+	/**
+	 * Cria uma interface dentro do pacote
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public Interface createInterface(String name) {
+		Interface inter = new Interface(getArchitecture(), name);
+		this.interfaces.add(inter);
+		return inter;
+	}
 
 	@Override
 	public List<Concern> getAllConcerns() {
@@ -168,6 +180,5 @@ public class Package extends Element {
 		
 		return elementsPackage;
 	}
-
 
 }

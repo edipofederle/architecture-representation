@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Before;
@@ -22,6 +23,7 @@ import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.exceptions.ClassNotFound;
 import arquitetura.exceptions.InterfaceNotFound;
 import arquitetura.exceptions.PackageNotFound;
+import arquitetura.helpers.UtilResources;
 import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
@@ -33,6 +35,7 @@ import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
+import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 import arquitetura.representation.relationship.UsageRelationship;
 
@@ -582,4 +585,29 @@ public class ArchitectureTest extends TestHelper {
 		
 		assertEquals("Deve ter 4 classes", 4, a.getAllClasses().size());
 	}
+	
+	
+	@Test
+	public void testeGiovani() throws Exception{
+		Architecture a = givenAArchitecture("recurPackages");
+		
+		Class foo = a.createClass("Foo", false);
+		Interface bar = a.createInterface("bar");
+		
+	
+		
+		RealizationRelationship r = new RealizationRelationship(foo, bar, "teste", UtilResources.getRandonUUID());
+		a.addRelationship(r);
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "testeGiovani");
+		
+		Architecture a2 = givenAArchitecture2("testeGiovani");
+		assertEquals(1,a2.findClassByName("Foo").get(0).getImplementedInterfaces().size());
+		assertEquals("bar", a2.findClassByName("Foo").get(0).getImplementedInterfaces().iterator().next().getName());
+	}
+	
+	
+	
+	
 }
