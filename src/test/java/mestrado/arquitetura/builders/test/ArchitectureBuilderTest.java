@@ -39,7 +39,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 
 	@Before
 	public void setUp() throws Exception {
-		architecture = givenAArchitecture("testArch");
+		 architecture = givenAArchitecture("testArch");
 		 klass =  architecture.findClassByName("Class1").get(0);
 		 klassClass2 = architecture.findClassByName("Class2").get(0);
 	}
