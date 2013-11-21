@@ -76,3 +76,4 @@ log.log.1
 *.ucls
 *.png
 experiment/
+src/test/java/resources/output.uml.uml
