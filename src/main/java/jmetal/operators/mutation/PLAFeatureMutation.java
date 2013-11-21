@@ -82,17 +82,20 @@ public class PLAFeatureMutation extends Mutation {
             	            	 
             	if (PseudoRandom.randDouble() < probability) {
             	if (scope == "sameComponent") {
-            		Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));            	    	
+            		//Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
+            		Package sourceComp = arch.findPackageByName("GameBoardCtrl");
             		List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getClasses());
             		if (ClassesComp.size() > 1) {
-            			Class targetClass = randomObject(ClassesComp);
-            		    Class sourceClass = randomObject(ClassesComp);
+            			//Class targetClass = randomObject(ClassesComp);
+            		    //Class sourceClass = randomObject(ClassesComp);
+            			Class targetClass = arch.findClassByName("Sprit").get(0);
+            			Class sourceClass = arch.findClassByName("Velocity").get(0);
             		    if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass))&& (sourceClass.getAllAttributes().size()>1) && (sourceClass.getAllMethods().size()>1)){ //sourceClass n�o tem relacionamentos de generaliza��o
             		    	if ((targetClass!=null) && (!(targetClass.equals(sourceClass)))) 
             		    		moveAttribute(arch, targetClass, sourceClass);
             			}
             		}
-            		    
+            		        
             	} else{//considerando todos os componentes
             		if (scope == "allComponents") {
             			Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages())); 
@@ -129,13 +132,12 @@ public class PLAFeatureMutation extends Mutation {
     }
 
 	private void moveAttribute(Architecture arch, Class targetClass, Class sourceClass) throws JMException, Exception {
-		
 		List<Attribute> attributesClass = new ArrayList<Attribute> (sourceClass.getAllAttributes());
 		if (attributesClass.size() >=1 ){
 			Attribute targetAttribute = randomObject(attributesClass);
-			if (sourceClass.moveAttributeToClass(targetAttribute,targetClass)){
+			if (sourceClass.moveAttributeToClass(targetAttribute, targetClass)){
 				AssociationRelationship newRelationship = new AssociationRelationship(targetClass, sourceClass); 
-				arch.getAllRelationships().add(newRelationship);
+				arch.addRelationship(newRelationship);
 			}
 		}
 	}

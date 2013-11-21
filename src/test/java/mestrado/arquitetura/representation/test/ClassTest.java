@@ -22,6 +22,7 @@ import arquitetura.exceptions.AttributeNotFoundException;
 import arquitetura.exceptions.ClassNotFound;
 import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Attribute;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
 
@@ -116,6 +117,23 @@ public class ClassTest extends TestHelper {
 		assertEquals(0, class1.getAllAttributes().size());
 		
 		assertEquals("MyArch::Class2",class2.findAttributeByName("Property1").getNamespace());
+	}
+	
+	@Test
+	public void moveattR() throws Exception{
+		Architecture a = givenAArchitecture("moveAttr");
+		
+		Attribute attr = a.findClassByName("Class1").get(0).getAllAttributes().iterator().next();
+		a.findClassByName("Class1").get(0).moveAttributeToClass(attr, a.findClassByName("Class2").get(0));
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "movendoAttrEntreClasses");
+		
+		Architecture ag = givenAArchitecture2("movendoAttrEntreClasses");
+		assertEquals(2,ag.findClassByName("Class2").get(0).getAllAttributes().size());
+		assertEquals(0,ag.findClassByName("Class1").get(0).getAllAttributes().size());
+		
+		
 	}
 	
 	@Test

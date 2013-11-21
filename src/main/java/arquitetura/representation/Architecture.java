@@ -661,7 +661,7 @@ public class Architecture extends Variable implements Cloneable {
 
 	public boolean addRelationship(Relationship relationship) {
 		if(this.relationships.add(relationship)){
-			LOGGER.info("Relacionamento: " + relationship.getType() + " adicionado na arquitetura");
+			LOGGER.info("Relacionamento: " + relationship.getType() + " adicionado na arquitetura.("+UtilResources.detailLogRelationship(relationship)+")");
 			return true;
 		}else{
 			LOGGER.info("TENTOU adicionar Relacionamento: " + relationship.getType() + " na arquitetura porém não consegiu");

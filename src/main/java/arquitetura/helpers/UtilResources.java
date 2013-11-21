@@ -5,6 +5,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import arquitetura.representation.Element;
+import arquitetura.representation.relationship.AbstractionRelationship;
+import arquitetura.representation.relationship.AssociationClassRelationship;
+import arquitetura.representation.relationship.AssociationEnd;
+import arquitetura.representation.relationship.AssociationRelationship;
+import arquitetura.representation.relationship.DependencyRelationship;
+import arquitetura.representation.relationship.GeneralizationRelationship;
+import arquitetura.representation.relationship.MemberEnd;
+import arquitetura.representation.relationship.RealizationRelationship;
+import arquitetura.representation.relationship.Relationship;
+
 
 
 /**
@@ -65,6 +76,54 @@ public class UtilResources {
 				Runtime.getRuntime().exec("clear");
 		} catch (Exception exception) {
 		}
+	}
+
+	public static String detailLogRelationship(Relationship r) {
+		String strLog = "";
+		
+		if(r instanceof GeneralizationRelationship){
+			strLog += "Superclasse:"+ ((GeneralizationRelationship)r).getParent().getName() + " subclasses:"+ childreenToStr(((GeneralizationRelationship)r).getAllChildrenForGeneralClass());
+		}
+		if(r instanceof RealizationRelationship){
+			strLog += "Cliente:" + ((RealizationRelationship) r).getClient().getName() + " Supplier: " + ((RealizationRelationship) r).getSupplier().getName();
+		}
+		if(r instanceof DependencyRelationship){
+			strLog += "Cliente: " + ((DependencyRelationship) r).getClient().getName() + " Supplier" + ((DependencyRelationship) r).getSupplier().getName();
+		}
+		if(r instanceof AbstractionRelationship){
+			strLog += "Cliente: " + ((AbstractionRelationship) r).getClient().getName() + " Supplier" + ((AbstractionRelationship) r).getSupplier().getName();
+		}
+		if(r instanceof AssociationRelationship){
+			String participantsStr = participantsToStr(((AssociationRelationship)r).getParticipants());
+			strLog += "Participants: " + participantsStr;
+		}
+		
+		if(r instanceof AssociationClassRelationship){
+			strLog += "AssociationClass: " + ((AssociationClassRelationship)r).getAssociationClass().getName() + ". MemebersEnd: " + memebersEndToStr(((AssociationClassRelationship) r).getMemebersEnd());
+		}
+		
+		return strLog;
+	}
+
+	private static String memebersEndToStr(List<MemberEnd> memebersEnd) {
+		String membersEnd = "";
+		for(MemberEnd member : memebersEnd)
+			membersEnd += member.getType().getName() + " ";
+		return membersEnd.trim();
+	}
+
+	private static String participantsToStr(List<AssociationEnd> participants) {
+		String participantsStr = "";
+		for(AssociationEnd element : participants)
+			participantsStr +=  element.getCLSClass().getName() + " ";
+		return participantsStr.trim();
+	}
+
+	private static String childreenToStr(Set<Element> allChildrenForGeneralClass) {
+		String childreen = "";
+		for(Element element : allChildrenForGeneralClass)
+			childreen += element.getName() + " ";
+		return childreen.trim();
 	}
 
 }

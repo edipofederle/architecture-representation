@@ -90,19 +90,8 @@ public class Class extends Element {
 	}
 
 
-	/**
-	 * 
-	 * @param attribute
-	 * @return
-	 */
-	public boolean removeAttribute(Attribute attribute) {
-		if (!this.attributes.contains(attribute)) return false;
-		this.attributes.remove(attribute);
-		return true;
-	}
-
 	public Attribute findAttributeByName(String name) throws AttributeNotFoundException {
-		String message = "Attribute '" + name + "' not found in class '"+ this.getName() +"'.\n";
+		String message = "atributo '" + name + "' não encontrado na classe '"+ this.getName() +"'.\n";
 		
 		for(Attribute att : getAllAttributes())
 			if (name.equalsIgnoreCase(att.getName()))
@@ -113,12 +102,40 @@ public class Class extends Element {
 
 	
 	public boolean moveAttributeToClass(Attribute attribute, Class destinationKlass) {
-		if (!this.attributes.contains(attribute)) return false;
-		removeAttribute(attribute);
-		destinationKlass.addExternalAttribute(attribute);
+		if(!destinationKlass.addExternalAttribute(attribute))
+			return false;
+		
+		if(!removeAttribute(attribute)){
+			destinationKlass.removeAttribute(attribute);
+			return false;
+		}
 		attribute.setNamespace(getArchitecture().getName() + "::" + destinationKlass.getName());
+		LOGGER.info("Moveu atributo: "+  attribute.getName() + " de "+this.getName() +" para " + destinationKlass.getName());
 		return true;
 	}
+	
+	/**
+	 * Move um método de uma classe para outra.
+	 * 
+	 * @param method - Método a ser movido
+	 * @param destinationKlass - Classe que irá receber o método
+	 * 
+	 * @return -false se o método a ser movido não existir na classe.<br/> -true se o método for movido com sucesso.
+	 */
+	public boolean moveMethodToClass(Method method, arquitetura.representation.Class destinationKlass) {
+		if(!destinationKlass.addExternalMethod(method))
+			return false;
+		
+		if(!removeMethod(method)){
+			destinationKlass.removeMethod(method);
+			return false;
+		}
+		
+		method.setNamespace(getArchitecture().getName() + "::" + destinationKlass.getName());
+		LOGGER.info("Moveu método: "+  method.getName() + " de "+this.getName() +" para " + destinationKlass.getName());
+		return true;
+	}
+	
 	
 
 	public Method createMethod(String name, String type, boolean isAbstract, List<ParameterMethod> parameters) {
@@ -136,7 +153,7 @@ public class Class extends Element {
 	private boolean methodExistsOnClass(String name, String type) {
 		for(Method m : getAllMethods()){
 			if((name.equalsIgnoreCase(m.getName())) && (type.equalsIgnoreCase(m.getReturnType()))){
-				LOGGER.info("Method '"+ name + ":"+type + "' currently created in class '"+this.getName()+"'.\n");
+				LOGGER.info("Método '"+ name + ":"+type + "' já existe na classe: '"+this.getName()+"'.\n");
 				return true;
 			}
 		}
@@ -146,7 +163,7 @@ public class Class extends Element {
 
 	//TODO verificar metodos com mesmo nome e tipo diferente
 	public Method findMethodByName(String name) throws MethodNotFoundException {
-		String message = "Method '" + name + "' not found in class '"+ this.getName() +"'.\n";
+		String message = "Método '" + name + "' não encontrado na classe '"+ this.getName() +"'.\n";
 		
 		for(Method m : getAllMethods())
 			if((name.equalsIgnoreCase(m.getName())))
@@ -156,29 +173,26 @@ public class Class extends Element {
 		throw new MethodNotFoundException(message);
 	}
 
-	/**
-	 * Move um método de uma classe para outra.
-	 * 
-	 * @param method - Método a ser movido
-	 * @param destinationKlass - Classe que irá receber o método
-	 * 
-	 * @return -false se o método a ser movido não existir na classe.<br/> -true se o método for movido com sucesso.
-	 */
-	public boolean moveMethodToClass(Method method, arquitetura.representation.Class destinationKlass) {
-		if(!this.methods.contains(method)) return false;
-		destinationKlass.addExternalMethod(method);
-		if(removeMethod(method))
-			LOGGER.info("Método: " + method.getName() + " removido da classe "+ this.getName());
-		
-		LOGGER.info("Moveu método: "+  method.getName() + " de "+this.getName() +" para " + destinationKlass.getName());
-		method.setNamespace(getArchitecture().getName() + "::" + destinationKlass.getName());
-		
-		return true;
+	
+	public boolean addExternalMethod(Method method) {
+		if(methods.add(method)){
+			LOGGER.info("Metodo "+method.getName() + " adicionado na classe "+ this.getName());
+			return true;
+		}else{
+			LOGGER.info("TENTOU remover o Método: "+ method.getName() + " da classe: "+ this.getName() + " porém não consegiu");
+			return false;
+		}
+			
 	}
 	
-	public void addExternalMethod(Method method) {
-		if(methods.add(method))
-			LOGGER.info("Metodo "+method.getName() + " adicionado na classe "+ this.getName());
+	public boolean addExternalAttribute(Attribute a) {
+		if(this.attributes.add(a)){
+			LOGGER.info("Atributo: "+ a.getName() + " adicionado na classe: "+ this.getName());
+			return true;
+		}else{
+			LOGGER.info("TENTOU remover o Atributo: "+ a.getName() + " da classe: "+ this.getName() + " porém não consegiu");
+			return false;
+		}
 	}
 
 	/**
@@ -190,7 +204,28 @@ public class Class extends Element {
 	 * 
 	 */
 	public boolean removeMethod(Method method) {
-		return methods.remove(method);
+		if(this.methods.remove(method)){
+			LOGGER.info("Método: "+ method.getName() + " removido da classe: "+ this.getName());
+			return true;
+		}else{
+			LOGGER.info("TENTOU remover o método: "+ method.getName() + " classe: "+ this.getName() + " porém não consegiu");
+			return false;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param attribute
+	 * @return
+	 */
+	public boolean removeAttribute(Attribute attribute) {
+		if(this.attributes.remove(attribute)){
+			LOGGER.info("Atributo: "+ attribute.getName() + " removido da classe: "+ this.getName());
+			return true;
+		}else{
+			LOGGER.info("TENTOU remover o atributo: "+ attribute.getName() + " classe: "+ this.getName() + " porém não consegiu");
+			return false;
+		}
 	}
 
 	public List<Method> getAllAbstractMethods() {
@@ -201,7 +236,7 @@ public class Class extends Element {
 		
 		return abstractMethods;
 	}
-
+	
 
 	public boolean dontHaveAnyRelationship() {
 		
@@ -269,32 +304,4 @@ public class Class extends Element {
 		return requiredInterfaces;
 	}
 
-	public void addExternalAttribute(Attribute a) {
-		this.attributes.add(a);
-	}
-
-	
-//	/**
-//	 * se classe for um ponto de variação retorna todas as variantes
-//	 * @return 
-//	 */
-//	public List<Element> getVariants() {
-//		List<Element> variants = new ArrayList<Element>();
-//		if(this.isVariationPoint()){
-//			List<Variability> variabilities = getArchitecture().getAllVariabilities();
-//			for (Variability variability : variabilities) {
-//				for(String element : variability.getVariants()){
-//					try {
-//						variants.add(getArchitecture().findClassByName(element));
-//					} catch (ClassNotFound e) {
-//						e.printStackTrace();
-//					}
-//				}
-//			}
-//		}
-//		return variants;
-//	}
-	
-	
-	
 }

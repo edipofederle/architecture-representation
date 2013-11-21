@@ -32,7 +32,7 @@ public class NSGAII_OPLA_FeatMut {
 	  int runsNumber = 1; //30;
 	  
       populationSize_ = 1; //100
-      maxEvaluations_ = 80; //300 gera��es
+      maxEvaluations_ = 1; //300 gera��es
          
          crossoverProbability_ = 0.0; 
          mutationProbability_ = 1.0; //antes tava 1.0
@@ -135,8 +135,8 @@ public class NSGAII_OPLA_FeatMut {
              //System.out.println("Iruns: " + runs + "\tTo tal time: " + estimatedTime);
              time[runs] = estimatedTime;
              
-             resultFront = problem.removeDominadas(resultFront);
-             resultFront = problem.removeRepetidas(resultFront);
+//             resultFront = problem.removeDominadas(resultFront);
+//             resultFront = problem.removeRepetidas(resultFront);
 
              resultFront.printObjectivesToFile(directory + "/FUN_" + PLAName + "_" + runs + ".txt");
              //resultFront.printVariablesToFile(directory + "/VAR_" + runs);
@@ -151,8 +151,8 @@ public class NSGAII_OPLA_FeatMut {
 
          todasRuns.printTimeToFile(directory + "/TIME_" + PLAName, runsNumber, time, pla);
          
-         todasRuns = problem.removeDominadas(todasRuns);
-         todasRuns = problem.removeRepetidas(todasRuns);
+//         todasRuns = problem.removeDominadas(todasRuns);
+//         todasRuns = problem.removeRepetidas(todasRuns);
         
          System.out.println("------    All Runs - Non-dominated solutions --------");          
          todasRuns.printObjectivesToFile(directory + "/FUN_All_" + PLAName + ".txt");
