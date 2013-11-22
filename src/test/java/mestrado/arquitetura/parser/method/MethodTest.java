@@ -1,6 +1,6 @@
 package mestrado.arquitetura.parser.method;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,28 +57,4 @@ public class MethodTest extends HelperTest {
 		
 	}
 	
-	
-	@Test
-	public void testOperationsGeneralization() throws Exception{
-		Architecture a = givenAArchitecture("operationsTests");
-		
-		arquitetura.representation.Class klass1 = a.findClassByName("Class1").get(0);
-		arquitetura.representation.Class klass2 = a.findClassByName("Class2").get(0);
-		arquitetura.representation.Class klass3 = a.findClassByName("Class3").get(0);
-		
-		assertEquals(1,klass1.getAllMethods().size());
-		assertEquals(1,klass2.getAllMethods().size());
-		assertEquals(2,klass3.getAllMethods().size());
-	}
-	
-	
-	@Test
-	public void testOperationsGeneralizationInterface() throws Exception{
-		Architecture a = givenAArchitecture("operationsGeneralizationInterface/interfaceGeneralizationInterface");
-		
-		arquitetura.representation.Interface klass1 = a.findInterfaceByName("Class1"); // TODO _ implementar para retornar uma lista
-		arquitetura.representation.Interface klass2 = a.findInterfaceByName("Class2");
-		
-		assertEquals(1, klass2.getOperations().size());
-	}
 }

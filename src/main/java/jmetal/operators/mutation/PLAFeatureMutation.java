@@ -48,14 +48,14 @@ public class PLAFeatureMutation extends Mutation {
     	String scopeLevels = "allLevels"; //usar "oneLevel" para não verificar a presença de interesses nos atributos e métodos
 
   
-    	int r = 5;
+    	int r = PseudoRandom.randInt(0,5);
     	switch(r){
       //  case 0: FeatureMutation(probability, solution, scopeLevels); break;
-  //        case 1: MoveMethodMutation(probability, solution, scope); break;
-   //     case 2: MoveAttributeMutation(probability, solution, scope); break;
+          case 1: MoveMethodMutation(probability, solution, scope); break;
+        case 2: MoveAttributeMutation(probability, solution, scope); break;
    //     case 3: MoveOperationMutation(probability, solution); break;
     	//case 4: AddClassMutation(probability, solution, scope); break;
-        case 5: AddManagerClassMutation(probability, solution); break;
+       // case 5: AddManagerClassMutation(probability, solution); break;
         }
     	
     	    	

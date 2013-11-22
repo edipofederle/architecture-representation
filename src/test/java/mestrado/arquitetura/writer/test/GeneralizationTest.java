@@ -158,7 +158,6 @@ public class GeneralizationTest extends TestHelper {
 	}
 	
 	@Test(expected=NotSuppportedOperation.class)
-	@Ignore("Ver, estava dendo problema.. não é algo importante....")
 	public void shouldNotAllowGeneralizationBetweenPackages() throws Exception{
 		DocumentManager doc = givenADocument("generalizationPacotes");
 		Operations op = new Operations(doc,null);
@@ -170,7 +169,6 @@ public class GeneralizationTest extends TestHelper {
 	}
 	
 	@Test(expected=NotSuppportedOperation.class)
-	@Ignore("Ver, estava dendo problema.. não é algo importante....")
 	public void shouldNotAllowGeneralizationBetweenPackages2() throws Exception{
 		DocumentManager doc = givenADocument("generalizationPacotes2");
 		Operations op = new Operations(doc, null);
@@ -178,7 +176,30 @@ public class GeneralizationTest extends TestHelper {
 		String id1 = op.forPackage().createPacakge(pacote).build().get("packageId");
 		String postClass = op.forClass().createClass(post).build().get("id");
 			
-		op.forGeneralization().createRelation().between(postClass).and(id1);
+		op.forGeneralization().createRelation().between(postClass).and(id1).build();
+	}
+	
+	@Test
+	public void testOperationsGeneralization() throws Exception{
+		Architecture a = givenAArchitecture("operationsTests");
+		
+		arquitetura.representation.Class klass1 = a.findClassByName("Class1").get(0);
+		arquitetura.representation.Class klass2 = a.findClassByName("Class2").get(0);
+		arquitetura.representation.Class klass3 = a.findClassByName("Class3").get(0);
+		
+		assertEquals(1,klass1.getAllMethods().size());
+		assertEquals(1,klass2.getAllMethods().size());
+		assertEquals(2,klass3.getAllMethods().size());
+	}
+	
+	@Test
+	public void testOperationsGeneralizationInterface() throws Exception{
+		Architecture a = givenAArchitecture("operationsGeneralizationInterface/interfaceGeneralizationInterface");
+		
+		arquitetura.representation.Interface klass1 = a.findInterfaceByName("Class1"); // TODO _ implementar para retornar uma lista
+		arquitetura.representation.Interface klass2 = a.findInterfaceByName("Class2");
+		
+		assertEquals(1, klass2.getOperations().size());
 	}
 
 }
