@@ -279,7 +279,7 @@ public class Architecture extends Variable implements Cloneable {
 		return ((!associationRelationship.getParticipants().get(0).isComposite()) && (!associationRelationship.getParticipants().get(1).isComposite()));
 	}
 
-	private List<AssociationRelationship> getAllAssociations() {
+	public List<AssociationRelationship> getAllAssociations() {
 		Predicate<Relationship> isValid = new Predicate<Relationship>() {
 			public boolean apply(Relationship parent) {
 				return AssociationRelationship.class.isInstance(parent);
@@ -288,7 +288,7 @@ public class Architecture extends Variable implements Cloneable {
 
 		List<AssociationRelationship> allAssociations = UtilResources.filter(relationships, isValid);
 		
-		return allAssociations;
+		return Collections.unmodifiableList(allAssociations);
 
 	}
 	
@@ -300,7 +300,7 @@ public class Architecture extends Variable implements Cloneable {
 				compositions.add(associationRelationship);
 			}
 		}
-		return compositions; 
+		return Collections.unmodifiableList(compositions); 
 	}
 	
 	public List<AssociationRelationship> getAllAgragations() {
@@ -311,7 +311,7 @@ public class Architecture extends Variable implements Cloneable {
 				agragation.add(associationRelationship);
 			}
 		}
-		return agragation; 
+		return Collections.unmodifiableList(agragation); 
 	}
 
 	public List<UsageRelationship> getAllUsage() {
@@ -323,7 +323,7 @@ public class Architecture extends Variable implements Cloneable {
 
 		List<UsageRelationship> allUsages = UtilResources.filter(relationships, isValid);
 		
-		return allUsages;
+		return Collections.unmodifiableList(allUsages);
 	}
 
 	public List<DependencyRelationship> getAllDependencies() {
@@ -335,7 +335,7 @@ public class Architecture extends Variable implements Cloneable {
 
 		List<DependencyRelationship> allDependencies = UtilResources.filter(relationships, isValid);
 		
-		return allDependencies;
+		return Collections.unmodifiableList(allDependencies);
 	}
 
 	public List<RealizationRelationship> getAllRealizations() {
@@ -347,7 +347,7 @@ public class Architecture extends Variable implements Cloneable {
 
 		List<RealizationRelationship> allRealizations = UtilResources.filter(relationships, realizations);
 		
-		return allRealizations;
+		return Collections.unmodifiableList(allRealizations);
 	}
 
 	public List<AbstractionRelationship> getAllAbstractions() {
@@ -359,20 +359,20 @@ public class Architecture extends Variable implements Cloneable {
 
 		List<AbstractionRelationship> allAbstractions = UtilResources.filter(relationships, realizations);
 		
-		return allAbstractions;
+		return Collections.unmodifiableList(allAbstractions);
 	}
 	
 
 	public List<AssociationClassRelationship> getAllAssociationsClass() {
-		Predicate<Relationship> realizations = new Predicate<Relationship>() {
+		Predicate<Relationship> associationClasses = new Predicate<Relationship>() {
 			public boolean apply(Relationship parent) {
 				return AssociationClassRelationship.class.isInstance(parent);
 			}
 		};
 
-		List<AssociationClassRelationship> allAbstractions = UtilResources.filter(relationships, realizations);
+		List<AssociationClassRelationship> allAssociationClasses = UtilResources.filter(relationships, associationClasses);
 		
-		return allAbstractions;
+		return Collections.unmodifiableList(allAssociationClasses);
 	}
 
 

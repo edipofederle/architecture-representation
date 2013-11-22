@@ -2,6 +2,7 @@ package arquitetura.representation;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -82,8 +83,19 @@ public class Package extends Element {
 		implementedInterfaces.add((Interface) interfacee);
 	}
 	
-	public Collection<Interface> getImplementedInterfaces() {
-		return implementedInterfaces;
+	/**
+	 * Retorna as interfaces implementadas pelo pacote e as interfaces
+	 * implementadas pelas classes que estão dentro do pacote.
+	 * 
+	 * @return {@link Set} imutável
+	 */
+	public Set<Interface> getImplementedInterfaces() {
+		Set<Interface> implementedInterfecesForClassIntoPackage = new HashSet<Interface>();
+		for(Class klass : this.getClasses())
+			implementedInterfecesForClassIntoPackage.addAll(klass.getImplementedInterfaces());
+		
+		implementedInterfaces.addAll(implementedInterfecesForClassIntoPackage);
+		return Collections.unmodifiableSet(implementedInterfaces);
 	}
 
 	public void addRequiredInterface(Interface interfacee) {

@@ -118,6 +118,7 @@ public class Interface extends Element {
 		Set<Concern> concerns = new HashSet<Concern>(getOwnConcerns());
 		for (Method operation : getOperations())
 			concerns.addAll(operation.getAllConcerns());
+		concerns.addAll(this.getOwnConcerns());
 		
 		return Collections.unmodifiableSet(concerns);
 	}

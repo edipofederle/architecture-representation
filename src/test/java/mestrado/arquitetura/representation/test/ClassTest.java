@@ -254,4 +254,19 @@ public class ClassTest extends TestHelper {
 		assertEquals("Class2", requiredInterface.iterator().next().getName());
 	}
 	
+	@Test
+	public void shouldReturnAllConcerns() throws Exception{
+		Architecture a = givenAArchitecture("ClassAllConcern");
+		arquitetura.representation.Class foo = a.findClassByName("Foo").get(0);
+		assertEquals("Deve retornar 8 concerns", 8, foo.getAllConcerns().size());
+	}
+	
+	@Test
+	public void shouldReturnOwnedConcerns() throws Exception{
+		Architecture a = givenAArchitecture("ClassAllConcern");
+		arquitetura.representation.Class foo = a.findClassByName("Foo").get(0);
+		
+		assertEquals(1, foo.getOwnConcerns().size());
+	}
+	
 }

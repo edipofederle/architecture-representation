@@ -79,6 +79,11 @@ public class OperationsOverAssociation {
 		this.associationEnd1.setAggregation("composite");
 		return this;
 	}
+	
+	public OperationsOverAssociation asAggregation() {
+		this.associationEnd1.setAggregation("aggregation");
+		return this;
+	}
 
 	public void createAssociationClass(List<Attribute> listAttrs, List<Method> listMethods, Class owner, Class klass) {
 		String namespace = UtilResources.createNamespace(architecture.getName(), "AssociationClass");
@@ -108,5 +113,6 @@ public class OperationsOverAssociation {
 		this.architecture.addRelationship(asc);
 		
 	}
+
 
 }

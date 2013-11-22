@@ -10,7 +10,6 @@ import java.util.List;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import arquitetura.builders.ArchitectureBuilder;
@@ -25,6 +24,7 @@ import arquitetura.representation.Package;
 import arquitetura.representation.Variability;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationRelationship;
+import arquitetura.representation.relationship.DependencyRelationship;
 
 /**
  * 
@@ -146,12 +146,11 @@ public class ArchitectureBuilderTest extends TestHelper {
 		assertEquals("play", concerns.get(0).getName());
 	}
 
-	@Test @Ignore
+	@Test
 	public void testWithoutPackages() throws Exception {
-		String uriToArchitecture = getUrlToModel("semPacote");
-		architecture = new ArchitectureBuilder().create(uriToArchitecture);
+		Architecture architecture = givenAArchitecture("semPacote");
 		assertNotNull(architecture);
-		assertEquals(2, architecture.getClasses().size());
+		assertEquals(2, architecture.getAllClasses().size());
 
 		assertEquals(1, architecture.getAllPackages().size());
 		assertEquals("pacote1", architecture.getAllPackages().iterator().next().getName());
@@ -197,11 +196,11 @@ public class ArchitectureBuilderTest extends TestHelper {
 	public void shouldLoadInterElementDependency() throws Exception {
 		Architecture architecture8 = givenAArchitecture("dependency2");
 
-//		DependencyRelationship dependencyInterElement = architecture8.getAllDependencies().get(0);
-//
-//		assertNotNull(dependencyInterElement);
-//		
-//		assertEquals("Package1", dependencyInterElement.getClient().getName());
+		DependencyRelationship dependencyInterElement = architecture8.getAllDependencies().get(0);
+
+		assertNotNull(dependencyInterElement);
+		
+		assertEquals("Package1", dependencyInterElement.getClient().getName());
 
 	}
 

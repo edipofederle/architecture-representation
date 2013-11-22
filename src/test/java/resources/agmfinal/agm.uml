@@ -909,13 +909,6 @@
       <packagedElement xmi:type="uml:Dependency" xmi:id="__fkxUBVfEeODAq4Tm5H6GQ" name="Dependency1" client="_4kumcBVcEeODAq4Tm5H6GQ" supplier="_Y4SNYBVdEeODAq4Tm5H6GQ"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_CbqHABSnEeOYorUb5NKqTw" name="InitializeMgr">
-      <packagedElement xmi:type="uml:Class" xmi:id="_T739wBVdEeODAq4Tm5H6GQ" clientDependency="_jIX9IBVdEeODAq4Tm5H6GQ" name="InitializeMgr">
-        <ownedOperation xmi:type="uml:Operation" xmi:id="_fbl-ABWMEeObs-pQrJ2skQ" name="initialize">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_i_N1wBWMEeObs-pQrJ2skQ" name="gameCode">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-          </ownedParameter>
-        </ownedOperation>
-      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_Y4SNYBVdEeODAq4Tm5H6GQ" name="InitializationMgt">
         <ownedOperation xmi:type="uml:Operation" xmi:id="_SmmBgBWMEeObs-pQrJ2skQ" name="initialize">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="_b70EcBWMEeObs-pQrJ2skQ" name="gameCode" isUnique="false">
@@ -924,6 +917,13 @@
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Realization" xmi:id="_jIX9IBVdEeODAq4Tm5H6GQ" name="Realization1" client="_T739wBVdEeODAq4Tm5H6GQ" supplier="_Y4SNYBVdEeODAq4Tm5H6GQ"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_T739wBVdEeODAq4Tm5H6GQ" clientDependency="_jIX9IBVdEeODAq4Tm5H6GQ" name="InitializeMgr">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_fbl-ABWMEeObs-pQrJ2skQ" name="initialize">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="_i_N1wBWMEeObs-pQrJ2skQ" name="gameCode">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_tZi_IBSmEeOYorUb5NKqTw" name="GameCtrl">
       <packagedElement xmi:type="uml:Class" xmi:id="_R-qtYBVhEeODAq4Tm5H6GQ" clientDependency="__Rx7ABVhEeODAq4Tm5H6GQ _DNjNABViEeODAq4Tm5H6GQ _stpcABViEeODAq4Tm5H6GQ" name="GameCtrl"/>

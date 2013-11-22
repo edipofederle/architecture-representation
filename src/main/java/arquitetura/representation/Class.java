@@ -1,7 +1,6 @@
 package arquitetura.representation;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -273,16 +272,33 @@ public class Class extends Element {
 		return null;
 	}
 
+  //  getAllConcerns: os interesses anotados na classe, nos atributos da classe, nos métodos da classe
+  //  e nas interfaces implementadas pela classe. Lembrando que getAllConcerns da interface deve retornar
+  //  os interesses anotados na interface mais os interesses das operações da interface.
+	
+	/**
+	 * Retorna todo os interesses da classe, como "todos", entende-se:<br/>
+	 * <ul>
+	 * 	<li>Interesses anotados na classe</li>
+	 * 	<li>Interesses anotados nos atributos e métodos da classe</li>
+	 * 	<li>Interesses anotados nas interesses que a classe implementa</li>
+	 * </ul>
+	 * 
+	 * @return {@link Set} Imutável
+	 * 
+	 */
 	@Override
-	public Collection<Concern> getAllConcerns() {
-		Collection<Concern> concerns = new ArrayList<Concern>(getOwnConcerns());
+	public Set<Concern> getAllConcerns() {
+		Set<Concern> concerns = new HashSet<Concern>(getOwnConcerns());
 
 		for (Method method : getAllMethods())
 			concerns.addAll(method.getAllConcerns());
 		for (Attribute attribute : getAllAttributes())
 			concerns.addAll(attribute.getAllConcerns());
+		for(Interface inte  : this.getImplementedInterfaces())
+			concerns.addAll(inte.getAllConcerns());
 		
-		return concerns;
+		return Collections.unmodifiableSet(concerns);
 	}
 
 	public List<AssociationClassRelationship> getAllAssociationClass() {

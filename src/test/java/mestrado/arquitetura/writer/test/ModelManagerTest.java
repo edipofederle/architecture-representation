@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 import junit.framework.Assert;
+import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.After;
@@ -567,25 +568,30 @@ public class ModelManagerTest extends TestHelper {
 		assertEquals("Pacote", arch.getAllPackages().iterator().next().getName());
 	}
 	
-	@Test @Ignore
+	@Test
 	public void shouldCreateAClassInsideAPackageWithAssociation() throws Exception{
-//		DocumentManager doc = givenADocument("testePacoteClassAsssociation");
-//		Operations op = new Operations(doc, null);
-//		
-//		Map<String, String> foo = op.forClass().createClass(casa).build();
-//		Map<String, String> teste = op.forClass().createClass(person).build();
-//		
-//		op.forPackage().createPacakge(pacote).withClass(foo.get("id")).withClass(teste.get("id")).build();
-//
-//		
-//		
-//		op.forAssociation().createAssociation()
-//							 .betweenClass(foo).andClass(teste).build();
-//		
-//		Architecture arch = givenAArchitecture2("testePacoteClassAsssociation");
-//		
-//		assertEquals(2, arch.getAllPackages().get(0).getAllClassIdsForThisPackage().size());
-//		assertEquals(1, arch.getAllAssociations().size());
+		DocumentManager doc = givenADocument("testePacoteClassAsssociation");
+		Operations op = new Operations(doc, null);
+		
+	Architecture architecture = givenAArchitecture2("testePacoteClassAsssociation");
+		
+		Class KlassCasa = architecture.createClass("Casas", false);
+		Class klassPerson = architecture.createClass("Person", false);
+		
+		Package packagePacote = architecture.createPackage("Pacote");
+		packagePacote.addExternalClass(klassPerson);
+		packagePacote.addExternalClass(KlassCasa);
+		
+		architecture.forAssociation().createAssociationEnd().withKlass(KlassCasa).and().createAssociationEnd().withKlass(klassPerson).build();
+		//op.forAssociation().createAssociation().betweenClass(foo).andClass(teste).build();
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(architecture, "testePacoteClassAsssociationGerado");
+		
+		Architecture gerada = givenAArchitecture2("testePacoteClassAsssociationGerado");
+		
+		assertEquals(2, gerada.findPackageByName("Pacote").getClasses().size());
+		assertEquals(1, gerada.getAllAssociations().size());
 	}
 	
 	@Test @Ignore
