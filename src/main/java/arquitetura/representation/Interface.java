@@ -47,7 +47,7 @@ public class Interface extends Element {
 	}
 
 	public  Set<Method> getOperations() {
-		return operations;
+		return Collections.unmodifiableSet(operations);
 	}
 	
 	public boolean removeOperation(Method operation) {
@@ -81,7 +81,7 @@ public class Interface extends Element {
 	}
 	
 	
-	private boolean addExternalOperation(Method operation) {
+	public boolean addExternalOperation(Method operation) {
 		if(operations.add(operation)){
 			LOGGER.info("Operação "+operation.getName() + " adicionado na interface "+ this.getName());
 			return true;
@@ -122,15 +122,15 @@ public class Interface extends Element {
 		return Collections.unmodifiableSet(concerns);
 	}
 	
-	public Collection<DependencyRelationship> getDependencies() {
-		Collection<DependencyRelationship> dependencies = new ArrayList<DependencyRelationship>();
+	public List<DependencyRelationship> getDependencies() {
+		List<DependencyRelationship> dependencies = new ArrayList<DependencyRelationship>();
 		
 		for (DependencyRelationship dependency : getArchitecture().getAllDependencies()) {
 			if (dependency.getSupplier().equals(this))
 				dependencies.add(dependency);
 		}
 		
-		return dependencies;
+		return Collections.unmodifiableList(dependencies);
 	}
 
 }

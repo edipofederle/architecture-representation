@@ -22,7 +22,6 @@ public class InterfaceBuilder extends ElementBuilder<arquitetura.representation.
 	public InterfaceBuilder(Architecture architecture) {
 		super(architecture);
 		this.methodBuilder = new MethodBuilder(architecture);
-		//Operations
 	}
 
 	@Override
@@ -33,7 +32,7 @@ public class InterfaceBuilder extends ElementBuilder<arquitetura.representation.
 		List<Operation> elements = ((org.eclipse.uml2.uml.Class)modelElement).getOperations();
 		
 		for (Operation operation : elements)
-			interfacee.getOperations().add(methodBuilder.create(operation));
+			interfacee.addExternalOperation(methodBuilder.create(operation));
 		
 		return interfacee;
 	}
