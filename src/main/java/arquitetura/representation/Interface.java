@@ -50,9 +50,14 @@ public class Interface extends Element {
 		return operations;
 	}
 	
-	public void removeOperation(Method operation) {
-		if(!operations.remove(operation))
-			LOGGER.info("Try remove operation '" + operation + "', but not found");
+	public boolean removeOperation(Method operation) {
+		if(operations.remove(operation)){
+			LOGGER.info("Removeu operação '" + operation + "', da interface: " + this.getName());
+			return true;
+		}else{
+			LOGGER.info("TENTOU removeu operação '" + operation + "', da interface: " + this.getName() + " porém não conseguiu");
+			return false;
+		}
 	}
 	
 	public Method createOperation(String operationName) throws Exception {
@@ -61,16 +66,32 @@ public class Interface extends Element {
 		return operation;
 	}
 
-	public void moveOperationToInterface(Method operation, Interface interfaceToMove) {
-		if (!getOperations().contains(operation)) return;
+	public boolean moveOperationToInterface(Method operation, Interface interfaceToMove) {
+		if(!interfaceToMove.addExternalOperation(operation))
+			return false;
 		
-		removeOperation(operation);
-		interfaceToMove.addExternalOperation(operation);
+		if(!removeOperation(operation)){
+			interfaceToMove.removeOperation(operation);
+			return false;
+		}
+		operation.setNamespace(getArchitecture().getName() + "::" + interfaceToMove.getName());
+		LOGGER.info("Moveu operação: "+  operation.getName() + " de " +this.getName() +" para " + interfaceToMove.getName());
+		return true;
+		
 	}
-
-	private void addExternalOperation(Method operation) {
-		operations.add(operation);
+	
+	
+	private boolean addExternalOperation(Method operation) {
+		if(operations.add(operation)){
+			LOGGER.info("Operação "+operation.getName() + " adicionado na interface "+ this.getName());
+			return true;
+		}else{
+			LOGGER.info("TENTOU remover a operação: "+ operation.getName() + " da interface: "+ this.getName() + " porém não consegiu");
+			return false;
+		}
+			
 	}
+	
 
 	public Set<Package> getImplementors() {
 		Set<Package> implementors = new HashSet<Package>();

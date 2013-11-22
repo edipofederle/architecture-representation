@@ -82,16 +82,16 @@ public class UtilResources {
 		String strLog = "";
 		
 		if(r instanceof GeneralizationRelationship){
-			strLog += "Superclasse:"+ ((GeneralizationRelationship)r).getParent().getName() + " subclasses:"+ childreenToStr(((GeneralizationRelationship)r).getAllChildrenForGeneralClass());
+			strLog += "Superclasse:"+ ((GeneralizationRelationship)r).getParent().getName() + " subclasses: "+ childreenToStr(((GeneralizationRelationship)r).getAllChildrenForGeneralClass());
 		}
 		if(r instanceof RealizationRelationship){
 			strLog += "Cliente:" + ((RealizationRelationship) r).getClient().getName() + " Supplier: " + ((RealizationRelationship) r).getSupplier().getName();
 		}
 		if(r instanceof DependencyRelationship){
-			strLog += "Cliente: " + ((DependencyRelationship) r).getClient().getName() + " Supplier" + ((DependencyRelationship) r).getSupplier().getName();
+			strLog += "Cliente: " + ((DependencyRelationship) r).getClient().getName() + " Supplier: " + ((DependencyRelationship) r).getSupplier().getName();
 		}
 		if(r instanceof AbstractionRelationship){
-			strLog += "Cliente: " + ((AbstractionRelationship) r).getClient().getName() + " Supplier" + ((AbstractionRelationship) r).getSupplier().getName();
+			strLog += "Cliente: " + ((AbstractionRelationship) r).getClient().getName() + " Supplier: " + ((AbstractionRelationship) r).getSupplier().getName();
 		}
 		if(r instanceof AssociationRelationship){
 			String participantsStr = participantsToStr(((AssociationRelationship)r).getParticipants());
