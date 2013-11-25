@@ -313,11 +313,11 @@ public class Class extends Element {
 	}
 
 	public Set<Interface> getImplementedInterfaces() {
-		return implementedInterfaces;
+		return Collections.unmodifiableSet(implementedInterfaces);
 	}
 
 	public Set<Interface> getRequiredInterfaces() {
-		return requiredInterfaces;
+		return Collections.unmodifiableSet(requiredInterfaces);
 	}
 
 	public void removeImplementedInterface(Interface inter) {
@@ -328,6 +328,14 @@ public class Class extends Element {
 		if (!requiredInterfaces.contains(supplier)) return false;
 		requiredInterfaces.remove(supplier);
 		return true;
+	}
+
+	public void addImplementedInterface(Interface supplierElement) {
+		this.implementedInterfaces.add(supplierElement);
+	}
+
+	public void addRequiredInterface(Interface supplier) {
+		this.requiredInterfaces.add(supplier);
 	}
 
 }

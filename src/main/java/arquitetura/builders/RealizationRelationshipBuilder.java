@@ -8,6 +8,7 @@ import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
+import arquitetura.representation.Package;
 import arquitetura.representation.relationship.RealizationRelationship;
 
 /**
@@ -33,9 +34,13 @@ public class RealizationRelationshipBuilder extends ArchitectureHelper {
 		String name = realization.getName() != null ? realization.getName() : "";
 		
 		if((clientElement instanceof Class) && (supplierElement instanceof Interface))
-			((Class) clientElement).getImplementedInterfaces().add((Interface) supplierElement);
+			((Class) clientElement).addImplementedInterface((Interface) supplierElement);
 		
-		RealizationRelationship realizationRelationship = new RealizationRelationship(clientElement, supplierElement, name, getModelHelper().getXmiId(realization));
+		if((clientElement instanceof Package) && (supplierElement instanceof Interface))
+			((Package) clientElement).addImplementedInterface((Interface) supplierElement);
+		
+		RealizationRelationship realizationRelationship = new RealizationRelationship(
+								clientElement, supplierElement, name, getModelHelper().getXmiId(realization));
 		
 		realizationRelationship.getClient().addRelationship(realizationRelationship);
 		realizationRelationship.getSupplier().addRelationship(realizationRelationship);

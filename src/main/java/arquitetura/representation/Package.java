@@ -102,8 +102,8 @@ public class Package extends Element {
 		requiredInterfaces.add(interfacee);
 	}
 
-	public Collection<Interface> getRequiredInterfaces() {
-		return requiredInterfaces;
+	public Set<Interface> getRequiredInterfaces() {
+		return Collections.unmodifiableSet(requiredInterfaces);
 	}
 
 	/**
