@@ -9,7 +9,6 @@ import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -196,7 +195,6 @@ public class GeneralizationTest extends TestHelper {
 	public void testOperationsGeneralizationInterface() throws Exception{
 		Architecture a = givenAArchitecture("operationsGeneralizationInterface/interfaceGeneralizationInterface");
 		
-		arquitetura.representation.Interface klass1 = a.findInterfaceByName("Class1"); // TODO _ implementar para retornar uma lista
 		arquitetura.representation.Interface klass2 = a.findInterfaceByName("Class2");
 		
 		assertEquals(1, klass2.getOperations().size());

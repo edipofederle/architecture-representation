@@ -71,7 +71,7 @@ public class GenericTest extends TestHelper {
 		
 		Set<Class> allClasses = new HashSet<Class>();
 		for(arquitetura.representation.Package p : architecture.getAllPackages())
-			allClasses.addAll(p.getClasses());
+			allClasses.addAll(p.getAllClasses());
 		
 		allClasses.addAll(architecture.getClasses());
 		
@@ -97,7 +97,7 @@ public class GenericTest extends TestHelper {
 
 		Set<Class> allClasses = new HashSet<Class>();
 		for(arquitetura.representation.Package p : a.getAllPackages())
-			allClasses.addAll(p.getClasses());
+			allClasses.addAll(p.getAllClasses());
 		
 		allClasses.addAll(a.getClasses());
 		
@@ -135,7 +135,7 @@ public class GenericTest extends TestHelper {
 		
 		arquitetura.representation.Package client = a.findPackageByName("Client");
 		assertNotNull(client);
-		assertEquals(1, client.getClasses().size());
+		assertEquals(1, client.getAllClasses().size());
 		//assertContains(client.getClasses(), "Class1");
 		
 	}

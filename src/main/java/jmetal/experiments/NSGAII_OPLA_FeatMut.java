@@ -31,8 +31,8 @@ public class NSGAII_OPLA_FeatMut {
 
 	  int runsNumber = 10; //30;
 	  
-      populationSize_ = 50; //100
-      maxEvaluations_ = 100; //300 gera��es
+      populationSize_ = 10; //100
+      maxEvaluations_ = 20; //300 gera��es
          
          crossoverProbability_ = 0.0; 
          mutationProbability_ = 1.0; //antes tava 1.0
@@ -49,7 +49,6 @@ public class NSGAII_OPLA_FeatMut {
 
 
          String plas[] = new String[]{
-         		 //"resources/AGM-Final-concerns.xmi", 
          		"/Users/elf/mestrado/sourcesMestrado/arquitetura/src/test/java/resources/agmfinal/agm.uml",
          		/*"resources/AGM-improvement.xmi", 
                  "resources/MM-v6-completa.xmi",
@@ -135,8 +134,8 @@ public class NSGAII_OPLA_FeatMut {
              //System.out.println("Iruns: " + runs + "\tTo tal time: " + estimatedTime);
              time[runs] = estimatedTime;
              
-             resultFront = problem.removeDominadas(resultFront);
-             resultFront = problem.removeRepetidas(resultFront);
+//             resultFront = problem.removeDominadas(resultFront);
+//             resultFront = problem.removeRepetidas(resultFront);
 
              resultFront.printObjectivesToFile(directory + "/FUN_" + PLAName + "_" + runs + ".txt");
              //resultFront.printVariablesToFile(directory + "/VAR_" + runs);

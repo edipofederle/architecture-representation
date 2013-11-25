@@ -52,12 +52,12 @@ public class RelationalCohesion {
 			    R += searchOperationInterfaceDependencies(itf, component);
 				R += searchImplementationDependencies (itf, component);
 			}
-			for (Class cls: component.getClasses()){
+			for (Class cls: component.getAllClasses()){
 				R += searchAttributeClassDependencies(cls, component);
 				R += searchOperationClassDependencies(cls, component);
 				R += searchAssociationClassDependencies (cls, component);
 			}
-			totalClassesAndInterfaces = component.getClasses().size() + component.getImplementedInterfaces().size();
+			totalClassesAndInterfaces = component.getAllClasses().size() + component.getImplementedInterfaces().size();
 			if (totalClassesAndInterfaces != 0 ){
 				H = (R + 1) / totalClassesAndInterfaces;
 				this.results += H; // soma de H para a arquitetura
@@ -73,7 +73,7 @@ public class RelationalCohesion {
 //	C has an attribute of type D
 	private int searchAttributeClassDependencies (Class source, Package comp){
 		int attribDependencies;
-		List<Class> classes = new ArrayList<Class> (comp.getClasses());
+		List<Class> classes = new ArrayList<Class> (comp.getAllClasses());
 		List<Interface> interfaces = new ArrayList<Interface> (comp.getImplementedInterfaces());
 		List<Class> attribDepClasses = new ArrayList<Class> ();
 		List<Interface> attribDepInterfaces = new ArrayList<Interface> ();
@@ -102,7 +102,7 @@ public class RelationalCohesion {
 	
 	private int searchOperationClassDependencies (Class source, Package comp){
 		int operationDependencies;
-		List<Class> classes = new ArrayList<Class> (comp.getClasses());
+		List<Class> classes = new ArrayList<Class> (comp.getAllClasses());
 		//List<Interface> interfaces = new ArrayList<Interface> (comp.getImplementedInterfaces());
 		List<Class> operationDepClasses = new ArrayList<Class> ();
 		List<Interface> operationDepInterfaces = new ArrayList<Interface> ();
@@ -133,7 +133,7 @@ public class RelationalCohesion {
 	
 	private int searchOperationInterfaceDependencies (Interface source, Package comp){
 		int operationDependencies;
-		List<Class> classes = new ArrayList<Class> (comp.getClasses());
+		List<Class> classes = new ArrayList<Class> (comp.getAllClasses());
 		List<Interface> interfaces = new ArrayList<Interface> (comp.getImplementedInterfaces());
 		List<Class> operationDepClasses = new ArrayList<Class> ();
 		List<Interface> operationDepInterfaces = new ArrayList<Interface> ();
@@ -175,7 +175,7 @@ private int searchAssociationClassDependencies (Class source, Package comp){
 	List<Class> associationDepClasses = new ArrayList<Class> ();
 	List<Interface> associationDepInterfaces = new ArrayList<Interface> ();
 		
-	for (Class c: comp.getClasses()){
+	for (Class c: comp.getAllClasses()){
 		List<Relationship> relationships = new ArrayList<Relationship> (source.getRelationships());
 		for (Relationship relationship : relationships) {
 			if (relationship instanceof GeneralizationRelationship){

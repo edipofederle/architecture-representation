@@ -29,6 +29,7 @@ import arquitetura.helpers.Uml2HelperFactory;
 import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
+import arquitetura.representation.Concern;
 import arquitetura.representation.Element;
 import arquitetura.representation.Variant;
 import arquitetura.representation.relationship.AssociationEnd;
@@ -114,7 +115,17 @@ public abstract class TestHelper {
 					if (requiredElementName.equalsIgnoreCase(element.getName())) continue requiredElements;
 				Assert.fail("list there is no element called " + requiredElementName);
 			}
+	}
+	
+	public void assertContainsConcern(Set<Concern> ownConcerns, String... expected) {
+		requiredElements: for (String requiredElementName : expected)  {
+			for (Concern element : ownConcerns)
+				if (requiredElementName.equalsIgnoreCase(element.getName())) continue requiredElements;
+			Assert.fail("list there is no concern called " + requiredElementName);
 		}
+	}
+	
+	
 	
 	protected boolean modelContainId(String modelName, String id){
 		File file = new File(getUrlToModelManipulation(modelName));

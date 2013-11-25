@@ -63,7 +63,20 @@ public class DependencyNode extends XmiHelper {
 		if("abstraction".equalsIgnoreCase(type))
 			childrenDocorationnode1.setAttribute("type", "6014");
 		
-		
+		if("usage".equalsIgnoreCase(type)){
+			Element childrenDocorationnode2 = this.docNotation.createElement("children");
+		    childrenDocorationnode2.setAttribute("xmi:type", "notation:DecorationNode");
+			childrenDocorationnode2.setAttribute("xmi:id", UtilResources.getRandonUUID());
+			childrenDocorationnode2.setAttribute("type", "6017"); // <usage>
+			
+			Element layoutConstraint = this.docNotation.createElement("layoutConstraint");
+			layoutConstraint.setAttribute("xmi:type", "notation:Location");
+			layoutConstraint.setAttribute("xmi:id", UtilResources.getRandonUUID());
+			layoutConstraint.setAttribute("y", "20");
+			childrenDocorationnode1.appendChild(layoutConstraint);
+			childrenDocorationnode2.appendChild(layoutConstraint);
+			edges.appendChild(childrenDocorationnode2);
+		}
 		
 		Element layoutConstraint = this.docNotation.createElement("layoutConstraint");
 		layoutConstraint.setAttribute("xmi:type", "notation:Location");
@@ -71,7 +84,7 @@ public class DependencyNode extends XmiHelper {
 		layoutConstraint.setAttribute("y", "20");
 		childrenDocorationnode1.appendChild(layoutConstraint);
 		edges.appendChild(childrenDocorationnode1);
-
+	
 		
 		String idSource = findByIDInNotationFile(docNotation, clientElement).getAttributes().getNamedItem("xmi:id").getNodeValue();
 		String idTarget = findByIDInNotationFile(docNotation, supplierElement).getAttributes().getNamedItem("xmi:id").getNodeValue();

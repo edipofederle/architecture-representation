@@ -88,7 +88,7 @@ public class InterfaceGeneratorTest extends TestHelper {
 		Interface interf = regenerateIntefaceConcern.findInterfaceByName("MyInterface");
 		
 		assertEquals(1,interf.getOwnConcerns().size());
-		assertEquals("persistence",interf.getOwnConcerns().get(0).getName());
+		assertEquals("persistence",interf.getOwnConcerns().iterator().next().getName());
 		
 		arquitetura.representation.Method operationFoo = interf.getOperations().iterator().next();
 		assertEquals("foo", operationFoo.getName());	

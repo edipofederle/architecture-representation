@@ -4,7 +4,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +25,7 @@ public class ElementTest {
 		Concern con1 = new Concern("movement");
 		Concern con2 = new Concern("play");
 		Concern con3 = new Concern("pause");
-		List<Concern> concerns = Arrays.asList(con1, con2, con3);
+		Set<Concern> concerns = new  HashSet<Concern>(Arrays.asList(con1, con2, con3));
 		
 		Mockito.when(klass.getOwnConcerns()).thenReturn(concerns);
 	}

@@ -27,7 +27,7 @@ public class ClassDependencyOut {
 	//EDIPO - Mudei para pacote
 	for (Package component : this.architecture.getAllPackages()) {
 	
-		for (arquitetura.representation.Class cls: component.getClasses()){
+		for (arquitetura.representation.Class cls: component.getAllClasses()){
 			depOut += searchClassDependencies(cls, component);
 			//System.out.println("DepOut- Classe: "+ cls.getName() + " :" + depOut);
 		}
@@ -43,7 +43,7 @@ public class ClassDependencyOut {
 	private int searchClassDependencies (Class source, Package comp){
 		List<Class> depClasses = new ArrayList<Class>();
 			
-		for (Class c: comp.getClasses()){
+		for (Class c: comp.getAllClasses()){
 			List<Relationship> relationships = new ArrayList<Relationship> (source.getRelationships());
 			if (relationships!=null){
 				for (Relationship relationship : relationships) {

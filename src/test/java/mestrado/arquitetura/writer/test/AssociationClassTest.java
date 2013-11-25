@@ -3,9 +3,7 @@ package mestrado.arquitetura.writer.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
@@ -13,8 +11,6 @@ import mestrado.arquitetura.helpers.test.TestHelper;
 import org.junit.Test;
 
 import arquitetura.representation.Architecture;
-import arquitetura.representation.Element;
-import arquitetura.representation.Package;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.touml.DocumentManager;
 import arquitetura.touml.Operations;
@@ -84,7 +80,6 @@ public class AssociationClassTest extends TestHelper {
 		DocumentManager doc = givenADocument("associationClassComPacoteGerado");
 		
 		Architecture a = givenAArchitecture("associationClass/associationClassComPacote");
-		Operations op = new Operations(doc, a);
 		
 		GenerateArchitecture g = new GenerateArchitecture();
 		g.generate(a, "associationClassComPacoteGerado");

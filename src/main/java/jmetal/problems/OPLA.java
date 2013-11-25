@@ -485,7 +485,7 @@ public class OPLA extends Problem {
 			System.out.println("Arquitetura chegou sem componentes no evaluate constraints");
 
 		for (Package comp : allComponents) {
-			List<Class> allClasses = new ArrayList<Class>(comp.getClasses());
+			List<Class> allClasses = new ArrayList<Class>(comp.getAllClasses());
 			if (!(allClasses.isEmpty())) {
 				Iterator<Class> iteratorClasses = allClasses.iterator();
 
@@ -520,7 +520,7 @@ public class OPLA extends Problem {
 						// solution.getDecisionVariables()[0]);
 					}
 					if (itf.getOperations().isEmpty() && ultimaInterface
-							&& comp.getClasses().size() < 1) {
+							&& comp.getAllClasses().size() < 1) {
 						try {
 							((Architecture) solution.getDecisionVariables()[0])
 									.removeInterface(itf);
@@ -531,7 +531,7 @@ public class OPLA extends Problem {
 				}
 			}
 
-			if (comp.getClasses().isEmpty() && comp.getImplementedInterfaces().isEmpty()) { // TODO
+			if (comp.getAllClasses().isEmpty() && comp.getImplementedInterfaces().isEmpty()) { // TODO
 																	// verificar,
 																	// pois
 																	// deveria

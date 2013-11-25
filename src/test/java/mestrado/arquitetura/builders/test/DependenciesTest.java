@@ -101,22 +101,6 @@ public class DependenciesTest extends TestHelper {
 
 		assertEquals(2, d4.getAllSuppliersForClientClass().size());
 		
-		Iterator<Element> iter = d4.getAllSuppliersForClientClass().iterator();
-		Element supplier4One = null;
-		Element supplier4Two = null;
-		while(iter.hasNext()){
-			supplier4One = iter.next();
-			supplier4Two = iter.next();
-		}
-		
-		Iterator<Element> iter2 = d5.getAllSuppliersForClientClass().iterator();
-		Element supplier5One = null;
-		Element supplier5Two = null;
-		while(iter2.hasNext()){
-			supplier5One = iter2.next();
-			supplier5Two = iter2.next();
-		}
-		
 		assertContains(d5.getAllSuppliersForClientClass(), "Class7", "Class8");
 		assertContains(d4.getAllSuppliersForClientClass(), "Class7", "Class8");
 		

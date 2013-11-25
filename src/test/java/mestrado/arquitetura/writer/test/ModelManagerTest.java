@@ -100,27 +100,23 @@ public class ModelManagerTest extends TestHelper {
              }
 	}
 	
-	@Test @Ignore
+	@Test 
 	public void shouldCreateAssociationBetweenClasses() throws Exception{
-//		DocumentManager doc = givenADocument("teste3");
-//		Operations op = new Operations(doc, null);
-//		
-//		Map<String, String> idPerson = op.forClass().createClass(person).build();
-//		Map<String, String> idEmployee = op.forClass().createClass(employee).build();
-//		Map<String, String> idManager = op.forClass().createClass(casa).build();
-//		
-//		op.forAssociation().createAssociation()
-//							 .betweenClass(idPerson.get("id"))
-//							 .andClass(idEmployee.get("id"))
-//							 .build();
-//		
-//		op.forAssociation().createAssociation()
-//							 .betweenClass(idPerson.get("id"))
-//							 .andClass(idManager.get("id"))
-//							 .build();
-//		
-//		Architecture a = givenAArchitecture2("teste3");
-//		assertEquals(2, a.getAllAssociations().size());
+		DocumentManager doc = givenADocument("newAssociation");
+		
+		Architecture a = givenAArchitecture2("newAssociation");
+		
+		Class foo = a.createClass("Foo", false);
+		Class bar = a.createClass("Bar", false);
+		
+		a.forAssociation().createAssociationEnd().withKlass(foo).and().createAssociationEnd().withKlass(bar).build();
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(a, "newAssociationGerada");
+		
+		Architecture gerada = givenAArchitecture2("newAssociationGerada");
+		assertEquals(1, gerada.getAllAssociations().size());
+		
 	}
 	
 	@Test
@@ -570,10 +566,8 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test
 	public void shouldCreateAClassInsideAPackageWithAssociation() throws Exception{
-		DocumentManager doc = givenADocument("testePacoteClassAsssociation");
-		Operations op = new Operations(doc, null);
 		
-	Architecture architecture = givenAArchitecture2("testePacoteClassAsssociation");
+		Architecture architecture = givenAArchitecture2("testePacoteClassAsssociation");
 		
 		Class KlassCasa = architecture.createClass("Casas", false);
 		Class klassPerson = architecture.createClass("Person", false);
@@ -590,7 +584,7 @@ public class ModelManagerTest extends TestHelper {
 		
 		Architecture gerada = givenAArchitecture2("testePacoteClassAsssociationGerado");
 		
-		assertEquals(2, gerada.findPackageByName("Pacote").getClasses().size());
+		assertEquals(2, gerada.findPackageByName("Pacote").getAllClasses().size());
 		assertEquals(1, gerada.getAllAssociations().size());
 	}
 	

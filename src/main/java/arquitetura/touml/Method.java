@@ -1,7 +1,10 @@
 package arquitetura.touml;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.Concern;
@@ -21,7 +24,7 @@ public class Method {
 	private List<Argument> arguments = new ArrayList<Argument>();
 	private Types.Type typeReturn;
 	private boolean isAbstract = false;
-	private List<Concern> concerns = new ArrayList<Concern>();
+	private Set<Concern> concerns = new HashSet<Concern>();
 
 	private Method(){}
 	
@@ -61,8 +64,8 @@ public class Method {
 	/**
 	 * @return the concerns
 	 */
-	public List<Concern> getConcerns() {
-		return concerns;
+	public Set<Concern> getConcerns() {
+		return Collections.unmodifiableSet(concerns);
 	}
 
 	/**
@@ -129,7 +132,7 @@ public class Method {
 		return this.id;
 	}
 
-	public Method withConcerns(List<Concern> ownConcerns) {
+	public Method withConcerns(Set<Concern> ownConcerns) {
 		this.concerns  = ownConcerns;
 		return this;
 	}

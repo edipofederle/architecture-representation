@@ -86,7 +86,7 @@ public class AssociationClassRelationship extends Relationship {
 		return this.associationClass.getAllMethods();
 	}
 	
-	public List<Concern> getOwnConcerns() {
+	public Set<Concern> getOwnConcerns() {
 		return this.associationClass.getOwnConcerns();
 	}
 	

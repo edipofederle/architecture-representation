@@ -1,10 +1,10 @@
 package mestrado.arquitetura.writer.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import main.GenerateArchitecture;
@@ -20,7 +20,6 @@ import arquitetura.representation.Element;
 import arquitetura.representation.Package;
 import arquitetura.representation.Variability;
 import arquitetura.representation.Variant;
-import arquitetura.representation.VariationPoint;
 import arquitetura.touml.BindingTime;
 import arquitetura.touml.DocumentManager;
 import arquitetura.touml.Operations;
@@ -55,7 +54,7 @@ public class NotesTest extends TestHelper {
 		
 		Set<Class> allClasses = new HashSet<Class>();
 		for(Package p : a.getAllPackages())
-			allClasses.addAll(p.getClasses());
+			allClasses.addAll(p.getAllClasses());
 		
 		allClasses.addAll(a.getClasses());
 		
@@ -65,7 +64,7 @@ public class NotesTest extends TestHelper {
 		Architecture varpacote_3 = givenAArchitecture2("varpacote_4");
 		assertNotNull(varpacote_3);
 		assertEquals(1, varpacote_3.getAllVariabilities().size());
-		assertEquals(1, varpacote_3.findPackageByName("Package1").getClasses().size());
+		assertEquals(1, varpacote_3.findPackageByName("Package1").getAllClasses().size());
 		Variability variability = varpacote_3.getAllVariabilities().get(0);
 		assertEquals(1,variability.getVariants().size());
 	}

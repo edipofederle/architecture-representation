@@ -1,7 +1,9 @@
 package arquitetura.touml;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.Concern;
@@ -17,7 +19,7 @@ public class Attribute {
 	private String name;
 	private VisibilityKind visibility;
 	private Types.Type type;
-	private List<Concern> concerns = new ArrayList<Concern>();
+	private Set<Concern> concerns = new HashSet<Concern>();
 	private boolean generateVisualAttribute;
 	
 	/**
@@ -30,8 +32,8 @@ public class Attribute {
 	/**
 	 * @return the concerns
 	 */
-	public List<Concern> getConcerns() {
-		return concerns;
+	public Set<Concern> getConcerns() {
+		return Collections.unmodifiableSet(concerns);
 	}
 
 	/**
@@ -102,7 +104,7 @@ public class Attribute {
 		return this;
 	}
 
-	public Attribute withConcerns(List<Concern> ownConcerns) {
+	public Attribute withConcerns(Set<Concern> ownConcerns) {
 		this.concerns = ownConcerns;
 		return this;
 	}

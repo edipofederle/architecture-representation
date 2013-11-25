@@ -112,7 +112,7 @@ public class UsageTest extends TestHelper {
 		String p1 = op.forPackage().createPacakge(pacote1).build().get("packageId");
 		String p2 = op.forPackage().createPacakge(pacote2).build().get("packageId");
 		
-		op.forUsage().createRelation("Dependencia com Nome").between(p1).and(p2).build();
+		op.forUsage().createRelation("Usage com Nome").between(p1).and(p2).build();
 		
 		Architecture a = givenAArchitecture2("usageTeste4");
 		assertEquals(1, a.getAllUsage().size());

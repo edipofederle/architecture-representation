@@ -40,7 +40,7 @@ public class AgmTest extends TestHelper {
 	public void deveCarregarTodasAsClasses(){
 		Set<Class> all = new HashSet<Class>();
 		for(Package p : architecture.getAllPackages())
-			all.addAll(p.getClasses());
+			all.addAll(p.getAllClasses());
 		assertEquals("Deve ter 30 classes", 30, all.size());
 	}
 	
@@ -53,7 +53,7 @@ public class AgmTest extends TestHelper {
 		assertEquals("BowlingGame",klass.getName());
 		assertEquals("alternative_OR",klass.getVariantType());
 		
-		assertEquals("bowling", klass.getOwnConcerns().get(0).getName());
+		assertContainsConcern(klass.getOwnConcerns(), "bowling");
 	}
 	
 	@Test
@@ -63,7 +63,7 @@ public class AgmTest extends TestHelper {
 		assertEquals("PongGame",klass.getName());
 		assertEquals("alternative_OR",klass.getVariantType());
 		
-		assertEquals("pong", klass.getOwnConcerns().get(0).getName());
+		assertContainsConcern(klass.getOwnConcerns(), "pong");
 	}
 	
 	@Test
@@ -73,7 +73,7 @@ public class AgmTest extends TestHelper {
 		assertEquals("BricklesGame",klass.getName());
 		assertEquals("alternative_OR",klass.getVariantType());
 		
-		assertEquals("brickles", klass.getOwnConcerns().get(0).getName());
+		assertContainsConcern(klass.getOwnConcerns(), "brickles");
 	}
 	
 	@Test
@@ -82,7 +82,7 @@ public class AgmTest extends TestHelper {
 		assertEquals("Game",klass.getName());
 		assertEquals("mandatory",klass.getVariantType());
 		
-		assertEquals("play", klass.getOwnConcerns().get(0).getName());
+		assertContainsConcern(klass.getOwnConcerns(), "play");
 		assertTrue(klass.isVariationPoint());
 	}
 	
@@ -99,11 +99,11 @@ public class AgmTest extends TestHelper {
 		assertEquals("MovableSprites",klass.getName());
 		assertEquals("alternative_OR",klass.getVariantType());
 		
-		assertEquals("collision", klass.getOwnConcerns().get(0).getName());
-		assertEquals("movement", klass.getOwnConcerns().get(1).getName());
+		assertContainsConcern(klass.getOwnConcerns(), "collision", "movement");
 		assertTrue(klass.isVariationPoint());
 	}
-	
+
+
 	@Test
 	public void testClasseVelocityStereotypes() throws ClassNotFound{
 		Class klass = architecture.findClassByName("Velocity").get(0);
@@ -111,7 +111,7 @@ public class AgmTest extends TestHelper {
 		assertEquals("Velocity",klass.getName());
 		assertNull(klass.getVariantType());
 		
-		assertEquals("movement", klass.getOwnConcerns().get(0).getName());
+		assertContainsConcern(klass.getOwnConcerns(), "movement");
 	}
 	
 	@Test
@@ -122,7 +122,7 @@ public class AgmTest extends TestHelper {
 		assertEquals("alternative_OR",klass.getVariantType());
 		assertFalse(klass.isVariationPoint());
 		
-		assertEquals("play", klass.getOwnConcerns().get(0).getName());
+		assertContainsConcern(klass.getOwnConcerns(), "play");
 	}
 	
 	@Test
@@ -133,7 +133,7 @@ public class AgmTest extends TestHelper {
 		assertEquals("alternative_OR",klass.getVariantType());
 		assertFalse(klass.isVariationPoint());
 		
-		assertEquals("brickles", klass.getOwnConcerns().get(0).getName());
+		assertContainsConcern(klass.getOwnConcerns(), "brickles");
 	}
 	
 	@Test
@@ -144,7 +144,7 @@ public class AgmTest extends TestHelper {
 		assertEquals("alternative_OR",klass.getVariantType());
 		assertFalse(klass.isVariationPoint());
 		
-		assertEquals("play", klass.getOwnConcerns().get(0).getName());
+		assertContainsConcern(klass.getOwnConcerns(), "play");
 	}
 	
 	@Test
@@ -155,7 +155,7 @@ public class AgmTest extends TestHelper {
 		assertEquals("alternative_OR",klass.getVariantType());
 		assertFalse(klass.isVariationPoint());
 		
-		assertEquals("brickles", klass.getOwnConcerns().get(0).getName());
+		assertContainsConcern(klass.getOwnConcerns(), "brickles");
 	}
 	
 	
@@ -189,8 +189,7 @@ public class AgmTest extends TestHelper {
 		Class movableSprites = architecture.findClassByName("MovableSprites").get(0);
 		assertEquals(2,movableSprites.getOwnConcerns().size());
 		
-		assertEquals("collision", movableSprites.getOwnConcerns().get(0).getName());
-		assertEquals("movement", movableSprites.getOwnConcerns().get(1).getName());
+		assertContainsConcern(movableSprites.getOwnConcerns(), "movement", "collision");
 	}
 	
 	@Test
@@ -221,7 +220,8 @@ public class AgmTest extends TestHelper {
 		assertEquals("Boolean", isMoving.getType());
 		
 		assertEquals("Atributo deve ter 1 interesse", 1, isMoving.getOwnConcerns().size());
-		assertEquals("movement", isMoving.getOwnConcerns().get(0).getName());
+		assertContainsConcern(isMoving.getOwnConcerns(), "movement");
+		
 	}
 	
 	@Test
@@ -241,7 +241,7 @@ public class AgmTest extends TestHelper {
 		assertEquals("Boolean", moving.getReturnType());
 		
 		assertEquals(1, moving.getOwnConcerns().size());
-		assertEquals("movement", moving.getOwnConcerns().get(0).getName());
+		assertContainsConcern(moving.getOwnConcerns(), "movement");
 	}
 	
 	/* Interfaces */
@@ -264,7 +264,7 @@ public class AgmTest extends TestHelper {
 		
 		//Concerns
 		assertEquals(1, operation.getOwnConcerns().size());
-		assertEquals("play", operation.getOwnConcerns().get(0).getName());
+		assertContainsConcern(operation.getOwnConcerns(), "play");
 	}
 	
 	/* Interfaces */

@@ -22,11 +22,13 @@ import org.mockito.Mockito;
 import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.exceptions.ClassNotFound;
 import arquitetura.exceptions.InterfaceNotFound;
+import arquitetura.exceptions.ModelIncompleteException;
+import arquitetura.exceptions.ModelNotFoundException;
 import arquitetura.exceptions.PackageNotFound;
-import arquitetura.helpers.UtilResources;
 import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
+import arquitetura.representation.Concern;
 import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Package;
@@ -35,14 +37,18 @@ import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
-import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 import arquitetura.representation.relationship.UsageRelationship;
 
+/**
+ * @author elf
+ *
+ */
 public class ArchitectureTest extends TestHelper {
 	
 	private Architecture arch;
 	private Architecture architecture;
+	private GenerateArchitecture generate ;
 	
 	/**
 	 * @see <a href="https://dl.dropbox.com/u/6730822/generico.png">Modelo usado para architecture (Imagem)</a>
@@ -51,7 +57,7 @@ public class ArchitectureTest extends TestHelper {
 	@Before
 	public void setUp() throws Exception{
 		arch = new Architecture("arquitetura");
-		
+		generate = new GenerateArchitecture();
 		String uriToArchitecture = getUrlToModel("generico");
 		architecture = new ArchitectureBuilder().create(uriToArchitecture);
 	}
@@ -61,9 +67,10 @@ public class ArchitectureTest extends TestHelper {
 		String uriToArchitecture = getUrlToModel("f/Needless");
 		Architecture architecture = new ArchitectureBuilder().create(uriToArchitecture);
 		
-		assertEquals(2, architecture.findClassByName("Class1").get(0).getOwnConcerns().size());
-		assertEquals("action", architecture.findClassByName("Class1").get(0).getOwnConcerns().get(0).getName());
-		assertEquals("bowling", architecture.findClassByName("Class1").get(0).getOwnConcerns().get(1).getName());
+		Set<Concern> concernsClass1 = architecture.findClassByName("Class1").get(0).getOwnConcerns();
+		assertEquals(2, concernsClass1.size());
+		
+		assertContainsConcern(concernsClass1, "action", "bowling");
 	}
 	
 	@Test
@@ -414,7 +421,7 @@ public class ArchitectureTest extends TestHelper {
 		
 		Set<Class> allClasses = new HashSet<Class>();
 		for(Package p : a.getAllPackages())
-			allClasses.addAll(p.getClasses());
+			allClasses.addAll(p.getAllClasses());
 		
 		Set<Interface> allInterfaces = new HashSet<Interface>();
 		for(Package p : a.getAllPackages())
@@ -437,7 +444,7 @@ public class ArchitectureTest extends TestHelper {
 		
 		Set<Class> allClasses = new HashSet<Class>();
 		for(Package p : a.getAllPackages())
-			allClasses.addAll(p.getClasses());
+			allClasses.addAll(p.getAllClasses());
 		
 		allClasses.addAll(a.getClasses());
 		
@@ -457,7 +464,7 @@ public class ArchitectureTest extends TestHelper {
 		
 		Set<Class> allClasses = new HashSet<Class>();
 		for(Package p : a.getAllPackages())
-			allClasses.addAll(p.getClasses());
+			allClasses.addAll(p.getAllClasses());
 		
 		allClasses.addAll(a.getClasses());
 		
@@ -471,7 +478,7 @@ public class ArchitectureTest extends TestHelper {
 		
 		Set<Class> allClasses2 = new HashSet<Class>();
 		for(Package p : a.getAllPackages())
-			allClasses2.addAll(p.getClasses());
+			allClasses2.addAll(p.getAllClasses());
 		
 		allClasses2.addAll(a.getClasses());
 		
@@ -588,26 +595,164 @@ public class ArchitectureTest extends TestHelper {
 	
 	
 	@Test
-	public void testeGiovani() throws Exception{
-		Architecture a = givenAArchitecture("recurPackages");
+	public void testAddImplementedInterfaceToClass() throws Exception {
+		Architecture gerada = implementedInterfaceByClass();
 		
-		Class foo = a.createClass("Foo", false);
-		Interface bar = a.createInterface("bar");
-		
-	
-		
-		RealizationRelationship r = new RealizationRelationship(foo, bar, "teste", UtilResources.getRandonUUID());
-		a.addRelationship(r);
-		
+		assertEquals(1, gerada.getAllClasses().size());
+		assertEquals(1, gerada.getAllInterfaces().size());
+		assertEquals(1, gerada.getAllRealizations().size());
+		assertEquals(1, gerada.findClassByName("Foo").get(0).getImplementedInterfaces().size());
+	}
+
+	private Architecture implementedInterfaceByClass() throws ModelNotFoundException, ModelIncompleteException, Exception {
+		givenADocument("implementedInterface");
 		GenerateArchitecture g = new GenerateArchitecture();
-		g.generate(a, "testeGiovani");
 		
-		Architecture a2 = givenAArchitecture2("testeGiovani");
-		assertEquals(1,a2.findClassByName("Foo").get(0).getImplementedInterfaces().size());
-		assertEquals("bar", a2.findClassByName("Foo").get(0).getImplementedInterfaces().iterator().next().getName());
+		Architecture a = givenAArchitecture2("implementedInterface");
+		
+		Class client = a.createClass("Foo", false);
+		Interface supplier = a.createInterface("Bar");
+		assertTrue(a.addImplementedInterface(supplier, client));
+		
+		g.generate(a, "implementedInterfaceGerada");
+		Architecture gerada = givenAArchitecture2("implementedInterfaceGerada");
+		return gerada;
+	}
+	
+	@Test
+	public void testAddImplementedInterfaceToPackage() throws Exception {
+		Architecture gerada = implementedInterfaceByPakage();
+		
+		assertEquals(1, gerada.getAllPackages().size());
+		assertEquals(1, gerada.getAllInterfaces().size());
+		assertEquals(1, gerada.getAllRealizations().size());
+		assertEquals(1, gerada.findPackageByName("Package1").getImplementedInterfaces().size());
+	}
+	
+	@Test
+	public void removeImplementedInteraceFromClass() throws Exception {
+		Architecture arch = implementedInterfaceByClass();
+		
+		Class foo = arch.findClassByName("Foo").get(0);
+		Interface inter = arch.findInterfaceByName("Bar");
+		
+		arch.removeImplementedInterface(foo, inter);
+		
+		generate.generate(arch, "implementedInterfaceRemovedFromClass");
+		Architecture gerada = givenAArchitecture2("implementedInterfaceRemovedFromClass");
+		assertEquals(1, gerada.getAllClasses().size());
+		assertEquals(1, gerada.getAllInterfaces().size());
+		assertEquals(0, gerada.getAllRealizations().size());
+		assertEquals(0, gerada.findClassByName("Foo").get(0).getImplementedInterfaces().size());
+	}
+
+	@Test
+	public void removeImplementedInteraceFromPackage() throws Exception {
+		Architecture arch = implementedInterfaceByPakage();
+		Package pacote = arch.findPackageByName("Package1");
+		Interface inter = arch.findInterfaceByName("Bar");
+		
+		arch.removeImplementedInterface(inter, pacote);
+		
+		generate.generate(arch, "implementedInterfaceRemovedFromPackage");
+		Architecture gerada = givenAArchitecture2("implementedInterfaceRemovedFromPackage");
+		assertEquals(0, gerada.findPackageByName("Package1").getImplementedInterfaces().size());
+		assertEquals(0, gerada.getAllRealizations().size());
+	}
+	
+	/**
+	 * @return
+	 * @throws ModelNotFoundException
+	 * @throws ModelIncompleteException
+	 * @throws Exception
+	 */
+	private Architecture implementedInterfaceByPakage()	throws ModelNotFoundException, ModelIncompleteException, Exception {
+		givenADocument("implementedInterfacePackage");
+		
+		Architecture a = givenAArchitecture2("implementedInterfacePackage");
+		
+		Package client = a.createPackage("Package1");
+		Interface supplier = a.createInterface("Bar");
+		assertTrue(a.addImplementedInterface(supplier, client));
+		
+		generate.generate(a, "implementedInterfacePackageGerada");
+		Architecture gerada = givenAArchitecture2("implementedInterfacePackageGerada");
+		return gerada;
 	}
 	
 	
 	
+	@Test
+	public void testAddRequiredInterfaceToClass() throws Exception {
+		givenADocument("requiredInterfaceClass");
+		GenerateArchitecture g = new GenerateArchitecture();
+		
+		Architecture a = givenAArchitecture2("requiredInterfaceClass");
+		
+		Class client = a.createClass("Foo", false);
+		Interface supplier = a.createInterface("Bar");
+		a.addRequiredInterface(supplier, client);
+		
+		g.generate(a, "requiredInterfaceClassGerada");
+		Architecture gerada = givenAArchitecture2("requiredInterfaceClassGerada");
+		assertEquals(1,gerada.findClassByName("Foo").get(0).getRequiredInterfaces().size());
+	}
+	
+	@Test
+	public void testAddRequiredInterfaceToPackage() throws Exception {
+		givenADocument("requiredInterfacePackage");
+		GenerateArchitecture g = new GenerateArchitecture();
+		Architecture a = givenAArchitecture2("requiredInterfacePackage");
+		Package client = a.createPackage("Pacote1");
+		Interface supplier = a.createInterface("Bar");
+		a.addRequiredInterface(supplier, client);
+		
+		g.generate(a, "requiredInterfacePackageGerada");
+		Architecture gerada = givenAArchitecture2("requiredInterfacePackageGerada");
+		assertEquals(1,gerada.findPackageByName("Pacote1").getRequiredInterfaces().size());
+	}
+	
+	@Test
+	public void removeRequiredInterfaceFromPackage() throws Exception {
+		givenADocument("requiredInterfacePackageRemove");
+		GenerateArchitecture g = new GenerateArchitecture();
+		Architecture a = givenAArchitecture2("requiredInterfacePackageRemove");
+		Package client = a.createPackage("Pacote1");
+		Interface supplier = a.createInterface("Bar");
+		a.addRequiredInterface(supplier, client);
+		assertEquals(1, a.getAllDependencies().size());
+		
+		a.removeRequiredInterface(supplier, client);
+		
+		g.generate(a, "requiredInterfacePackageRemoveGerada");
+		Architecture gerada = givenAArchitecture2("requiredInterfacePackageRemoveGerada");
+		
+		assertEquals(0 ,gerada.findPackageByName("Pacote1").getRequiredInterfaces().size());
+		assertEquals(0 ,gerada.getAllDependencies().size());
+	}
+	
+	@Test
+	public void removeRequiredInterfaceFromClass() throws Exception {
+		givenADocument("requiredInterfaceClassRemove");
+		GenerateArchitecture g = new GenerateArchitecture();
+		
+		Architecture a = givenAArchitecture2("requiredInterfaceClassRemove");
+		
+		Class client = a.createClass("Foo", false);
+		Interface supplier = a.createInterface("Bar");
+		a.addRequiredInterface(supplier, client);
+		
+		a.removeRequiredInterface(supplier, client);
+		
+		g.generate(a, "requiredInterfaceClassRemoveGerada");
+		Architecture gerada = givenAArchitecture2("requiredInterfaceClassRemoveGerada");
+
+		
+		g.generate(a, "requiredInterfacePackageRemoveGerada");
+		
+		assertEquals(0 ,gerada.findClassByName("Foo").get(0).getRequiredInterfaces().size());
+		assertEquals(0 ,gerada.getAllDependencies().size());
+		
+	}
 	
 }

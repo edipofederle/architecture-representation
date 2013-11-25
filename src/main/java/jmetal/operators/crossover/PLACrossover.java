@@ -223,12 +223,12 @@ import arquitetura.representation.relationship.Relationship;
 	    
 	    	Package newComp = null;
 	    	Interface newItf;
-	    	List<Class> allClasses = new ArrayList<Class> (comp.getClasses());
+	    	List<Class> allClasses = new ArrayList<Class> (comp.getAllClasses());
 			if (!allClasses.isEmpty()) {
 				Iterator<Class> iteratorClasses = allClasses.iterator();
 				while (iteratorClasses.hasNext()){
 	            	Class classComp= iteratorClasses.next();
-	            	if (comp.getClasses().contains(classComp)){
+	            	if (comp.getAllClasses().contains(classComp)){
 	            		if (classComp.containsConcern(feature) && classComp.getOwnConcerns().size()==1){
 		            		try {
 								newComp=offspring.findPackageByName(comp.getName());
@@ -247,7 +247,7 @@ import arquitetura.representation.relationship.Relationship;
 									} catch (ConcernNotFoundException e1) {
 										e1.printStackTrace();
 									}
-		    						offspring.addImplementedInterfaceToComponent(newItf, newComp);
+		    						offspring.addImplementedInterface(newItf, newComp);
 		    						addDependenciesToInterface(newItf, offspring, parent, feature);
 		    						
 		    					}	        			
@@ -272,12 +272,12 @@ import arquitetura.representation.relationship.Relationship;
 	    }
 	    private void addClassesToOffspring (Concern feature, Package comp, Package newComp, Architecture offspring, Architecture parent) {
 	    	
-	    	List<Class> allClasses = new ArrayList<Class> (comp.getClasses());
+	    	List<Class> allClasses = new ArrayList<Class> (comp.getAllClasses());
 			if (!allClasses.isEmpty()) {
 				Iterator<Class> iteratorClasses = allClasses.iterator();
 				while (iteratorClasses.hasNext()){
 	            	Element classComp= iteratorClasses.next();
-	            	if (comp.getClasses().contains(classComp)){
+	            	if (comp.getAllClasses().contains(classComp)){
 	            		if (!searchForGeneralizations(classComp)){
 		        			comp.moveClassToPackage(classComp, newComp);
 							updateClassRelationships(classComp,newComp, comp, offspring,parent);
@@ -304,7 +304,7 @@ import arquitetura.representation.relationship.Relationship;
 					} catch (NotFoundException e) {
 						e.printStackTrace();
 					}
-  					offspring.addRequiredInterfaceToComponent(itf, auxComp);
+  					offspring.addRequiredInterface(itf, auxComp);
   				}
   				
   			}
@@ -333,7 +333,7 @@ import arquitetura.representation.relationship.Relationship;
 							}
 	        			updateInterfaceDependencies(interfaceComp, offspring, parent);
 	        			offspring.addExternalInterface(interfaceComp);
-						offspring.addImplementedInterfaceToComponent(interfaceComp, newComp);
+						offspring.addImplementedInterface(interfaceComp, newComp);
 	        			
 	            	}
 	            	else{
@@ -354,7 +354,7 @@ import arquitetura.representation.relationship.Relationship;
 	        		removeInterfaceRelationships(interfaceComp, offspring);
 	            	
 	        		offspring.addExternalInterface(interfaceComp);
-	        		offspring.addImplementedInterfaceToComponent(interfaceComp, newComp);
+	        		offspring.addImplementedInterface(interfaceComp, newComp);
 	        		for (DependencyRelationship dependency: dependencies){
 	        			Package dependent = null;
 						try {
@@ -495,7 +495,7 @@ import arquitetura.representation.relationship.Relationship;
 	    	Package sourceComp=null;
 	    	Collection<Package> allComponents =  architecture.getAllPackages();
 	    	for (Package comp: allComponents){
-	    		if (comp.getClasses().contains(class_)){
+	    		if (comp.getAllClasses().contains(class_)){
 	    			return comp;
 	    		}
 	    	}
@@ -557,12 +557,12 @@ import arquitetura.representation.relationship.Relationship;
     	  	
 			Collection<Element> children = getChildren(parent);
 			
-			if (sourceComp.getClasses().contains(parent)){
+			if (sourceComp.getAllClasses().contains(parent)){
 				sourceComp.moveClassToPackage(parent, targetComp);
 				this.updateClassRelationships(parent, targetComp, sourceComp, offspring, parentArch);
 			} else{
 				for (Package auxComp: parentArch.getAllPackages()){
-					if (auxComp.getClasses().contains(parent)){
+					if (auxComp.getAllClasses().contains(parent)){
 						auxComp.moveClassToPackage(parent, targetComp);
 						this.updateClassRelationships(parent, targetComp, auxComp, offspring, parentArch);	
 						break;
@@ -571,7 +571,7 @@ import arquitetura.representation.relationship.Relationship;
 			}
 				
 			for (Element child: children){
-				if (!(sourceComp.getClasses().contains(child))){
+				if (!(sourceComp.getAllClasses().contains(child))){
 					sourceComp = this.getClassComponent(child,parentArch);
 					if (sourceComp.getName()!=targetComp.getName()){
 						try {
@@ -600,7 +600,7 @@ import arquitetura.representation.relationship.Relationship;
 			
 			while (isChild(root)){
 				root = getParent(root);		
-				if (!(sourceComp.getClasses().contains(root))){
+				if (!(sourceComp.getAllClasses().contains(root))){
 					sourceComp = this.getClassComponent(root,parent);
 					if (sourceComp.getName()!=targetComp.getName()){
 						try {
@@ -619,11 +619,11 @@ import arquitetura.representation.relationship.Relationship;
 					}
 				}
 			}
-			if (sourceComp.getClasses().contains(root)){
+			if (sourceComp.getAllClasses().contains(root)){
 				moveChildrenAndRelationshipsToComponent(root,sourceComp,targetComp,offspring,parent);
 			} else{
 				for (Package auxComp: parent.getAllPackages()){
-					if (auxComp.getClasses().contains(root)){
+					if (auxComp.getAllClasses().contains(root)){
 						if (auxComp.getName()!=targetComp.getName()){
 							try {
 								targetComp = offspring.findPackageByName(auxComp.getName());
@@ -687,12 +687,12 @@ import arquitetura.representation.relationship.Relationship;
 			for (Element child: children){
 				removeChildrenOfComponent(child, comp, architecture);
 			}
-			if (comp.getClasses().contains(parent)){
+			if (comp.getAllClasses().contains(parent)){
 				removeClassRelationships(parent,architecture);
 				comp.removeClass(parent);
 			} else{				
 				for (Package auxComp: architecture.getAllPackages()){
-					if (auxComp.getClasses().contains(parent)){
+					if (auxComp.getAllClasses().contains(parent)){
 						removeClassRelationships(parent,architecture);
 						auxComp.removeClass(parent);
 						break;
@@ -703,12 +703,12 @@ import arquitetura.representation.relationship.Relationship;
 	    
 		private void removeClassesComponent(Package comp, Architecture offspring, String scope){
 	    	
-	    	List<Class> allClasses = new ArrayList<Class> (comp.getClasses());
+	    	List<Class> allClasses = new ArrayList<Class> (comp.getAllClasses());
 			if (!allClasses.isEmpty()) {
 				Iterator<Class> iteratorClasses = allClasses.iterator();
 				while (iteratorClasses.hasNext()){
 	            	Class classComp= iteratorClasses.next();
-	            	if (comp.getClasses().contains(classComp)){
+	            	if (comp.getAllClasses().contains(classComp)){
 	            		//se n„o estiver numa hierarquia elimina os relacionamentos e a classe
 	            		if (!searchForGeneralizations(classComp)){
 	            			this.removeClassRelationships(classComp,offspring);
@@ -723,12 +723,12 @@ import arquitetura.representation.relationship.Relationship;
 	
 	    private void removeClassesComponentRealizingFeature(Package comp, Concern feature, Architecture offspring, String scope){
 	    	
-	    	List<Class> allClasses = new ArrayList<Class> (comp.getClasses());
+	    	List<Class> allClasses = new ArrayList<Class> (comp.getAllClasses());
 			if (!allClasses.isEmpty()) {
 				Iterator<Class> iteratorClasses = allClasses.iterator();
 				while (iteratorClasses.hasNext()){
 	            	Class classComp= iteratorClasses.next();
-	            	if (comp.getClasses().contains(classComp)){
+	            	if (comp.getAllClasses().contains(classComp)){
 	            		if ((classComp.containsConcern(feature)) && (classComp.getOwnConcerns().size()==1)){
 	    					//se n„o estiver numa hierarquia elimina os relacionamentos e a classe
 	    	            		if (!searchForGeneralizations(classComp)){
@@ -1038,7 +1038,7 @@ import arquitetura.representation.relationship.Relationship;
 					} // Pegar client ou supplier? (ambos sao Element)		            			
 					if (targetComp!=null){
 						offspring.addExternalInterface(interface_);
-						offspring.addRequiredInterfaceToComponent(interface_, targetComp);
+						offspring.addRequiredInterface(interface_, targetComp);
 					}
 				}
 			} 

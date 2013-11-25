@@ -48,12 +48,13 @@ public class PLAFeatureMutation extends Mutation {
     	String scopeLevels = "allLevels"; //usar "oneLevel" para não verificar a presença de interesses nos atributos e métodos
 
   
-    	int r = PseudoRandom.randInt(0,5);
+    	//int r = PseudoRandom.randInt(0,5);
+    	int r = 2;
     	switch(r){
       //  case 0: FeatureMutation(probability, solution, scopeLevels); break;
-          case 1: MoveMethodMutation(probability, solution, scope); break;
+     //     case 1: MoveMethodMutation(probability, solution, scope); break;
         case 2: MoveAttributeMutation(probability, solution, scope); break;
-   //     case 3: MoveOperationMutation(probability, solution); break;
+        //case 3: MoveOperationMutation(probability, solution); break;
     	//case 4: AddClassMutation(probability, solution, scope); break;
        // case 5: AddManagerClassMutation(probability, solution); break;
         }
@@ -83,7 +84,7 @@ public class PLAFeatureMutation extends Mutation {
             	if (PseudoRandom.randDouble() < probability) {
             	if (scope == "sameComponent") {
             		Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
-            		List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getClasses());
+            		List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getAllClasses());
             		if (ClassesComp.size() > 1) {
             			Class targetClass = randomObject(ClassesComp);
             		    Class sourceClass = randomObject(ClassesComp);
@@ -96,13 +97,13 @@ public class PLAFeatureMutation extends Mutation {
             	} else{//considerando todos os componentes
             		if (scope == "allComponents") {
             			Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages())); 
-            			List<Class> ClassesSourceComp = new ArrayList<Class> (sourceComp.getClasses());
+            			List<Class> ClassesSourceComp = new ArrayList<Class> (sourceComp.getAllClasses());
             			if (ClassesSourceComp.size() >=1) {
             				Class sourceClass = randomObject(ClassesSourceComp);
             				if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass))&& (sourceClass.getAllAttributes().size()>1) && (sourceClass.getAllMethods().size()>1)){ //sourceClass n�o tem relacionamentos de generaliza��o{
             					Package targetComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
             					if (checkSameLayer(sourceComp,targetComp)){
-	                				List<Class> ClassesTargetComp = new ArrayList<Class> (targetComp.getClasses());
+	                				List<Class> ClassesTargetComp = new ArrayList<Class> (targetComp.getAllClasses());
 	                				if (ClassesTargetComp.size() >=1) {
 	                					Class targetClass = randomObject(ClassesTargetComp);
 	                					if ((targetClass!=null) &&  (!(targetClass.equals(sourceClass)))) 
@@ -149,7 +150,7 @@ public class PLAFeatureMutation extends Mutation {
             	if (PseudoRandom.randDouble() < probability) {
             	if (scope == "sameComponent") {
             		Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
-            		List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getClasses());
+            		List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getAllClasses());
             	   	if (ClassesComp.size() > 1) {
             	   		Class targetClass = randomObject(ClassesComp);
             	   		Class sourceClass = randomObject(ClassesComp);
@@ -161,13 +162,13 @@ public class PLAFeatureMutation extends Mutation {
             	} else {
             		if (scope == "allComponents") {
             			Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages())); 
-            			List<Class> ClassesSourceComp = new ArrayList<Class> (sourceComp.getClasses());
+            			List<Class> ClassesSourceComp = new ArrayList<Class> (sourceComp.getAllClasses());
             			if (ClassesSourceComp.size()>=1) {
                 			Class sourceClass = randomObject(ClassesSourceComp);
                 			if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass)) && (sourceClass.getAllAttributes().size()>1) && (sourceClass.getAllMethods().size()>1)){
                 				Package targetComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
                 				if (checkSameLayer(sourceComp,targetComp)){
-	                    			List<Class> ClassesTargetComp = new ArrayList<Class> (targetComp.getClasses());
+	                    			List<Class> ClassesTargetComp = new ArrayList<Class> (targetComp.getAllClasses());
 	                    			if (ClassesTargetComp.size() >=1) {
 	                    				Class targetClass = randomObject(ClassesTargetComp);
 	                    				if ((targetClass != null) && (!(targetClass.equals(sourceClass)))) 
@@ -231,7 +232,7 @@ public class PLAFeatureMutation extends Mutation {
             				Method op = randomObject(OpsInterface);
             				sourceInterface.moveOperationToInterface(op, targetInterface);
             				if (sourceComp!=targetComp){
-            					arch.addRequiredInterfaceToComponent(targetInterface, sourceComp);
+            					arch.addRequiredInterface(targetInterface, sourceComp);
             				}
             			}
             		}
@@ -261,12 +262,10 @@ public class PLAFeatureMutation extends Mutation {
             if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
               if (PseudoRandom.randDouble() < probability) {  
                Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
-              // Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
-               Package sourceComp = arch.findPackageByName("GameBoardCtrl");
-               List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getClasses());
+               Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
+               List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getAllClasses());
                if (ClassesComp.size() >=1 ) {
-            	   //Class sourceClass = randomObject(ClassesComp);
-            	   Class sourceClass = arch.findClassByName("GameBoard").get(0);
+            	   Class sourceClass = randomObject(ClassesComp);
             	   if ((sourceClass != null) && (!searchForGeneralizations(sourceClass)) && (sourceClass.getAllAttributes().size()>1) && (sourceClass.getAllMethods().size()>1)){ 	
                         	int option = PseudoRandom.randInt(0,1);
                         	if (option == 0) { //attribute          	
@@ -364,7 +363,7 @@ public class PLAFeatureMutation extends Mutation {
 				if (targetComp.getImplementedInterfaces().isEmpty()) targetInterface=arch.createInterface("Interface"+ OPLA.contInt_++);
 			} else{ targetInterface= randomObject(new ArrayList<Interface> (targetComp.getImplementedInterfaces()));}
 			
-			arch.addRequiredInterfaceToComponent(targetInterface, sourceComp);
+			arch.addRequiredInterface(targetInterface, sourceComp);
 		}		
 	}
 
@@ -372,28 +371,26 @@ public class PLAFeatureMutation extends Mutation {
 		Attribute targetAttribute = randomObject (AttributesClass);
 		sourceClass.moveAttributeToClass(targetAttribute, newClass);
 		for (Concern con: targetAttribute.getOwnConcerns()){
-				try {
-					newClass.addConcern(con.getName());
-				} catch (ConcernNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			try {
+				newClass.addConcern(con.getName());
+			} catch (ConcernNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
 		//DependencyRelationship newDep = new DependencyRelationship(newClass, sourceClass);
 		AssociationRelationship newRelationship = new AssociationRelationship(newClass, sourceClass);
 		arch.getAllRelationships().add(newRelationship);
 	}
     
-	private void moveAttributeAllComponents(Architecture arch, Package sourceComp, Package targetComp, Class sourceClass, List<Attribute> AttributesClass, Class newClass)
-			throws JMException {
+	private void moveAttributeAllComponents(Architecture arch, Package sourceComp, Package targetComp, Class sourceClass, List<Attribute> AttributesClass, Class newClass)	throws JMException {
 		Attribute targetAttribute = randomObject (AttributesClass);
 		sourceClass.moveAttributeToClass(targetAttribute, newClass);
 		for (Concern con: targetAttribute.getOwnConcerns()){
-				try {
-					newClass.addConcern(con.getName());
-				} catch (ConcernNotFoundException e) {
-					e.printStackTrace();
-				}
+			try {
+				newClass.addConcern(con.getName());
+			} catch (ConcernNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
 		if (targetComp.equals(sourceComp)){
 			AssociationRelationship newRelationship = new AssociationRelationship(newClass, sourceClass);
@@ -403,14 +400,15 @@ public class PLAFeatureMutation extends Mutation {
 			Collection<Interface> allItfsTargetComp = targetComp.getImplementedInterfaces();
 			Interface targetInterface = null;
 			for (Interface itf: allItfsTargetComp){
-				for (Concern con:targetAttribute.getOwnConcerns())
-					if (itf.containsConcern(con)) targetInterface = itf;
+				for (Concern con : targetAttribute.getOwnConcerns())
+					if (itf.containsConcern(con))
+						targetInterface = itf;
 			}
 			
 			if (targetInterface==null){
 				if (targetComp.getImplementedInterfaces().isEmpty()) targetInterface=arch.createInterface("Interface"+ OPLA.contInt_++);
 			} else{ targetInterface= randomObject(new ArrayList<Interface> (targetComp.getImplementedInterfaces()));}
-			arch.addRequiredInterfaceToComponent(targetInterface, sourceComp);
+			arch.addRequiredInterface(targetInterface, sourceComp);
 		}		
 	}
     
@@ -438,15 +436,16 @@ public class PLAFeatureMutation extends Mutation {
             	
             		Package newComp = arch.createPackage("Package"+ OPLA.contComp_ + getSuffix(sourceComp));
             		OPLA.contComp_++;
-//            		/Interface newInterface = arch.createInterface("Interface"+ OPLA.contInt_++);
-            		Interface newInterface = newComp.createInterface("Interface"+ OPLA.contInt_++); // Edipo ver com Thelma
+            		Interface newInterface = newComp.createInterface("Interface"+ OPLA.contInt_++);
+            		Class newClass = newComp.createClass("Class"+ OPLA.contClass_++, false);
             		
-            		arch.addImplementedInterfaceToComponent(newInterface, newComp);
+            		arch.addImplementedInterface(newInterface, newClass);
             		sourceInterface.moveOperationToInterface(op, newInterface); 
-            		arch.addRequiredInterfaceToComponent(newInterface, sourceComp);
+            		arch.addRequiredInterface(newInterface, sourceComp);
             		for (Concern con: op.getOwnConcerns()){
             			newInterface.addConcern(con.getName());
             			newComp.addConcern(con.getName());
+            			newClass.addConcern(con.getName());
             		}
             	}
             }	
@@ -488,7 +487,7 @@ public class PLAFeatureMutation extends Mutation {
                 		if (allComponentsAssignedOnlyToConcern.size() == 0 ){
                 			Package newComponent = arch.createPackage("Package"+ OPLA.contComp_ + getSuffix(selectedComp));
                 			OPLA.contComp_++;
-                			newComponent.addConcern(selectedConcern.getName());
+                			//newComponent.addConcern(selectedConcern.getName());
                     		modularizeConcernInComponent(newComponent,selectedConcern,arch);
                 		}
                 		else{
@@ -519,13 +518,23 @@ public class PLAFeatureMutation extends Mutation {
 	private List<Package> searchComponentsAssignedToConcern(Concern concern, List<Package> allComponents){
 		List<Package> allComponentsAssignedToConcern = new ArrayList<Package> ();
 		for (Package component: allComponents){
-			if ((component.containsConcern(concern)) && (component.getOwnConcerns().size()==1)){
+			if (getNumberOfConcernsFor(component) == 1){
 				allComponentsAssignedToConcern.add(component);
 			}
 		}
 		return allComponentsAssignedToConcern;
 	}
 	
+	private int getNumberOfConcernsFor(Package pkg) {
+		int numberOfConcerns = 0;
+		for(Class klass : pkg.getAllClasses())
+			numberOfConcerns += klass.getOwnConcerns().size();
+		for(Interface klass : pkg.getAllInterfaces())
+			numberOfConcerns += klass.getOwnConcerns().size();
+		
+		return numberOfConcerns;
+	}
+
 	private void modularizeConcernInComponent(Package targetComponent,	Concern concern, Architecture arch) {
 		List<Package> allComponents = new ArrayList<Package>(arch.getAllPackages());
 		for (Package comp : allComponents) {
@@ -555,11 +564,11 @@ public class PLAFeatureMutation extends Mutation {
 			if (!comp.equals(targetComponent)
 					&& checkSameLayer(comp, targetComponent)) {// &&
 																// !comp.containsConcern(concern)){
-				List<Class> allClasses = new ArrayList<Class>(comp.getClasses());
+				List<Class> allClasses = new ArrayList<Class>(comp.getAllClasses());
 				if (allClasses.size() >= 1) {
 					for (Class classComp : allClasses) {
 						// ThelmaNew: nova condicao adicionada - FEITO
-						if (comp.getClasses().contains(classComp)) {
+						if (comp.getAllClasses().contains(classComp)) {
 							if ((classComp.containsConcern(concern))
 									&& (classComp.getOwnConcerns().size() == 1)) {
 								if (!searchForGeneralizations(classComp)) //realiza a mutaÁ„o em classe que n„o est· numa hierarquia de heranÁa
@@ -642,13 +651,13 @@ public class PLAFeatureMutation extends Mutation {
 			} catch (ConcernNotFoundException e) {
 				e.printStackTrace();
 			}
-			architecture.addImplementedInterfaceToComponent(targetInterface, targetComp);
-			architecture.addRequiredInterfaceToComponent(targetInterface, sourceComp);
+			architecture.addImplementedInterface(targetInterface, targetComp);
+			architecture.addRequiredInterface(targetInterface, sourceComp);
 		}
 		else{
 			if (allInterfacesTargetComp.size()== 1) {
 				targetInterface = allInterfacesTargetComp.get(0);
-				architecture.addRequiredInterfaceToComponent(targetInterface, sourceComp);
+				architecture.addRequiredInterface(targetInterface, sourceComp);
 			}
 			else{
 				List<Interface> allInterfacesConcernTargetComponent = new ArrayList<Interface> ();
@@ -660,7 +669,7 @@ public class PLAFeatureMutation extends Mutation {
 				} catch (JMException e) {
 					e.printStackTrace();
 				}
-				architecture.addRequiredInterfaceToComponent(targetInterface, sourceComp);				
+				architecture.addRequiredInterface(targetInterface, sourceComp);				
 			}
 		}
 		
@@ -668,7 +677,7 @@ public class PLAFeatureMutation extends Mutation {
 	
 	private void moveAttributeToComponent(Attribute attribute, Class classComp, Package targetComp, Package sourceComp, Architecture architecture, Concern concern){
 		Class targetClass = null;
-		for (Class cls:targetComp.getClasses()){
+		for (Class cls:targetComp.getAllClasses()){
 			if (cls.containsConcern(concern)) targetClass = cls;
 		}
 		if (targetClass==null){
@@ -695,14 +704,14 @@ public class PLAFeatureMutation extends Mutation {
 			} catch (ConcernNotFoundException e) {
 				e.printStackTrace();
 			}
-			architecture.addImplementedInterfaceToComponent(targetInterface, targetComp);
+			architecture.addImplementedInterface(targetInterface, targetComp);
 		}
-		architecture.addRequiredInterfaceToComponent(targetInterface, sourceComp);
+		architecture.addRequiredInterface(targetInterface, sourceComp);
 	}
 	
 	private void moveMethodToComponent(Method method, Class classComp, Package targetComp, Package sourceComp, Architecture architecture, Concern concern){
 		Class targetClass = null;
-		for (Class cls:targetComp.getClasses()){
+		for (Class cls:targetComp.getAllClasses()){
 			if (cls.containsConcern(concern)) targetClass = cls;
 		}
 		if (targetClass==null)
@@ -729,15 +738,15 @@ public class PLAFeatureMutation extends Mutation {
 			} catch (ConcernNotFoundException e) {
 				e.printStackTrace();
 			}
-			architecture.addImplementedInterfaceToComponent(targetInterface, targetComp);
+			architecture.addImplementedInterface(targetInterface, targetComp);
 		}
-		architecture.addRequiredInterfaceToComponent(targetInterface, sourceComp);
+		architecture.addRequiredInterface(targetInterface, sourceComp);
 	}
 	
 	private void moveInterfaceToComponent(Interface interfaceComp, Package targetComp, Package sourceComp, Architecture architecture){
-		architecture.removeImplementedInterfaceFromPackage(interfaceComp, sourceComp);
-		architecture.addImplementedInterfaceToComponent(interfaceComp, targetComp);
-		architecture.addRequiredInterfaceToComponent(interfaceComp, sourceComp);
+		architecture.removeImplementedInterface(interfaceComp, sourceComp);
+		architecture.addImplementedInterface(interfaceComp, targetComp);
+		architecture.addRequiredInterface(interfaceComp, sourceComp);
 	}
 	
 	private void moveOperationToComponent(Method operation, Interface sourceInterface, Package targetComp, Package sourceComp, Architecture architecture, Concern concern){
@@ -754,10 +763,10 @@ public class PLAFeatureMutation extends Mutation {
 			} catch (ConcernNotFoundException e) {
 				e.printStackTrace();
 			}
-			architecture.addImplementedInterfaceToComponent(targetInterface, targetComp);
+			architecture.addImplementedInterface(targetInterface, targetComp);
 		}
 		sourceInterface.moveOperationToInterface(operation, targetInterface);
-		architecture.addRequiredInterfaceToComponent(targetInterface, sourceComp);
+		architecture.addRequiredInterface(targetInterface, sourceComp);
 	}
 	
     public Object execute(Object object) throws JMException {
@@ -974,13 +983,13 @@ private void moveHierarchyToComponent(Class classComp, Package targetComp, Packa
 			} catch (ConcernNotFoundException e) {
 				e.printStackTrace();
 			}
-			architecture.addImplementedInterfaceToComponent(targetInterface, targetComp);
-			architecture.addRequiredInterfaceToComponent(targetInterface, sourceComp);
+			architecture.addImplementedInterface(targetInterface, targetComp);
+			architecture.addRequiredInterface(targetInterface, sourceComp);
 		}
 		else{
 			if (allInterfacesTargetComp.size()== 1) {
 				targetInterface = allInterfacesTargetComp.get(0);
-				architecture.addRequiredInterfaceToComponent(targetInterface, sourceComp);
+				architecture.addRequiredInterface(targetInterface, sourceComp);
 			}
 			else{
 				List<Interface> allInterfacesConcernTargetComponent = new ArrayList<Interface> ();
@@ -992,7 +1001,7 @@ private void moveHierarchyToComponent(Class classComp, Package targetComp, Packa
 				} catch (JMException e) {
 					e.printStackTrace();
 				}
-				architecture.addRequiredInterfaceToComponent(targetInterface, sourceComp);				
+				architecture.addRequiredInterface(targetInterface, sourceComp);				
 			}
 		}
 		
@@ -1006,7 +1015,7 @@ private void moveHierarchyToComponent(Class classComp, Package targetComp, Packa
 		}
 		
 		//ThelmaNew: if adicionado para acomodar hierarquias em diferentes componentes
-		if (sourceComp.getClasses().contains(parent)){
+		if (sourceComp.getAllClasses().contains(parent)){
 			removeRelationshipsofClassInHierarchy(parent,architecture);
 			sourceComp.moveClassToPackage(parent, targetComp);
 		} else{		
@@ -1016,7 +1025,7 @@ private void moveHierarchyToComponent(Class classComp, Package targetComp, Packa
 				Iterator<Package> iteratorCompsArch = allCompsArch.iterator();
 				while (iteratorCompsArch.hasNext()){
 					auxComp= iteratorCompsArch.next();
-					if (auxComp.getClasses().contains(parent)){
+					if (auxComp.getAllClasses().contains(parent)){
 						removeRelationshipsofClassInHierarchy(parent,architecture);
 						auxComp.moveClassToPackage(parent, targetComp);
 						break;
@@ -1031,13 +1040,13 @@ private void moveHierarchyToComponent(Class classComp, Package targetComp, Packa
 					} catch (ConcernNotFoundException e) {
 						e.printStackTrace();
 					}
-					architecture.addImplementedInterfaceToComponent(targetInterface, targetComp);
-					architecture.addRequiredInterfaceToComponent(targetInterface, auxComp);
+					architecture.addImplementedInterface(targetInterface, targetComp);
+					architecture.addRequiredInterface(targetInterface, auxComp);
 				}
 				else{
 					if (allInterfacesTargetComp.size()== 1) {
 						targetInterface = allInterfacesTargetComp.get(0);
-						architecture.addRequiredInterfaceToComponent(targetInterface, auxComp);
+						architecture.addRequiredInterface(targetInterface, auxComp);
 					}
 					else{
 						List<Interface> allInterfacesConcernTargetComponent = new ArrayList<Interface> ();
@@ -1049,7 +1058,7 @@ private void moveHierarchyToComponent(Class classComp, Package targetComp, Packa
 						} catch (JMException e) {
 							e.printStackTrace();
 						}
-						architecture.addRequiredInterfaceToComponent(targetInterface, auxComp);				
+						architecture.addRequiredInterface(targetInterface, auxComp);				
 					}
 				}
 			}		

@@ -320,4 +320,14 @@ public class Class extends Element {
 		return requiredInterfaces;
 	}
 
+	public void removeImplementedInterface(Interface inter) {
+		this.implementedInterfaces.remove(inter);
+	}
+
+	public boolean removeRequiredInterface(Interface supplier) {
+		if (!requiredInterfaces.contains(supplier)) return false;
+		requiredInterfaces.remove(supplier);
+		return true;
+	}
+
 }

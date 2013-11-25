@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Set;
 
 import mestrado.arquitetura.helpers.test.TestHelper;
 
@@ -133,17 +134,17 @@ public class ArchitectureBuilderTest extends TestHelper {
 
 	@Test
 	public void shouldContainsAClassWithConcern() {
-		List<Concern> concerns = klass.getOwnConcerns();
+		Set<Concern> concerns = klass.getOwnConcerns();
 		assertFalse(concerns.isEmpty());
-		assertEquals("pong", concerns.get(1).getName());
+		assertContainsConcern(concerns, "pong");
 	}
 
 	@Test
 	public void shouldContainTwoConcerns() {
-		List<Concern> concerns = klass.getOwnConcerns();
+		Set<Concern> concerns = klass.getOwnConcerns();
 		assertEquals(2, concerns.size());
-		assertEquals("pong", concerns.get(1).getName());
-		assertEquals("play", concerns.get(0).getName());
+		
+		assertContainsConcern(concerns, "pong", "play");
 	}
 
 	@Test
@@ -168,14 +169,14 @@ public class ArchitectureBuilderTest extends TestHelper {
 	public void shouldNestedPackagesHaveTwoClasses() throws PackageNotFound {
 		Package pkg = architecture.findPackageByName("Pacote1DentroDoPacote2");
 		assertNotNull(pkg);
-		assertEquals(2, pkg.getClasses().size());
+		assertEquals(2, pkg.getAllClasses().size());
 	}
 
 	@Test
 	public void shouldNEstedPackage2HaveOneClass() throws PackageNotFound {
 		Package pkg = architecture.findPackageByName("Pacote2DentroDoPacote2");
 		assertNotNull(pkg);
-		assertEquals(1, pkg.getClasses().size());
+		assertEquals(1, pkg.getAllClasses().size());
 	}
 
 	@Test

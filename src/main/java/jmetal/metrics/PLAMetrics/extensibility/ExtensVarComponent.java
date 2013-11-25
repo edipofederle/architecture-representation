@@ -13,7 +13,7 @@ public class ExtensVarComponent {
 	
 	public float getValue() {
 		float result = 0;
-		for (Class class_ : component.getClasses())
+		for (Class class_ : component.getAllClasses())
 			result += new ExtensClass(class_).getValue();
 		
 		return result;

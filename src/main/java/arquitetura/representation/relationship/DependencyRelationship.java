@@ -48,9 +48,6 @@ public class DependencyRelationship extends Relationship {
 			((Package) client).addRequiredInterface((Interface) supplier);
 		}
 		
-//		if((supplier instanceof Package) && (client instanceof Interface)){
-//			((Package) supplier).addImplementedInterface(client);
-//		}
 	}
 	
 	/**

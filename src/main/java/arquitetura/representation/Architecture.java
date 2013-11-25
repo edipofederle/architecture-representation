@@ -183,7 +183,7 @@ public class Architecture extends Variable implements Cloneable {
 	public Set<Class> getAllClasses(){
 		Set<Class> klasses = new HashSet<Class>();
 		for(Package p : this.packages)
-			klasses.addAll(p.getClasses());
+			klasses.addAll(p.getAllClasses());
 		
 		klasses.addAll(this.classes);
 		return Collections.unmodifiableSet(klasses);
@@ -390,7 +390,7 @@ public class Architecture extends Variable implements Cloneable {
 				classesFound.add(klass);
 		
 		for(Package p : this.packages)
-			for(Class klass : p.getClasses())
+			for(Class klass : p.getAllClasses())
 				if(className.trim().equalsIgnoreCase(klass.getName().trim()))
 					classesFound.add(klass);
 		
@@ -494,7 +494,7 @@ public class Architecture extends Variable implements Cloneable {
 				return klass;
 		
 		for(Package p : getAllPackages())
-			for(Class klass : p.getClasses())
+			for(Class klass : p.getAllClasses())
 				if(idClass.equalsIgnoreCase(klass.getId().trim()))
 					return klass;
 		
@@ -616,37 +616,48 @@ public class Architecture extends Variable implements Cloneable {
 	}
 	
 	
-	public void addImplementedInterfaceToComponent(Interface interface_, Package pkg) {
-		if (pkg.getImplementedInterfaces().contains(interface_)) return;
-		
-		if(addRelationship(new RealizationRelationship(interface_, pkg, "", UtilResources.getRandonUUID())))
-			LOGGER.info("ImplementedInterface: " + interface_.getName() + " adicionada ao pacote: " +pkg.getName());
-		else
-			LOGGER.info("TENTOU adicionar ImplementedInterface: "+ interface_.getName() + " ao pacote: "+pkg.getName() + " porém não consegiu");
-	}
-	
-	public void addRequiredInterfaceToComponent(Interface interface_, Package pkg) {
-		if (pkg.getRequiredInterfaces().contains(interface_)) return;
-		if(addRelationship(new DependencyRelationship(interface_, pkg, "", this, UtilResources.getRandonUUID())))
-			LOGGER.info("RequiredInterface: " + interface_.getName() + " adicionada ao pacote: " +pkg.getName());
-		else
-			LOGGER.info("TENTOU adicionar RequiredInterface: "+ interface_.getName() + " ao pacote: "+pkg.getName() + " porém não consegiu");
-	}
-	
-	public void removeImplementedInterfaceFromPackage(Interface interface_, Package component) {
-		if(component.removeImplementedInterface(interface_)){
-			LOGGER.info("ImplementedInterface removida do pacote " + component.getName());
+	public boolean addImplementedInterface(Interface supplier, Class client) {
+		if(addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID()))){
+			LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada na classe: " +client.getName());
+			return true;
 		}else{
-			LOGGER.info("TENTOU remover ImplementedInterface do pacote " + component.getName() + " porém não consegiu");
-			return ;
+			LOGGER.info("Tentou adicionar a interface " + supplier.getName() + " como interface implementada pela classe: " + client.getName());
+			return false;
 		}
-
-		for (AbstractionRelationship relationship : getAllAbstractions()) {
-			if (relationship.getSupplier().equals(interface_) && relationship.getClient().equals(component)){
-				removeRelationship(relationship);
-				return;
-			}
+	}
+	
+	public boolean addImplementedInterface(Interface supplier, Package client) {
+		if(addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID()))){
+			LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada ao pacote: " +client.getName());
+			return true;
+		}else{
+			LOGGER.info("Tentou adicionar a interface " + supplier.getName() + " como interface implementada no pacote: " + client.getName());
+			return false;
 		}
+	}
+	
+	public void removeImplementedInterface(Interface inter, Package pacote) {
+		pacote.removeImplementedInterface(inter);
+		removeRelatedRelationships(inter);
+	}
+	
+	public void removeImplementedInterface(Class foo, Interface inter) {
+		foo.removeImplementedInterface(inter);
+		removeRelatedRelationships(inter);
+	}
+	
+	public void addRequiredInterface(Interface supplier, Class client) {
+		if(addRelationship(new DependencyRelationship(supplier, client, "", this, UtilResources.getRandonUUID())))
+			LOGGER.info("RequiredInterface: " + supplier.getName() + " adicionada a: " +client.getName());
+		else
+			LOGGER.info("TENTOU adicionar RequiredInterface: "+ supplier.getName() + " a : "+client.getName() + " porém não consegiu");
+	}
+	
+	public void addRequiredInterface(Interface supplier, Package client) {
+		if(addRelationship(new DependencyRelationship(supplier, client, "", this, UtilResources.getRandonUUID())))
+			LOGGER.info("RequiredInterface: " + supplier.getName() + " adicionada a: " +client.getName());
+		else
+			LOGGER.info("TENTOU adicionar RequiredInterface: "+ supplier.getName() + " a : "+client.getName() + " porém não consegiu");
 	}
 	
 	public void deleteClassRelationships(Class class_){
@@ -786,6 +797,16 @@ public class Architecture extends Variable implements Cloneable {
 			LOGGER.info("Classe: " + klass.getName() + " adicionado na arquitetura");
 		else
 			LOGGER.info("TENTOU adicionar a Classe: " + klass.getName() + " na arquitetura porém não consegiu");
+	}
+
+	public void removeRequiredInterface(Interface supplier, Package client) {
+		if(!client.removeRequiredInterface(supplier));
+		this.removeRelatedRelationships(supplier);
+	}
+	
+	public void removeRequiredInterface(Interface supplier, Class client) {
+		if(!client.removeRequiredInterface(supplier));
+		this.removeRelatedRelationships(supplier);
 	}
 
 }

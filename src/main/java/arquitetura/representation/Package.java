@@ -66,7 +66,7 @@ public class Package extends Element {
 	 * 
 	 * @return List<{@link Class}>
 	 */
-	public Set<Class> getClasses(){
+	public Set<Class> getAllClasses(){
 		return this.classes;
 	}
 	
@@ -91,7 +91,7 @@ public class Package extends Element {
 	 */
 	public Set<Interface> getImplementedInterfaces() {
 		Set<Interface> implementedInterfecesForClassIntoPackage = new HashSet<Interface>();
-		for(Class klass : this.getClasses())
+		for(Class klass : this.getAllClasses())
 			implementedInterfecesForClassIntoPackage.addAll(klass.getImplementedInterfaces());
 		
 		implementedInterfaces.addAll(implementedInterfecesForClassIntoPackage);
@@ -182,6 +182,12 @@ public class Package extends Element {
 		implementedInterfaces.remove(interface_);
 		return true;
 	}
+	
+	public boolean removeRequiredInterface(Interface supplier) {
+		if (!requiredInterfaces.contains(supplier)) return false;
+		requiredInterfaces.remove(supplier);
+		return true;
+	}
 
 	public Set<Element> getElements() {
 		Set<Element> elementsPackage = new HashSet<Element>();
@@ -192,5 +198,6 @@ public class Package extends Element {
 		
 		return elementsPackage;
 	}
+
 
 }

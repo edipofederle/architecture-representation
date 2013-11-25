@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.representation.relationship.Relationship;
@@ -22,7 +24,7 @@ public abstract class Element implements Serializable {
 	private String name;
 	private VariationPoint variationPoint;
 	private Variant variant;
-	private final List<Concern> concerns = new ArrayList<Concern>();
+	private Set<Concern> concerns = new HashSet<Concern>();
 	private Architecture architecture;
 	private String typeElement;
 	private String namespace;
@@ -98,7 +100,7 @@ public abstract class Element implements Serializable {
 	 * 
 	 * @return List<{@link Concern}>
 	 */
-	public List<Concern> getOwnConcerns() {
+	public Set<Concern> getOwnConcerns() {
 		return concerns;
 	}
 	
