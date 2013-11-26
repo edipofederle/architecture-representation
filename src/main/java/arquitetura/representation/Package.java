@@ -101,8 +101,12 @@ public class Package extends Element {
 		requiredInterfaces.add(interfacee);
 	}
 
-	//TODO também retorna as interfaces requeridas pelas classes do pacote.
 	public Set<Interface> getRequiredInterfaces() {
+		Set<Interface> requiredInterfacesForPackage = new HashSet<Interface>();
+		for(Class klass : this.getAllClasses())
+			requiredInterfacesForPackage.addAll(klass.getRequiredInterfaces());
+		
+		requiredInterfaces.addAll(requiredInterfacesForPackage);
 		return Collections.unmodifiableSet(requiredInterfaces);
 	}
 

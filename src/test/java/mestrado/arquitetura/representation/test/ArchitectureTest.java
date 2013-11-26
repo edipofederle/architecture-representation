@@ -709,7 +709,7 @@ public class ArchitectureTest extends TestHelper {
 		
 		g.generate(a, "requiredInterfacePackageGerada");
 		Architecture gerada = givenAArchitecture2("requiredInterfacePackageGerada");
-		assertEquals(1,gerada.findPackageByName("Pacote1").getRequiredInterfaces().size());
+		assertEquals(1, gerada.findPackageByName("Pacote1").getRequiredInterfaces().size());
 	}
 	
 	@Test
