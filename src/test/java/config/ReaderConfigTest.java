@@ -76,4 +76,36 @@ public class ReaderConfigTest {
 		assertNotNull(path);
 	}
 	
+	
+	@Test
+	public void dontReturnConfigFileConfIfISetOne1(){
+		ReaderConfig.setPathToTemplateModelsDirectory("new/path/");
+		assertEquals("new/path/", ReaderConfig.getPathToTemplateModelsDirectory());
+	}
+	
+	@Test
+	public void dontReturnConfigFileConfIfISetOne2(){
+		ReaderConfig.setPathToProfileConcerns("new/path/");
+		assertEquals("new/path/", ReaderConfig.getPathToProfileConcerns());
+	}
+	
+	@Test
+	public void dontReturnConfigFileConfIfISetOne3(){
+		ReaderConfig.setPathToProfileSMarty("new/path/");
+		assertEquals("new/path/", ReaderConfig.getPathToProfileSMarty());
+	}
+	
+	@Test
+	public void dontReturnConfigFileConfIfISetOne4(){
+		ReaderConfig.setDirExportTarget("new/path/");
+		assertEquals("new/path/", ReaderConfig.getDirExportTarget());
+	}
+	
+	@Test
+	public void dontReturnConfigFileConfIfISetOne5(){
+		ReaderConfig.setDirTarget("new/path/");
+		assertEquals("new/path/", ReaderConfig.getDirTarget());
+	}
+	
+	
 }

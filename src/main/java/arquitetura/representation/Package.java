@@ -1,7 +1,6 @@
 package arquitetura.representation;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -102,6 +101,7 @@ public class Package extends Element {
 		requiredInterfaces.add(interfacee);
 	}
 
+	//TODO também retorna as interfaces requeridas pelas classes do pacote.
 	public Set<Interface> getRequiredInterfaces() {
 		return Collections.unmodifiableSet(requiredInterfaces);
 	}

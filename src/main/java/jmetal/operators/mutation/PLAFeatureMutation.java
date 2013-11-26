@@ -232,6 +232,10 @@ public class PLAFeatureMutation extends Mutation {
             				Method op = randomObject(OpsInterface);
             				sourceInterface.moveOperationToInterface(op, targetInterface);
             				if (sourceComp!=targetComp){
+            					//TODO 
+            					/* O relacionamento vai ser feito entre a classe e interface se a classe não for unica
+            					 * fo pacote. Caso contrario é feito pacote -> interface
+            					 */
             					arch.addRequiredInterface(targetInterface, sourceComp);
             				}
             			}
@@ -422,8 +426,7 @@ public class PLAFeatureMutation extends Mutation {
           if (PseudoRandom.randDouble() < probability) {  	
             Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
             
-            //Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
-            Package sourceComp = arch.findPackageByName("GameBoardCtrl");
+            Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
             	
             List<Interface> InterfacesComp = new ArrayList<Interface> ();
             InterfacesComp.addAll(sourceComp.getImplementedInterfaces());
@@ -440,8 +443,14 @@ public class PLAFeatureMutation extends Mutation {
             		Class newClass = newComp.createClass("Class"+ OPLA.contClass_++, false);
             		
             		arch.addImplementedInterface(newInterface, newClass);
+            		
             		sourceInterface.moveOperationToInterface(op, newInterface); 
+            		
+            		/**
+            		 * mesma implemntação do MoveOperationMutation
+            		 */
             		arch.addRequiredInterface(newInterface, sourceComp);
+            		
             		for (Concern con: op.getOwnConcerns()){
             			newInterface.addConcern(con.getName());
             			newComp.addConcern(con.getName());

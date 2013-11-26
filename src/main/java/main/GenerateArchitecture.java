@@ -66,7 +66,6 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			LOGGER.warn("Smarty Profile note Applied: "+e1.getMessage());
 		}
 		
-		//String path = new File(pathToModel).getAbsolutePath(); 
 		Operations op = null;
 		
 		try {
