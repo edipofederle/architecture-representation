@@ -511,8 +511,7 @@ public class OPLA extends Problem {
 						ultimaInterface = true;
 					if (itf.getOperations().isEmpty() && !ultimaInterface) {
 						try {
-							((Architecture) solution.getDecisionVariables()[0])
-									.removeInterface(itf);
+							((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -530,15 +529,35 @@ public class OPLA extends Problem {
 					}
 				}
 			}
-
-			if (comp.getAllClasses().isEmpty() && comp.getImplementedInterfaces().isEmpty()) { // TODO
-																	// verificar,
-																	// pois
-																	// deveria
-																	// deletar
-																	// todos
-																	// pacotes
-																	// *GUI.
+			
+			Iterator<Interface> iteratorInterfaces = ((Architecture) solution.getDecisionVariables()[0]).getAllInterfaces().iterator();
+			while (iteratorInterfaces.hasNext()) {
+				Interface itf = iteratorInterfaces.next();
+				boolean ultimaInterface = false;
+				if (comp.getImplementedInterfaces().size() == 1)
+					ultimaInterface = true;
+				if (itf.getOperations().isEmpty() && !ultimaInterface) {
+					try {
+						((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					// this.removeInterfaceRelationships(itf, (Architecture)
+					// solution.getDecisionVariables()[0]);
+				}
+				if (itf.getOperations().isEmpty() && ultimaInterface
+						&& comp.getAllClasses().size() < 1) {
+					try {
+						((Architecture) solution.getDecisionVariables()[0])
+								.removeInterface(itf);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			
+			
+			if (comp.getAllClasses().isEmpty() && comp.getImplementedInterfaces().isEmpty() && comp.getAllInterfaces().isEmpty()) {
 				this.removeComponentRelationships(comp,(Architecture) solution.getDecisionVariables()[0]);
 				((Architecture) solution.getDecisionVariables()[0]).removePackage(comp);
 			}

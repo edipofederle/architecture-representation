@@ -119,8 +119,12 @@ public class Architecture extends Variable implements Cloneable {
 	 * 
 	 * @return Map<String, Concern>
 	 */
-	public Map<String, Concern> getAllConcerns() {
-		return Collections.unmodifiableMap(concerns);
+	public List<Concern> getAllConcerns() {
+		List<Concern> concerns = new ArrayList<Concern>();
+		for (Map.Entry<String, Concern> entry : this.concerns.entrySet()) {
+			concerns.add(entry.getValue());
+		}
+		return Collections.unmodifiableList(concerns);
 	}
 	
 	/**
@@ -307,7 +311,7 @@ public class Architecture extends Variable implements Cloneable {
 		List<AssociationRelationship> associations = getAllAssociations();
 		List<AssociationRelationship> agragation = new ArrayList<AssociationRelationship>();
 		for (AssociationRelationship associationRelationship : associations) {
-			if((associationRelationship.getParticipants().get(0).isAggregation()) || (associationRelationship.getParticipants().get(0).isAggregation())){
+			if((associationRelationship.getParticipants().get(0).isAggregation()) || (associationRelationship.getParticipants().get(1).isAggregation())){
 				agragation.add(associationRelationship);
 			}
 		}
@@ -454,7 +458,7 @@ public class Architecture extends Variable implements Cloneable {
 
 	public void removeInterface(Interface interfacee) {
 		this.removeRelatedRelationships(interfacee);
-		if (!interfaces.remove(interfacee))
+		if (!removeInterfaceFromArch(interfacee))
 			LOGGER.info("Tentou remover Interface " + interfacee + " porém não consegiu");
 		for(Package p : getAllPackages()){
 			p.getElements().remove(interfacee);
@@ -462,18 +466,27 @@ public class Architecture extends Variable implements Cloneable {
 		LOGGER.info("Interface:" + interfacee.getName() + " removida da arquitetura");
 	}
 	
-	/**
-	 * Remove classe que estão em um primeiro nível da arquitetura, ou seja, não pertencem a nenhum pacote.
-	 * 
-	 * @param klass
-	 */
-	public void removeClass(Class klass) {
-		if(!this.classes.contains(klass)){
-			LOGGER.info("TENTOU remover a  Classe " + klass.getName()+"("+klass.getId()+") da arquitetura, porém não consegiu");
-			return ;
+	private boolean removeInterfaceFromArch(Interface interfacee) {
+		if(this.interfaces.remove(interfacee))
+			return true;
+		for(Package p : this.packages){
+			if(p.removeInterface(interfacee))
+				return true;
 		}
-		this.classes.remove(klass);
-		LOGGER.info("Classe " + klass.getName()+"("+klass.getId()+") removida da arquitetura");
+		return false;
+	}
+
+	public void removeClass(Element klass) {
+		if(this.classes.remove(klass))
+			LOGGER.info("Classe " + klass.getName()+"("+klass.getId()+") removida da arquitetura");
+		
+		for(Package pkg : this.getAllPackages()){
+			if(pkg.getAllClasses().contains(klass)){
+				if(pkg.removeClass(klass))
+					LOGGER.info("Classe " + klass.getName()+"("+klass.getId()+") removida da arquitetura. Pacote(" + pkg.getName()+ ")");
+			}
+		}
+		
 	}
 
 	public List<VariationPoint> getAllVariationPoints() {
@@ -525,14 +538,6 @@ public class Architecture extends Variable implements Cloneable {
 		return concerns.get(concernName);
 	}
 	
-	public Collection<Concern> getConcerns() {
-		Set<Concern> concerns = new HashSet<Concern>();
-		for (Interface interface_ : getInterfaces())
-			concerns.addAll(interface_.getAllConcerns());
-		
-		return concerns;
-	}
-
 	/**
 	 * @param concerns the concerns to set
 	 */
@@ -564,12 +569,12 @@ public class Architecture extends Variable implements Cloneable {
 		return new OperationsOverDependency(this);
 	}
 
-	public void moveClassToPackage(Class klass, Package pkg) {
-		if (!pkg.getElements().contains(klass)) return;
+	public void moveElementToPackage(Element klass, Package pkg) {
+		if (pkg.getElements().contains(klass)) return;
 		removeClass(klass);
 		pkg.addExternalClass(klass);
 	}
-
+	
 	public OperationsOverGeneralization forGeneralization() {
 		return new OperationsOverGeneralization(this);
 	}
@@ -617,23 +622,42 @@ public class Architecture extends Variable implements Cloneable {
 	
 	
 	public boolean addImplementedInterface(Interface supplier, Class client) {
-		if(addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID()))){
-			LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada na classe: " +client.getName());
-			return true;
-		}else{
-			LOGGER.info("Tentou adicionar a interface " + supplier.getName() + " como interface implementada pela classe: " + client.getName());
-			return false;
+		if(!haveRelationship(supplier, client)){
+			if(addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID()))){
+				LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada na classe: " +client.getName());
+				return true;
+			}else{
+				LOGGER.info("Tentou adicionar a interface " + supplier.getName() + " como interface implementada pela classe: " + client.getName());
+				return false;
+			}
 		}
+		return false;
 	}
 	
-	public boolean addImplementedInterface(Interface supplier, Package client) {
-		if(addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID()))){
-			LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada ao pacote: " +client.getName());
-			return true;
-		}else{
-			LOGGER.info("Tentou adicionar a interface " + supplier.getName() + " como interface implementada no pacote: " + client.getName());
-			return false;
+	private boolean haveRelationship(Interface supplier, Element client) {
+		for(Relationship r : this.getAllRelationships()){
+			if(r instanceof RealizationRelationship)
+				if(((RealizationRelationship) r).getClient().equals(client) && ((RealizationRelationship) r).getSupplier().equals(supplier))
+					return true;
+			
+			if(r instanceof DependencyRelationship)
+				if(((DependencyRelationship) r).getClient().equals(client) && ((DependencyRelationship) r).getSupplier().equals(supplier))
+					return true;
 		}
+		return false;
+	}
+
+	public boolean addImplementedInterface(Interface supplier, Package client) {
+		if(!haveRelationship(supplier, client)){
+			if(addRelationship(new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID()))){
+				LOGGER.info("ImplementedInterface: " + supplier.getName() + " adicionada ao pacote: " +client.getName());
+				return true;
+			}else{
+				LOGGER.info("Tentou adicionar a interface " + supplier.getName() + " como interface implementada no pacote: " + client.getName());
+				return false;
+			}
+		}
+		return false;
 	}
 	
 	public void removeImplementedInterface(Interface inter, Package pacote) {
@@ -647,17 +671,21 @@ public class Architecture extends Variable implements Cloneable {
 	}
 	
 	public void addRequiredInterface(Interface supplier, Class client) {
-		if(addRelationship(new DependencyRelationship(supplier, client, "", this, UtilResources.getRandonUUID())))
-			LOGGER.info("RequiredInterface: " + supplier.getName() + " adicionada a: " +client.getName());
-		else
-			LOGGER.info("TENTOU adicionar RequiredInterface: "+ supplier.getName() + " a : "+client.getName() + " porém não consegiu");
+		if(!haveRelationship(supplier, client)){
+			if(addRelationship(new DependencyRelationship(supplier, client, "", this, UtilResources.getRandonUUID())))
+				LOGGER.info("RequiredInterface: " + supplier.getName() + " adicionada a: " +client.getName());
+			else
+				LOGGER.info("TENTOU adicionar RequiredInterface: "+ supplier.getName() + " a : "+client.getName() + " porém não consegiu");
+		}
 	}
 	
 	public void addRequiredInterface(Interface supplier, Package client) {
-		if(addRelationship(new DependencyRelationship(supplier, client, "", this, UtilResources.getRandonUUID())))
-			LOGGER.info("RequiredInterface: " + supplier.getName() + " adicionada a: " +client.getName());
-		else
-			LOGGER.info("TENTOU adicionar RequiredInterface: "+ supplier.getName() + " a : "+client.getName() + " porém não consegiu");
+		if(!haveRelationship(supplier, client)){
+			if(addRelationship(new DependencyRelationship(supplier, client, "", this, UtilResources.getRandonUUID())))
+				LOGGER.info("RequiredInterface: " + supplier.getName() + " adicionada a: " +client.getName());
+			else
+				LOGGER.info("TENTOU adicionar RequiredInterface: "+ supplier.getName() + " a : "+client.getName() + " porém não consegiu");
+		}
 	}
 	
 	public void deleteClassRelationships(Class class_){
@@ -671,13 +699,37 @@ public class Architecture extends Variable implements Cloneable {
 	}
 
 	public boolean addRelationship(Relationship relationship) {
-		if(this.relationships.add(relationship)){
-			LOGGER.info("Relacionamento: " + relationship.getType() + " adicionado na arquitetura.("+UtilResources.detailLogRelationship(relationship)+")");
-			return true;
-		}else{
-			LOGGER.info("TENTOU adicionar Relacionamento: " + relationship.getType() + " na arquitetura porém não consegiu");
-			return false;
+		if(!haveRelationship(relationship)){
+			if(this.relationships.add(relationship)){
+				LOGGER.info("Relacionamento: " + relationship.getType() + " adicionado na arquitetura.("+UtilResources.detailLogRelationship(relationship)+")");
+				return true;
+			}else{
+				LOGGER.info("TENTOU adicionar Relacionamento: " + relationship.getType() + " na arquitetura porém não consegiu");
+				return false;
+			}
 		}
+		return false;
+	}
+
+	public boolean haveRelationship(Relationship relationship) {
+		//Association
+		for(Relationship r : this.getAllRelationships()){
+			if((r instanceof AssociationRelationship) && (relationship instanceof AssociationRelationship)){
+				List<AssociationEnd> participantsNew = ((AssociationRelationship)relationship).getParticipants();
+				List<AssociationEnd> participantsExists = ((AssociationRelationship)r).getParticipants();
+
+				if(participantsNew.equals(participantsExists))
+					return true;
+			}
+		}
+		
+		if(relationship instanceof GeneralizationRelationship)
+			if(this.getAllGeneralizations().contains(relationship)) return true;
+		if(relationship instanceof DependencyRelationship )
+			if(this.getAllDependencies().contains(relationship)) return true;
+		
+		return false;
+		
 	}
 
 	public Package findPackageOfClass(Class targetClass) throws PackageNotFound {

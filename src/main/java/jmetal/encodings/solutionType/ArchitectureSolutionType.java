@@ -21,10 +21,9 @@ public class ArchitectureSolutionType extends SolutionType {
 	 * @throws ClassNotFoundException
 	 */
 
-	public ArchitectureSolutionType(Problem problem)
-			throws ClassNotFoundException {
+	public ArchitectureSolutionType(Problem problem) throws ClassNotFoundException {
 		super(problem);
-	} // ArchitectureSolution
+	} 
 
 	/**
 	 * Creates the variables of the solution
@@ -35,16 +34,11 @@ public class ArchitectureSolutionType extends SolutionType {
 		Variable[] variables = new Variable[problem_.getNumberOfVariables()];
 
 		for (int var = 0; var < problem_.getNumberOfVariables(); var++)
-			// try {
-			// variables[var] = new Architecture ((OPLA) problem_) ;
-			// } catch (ClassNotFoundException e) {
-			// e.printStackTrace();
-			// }
 			if (problem_.getName() == "OPLA") {
 				variables[var] = ((OPLA) problem_).architecture_.deepCopy();
 			}
 
 		return variables;
-	} // createVariables
+	}
 
 }

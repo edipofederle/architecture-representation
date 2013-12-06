@@ -208,7 +208,7 @@ public class GenerateArchitecture  extends ArchitectureBase{
 	
 			}
 			
-			for(Interface inter : a.getInterfaces()){
+			for(Interface inter : a.getAllInterfaces()){
 				//Adiciona Interesses nos métodos da interface
 				for (arquitetura.representation.Method operation : inter.getOperations()) {
 					op.forConcerns().withConcerns(operation.getOwnConcerns(), operation.getId());

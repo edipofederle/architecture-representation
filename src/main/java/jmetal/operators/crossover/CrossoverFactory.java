@@ -23,16 +23,9 @@ package jmetal.operators.crossover;
 
 
 import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Properties;
 
-import jmetal.operators.crossover.Crossover;
 import jmetal.util.Configuration;
 import jmetal.util.JMException;
-import jmetal.util.PropUtils;
-
-
-import jmetal.operators.crossover.PLACrossover;
 
 
 
@@ -55,6 +48,6 @@ public class CrossoverFactory {
 	      Configuration.logger_.severe("CrossoverFactory.getCrossoverOperator. " +
 	          "Operator '" + name + "' not found ");
 	      throw new JMException("Exception in " + name + ".getCrossoverOperator()") ;
-	    } // else        
-	  } // getCrossoverOperator
-	} // CrossoverFactory
+	    }  
+	  } 
+	} 

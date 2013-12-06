@@ -18,6 +18,8 @@ import arquitetura.representation.relationship.Relationship;
 import arquitetura.touml.Types.Type;
 import arquitetura.touml.VisibilityKind;
 
+import com.rits.cloning.Cloner;
+
 /**
  * 
  * @author edipofederle<edipofederle@gmail.com>
@@ -337,5 +339,22 @@ public class Class extends Element {
 	public void addRequiredInterface(Interface supplier) {
 		this.requiredInterfaces.add(supplier);
 	}
+
+	public Class deepCopy() {
+		try {
+			return this.deepClone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	// private static int count = 1;
+	public Class deepClone() throws CloneNotSupportedException {
+		Cloner cloner = new Cloner();
+		Class klass = (Class) cloner.deepClone(this);
+		return klass;
+	}
+	
 
 }

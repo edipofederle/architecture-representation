@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import arquitetura.helpers.ElementsTypes;
+import arquitetura.helpers.UtilResources;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
@@ -26,6 +27,14 @@ public class GeneralizationRelationship extends Relationship {
 		setChild(childClass);
 		this.architecture = architecture;
 		setId(id);
+		super.setType(ElementsTypes.GENERALIZATION);
+	}
+	
+	public GeneralizationRelationship(Element parentClass, Element childClass, Architecture architecture) {
+		setParent(parentClass);
+		setChild(childClass);
+		this.architecture = architecture;
+		setId(UtilResources.getRandonUUID());
 		super.setType(ElementsTypes.GENERALIZATION);
 	}
 
@@ -79,5 +88,37 @@ public class GeneralizationRelationship extends Relationship {
 	public void replaceParent(Class parent) {
 		setParent(parent);
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((child == null) ? 0 : child.hashCode());
+		result = prime * result + ((parent == null) ? 0 : parent.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (getClass() != obj.getClass())
+			return false;
+		GeneralizationRelationship other = (GeneralizationRelationship) obj;
+		if (child == null) {
+			if (other.child != null)
+				return false;
+		} else if (!child.equals(other.child))
+			return false;
+		if (parent == null) {
+			if (other.parent != null)
+				return false;
+		} else if (!parent.equals(other.parent))
+			return false;
+		return true;
+	}
+	
+	
+	
 
 }

@@ -1,6 +1,7 @@
 package mestrado.arquitetura.representation.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
@@ -25,6 +26,7 @@ import arquitetura.exceptions.InterfaceNotFound;
 import arquitetura.exceptions.ModelIncompleteException;
 import arquitetura.exceptions.ModelNotFoundException;
 import arquitetura.exceptions.PackageNotFound;
+import arquitetura.helpers.UtilResources;
 import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
@@ -37,6 +39,7 @@ import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
+import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 import arquitetura.representation.relationship.UsageRelationship;
 
@@ -291,7 +294,11 @@ public class ArchitectureTest extends TestHelper {
 		Class klass1 = a.findClassByName("Class1").get(0);
 		Package package1 = a.findPackageByName("Package1");
 		
-		a.moveClassToPackage(klass1,package1);
+		assertEquals(0, package1.getAllClasses().size());
+		
+		a.moveElementToPackage(klass1,package1);
+		
+		assertEquals(1, package1.getAllClasses().size());
 		
 	}
 	
@@ -754,5 +761,147 @@ public class ArchitectureTest extends TestHelper {
 		assertEquals(0 ,gerada.getAllDependencies().size());
 		
 	}
+	
+	@Test
+	public void onlyAddAssociationIfDontExists() throws Exception{
+		Architecture a = givenAArchitecture("testeee");
+		
+		Class c1 = a.findClassByName("Class1").get(0);
+		Class c2 =a.findClassByName("Class2").get(0);
+		
+		Class c3 = a.createClass("Foo", false);
+		
+		AssociationRelationship newRelationship = new AssociationRelationship(c1, c3);
+		AssociationRelationship newRelationship2 = new AssociationRelationship(c1, c2);
+		
+		assertTrue(a.addRelationship(newRelationship));
+		assertFalse(a.addRelationship(newRelationship2));
+		assertEquals(2, a.getAllRelationships().size());
+	}
+	
+	@Test
+	public void onlyAddDependencyIfDontExists() throws Exception {
+		Architecture a = givenAArchitecture("testeee");
+		
+		Class client = a.createClass("Foo", false);
+		Class supplier = a.createClass("Bar", false);
+		
+		Class supplier2 = a.createClass("Teste", false);
+		
+		DependencyRelationship d = new DependencyRelationship(supplier, client, "", a);
+		DependencyRelationship d2 = new DependencyRelationship(supplier2, client, "", a);
+		
+		DependencyRelationship dsame = new DependencyRelationship(supplier, client, "", a);
+		
+		
+		assertTrue(a.addRelationship(d));
+		assertTrue(a.addRelationship(d2));
+		
+		assertEquals(2, a.getAllDependencies().size());
+		assertFalse(a.addRelationship(dsame));
+		assertEquals(2, a.getAllDependencies().size());
+	}
+	
+	@Test
+	public void onlyAddRealizationIfDontExist() throws Exception {
+		Architecture a = givenAArchitecture("testeee");
+		
+		Class client = a.createClass("Foo", false);
+		Class supplier = a.createClass("Bar", false);
+		
+		RealizationRelationship r = new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID());
+		
+		assertTrue(a.addRelationship(r));
+		assertEquals(2, a.getAllRelationships().size());
+	}
+	
+	@Test
+	public void onlyAddGeneralizationIfDontExistWay1() throws Exception {
+		Architecture a = givenAArchitecture("testeee");
+		
+		Class parent = a.createClass("Foo", false);
+		Class child = a.createClass("Bar", false);
+		
+		GeneralizationRelationship r = a.forGeneralization().createGeneralization(parent, child);
+		
+		assertFalse(a.addRelationship(r));
+		assertEquals(2, a.getAllRelationships().size());
+		assertEquals(1, a.getAllGeneralizations().size());
+	}
+	
+	@Test
+	public void onlyAddGeneralizationIfDontExistWay2() throws Exception {
+		Architecture a = givenAArchitecture("testeee");
+		
+		Class parent = a.createClass("Foo", false);
+		Class child = a.createClass("Bar", false);
+		
+		GeneralizationRelationship r = new GeneralizationRelationship(parent, child, a);
+		
+		assertTrue(a.addRelationship(r));
+		assertEquals(2, a.getAllRelationships().size());
+		assertEquals(1, a.getAllGeneralizations().size());
+	}
+	
+	@Test
+	public void onlyAddUsageIfDontExistWay1() throws Exception{
+		Architecture a = givenAArchitecture("testeee");
+		
+		Class client = a.createClass("Foo", false);
+		Class supplier = a.createClass("Bar", false);
+		
+		UsageRelationship r = a.forUsage().create(client, supplier);
+		
+		assertFalse(a.addRelationship(r));
+		assertEquals(2, a.getAllRelationships().size());
+		assertEquals(1, a.getAllUsage().size());
+	}
+	
+	@Test
+	public void onlyAddUsageIfDontExistWay2() throws Exception{
+		Architecture a = givenAArchitecture("testeee");
+		
+		Class client = a.createClass("Foo", false);
+		Class supplier = a.createClass("Bar", false);
+		
+		UsageRelationship r =  new UsageRelationship("", supplier, client);
+		
+		assertTrue(a.addRelationship(r));
+		assertFalse(a.addRelationship(r));
+		
+		assertEquals(2, a.getAllRelationships().size());
+		assertEquals(1, a.getAllUsage().size());
+	}
+	
+	@Test
+	public void onlyAddAbstractionIfDontExistWay1() throws Exception{
+		Architecture a = givenAArchitecture("testeee");
+		
+		Class client = a.createClass("Foo", false);
+		Class supplier = a.createClass("Bar", false);
+		
+		AbstractionRelationship r =  new AbstractionRelationship(client, supplier, UtilResources.getRandonUUID());
+		assertTrue(a.addRelationship(r));
+		assertFalse(a.addRelationship(r));
+		
+		assertEquals(2, a.getAllRelationships().size());
+		assertEquals(1, a.getAllAbstractions().size());
+	}
+	
+	@Test
+	public void onlyAddAbstractionIfDontExistWay2() throws Exception{
+		Architecture a = givenAArchitecture("testeee");
+		
+		Class client = a.createClass("Foo", false);
+		Class supplier = a.createClass("Bar", false);
+		
+		AbstractionRelationship r = a.forAbstraction().create(client, supplier);
+		assertFalse(a.addRelationship(r));
+		
+		assertEquals(2, a.getAllRelationships().size());
+		assertEquals(1, a.getAllAbstractions().size());
+	}
+	
+	
 	
 }

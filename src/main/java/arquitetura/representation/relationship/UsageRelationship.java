@@ -1,6 +1,7 @@
 package arquitetura.representation.relationship;
 
 import arquitetura.helpers.ElementsTypes;
+import arquitetura.helpers.UtilResources;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
@@ -27,6 +28,14 @@ public class UsageRelationship extends Relationship {
 	}
 	
 	public UsageRelationship(Interface supplier, Class client, String name,	Architecture architecture, String randonUUID) {
+	}
+
+	public UsageRelationship(String string, Class supplier2, Class client2) {
+		super();
+		this.supplier = supplier2;
+		this.client = client2;
+		setId(UtilResources.getRandonUUID());
+		super.setType(ElementsTypes.USAGE);
 	}
 
 	public String getName() {

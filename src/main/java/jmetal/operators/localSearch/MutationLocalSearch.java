@@ -34,6 +34,11 @@ import jmetal.problems.OPLA;
 import java.util.Comparator;
 import java.util.HashMap;
 
+import arquitetura.exceptions.ClassNotFound;
+import arquitetura.exceptions.ConcernNotFoundException;
+import arquitetura.exceptions.NotFoundException;
+import arquitetura.exceptions.PackageNotFound;
+
 /**
  * This class implements an local search operator based in the use of a 
  * mutation operator. An archive is used to store the non-dominated solutions
@@ -116,8 +121,13 @@ public class MutationLocalSearch extends LocalSearch {
    * @param object Object representing a solution
    * @return An object containing the new improved solution
  * @throws JMException 
+ * @throws ConcernNotFoundException 
+ * @throws NotFoundException 
+ * @throws PackageNotFound 
+ * @throws ClassNotFound 
+ * @throws CloneNotSupportedException 
    */
-  public Object execute(Object object) throws JMException {
+  public Object execute(Object object) throws JMException, CloneNotSupportedException, ClassNotFound, PackageNotFound, NotFoundException, ConcernNotFoundException {
     int i = 0;
     int best = 0;
     evaluations_ = 0;        

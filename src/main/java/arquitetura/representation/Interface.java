@@ -10,8 +10,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import arquitetura.helpers.UtilResources;
-import arquitetura.representation.relationship.AbstractionRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
+import arquitetura.representation.relationship.RealizationRelationship;
 
 /**
  * 
@@ -92,24 +92,40 @@ public class Interface extends Element {
 	}
 	
 
-	public Set<Package> getImplementors() {
-		Set<Package> implementors = new HashSet<Package>();
-		List<AbstractionRelationship> abs = getArchitecture().getAllAbstractions();
-		for (AbstractionRelationship abstractionRelationship : abs) 
-			if((abstractionRelationship.getClient() instanceof Interface) && (abstractionRelationship.getClient().equals(this)))
-					implementors.add((Package) abstractionRelationship.getSupplier());
+	public Set<Element> getImplementors() {
+		Set<Element> implementors = new HashSet<Element>();
+		
+		for(Class klass : getArchitecture().getAllClasses()){
+			if(klass.getImplementedInterfaces().contains(this))
+				implementors.add(klass);
+		}
+		
+		for(Package p : getArchitecture().getAllPackages()){
+			for(RealizationRelationship r : getArchitecture().getAllRealizations()){
+				if(r.getClient().equals(p)){
+					implementors.add(p);
+				}
+			}
+		}
 					
 		return Collections.unmodifiableSet(implementors);
 	}
 
-	public Set<Package> getDependents() {
-		Set<Package> implementors = new HashSet<Package>();
-		List<DependencyRelationship> abs = getArchitecture().getAllDependencies();
-		for (DependencyRelationship dependency : abs) 
-				if((dependency.getSupplier() instanceof Interface) && (dependency.getSupplier().equals(this)))
-					implementors.add((Package) dependency.getClient());
+	public Set<Element> getDependents() {
+		Set<Element> dependents = new HashSet<Element>();
 		
-		return Collections.unmodifiableSet(implementors);
+		for(Class klass : getArchitecture().getAllClasses()){
+			if(klass.getRequiredInterfaces().contains(this))
+				dependents.add(klass);
+		}
+		
+		for(Package p : getArchitecture().getAllPackages()){
+			if(p.getRequiredInterfaces().contains(this))
+				dependents.add(p);
+		}
+
+		
+		return Collections.unmodifiableSet(dependents);
 	}
 
 	@Override

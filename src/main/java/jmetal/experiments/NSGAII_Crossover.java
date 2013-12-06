@@ -31,12 +31,12 @@ public class NSGAII_Crossover {
 
  	 	 	 	
 
-         int runsNumber = 30; //30;
-         populationSize_ = 100; //100; 
-         maxEvaluations_ = 30000; //300 gera��es
+         int runsNumber = 1; //30;
+         populationSize_ = 2; //100; 
+         maxEvaluations_ = 3; //300 gera��es
          
-         crossoverProbability_ = 0.04;  
-         mutationProbability_ = 0.8; 
+         crossoverProbability_ = 1;  
+         mutationProbability_ = 0; 
          String context = "OPLA";
 
          //File directory = new File("resultado/nsgaii/" + context);
@@ -49,25 +49,13 @@ public class NSGAII_Crossover {
          }
 
 
-         String plas[] = new String[]{
-                 		"resources/AGM-Final-concerns.xmi", 
-                 		"resources/AGM-improvement.xmi", 
-                 		"resources/MM-v6-completa.xmi",
-                 		"resources/MM-Final.xmi",
-                		"resources/LPS-BET.xmi"
-         };
+         String plas[] = new String[]{"/Users/elf/Documents/workspaceModeling/exportacao/featureMutation6.uml"};
          String xmiFilePath;
                  
-         for (String pla : plas) {
-
-
-               	xmiFilePath = pla;
-//             	System.out.println("Enter the path of the xmi file: ");
-//             	String xmiFilePath = buffer.readLine();
-//             	String xmiFilePath = "C:/MM-Final.xmi";
-
-         
-     	OPLA problem = null;
+		 for (String pla : plas) {
+			xmiFilePath = pla;
+		 	 OPLA problem = null;
+		 	 
 			try {
 				problem = new OPLA(xmiFilePath);
 			} catch (Exception e) {

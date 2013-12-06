@@ -7,6 +7,7 @@ import java.util.Set;
 
 import arquitetura.exceptions.NotFoundException;
 import arquitetura.helpers.ElementsTypes;
+import arquitetura.helpers.UtilResources;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
@@ -44,12 +45,21 @@ public class DependencyRelationship extends Relationship {
 		setId(id);
 		super.setType(ElementsTypes.DEPENDENCY);
 
-		if((client instanceof Package) && (supplier instanceof Interface)){
-			((Package) client).addRequiredInterface((Interface) supplier);
-		}
+		setRequiredInterfaces(supplier, client);
 		
 	}
-	
+
+	public DependencyRelationship(Element supplier, Element client, String string, Architecture a) {
+		setSupplier(supplier);
+		setClient(client);
+		setName(name);
+		this.architecture = a;
+		setId(UtilResources.getRandonUUID());
+		super.setType(ElementsTypes.DEPENDENCY);
+
+		setRequiredInterfaces(supplier, client);
+	}
+
 	/**
 	 * Retorna o {@link Package} 
 	 * 
@@ -162,6 +172,33 @@ public class DependencyRelationship extends Relationship {
 		
 		
 		return Collections.unmodifiableList(dependenciesTemp);
+	}
+	
+	private void setRequiredInterfaces(Element supplier, Element client) {
+		if((client instanceof Package) && (supplier instanceof Interface)){
+			((Package) client).addRequiredInterface((Interface) supplier);
+		}
+		
+		if((client instanceof Class) && (supplier instanceof Interface)){
+			((Class) client).addRequiredInterface((Interface) supplier);
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((client == null) ? 0 : client.hashCode());
+		result = prime * result
+				+ ((supplier == null) ? 0 : supplier.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if( ((DependencyRelationship)obj).getClient().equals(this.getClient()) && ((DependencyRelationship)obj).getSupplier().equals(this.getSupplier()))
+			return true;
+		return false;
 	}
 	
 }

@@ -173,7 +173,7 @@ public class StereotypeTest extends TestHelper {
 		Architecture a = builder.create(ReaderConfig.getDirExportTarget()+"addConcern.uml");
 		assertNotNull(a.getAllConcerns());
 		assertEquals("deve ter um interesse", 1, a.getAllConcerns().size());
-		assertEquals("interese deve ser Persistence", "persistence", a.getAllConcerns().entrySet().iterator().next().getValue().getName());
+		assertEquals("interese deve ser Persistence", "persistence", a.getAllConcerns().get(0).getName());
 		
 	}
 	

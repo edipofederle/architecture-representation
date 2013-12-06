@@ -1,6 +1,7 @@
 package arquitetura.representation.relationship;
 
 import arquitetura.helpers.ElementsTypes;
+import arquitetura.representation.Class;
 import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Package;
@@ -24,7 +25,10 @@ public class RealizationRelationship extends Relationship {
 		super.setType(ElementsTypes.REALIZATION);
 		
 		if((client instanceof Package) && (supplier instanceof Interface)){
-			((Package) client).addImplementedInterface(supplier);
+			((Package) client).addImplementedInterface((Interface)supplier);
+		}
+		if((client instanceof Class) && (supplier instanceof Interface)){
+			((Class) client).addImplementedInterface((Interface)supplier);
 		}
 	}
 

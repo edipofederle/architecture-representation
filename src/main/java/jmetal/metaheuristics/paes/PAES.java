@@ -29,6 +29,11 @@ import jmetal.problems.OPLA;
 
 import java.util.Comparator;
 
+import arquitetura.exceptions.ClassNotFound;
+import arquitetura.exceptions.ConcernNotFoundException;
+import arquitetura.exceptions.NotFoundException;
+import arquitetura.exceptions.PackageNotFound;
+
 /**
  * This class implements the PAES algorithm. 
  */
@@ -110,7 +115,19 @@ public class PAES extends Algorithm {
     do {
       // Create the mutate one
       Solution mutatedIndividual = new Solution(solution);  
-      mutationOperator.execute(mutatedIndividual);
+      try {
+		mutationOperator.execute(mutatedIndividual);
+	} catch (CloneNotSupportedException e) {
+		e.printStackTrace();
+	} catch (ClassNotFound e) {
+		e.printStackTrace();
+	} catch (PackageNotFound e) {
+		e.printStackTrace();
+	} catch (NotFoundException e) {
+		e.printStackTrace();
+	} catch (ConcernNotFoundException e) {
+		e.printStackTrace();
+	}
             
       problem_.evaluateConstraints(mutatedIndividual);
       problem_.evaluate(mutatedIndividual);                     

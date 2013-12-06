@@ -558,7 +558,7 @@ public class ModelManagerTest extends TestHelper {
 		Map<String, String> teste = op.forClass().createClass(person).build();
 		op.forPackage().createPacakge(pacote).withClass(foo.get("id")).withClass(teste.get("id")).build();
 		
-		Architecture arch = givenAArchitecture2("testePacote");
+		Architecture arch = givenAArchitecture2("testePacoteComClasse");
 		
 		assertThat("Should have one package", arch.getAllPackages().size() == 1);
 		assertEquals("Pacote", arch.getAllPackages().iterator().next().getName());
@@ -567,7 +567,7 @@ public class ModelManagerTest extends TestHelper {
 	@Test
 	public void shouldCreateAClassInsideAPackageWithAssociation() throws Exception{
 		
-		Architecture architecture = givenAArchitecture2("testePacoteClassAsssociation");
+		Architecture architecture = givenAArchitecture("testePacoteClassAsssociation");
 		
 		Class KlassCasa = architecture.createClass("Casas", false);
 		Class klassPerson = architecture.createClass("Person", false);

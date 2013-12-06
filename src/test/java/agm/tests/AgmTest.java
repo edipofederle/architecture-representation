@@ -41,7 +41,7 @@ public class AgmTest extends TestHelper {
 		Set<Class> all = new HashSet<Class>();
 		for(Package p : architecture.getAllPackages())
 			all.addAll(p.getAllClasses());
-		assertEquals("Deve ter 30 classes", 30, all.size());
+		assertEquals("Deve ter 31 classes", 31, all.size());
 	}
 	
 	/* Classes Stereotypes */
@@ -166,7 +166,7 @@ public class AgmTest extends TestHelper {
 		Set<Interface> all = new HashSet<Interface>();
 		for(Package p : architecture.getAllPackages())
 			all.addAll(p.getAllInterfaces());
-		assertEquals("Deve ter 14 interfaces", 14, all.size());
+		assertEquals("Deve ter 15 interfaces", 15, all.size());
 	}
 	
 	@Test

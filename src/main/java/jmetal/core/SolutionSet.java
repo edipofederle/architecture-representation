@@ -369,7 +369,7 @@ public class SolutionSet implements Serializable {
 					Architecture arch = (Architecture) solutionsList_.get(i)
 							.getDecisionVariables()[j];
 
-					for (Concern concern : arch.getConcerns()) {
+					for (Concern concern : arch.getAllConcerns()) {
 						bw.newLine();
 						bw.write("Concern: " + concern.getName());
 					}

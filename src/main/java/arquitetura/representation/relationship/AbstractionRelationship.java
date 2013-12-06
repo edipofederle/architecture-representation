@@ -8,7 +8,7 @@ import arquitetura.representation.Element;
  * @author edipofederle<edipofederle@gmail.com>
  *
  */
-public class AbstractionRelationship extends Relationship{
+public class AbstractionRelationship extends Relationship { 
 	
 	private Element client;
 	private Element supplier;

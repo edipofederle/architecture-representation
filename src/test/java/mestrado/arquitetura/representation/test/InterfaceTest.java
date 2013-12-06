@@ -70,12 +70,13 @@ public class InterfaceTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldGetImplementors() throws Exception{
-		Architecture a = givenAArchitecture("abstractionInterElement");
-		Interface i = a.findInterfaceByName("myInterfaceClient");
+	public void shouldGetImplementorsReturnAClass() throws Exception{
+		Architecture a = givenAArchitecture("InterfaceImplementorsdi");
+		Interface i = a.findInterfaceByName("Interface0");
 		
 		assertNotNull(i);
 		assertEquals(1, i.getImplementors().size());
+		assertEquals("Class1", i.getImplementors().iterator().next().getName());
 	}
 	
 	/**
@@ -84,12 +85,13 @@ public class InterfaceTest extends TestHelper {
 	 * @throws Exception
 	 */
 	@Test
-	public void shouldshouldGetImplementors() throws Exception{
+	public void shouldGetDepedentsReturnAPackage() throws Exception{
 		Architecture a = givenAArchitecture("dependencyPackageInterface");
 		Interface i = a.findInterfaceByName("class1");
 		assertNotNull(i);
 		
-		assertEquals(1,i.getDependents().size());
+		assertEquals(1, i.getDependents().size());
+		assertEquals("Package1", i.getDependents().iterator().next().getName());
 	}
-
+	
 }

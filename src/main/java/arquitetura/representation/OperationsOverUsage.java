@@ -33,16 +33,22 @@ public class OperationsOverUsage {
 		newSupplier.addRelationship(usageRelationship);
 	}
 
+
 	/**
+	 * Cria um relacionamento de Usage e o adiciona na arquitetura<br/><br/>
 	 * 
-	 * @param newClient
-	 * @param newSupplier
+	 * NOTA: usando este método você não precisa chamar explicitamente algo como<br/><br/> {@code architecture.addRelationship(relationship)}.
+	 * 
+	 * @param parent
+	 * @param supplier
+	 * @return
 	 */
-	public void create(Element newClient, Element newSupplier) {
-		UsageRelationship usage = new UsageRelationship("", newSupplier, newClient, UtilResources.getRandonUUID());
+	public UsageRelationship create(Element client, Element supplier) {
+		UsageRelationship usage = new UsageRelationship("", supplier, client, UtilResources.getRandonUUID());
 		this.architecture.addRelationship(usage);
-		newClient.addRelationship(usage);
-		newSupplier.addRelationship(usage);
+		client.addRelationship(usage);
+		supplier.addRelationship(usage);
+		return usage;
 	}
 
 	/**

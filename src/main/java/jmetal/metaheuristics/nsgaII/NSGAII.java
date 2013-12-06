@@ -21,6 +21,10 @@
 
 package jmetal.metaheuristics.nsgaII;
 
+import arquitetura.exceptions.ClassNotFound;
+import arquitetura.exceptions.ConcernNotFoundException;
+import arquitetura.exceptions.NotFoundException;
+import arquitetura.exceptions.PackageNotFound;
 import jmetal.core.Algorithm;
 import jmetal.core.Operator;
 import jmetal.core.Problem;
@@ -103,7 +107,19 @@ public class NSGAII extends Algorithm {
 		for (int i = 0; i < populationSize; i++) {
 			newSolution = new Solution(problem_);
 			// criar a diversidade na populacao inicial
-			mutationOperator.execute(newSolution);
+			try {
+				mutationOperator.execute(newSolution);
+			} catch (CloneNotSupportedException e) {
+				e.printStackTrace();
+			} catch (ClassNotFound e) {
+				e.printStackTrace();
+			} catch (PackageNotFound e) {
+				e.printStackTrace();
+			} catch (NotFoundException e) {
+				e.printStackTrace();
+			} catch (ConcernNotFoundException e) {
+				e.printStackTrace();
+			}
 			problem_.evaluate(newSolution);
 
 			problem_.evaluateConstraints(newSolution);
@@ -118,29 +134,33 @@ public class NSGAII extends Algorithm {
 			offspringPopulation = new SolutionSet(populationSize);
 			Solution[] parents = new Solution[2];
 
-			for (int i = 0; i < (populationSize / 2); i++) {
-				if (evaluations < maxEvaluations) {
-					// obtain parents
-					parents[0] = (Solution) selectionOperator.execute(population);
-					parents[1] = (Solution) selectionOperator.execute(population);
-
-					Solution[] offSpring = (Solution[]) crossoverOperator.execute(parents);
-					problem_.evaluateConstraints(offSpring[0]);
-					problem_.evaluateConstraints(offSpring[1]);
-
-					mutationOperator.execute(offSpring[0]);
-					mutationOperator.execute(offSpring[1]);
-					problem_.evaluateConstraints(offSpring[0]);
-					problem_.evaluateConstraints(offSpring[1]);
-
-					problem_.evaluate(offSpring[0]);
-					problem_.evaluate(offSpring[1]);
-
-					offspringPopulation.add(offSpring[0]);
-					offspringPopulation.add(offSpring[1]);
-					evaluations += 2;
-				} // if
-			} // for
+			try{
+				for (int i = 0; i < (populationSize / 2); i++) {
+					if (evaluations < maxEvaluations) {
+						// obtain parents
+						parents[0] = (Solution) selectionOperator.execute(population);
+						parents[1] = (Solution) selectionOperator.execute(population);
+	
+						Solution[] offSpring = (Solution[]) crossoverOperator.execute(parents);
+						problem_.evaluateConstraints(offSpring[0]);
+						problem_.evaluateConstraints(offSpring[1]);
+	
+						mutationOperator.execute(offSpring[0]);
+						mutationOperator.execute(offSpring[1]);
+						problem_.evaluateConstraints(offSpring[0]);
+						problem_.evaluateConstraints(offSpring[1]);
+	
+						problem_.evaluate(offSpring[0]);
+						problem_.evaluate(offSpring[1]);
+	
+						offspringPopulation.add(offSpring[0]);
+						offspringPopulation.add(offSpring[1]);
+						evaluations += 2;
+					} // if
+				} // for
+			}catch(Exception e){
+				System.err.println(e.getStackTrace());
+			}
 
 			// Create the solutionSet union of solutionSet and offSpring
 			union = ((SolutionSet) population).union(offspringPopulation);

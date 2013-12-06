@@ -1,6 +1,5 @@
 package arquitetura.representation;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -78,8 +77,8 @@ public class Package extends Element {
 		return this.nestedPackages;
 	}
 
-	public void addImplementedInterface(Element interfacee) {
-		implementedInterfaces.add((Interface) interfacee);
+	public void addImplementedInterface(Interface interfacee) {
+		implementedInterfaces.add(interfacee);
 	}
 	
 	/**
@@ -137,8 +136,8 @@ public class Package extends Element {
 	}
 
 	@Override
-	public List<Concern> getAllConcerns() {
-		List<Concern> concerns = new ArrayList<Concern>();
+	public Set<Concern> getAllConcerns() {
+		Set<Concern> concerns = new HashSet<Concern>();
 		
 		for (Element klass : this.classes) 
 			concerns.addAll(klass.getAllConcerns());
@@ -146,6 +145,20 @@ public class Package extends Element {
 			concerns.addAll(inter.getAllConcerns());
 		for (Interface interfc:getImplementedInterfaces())
 			concerns.addAll(interfc.getAllConcerns());
+		
+		return concerns;
+	}
+	
+	@Override
+	public Set<Concern> getOwnConcerns(){
+		Set<Concern> concerns = new HashSet<Concern>();
+		
+		for (Element klass : this.classes) 
+			concerns.addAll(klass.getOwnConcerns());
+		for (Element inter : this.interfaces) 
+			concerns.addAll(inter.getOwnConcerns());
+		for (Interface interfc:getImplementedInterfaces())
+			concerns.addAll(interfc.getOwnConcerns());
 		
 		return concerns;
 	}
@@ -161,6 +174,14 @@ public class Package extends Element {
 		removeClass(klass);
 		packageToMove.addExternalClass(klass);
 	}
+	
+	public boolean moveInterfaceToPackage(Interface inter, Package packageToMove) {
+		if (!interfaces.contains(inter)) return false;
+		
+		removeInterface(inter);
+		packageToMove.addExternalInterface(inter);
+		return true;
+	}
 
 	public void addExternalClass(Element klass) {
 		classes.add((Class) klass);
@@ -171,14 +192,20 @@ public class Package extends Element {
 		interfaces.add(inter);
 	}
 	
-	public void removeClass(Element klass) {
-		this.classes.remove(klass);
-		LOGGER.info("Classe: "+klass.getName() + " removida do pacote: "+this.getName());
+	public boolean removeClass(Element klass) {
+		if(this.classes.remove(klass)){
+			LOGGER.info("Classe: "+klass.getName() + " removida do pacote: "+this.getName());
+			return true;
+		}
+		return false;
 	}
 	
-	public void removeInterface(Element klass) {
-		this.interfaces.remove(klass);
-		LOGGER.info("Interface: "+klass.getName() + " removida do pacote: "+this.getName());
+	public boolean removeInterface(Element klass) {
+		if(this.interfaces.remove(klass)){
+			LOGGER.info("Interface: "+klass.getName() + " removida do pacote: "+this.getName());
+			return true;
+		}
+		return false;
 	}
 
 	public boolean removeImplementedInterface(Interface interface_) {
@@ -193,6 +220,11 @@ public class Package extends Element {
 		return true;
 	}
 
+	/**
+	 * Retorna um Set contendo as classes e as interfaces do pacote
+	 * 
+	 * @return
+	 */
 	public Set<Element> getElements() {
 		Set<Element> elementsPackage = new HashSet<Element>();
 		for(Class k : this.classes)
@@ -201,6 +233,11 @@ public class Package extends Element {
 			elementsPackage.add(i);
 		
 		return elementsPackage;
+	}
+	
+	@Override
+	public boolean containsConcern(Concern concern){
+		return this.getAllConcerns().contains(concern);
 	}
 
 

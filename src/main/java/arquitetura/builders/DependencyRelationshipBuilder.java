@@ -9,8 +9,8 @@ import arquitetura.base.ArchitectureHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
-import arquitetura.representation.Package;
 import arquitetura.representation.Interface;
+import arquitetura.representation.Package;
 import arquitetura.representation.relationship.DependencyRelationship;
 
 /**

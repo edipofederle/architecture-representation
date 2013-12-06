@@ -6,6 +6,7 @@ import java.util.List;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
+import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
 import arquitetura.representation.Package;
@@ -231,8 +232,8 @@ private int searchAssociationClassDependencies (Class source, Package comp){
 // ---------------------------------------------------------------------------------
 	
 private int searchImplementationDependencies(Interface itf, Package comp){
-	List<Package> depComponents = new ArrayList<Package> ();
-	for (Package c: itf.getImplementors())
+	List<Element> depComponents = new ArrayList<Element> ();
+	for (Element c: itf.getImplementors()) //EDIPO MOD
 		if (!(depComponents.contains(c))) {depComponents.add(c);}
 	
 	return depComponents.size();

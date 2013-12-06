@@ -12,7 +12,7 @@ public abstract class ConcernDiffusionMetric<T> {
 	public ConcernDiffusionMetric(Architecture architecture){
 		this.architecture = architecture;
 		
-		for (Concern concern : architecture.getConcerns()) {
+		for (Concern concern : architecture.getAllConcerns()) {
 			getResults().add(getElementForConcern(concern));
 		}
 	}

@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Package;
 
@@ -19,17 +20,16 @@ public class MeanDepComponents {
 		
 		this.architecture = architecture;
 		this.results = 0;
-		List<Package> depComponents = new ArrayList<Package>();
+		List<Element> depComponents = new ArrayList<Element>();
 		int totalComponents = this.architecture.getAllPackages().size();
 		int totalDependencies =0;
 		
 		for (Package component : architecture.getAllPackages()) {
 			depComponents.clear();
 			for (Interface itf: component.getRequiredInterfaces()){
-				for (Package c: itf.getImplementors()){
+				for (Element c: itf.getImplementors()){
 			    	if (!(depComponents.contains(c))) depComponents.add(c);
 			    }
-			    
 			}
 			totalDependencies += depComponents.size();
 		    

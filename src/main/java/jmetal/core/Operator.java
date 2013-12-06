@@ -25,6 +25,10 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import arquitetura.exceptions.ClassNotFound;
+import arquitetura.exceptions.ConcernNotFoundException;
+import arquitetura.exceptions.NotFoundException;
+import arquitetura.exceptions.PackageNotFound;
 import jmetal.util.JMException;
 
 /**
@@ -58,9 +62,14 @@ public abstract class Operator implements Serializable {
 	 *            parameter, while a mutation operator receives a
 	 *            <code>Solution</code>.
 	 * @return An object reference. The returned value depends on the operator.
+	 * @throws NotFoundException 
+	 * @throws PackageNotFound 
+	 * @throws ClassNotFound 
+	 * @throws CloneNotSupportedException 
+	 * @throws ConcernNotFoundException 
 	 */
 
-	abstract public Object execute(Object object) throws JMException;
+	abstract public Object execute(Object object) throws JMException, CloneNotSupportedException, ClassNotFound, PackageNotFound, NotFoundException, ConcernNotFoundException;
 
 	// abstract public Object execute(Object object, OPLA_agregacao_MAC_MSI
 	// problem) throws JMException;
