@@ -399,7 +399,7 @@ public class Architecture extends Variable implements Cloneable {
 					classesFound.add(klass);
 		
 		if(classesFound.isEmpty())
-			throw new ClassNotFound("Class " + className + " can not found.\n");
+			throw new ClassNotFound("Class " + className + " can not be found.\n");
 		return classesFound;
 	}
 
@@ -431,7 +431,6 @@ public class Architecture extends Variable implements Cloneable {
 	}
 
 	public void removePackage(Package p) {
-		
 		/**
 		 * Remove qualquer relacionamento que os elementos do pacote
 		 * que esta sendo deletado possa ter.
@@ -457,15 +456,52 @@ public class Architecture extends Variable implements Cloneable {
 	}
 
 	public void removeInterface(Interface interfacee) {
+		this.removeInterfaceFromRequiredOrImplemented(interfacee);
 		this.removeRelatedRelationships(interfacee);
-		if (!removeInterfaceFromArch(interfacee))
-			LOGGER.info("Tentou remover Interface " + interfacee + " porém não consegiu");
-		for(Package p : getAllPackages()){
-			p.getElements().remove(interfacee);
+		if (removeInterfaceFromArch(interfacee)){
+			LOGGER.info("Interface:" + interfacee.getName() + " removida da arquitetura");
 		}
-		LOGGER.info("Interface:" + interfacee.getName() + " removida da arquitetura");
 	}
 	
+	/**
+	 * Esse método recebe uma interface e procura os elementso (Pacotes e Classes) que a 
+	 * implementam ou que a requerem a interface em questão e  a remove da lista de interfaces implementadas
+	 * ou requeridas
+	 * 
+	 * @param interfacee
+	 */
+	public void removeInterfaceFromRequiredOrImplemented(Interface interfacee) {
+		for (Iterator<Relationship> i = this.relationships.iterator(); i.hasNext();) {
+			Relationship r = i.next();
+			
+			if(r instanceof RealizationRelationship){
+				RealizationRelationship realization = (RealizationRelationship) r;
+				if( realization.getSupplier().equals(interfacee)){
+					if(realization.getClient() instanceof Package){
+						((Package)realization.getClient()).removeImplementedInterface(interfacee);
+					}
+					if(realization.getClient() instanceof Class){
+						((Class)realization.getClient()).removeImplementedInterface(interfacee);
+					}
+					
+				}
+			}
+			
+			if(r instanceof DependencyRelationship){
+				DependencyRelationship dependency = (DependencyRelationship) r;
+				if( dependency.getSupplier().equals(interfacee)){
+					if(dependency.getClient() instanceof Package){
+						((Package)dependency.getClient()).removeRequiredInterface(interfacee);
+					}
+					if(dependency.getClient() instanceof Class){
+						((Class)dependency.getClient()).removeRequiredInterface(interfacee);
+					}
+					
+				}
+			}
+		}
+	}
+
 	private boolean removeInterfaceFromArch(Interface interfacee) {
 		if(this.interfaces.remove(interfacee))
 			return true;
@@ -477,6 +513,7 @@ public class Architecture extends Variable implements Cloneable {
 	}
 
 	public void removeClass(Element klass) {
+		removeRelatedRelationships(klass);
 		if(this.classes.remove(klass))
 			LOGGER.info("Classe " + klass.getName()+"("+klass.getId()+") removida da arquitetura");
 		

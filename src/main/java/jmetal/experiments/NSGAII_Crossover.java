@@ -111,7 +111,9 @@ public class NSGAII_Crossover {
          long heapSize = Runtime.getRuntime().totalMemory();
          heapSize = (heapSize / 1024) / 1024;
          System.out.println("Heap Size: " + heapSize + "Mb\n");
-         String PLAName = pla.substring(10,18);
+		 int beginIndex = pla.lastIndexOf("/") + 1;
+		 int endIndex = pla.length() - 4;
+		 String PLAName = pla.substring(beginIndex, endIndex);
          
          long time[] = new long[runsNumber];
          

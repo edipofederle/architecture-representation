@@ -903,5 +903,110 @@ public class ArchitectureTest extends TestHelper {
 	}
 	
 	
+	@Test
+	public void whenRemoveAInterfaceShouldRemoveFromPackageImplementedInterfacesToo() throws Exception {
+		Architecture a = givenAArchitecture("removeInterface");
+		Package p1 = a.findPackageByName("Package1");
+		
+		assertEquals(1, p1.getImplementedInterfaces().size());
+		
+		Interface inter = a.findInterfaceByName("Interface");
+		a.removeInterface(inter);
+		
+		assertEquals(0, p1.getImplementedInterfaces().size());
+	}
+	
+	@Test
+	public void whenRemoveAInterfaceShouldRemoveFromClassImplementedInterfacesToo() throws Exception {
+		Architecture a = givenAArchitecture("removeInterface");
+		Class c1 = a.findClassByName("Class1").get(0);
+		
+		assertEquals(1, c1.getImplementedInterfaces().size());
+		
+		Interface inter = a.findInterfaceByName("Interface3");
+		a.removeInterface(inter);
+		
+		assertEquals(0, c1.getImplementedInterfaces().size());
+	}
+	
+	@Test
+	public void whenRemoveAInterfaceShouldRemoveFromPackageRequeiredInterfacesToo() throws Exception {
+		Architecture a = givenAArchitecture("removeInterface");
+		Package p1 = a.findPackageByName("Package2");
+		
+		assertEquals(1, p1.getRequiredInterfaces().size());
+		
+		Interface inter = a.findInterfaceByName("Interface2");
+		a.removeInterface(inter);
+		
+		assertEquals(0, p1.getRequiredInterfaces().size());
+	}
+	
+	@Test
+	public void whenRemoveAInterfaceShouldRemoveFromClassRequeiredInterfacesToo() throws Exception {
+		Architecture a = givenAArchitecture("removeInterface");
+		Class c1 = a.findClassByName("Class2").get(0);
+		
+		assertEquals(1, c1.getRequiredInterfaces().size());
+		
+		Interface inter = a.findInterfaceByName("Interface4");
+		a.removeInterface(inter);
+		
+		assertEquals(0, c1.getRequiredInterfaces().size());
+	}
+	
+	@Test
+	public void whenRemoveAClassShouldRemoveRelatedRelationshiopsAssociation() throws Exception{
+		Architecture a = givenAArchitecture("removeClass");
+		Class c1 = a.findClassByName("Class1").get(0);
+		
+		assertEquals(4, a.getAllClasses().size());
+		assertEquals(1, a.getAllAssociations().size());
+		
+		a.removeClass(c1);
+		
+		assertEquals(0, a.getAllAssociations().size());
+		assertEquals(3, a.getAllClasses().size());
+	}
+	
+	@Test
+	public void whenRemoveAClassShouldRemoveRelatedRelationshiopsDependency() throws Exception{
+		Architecture a = givenAArchitecture("removeClass");
+		Class c1 = a.findClassByName("Foo").get(0);
+		
+		assertEquals(4, a.getAllClasses().size());
+		assertEquals(1, a.getAllDependencies().size());
+		
+		a.removeClass(c1);
+		
+		assertEquals(0, a.getAllDependencies().size());
+		assertEquals(3, a.getAllClasses().size());
+		assertEquals(1, a.getAllPackages().size());
+	}
+	
+	@Test
+	public void testRemovePackage() throws Exception {
+		Architecture a = givenAArchitecture("removePackage");
+		
+		Package p = a.findPackageByName("Package1");
+		
+		a.removePackage(p);
+		
+		assertEquals(0, a.getAllPackages().size());
+		assertEquals(0, a.getAllDependencies().size());
+		assertEquals(0, a.getAllAssociations().size());
+		assertNotNull(a.findClassByName("Class3"));
+		assertNotNull(a.findClassByName("Class2"));
+		
+		try{
+			a.findClassByName("Class1").isEmpty();
+		}catch(Exception e){
+			assertEquals("Class Class1 can not be found.\n", e.getMessage() );
+		}
+	}
+	
+	
+	
+	
 	
 }
