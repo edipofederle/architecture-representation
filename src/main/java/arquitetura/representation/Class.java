@@ -356,5 +356,7 @@ public class Class extends Element {
 		return klass;
 	}
 	
+	
+	
 
 }

@@ -107,7 +107,30 @@ public class AssociationClassRelationship extends Relationship {
 	public Class getAssociationClass() {
 		return associationClass;
 	}
-	
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime
+				* result
+				+ ((associationClass == null) ? 0 : associationClass.hashCode());
+		result = prime * result
+				+ ((memebersEnd == null) ? 0 : memebersEnd.hashCode());
+		result = prime * result
+				+ ((ownedEnd == null) ? 0 : ownedEnd.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if( ((AssociationClassRelationship)obj).getMemebersEnd().get(0).getType().getName().equals(this.getMemebersEnd().get(0).getType().getName())
+				&& ((AssociationClassRelationship)obj).getMemebersEnd().get(1).getType().getName().equals(this.getMemebersEnd().get(1).getType().getName()))
+			return true;
+		return false;
+	}
 	
 
 }

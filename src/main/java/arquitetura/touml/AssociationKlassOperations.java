@@ -101,7 +101,7 @@ public class AssociationKlassOperations {
 		
 		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
-				associationClassNode.createAssociationClass(id, ownedEnd, associationEnd2);
+				associationClassNode.createAssociationClass(id, ownedEnd, associationEnd2, associationClass.getName());
 			}
 		});
 		

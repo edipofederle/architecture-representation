@@ -185,9 +185,7 @@ public abstract class Element implements Serializable {
 	                return false;
 	                
 	        Element other = (Element) obj;
-	        return (
-	                this.getName().equals(other.getName()) &&
-	                this.getNamespace().equals(other.getNamespace())
+	        return (this.getName().equals(other.getName()) && this.getNamespace().equals(other.getNamespace())
 	        );
 	 }
 

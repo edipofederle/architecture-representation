@@ -32,11 +32,14 @@ import arquitetura.representation.Method;
 import arquitetura.representation.Package;
 import arquitetura.representation.Variability;
 import arquitetura.representation.VariationPoint;
+import arquitetura.representation.relationship.AbstractionRelationship;
 import arquitetura.representation.relationship.AssociationEnd;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
+import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
+import arquitetura.representation.relationship.UsageRelationship;
 
 
 public class PLACrossover extends Crossover {
@@ -224,7 +227,7 @@ public class PLACrossover extends Crossover {
 	        			
 	            		if (!searchForGeneralizations(classComp)){
 	            			addClassToOffspring(classComp,newComp, comp, offspring);
-//		            			comp.moveClassToComponent(classComp, newComp);		
+//		            		comp.moveClassToComponent(classComp, newComp);		
 //		            			updateClassRelationships(classComp,newComp, comp, offspring,parent);				    				
 	            		}
 	            		else {
@@ -289,9 +292,9 @@ public class PLACrossover extends Crossover {
 			Iterator<Interface> iteratorInterfaces = allInterfaces.iterator();
 			while (iteratorInterfaces.hasNext()){
 				Interface interfaceComp= iteratorInterfaces.next();
-            	if (interfaceComp.containsConcern(feature) && interfaceComp.getOwnConcerns().size()==1){
+            	if (interfaceComp.containsConcern(feature) && interfaceComp.getOwnConcerns().size() == 1){
         			newComp = offspring.findPackageByName(comp.getName());
-        			if (newComp==null)
+        			if (newComp == null)
 						try {
 							newComp = offspring.createPackage(comp.getName());
 							newComp.addConcern(feature.getName());
@@ -322,7 +325,7 @@ public class PLACrossover extends Crossover {
             	offspring.removeInterfaceFromRequiredOrImplemented(interfaceComp);
         		offspring.addExternalInterface(interfaceComp);
         		offspring.addImplementedInterface(interfaceComp, newComp);
-        		for (DependencyRelationship dependency: dependencies){
+        		for (DependencyRelationship dependency : dependencies){
         			Package dependent = offspring.findPackageByName(dependency.getPackageOfDependency().getName());
         			if (dependent!=null){
         				dependency.setClient(dependent);
@@ -374,9 +377,9 @@ public class PLACrossover extends Crossover {
 			while (iteratorOperations.hasNext()){
 				Method operation= iteratorOperations.next();
             	if (operation.containsConcern(feature) && operation.getOwnConcerns().size()==1){
-            		if (targetInterface==null){
+            		if (targetInterface == null){
             			Package newComp = offspring.findPackageByName(comp.getName());
-            			if (newComp==null) {
+            			if (newComp == null) {
             				try {
 								newComp=offspring.createPackage(comp.getName());
 								newComp.addConcern(feature.getName());
@@ -938,75 +941,88 @@ public class PLACrossover extends Crossover {
     	return false;
     }
     
-	private void updateClassRelationships(Element classComp, Architecture offspring) throws ClassNotFound{
-		//Atualiza os relacionamentos mesmo que as classes sejam de componentes distintos
+	private void updateClassRelationships(Element classComp, Architecture offspring ) throws ClassNotFound {
 		Collection<Relationship> parentRelationships = classComp.getRelationships();
-		
 		for (Relationship relationship : parentRelationships){
 			if (relationship instanceof DependencyRelationship){
-				
 				DependencyRelationship dependency = (DependencyRelationship) relationship;
-				Class client = (Class) dependency.getClient();
-				if (client.equals(classComp)) {
-					Class targetClass = offspring.findClassByName(dependency.getSupplier().getName()).get(0);
-					if (targetClass!=null){
-						DependencyRelationship auxDependency =  new DependencyRelationship(classComp, targetClass, "", offspring);
-						offspring.addRelationship(auxDependency);
-					}
-				}
-				else{
-					Class supplier = (Class) dependency.getSupplier();
-					if (supplier.equals(classComp)) {
-						Class targetClass = offspring.findClassByName(dependency.getClient().getName()).get(0);
-						if (targetClass!=null){
-							DependencyRelationship auxDependency =  new DependencyRelationship(targetClass, classComp, "", offspring);
-							offspring.addRelationship(auxDependency);
-						}
-					}
-				}
+				Element client = dependency.getClient();
+				Element supplier = dependency.getSupplier();
 				
+				Element clientOffSpring = offspring.findClassByName(client.getName()).get(0);
+				Element supplierOffSpring = offspring.findClassByName(supplier.getName()).get(0);
 				
-				
+				offspring.forDependency().create(dependency.getName()).withClient(clientOffSpring).withSupplier(supplierOffSpring).build();
 			}
-			if (relationship instanceof GeneralizationRelationship){
-				GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-				Class parentClass = (Class) generalization.getParent();
-				if (parentClass.equals(classComp)) {
-					Class targetClass = offspring.findClassByName(generalization.getChild().getName()).get(0);
-					if (targetClass!=null){
-						GeneralizationRelationship auxGeneralization =  new GeneralizationRelationship(classComp, targetClass, offspring);
-						offspring.addRelationship(auxGeneralization);
-					}
-				}
-				else{
-					Class childClass = (Class) generalization.getChild();
-    				if (childClass.equals(classComp)) {
-    					Class targetClass = offspring.findClassByName(generalization.getParent().getName()).get(0);
-    					if (targetClass!=null){ 
-    						GeneralizationRelationship auxGeneralization = new GeneralizationRelationship(targetClass, classComp, offspring);
-    						offspring.addRelationship(auxGeneralization);
-    					}
-    				}
-				}	
+			
+			if (relationship instanceof UsageRelationship){
+				UsageRelationship dependency = (UsageRelationship) relationship;
+				Element client = dependency.getClient();
+				Element supplier = dependency.getSupplier();
+				
+				Element clientOffSpring = offspring.findClassByName(client.getName()).get(0);
+				Element supplierOffSpring = offspring.findClassByName(supplier.getName()).get(0);
+				
+				offspring.forUsage().create(clientOffSpring, supplierOffSpring);
 			}
-			if (relationship instanceof AssociationRelationship){
+			
+			if (relationship instanceof RealizationRelationship){
+				RealizationRelationship dependency = (RealizationRelationship) relationship;
+				Element client = dependency.getClient();
+				Element supplier = dependency.getSupplier();
+				
+				Element clientOffSpring = offspring.findClassByName(client.getName()).get(0);
+				Element supplierOffSpring = offspring.findClassByName(supplier.getName()).get(0);
+				
+				offspring.operationsOverRelationship().createNewRealization(clientOffSpring, supplierOffSpring);
+			}
+			
+			if (relationship instanceof AbstractionRelationship){
+				AbstractionRelationship dependency = (AbstractionRelationship) relationship;
+				Element client = dependency.getClient();
+				Element supplier = dependency.getSupplier();
+				
+				Element clientOffSpring = offspring.findClassByName(client.getName()).get(0);
+				Element supplierOffSpring = offspring.findClassByName(supplier.getName()).get(0);
+				
+				offspring.forAbstraction().create(clientOffSpring, supplierOffSpring);
+			}
+			
+			if(relationship instanceof AssociationRelationship){
 				AssociationRelationship association = (AssociationRelationship) relationship;
-				List<AssociationEnd> participants = new ArrayList<AssociationEnd>(association.getParticipants());
-				int i = 0;
-				while (i < 2){
-					if (participants.get(i).getCLSClass().equals(classComp)){ 
-						Class targetClass = null;
-						int j;
-						if (i == 0) j = i+1;
-						else j = i-1;
-						targetClass = (Class) offspring.findClassByName(participants.get(j).getCLSClass().getName()).get(0);
-						if (targetClass != null){
-							AssociationRelationship auxAssociation = new AssociationRelationship(classComp,targetClass);
-							offspring.addRelationship(auxAssociation);
-    					}			    						
-					}									
-					i++;
-				}
+				List<AssociationEnd> participants = association.getParticipants();
+				
+				AssociationEnd p1 = participants.get(0);
+				AssociationEnd p2 = participants.get(1);
+				
+				Class p1offspring = offspring.findClassByName(p1.getName()).get(0);
+				Class p2offspring =offspring.findClassByName(p2.getName()).get(0);
+				
+				AssociationEnd associationEndOffSpring = new AssociationEnd();
+				associationEndOffSpring.setAggregation(p1.getAggregation());
+				associationEndOffSpring.setNavigable(p1.isNavigable());
+				associationEndOffSpring.setMultiplicity(p1.getMultiplicity());
+				associationEndOffSpring.setCLSClass(p1offspring);
+				
+				AssociationEnd associationEndOffSpring2 = new AssociationEnd();
+				associationEndOffSpring2.setAggregation(p2.getAggregation());
+				associationEndOffSpring2.setNavigable(p2.isNavigable());
+				associationEndOffSpring2.setMultiplicity(p2.getMultiplicity());
+				associationEndOffSpring2.setCLSClass(p2offspring);
+				
+				offspring.forAssociation().create(associationEndOffSpring, associationEndOffSpring2);
+			}
+			
+			if(relationship instanceof GeneralizationRelationship){
+				GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
+				
+				Element parent = generalization.getParent();
+				Element child = generalization.getChild();
+				
+				Element parentOffSpring = offspring.findClassByName(parent.getName()).get(0);
+				Element childOffSpring = offspring.findClassByName(child.getName()).get(0);
+				
+				offspring.forGeneralization().createGeneralization(parentOffSpring, childOffSpring);
 			}
 		}
 	}

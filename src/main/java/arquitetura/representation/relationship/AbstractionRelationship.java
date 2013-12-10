@@ -47,5 +47,12 @@ public class AbstractionRelationship extends Relationship {
 	public void setSupplier(Element supplier) {
 		this.supplier = supplier;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if( ((AbstractionRelationship)obj).getClient().equals(this.getClient()) && ((AbstractionRelationship)obj).getSupplier().equals(this.getSupplier()))
+			return true;
+		return false;
+	}
 
 }

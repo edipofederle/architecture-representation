@@ -2,6 +2,7 @@ package arquitetura.representation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.AssociationClassRelationship;
@@ -49,18 +50,21 @@ public class OperationsOverAssociation {
 		return this;
 	}
 
-	public OperationsOverAssociation withKlass(Class idclass1) {
+	public OperationsOverAssociation withKlass(Element idclass1) {
 		associationEnd1.setCLSClass(idclass1);
 		return this;
 	}
 
 	public OperationsOverAssociation withMultiplicity(String multiplicity) {
-		this.associationEnd1.setMultiplicity(new Multiplicity(multiplicity.split("\\..")[0], multiplicity.split("\\..")[1]));
+		if(!multiplicity.equals("1"))
+			this.associationEnd1.setMultiplicity(new Multiplicity(multiplicity.split("\\..")[0], multiplicity.split("\\..")[1]));
+		else
+			this.associationEnd1.setMultiplicity(new Multiplicity(multiplicity, multiplicity));
 		return this;
 	}
 
-	public OperationsOverAssociation navigable() {
-		this.associationEnd1.setNavigable(true);
+	public OperationsOverAssociation navigable(boolean navigable) {
+		this.associationEnd1.setNavigable(navigable);
 		return this;
 	}
 
@@ -81,13 +85,22 @@ public class OperationsOverAssociation {
 	}
 	
 	public OperationsOverAssociation asAggregation() {
-		this.associationEnd1.setAggregation("aggregation");
+		this.associationEnd1.setAggregation("shared");
 		return this;
 	}
 
-	public void createAssociationClass(List<Attribute> listAttrs, List<Method> listMethods, Class owner, Class klass) {
+	/**
+	 * associationClass null se você deseja que seja criada a classe associativa.
+	 * 
+	 * @param listAttrs
+	 * @param listMethods
+	 * @param owner
+	 * @param klass
+	 * @param associationClass
+	 */
+	public void createAssociationClass(Set<Attribute> listAttrs, Set<Method> listMethods, Class owner, Class klass, String associationClassName) {
 		String namespace = UtilResources.createNamespace(architecture.getName(), "AssociationClass");
-		Class asClass = new Class(this.architecture, "AssociationClass", null, false, namespace, UtilResources.getRandonUUID());
+		Class asClass = new Class(this.architecture, associationClassName, null, false, namespace, UtilResources.getRandonUUID());
 		
 		for(Attribute a : listAttrs)
 			asClass.addExternalAttribute(a);
@@ -101,7 +114,7 @@ public class OperationsOverAssociation {
 		
 	
 		AssociationClassRelationship asc = new AssociationClassRelationship(this.architecture,
-																			"nameAssociation",
+																			"",
 																			ends,
 																			owner,
 																			asClass.getId(),
@@ -112,6 +125,31 @@ public class OperationsOverAssociation {
 		
 		this.architecture.addRelationship(asc);
 		
+	}
+
+	/**
+	 * Cria associação dado dois {@link AssociationEnd}
+	 * 
+	 * @param associationEnd1
+	 * @param associationEnd2
+	 */
+	public void create(AssociationEnd associationEnd1, AssociationEnd associationEnd2) {
+		AssociationEnd associatioEnd1 = new AssociationEnd();
+		associatioEnd1.setAggregation(associationEnd1.getAggregation());
+		associatioEnd1.setNavigable(associationEnd1.isNavigable());
+		associatioEnd1.setMultiplicity(associationEnd1.getMultiplicity());
+		associatioEnd1.setCLSClass(associationEnd1.getCLSClass());
+		
+		AssociationEnd associatioEnd2 = new AssociationEnd();
+		associatioEnd2.setAggregation(associationEnd2.getAggregation());
+		associatioEnd2.setNavigable(associationEnd2.isNavigable());
+		associatioEnd2.setMultiplicity(associationEnd2.getMultiplicity());
+		associatioEnd2.setCLSClass(associationEnd2.getCLSClass());
+		
+		this.association.getParticipants().add(associatioEnd1);
+		this.association.getParticipants().add(associatioEnd2);
+		
+		this.architecture.addRelationship(this.association);
 	}
 
 

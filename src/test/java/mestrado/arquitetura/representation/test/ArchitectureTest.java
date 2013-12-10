@@ -8,6 +8,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -864,7 +865,7 @@ public class ArchitectureTest extends TestHelper {
 		Class client = a.createClass("Foo", false);
 		Class supplier = a.createClass("Bar", false);
 		
-		UsageRelationship r =  new UsageRelationship("", supplier, client);
+		UsageRelationship r = new UsageRelationship("", supplier, client);
 		
 		assertTrue(a.addRelationship(r));
 		assertFalse(a.addRelationship(r));
@@ -1005,8 +1006,39 @@ public class ArchitectureTest extends TestHelper {
 		}
 	}
 	
-	
-	
-	
+	/**
+	 * para o operador crossover
+	 * 
+	 */
+	@Test
+	public void testUpdateClassRelationships() throws Exception{
+		
+		Architecture parent = givenAArchitecture("parent");
+		Architecture offspring = givenAArchitecture("offspring");
+		
+		for(Class klass : parent.getAllClasses())
+			updateClassRelationship(klass, offspring);
+		
+		GenerateArchitecture g = new GenerateArchitecture();
+		g.generate(offspring, "offspring");
+		
+	}
+
+	private void updateClassRelationship(Class classComp, Architecture offspring ) throws ClassNotFound {
+		
+		Collection<Relationship> parentRelationships = classComp.getRelationships();
+		for (Relationship relationship : parentRelationships){
+			if (relationship instanceof AssociationClassRelationship){
+				
+				AssociationClassRelationship asc = (AssociationClassRelationship)relationship;
+				
+				Class offspringMember1 = offspring.findClassByName(asc.getMemebersEnd().get(0).getType().getName()).get(0);
+				Class offspringMember2 = offspring.findClassByName(asc.getMemebersEnd().get(1).getType().getName()).get(0);
+				
+				offspring.forAssociation().createAssociationClass(asc.getAllAttributes(), asc.getAllMethods(), offspringMember1, offspringMember2, asc.getAssociationClass().getName());
+			}
+		}
+	}
+
 	
 }

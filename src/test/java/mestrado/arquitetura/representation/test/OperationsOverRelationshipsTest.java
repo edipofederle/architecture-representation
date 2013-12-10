@@ -1,11 +1,9 @@
 package mestrado.arquitetura.representation.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -91,12 +89,12 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		a.forAssociation().createAssociationEnd()
 					      .withKlass(class1)
 					      .withMultiplicity("1..*")
-					      .navigable()
+					      .navigable(true)
 					      .and()
 					      .createAssociationEnd()
 					      .withKlass(class2)
 					      .withMultiplicity("1..1")
-					      .navigable().build();
+					      .navigable(true).build();
 					      
 		
 		assertEquals(3, a.getAllAssociationsRelationships().size());
@@ -348,8 +346,8 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 	public void createNewAssociationClass() throws Exception{
 		Architecture a = givenAArchitecture("associationClass/semAssociationClass");
 		
-		List<Attribute> listAttrs = new ArrayList<Attribute>();
-		List<Method> listMethods = new ArrayList<Method>();
+		Set<Attribute> listAttrs = new HashSet<Attribute>();
+		Set<Method> listMethods = new HashSet<Method>();
 		
 		Class owner = a.findClassByName("Class1").get(0);
 		Class klass = a.findClassByName("Class2").get(0);
@@ -357,7 +355,7 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		assertEquals(0,owner.getRelationships().size());
 		assertEquals(0,klass.getRelationships().size());
 		
-		a.forAssociation().createAssociationClass(listAttrs, listMethods, owner, klass);
+		a.forAssociation().createAssociationClass(listAttrs, listMethods, owner, klass, "ClasseAssociativa");
 		
 		assertEquals(1, a.getAllAssociationsClass().size());
 		

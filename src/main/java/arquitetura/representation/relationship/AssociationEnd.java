@@ -85,9 +85,9 @@ public class AssociationEnd implements Serializable {
 	 */
 	public String getAggregation() {
 		if("shared".equalsIgnoreCase(aggregation))
-			return "Aggregation";
+			return "shared";
 		else if("composite".equalsIgnoreCase(aggregation))
-			return "Composition";
+			return "composite";
 		else
 			return "none";
 		
@@ -106,12 +106,14 @@ public class AssociationEnd implements Serializable {
 	}
 
 	public boolean isComposite() {
-		return getAggregation().equals("Composition");
+		return getAggregation().equals("composite");
 	}
 
 	public boolean isAggregation() {
-		return getAggregation().equals("Aggregation");
+		return getAggregation().equals("shared");
 	}
+	
+	
 
 	@Override
 	public int hashCode() {

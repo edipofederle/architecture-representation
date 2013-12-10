@@ -46,7 +46,7 @@ public class OperationsOverAbstraction {
 		newCliente.addRelationship(abstractionRelationship);
 	}
 
-	public AbstractionRelationship create(Class newClient, Class newSupplier) {
+	public AbstractionRelationship create(Element newClient, Element newSupplier) {
 		String id = UtilResources.getRandonUUID();
 		AbstractionRelationship abs = new AbstractionRelationship(newClient, newSupplier, id);
 		newClient.addRelationship(abs);

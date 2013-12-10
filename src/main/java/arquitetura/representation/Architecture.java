@@ -452,6 +452,7 @@ public class Architecture extends Variable implements Cloneable {
 	
 	public Class createClass(String klassName, boolean isAbstract) {
 		Class klass = new Class(this, klassName, isAbstract);
+		this.addExternalClass(klass);
 		return klass;
 	}
 
@@ -764,6 +765,14 @@ public class Architecture extends Variable implements Cloneable {
 			if(this.getAllGeneralizations().contains(relationship)) return true;
 		if(relationship instanceof DependencyRelationship )
 			if(this.getAllDependencies().contains(relationship)) return true;
+		if(relationship instanceof UsageRelationship)
+			if(this.getAllUsage().contains(relationship)) return true;
+		if(relationship instanceof RealizationRelationship)
+			if(this.getAllRealizations().contains(relationship)) return true;
+		if(relationship instanceof AbstractionRelationship)
+			if(this.getAllAbstractions().contains(relationship)) return true;
+		if(relationship instanceof AssociationClassRelationship)
+			if(this.getAllAssociationsClass().contains(relationship)) return true;
 		
 		return false;
 		

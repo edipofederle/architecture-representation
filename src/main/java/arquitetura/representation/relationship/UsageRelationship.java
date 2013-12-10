@@ -57,4 +57,11 @@ public class UsageRelationship extends Relationship {
 		this.client = client;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if( ((UsageRelationship)obj).getClient().equals(this.getClient()) && ((UsageRelationship)obj).getSupplier().equals(this.getSupplier()))
+			return true;
+		return false;
+	}
+	
 }

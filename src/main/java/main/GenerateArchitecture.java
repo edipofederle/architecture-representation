@@ -219,20 +219,19 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			if(!packages.isEmpty())
 				buildPackages(op, packages);
 			
-//			//Relacionamentos
 			for (AssociationRelationship r : a.getAllAssociationsRelationships()) 
 				generateSimpleAssociation(op, r);
-//			
+			
 			for (AssociationRelationship r : a.getAllCompositions()) 
 				generateComposition(op, r);
-//			
+			
 			for (AssociationRelationship r : a.getAllAgragations()) 
 				generateAggregation(op, r);
-//			
-//			
+			
 			for(GeneralizationRelationship g : a.getAllGeneralizations()){
 				op.forGeneralization().createRelation().between(g.getChild().getId()).and(g.getParent().getId()).build();
 			}
+			
 			for(DependencyRelationship d : a.getAllDependencies()){
 				op.forDependency().createRelation()
 							  .withName(d.getName())
@@ -252,9 +251,7 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			}
 			
 			for(AssociationClassRelationship asr : a.getAllAssociationsClass()){
-				op.forAssociationClass()
-				  .createAssociationClass(asr).build();
-				
+				op.forAssociationClass().createAssociationClass(asr).build();
 				op.forPackage().withId(asr.getPackageOwner()).add(asr.getId());
 			}
 			

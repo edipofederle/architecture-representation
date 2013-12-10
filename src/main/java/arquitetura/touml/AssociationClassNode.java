@@ -8,6 +8,7 @@ import arquitetura.exceptions.NullReferenceFoundException;
 import arquitetura.helpers.UtilResources;
 import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Class;
 
 public class AssociationClassNode extends XmiHelper {
 
@@ -28,19 +29,22 @@ public class AssociationClassNode extends XmiHelper {
 		this.notation = new ClassNotation(documentManager, docNotation);
 	}
 
-	public void createAssociationClass(String id, String ownedEndElement, String associationEndDestination)  {
+	public void createAssociationClass(String id, String ownedEndElement, String associationEndDestination, String nameAssociationClass)  {
 		
 		this.idAssociation = id;
-		String idOwnedAttribute = UtilResources.getRandonUUID();
+		Node nodeToAddOwnedAttributeForAssociationClass = null;
+		String idOwnedAttribute = null;
+	
+		idOwnedAttribute = UtilResources.getRandonUUID();
 		String idOwnedEnd = UtilResources.getRandonUUID();
 		
 		Node modelRoot = this.docUml.getElementsByTagName("uml:Model").item(0);
-		Node nodeToAddOwnedAttributeForAssociationClass = findByID(docUml, ownedEndElement, "packagedElement");
-				
+		nodeToAddOwnedAttributeForAssociationClass = findByID(docUml, ownedEndElement, "packagedElement");
+	
 		Element packageElement = this.docUml.createElement("packagedElement");
 		packageElement.setAttribute("xmi:type", "uml:AssociationClass");
 		packageElement.setAttribute("xmi:id", this.idAssociation);
-		packageElement.setAttribute("name", "nameAssociation");
+		packageElement.setAttribute("name", nameAssociationClass);
 		packageElement.setAttribute("memberEnd", idOwnedAttribute + " " + idOwnedEnd);
 		
 		Element ownedEnd = this.docUml.createElement("ownedEnd");
@@ -63,9 +67,9 @@ public class AssociationClassNode extends XmiHelper {
 		packageElement.appendChild(ownedEnd);
 		
 		modelRoot.appendChild(packageElement);
-		
+	
 		ownedAttibute(nodeToAddOwnedAttributeForAssociationClass, idOwnedAttribute, associationEndDestination);
-		
+	
 		try {
 			String idChildren = notation.createXmiForClassInNotationFile(this.idAssociation, null, "associationClass");
 			String idEdge = elementXmiGenerator.createEgdeAssocationOnNotationFile(docNotation, newModelName, ownedEndElement, associationEndDestination, this.idAssociation);

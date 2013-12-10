@@ -124,7 +124,7 @@ public class AssociationsTest extends TestHelper {
 		assertFalse(associationComposite.getParticipants().get(0).isNavigable());
 		assertEquals("Class5", participants.get(0).getCLSClass().getName());
 
-		assertEquals("Composition", associationComposite.getParticipants().get(1).getAggregation());
+		assertEquals("composite", associationComposite.getParticipants().get(1).getAggregation());
 		assertFalse(associationComposite.getParticipants().get(1).isNavigable());
 		assertEquals("Class6", participants.get(1).getCLSClass().getName());
 		assertEquals("none", associationComposite.getParticipants().get(0).getAggregation());
@@ -145,7 +145,7 @@ public class AssociationsTest extends TestHelper {
 		assertFalse(aggregation.getParticipants().get(1).isNavigable());
 		assertEquals("Class8", participants.get(1).getCLSClass().getName());
 
-		assertEquals("Aggregation", aggregation.getParticipants().get(0).getAggregation());
+		assertEquals("shared", aggregation.getParticipants().get(0).getAggregation());
 		assertFalse(aggregation.getParticipants().get(1).isNavigable());
 
 		assertEquals("1", aggregation.getParticipants().get(1).getMultiplicity().toString());
