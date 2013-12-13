@@ -44,6 +44,19 @@ public class Interface extends Element {
 		this(a, name, null, UtilResources.createNamespace(a.getName(), name), UtilResources.getRandonUUID());
 		a.addExternalInterface(this);
 	}
+	
+	/**
+	 * Use este construtor quando você deseja criar uma interface usando algum ID passado por você<br /><br />
+	 * 
+	 * OBS 2: Esse construtor automaticamente adicionar a interface na arquitetura<br/>
+	 * 
+	 * @param architecture Architecture em questão
+	 * @param name - Nome da interface
+	 */
+	public Interface(Architecture a, String name, String id) {
+		this(a, name, null, UtilResources.createNamespace(a.getName(), name), id);
+		a.addExternalInterface(this);
+	}
 
 	public  Set<Method> getOperations() {
 		return Collections.unmodifiableSet(operations);

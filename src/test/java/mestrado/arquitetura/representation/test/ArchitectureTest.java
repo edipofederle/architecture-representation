@@ -1023,6 +1023,18 @@ public class ArchitectureTest extends TestHelper {
 		g.generate(offspring, "offspring");
 		
 	}
+	
+	@Test
+	public void testFindElementByName() throws Exception{
+		Architecture a = givenAArchitecture("pacotesClasses");
+		assertNotNull(a.findElementByName("Foo"));
+		assertNotNull(a.findElementByName("Class1"));
+		assertNotNull(a.findElementByName("Bar"));
+		assertNotNull(a.findElementByName("Teste"));
+		assertNotNull(a.findElementByName("Interface"));
+		assertNotNull(a.findElementByName("Interface2"));
+		assertNotNull(a.findElementByName("Package2"));
+	}
 
 	private void updateClassRelationship(Class classComp, Architecture offspring ) throws ClassNotFound {
 		

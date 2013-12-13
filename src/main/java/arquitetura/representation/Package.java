@@ -51,6 +51,11 @@ public class Package extends Element {
 		architecture.addPackage(this);
 	}
 	
+	public Package(Architecture architecture, String name, String id) {
+		this(architecture, name, null, UtilResources.createNamespace(architecture.getName(), name), id);
+		architecture.addPackage(this);
+	}
+	
 	/**
 	 * Retorna todas as {@link Interface}  do pacote.
 	 * 
@@ -89,11 +94,21 @@ public class Package extends Element {
 	 */
 	public Set<Interface> getImplementedInterfaces() {
 		Set<Interface> implementedInterfecesForClassIntoPackage = new HashSet<Interface>();
+		Set<Interface> implementedInterfacesForPackage  = new HashSet<Interface>(this.implementedInterfaces);
+		
 		for(Class klass : this.getAllClasses())
 			implementedInterfecesForClassIntoPackage.addAll(klass.getImplementedInterfaces());
 		
-		implementedInterfaces.addAll(implementedInterfecesForClassIntoPackage);
+		implementedInterfacesForPackage.addAll(implementedInterfecesForClassIntoPackage);
+		return Collections.unmodifiableSet(implementedInterfacesForPackage);
+	} 
+	
+	public Set<Interface> getOnlyInterfacesImplementedByPackage(){
 		return Collections.unmodifiableSet(implementedInterfaces);
+	}
+	
+	public Set<Interface> getOnlyInterfacesRequiredByPackage() {
+		return Collections.unmodifiableSet(requiredInterfaces);
 	}
 
 	public void addRequiredInterface(Interface interfacee) {
@@ -102,11 +117,12 @@ public class Package extends Element {
 
 	public Set<Interface> getRequiredInterfaces() {
 		Set<Interface> requiredInterfacesForPackage = new HashSet<Interface>();
+		Set<Interface> implementedInterfacesForPackage  = new HashSet<Interface>(this.requiredInterfaces);
 		for(Class klass : this.getAllClasses())
 			requiredInterfacesForPackage.addAll(klass.getRequiredInterfaces());
 		
-		requiredInterfaces.addAll(requiredInterfacesForPackage);
-		return Collections.unmodifiableSet(requiredInterfaces);
+		implementedInterfacesForPackage.addAll(requiredInterfacesForPackage);
+		return Collections.unmodifiableSet(implementedInterfacesForPackage);
 	}
 
 	/**
@@ -131,6 +147,18 @@ public class Package extends Element {
 	 */
 	public Interface createInterface(String name) {
 		Interface inter = new Interface(getArchitecture(), name);
+		this.interfaces.add(inter);
+		return inter;
+	}
+	
+	/**
+	 * Cria uma interface dentro do pacote. Com ID especifico.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public Interface createInterface(String name, String id) {
+		Interface inter = new Interface(getArchitecture(), name, id);
 		this.interfaces.add(inter);
 		return inter;
 	}
@@ -184,10 +212,10 @@ public class Package extends Element {
 	}
 
 	public void addExternalClass(Element klass) {
-		classes.add((Class) klass);
+		Class k = (Class) klass;
+		classes.add(k);
 	}
 	
-
 	public void addExternalInterface(Interface inter) {
 		interfaces.add(inter);
 	}
@@ -239,6 +267,5 @@ public class Package extends Element {
 	public boolean containsConcern(Concern concern){
 		return this.getAllConcerns().contains(concern);
 	}
-
 
 }

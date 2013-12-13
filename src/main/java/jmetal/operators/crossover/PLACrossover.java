@@ -32,14 +32,9 @@ import arquitetura.representation.Method;
 import arquitetura.representation.Package;
 import arquitetura.representation.Variability;
 import arquitetura.representation.VariationPoint;
-import arquitetura.representation.relationship.AbstractionRelationship;
-import arquitetura.representation.relationship.AssociationEnd;
-import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
-import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
-import arquitetura.representation.relationship.UsageRelationship;
 
 
 public class PLACrossover extends Crossover {
@@ -168,39 +163,6 @@ public class PLACrossover extends Crossover {
 	    	
 	    }
 
-	    
-    private void addAttributesRealizingFeatureToOffspring(Concern feature, Class classComp, Package comp, Architecture offspring, Architecture parent) throws ClassNotFound, PackageNotFound{
-    
-    	Class targetClass =  offspring.findClassByName(classComp.getName()).get(0);
-    	List<Attribute> allAttributes = new ArrayList<Attribute> (classComp.getAllAttributes());
-		if (!allAttributes.isEmpty()) {
-			Iterator<Attribute> iteratorAttributes = allAttributes.iterator();
-			while (iteratorAttributes.hasNext()){
-            	Attribute attribute= iteratorAttributes.next();
-            	if (attribute.containsConcern(feature) && attribute.getOwnConcerns().size()==1){
-            			if (targetClass==null){
-	            			Package newComp = offspring.findPackageByName(comp.getName());
-	            			if (newComp==null) {
-	            				try {
-									newComp=offspring.createPackage(comp.getName());
-									newComp.addConcern(feature.getName());
-								} catch (Exception e) {
-									e.printStackTrace();
-								}
-	            			}
-	            			try {
-								targetClass=newComp.createClass(classComp.getName(), false);
-								targetClass.addConcern(feature.getName());
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-	            		}
-	            		classComp.moveAttributeToClass(attribute, targetClass);
-            	}
-			}
-		}
-    }
-    
     private void addClassesRealizingFeatureToOffspring (Concern feature, Package comp, Architecture offspring, Architecture parent, String scope) throws ConcernNotFoundException, PackageNotFound, NotFoundException, ClassNotFound, CloneNotSupportedException {
     	Package newComp = null;
     	Interface newItf;
@@ -208,40 +170,34 @@ public class PLACrossover extends Crossover {
 		if (!allClasses.isEmpty()) {
 			Iterator<Class> iteratorClasses = allClasses.iterator();
 			while (iteratorClasses.hasNext()){
-            	Class classComp= iteratorClasses.next();
+            	Class classComp = iteratorClasses.next();
             	if (comp.getAllClasses().contains(classComp)){
             		if (classComp.containsConcern(feature) && classComp.getOwnConcerns().size() == 1){
-	            		newComp=offspring.findPackageByName(comp.getName());
-	        			if (newComp==null)
+	            		newComp = offspring.findPackageByName(comp.getName());
+	        			if (newComp == null)
 	    					try {
 	    						newComp = offspring.createPackage(comp.getName());
-	    						newComp.addConcern(feature.getName());
 	    					} catch (Exception e) {
 	    						e.printStackTrace();
 	    						newItf = offspring.createInterface("Interface"+ OPLA.contInt_++);
 	    						newItf.addConcern(feature.getName());
 	    						offspring.addImplementedInterface(newItf, newComp);
-	    						addDependenciesToInterface(newItf, offspring, parent, feature);
-	    						
-	    					}	        			
+	    					}	        		 	
 	        			
 	            		if (!searchForGeneralizations(classComp)){
-	            			addClassToOffspring(classComp,newComp, comp, offspring);
-//		            		comp.moveClassToComponent(classComp, newComp);		
-//		            			updateClassRelationships(classComp,newComp, comp, offspring,parent);				    				
-	            		}
-	            		else {
+	            			CrossoverOperations.addClassToOffspring(classComp, newComp, offspring);
+	            		} else {
 	            			if (this.isHierarchyInASameComponent(classComp,parent))
-	            				moveHierarchyToSameComponent(classComp, newComp, comp, offspring, parent, feature);
+	            				CrossoverOperations.moveHierarchyToSameComponent(classComp, newComp, comp, offspring, parent, feature);
 	            			//TODO resolver problema com a heranca entre diferentes componentes
 	            			//else moveHierarchyToComponent(classComp, newComp, comp, offspring, parent, feature);
 	            		}
 	            	}	
 		    		else{
-		    				if ((scope=="allLevels") && (!searchForGeneralizations(classComp))){
-		    					addAttributesRealizingFeatureToOffspring(feature, classComp, comp, offspring, parent);
-		    					addMethodsRealizingFeatureToOffspring(feature, classComp, comp, offspring, parent);
-		    				}
+	    				if ((scope=="allLevels") && (!searchForGeneralizations(classComp))){
+	    					CrossoverOperations.addAttributesRealizingFeatureToOffspring(feature, classComp, comp, offspring);
+	    					addMethodsRealizingFeatureToOffspring(feature, classComp, comp, offspring, parent);
+	    				}
 		    		}	            		
             	}
 			}
@@ -257,33 +213,18 @@ public class PLACrossover extends Crossover {
             	Class classComp= iteratorClasses.next();
             	if (comp.getAllClasses().contains(classComp)){
             		if (!searchForGeneralizations(classComp)){
-//		        		comp.moveClassToComponent(classComp, newComp);
-//		        		updateClassRelationships(classComp,newComp, comp, offspring,parent);	
-	        			addClassToOffspring(classComp, newComp, comp, offspring);
+            			CrossoverOperations.addClassToOffspring(classComp, newComp, offspring);
 	        		}
 	        		else {	
 	        			if (this.isHierarchyInASameComponent(classComp,parent))
-	        				moveHierarchyToSameComponent(classComp, newComp, comp, offspring, parent, feature);
+	        				CrossoverOperations.moveHierarchyToSameComponent(classComp, newComp, comp, offspring, parent, feature);
 	        			//else moveHierarchyToComponent(classComp, newComp, comp, offspring, parent, feature);
 	        			//TODO else qdo a hierarquia inclui diferentes componentes
 	        		}
             	}	            	        	
             }
-		}
+		} 
     }
-	    
-	 // ---------------------------------------------------
-	private void addDependenciesToInterface(Interface itf, Architecture offspring, Architecture parent, Concern feature) throws NotFoundException, PackageNotFound{
-		
-		Collection<DependencyRelationship> allDependencies =  parent.getAllDependencies();
-		for (DependencyRelationship dependency: allDependencies){
-			if (dependency.getInterfaceOfDependency().equals(itf) && dependency.getInterfaceOfDependency().containsConcern(feature)){
-				Package auxComp = offspring.findPackageByName(dependency.getPackageOfDependency().getName());
-				offspring.addRequiredInterface(itf, auxComp);
-			}
-			
-		}
-	} 
 
     private void addInterfacesRealizingFeatureToOffspring (Concern feature, Package comp, Architecture offspring, Architecture parent) throws PackageNotFound, NotFoundException, InterfaceNotFound {
     	Package newComp;
@@ -291,13 +232,12 @@ public class PLACrossover extends Crossover {
 		if (!allInterfaces.isEmpty()) {
 			Iterator<Interface> iteratorInterfaces = allInterfaces.iterator();
 			while (iteratorInterfaces.hasNext()){
-				Interface interfaceComp= iteratorInterfaces.next();
+				Interface interfaceComp = iteratorInterfaces.next();
             	if (interfaceComp.containsConcern(feature) && interfaceComp.getOwnConcerns().size() == 1){
         			newComp = offspring.findPackageByName(comp.getName());
         			if (newComp == null)
 						try {
 							newComp = offspring.createPackage(comp.getName());
-							newComp.addConcern(feature.getName());
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -305,40 +245,17 @@ public class PLACrossover extends Crossover {
         			offspring.addExternalInterface(interfaceComp);
 					offspring.addImplementedInterface(interfaceComp, newComp);
         			
-            	}
-            	else{
+            	}else{
             		addOperationsRealizingFeatureToOffspring(feature, interfaceComp, comp, offspring, parent);
             	}
 			}
 		}
     }
 	 
-    private void addInterfacesToOffspring (Concern feature, Package comp, Package newComp, Architecture offspring) throws PackageNotFound, NotFoundException {
-    	List<Interface> allInterfaces = new ArrayList<Interface> (comp.getImplementedInterfaces());
-    	
-		if (!allInterfaces.isEmpty()) {
-			Iterator<Interface> iteratorInterfaces = allInterfaces.iterator();
-			while (iteratorInterfaces.hasNext()){
-				Interface interfaceComp= iteratorInterfaces.next();
-            	Collection<DependencyRelationship> dependencies = interfaceComp.getDependencies();
-        		//removeInterfaceRelationships(interfaceComp, offspring);
-            	offspring.removeInterfaceFromRequiredOrImplemented(interfaceComp);
-        		offspring.addExternalInterface(interfaceComp);
-        		offspring.addImplementedInterface(interfaceComp, newComp);
-        		for (DependencyRelationship dependency : dependencies){
-        			Package dependent = offspring.findPackageByName(dependency.getPackageOfDependency().getName());
-        			if (dependent!=null){
-        				dependency.setClient(dependent);
-        				offspring.addRelationship(dependency);
-        			}
-        		}	        			
-            }
-          }
-    }
-    
     private void addParentArchitecturalElementsRealizingFeature(Concern feature, Architecture offspring, Architecture parent, String scope) throws ClassNotFound, CloneNotSupportedException, PackageNotFound, NotFoundException, ConcernNotFoundException{
     	Package newComp;
     	List<Package> allParentComponents = new ArrayList<Package> (parent.getAllPackages());
+    	
     	if(!allParentComponents.isEmpty()){
 			for (Package comp : allParentComponents){
 				newComp = null;
@@ -347,12 +264,11 @@ public class PLACrossover extends Crossover {
             		if (newComp == null){
             			try {		            			
 							newComp = offspring.createPackage(comp.getName());
-							newComp.addConcern(feature.getName());
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
             		}	            		
-            		addInterfacesToOffspring(feature, comp, newComp, offspring);
+            	//	CrossoverOperations.addInterfacesToOffspring(feature, comp, newComp, offspring);
             		addClassesToOffspring (feature, comp, newComp, offspring, parent);
             	}
             	else{
@@ -361,7 +277,7 @@ public class PLACrossover extends Crossover {
 					} catch (InterfaceNotFound e) {
 						e.printStackTrace();
 					}
-            		addClassesRealizingFeatureToOffspring (feature, comp, offspring, parent, scope);
+            		addClassesRealizingFeatureToOffspring(feature, comp, offspring, parent, scope);
             	}	            	
             }
 		}
@@ -463,40 +379,6 @@ public class PLACrossover extends Crossover {
   	  return null;
 	}
 
-
-	//--------------------------------------------------------------------------
-	//m�todo para identificar as subclasses da classe pai na hierarquia de heran�a
-	private Class getParent(Class cls){
-	  Class parent = null;
-	  for (Relationship relationship: cls.getRelationships()){
-	    	if (relationship instanceof GeneralizationRelationship){
-	    		GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-	    		if (generalization.getChild().equals(cls)){
-	    			parent = (Class) generalization.getParent();
-	    			return parent;
-	    		}
-	    	}
-	  }	    			
-	  return parent;
-	}	
-							
-						      
-    //m�todo para identificar se a classe � subclasse na hierarquia de heran�a
-    private boolean isChild(Class cls){
-    	boolean child=false;
-    	
-    	for (Relationship relationship: cls.getRelationships()){
-  	    	if (relationship instanceof GeneralizationRelationship){
-  	    		GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-  	    		if (generalization.getChild().equals(cls)) {
-  	    			child = true;
-  	    			return child;
-  	    		}
-  	    	}
-  	    }
-    	return child;
-    }
-				    
 	private void moveChildrenAndRelationshipsToComponent(Element parent, Package sourceComp, Package targetComp, Architecture offspring, Architecture parentArch) throws PackageNotFound, ClassNotFound, CloneNotSupportedException{
 	  	
 		Collection<Element> children = getChildren(parent);
@@ -517,7 +399,7 @@ public class PLACrossover extends Crossover {
 					}
 				}
 			}
-			addClassToOffspring(parent,targetComp, sourceComp, offspring);
+			CrossoverOperations.addClassToOffspring(parent,targetComp, offspring);
 			//sourceComp.copyClassToComponent(parent, targetComp);
 			//this.updateClassRelationships(parent, targetComp, sourceComp, offspring, parentArch);
 		} else{
@@ -537,202 +419,15 @@ public class PLACrossover extends Crossover {
 						}
 					}
 					
-					addClassToOffspring(parent,targetComp, sourceComp, offspring);
+					CrossoverOperations.addClassToOffspring(parent, targetComp, offspring);
 					//sourceComp.moveClassToComponent(parent, targetComp);
 					//this.updateClassRelationships(parent, targetComp, sourceComp, offspring, parentArch);	
 					break;
 				}
 			}
 		}
-		
-		
-	//						//move a super classe
-	//						if (sourceComp.getAllClasses().contains(parent)){
-	//							sourceComp.moveClassToComponent(parent, targetComp);
-	//							this.updateClassRelationships(parent, targetComp, sourceComp, offspring, parentArch);
-	//						} else{
-	//							for (Component auxComp: parentArch.getAllPackages()){
-	//								if (auxComp.getAllClasses().contains(parent)){
-	//									if (auxComp.getName()!=targetComp.getName()){
-	//										targetComp = offspring.findPackageByName(auxComp.getName());
-	//										if (targetComp==null){
-	//											try {
-	//												targetComp=offspring.createPackage(auxComp.getName());
-	//												for (Concern feature:auxComp.getOwnConcerns())
-	//													targetComp.addConcern(feature.getName());
-	//											} catch (Exception e) {
-	//												e.printStackTrace();
-	//											}
-	//										}
-	//									}
-	//									
-	//									auxComp.moveClassToComponent(parent, targetComp);
-	//									//nao teria que atualizar o target tamb�m???
-	//									this.updateClassRelationships(parent, targetComp, auxComp, offspring, parentArch);	
-	//									break;
-	//								}
-	//							}
-	//						}
-	//						
-		//move cada subclasse
-		//for (Class child: children){
-	//							if (!(sourceComp.getAllClasses().contains(child))){
-	//								if (parentArch.findClassByName(child.getName())==null)
-	//									System.out.println("parent nao tem child");
-	//								if (this.getClassComponent(child,parentArch)==null)
-	//									System.out.println("nao achou sourceComp");
-	//								//TODO o problema esta aqui, verificar no codigo inicial do m�todo qual o comportamento que esta sendo realizado
-	//								sourceComp = this.getClassComponent(child,parentArch);
-	//								
-	//								if (sourceComp.getName()!=targetComp.getName()){
-	//									targetComp = offspring.findPackageByName(sourceComp.getName());
-	//									if (targetComp==null){
-	//										try {
-	//											targetComp=offspring.createPackage(sourceComp.getName());
-	//											for (Concern feature:sourceComp.getOwnConcerns())
-	//												targetComp.addConcern(feature.getName());
-	//										} catch (Exception e) {
-	//											e.printStackTrace();
-	//										}
-	//									}
-	//								}
-	//							}								
-	//							moveChildrenAndRelationshipsToComponent(child, sourceComp, targetComp, offspring, parentArch);			
-	//						}					 
-	//						
 	}
 					
-				
-	    private void moveChildrenAndRelationshipsToSameComponent(Element parent, Package sourceComp, Package targetComp, Architecture offspring, Architecture parentArch) throws ClassNotFound, CloneNotSupportedException{
-    	  	
-			Collection<Element> children = getChildren(parent);
-			
-			
-//						for (Class child: children){
-//							moveChildrenAndRelationshipsToSameComponent(child, sourceComp, targetComp, offspring, parentArch);		
-//						}
-//						if (sourceComp.getAllClasses().contains(parent)){
-//							//sourceComp.moveClassToComponent(parent, targetComp);
-//							
-//							System.out.println("Moveu a classe (IF) " + parent.getName());
-//							if (sourceComp.getName()!=targetComp.getName()){
-//								targetComp = offspring.findPackageByName(sourceComp.getName());
-//								if (targetComp==null){
-//									try {
-//										targetComp=offspring.createPackage(sourceComp.getName());
-//										for (Concern feature:sourceComp.getOwnConcerns())
-//											targetComp.addConcern(feature.getName());
-//									} catch (Exception e) {
-//										e.printStackTrace();
-//									}
-//								}
-//							}
-//							addClassToOffspring(parent,targetComp, sourceComp, offspring,parentArch);
-//							//sourceComp.copyClassToComponent(parent, targetComp);
-//							//this.updateClassRelationships(parent, targetComp, sourceComp, offspring, parentArch);
-//						} else{
-//							for (Component auxComp: parentArch.getAllPackages()){
-//								if (auxComp.getAllClasses().contains(parent)){
-//									sourceComp = auxComp;
-//									if (sourceComp.getName()!=targetComp.getName()){
-//										targetComp = offspring.findPackageByName(sourceComp.getName());
-//										if (targetComp==null){
-//											try {
-//												targetComp=offspring.createPackage(sourceComp.getName());
-//												for (Concern feature:sourceComp.getOwnConcerns())
-//													targetComp.addConcern(feature.getName());
-//											} catch (Exception e) {
-//												e.printStackTrace();
-//											}
-//										}
-//									}
-//									
-//									addClassToOffspring(parent,targetComp, sourceComp, offspring,parentArch);
-//									//sourceComp.moveClassToComponent(parent, targetComp);
-//									System.out.println("Moveu a classe (ELSE) " + parent.getName());
-//									//this.updateClassRelationships(parent, targetComp, sourceComp, offspring, parentArch);	
-//									break;
-//								}
-//							}
-//						}
-			
-			
-			//move a super classe
-			if (sourceComp.getAllClasses().contains(parent)){
-				addClassToOffspring(parent,targetComp, sourceComp, offspring);
-				//sourceComp.moveClassToComponent(parent, targetComp);
-				//this.updateClassRelationships(parent, targetComp, sourceComp, offspring, parentArch);
-			} else{
-				System.out.println("Nao encontrou a superclasse");
-			}
-			
-			//move cada subclasse
-			for (Element child: children){
-				moveChildrenAndRelationshipsToSameComponent(child, sourceComp, targetComp, offspring, parentArch);			
-			}					 
-			
-		}
-			 
-					
-//    private void moveHierarchyToComponent(Class classComp, Package targetComp, Package sourceComp, Architecture offspring, Architecture parent, Concern concern) throws PackageNotFound, ClassNotFound, CloneNotSupportedException{
-//    	//sera que a classe retornada est� em outra architectura??? root??? ou ser� que foi movida antes e por isso nao est� aqui??? parece nao fazer sentido...
-//		Class root = classComp;
-//		//busca a raiz da hierarquia e atualiza os componentes source e target
-//		while (isChild(root)){
-//			root = getParent(root);		
-//			if (!(sourceComp.getAllClasses().contains(root))){
-//				Package auxComp = this.getClassComponent(root,parent);
-//				if (auxComp!= null)
-//					sourceComp=auxComp;
-//				//sourceComp = this.getClassComponent(root,parent);
-//				
-//				if (sourceComp.getName()!=targetComp.getName()){
-//					targetComp = offspring.findPackageByName(sourceComp.getName());
-//					if (targetComp==null){
-//						try {
-//							targetComp=offspring.createPackage(sourceComp.getName());
-//							targetComp.addConcern(concern.getName());
-//						} catch (Exception e) {
-//							e.printStackTrace();
-//						}
-//					}
-//				}
-//			}
-//		}
-//		if (sourceComp.getAllClasses().contains(root)){
-//			moveChildrenAndRelationshipsToComponent(root,sourceComp,targetComp,offspring,parent);
-//		} else{
-//			for (Package auxComp: parent.getAllPackages()){
-//				if (auxComp.getAllClasses().contains(root)){
-//					if (auxComp.getName()!=targetComp.getName()){
-//						targetComp = offspring.findPackageByName(auxComp.getName());
-//						if (targetComp==null){
-//							try {
-//								targetComp=offspring.createPackage(auxComp.getName());
-//								targetComp.addConcern(concern.getName());
-//							} catch (Exception e) {
-//								e.printStackTrace();
-//							}
-//						}
-//					}
-//					moveChildrenAndRelationshipsToComponent(root,auxComp,targetComp,offspring,parent);
-//					break;
-//				}
-//			}
-//		}
-//	}
-				    
-
-    private void moveHierarchyToSameComponent(Class classComp, Package targetComp, Package sourceComp, Architecture offspring, Architecture parent, Concern concern) throws ClassNotFound, CloneNotSupportedException{
-    	Class root = classComp;
-		while (isChild(root)){
-			root = getParent(root);		
-		}
-		if (sourceComp.getAllClasses().contains(root)){
-			moveChildrenAndRelationshipsToSameComponent(root, sourceComp, targetComp, offspring, parent);
-		} 				
-	}
-			  	
 	public <T> T randomObject(List<T> allObjects)  throws JMException   {
 	    int numObjects= allObjects.size(); 
 	    int key;
@@ -835,8 +530,8 @@ public class PLACrossover extends Crossover {
     private void removeHierarchyOfComponent(Class cls, Package comp, Architecture architecture){
 		Class parent = cls;
 		
-		while (isChild(parent)){
-			parent = getParent(parent);				
+		while (CrossoverOperations.isChild(parent)){
+			parent = CrossoverOperations.getParent(parent);				
 		}
 		removeChildrenOfComponent(parent, comp, architecture);			
 	}
@@ -941,92 +636,6 @@ public class PLACrossover extends Crossover {
     	return false;
     }
     
-	private void updateClassRelationships(Element classComp, Architecture offspring ) throws ClassNotFound {
-		Collection<Relationship> parentRelationships = classComp.getRelationships();
-		for (Relationship relationship : parentRelationships){
-			if (relationship instanceof DependencyRelationship){
-				DependencyRelationship dependency = (DependencyRelationship) relationship;
-				Element client = dependency.getClient();
-				Element supplier = dependency.getSupplier();
-				
-				Element clientOffSpring = offspring.findClassByName(client.getName()).get(0);
-				Element supplierOffSpring = offspring.findClassByName(supplier.getName()).get(0);
-				
-				offspring.forDependency().create(dependency.getName()).withClient(clientOffSpring).withSupplier(supplierOffSpring).build();
-			}
-			
-			if (relationship instanceof UsageRelationship){
-				UsageRelationship dependency = (UsageRelationship) relationship;
-				Element client = dependency.getClient();
-				Element supplier = dependency.getSupplier();
-				
-				Element clientOffSpring = offspring.findClassByName(client.getName()).get(0);
-				Element supplierOffSpring = offspring.findClassByName(supplier.getName()).get(0);
-				
-				offspring.forUsage().create(clientOffSpring, supplierOffSpring);
-			}
-			
-			if (relationship instanceof RealizationRelationship){
-				RealizationRelationship dependency = (RealizationRelationship) relationship;
-				Element client = dependency.getClient();
-				Element supplier = dependency.getSupplier();
-				
-				Element clientOffSpring = offspring.findClassByName(client.getName()).get(0);
-				Element supplierOffSpring = offspring.findClassByName(supplier.getName()).get(0);
-				
-				offspring.operationsOverRelationship().createNewRealization(clientOffSpring, supplierOffSpring);
-			}
-			
-			if (relationship instanceof AbstractionRelationship){
-				AbstractionRelationship dependency = (AbstractionRelationship) relationship;
-				Element client = dependency.getClient();
-				Element supplier = dependency.getSupplier();
-				
-				Element clientOffSpring = offspring.findClassByName(client.getName()).get(0);
-				Element supplierOffSpring = offspring.findClassByName(supplier.getName()).get(0);
-				
-				offspring.forAbstraction().create(clientOffSpring, supplierOffSpring);
-			}
-			
-			if(relationship instanceof AssociationRelationship){
-				AssociationRelationship association = (AssociationRelationship) relationship;
-				List<AssociationEnd> participants = association.getParticipants();
-				
-				AssociationEnd p1 = participants.get(0);
-				AssociationEnd p2 = participants.get(1);
-				
-				Class p1offspring = offspring.findClassByName(p1.getName()).get(0);
-				Class p2offspring =offspring.findClassByName(p2.getName()).get(0);
-				
-				AssociationEnd associationEndOffSpring = new AssociationEnd();
-				associationEndOffSpring.setAggregation(p1.getAggregation());
-				associationEndOffSpring.setNavigable(p1.isNavigable());
-				associationEndOffSpring.setMultiplicity(p1.getMultiplicity());
-				associationEndOffSpring.setCLSClass(p1offspring);
-				
-				AssociationEnd associationEndOffSpring2 = new AssociationEnd();
-				associationEndOffSpring2.setAggregation(p2.getAggregation());
-				associationEndOffSpring2.setNavigable(p2.isNavigable());
-				associationEndOffSpring2.setMultiplicity(p2.getMultiplicity());
-				associationEndOffSpring2.setCLSClass(p2offspring);
-				
-				offspring.forAssociation().create(associationEndOffSpring, associationEndOffSpring2);
-			}
-			
-			if(relationship instanceof GeneralizationRelationship){
-				GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-				
-				Element parent = generalization.getParent();
-				Element child = generalization.getChild();
-				
-				Element parentOffSpring = offspring.findClassByName(parent.getName()).get(0);
-				Element childOffSpring = offspring.findClassByName(child.getName()).get(0);
-				
-				offspring.forGeneralization().createGeneralization(parentOffSpring, childOffSpring);
-			}
-		}
-	}
-					
 	private void updateInterfaceDependencies(Interface interface_, Architecture offspring, Architecture parent) throws NotFoundException, PackageNotFound{
 		
 		Collection<Relationship> relationships = parent.getAllRelationships();
@@ -1055,20 +664,14 @@ public class PLACrossover extends Crossover {
 			}
 		}
 	}
-						
-	private void addClassToOffspring(Element class_, Package targetComp, Package sourceComp, Architecture offspring) throws ClassNotFound, CloneNotSupportedException{
-		Element classComp = ((Class) class_).deepClone();			
-		updateClassRelationships(classComp, offspring);
-		targetComp.addExternalClass(classComp);
-	}
 	
 	private boolean isHierarchyInASameComponent (Class class_, Architecture architecture) throws PackageNotFound{
 		boolean sameComponent = true;
 		Class parent = class_;
 		Package componentOfClass = architecture.findPackageOfClass(class_);
 		Package componentOfParent = componentOfClass;
-		while (isChild(parent)){
-			parent = getParent(parent);	
+		while (CrossoverOperations.isChild(parent)){
+			parent = CrossoverOperations.getParent(parent);	
 			componentOfParent = architecture.findPackageOfClass(parent);
 			if (!(componentOfClass.equals(componentOfParent))){
 				sameComponent = false;

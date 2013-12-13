@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 
 import arquitetura.exceptions.ClassNotFound;
 import arquitetura.exceptions.ConcernNotFoundException;
+import arquitetura.exceptions.ElementNotFound;
 import arquitetura.exceptions.InterfaceNotFound;
 import arquitetura.exceptions.PackageNotFound;
 import arquitetura.flyweights.VariabilityFlyweight;
@@ -209,7 +210,7 @@ public class Architecture extends Variable implements Cloneable {
 	public Element findElementByName(String name, String type) {
 		return findElement(name, type);
 	}
-
+	
 	private Element findElement(String name, String type) {
 		if(type.equalsIgnoreCase("class")){
 			for(Element element : getClasses()){
@@ -402,6 +403,36 @@ public class Architecture extends Variable implements Cloneable {
 			throw new ClassNotFound("Class " + className + " can not be found.\n");
 		return classesFound;
 	}
+	
+	public Element findElementByName(String elementName) throws ElementNotFound{
+		Element element = searchRecursivellyInPackage(this.packages, elementName);
+		if(element == null){
+			for(Class klass : this.classes)
+				if(klass.getName().equals(elementName))
+					return klass;
+			for(Interface inter : this.interfaces)
+				if(inter.getName().equals(elementName))
+					return inter;
+		}
+		if(element == null)
+			throw new ElementNotFound("No element called: " + elementName +" found");
+		return element;
+	}
+
+	private Element searchRecursivellyInPackage(Set<Package> packages, String elementName) {
+		for(Package p : packages){
+			for(Element element : p.getElements()){
+				if(element.getName().equals(elementName))
+					return element;
+				searchRecursivellyInPackage(p.getNestedPackages(), elementName);
+			}
+			if(p.getName().equals(elementName))
+				return p;
+			searchRecursivellyInPackage(p.getNestedPackages(), elementName);
+		}
+		
+		return null;
+	}
 
 	public Interface findInterfaceByName(String interfaceName) throws InterfaceNotFound {
 		for (Interface interfacee : getInterfaces())
@@ -429,6 +460,12 @@ public class Architecture extends Variable implements Cloneable {
 		this.packages.add(pkg);
 		return pkg;
 	}
+	
+	public Package createPackage(String packageName, String id) {
+		Package pkg = new Package(this, packageName, id);
+		this.packages.add(pkg);
+		return pkg;
+	}
 
 	public void removePackage(Package p) {
 		/**
@@ -447,6 +484,11 @@ public class Architecture extends Variable implements Cloneable {
 
 	public Interface createInterface(String interfaceName) {
 		Interface interfacee = new Interface(this, interfaceName);
+		return interfacee;
+	}
+	
+	public Interface createInterface(String interfaceName, String id) {
+		Interface interfacee = new Interface(this, interfaceName, id);
 		return interfacee;
 	}
 	

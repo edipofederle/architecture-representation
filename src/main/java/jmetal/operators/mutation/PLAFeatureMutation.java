@@ -408,7 +408,6 @@ public class PLAFeatureMutation extends Mutation {
             		OPLA.contComp_++;
             		Interface newInterface = newComp.createInterface("Interface"+ OPLA.contInt_++);
             		//Class newClass = newComp.createClass("Class"+ OPLA.contClass_++, false);
-            		
             		//arch.addImplementedInterface(newInterface, newClass);
             		
             		sourceInterface.moveOperationToInterface(op, newInterface); 
