@@ -221,6 +221,7 @@ public class Package extends Element {
 	}
 	
 	public boolean removeClass(Element klass) {
+		this.getArchitecture().removeRelatedRelationships(klass);
 		if(this.classes.remove(klass)){
 			LOGGER.info("Classe: "+klass.getName() + " removida do pacote: "+this.getName());
 			return true;
@@ -228,9 +229,11 @@ public class Package extends Element {
 		return false;
 	}
 	
-	public boolean removeInterface(Element klass) {
-		if(this.interfaces.remove(klass)){
-			LOGGER.info("Interface: "+klass.getName() + " removida do pacote: "+this.getName());
+	public boolean removeInterface(Element interfacee) {
+		this.getArchitecture().removeInterfaceFromRequiredOrImplemented((Interface) interfacee);
+		this.getArchitecture().removeRelatedRelationships(interfacee);
+		if(this.interfaces.remove(interfacee)){
+			LOGGER.info("Interface: "+interfacee.getName() + " removida do pacote: "+this.getName());
 			return true;
 		}
 		return false;

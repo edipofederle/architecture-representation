@@ -654,7 +654,6 @@ public class PLACrossover extends Crossover {
 		}
 	}
 				
-				
 	private void updateVariabilitiesOffspring(Architecture offspring){ 
 		for (Variability variability: offspring.getAllVariabilities()){	    		
 			VariationPoint variationPoint = variability.getVariationPoint();

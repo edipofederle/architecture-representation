@@ -150,13 +150,11 @@ public class CrossoverUtils {
 		}
 		if (comp.getAllClasses().contains(parent)){
 			architecture.removeRelatedRelationships(parent);
-			//removeClassRelationships(parent, architecture);
 			comp.removeClass(parent);							
 		} else{				
 			for (Package auxComp: architecture.getAllPackages()){
 				if (auxComp.getAllClasses().contains(parent)){
 					architecture.removeRelatedRelationships(parent);
-					//removeClassRelationships(parent,architecture);
 					auxComp.removeClass(parent);
 					break;
 				}
@@ -165,18 +163,18 @@ public class CrossoverUtils {
 	}
 	
     private Set<Element> getChildren(Element cls){
-    	  GeneralizationRelationship g = getGeneralizationForClass(cls);
-    	  return g.getAllChildrenForGeneralClass();
-      }
+    	GeneralizationRelationship g = getGeneralizationForClass(cls);
+    	return g.getAllChildrenForGeneralClass();
+    }
   	
   	private GeneralizationRelationship getGeneralizationForClass(Element cls) {
-    	  for (Relationship relationship: cls.getRelationships()){
-      	if (relationship instanceof GeneralizationRelationship){
-      		GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-      		if (generalization.getParent().equals(cls))
-      			return (GeneralizationRelationship) relationship;
-      	}
-    	  }
+  		for (Relationship relationship: cls.getRelationships()){
+    		if (relationship instanceof GeneralizationRelationship){
+    			GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
+    			if (generalization.getParent().equals(cls))
+    				return (GeneralizationRelationship) relationship;
+    		}
+    	 }
     	  return null;
   	}
   	
@@ -213,23 +211,20 @@ public class CrossoverUtils {
 		if (!allClasses.isEmpty()) {
 			Iterator<Class> iteratorClasses = allClasses.iterator();
 			while (iteratorClasses.hasNext()){
-            	Class classComp= iteratorClasses.next();
-            	if (comp.getAllClasses().contains(classComp)){
-            		if ((classComp.containsConcern(feature)) && (classComp.getOwnConcerns().size() == 1)){
-    					//se não estiver numa hierarquia elimina os relacionamentos e a classe
-    	            		if (!searchForGeneralizations(classComp)){
-    	            		//	this.removeClassRelationships(classComp,offspring);
-    	            			comp.removeClass(classComp);				    	            			
-    	            		} else{ // tem que eliminar a hierarquia toda
-    	            			removeHierarchyOfComponent(classComp,comp,offspring);
-    	            		}       		
-    					}else{
-    					if (scope=="allLevels"){
-    						removeAttributesOfClassRealizingFeature(classComp, feature);
-    						removeMethodsOfClassRealizingFeature(classComp, feature);
-						}
-    				}
-            	}	            						
+            	Class classComp = iteratorClasses.next();
+        		if ((classComp.containsConcern(feature)) && (classComp.getOwnConcerns().size() == 1)){
+					//se não estiver numa hierarquia elimina os relacionamentos e a classe
+	            		if (!searchForGeneralizations(classComp)){
+	            			comp.removeClass(classComp);				    	            			
+	            		} else{ // tem que eliminar a hierarquia toda
+	            			removeHierarchyOfComponent(classComp,comp,offspring);
+	            		}       		
+					}else{
+					if (scope=="allLevels"){
+						removeAttributesOfClassRealizingFeature(classComp, feature);
+						removeMethodsOfClassRealizingFeature(classComp, feature);
+					}
+				}
 			}
 		}
     }
@@ -261,6 +256,5 @@ public class CrossoverUtils {
 			}	
 		}
     }
+    
 }
-
-
