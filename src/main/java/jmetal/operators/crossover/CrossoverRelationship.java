@@ -19,7 +19,7 @@ import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 import arquitetura.representation.relationship.UsageRelationship;
 
-public class CrossoverCreateRelationship {
+public class CrossoverRelationship {
 	
 	private static Set<Relationship> relationships = new HashSet<Relationship>();
 	
