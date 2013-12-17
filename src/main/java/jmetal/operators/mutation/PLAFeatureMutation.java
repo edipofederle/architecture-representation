@@ -15,6 +15,7 @@ import jmetal.util.Configuration;
 import jmetal.util.JMException;
 import jmetal.util.PseudoRandom;
 import arquitetura.exceptions.ConcernNotFoundException;
+import arquitetura.helpers.UtilResources;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
@@ -28,6 +29,7 @@ import arquitetura.representation.Variant;
 import arquitetura.representation.VariationPoint;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
+import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 
 public class PLAFeatureMutation extends Mutation {
@@ -518,7 +520,7 @@ public class PLAFeatureMutation extends Mutation {
 				if (allInterfaces.size() >= 1) {
 					for (Interface interfaceComp : allInterfaces) {
 						if (interfaceComp.containsConcern(concern) && interfaceComp.getOwnConcerns().size() == 1) {
-							moveInterfaceToComponent(interfaceComp, targetComponent, comp, arch); // EDIPO TESTADO
+							moveInterfaceToComponent(interfaceComp, targetComponent, comp, arch, concern); // EDIPO TESTADO
 						} else {
 							List<Method> operationsInterfaceComp = new ArrayList<Method>(interfaceComp.getOperations());
 							if (operationsInterfaceComp.size() >= 1) {
@@ -607,7 +609,7 @@ public class PLAFeatureMutation extends Mutation {
 		return targetClass;
 	}
 	
-	private void moveInterfaceToComponent(Interface interfaceComp, Package targetComp, Package sourceComp, Architecture architecture){
+	private void moveInterfaceToComponent(Interface interfaceComp, Package targetComp, Package sourceComp, Architecture architecture, Concern concernSelected){
 		if(!sourceComp.moveInterfaceToPackage(interfaceComp, targetComp))
 			targetComp.addExternalInterface(interfaceComp);
 		
@@ -625,7 +627,7 @@ public class PLAFeatureMutation extends Mutation {
 							}
 						}
 					}else if(targetComp.getAllClasses().size() > 1){
-						List<Class> targetClasses = allClassesWithConcerns(interfaceComp.getOwnConcerns(), targetComp.getAllClasses());
+						List<Class> targetClasses = allClassesWithConcerns(concernSelected, targetComp.getAllClasses());
 						Class randonKlass = randonClass(targetClasses);
 						architecture.removeImplementedInterface(interfaceComp, sourceComp);
 						targetComp.addExternalInterface(interfaceComp);
@@ -633,7 +635,7 @@ public class PLAFeatureMutation extends Mutation {
 						return ;
 					}else{
 						//Busca na arquitetura como um todo
-						List<Class> targetClasses = allClassesWithConcerns(interfaceComp.getOwnConcerns(), architecture.getAllClasses());
+						List<Class> targetClasses = allClassesWithConcerns(concernSelected, architecture.getAllClasses());
 						Class randonKlass = randonClass(targetClasses);
 						architecture.removeImplementedInterface(interfaceComp, sourceComp);
 						targetComp.addExternalInterface(interfaceComp);
@@ -657,14 +659,12 @@ public class PLAFeatureMutation extends Mutation {
 	 * @param allClasses
 	 * @return
 	 */
-	private List<Class> allClassesWithConcerns(Set<Concern> ownConcerns, Set<Class> allClasses) {
+	private List<Class> allClassesWithConcerns(Concern c, Set<Class> allClasses) {
 		List<Class> klasses = new ArrayList<Class>();
-		for(Concern concern : ownConcerns){
-			for(Class klass : allClasses){
-				for(Concern concernKlass : klass.getOwnConcerns()){
-					if(concernKlass.getName().equalsIgnoreCase(concern.getName())){
-						klasses.add(klass);
-					}
+		for(Class klass : allClasses){
+			for(Concern concernKlass : klass.getOwnConcerns()){
+				if(concernKlass.getName().equalsIgnoreCase(c.getName())){
+					klasses.add(klass);
 				}
 			}
 		}
@@ -672,18 +672,17 @@ public class PLAFeatureMutation extends Mutation {
 	}
 
 	private void moveOperationToComponent(Method operation, Interface sourceInterface, Package targetComp, Package sourceComp, Architecture architecture, Concern concern){
-
 		Interface targetInterface = null;
 		targetInterface = searchForInterfaceWithConcern(concern, targetComp);
 		
 		if(targetInterface == null){
-			targetInterface= architecture.createInterface("Interface"+ OPLA.contInt_++);
+			targetInterface = architecture.createInterface("Interface"+ OPLA.contInt_++);
 			targetComp.addExternalInterface(targetInterface);
-			addConcernToNewInterface(concern, targetInterface);
+			sourceInterface.moveOperationToInterface(operation, targetInterface);
+			addConcernToNewInterface(concern, targetInterface, sourceInterface);
+		}else{
+			sourceInterface.moveOperationToInterface(operation, targetInterface);
 		}
-		
-		sourceInterface.moveOperationToInterface(operation, targetInterface);
-
 		
 		for(Element implementor : sourceInterface.getImplementors()){
 			if(implementor instanceof Package){
@@ -692,13 +691,20 @@ public class PLAFeatureMutation extends Mutation {
 					for(Concern c : klass.getOwnConcerns()){
 						if(targetInterface.containsConcern(c)){
 							architecture.removeImplementedInterface(sourceInterface, sourceComp);
-							targetComp.addExternalInterface(targetInterface);
-							architecture.addImplementedInterface(targetInterface, klass);
+							
+							String packageNameInterface = UtilResources.extractPackageName(targetInterface.getNamespace().trim());
+							if(packageNameInterface.equalsIgnoreCase("model"))
+								architecture.addExternalInterface(targetInterface);
+							else
+								targetComp.addExternalInterface(targetInterface);
+							if(!packageTargetHasRealization(targetComp, targetInterface)){
+								architecture.addImplementedInterface(targetInterface, klass);
+							}
 							return ;
 						}
 					}
 				}else if(targetComp.getAllClasses().size() > 1){
-					List<Class> targetClasses = allClassesWithConcerns(sourceInterface.getOwnConcerns(), targetComp.getAllClasses());
+					List<Class> targetClasses = allClassesWithConcerns(concern, targetComp.getAllClasses());
 					Class randonKlass = randonClass(targetClasses);
 					architecture.removeImplementedInterface(sourceInterface, sourceComp);
 					targetComp.addExternalInterface(targetInterface);
@@ -715,52 +721,41 @@ public class PLAFeatureMutation extends Mutation {
 				architecture.addImplementedInterface(targetInterface, (Class)implementor);
 			}
 		}
-		
-		
-		
-		//		Interface targetInterface=null;
-//		for (Interface itf: targetComp.getImplementedInterfaces()){
-//			if (itf.containsConcern(concern)){
-//				targetInterface=itf;
-//			}
-//		}
-//		
-//		for (Interface itf: targetComp.getAllInterfaces()){
-//			if (itf.containsConcern(concern)){
-//				targetInterface=itf;
-//			}
-//		}
-//		
-//		if (targetInterface==null) {
-//			targetInterface= architecture.createInterface("Interface"+ OPLA.contInt_++);
-//			targetComp.addExternalInterface(targetInterface);
-//			try {
-//				targetInterface.addConcern(concern.getName());
-//			} catch (ConcernNotFoundException e) {
-//				e.printStackTrace();
-//			}
-//			sourceInterface.moveOperationToInterface(operation, targetInterface);
-//			for(Element implementor : sourceInterface.getImplementors()){
-//				if(implementor instanceof Class){
-//					architecture.addImplementedInterface(targetInterface, (Class)implementor);
-//					return;
-//				}
-//				if(implementor instanceof Package) {
-//					architecture.addImplementedInterface(targetInterface, (Package)implementor);
-//					return;
-//				}
-//			}
-//		
-//		}
-//		sourceInterface.moveOperationToInterface(operation, targetInterface);
+	}
+
+	private boolean packageTargetHasRealization(Package targetComp, Interface targetInterface) {
+		for(Relationship r : targetComp.getRelationships())
+			if(r instanceof RealizationRelationship){
+				RealizationRelationship realization = (RealizationRelationship)r;
+				if(realization.getSupplier().equals(targetInterface))
+					return true;
+			}
+				
+		return false;
 	}
 
 	//Édipo
-	private void addConcernToNewInterface(Concern concern, Interface targetInterface) {
+	private void addConcernToNewInterface(Concern concern, Interface targetInterface, Interface sourceInterface) {
+		Set<Concern> interfaceConcerns = sourceInterface.getOwnConcerns();
 		try {
-			targetInterface.addConcern(concern.getName());
+			for(Concern c : interfaceConcerns)
+				targetInterface.addConcern(c.getName());
 		} catch (ConcernNotFoundException e) {
 			e.printStackTrace();
+		}
+		
+		for(Method operation : sourceInterface.getOperations()){
+			Set<Concern> operationConcerns = operation.getOwnConcerns();
+			for(Method o : targetInterface.getOperations()){
+				for(Concern c : operationConcerns){
+					try {
+						o.addConcern(c.getName());
+					} catch (ConcernNotFoundException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+				
 		}
 	}
 	

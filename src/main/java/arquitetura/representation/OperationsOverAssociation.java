@@ -98,7 +98,7 @@ public class OperationsOverAssociation {
 	 * @param klass
 	 * @param associationClass
 	 */
-	public void createAssociationClass(Set<Attribute> listAttrs, Set<Method> listMethods, Class owner, Class klass, String associationClassName) {
+	public void createAssociationClass(Set<Attribute> listAttrs, Set<Method> listMethods, Element owner, Element klass, String associationClassName) {
 		String namespace = UtilResources.createNamespace(architecture.getName(), "AssociationClass");
 		Class asClass = new Class(this.architecture, associationClassName, null, false, namespace, UtilResources.getRandonUUID());
 		

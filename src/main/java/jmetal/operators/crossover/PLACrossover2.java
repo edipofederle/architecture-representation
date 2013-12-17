@@ -268,7 +268,7 @@ public class PLACrossover2 extends Crossover {
 						try {
 							newComp = offspring.findPackageByName(comp.getName());
 						} catch (PackageNotFound e1) {
-							newComp=offspring.createPackage(comp.getName());
+							newComp = offspring.createPackage(comp.getName());
 						}
             			try {
 							targetClass=newComp.createClass(classComp.getName(), false);

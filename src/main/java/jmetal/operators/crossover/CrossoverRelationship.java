@@ -4,10 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import arquitetura.exceptions.ClassNotFound;
 import arquitetura.exceptions.ElementNotFound;
 import arquitetura.representation.Architecture;
-import arquitetura.representation.Class;
 import arquitetura.representation.Element;
 import arquitetura.representation.relationship.AbstractionRelationship;
 import arquitetura.representation.relationship.AssociationClassRelationship;
@@ -33,6 +31,7 @@ public class CrossoverRelationship {
 					offspring.operationsOverRelationship().createNewRealization(client, supplier);
 				}catch(ElementNotFound e){}
 			}
+			
 			if(r instanceof UsageRelationship){
 				UsageRelationship usage = (UsageRelationship)r;
 				try{
@@ -41,6 +40,7 @@ public class CrossoverRelationship {
 					offspring.forUsage().create(client, supplier);
 				}catch(ElementNotFound e){}
 			}
+			
 			if(r instanceof AbstractionRelationship){
 				AbstractionRelationship abstraction = (AbstractionRelationship)r;
 				try{
@@ -49,6 +49,7 @@ public class CrossoverRelationship {
 					offspring.forAbstraction().create(client, supplier);
 				}catch(ElementNotFound e){}
 			}
+			
 			if(r instanceof DependencyRelationship){
 				DependencyRelationship dependency = (DependencyRelationship)r;
 				Element client = null;
@@ -58,8 +59,8 @@ public class CrossoverRelationship {
 					supplier = offspring.findElementByName(dependency.getSupplier().getName());
 					offspring.forDependency().create(dependency.getName()).withClient(client).withSupplier(supplier).build();
 				}catch(ElementNotFound e){}
-				
 			}
+			
 			if(r instanceof GeneralizationRelationship){
 				GeneralizationRelationship generalization = (GeneralizationRelationship)r;
 				Element parent = null;
@@ -70,6 +71,7 @@ public class CrossoverRelationship {
 				    offspring.forGeneralization().createGeneralization(parent, child);
 				}catch(ElementNotFound e){}
 			}
+			
 			if(r instanceof AssociationRelationship){
 				AssociationRelationship association = (AssociationRelationship)r;
 				
@@ -101,10 +103,10 @@ public class CrossoverRelationship {
 			if (r instanceof AssociationClassRelationship){
 				AssociationClassRelationship asc = (AssociationClassRelationship)r;
 				try{
-					Class offspringMember1 = offspring.findClassByName(asc.getMemebersEnd().get(0).getType().getName()).get(0);
-					Class offspringMember2 = offspring.findClassByName(asc.getMemebersEnd().get(1).getType().getName()).get(0);
+					Element offspringMember1 = offspring.findElementByName(asc.getMemebersEnd().get(0).getType().getName());
+					Element offspringMember2 = offspring.findElementByName(asc.getMemebersEnd().get(1).getType().getName());
 					offspring.forAssociation().createAssociationClass(asc.getAllAttributes(), asc.getAllMethods(), offspringMember1, offspringMember2, asc.getAssociationClass().getName());
-				}catch(ClassNotFound e){}
+				}catch(ElementNotFound e){}
 			}
 		}
 	}

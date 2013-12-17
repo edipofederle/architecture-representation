@@ -46,7 +46,7 @@ public class NSGAII_OPLA_FeatMut {
 
 		String plas[] = new String[] {
 		// "/Users/elf/mestrado/sourcesMestrado/arquitetura/src/test/java/resources/agmfinal/agm.uml",
-		"/Users/elf/Documents/workspaceModeling/exportacao/featureMutation6.uml" };
+		"/Users/elf/mestrado/sourcesMestrado/arquitetura/src/test/java/resources/fm_t1.uml" };
 
 		String xmiFilePath;
 

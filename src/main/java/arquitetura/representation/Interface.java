@@ -123,6 +123,20 @@ public class Interface extends Element {
 					
 		return Collections.unmodifiableSet(implementors);
 	}
+	
+	public Set<Element> getRealImplementors() {
+		Set<Element> implementors = new HashSet<Element>();
+		
+		for(Package p : getArchitecture().getAllPackages()){
+			for(RealizationRelationship r : getArchitecture().getAllRealizations()){
+				if(r.getClient().equals(p)){
+					implementors.add(p);
+				}
+			}
+		}
+					
+		return Collections.unmodifiableSet(implementors);
+	}
 
 	public Set<Element> getDependents() {
 		Set<Element> dependents = new HashSet<Element>();
