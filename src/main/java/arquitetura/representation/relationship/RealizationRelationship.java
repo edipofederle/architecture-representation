@@ -75,9 +75,17 @@ public class RealizationRelationship extends Relationship {
 
 	@Override
 	public boolean equals(Object obj) {
-		if( ((RealizationRelationship)obj).getClient().equals(this.getClient()) && ((RealizationRelationship)obj).getSupplier().equals(this.getSupplier()))
-			return true;
-		return false;
-	}
+       if (obj == null) {
+           return false;
+       }
+       if (getClass() != obj.getClass()) {
+           return false;
+       }
+       final RealizationRelationship other = (RealizationRelationship) obj;
+       if (this.supplier != other.supplier && (this.supplier == null || !this.supplier.equals(other.supplier))) {
+           return false;
+       }
+       return this.client == other.client || (this.client != null && this.client.equals(other.client));
+   }
 	
 }

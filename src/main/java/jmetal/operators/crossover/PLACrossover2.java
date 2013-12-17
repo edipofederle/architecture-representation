@@ -528,7 +528,6 @@ public class PLACrossover2 extends Crossover {
 			
 		}
 		for (Element child: children){
-			
 			String packageName = UtilResources.extractPackageName(child.getNamespace());
 			Package targetPackage = null;
 			try {

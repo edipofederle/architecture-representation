@@ -100,25 +100,17 @@ public class GeneralizationRelationship extends Relationship {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (getClass() != obj.getClass())
-			return false;
-		GeneralizationRelationship other = (GeneralizationRelationship) obj;
-		if (child == null) {
-			if (other.child != null)
-				return false;
-		} else if (!child.equals(other.child))
-			return false;
-		if (parent == null) {
-			if (other.parent != null)
-				return false;
-		} else if (!parent.equals(other.parent))
-			return false;
-		return true;
-	}
-	
-	
-	
+       if (obj == null) {
+           return false;
+       }
+       if (getClass() != obj.getClass()) {
+           return false;
+       }
+       final GeneralizationRelationship other = (GeneralizationRelationship) obj;
+       if (this.parent != other.parent && (this.parent == null || !this.parent.equals(other.parent))) {
+           return false;
+       }
+       return this.child == other.child || (this.child != null && this.child.equals(other.child));
+   }
 
 }

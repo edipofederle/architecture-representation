@@ -186,10 +186,10 @@ public class AssociationsTest extends TestHelper {
 		Element klass1 = b.get(1).getCLSClass();
 		Element kllass2a = b.get(0).getCLSClass();
 
-		assertEquals("Class1", klass1.getName());
-		assertEquals("Class2", kllass2a.getName());
-		assertEquals("Class3", klass3.getName());
-		assertEquals("Class2", klass2.getName());
+		assertEquals("Class2", klass1.getName());
+		assertEquals("Class3", kllass2a.getName());
+		assertEquals("Class2", klass3.getName());
+		assertEquals("Class1", klass2.getName());
 		assertTrue(a.get(1).isNavigable());
 		assertFalse(a.get(0).isNavigable());
 	}

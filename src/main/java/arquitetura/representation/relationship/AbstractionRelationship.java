@@ -50,9 +50,17 @@ public class AbstractionRelationship extends Relationship {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if( ((AbstractionRelationship)obj).getClient().equals(this.getClient()) && ((AbstractionRelationship)obj).getSupplier().equals(this.getSupplier()))
-			return true;
-		return false;
-	}
+       if (obj == null) {
+           return false;
+       }
+       if (getClass() != obj.getClass()) {
+           return false;
+       }
+       final AbstractionRelationship other = (AbstractionRelationship) obj;
+       if (this.supplier != other.supplier && (this.supplier == null || !this.supplier.equals(other.supplier))) {
+           return false;
+       }
+       return this.client == other.client || (this.client != null && this.client.equals(other.client));
+   }
 
 }
