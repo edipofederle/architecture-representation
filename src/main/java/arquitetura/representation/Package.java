@@ -204,9 +204,8 @@ public class Package extends Element {
 	
 	public boolean moveInterfaceToPackage(Interface inter, Package packageToMove) {
 		if (!interfaces.contains(inter)) return false;
-		
-		removeInterface(inter);
 		packageToMove.addExternalInterface(inter);
+		this.interfaces.remove(inter);
 		return true;
 	}
 
