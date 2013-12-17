@@ -21,10 +21,6 @@
 
 package jmetal.metaheuristics.nsgaII;
 
-import arquitetura.exceptions.ClassNotFound;
-import arquitetura.exceptions.ConcernNotFoundException;
-import arquitetura.exceptions.NotFoundException;
-import arquitetura.exceptions.PackageNotFound;
 import jmetal.core.Algorithm;
 import jmetal.core.Operator;
 import jmetal.core.Problem;
@@ -35,6 +31,10 @@ import jmetal.util.Distance;
 import jmetal.util.JMException;
 import jmetal.util.Ranking;
 import jmetal.util.comparators.CrowdingComparator;
+import arquitetura.exceptions.ClassNotFound;
+import arquitetura.exceptions.ConcernNotFoundException;
+import arquitetura.exceptions.NotFoundException;
+import arquitetura.exceptions.PackageNotFound;
 
 /**
  * This class implements the NSGA-II algorithm.
@@ -49,8 +49,7 @@ public class NSGAII extends Algorithm {
 	/**
 	 * Constructor
 	 * 
-	 * @param problem
-	 *            Problem to solve
+	 * @param problem   Problem to solve
 	 */
 	public NSGAII(Problem problem) {
 		super(problem);
@@ -107,8 +106,10 @@ public class NSGAII extends Algorithm {
 		for (int i = 0; i < populationSize; i++) {
 			newSolution = new Solution(problem_);
 			// criar a diversidade na populacao inicial
+			
 			try {
-				mutationOperator.execute(newSolution);
+				if(i > 0)
+					mutationOperator.execute(newSolution);
 			} catch (CloneNotSupportedException e) {
 				e.printStackTrace();
 			} catch (ClassNotFound e) {

@@ -2,7 +2,6 @@ package arquitetura.representation;
 
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.GeneralizationRelationship;
-import arquitetura.representation.relationship.Relationship;
 
 public class OperationsOverGeneralization {
 	
@@ -64,15 +63,6 @@ public class OperationsOverGeneralization {
 		architecture.moveElementToPackage(generalization.getParent(), targetPackage);
 		for(Element element : generalization.getAllChildrenForGeneralClass())
 			architecture.moveElementToPackage(element, targetPackage);
-	}
-
-	private GeneralizationRelationship findGeneralizationForParent(Element parent) {
-		for(Relationship r : this.architecture.getAllRelationships()){
-			if(r instanceof GeneralizationRelationship)
-				if(((GeneralizationRelationship)r).getParent().equals(parent))
-					return (GeneralizationRelationship) r;
-		}
-		return null;
 	}
 
 }

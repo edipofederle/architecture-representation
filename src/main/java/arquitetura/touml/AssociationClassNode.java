@@ -8,7 +8,6 @@ import arquitetura.exceptions.NullReferenceFoundException;
 import arquitetura.helpers.UtilResources;
 import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
-import arquitetura.representation.Class;
 
 public class AssociationClassNode extends XmiHelper {
 

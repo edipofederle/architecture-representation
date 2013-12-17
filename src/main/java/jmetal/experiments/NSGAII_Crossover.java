@@ -19,6 +19,7 @@ import jmetal.problems.OPLA;
 import jmetal.util.JMException;
 
 
+
 public class NSGAII_Crossover {
  
  public static int populationSize_; 
@@ -31,39 +32,60 @@ public class NSGAII_Crossover {
 
  	 	 	 	
 
-         int runsNumber = 1; //30;
-         populationSize_ = 2; //100; 
-         maxEvaluations_ = 3; //300 gera��es
+         int runsNumber = 30; //30;
+         populationSize_ = 100; //100; 
+         maxEvaluations_ = 30000; //300 gerações
+         int totalDiscardedSolutions = 0;
          
-         crossoverProbability_ = 1;  
-         mutationProbability_ = 0; 
+         crossoverProbability_ = 0.1;  //0.1
+         mutationProbability_ = 0.9; 
          String context = "OPLA";
+       //Thelma - Dez2013 linha adicionada para identificar o algoritmo no nome do arquivo do hypervolume
+         String moea = "NSGAII-MC";
 
          //File directory = new File("resultado/nsgaii/" + context);
          File directory = new File("experiment/OPLA/NSGA-II/FeatureCrossover" + "/");
          if (!directory.exists()) {
              if (!directory.mkdir()) {
-             	System.out.println("N�o foi poss�vel criar o diret�rio do resultado");
+             	System.out.println("Não foi possível criar o diretório do resultado");
              	System.exit(0);
              }
          }
 
 
-         String plas[] = new String[]{"/Users/elf/Documents/workspaceModeling/exportacao/featureMutation6.uml"};
+         String plas[] = new String[]{
+        		"resources/AGM-1.xmi", 
+          		"resources/AGM-2.xmi", 
+          		"resources/AGM-3.xmi", 
+          		"resources/AGM-4.xmi",
+          		"resources/MoM-1.xmi", 
+          		"resources/MoM-2.xmi",
+          		"resources/MoM-3.xmi",
+          		"resources/MoM-4.xmi", 
+          		"resources/LPS-BET-Final.xmi",            		
+         };
          String xmiFilePath;
                  
-		 for (String pla : plas) {
-			xmiFilePath = pla;
-		 	 OPLA problem = null;
-		 	 
+         for (String pla : plas) {
+
+
+               	xmiFilePath = pla;
+//             	System.out.println("Enter the path of the xmi file: ");
+//             	String xmiFilePath = buffer.readLine();
+//             	String xmiFilePath = "C:/MM-Final.xmi";
+
+         
+     	OPLA problem = null;
 			try {
 				problem = new OPLA(xmiFilePath);
 			} catch (Exception e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
          Algorithm algorithm; 
          SolutionSet todasRuns = new SolutionSet();
+         SolutionSet allSolutions = new SolutionSet();
          
          Crossover crossover;
          Mutation mutation;
@@ -111,14 +133,15 @@ public class NSGAII_Crossover {
          long heapSize = Runtime.getRuntime().totalMemory();
          heapSize = (heapSize / 1024) / 1024;
          System.out.println("Heap Size: " + heapSize + "Mb\n");
-		 int beginIndex = pla.lastIndexOf("/") + 1;
-		 int endIndex = pla.length() - 4;
-		 String PLAName = pla.substring(beginIndex, endIndex);
+ 		int beginIndex = pla.lastIndexOf("/") + 1;
+		int endIndex = pla.length() - 4;
+		String PLAName = pla.substring(beginIndex, endIndex);
          
-         long time[] = new long[runsNumber];
+long time[] = new long[runsNumber];
          
          for (int runs = 0; runs < runsNumber; runs++) {
-         	
+        	//Thelma - Dez2013 adicao da linha abaixo
+        	 OPLA.contDiscardedSolutions_=0;
          	// Execute the Algorithm
              
          	 long initTime = System.currentTimeMillis();
@@ -138,8 +161,17 @@ public class NSGAII_Crossover {
              
              //armazena as solucoes de todas runs
              todasRuns = todasRuns.union(resultFront);
-
+             
+        	 
+           //Thelma - Dez2013
+             allSolutions = allSolutions.union(resultFront);
+             resultFront.printMetricsToFile(directory + "/Metrics_" + PLAName + "_" + runs + ".txt");
+             System.out.println("Number of Discarded Solutions: " + OPLA.contDiscardedSolutions_);
+             totalDiscardedSolutions = totalDiscardedSolutions + OPLA.contDiscardedSolutions_;
          }
+       //Thelma - Dez2013 - duas proximas linhas
+         String NameOfPLA = pla.substring(10,15);
+         allSolutions.printObjectivesToFile(directory + "/Hypervolume/" + NameOfPLA + "/"  + NameOfPLA + "_HV_" + moea + ".txt");
 
          todasRuns.printTimeToFile(directory + "/TIME_" + PLAName, runsNumber, time, pla);
          todasRuns = problem.removeDominadas(todasRuns);
@@ -151,7 +183,13 @@ public class NSGAII_Crossover {
          todasRuns.printInformationToFile(directory + "/INFO_All_" + PLAName + ".txt");
          todasRuns.saveVariablesToFile("VAR_All_");
          
+       //Thelma - Dez2013
+         todasRuns.printMetricsToFile(directory + "/Metrics_All_" + PLAName + ".txt");
+         todasRuns.printAllMetricsToFile(directory + "/FUN_Metrics_All_" + PLAName + ".txt");
+         
+         System.out.println("Total Number of Discarded Solutions:  "+totalDiscardedSolutions);
+         totalDiscardedSolutions = 0;
+         
          }
  }
- //  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
 }

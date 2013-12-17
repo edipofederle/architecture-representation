@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 
 import jmetal.core.Variable;
 import main.GenerateArchitecture;
@@ -650,10 +651,32 @@ public class Architecture extends Variable implements Cloneable {
 	}
 
 	public void moveElementToPackage(Element klass, Package pkg) {
-		if (pkg.getElements().contains(klass)) return;
-		removeClass(klass);
-		pkg.addExternalClass(klass);
+       try {
+           if (pkg.getElements().contains(klass)) {
+               return;
+           }
+           String oldPackageName = UtilResources.extractPackageName(klass.getNamespace());
+           if(oldPackageName.equals("model")){
+	           addClassOrInterface(klass, pkg);
+	           this.removeOnlyElement(klass);
+           }else{
+        	   Package oldPackage = this.findPackageByName(oldPackageName);
+	           addClassOrInterface(klass, pkg);
+	           oldPackage.removeOnlyElement(klass);
+           }
+       } catch (PackageNotFound ex) {
+           java.util.logging.Logger.getLogger(Architecture.class.getName()).log(Level.SEVERE, null, ex);
+       }
 	}
+
+	private void addClassOrInterface(Element klass, Package pkg) {
+		if (klass instanceof Class) {
+		       pkg.addExternalClass(klass);
+		   } else if (klass instanceof Interface) {
+		       pkg.addExternalInterface((Interface) klass);
+		   }
+	}
+
 	
 	public OperationsOverGeneralization forGeneralization() {
 		return new OperationsOverGeneralization(this);
@@ -948,5 +971,20 @@ public class Architecture extends Variable implements Cloneable {
 		if(!client.removeRequiredInterface(supplier));
 		this.removeRelatedRelationships(supplier);
 	}
-
+	
+	public boolean removeOnlyElement(Element element) {
+		if(element instanceof Class){
+			if(this.classes.remove(element)){
+				LOGGER.info("Classe: " +element.getName() + " removida do pacote: "+this.getName());
+				return true;
+			}
+		}else if(element instanceof Interface){
+			if(this.interfaces.remove(element)){
+				LOGGER.info("Interface: " +element.getName() + " removida do pacote: "+this.getName());
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

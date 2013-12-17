@@ -11,11 +11,13 @@ import java.util.logging.Level;
 
 import jmetal.core.Solution;
 import jmetal.encodings.solutionType.ArchitectureSolutionType;
+import jmetal.problems.OPLA;
 import jmetal.util.Configuration;
 import jmetal.util.JMException;
 import jmetal.util.PseudoRandom;
 import arquitetura.exceptions.ClassNotFound;
 import arquitetura.exceptions.ConcernNotFoundException;
+import arquitetura.exceptions.ElementNotFound;
 import arquitetura.exceptions.InterfaceNotFound;
 import arquitetura.exceptions.NotFoundException;
 import arquitetura.exceptions.PackageNotFound;
@@ -43,6 +45,7 @@ public class PLACrossover2 extends Crossover {
 	private static List VALID_TYPES = Arrays.asList(ArchitectureSolutionType.class);
 	//use "oneLevel" para não verificar a presença de interesses nos atributos e métodos
 	private static String SCOPE_LEVEL = "allLevels"; 
+	private boolean variabilitiesOk= true;
 	
 	public PLACrossover2(HashMap<String, Object> parameters) {
 		super(parameters);
@@ -94,8 +97,19 @@ public class PLACrossover2 extends Crossover {
                     List<Concern> concernsArchitecture = new ArrayList<Concern> (((Architecture) offspring[0].getDecisionVariables()[0]).getAllConcerns());
                     Concern feature = randomObject(concernsArchitecture);
                    
-                    obtainChild(feature, (Architecture) offspring[1].getDecisionVariables()[0], (Architecture) offspring[0].getDecisionVariables()[0], scope);
-                    obtainChild(feature, (Architecture) offspring[0].getDecisionVariables()[0], (Architecture) offspring[1].getDecisionVariables()[0], scope);
+                    obtainChild(feature, (Architecture) parent2.getDecisionVariables()[0], (Architecture) offspring[0].getDecisionVariables()[0], scope);
+                    //Thelma - Dez2013 adicionado para descartar as solucoes com interfaces desconectadas de componentes na PLA e com variabilidades cujos pontos de variacao não fazem parte da solucao
+        	        if (!(isValidSolution((Architecture) offspring[0].getDecisionVariables()[0]))){
+        	        	offspring[0] = new Solution(parent1);
+        	        	OPLA.contDiscardedSolutions_++;
+        	        }
+        	        this.variabilitiesOk = true;
+                    obtainChild(feature, (Architecture) parent1.getDecisionVariables()[0], (Architecture) offspring[1].getDecisionVariables()[0], scope);
+                    //Thelma - Dez2013 adicionado para descartar as solucoes com interfaces desconectadas de componentes na PLA e com variabilidades cujos pontos de variacao não fazem parte da solucao
+        	        if (!(isValidSolution((Architecture) offspring[1].getDecisionVariables()[0]))){
+        	        	offspring[0] = new Solution(parent1);
+        	        	OPLA.contDiscardedSolutions_++;
+        	        }
                }
             }
             else {
@@ -116,7 +130,7 @@ public class PLACrossover2 extends Crossover {
     	if (crossoverutils.removeArchitecturalElementsRealizingFeature(feature, offspring, scope)){
     		//adicionar em offspring os elementos arquiteturais que realizam feature em parent
     		addElementsToOffspring(feature, offspring, parent, scope);
-    		updateVariabilitiesOffspring(offspring);
+    		this.variabilitiesOk = updateVariabilitiesOffspring(offspring);
     	}
     }
 
@@ -628,12 +642,42 @@ public class PLACrossover2 extends Crossover {
 	  return parent;
 	}
 	
-	private void updateVariabilitiesOffspring(Architecture offspring){ 
-		for (Variability variability: offspring.getAllVariabilities()){	    		
+	private boolean updateVariabilitiesOffspring(Architecture offspring){ 
+		boolean variabilitiesOk = true;
+		for (Variability variability: offspring.getAllVariabilities()){	    	
 			VariationPoint variationPoint = variability.getVariationPoint();
 			Element elementVP = variationPoint.getVariationPointElement();
-			if (!(offspring.findElementByName(elementVP.getName(), "class").equals(elementVP)))
+			Element VP = null;
+			try {
+				VP = offspring.findElementByName(elementVP.getName());
+			} catch (ElementNotFound e) {
+				System.out.println("- - - - - - NAO ACHOU o PONTO de VARIACAO - - - - - - -   :   " + elementVP.getName());
+				return false;
+			}
+
+			if (!(VP.equals(elementVP)))
 				variationPoint.replaceVariationPointElement(offspring.findElementByName(elementVP.getName(), "class"));
 		}
+		return variabilitiesOk;
+	}
+	
+	// Thelma - Dez2013 método adicionado
+	// verify if the architecture contains a valid PLA design, i.e., if there is not any interface without relationships in the architecture. 
+	private boolean isValidSolution(Architecture solution){
+		boolean isValid=true;
+			
+		List<Interface> allInterfaces = new ArrayList<Interface> (solution.getInterfaces());
+		if (!allInterfaces.isEmpty()){
+			for (Interface itf: allInterfaces){
+				if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getOperations().isEmpty())){
+					return false;
+				}
+			}
+		}	
+		if (!(this.variabilitiesOk))
+			return false;
+		
+		return isValid;
+
 	}
 }

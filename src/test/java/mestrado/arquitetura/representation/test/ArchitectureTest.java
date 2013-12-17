@@ -297,8 +297,8 @@ public class ArchitectureTest extends TestHelper {
 		
 		assertEquals(0, package1.getAllClasses().size());
 		
-		a.moveElementToPackage(klass1,package1);
-		
+		a.moveElementToPackage(klass1, package1);
+		assertEquals(1, a.getAllClasses().size());
 		assertEquals(1, package1.getAllClasses().size());
 		
 	}

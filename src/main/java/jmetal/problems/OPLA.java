@@ -62,6 +62,7 @@ public class OPLA extends Problem {
 	public static int contComp_ = 0;
 	public static int contInt_ = 0;
 	public static int contClass_ = 0;
+	public static int contDiscardedSolutions_ = 0;
 
 	public Architecture architecture_;
 

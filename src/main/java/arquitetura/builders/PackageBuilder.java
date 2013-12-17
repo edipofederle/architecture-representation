@@ -40,8 +40,11 @@ public class PackageBuilder extends ElementBuilder<Package> {
 	public Package buildElement(NamedElement modelElement) {
 		Package pkg = new Package(architecture, name, variantType, modelElement.getNamespace().getQualifiedName(), XmiHelper.getXmiId(modelElement));
 		pkg.getNestedPackages().addAll(getNestedPackages(modelElement));
-		pkg.getAllClasses().addAll(getClasses(modelElement, pkg));
-		pkg.getAllInterfaces().addAll(getInterfaces(modelElement,pkg));
+		for(Class klass : getClasses(modelElement, pkg)){
+			pkg.addExternalClass(klass);
+		}
+		for(Interface itf : getInterfaces(modelElement,pkg))
+			pkg.addExternalInterface(itf);
 		
 		return pkg;
 	}

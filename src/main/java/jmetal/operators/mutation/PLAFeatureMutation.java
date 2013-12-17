@@ -86,7 +86,12 @@ public class PLAFeatureMutation extends Mutation {
             		if (ClassesComp.size() > 1) {
             			Class targetClass = randomObject(ClassesComp);
             		    Class sourceClass = randomObject(ClassesComp);
-            		    if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass))&& (sourceClass.getAllAttributes().size()>1) && (sourceClass.getAllMethods().size()>1)){ //sourceClass n�o tem relacionamentos de generaliza��o
+            		    if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass)) 
+            		    		&& (sourceClass.getAllAttributes().size()>1)
+            		    		&& (sourceClass.getAllMethods().size()>1)
+            		    		&& (!isVarPoint(arch, sourceClass))
+            		    		&& (!isVariant(arch, sourceClass)) 
+            		    		&& (!isOptional(arch, sourceClass))){ //sourceClass n�o tem relacionamentos de generaliza��o
             		    	if ((targetClass!=null) && (!(targetClass.equals(sourceClass)))) 
             		    		moveAttribute(arch, targetClass, sourceClass);
             			}
@@ -98,7 +103,12 @@ public class PLAFeatureMutation extends Mutation {
             			List<Class> ClassesSourceComp = new ArrayList<Class> (sourceComp.getAllClasses());
             			if (ClassesSourceComp.size() >=1) {
             				Class sourceClass = randomObject(ClassesSourceComp);
-            				if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass))&& (sourceClass.getAllAttributes().size()>1) && (sourceClass.getAllMethods().size()>1)){ //sourceClass n�o tem relacionamentos de generaliza��o{
+            				if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass))
+            						                && (sourceClass.getAllAttributes().size()>1)
+            						                && (sourceClass.getAllMethods().size()>1)
+            						                && (!isVarPoint(arch, sourceClass))
+            						                && (!isVariant(arch, sourceClass))
+            						                && (!isOptional(arch, sourceClass))){ //sourceClass n�o tem relacionamentos de generaliza��o{
             					Package targetComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
             					if (checkSameLayer(sourceComp,targetComp)){
 	                				List<Class> ClassesTargetComp = new ArrayList<Class> (targetComp.getAllClasses());
@@ -157,7 +167,12 @@ public class PLAFeatureMutation extends Mutation {
             	   	if (ClassesComp.size() > 1) {
             	   		Class targetClass = randomObject(ClassesComp);
             	   		Class sourceClass = randomObject(ClassesComp);
-            	   		if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass)) && (sourceClass.getAllAttributes().size()>1) && (sourceClass.getAllMethods().size()>1)){
+            	   		if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass))
+            	   								&& (sourceClass.getAllAttributes().size()>1)
+            	   								&& (sourceClass.getAllMethods().size()>1)
+            	   								&& (!isVarPoint(arch, sourceClass))
+            	   								&& (!isVariant(arch, sourceClass))
+            	   								&& (!isOptional(arch, sourceClass))){
             	   			if ((targetClass!=null) && (!(targetClass.equals(sourceClass)))) 
                 	   			moveMethod(arch, targetClass, sourceClass, sourceComp, sourceComp);
             	   		}
@@ -168,7 +183,12 @@ public class PLAFeatureMutation extends Mutation {
             			List<Class> ClassesSourceComp = new ArrayList<Class> (sourceComp.getAllClasses());
             			if (ClassesSourceComp.size()>=1) {
                 			Class sourceClass = randomObject(ClassesSourceComp);
-                			if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass)) && (sourceClass.getAllAttributes().size()>1) && (sourceClass.getAllMethods().size()>1)){
+                			if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass))
+                									&& (sourceClass.getAllAttributes().size()>1)
+                									&& (sourceClass.getAllMethods().size()>1)
+                									&& (!isVarPoint(arch, sourceClass))
+                									&& (!isVariant(arch, sourceClass))
+                									&& (!isOptional(arch, sourceClass))){
                 				Package targetComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
                 				if (checkSameLayer(sourceComp,targetComp)){
 	                    			List<Class> ClassesTargetComp = new ArrayList<Class> (targetComp.getAllClasses());
@@ -272,7 +292,12 @@ public class PLAFeatureMutation extends Mutation {
                List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getAllClasses());
                if (ClassesComp.size() >=1 ) {
             	   Class sourceClass = randomObject(ClassesComp);
-            	   if ((sourceClass != null) && (!searchForGeneralizations(sourceClass)) && (sourceClass.getAllAttributes().size()>1) && (sourceClass.getAllMethods().size()>1)){ 	
+            	   if ((sourceClass != null) && (!searchForGeneralizations(sourceClass))
+            			   					 && (sourceClass.getAllAttributes().size()>1)
+            			   					 && (sourceClass.getAllMethods().size()>1)
+            			   					 && (!isVarPoint(arch, sourceClass))
+            			   					 && (!isVariant(arch, sourceClass))
+            			   					 && (!isOptional(arch, sourceClass))){ 	
                         	int option = PseudoRandom.randInt(0,1);
                         	if (option == 0) { //attribute          	
                         		List<Attribute> AttributesClass = new ArrayList<Attribute> (sourceClass.getAllAttributes());
@@ -900,5 +925,45 @@ public class PLAFeatureMutation extends Mutation {
     	}
     	return null;
 	}
+	
+	// verificar se a classe é variant de uma variabilidade
+	private boolean isOptional(Architecture arch, Class cls){
+	   boolean isOptional = false;
+	   if(cls.getVariantType() != null)
+		   if (cls.getVariantType().toString().equalsIgnoreCase("optional")) 
+			   return true;								
+	   return isOptional;
+	}
+	 //-------------------------------------------------------------------------------------------------
+	   // verificar se a classe é variant de uma variabilidade 
+	 
+	  private boolean isVariant(Architecture arch, Class cls){
+		   boolean isVariant = false;
+			Collection<Variability> variabilities = arch.getAllVariabilities();
+			for (Variability variability: variabilities){
+				VariationPoint varPoint = variability.getVariationPoint();
+				if (varPoint!=null){
+					for (Variant variant : varPoint.getVariants()){
+						if (variant.getVariantElement().equals(cls)) 
+							isVariant=true;								
+					}
+				}
+			}
+			return isVariant;
+	}
+	  
+	  private boolean isVarPoint(Architecture arch, Class cls){
+          boolean isVariationPoint = false;
+               Collection<Variability> variabilities = arch.getAllVariabilities();
+               for (Variability variability: variabilities){
+                       VariationPoint varPoint = variability.getVariationPoint();
+                       if (varPoint!=null){        
+	                	   Class classVP = (Class) varPoint.getVariationPointElement();
+	                	   if (classVP.equals(cls)) 
+	                           isVariationPoint=true;
+                       }
+               }
+               return isVariationPoint;
+	  }
 
 }

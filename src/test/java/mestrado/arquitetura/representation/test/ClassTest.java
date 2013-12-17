@@ -267,6 +267,8 @@ public class ClassTest extends TestHelper {
 		arquitetura.representation.Class foo = a.findClassByName("Foo").get(0);
 		
 		assertEquals(1, foo.getOwnConcerns().size());
+		
+		
 	}
 	
 }

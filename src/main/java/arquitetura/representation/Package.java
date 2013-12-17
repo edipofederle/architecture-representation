@@ -62,7 +62,7 @@ public class Package extends Element {
 	 * @return
 	 */
 	public Set<Interface> getAllInterfaces(){
-		return this.interfaces;
+		return Collections.unmodifiableSet(this.interfaces);
 	}
 	/**
 	 * Retorna todas {@link Class} que pertencem ao pacote. 
@@ -70,7 +70,7 @@ public class Package extends Element {
 	 * @return List<{@link Class}>
 	 */
 	public Set<Class> getAllClasses(){
-		return this.classes;
+		return Collections.unmodifiableSet(this.classes);
 	}
 	
 	/**
@@ -271,4 +271,20 @@ public class Package extends Element {
 		return this.getAllConcerns().contains(concern);
 	}
 
+	public boolean removeOnlyElement(Element element) {
+		if(element instanceof Class){
+			if(this.classes.remove(element)){
+				LOGGER.info("Classe: " +element.getName() + " removida do pacote: "+this.getName());
+				return true;
+			}
+		}else if(element instanceof Interface){
+			if(this.interfaces.remove(element)){
+				LOGGER.info("Interface: " +element.getName() + " removida do pacote: "+this.getName());
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 }
