@@ -120,24 +120,24 @@ public class NSGAII_Crossover {
          
         
                    
-         System.out.println("\n================ NSGAII ================");
-         System.out.println("Context: " + context);
-         System.out.println("PLA: " + pla);
-         System.out.println("Params:");
-         System.out.println("\tPop -> " + populationSize_);
-         System.out.println("\tMaxEva -> "+maxEvaluations_);
-         System.out.println("\tCross -> "+crossoverProbability_);
-         System.out.println("\tMuta -> "+mutationProbability_);
+        System.out.println("\n================ NSGAII ================");
+        System.out.println("Context: " + context);
+        System.out.println("PLA: " + pla);
+        System.out.println("Params:");
+        System.out.println("\tPop -> " + populationSize_);
+        System.out.println("\tMaxEva -> "+maxEvaluations_);
+        System.out.println("\tCross -> "+crossoverProbability_);
+        System.out.println("\tMuta -> "+mutationProbability_);
          
                      
-         long heapSize = Runtime.getRuntime().totalMemory();
-         heapSize = (heapSize / 1024) / 1024;
-         System.out.println("Heap Size: " + heapSize + "Mb\n");
+        long heapSize = Runtime.getRuntime().totalMemory();
+        heapSize = (heapSize / 1024) / 1024;
+        System.out.println("Heap Size: " + heapSize + "Mb\n");
  		int beginIndex = pla.lastIndexOf("/") + 1;
 		int endIndex = pla.length() - 4;
 		String PLAName = pla.substring(beginIndex, endIndex);
          
-long time[] = new long[runsNumber];
+		long time[] = new long[runsNumber];
          
          for (int runs = 0; runs < runsNumber; runs++) {
         	//Thelma - Dez2013 adicao da linha abaixo

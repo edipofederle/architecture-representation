@@ -198,9 +198,8 @@ public class Package extends Element {
 
 	public void moveClassToPackage(Element klass, Package packageToMove) {
 		if (!classes.contains(klass)) return;
-		
-		removeClass(klass);
 		packageToMove.addExternalClass(klass);
+		this.classes.remove(klass);
 	}
 	
 	public boolean moveInterfaceToPackage(Interface inter, Package packageToMove) {
