@@ -147,4 +147,8 @@ public class CrossoverRelationship {
 			}
 		}
 	}
+
+	public static void cleanRelationships() {
+		relationships.clear();
+	}
 }
