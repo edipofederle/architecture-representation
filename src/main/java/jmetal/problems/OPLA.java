@@ -494,7 +494,7 @@ public class OPLA extends Problem {
 					Class cls = iteratorClasses.next();
 					if ((cls.getAllAttributes().isEmpty())
 							&& (cls.getAllMethods().isEmpty())
-							&& (cls.getImplementedInterfaces().isEmpty()) 
+							&& (cls.getImplementedInterfaces().isEmpty())
 							&& !(searchForGeneralizations(cls))
 							&& (cls.getVariantType() == null)) {
 						comp.removeClass(cls);
@@ -522,8 +522,7 @@ public class OPLA extends Problem {
 					if (itf.getOperations().isEmpty() && ultimaInterface
 							&& comp.getAllClasses().size() < 1) {
 						try {
-							((Architecture) solution.getDecisionVariables()[0])
-									.removeInterface(itf);
+							((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -546,17 +545,14 @@ public class OPLA extends Problem {
 					// this.removeInterfaceRelationships(itf, (Architecture)
 					// solution.getDecisionVariables()[0]);
 				}
-				if (itf.getOperations().isEmpty() && ultimaInterface
-						&& comp.getAllClasses().size() < 1) {
+				if (itf.getOperations().isEmpty() && ultimaInterface && comp.getAllClasses().size() < 1) {
 					try {
-						((Architecture) solution.getDecisionVariables()[0])
-								.removeInterface(itf);
+						((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
 			}
-			
 			
 			if (comp.getAllClasses().isEmpty() && comp.getImplementedInterfaces().isEmpty() && comp.getAllInterfaces().isEmpty()) {
 				this.removeComponentRelationships(comp,(Architecture) solution.getDecisionVariables()[0]);

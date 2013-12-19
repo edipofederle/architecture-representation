@@ -14,6 +14,10 @@ import jmetal.problems.OPLA;
 import jmetal.util.Configuration;
 import jmetal.util.JMException;
 import jmetal.util.PseudoRandom;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.Architecture;
@@ -35,6 +39,7 @@ import arquitetura.representation.relationship.Relationship;
 public class PLAFeatureMutation extends Mutation {
 
 	private static final long serialVersionUID = 9039316729379302747L;
+	static Logger LOGGER = LogManager.getLogger(PLAFeatureMutation.class.getName());
 	
 	private Double mutationProbability_ = null ;
 	
@@ -53,7 +58,7 @@ public class PLAFeatureMutation extends Mutation {
     	switch(r){
         case 0: FeatureMutation(probability, solution, scopeLevels); break;
         case 1: MoveMethodMutation(probability, solution, scope); break;
-        case 2: MoveAttributeMutation(probability, solution, scope); break;
+       	case 2: MoveAttributeMutation(probability, solution, scope); break;
     	case 3: MoveOperationMutation(probability, solution); break;
     	case 4: AddClassMutation(probability, solution, scope); break;
         case 5: AddManagerClassMutation(probability, solution); break;
@@ -75,6 +80,7 @@ public class PLAFeatureMutation extends Mutation {
     }
     
     public void MoveAttributeMutation(double probability, Solution solution, String scope) throws JMException{
+    	LOGGER.info("Executando MoveAttributeMutation");
     	try { 
     		if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
             	Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
@@ -156,6 +162,7 @@ public class PLAFeatureMutation extends Mutation {
   //--------------------------------------------------------------------------
     
     public void MoveMethodMutation(double probability, Solution solution, String scope) throws JMException{
+    	LOGGER.info("Executando MoveMethodMutation");
     	try { 
             if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
             	Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
@@ -232,7 +239,8 @@ public class PLAFeatureMutation extends Mutation {
   //--------------------------------------------------------------------------
     
     public void MoveOperationMutation(double probability, Solution solution) throws JMException{
-    try { 
+    	LOGGER.info("Executando MoveOperationMutation");
+    	try { 
           if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
         	if (PseudoRandom.randDouble() < probability) {
         	Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
@@ -243,11 +251,14 @@ public class PLAFeatureMutation extends Mutation {
             if (checkSameLayer(sourceComp, targetComp)){
             	List<Interface> InterfacesSourceComp = new ArrayList<Interface> ();
             	List<Interface> InterfacesTargetComp = new ArrayList<Interface> ();
+            	
             	InterfacesSourceComp.addAll(sourceComp.getImplementedInterfaces());
             	InterfacesTargetComp.addAll(targetComp.getImplementedInterfaces());
+            	
             	if ((InterfacesSourceComp.size()>=1) && (InterfacesTargetComp.size()>=1)) {	
             		Interface targetInterface = randomObject(InterfacesTargetComp);
             		Interface sourceInterface = randomObject(InterfacesSourceComp);
+            		
             		if (targetInterface!=sourceInterface){
             			List<Method> OpsInterface = new ArrayList<Method> ();
             			OpsInterface.addAll(sourceInterface.getOperations());
@@ -266,8 +277,7 @@ public class PLAFeatureMutation extends Mutation {
             }
         	}//PseudoRandom
            } else {
-                Configuration.logger_.log(
-                        Level.SEVERE, "MoveOperationMutation.doMutation: invalid type. "
+                Configuration.logger_.log(Level.SEVERE, "MoveOperationMutation.doMutation: invalid type. "
                         + "{0}", solution.getDecisionVariables()[0].getVariableType());
                 java.lang.Class<String> cls = java.lang.String.class;
                 String name = cls.getName();
@@ -283,7 +293,7 @@ public class PLAFeatureMutation extends Mutation {
   //--------------------------------------------------------------------------
     
 	public void AddClassMutation(double probability, Solution solution, String scope) throws JMException {
-    	
+    	LOGGER.info("Executand AddClassMutation ");
     	try { 
             if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
               if (PseudoRandom.randDouble() < probability) {  
@@ -410,8 +420,8 @@ public class PLAFeatureMutation extends Mutation {
     
   //--------------------------------------------------------------------------
     
-    public void AddManagerClassMutation(double probability, Solution solution) throws JMException {
-    	    	
+  public void AddManagerClassMutation(double probability, Solution solution) throws JMException {
+	LOGGER.info("Executando AddManagerClassMutation");
     try { 
         if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
           if (PseudoRandom.randDouble() < probability) {  	
@@ -471,7 +481,8 @@ public class PLAFeatureMutation extends Mutation {
     //--------------------------------------------------------------------------
     
 	public void FeatureMutation(double probability, Solution solution, String scope) throws JMException {
-        try { 
+       LOGGER.info("Executando FeatureMutation.");
+		try { 
         	if (solution.getDecisionVariables()[0].getVariableType().toString().equals("class "+ Architecture.ARCHITECTURE_TYPE)){ 
               if (PseudoRandom.randDouble() < probability) {
             	  Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
@@ -481,7 +492,7 @@ public class PLAFeatureMutation extends Mutation {
                 	  
             		  List<Concern> concernsSelectedComp = new ArrayList<Concern>(selectedComp.getAllConcerns());
                 	  if (concernsSelectedComp.size() > 1){ // = somente para testes
-                		Concern selectedConcern = randomObject(concernsSelectedComp); 
+                		Concern selectedConcern = randomObject(concernsSelectedComp);
                 		List<Package> allComponentsAssignedOnlyToConcern = new ArrayList<Package> (searchComponentsAssignedToConcern(selectedConcern,allComponents));
                 		if (allComponentsAssignedOnlyToConcern.size() == 0 ){
                 			Package newComponent = arch.createPackage("Package"+ OPLA.contComp_ + getSuffix(selectedComp));
@@ -540,7 +551,7 @@ public class PLAFeatureMutation extends Mutation {
 		for (Package comp : allComponents) {
 			if (!comp.equals(targetComponent) && checkSameLayer(comp, targetComponent)) {
 				Set<Interface> allInterfaces = new HashSet<Interface>(comp.getAllInterfaces());
-				allInterfaces.addAll(comp.getImplementedInterfaces()); // EDIPO
+				allInterfaces.addAll(comp.getImplementedInterfaces());
 				
 				if (allInterfaces.size() >= 1) {
 					for (Interface interfaceComp : allInterfaces) {
@@ -704,7 +715,12 @@ public class PLAFeatureMutation extends Mutation {
 			targetInterface = architecture.createInterface("Interface"+ OPLA.contInt_++);
 			targetComp.addExternalInterface(targetInterface);
 			sourceInterface.moveOperationToInterface(operation, targetInterface);
-			addConcernToNewInterface(concern, targetInterface, sourceInterface);
+			try {
+				targetInterface.addConcern(concern.getName());
+			} catch (ConcernNotFoundException e) {
+				e.printStackTrace();
+			}
+			//addConcernToNewInterface(concern, targetInterface, sourceInterface);
 		}else{
 			sourceInterface.moveOperationToInterface(operation, targetInterface);
 		}
@@ -800,7 +816,14 @@ public class PLAFeatureMutation extends Mutation {
 	public Object execute(Object object) throws JMException {
         Solution solution = (Solution) object;
         Double probability = (Double) getParameter("probability");
-
+        
+        Architecture clone = null;
+        try {
+			clone = ((Architecture) solution.getDecisionVariables()[0]).deepClone();
+		} catch (CloneNotSupportedException e1) {
+			e1.printStackTrace();
+		}
+        
         if (probability == null) {
             Configuration.logger_.severe("FeatureMutation.execute: probability not specified");
             java.lang.Class<String> cls = java.lang.String.class;
@@ -813,7 +836,12 @@ public class PLAFeatureMutation extends Mutation {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+        
+        if(!this.isValidSolution(((Architecture) solution.getDecisionVariables()[0]))){
+        	solution.getDecisionVariables()[0] = clone;
+        	OPLA.contDiscardedSolutions_++;
+        }
+        
         return solution;
     }
     
@@ -919,8 +947,9 @@ public class PLAFeatureMutation extends Mutation {
 	private GeneralizationRelationship getGeneralizationRelationshipForClass(Element element) {
     	for(Relationship r : element.getRelationships()){
     		if(r instanceof GeneralizationRelationship){
-    			if(((GeneralizationRelationship) r).getAllChildrenForGeneralClass().contains(element))
-    				return ((GeneralizationRelationship) r);
+    			GeneralizationRelationship g = (GeneralizationRelationship)r;
+    			if(g.getParent().equals(element) || (g.getChild().equals(element)))
+    				return g;
     		}
     	}
     	return null;
@@ -965,5 +994,21 @@ public class PLAFeatureMutation extends Mutation {
                }
                return isVariationPoint;
 	  }
+	  
+	  
+	// Thelma - Dez2013 método adicionado
+	// verify if the architecture contains a valid PLA design, i.e., if there is not any interface without relationships in the architecture. 
+	private boolean isValidSolution(Architecture solution){
+		boolean isValid=true;
+		List<Interface> allInterfaces = new ArrayList<Interface> (solution.getAllInterfaces());
+		if (!allInterfaces.isEmpty()){
+			for (Interface itf: allInterfaces){
+				if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getOperations().isEmpty())){
+					return false;
+				}
+			}
+		}	
+		return isValid;
+	}
 
 }

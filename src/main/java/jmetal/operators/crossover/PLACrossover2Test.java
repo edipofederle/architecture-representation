@@ -7,6 +7,7 @@ import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Test;
 
+import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Concern;
 
@@ -83,8 +84,8 @@ public class PLACrossover2Test extends TestHelper {
 	
 	@Test
 	public void test5() throws Exception {
-		Architecture parent = givenAArchitecture("parent5");
-		Architecture offspring = givenAArchitecture("offspring5");
+		Architecture parent = new ArchitectureBuilder().create("/Users/elf/Documents/workspaceModeling/crossover3/agm_copy2/agm_copy2.uml");
+		Architecture offspring = new ArchitectureBuilder().create("/Users/elf/Documents/workspaceModeling/agm_copy/agm_copy.uml");
 		GenerateArchitecture g = new GenerateArchitecture();
 		
 		HashMap<String, Object> parameters = new HashMap<String, Object>() ;
@@ -92,9 +93,9 @@ public class PLACrossover2Test extends TestHelper {
         
 		PLACrossover2 crossover = new PLACrossover2(parameters);
 		
-		Concern feature = parent.getConcernByName("brickles");
+		Concern feature = parent.getConcernByName("ranking");
 		
-		crossover.addElementsToOffspring(feature, offspring, parent, "allLevels");
+		crossover.obtainChild(feature, parent, offspring, "allLevels");
 		g.generate(offspring, "crossoverTest");
 	}
 

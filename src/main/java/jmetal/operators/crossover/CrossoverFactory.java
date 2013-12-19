@@ -43,7 +43,7 @@ public class CrossoverFactory {
 	
 	public static Crossover getCrossoverOperator(String name, HashMap parameters) throws JMException {
 	    if (name.equalsIgnoreCase("PLACrossover"))
-		      return new PLACrossover(parameters);
+		      return new PLACrossover2(parameters);
 	    else {
 	      Configuration.logger_.severe("CrossoverFactory.getCrossoverOperator. " +
 	          "Operator '" + name + "' not found ");

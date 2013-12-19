@@ -567,7 +567,6 @@ public class Architecture extends Variable implements Cloneable {
 					LOGGER.info("Classe " + klass.getName()+"("+klass.getId()+") removida da arquitetura. Pacote(" + pkg.getName()+ ")");
 			}
 		}
-		
 	}
 
 	public List<VariationPoint> getAllVariationPoints() {
@@ -716,7 +715,6 @@ public class Architecture extends Variable implements Cloneable {
 		return null;
 	}
 
-	// private static int count = 1;
 	public Architecture deepClone() throws CloneNotSupportedException {
 		Cloner cloner = new Cloner();
 		Architecture newArchitecture = (Architecture) cloner.deepClone(this);

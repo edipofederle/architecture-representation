@@ -23,19 +23,8 @@ public class CrossoverUtils {
 	public boolean removeArchitecturalElementsRealizingFeature(Concern feature, Architecture offspring, String scope){
 		boolean ok = true;
 		List<Package> allComponents = new ArrayList<Package> (offspring.getAllPackages());
+		
 		if(!allComponents.isEmpty()){
-			for (Package comp : allComponents ){
-				if ((comp.containsConcern(feature)) && (comp.getOwnConcerns().size() == 1)  && (this.thereIsHierarchyInDifferentComponents(comp, offspring)))
-					return false;
-				else{
-					List<Class> allClasses = new ArrayList<Class> (comp.getAllClasses());
-					for (Class cls: allClasses){
-						if ((cls.containsConcern(feature)) && (cls.getOwnConcerns().size() == 1) && (this.isHierarchyInASameComponent(cls, offspring)))
-							return false;
-					}
-				}
-			}
-			
 			Iterator<Package> iteratorComponents = allComponents.iterator();
 	        while (iteratorComponents.hasNext()){
 	        	Package comp = iteratorComponents.next();

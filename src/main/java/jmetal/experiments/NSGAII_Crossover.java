@@ -32,13 +32,14 @@ public class NSGAII_Crossover {
 
  	 	 	 	
 
-         int runsNumber = 30; //30;
-         populationSize_ = 100; //100; 
-         maxEvaluations_ = 30000; //300 gerações
+         int runsNumber = 10; //30;
+         populationSize_ = 30; //100; 
+         maxEvaluations_ = 9000; //300 gerações
          int totalDiscardedSolutions = 0;
+         int discardedSolutions[] = new int[runsNumber];
          
-         crossoverProbability_ = 0.1;  //0.1
-         mutationProbability_ = 0.9; 
+         crossoverProbability_ = 0.2;  //0.1
+         mutationProbability_ = 0.8; 
          String context = "OPLA";
        //Thelma - Dez2013 linha adicionada para identificar o algoritmo no nome do arquivo do hypervolume
          String moea = "NSGAII-MC";
@@ -46,7 +47,7 @@ public class NSGAII_Crossover {
          //File directory = new File("resultado/nsgaii/" + context);
          File directory = new File("experiment/OPLA/NSGA-II/FeatureCrossover" + "/");
          if (!directory.exists()) {
-             if (!directory.mkdir()) {
+             if (!directory.mkdirs()) {
              	System.out.println("Não foi possível criar o diretório do resultado");
              	System.exit(0);
              }
@@ -54,16 +55,7 @@ public class NSGAII_Crossover {
 
 
          String plas[] = new String[]{
-        		"resources/AGM-1.xmi", 
-          		"resources/AGM-2.xmi", 
-          		"resources/AGM-3.xmi", 
-          		"resources/AGM-4.xmi",
-          		"resources/MoM-1.xmi", 
-          		"resources/MoM-2.xmi",
-          		"resources/MoM-3.xmi",
-          		"resources/MoM-4.xmi", 
-          		"resources/LPS-BET-Final.xmi",            		
-         };
+        		"/Users/elf/mestrado/sourcesMestrado/arquitetura/src/test/java/resources/agmfinal/agm.uml"  };
          String xmiFilePath;
                  
          for (String pla : plas) {
@@ -189,7 +181,8 @@ public class NSGAII_Crossover {
          
          System.out.println("Total Number of Discarded Solutions:  "+totalDiscardedSolutions);
          totalDiscardedSolutions = 0;
+         todasRuns.printDiscardedSolutionsToFile(discardedSolutions, directory + "/AllDiscardedSolutions_" + PLAName + ".txt");
          
          }
- }
+ 	}
 }

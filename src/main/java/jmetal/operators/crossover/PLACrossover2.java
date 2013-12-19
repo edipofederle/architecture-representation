@@ -125,13 +125,12 @@ public class PLACrossover2 extends Crossover {
         return offspring;
     }
     
-    private void obtainChild(Concern feature, Architecture parent, Architecture offspring, String scope) throws CloneNotSupportedException, ClassNotFound, PackageNotFound, NotFoundException, ConcernNotFoundException{
+    public void obtainChild(Concern feature, Architecture parent, Architecture offspring, String scope) throws CloneNotSupportedException, ClassNotFound, PackageNotFound, NotFoundException, ConcernNotFoundException{
     	//eliminar os elementos arquiteturais que realizam feature em offspring
-    	if (crossoverutils.removeArchitecturalElementsRealizingFeature(feature, offspring, scope)){
-    		//adicionar em offspring os elementos arquiteturais que realizam feature em parent
-    		addElementsToOffspring(feature, offspring, parent, scope);
-    		this.variabilitiesOk = updateVariabilitiesOffspring(offspring);
-    	}
+    	crossoverutils.removeArchitecturalElementsRealizingFeature(feature, offspring, scope);
+		//adicionar em offspring os elementos arquiteturais que realizam feature em parent
+		addElementsToOffspring(feature, offspring, parent, scope);
+		this.variabilitiesOk = updateVariabilitiesOffspring(offspring);
     }
 
 	public <T> T randomObject(List<T> allObjects)  throws JMException   {
@@ -211,9 +210,6 @@ public class PLACrossover2 extends Crossover {
         				moveHierarchyToDifferentPackage(classComp, newComp, parentPackage, offspring, parent);
         				CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent);
         			}
-        			//TODO Edipo: Acredito que o problema de herança entre diferentes pacotes esteja resolvida...
-        			//TODO resolver problema com a heranca entre diferentes componentes
-        			//else moveHierarchyToComponent(classComp, newComp, comp, offspring, parent, feature);
         		}
         	}	
     		else{
@@ -223,6 +219,7 @@ public class PLACrossover2 extends Crossover {
 				}
     		}
     		addInterfacesImplementedByClass(classComp, offspring, parent, newComp);
+    		addInterfacesRequiredByClass(classComp, offspring, parent, newComp);
 		}
 	}
 	
@@ -423,6 +420,7 @@ public class PLACrossover2 extends Crossover {
     			CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent);
     		}
     		addInterfacesImplementedByClass(classComp, offspring, parent, parentPackage);
+    		addInterfacesRequiredByClass(classComp, offspring, parent, parentPackage);
         }
 	}
 
@@ -585,7 +583,30 @@ public class PLACrossover2 extends Crossover {
     	
     	for(Interface itf : interfaces){
     		if(itf.getNamespace().equalsIgnoreCase("model"))
-    			targetComp.addExternalInterface(itf);
+    			offspring.addExternalInterface(itf);
+    		else{
+    			String interfaceCompPackageName = UtilResources.extractPackageName(itf.getNamespace());
+				Package packageToAddInterface = findOrCreatePakage(interfaceCompPackageName, offspring);
+				packageToAddInterface.addExternalInterface(itf);
+    		}
+    		CrossoverRelationship.saveAllRelationshiopForElement(itf, parent);
+    	}
+	}
+    
+    /**
+     * Adiciona as interfaces requeridas por klass em offspring
+     * 
+     * @param klass
+     * @param offspring
+     * @param parent
+     * @param targetComp
+     */
+    private void addInterfacesRequiredByClass(Class klass, Architecture offspring, Architecture parent, Package targetComp) {
+    	Set<Interface> interfaces = klass.getRequiredInterfaces();
+    	
+    	for(Interface itf : interfaces){
+    		if(itf.getNamespace().equalsIgnoreCase("model"))
+    			offspring.addExternalInterface(itf);
     		else{
     			String interfaceCompPackageName = UtilResources.extractPackageName(itf.getNamespace());
 				Package packageToAddInterface = findOrCreatePakage(interfaceCompPackageName, offspring);
@@ -646,17 +667,19 @@ public class PLACrossover2 extends Crossover {
 		boolean variabilitiesOk = true;
 		for (Variability variability: offspring.getAllVariabilities()){	    	
 			VariationPoint variationPoint = variability.getVariationPoint();
-			Element elementVP = variationPoint.getVariationPointElement();
-			Element VP = null;
-			try {
-				VP = offspring.findElementByName(elementVP.getName());
-			} catch (ElementNotFound e) {
-				System.out.println("- - - - - - NAO ACHOU o PONTO de VARIACAO - - - - - - -   :   " + elementVP.getName());
-				return false;
+			if(variationPoint != null){
+				Element elementVP = variationPoint.getVariationPointElement();
+				Element VP = null;
+				try {
+					VP = offspring.findElementByName(elementVP.getName());
+				} catch (ElementNotFound e) {
+					System.out.println("- - - - - - NAO ACHOU o PONTO de VARIACAO - - - - - - -   :   " + elementVP.getName());
+					return false;
+				}
+	
+				if (!(VP.equals(elementVP)))
+					variationPoint.replaceVariationPointElement(offspring.findElementByName(elementVP.getName(), "class"));
 			}
-
-			if (!(VP.equals(elementVP)))
-				variationPoint.replaceVariationPointElement(offspring.findElementByName(elementVP.getName(), "class"));
 		}
 		return variabilitiesOk;
 	}
@@ -666,7 +689,7 @@ public class PLACrossover2 extends Crossover {
 	private boolean isValidSolution(Architecture solution){
 		boolean isValid=true;
 			
-		List<Interface> allInterfaces = new ArrayList<Interface> (solution.getInterfaces());
+		List<Interface> allInterfaces = new ArrayList<Interface> (solution.getAllInterfaces());
 		if (!allInterfaces.isEmpty()){
 			for (Interface itf: allInterfaces){
 				if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getOperations().isEmpty())){
@@ -678,6 +701,5 @@ public class PLACrossover2 extends Crossover {
 			return false;
 		
 		return isValid;
-
 	}
 }

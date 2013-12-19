@@ -22,6 +22,7 @@
 package jmetal.core;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -254,6 +255,8 @@ public class SolutionSet implements Serializable {
 	 *            The output file name
 	 */
 	public void printObjectivesToFile(String path) {
+		File file = new File(path);
+		file.getParentFile().mkdirs();
 		try {
 			/* Open the file */
 			FileOutputStream fos = new FileOutputStream(path);
@@ -385,7 +388,6 @@ public class SolutionSet implements Serializable {
 					bw.write("Number of variabilities: "
 							+ arch.getAllVariabilities().size());
 
-
 					bw.newLine();
 					bw.newLine();
 					bw.write("Number of interfaces: " + arch.getAllInterfaces().size());
@@ -402,15 +404,6 @@ public class SolutionSet implements Serializable {
 							+ arch.getAllAbstractions().size());
 					bw.newLine();
 					bw.newLine();
-//					int contGeneralizations = 0;
-//					int contAssociations = 0;
-//					for (Relationship relationship : arch.getAllRealizations()) {
-//						if (relationship instanceof GeneralizationRelationship)
-//							contGeneralizations++;
-//						else if (relationship instanceof AssociationRelationship)
-//							contAssociations++;
-//					}
-
 					bw.write("Number of GeneralizationsRelationships: "
 							+ arch.getAllGeneralizations().size());
 					bw.newLine();
@@ -424,7 +417,6 @@ public class SolutionSet implements Serializable {
 					contIntfs = 0;
 					contClass = 0;
 				}
-
 			}
 
 			/* Close the file */
@@ -682,6 +674,30 @@ public class SolutionSet implements Serializable {
 		      e.printStackTrace();
 		    }
 		  } // printAllMetricsToFile
+	  
+	  public void printDiscardedSolutionsToFile(int[] discardedSolutions, String path){
+	        try {
+	          /* Open the file */
+	          FileOutputStream fos   = new FileOutputStream(path)     ;
+	          OutputStreamWriter osw = new OutputStreamWriter(fos)    ;
+	          BufferedWriter bw      = new BufferedWriter(osw)        ;            
+	          
+	          bw.newLine();
+	          bw.write ("Number of Discarded Solutions");
+	          
+	                  int runs = discardedSolutions.length;
+	          for (int i = 0; i < runs; i++) {
+	              bw.newLine();
+	              bw.write ("Run " + i + ":  "+ discardedSolutions[i]);
+	                bw.newLine();
+	          }          
+	          /* Close the file */
+	          bw.close();
+	        }catch (IOException e) {
+	          Configuration.logger_.severe("Error acceding to the file");
+	          e.printStackTrace();
+	        }       
+	      } // printDiscardedSolutionsToFile
 
 } // SolutionSet
 

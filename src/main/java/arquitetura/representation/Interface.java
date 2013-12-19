@@ -115,7 +115,7 @@ public class Interface extends Element {
 		
 		for(Package p : getArchitecture().getAllPackages()){
 			for(RealizationRelationship r : getArchitecture().getAllRealizations()){
-				if(r.getClient().equals(p)){
+				if(r.getClient().equals(p) && (r.getSupplier().equals(this))){
 					implementors.add(p);
 				}
 			}
@@ -150,11 +150,10 @@ public class Interface extends Element {
 			if(p.getRequiredInterfaces().contains(this))
 				dependents.add(p);
 		}
-
 		
 		return Collections.unmodifiableSet(dependents);
 	}
-
+	
 	@Override
 	public Set<Concern> getAllConcerns() {
 		Set<Concern> concerns = new HashSet<Concern>(getOwnConcerns());

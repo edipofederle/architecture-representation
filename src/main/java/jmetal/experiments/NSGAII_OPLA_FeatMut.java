@@ -33,7 +33,7 @@ public class NSGAII_OPLA_FeatMut {
 
          int runsNumber = 2; //30;
          populationSize_ = 10; //100
-         maxEvaluations_ = 300; //300 gera��es
+         maxEvaluations_ = 400; //300 gera��es
          
          crossoverProbability_ = 0.0; 
          mutationProbability_ = 0.9;
@@ -52,32 +52,18 @@ public class NSGAII_OPLA_FeatMut {
 
 
          String plas[] = new String[]{
-        		"resources/AGM-1.xmi", 
-//          		"resources/AGM-2.xmi", 
-//          		"resources/AGM-3.xmi", 
-//          		"resources/AGM-4.xmi",
-//          		"resources/AGM-5.xmi", 
-//          		"resources/MoM-1.xmi",
-//          		"resources/MoM-2.xmi",
-//          		"resources/MoM-3.xmi",
-//          		"resources/MoM-4.xmi",
-//          		"resources/LPS-BET.xmi"
-        };
+        		"/Users/elf/mestrado/sourcesMestrado/arquitetura/src/test/java/resources/agmfinal/agm.uml" };
          String xmiFilePath;
            
          
           		
          for (String pla : plas) {
-
-
-               	xmiFilePath = pla;
-//                    	
+               xmiFilePath = pla;
          
      	OPLA problem = null;
 			try {
 				problem = new OPLA(xmiFilePath);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -133,9 +119,7 @@ public class NSGAII_OPLA_FeatMut {
          heapSize = (heapSize / 1024) / 1024;
          System.out.println("Heap Size: " + heapSize + "Mb\n");
 
- 		int beginIndex = pla.lastIndexOf("/") + 1;
-		int endIndex = pla.length() - 4;
-		String PLAName = pla.substring(beginIndex, endIndex);
+ 		 String PLAName = getPlaName(pla);
          long time[] = new long[runsNumber];
          
          for (int runs = 0; runs < runsNumber; runs++) {
@@ -167,7 +151,7 @@ public class NSGAII_OPLA_FeatMut {
 
          }
          //Thelma - Dez2013 - duas proximas linhas
-         String NameOfPLA = pla.substring(10,15);
+         String NameOfPLA = getPlaName(pla);
          allSolutions.printObjectivesToFile(directory + "/Hypervolume/" + NameOfPLA + "/"  + NameOfPLA + "_HV_" + moea + ".txt");
                 
          todasRuns.printTimeToFile(directory + "/TIME_" + PLAName, runsNumber, time, pla);
@@ -188,7 +172,12 @@ public class NSGAII_OPLA_FeatMut {
          
          }
  }
- //  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
+
+ 	private static String getPlaName(String pla) {
+ 		int beginIndex = pla.lastIndexOf("/") + 1;
+		int endIndex = pla.length() - 4;
+		return pla.substring(beginIndex, endIndex);
+ 	}
  
 
 }
