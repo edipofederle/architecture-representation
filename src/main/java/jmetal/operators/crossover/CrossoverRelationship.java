@@ -20,6 +20,7 @@ import arquitetura.representation.relationship.UsageRelationship;
 public class CrossoverRelationship {
 	
 	private static Set<Relationship> relationships = new HashSet<Relationship>();
+	private static Set<Relationship> parentRelationships;
 	
 	public static void createRelationshipsInOffspring(Architecture offspring) {
 		for(Relationship r : relationships){
@@ -112,43 +113,55 @@ public class CrossoverRelationship {
 	}
 	
 	public static void saveAllRelationshiopForElement(Element element, Architecture parent) {
-		for(DependencyRelationship dependency : parent.getAllDependencies()){
-			if(dependency.getClient().equals(element) || (dependency.getSupplier().equals(element)))
-				relationships.add(dependency);
+		
+		for(Relationship r : parent.getAllRelationships()){
+			if(r instanceof DependencyRelationship){
+				if(((DependencyRelationship) r).getClient().equals(element) || (((DependencyRelationship) r).getSupplier().equals(element)))
+					relationships.add(r);
+			}
+			if(r instanceof RealizationRelationship){
+				if(((RealizationRelationship) r).getClient().equals(element) || (((RealizationRelationship) r).getSupplier().equals(element)) ){
+					relationships.add(r);
+				}
+			}
+			if(r instanceof UsageRelationship){
+				if(((UsageRelationship) r).getClient().equals(element) || (((UsageRelationship) r).getSupplier().equals(element)) ){
+					relationships.add(r);
+				}
+			}
+			if(r instanceof AbstractionRelationship){
+				if(((AbstractionRelationship) r).getClient().equals(element) || (((AbstractionRelationship) r).getSupplier().equals(element)) ){
+					relationships.add(r);
+				}
+			}
+			
+			if(r instanceof GeneralizationRelationship){
+				if(((GeneralizationRelationship) r).getParent().equals(element) || (((GeneralizationRelationship) r).getChild().equals(element)) ){
+					relationships.add(r);
+				}
+			}
+			
+			if(r instanceof AssociationRelationship){
+				AssociationRelationship association = (AssociationRelationship)r;
+				for(AssociationEnd ase : association.getParticipants()){
+					if(ase.getCLSClass().equals(element))
+						relationships.add(r);
+				}
+			}
 		}
 		
-		for(RealizationRelationship realization : parent.getAllRealizations()){
-			if(realization.getClient().equals(element) || (realization.getSupplier().equals(element)) ){
-				relationships.add(realization);
-			}
-		}
-		
-		for(UsageRelationship usage : parent.getAllUsage()){
-			if(usage.getClient().equals(element) || (usage.getSupplier().equals(element))){
-				relationships.add(usage);
-			}
-		}
-		for(AbstractionRelationship abstraction : parent.getAllAbstractions()){
-			if(abstraction.getClient().equals(element) || abstraction.getSupplier().equals(element)){
-				relationships.add(abstraction);
-			}
-		}
-		
-		for(GeneralizationRelationship abstraction : parent.getAllGeneralizations()){
-			if(abstraction.getParent().equals(element) || abstraction.getChild().equals(element)){
-				relationships.add(abstraction);
-			}
-		}
-		
-		for(AssociationRelationship association : parent.getAllAssociations()){
-			for(AssociationEnd ase : association.getParticipants()){
-				if(ase.getCLSClass().equals(element))
-					relationships.add(association);
-			}
-		}
 	}
 
 	public static void cleanRelationships() {
 		relationships.clear();
+	}
+
+	public static void setParent(Architecture parent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void setParentRelationships(Set<Relationship> allRelationships) {
+		parentRelationships = allRelationships;
 	}
 }

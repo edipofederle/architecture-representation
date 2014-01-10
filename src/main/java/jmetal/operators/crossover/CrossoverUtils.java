@@ -2,6 +2,7 @@ package jmetal.operators.crossover;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -153,6 +154,8 @@ public class CrossoverUtils {
 	
     private Set<Element> getChildren(Element cls){
     	GeneralizationRelationship g = getGeneralizationForClass(cls);
+    	if(g == null)
+    		return Collections.emptySet();
     	return g.getAllChildrenForGeneralClass();
     }
   	

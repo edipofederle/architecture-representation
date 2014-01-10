@@ -29,11 +29,9 @@ public class NSGAII_OPLA_FeatMut {
 //--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
  public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
 
- 	 	 	 	
-
          int runsNumber = 2; //30;
-         populationSize_ = 10; //100
-         maxEvaluations_ = 400; //300 gera��es
+         populationSize_ = 2; //100
+         maxEvaluations_ = 2; //300 gera��es
          
          crossoverProbability_ = 0.0; 
          mutationProbability_ = 0.9;
@@ -52,10 +50,8 @@ public class NSGAII_OPLA_FeatMut {
 
 
          String plas[] = new String[]{
-        		"/Users/elf/mestrado/sourcesMestrado/arquitetura/src/test/java/resources/agmfinal/agm.uml" };
+        		"/Users/elf/Documents/workspaceModeling/modelosTests/fm.uml" };
          String xmiFilePath;
-           
-         
           		
          for (String pla : plas) {
                xmiFilePath = pla;
@@ -132,8 +128,8 @@ public class NSGAII_OPLA_FeatMut {
              //System.out.println("Iruns: " + runs + "\tTotal time: " + estimatedTime);
              time[runs] = estimatedTime;
              
-             resultFront = problem.removeDominadas(resultFront);
-             resultFront = problem.removeRepetidas(resultFront);
+//             resultFront = problem.removeDominadas(resultFront);
+//             resultFront = problem.removeRepetidas(resultFront);
 
              resultFront.printObjectivesToFile(directory + "/FUN_" + PLAName + "_" + runs + ".txt");
              //resultFront.printVariablesToFile(directory + "/VAR_" + runs);
@@ -156,8 +152,8 @@ public class NSGAII_OPLA_FeatMut {
                 
          todasRuns.printTimeToFile(directory + "/TIME_" + PLAName, runsNumber, time, pla);
          
-         todasRuns = problem.removeDominadas(todasRuns);
-         todasRuns = problem.removeRepetidas(todasRuns);
+//         todasRuns = problem.removeDominadas(todasRuns);
+//         todasRuns = problem.removeRepetidas(todasRuns);
         
          System.out.println("------    All Runs - Non-dominated solutions --------");          
          todasRuns.printObjectivesToFile(directory + "/FUN_All_" + PLAName + ".txt");

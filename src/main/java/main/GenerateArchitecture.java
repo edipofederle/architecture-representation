@@ -284,6 +284,7 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			System.exit(0);
 		}
 		LOGGER.info("\n\n\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget()+doc.getNewModelName() + "\n\n\n\n");
+		System.out.println("\n\n\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget()+doc.getNewModelName() + "\n\n\n\n");
 		
 	}
 

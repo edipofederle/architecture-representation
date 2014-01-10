@@ -36,6 +36,8 @@ import arquitetura.representation.Variability;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.Relationship;
 
+import com.rits.cloning.Cloner;
+
 /**
  * Builder responsável por criar a arquitetura.
  * 
@@ -96,7 +98,6 @@ public class ArchitectureBuilder {
 		VariabilityFlyweight.getInstance().addModel(model);
 		
 		Architecture architecture = new Architecture(modelHelper.getName(xmiFilePath));
-		//XmiHelper.setNotationOriginalFile(xmiFilePath); // Para posicionamento, tamanhos, etc.... NAO USADO AINDA....
 		
 		initialize(architecture);
 		
@@ -119,6 +120,8 @@ public class ArchitectureBuilder {
 		for(Relationship as : loadAssociationClassAssociation())
 			architecture.addRelationship(as);
 		
+		Cloner cloner = new Cloner();
+		architecture.setCloner(cloner);
 		return architecture;
 	}
 

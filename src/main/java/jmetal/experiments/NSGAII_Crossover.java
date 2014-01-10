@@ -32,14 +32,14 @@ public class NSGAII_Crossover {
 
  	 	 	 	
 
-         int runsNumber = 10; //30;
-         populationSize_ = 30; //100; 
-         maxEvaluations_ = 9000; //300 gerações
+         int runsNumber = 2; //30;
+         populationSize_ = 20; //100; 
+         maxEvaluations_ = 500; //300 gerações
          int totalDiscardedSolutions = 0;
          int discardedSolutions[] = new int[runsNumber];
          
          crossoverProbability_ = 0.2;  //0.1
-         mutationProbability_ = 0.8; 
+         mutationProbability_ = 0.0; 
          String context = "OPLA";
        //Thelma - Dez2013 linha adicionada para identificar o algoritmo no nome do arquivo do hypervolume
          String moea = "NSGAII-MC";
@@ -71,7 +71,6 @@ public class NSGAII_Crossover {
 			try {
 				problem = new OPLA(xmiFilePath);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -168,6 +167,7 @@ public class NSGAII_Crossover {
          todasRuns.printTimeToFile(directory + "/TIME_" + PLAName, runsNumber, time, pla);
          todasRuns = problem.removeDominadas(todasRuns);
          todasRuns = problem.removeRepetidas(todasRuns);
+         
         
          System.out.println("------    All Runs - Non-dominated solutions --------");          
          todasRuns.printObjectivesToFile(directory + "/FUN_All_" + PLAName + ".txt");

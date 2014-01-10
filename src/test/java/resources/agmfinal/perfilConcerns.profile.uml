@@ -627,6 +627,6 @@
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_YQ_CYBWVEeObs-pQrJ2skQ" type="_-WptMHqaEeK1gM_kVgXLQw" association="_7PheUBWUEeObs-pQrJ2skQ"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="_u_1NUBWfEeObs-pQrJ2skQ" name="E_Concern_Package" memberEnd="_Paq9cBWfEeObs-pQrJ2skQ _02p2wBWfEeObs-pQrJ2skQ" navigableOwnedEnd="_02p2wBWfEeObs-pQrJ2skQ">
-    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_02p2wBWfEeObs-pQrJ2skQ" type="_u_1NUBWfEeObs-pQrJ2skQ" association="_u_1NUBWfEeObs-pQrJ2skQ"/>
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_02p2wBWfEeObs-pQrJ2skQ" association="_u_1NUBWfEeObs-pQrJ2skQ"/>
   </packagedElement>
 </uml:Profile>

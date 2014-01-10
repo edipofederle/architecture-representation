@@ -45,8 +45,10 @@ import com.rits.cloning.Cloner;
  * @author edipofederle<edipofederle@gmail.com>
  *
  */
-public class Architecture extends Variable implements Cloneable {	
+public class Architecture extends Variable {	
 	private static final long serialVersionUID = -7764906574709840088L;
+	
+	private Cloner cloner;
 
 	static Logger LOGGER = LogManager.getLogger(Architecture.class.getName());
 	public static String ARCHITECTURE_TYPE = "arquitetura.representation.Architecture"; 
@@ -273,6 +275,7 @@ public class Architecture extends Variable implements Cloneable {
 				association.add(associationRelationship);
 			}
 		}
+		associations = null;
 		return association; 
 
 	}
@@ -306,6 +309,7 @@ public class Architecture extends Variable implements Cloneable {
 				compositions.add(associationRelationship);
 			}
 		}
+		associations = null;
 		return Collections.unmodifiableList(compositions); 
 	}
 	
@@ -707,17 +711,14 @@ public class Architecture extends Variable implements Cloneable {
 	 * @return An exact copy of the object.
 	 */
 	public Variable deepCopy() {
-		try {
-			return this.deepClone();
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return this.deepClone();
 	}
 
-	public Architecture deepClone() throws CloneNotSupportedException {
-		Cloner cloner = new Cloner();
-		Architecture newArchitecture = (Architecture) cloner.deepClone(this);
+	//private static int count = 1;
+	public Architecture deepClone() {
+		if(cloner == null)
+			cloner = new Cloner();
+		Architecture newArchitecture = cloner.deepClone(this);
 		return newArchitecture;
 	}
 	
@@ -984,5 +985,9 @@ public class Architecture extends Variable implements Cloneable {
 		}
 		
 		return false;
+	}
+
+	public void setCloner(Cloner cloner) {
+		this.cloner = cloner;
 	}
 }

@@ -79,7 +79,6 @@ public class OPLA extends Problem {
 				.forName(Architecture.ARCHITECTURE_TYPE);
 
 		architecture_ = new ArchitectureBuilder().create(xmiFilePath);
-		// length_[0] = numberOfElements_;
 	}
 
 	// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --

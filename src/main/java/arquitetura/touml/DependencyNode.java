@@ -36,6 +36,7 @@ public class DependencyNode extends XmiHelper {
 	public void createDependency(String type) {
 		//Primeiramente cria o xmi necessário no document UML.
 		
+		try{
 		createDependencyInUmlFile(type);
 		
 		Node node = this.docNotation.getElementsByTagName("notation:Diagram").item(0);
@@ -112,9 +113,9 @@ public class DependencyNode extends XmiHelper {
 		bendpoints.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		bendpoints.setAttribute("points", "[0, 0, 476, 181]$[-467, -170, 9, 11]");
 		edges.appendChild(bendpoints);
-
 		
 		node.appendChild(edges);
+		}catch(Exception e){}
 	}
 
 	private void createDependencyInUmlFile(String dependency) {
