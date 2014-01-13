@@ -18,7 +18,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import arquitetura.exceptions.ClassNotFound;
-import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.exceptions.ElementNotFound;
 import arquitetura.exceptions.InterfaceNotFound;
 import arquitetura.exceptions.PackageNotFound;
@@ -33,7 +32,6 @@ import arquitetura.representation.relationship.AssociationEnd;
 import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
-import arquitetura.representation.relationship.MemberEnd;
 import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 import arquitetura.representation.relationship.UsageRelationship;
@@ -57,18 +55,7 @@ public class Architecture extends Variable {
 	private Set<Class> classes = new HashSet<Class>();
 	private Set<Interface> interfaces = new HashSet<Interface>();
 	private HashMap<String, Concern> concerns = new HashMap<String, Concern>();
-	private Set<Relationship> relationships = new HashSet<Relationship>();
 	private String name;
-	
-	/**
-	 * Esta lista é carregada a partir do arquivo de concerns indica no arquivo de configuração.<br/>
-	 * 
-	 * Ela serve para sabermos quais concern são passiveis de manipulação.<Br />
-	 * 
-	 * Ex: Ao adicionar um  concern em uma classe, o mesmo deve estar presente nesta lista.
-	 * 
-	 */
-	private List<Concern> allowedConcerns = new ArrayList<Concern>();
 
 	public Architecture(String name) {
 		setName(name);
@@ -97,24 +84,24 @@ public class Architecture extends Variable {
 		return  Collections.unmodifiableList(elts);
 	}
 
-	/**
-	 * Procura concern por nome.
-	 * 
-	 * Se o concern não estiver no arquivo de profile é lançada uma Exception.
-	 * 
-	 * @param name
-	 * @return
-	 * @throws ConcernNotFoundException 
-	 */
-	public Concern getOrCreateConcern(String name) throws ConcernNotFoundException {
-		Concern concern = allowedConcernContains(name.toLowerCase());
-		if(concerns.containsValue(concern)) return concern;
-		if(concern != null){
-			concerns.put(name.toLowerCase(), concern);
-			return concern;
-		}
-		throw new ConcernNotFoundException("Concern " + name + " cannot be found");
-	}
+//	/**
+//	 * Procura concern por nome.
+//	 * 
+//	 * Se o concern não estiver no arquivo de profile é lançada uma Exception.
+//	 * 
+//	 * @param name
+//	 * @return
+//	 * @throws ConcernNotFoundException 
+//	 */
+//	public Concern getOrCreateConcern(String name) throws ConcernNotFoundException {
+//		Concern concern = allowedConcernContains(name.toLowerCase());
+//		if(concerns.containsValue(concern)) return concern;
+//		if(concern != null){
+//			concerns.put(name.toLowerCase(), concern);
+//			return concern;
+//		}
+//		throw new ConcernNotFoundException("Concern " + name + " cannot be found");
+//	}
 
 
 	/**
@@ -125,7 +112,7 @@ public class Architecture extends Variable {
 	 */
 	public List<Concern> getAllConcerns() {
 		List<Concern> concerns = new ArrayList<Concern>();
-		for (Map.Entry<String, Concern> entry : this.concerns.entrySet()) {
+		for (Map.Entry<String, Concern> entry : ConcernHolder.INSTANCE.getConcerns().entrySet()) {
 			concerns.add(entry.getValue());
 		}
 		return Collections.unmodifiableList(concerns);
@@ -252,7 +239,7 @@ public class Architecture extends Variable {
 
 	
 	public Set<Relationship> getAllRelationships(){
-		return Collections.unmodifiableSet(relationships);
+		return Collections.unmodifiableSet(RelationshipHolder.getRelationships());
 	}
 
 	public List<GeneralizationRelationship> getAllGeneralizations() {
@@ -262,7 +249,7 @@ public class Architecture extends Variable {
 			}
 		};
 
-		List<GeneralizationRelationship> generalizations = UtilResources.filter(relationships, isValid);
+		List<GeneralizationRelationship> generalizations = UtilResources.filter(RelationshipHolder.getRelationships(), isValid);
 		
 		return Collections.unmodifiableList(generalizations);
 	}
@@ -295,7 +282,7 @@ public class Architecture extends Variable {
 			}
 		};
 
-		List<AssociationRelationship> allAssociations = UtilResources.filter(relationships, isValid);
+		List<AssociationRelationship> allAssociations = UtilResources.filter(RelationshipHolder.getRelationships(), isValid);
 		
 		return Collections.unmodifiableList(allAssociations);
 
@@ -331,7 +318,7 @@ public class Architecture extends Variable {
 			}
 		};
 
-		List<UsageRelationship> allUsages = UtilResources.filter(relationships, isValid);
+		List<UsageRelationship> allUsages = UtilResources.filter(RelationshipHolder.getRelationships(), isValid);
 		
 		return Collections.unmodifiableList(allUsages);
 	}
@@ -343,7 +330,7 @@ public class Architecture extends Variable {
 			}
 		};
 
-		List<DependencyRelationship> allDependencies = UtilResources.filter(relationships, isValid);
+		List<DependencyRelationship> allDependencies = UtilResources.filter(RelationshipHolder.getRelationships(), isValid);
 		
 		return Collections.unmodifiableList(allDependencies);
 	}
@@ -355,7 +342,7 @@ public class Architecture extends Variable {
 			}
 		};
 
-		List<RealizationRelationship> allRealizations = UtilResources.filter(relationships, realizations);
+		List<RealizationRelationship> allRealizations = UtilResources.filter(RelationshipHolder.getRelationships(), realizations);
 		
 		return Collections.unmodifiableList(allRealizations);
 	}
@@ -367,7 +354,7 @@ public class Architecture extends Variable {
 			}
 		};
 
-		List<AbstractionRelationship> allAbstractions = UtilResources.filter(relationships, realizations);
+		List<AbstractionRelationship> allAbstractions = UtilResources.filter(RelationshipHolder.getRelationships(), realizations);
 		
 		return Collections.unmodifiableList(allAbstractions);
 	}
@@ -380,7 +367,7 @@ public class Architecture extends Variable {
 			}
 		};
 
-		List<AssociationClassRelationship> allAssociationClasses = UtilResources.filter(relationships, associationClasses);
+		List<AssociationClassRelationship> allAssociationClasses = UtilResources.filter(RelationshipHolder.getRelationships(), associationClasses);
 		
 		return Collections.unmodifiableList(allAssociationClasses);
 	}
@@ -461,13 +448,13 @@ public class Architecture extends Variable {
 
 
 	public Package createPackage(String packageName) {
-		Package pkg = new Package(this, packageName);
+		Package pkg = new Package(packageName);
 		this.packages.add(pkg);
 		return pkg;
 	}
 	
 	public Package createPackage(String packageName, String id) {
-		Package pkg = new Package(this, packageName, id);
+		Package pkg = new Package(packageName, id);
 		this.packages.add(pkg);
 		return pkg;
 	}
@@ -478,77 +465,41 @@ public class Architecture extends Variable {
 		 * que esta sendo deletado possa ter.
 		 */
 		for(Element element : p.getElements()){
-			this.removeRelatedRelationships(element);
+			RelationshipHolder.removeRelatedRelationships(element);
 		}
 		//Remove os relacionamentos que o pacote possa pertencer
-		this.removeRelatedRelationships(p);
+		RelationshipHolder.removeRelatedRelationships(p);
 		
 		this.packages.remove(p);
 		LOGGER.info("Pacote:" + p.getName() + "removido");
 	}
 
 	public Interface createInterface(String interfaceName) {
-		Interface interfacee = new Interface(this, interfaceName);
+		Interface interfacee = new Interface(interfaceName);
+		this.addExternalInterface(interfacee);
 		return interfacee;
 	}
 	
 	public Interface createInterface(String interfaceName, String id) {
-		Interface interfacee = new Interface(this, interfaceName, id);
+		Interface interfacee = new Interface(interfaceName, id);
+		this.addExternalInterface(interfacee);
 		return interfacee;
 	}
 	
 	public Class createClass(String klassName, boolean isAbstract) {
-		Class klass = new Class(this, klassName, isAbstract);
+		Class klass = new Class(klassName, isAbstract);
 		this.addExternalClass(klass);
 		return klass;
 	}
 
 	public void removeInterface(Interface interfacee) {
-		this.removeInterfaceFromRequiredOrImplemented(interfacee);
-		this.removeRelatedRelationships(interfacee);
+		interfacee.removeInterfaceFromRequiredOrImplemented();
+		RelationshipHolder.removeRelatedRelationships(interfacee);
 		if (removeInterfaceFromArch(interfacee)){
 			LOGGER.info("Interface:" + interfacee.getName() + " removida da arquitetura");
 		}
 	}
 	
-	/**
-	 * Esse método recebe uma interface e procura os elementso (Pacotes e Classes) que a 
-	 * implementam ou que a requerem a interface em questão e  a remove da lista de interfaces implementadas
-	 * ou requeridas
-	 * 
-	 * @param interfacee
-	 */
-	public void removeInterfaceFromRequiredOrImplemented(Interface interfacee) {
-		for (Iterator<Relationship> i = this.relationships.iterator(); i.hasNext();) {
-			Relationship r = i.next();
-			
-			if(r instanceof RealizationRelationship){
-				RealizationRelationship realization = (RealizationRelationship) r;
-				if( realization.getSupplier().equals(interfacee)){
-					if(realization.getClient() instanceof Package){
-						((Package)realization.getClient()).removeImplementedInterface(interfacee);
-					}
-					if(realization.getClient() instanceof Class){
-						((Class)realization.getClient()).removeImplementedInterface(interfacee);
-					}
-					
-				}
-			}
-			
-			if(r instanceof DependencyRelationship){
-				DependencyRelationship dependency = (DependencyRelationship) r;
-				if( dependency.getSupplier().equals(interfacee)){
-					if(dependency.getClient() instanceof Package){
-						((Package)dependency.getClient()).removeRequiredInterface(interfacee);
-					}
-					if(dependency.getClient() instanceof Class){
-						((Class)dependency.getClient()).removeRequiredInterface(interfacee);
-					}
-					
-				}
-			}
-		}
-	}
 
 	private boolean removeInterfaceFromArch(Interface interfacee) {
 		if(this.interfaces.remove(interfacee))
@@ -561,7 +512,7 @@ public class Architecture extends Variable {
 	}
 
 	public void removeClass(Element klass) {
-		removeRelatedRelationships(klass);
+		RelationshipHolder.removeRelatedRelationships(klass);
 		if(this.classes.remove(klass))
 			LOGGER.info("Classe " + klass.getName()+"("+klass.getId()+") removida da arquitetura");
 		
@@ -604,22 +555,6 @@ public class Architecture extends Variable {
 				return klass;
 		
 		throw new ClassNotFound("Class " + idClass + " can not found.\n");
-	}
-
-	public List<Concern> allowedConcerns() {
-		return allowedConcerns;
-	}
-	
-	private Concern allowedConcernContains(String concernName) {
-		for (Concern concern : allowedConcerns){
-			if(concern.getName().equalsIgnoreCase(concernName))
-				return concern;
-		}
-		return null;
-	}
-
-	public Concern getConcernByName(String concernName) {
-		return concerns.get(concernName);
 	}
 	
 	/**
@@ -692,7 +627,7 @@ public class Architecture extends Variable {
 	
 	public boolean removeRelationship(Relationship as) {
 		if(as == null) return false;
-		if(relationships.remove(as)){
+		if(RelationshipHolder.getRelationships().remove(as)){
 			LOGGER.info("Relacionamento : " + as.getType() + " removido da arquitetura");
 			return true;
 		}else{
@@ -764,12 +699,12 @@ public class Architecture extends Variable {
 	
 	public void removeImplementedInterface(Interface inter, Package pacote) {
 		pacote.removeImplementedInterface(inter);
-		removeRelatedRelationships(inter);
+		RelationshipHolder.removeRelatedRelationships(inter);
 	}
 	
 	public void removeImplementedInterface(Class foo, Interface inter) {
 		foo.removeImplementedInterface(inter);
-		removeRelatedRelationships(inter);
+		RelationshipHolder.removeRelatedRelationships(inter);
 	}
 	
 	public void addRequiredInterface(Interface supplier, Class client) {
@@ -802,7 +737,7 @@ public class Architecture extends Variable {
 
 	public boolean addRelationship(Relationship relationship) {
 		if(!haveRelationship(relationship)){
-			if(this.relationships.add(relationship)){
+			if(RelationshipHolder.getRelationships().add(relationship)){
 				LOGGER.info("Relacionamento: " + relationship.getType() + " adicionado na arquitetura.("+UtilResources.detailLogRelationship(relationship)+")");
 				return true;
 			}else{
@@ -885,59 +820,6 @@ public class Architecture extends Variable {
 	}
 
 	/**
-	 * Dado um {@link Element} remove todos relacionamentos em que o elemento esteja envolvido
-	 * 
-	 * @param element
-	 */
-	public void removeRelatedRelationships(Element element) {
-		for (Iterator<Relationship> i = this.relationships.iterator(); i.hasNext();) {
-			Relationship r = i.next();
-			if(r instanceof GeneralizationRelationship){
-				if(((GeneralizationRelationship) r).getParent().equals(element) || ((GeneralizationRelationship) r).getChild().equals(element)){
-					i.remove();
-					LOGGER.info("Generalização removida");
-				}
-			}
-			if(r instanceof RealizationRelationship){
-				if(((RealizationRelationship) r).getClient().equals(element) || ((RealizationRelationship) r).getSupplier().equals(element)){
-					i.remove();
-					LOGGER.info("Realização removida");
-				}
-			}
-			if(r instanceof DependencyRelationship){
-				if(((DependencyRelationship) r).getClient().equals(element) || ((DependencyRelationship) r).getSupplier().equals(element)){
-					i.remove();
-					LOGGER.info("Dependência removida");
-				}
-			}
-			if(r instanceof AbstractionRelationship){
-				if(((AbstractionRelationship) r).getClient().equals(element) || ((AbstractionRelationship) r).getSupplier().equals(element)){
-					i.remove();
-					LOGGER.info("Abstraction removida");
-				}
-			}
-			if(r instanceof AssociationRelationship){
-				for(AssociationEnd a : ((AssociationRelationship)r).getParticipants()){
-					if(a.getCLSClass().equals(element)){
-						i.remove();
-						LOGGER.info("Associação removida");
-					}
-				}
-			}
-			
-			if(r instanceof AssociationClassRelationship){
-				for(MemberEnd memberEnd : ((AssociationClassRelationship) r).getMemebersEnd()){
-					if(memberEnd.getType().equals(element)){
-						i.remove();
-						LOGGER.info("AssociationClass removida");
-					}
-						
-				}
-			}
-		}
-	}
-
-	/**
 	 * Adiciona um pacote na lista de pacotes
 	 * 
 	 * @param {@link Package}
@@ -963,12 +845,12 @@ public class Architecture extends Variable {
 
 	public void removeRequiredInterface(Interface supplier, Package client) {
 		if(!client.removeRequiredInterface(supplier));
-		this.removeRelatedRelationships(supplier);
+		RelationshipHolder.removeRelatedRelationships(supplier);
 	}
 	
 	public void removeRequiredInterface(Interface supplier, Class client) {
 		if(!client.removeRequiredInterface(supplier));
-		this.removeRelatedRelationships(supplier);
+		RelationshipHolder.removeRelatedRelationships(supplier);
 	}
 	
 	public boolean removeOnlyElement(Element element) {

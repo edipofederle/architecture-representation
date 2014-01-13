@@ -48,24 +48,22 @@ public class Class extends Element {
 	 * @param interfacee
 	 * @param packageName
 	 */
-	public Class(Architecture architecture, String name, Variant variantType, boolean isAbstract, String namespace, String id) {
-		super(architecture, name, variantType, "klass", namespace, id);
+	public Class(String name, Variant variantType, boolean isAbstract, String namespace, String id) {
+		super(name, variantType, "klass", namespace, id);
 		setAbstract(isAbstract);
 	}
 
-	public Class(Architecture architecture, String name, boolean isAbstract) {
-		this(architecture, name,  null, isAbstract,  UtilResources.createNamespace(architecture.getName(), name), UtilResources.getRandonUUID());
-		architecture.addExternalClass(this);
+	public Class(String name, boolean isAbstract) {
+		this(name,  null, isAbstract,  UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
 	}
 	
-	public Class(Architecture architecture, String name, boolean isAbstract, String packageName) {
-		this(architecture, name,  null, isAbstract,  UtilResources.createNamespace(architecture.getName()+"::"+packageName, name), UtilResources.getRandonUUID());
-		architecture.addExternalClass(this);
+	public Class(String name, boolean isAbstract, String packageName) {
+		this(name,  null, isAbstract,  UtilResources.createNamespace(ArchitectureHolder.getName()+"::"+packageName, name), UtilResources.getRandonUUID());
 	}
 
 	public Attribute createAttribute(String name, Type type, VisibilityKind visibility) {
 		String id = UtilResources.getRandonUUID();
-		Attribute a = new Attribute(getArchitecture(), name, visibility.toString(), type.getName(), getArchitecture().getName()+"::"+this.getName(), id);
+		Attribute a = new Attribute(name, visibility.toString(), type.getName(), ArchitectureHolder.getName()+"::"+this.getName(), id);
 		addExternalAttribute(a);
 		return a;
 	}
@@ -110,7 +108,7 @@ public class Class extends Element {
 			destinationKlass.removeAttribute(attribute);
 			return false;
 		}
-		attribute.setNamespace(getArchitecture().getName() + "::" + destinationKlass.getName());
+		attribute.setNamespace(ArchitectureHolder.getName() + "::" + destinationKlass.getName());
 		LOGGER.info("Moveu atributo: "+  attribute.getName() + " de "+this.getName() +" para " + destinationKlass.getName());
 		return true;
 	}
@@ -132,7 +130,7 @@ public class Class extends Element {
 			return false;
 		}
 		
-		method.setNamespace(getArchitecture().getName() + "::" + destinationKlass.getName());
+		method.setNamespace(ArchitectureHolder.getName() + "::" + destinationKlass.getName());
 		LOGGER.info("Moveu método: "+  method.getName() + " de "+this.getName() +" para " + destinationKlass.getName());
 		return true;
 	}
@@ -142,7 +140,7 @@ public class Class extends Element {
 	public Method createMethod(String name, String type, boolean isAbstract, List<ParameterMethod> parameters) {
 		if (!methodExistsOnClass(name, type)){
 			String id = UtilResources.getRandonUUID();
-			Method method = new Method(getArchitecture(), name, type, this.getName(), isAbstract, id);
+			Method method = new Method(name, type, this.getName(), isAbstract, id);
 			if(parameters != null)
 				method.getParameters().addAll(parameters);
 			getAllMethods().add(method);

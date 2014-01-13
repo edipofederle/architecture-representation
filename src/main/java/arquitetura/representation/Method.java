@@ -20,8 +20,8 @@ public class Method extends Element{
 	private final List<ParameterMethod> parameters = new ArrayList<ParameterMethod>();
 	private boolean isAbstract;
 
-	public Method(Architecture architecture, String name, Variant variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, String namespace, String id) {
-		super(architecture, name, variantType, "method", namespace, id);
+	public Method(String name, Variant variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, String namespace, String id) {
+		super(name, variantType, "method", namespace, id);
 		setReturnType(returnType);
 		setAbstract(isAbstract);
 		setParams(paramsMethod);
@@ -32,12 +32,12 @@ public class Method extends Element{
 			parameters.addAll(paramsMethod);
 	}
 	
-	public Method(Architecture architecture, String name, Boolean isVariationPoint, VariantType variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, String namespace, String id) {
-		this(architecture, name, null, returnType, isAbstract, paramsMethod,  namespace, id);
+	public Method(String name, Boolean isVariationPoint, VariantType variantType, String returnType, boolean isAbstract, List<ParameterMethod> paramsMethod, String namespace, String id) {
+		this(name, null, returnType, isAbstract, paramsMethod,  namespace, id);
 	}
 
-	public Method(Architecture architecture, String name, String type, String className, boolean isAbstract, String id) {
-		super(architecture, name, null, "method", UtilResources.createNamespace(architecture.getName(), className), id);
+	public Method(String name, String type, String className, boolean isAbstract, String id) {
+		super(name, null, "method", UtilResources.createNamespace(ArchitectureHolder.getName(), className), id);
 		setReturnType(type);
 		setAbstract(isAbstract);
 	}

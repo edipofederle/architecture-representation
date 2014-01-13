@@ -275,7 +275,7 @@ public class CrossoverOperations {
 			Iterator<Interface> iteratorInterfaces = allInterfaces.iterator();
 			while (iteratorInterfaces.hasNext()) {
 				Interface interfaceComp = iteratorInterfaces.next();
-				offspring.removeInterfaceFromRequiredOrImplemented(interfaceComp);
+				interfaceComp.removeInterfaceFromRequiredOrImplemented();
 				offspring.addExternalInterface(interfaceComp);
 				offspring.addImplementedInterface(interfaceComp, newComp);
 				

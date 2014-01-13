@@ -30,6 +30,7 @@ import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
 import arquitetura.representation.Package;
+import arquitetura.representation.RelationshipHolder;
 import arquitetura.representation.Variability;
 import arquitetura.representation.VariationPoint;
 import arquitetura.representation.relationship.DependencyRelationship;
@@ -465,13 +466,13 @@ public class PLACrossover extends Crossover {
 			removeChildrenOfComponent(child, comp, architecture);
 		}
 		if (comp.getAllClasses().contains(parent)){
-			architecture.removeRelatedRelationships(parent);
+			RelationshipHolder.removeRelatedRelationships(parent);
 			//removeClassRelationships(parent, architecture);
 			comp.removeClass(parent);							
 		} else{				
 			for (Package auxComp: architecture.getAllPackages()){
 				if (auxComp.getAllClasses().contains(parent)){
-					architecture.removeRelatedRelationships(parent);
+					RelationshipHolder.removeRelatedRelationships(parent);
 					//removeClassRelationships(parent,architecture);
 					auxComp.removeClass(parent);
 					break;

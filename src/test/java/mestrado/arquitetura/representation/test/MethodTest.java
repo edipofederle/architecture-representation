@@ -1,6 +1,7 @@
 package mestrado.arquitetura.representation.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -14,12 +15,11 @@ public class MethodTest {
 	
 	@Test
 	public void methodsShouldNotBeEquals(){
-		Architecture architecture = Mockito.mock(Architecture.class);
-		Method foo = new Method(architecture, "foo", "String", "Bar", false, UtilResources.getRandonUUID());
+		Method foo = new Method("foo", "String", "Bar", false, UtilResources.getRandonUUID());
 		ParameterMethod params = new ParameterMethod("name", "String", "in");
 		foo.getParameters().add(params);
 		
-		Method foo2 = new Method(architecture, "foo", "String", "Bar", false, UtilResources.getRandonUUID());
+		Method foo2 = new Method("foo", "String", "Bar", false, UtilResources.getRandonUUID());
 		ParameterMethod params2 = new ParameterMethod("address", "String", "in");
 		foo2.getParameters().add(params2);
 		
@@ -28,12 +28,11 @@ public class MethodTest {
 	
 	@Test
 	public void methodsShouldBeEquals(){
-		Architecture architecture = Mockito.mock(Architecture.class);
-		Method foo = new Method(architecture, "foo", "String", "Bar", false, UtilResources.getRandonUUID());
+		Method foo = new Method("foo", "String", "Bar", false, UtilResources.getRandonUUID());
 		ParameterMethod params = new ParameterMethod("name", "String", "in");
 		foo.getParameters().add(params);
 		
-		Method foo2 = new Method(architecture, "foo", "String", "Bar", false, UtilResources.getRandonUUID());
+		Method foo2 = new Method("foo", "String", "Bar", false, UtilResources.getRandonUUID());
 		ParameterMethod params2 = new ParameterMethod("name", "String", "in");
 		foo2.getParameters().add(params2);
 		

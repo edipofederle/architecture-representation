@@ -22,6 +22,7 @@ import arquitetura.exceptions.AttributeNotFoundException;
 import arquitetura.exceptions.ClassNotFound;
 import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.representation.Architecture;
+import arquitetura.representation.ArchitectureHolder;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
@@ -41,6 +42,7 @@ public class ClassTest extends TestHelper {
 		
 		architecture = mock(Architecture.class);
 		when(architecture.getName()).thenReturn("MyArch");
+		ArchitectureHolder.setName("MyArch");
 		ClassBuilder classBuilder = new ClassBuilder(architecture);
 		class1 = classBuilder.create(klass);
 		class2 = classBuilder.create(klass2);

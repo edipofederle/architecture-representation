@@ -75,8 +75,8 @@ public class InterfaceTest extends TestHelper {
 		Interface i = a.findInterfaceByName("Interface0");
 		
 		assertNotNull(i);
-		assertEquals(1, i.getImplementors().size());
-		assertEquals("Class1", i.getImplementors().iterator().next().getName());
+		assertEquals(2, i.getImplementors().size());
+		assertContains(i.getImplementors(), "Class1", "Package1");
 	}
 	
 	/**

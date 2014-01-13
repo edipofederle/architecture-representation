@@ -88,8 +88,8 @@ public class AgmTest extends TestHelper {
 	
 	@Test
 	public void testClasseGameMgrStereotypes() throws ClassNotFound{
-		Class klass = architecture.findClassByName("GameMgr").get(0);
-		assertEquals("GameMgr",klass.getName());
+		Class klass = architecture.findClassByName("GameMgrTeste").get(0);
+		assertEquals("GameMgrTeste",klass.getName());
 	}
 	
 	@Test

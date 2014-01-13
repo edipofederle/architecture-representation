@@ -42,18 +42,16 @@ public class Package extends Element {
 	 * @param variantType - Qual o tipo ( {@link VariantType} ) da variante
 	 * @param parent - Qual o {@link Element} pai
 	 */
-	public Package(Architecture architecture, String name, Variant variantType,  String namespace, String id) {
-		super(architecture, name,  variantType, "package", namespace, id);
+	public Package(String name, Variant variantType,  String namespace, String id) {
+		super(name,  variantType, "package", namespace, id);
 	}
 	
-	public Package(Architecture architecture, String name) {
-		this(architecture, name, null, UtilResources.createNamespace(architecture.getName(), name), UtilResources.getRandonUUID());
-		architecture.addPackage(this);
+	public Package(String name) {
+		this(name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
 	}
 	
-	public Package(Architecture architecture, String name, String id) {
-		this(architecture, name, null, UtilResources.createNamespace(architecture.getName(), name), id);
-		architecture.addPackage(this);
+	public Package(String name, String id) {
+		this(name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), id);
 	}
 	
 	/**
@@ -134,7 +132,7 @@ public class Package extends Element {
 	 * @throws Exception
 	 */
 	public Class createClass(String className, boolean isAbstract) throws Exception {
-		Class c = new Class(getArchitecture(), className, isAbstract, this.getName());
+		Class c = new Class(className, isAbstract, this.getName());
 		this.classes.add(c);
 		return c;
 	}
@@ -146,7 +144,7 @@ public class Package extends Element {
 	 * @return
 	 */
 	public Interface createInterface(String name) {
-		Interface inter = new Interface(getArchitecture(), name);
+		Interface inter = new Interface(name);
 		this.interfaces.add(inter);
 		return inter;
 	}
@@ -158,7 +156,7 @@ public class Package extends Element {
 	 * @return
 	 */
 	public Interface createInterface(String name, String id) {
-		Interface inter = new Interface(getArchitecture(), name, id);
+		Interface inter = new Interface(name, id);
 		this.interfaces.add(inter);
 		return inter;
 	}
@@ -219,7 +217,7 @@ public class Package extends Element {
 	}
 	
 	public boolean removeClass(Element klass) {
-		this.getArchitecture().removeRelatedRelationships(klass);
+		RelationshipHolder.removeRelatedRelationships(klass);
 		if(this.classes.remove(klass)){
 			LOGGER.info("Classe: "+klass.getName() + " removida do pacote: "+this.getName());
 			return true;
@@ -228,8 +226,8 @@ public class Package extends Element {
 	}
 	
 	public boolean removeInterface(Element interfacee) {
-		this.getArchitecture().removeInterfaceFromRequiredOrImplemented((Interface) interfacee);
-		this.getArchitecture().removeRelatedRelationships(interfacee);
+		((Interface) interfacee).removeInterfaceFromRequiredOrImplemented();
+		RelationshipHolder.removeRelatedRelationships(interfacee);
 		if(this.interfaces.remove(interfacee)){
 			LOGGER.info("Interface: "+interfacee.getName() + " removida do pacote: "+this.getName());
 			return true;

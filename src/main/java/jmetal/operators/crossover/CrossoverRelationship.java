@@ -114,7 +114,7 @@ public class CrossoverRelationship {
 	
 	public static void saveAllRelationshiopForElement(Element element, Architecture parent) {
 		
-		for(Relationship r : parent.getAllRelationships()){
+		for(Relationship r : parentRelationships){
 			if(r instanceof DependencyRelationship){
 				if(((DependencyRelationship) r).getClient().equals(element) || (((DependencyRelationship) r).getSupplier().equals(element)))
 					relationships.add(r);

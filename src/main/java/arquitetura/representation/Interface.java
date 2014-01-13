@@ -3,6 +3,7 @@ package arquitetura.representation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -12,6 +13,7 @@ import org.apache.log4j.Logger;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.RealizationRelationship;
+import arquitetura.representation.relationship.Relationship;
 
 /**
  * 
@@ -27,35 +29,33 @@ public class Interface extends Element {
 	private final Set<Method> operations = new HashSet<Method>();
 	
 
-	public Interface(Architecture architecture, String name, Variant variantType, String namespace, String id) {
-		super(architecture, name, variantType, "interface", namespace, id);
+	public Interface(String name, Variant variantType, String namespace, String id) {
+		super(name, variantType, "interface", namespace, id);
 	}
 	
 	/**
 	 * Use este construtor quando você deseja criar uma interface.<br /><br />
 	 * 
 	 * OBS 1: O ID para esta interface será gerado automaticamente.<br/>
-	 * OBS 2: Esse construtor automaticamente adicionar a interface na arquitetura<br/>
+	 * OBS 2: Esse construtor NAO adicionar a interface na arquitetura<br/>
 	 * 
 	 * @param architecture Architecture em questão
 	 * @param name - Nome da interface
 	 */
-	public Interface(Architecture a, String name) {
-		this(a, name, null, UtilResources.createNamespace(a.getName(), name), UtilResources.getRandonUUID());
-		a.addExternalInterface(this);
+	public Interface(String name) {
+		this(name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
 	}
-	
+//	
 	/**
 	 * Use este construtor quando você deseja criar uma interface usando algum ID passado por você<br /><br />
 	 * 
-	 * OBS 2: Esse construtor automaticamente adicionar a interface na arquitetura<br/>
+	 * OBS 2: Esse construtor NAO adicionar a interface na arquitetura<br/>
 	 * 
 	 * @param architecture Architecture em questão
 	 * @param name - Nome da interface
 	 */
-	public Interface(Architecture a, String name, String id) {
-		this(a, name, null, UtilResources.createNamespace(a.getName(), name), id);
-		a.addExternalInterface(this);
+	public Interface(String name, String id) {
+		this(name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), id);
 	}
 
 	public  Set<Method> getOperations() {
@@ -73,7 +73,7 @@ public class Interface extends Element {
 	}
 	
 	public Method createOperation(String operationName) throws Exception {
-		Method operation = new Method(getArchitecture(), operationName, false, null, "void", false, null,  "", ""); //Receber id 
+		Method operation = new Method(operationName, false, null, "void", false, null,  "", ""); //Receber id 
 		operations.add(operation);
 		return operation;
 	}
@@ -86,7 +86,7 @@ public class Interface extends Element {
 			interfaceToMove.removeOperation(operation);
 			return false;
 		}
-		operation.setNamespace(getArchitecture().getName() + "::" + interfaceToMove.getName());
+		operation.setNamespace(ArchitectureHolder.getName() + "::" + interfaceToMove.getName());
 		LOGGER.info("Moveu operação: "+  operation.getName() + " de " +this.getName() +" para " + interfaceToMove.getName());
 		return true;
 		
@@ -108,49 +108,48 @@ public class Interface extends Element {
 	public Set<Element> getImplementors() {
 		Set<Element> implementors = new HashSet<Element>();
 		
-		for(Class klass : getArchitecture().getAllClasses()){
-			if(klass.getImplementedInterfaces().contains(this))
-				implementors.add(klass);
-		}
+		Set<Relationship> relations = RelationshipHolder.getRelationships();
 		
-		for(Package p : getArchitecture().getAllPackages()){
-			for(RealizationRelationship r : getArchitecture().getAllRealizations()){
-				if(r.getClient().equals(p) && (r.getSupplier().equals(this))){
-					implementors.add(p);
-				}
+		for (Relationship relationship : relations) {
+			
+			if(relationship instanceof RealizationRelationship){
+				RealizationRelationship realization = (RealizationRelationship)relationship;
+				if(realization.getSupplier().equals(this))
+					implementors.add(realization.getClient());
 			}
+			
 		}
-					
+				
 		return Collections.unmodifiableSet(implementors);
 	}
 	
-	public Set<Element> getRealImplementors() {
-		Set<Element> implementors = new HashSet<Element>();
-		
-		for(Package p : getArchitecture().getAllPackages()){
-			for(RealizationRelationship r : getArchitecture().getAllRealizations()){
-				if(r.getClient().equals(p)){
-					implementors.add(p);
-				}
-			}
-		}
-					
-		return Collections.unmodifiableSet(implementors);
-	}
+//	public Set<Element> getRealImplementors() {
+//		Set<Element> implementors = new HashSet<Element>();
+//		
+//		for(Package p : getArchitecture().getAllPackages()){
+//			for(RealizationRelationship r : getArchitecture().getAllRealizations()){
+//				if(r.getClient().equals(p)){
+//					implementors.add(p);
+//				}
+//			}
+//		}
+//					
+//		return Collections.unmodifiableSet(implementors);
+//	}
 
 	public Set<Element> getDependents() {
 		Set<Element> dependents = new HashSet<Element>();
 		
-		for(Class klass : getArchitecture().getAllClasses()){
-			if(klass.getRequiredInterfaces().contains(this))
-				dependents.add(klass);
-		}
+		Set<Relationship> relations = RelationshipHolder.getRelationships();
 		
-		for(Package p : getArchitecture().getAllPackages()){
-			if(p.getRequiredInterfaces().contains(this))
-				dependents.add(p);
+		for (Relationship relationship : relations) {
+			if(relationship instanceof DependencyRelationship){
+				DependencyRelationship dependency = (DependencyRelationship)relationship;
+				if(dependency.getSupplier().equals(this)){
+					dependents.add(dependency.getClient());
+				}
+			}
 		}
-		
 		return Collections.unmodifiableSet(dependents);
 	}
 	
@@ -173,6 +172,45 @@ public class Interface extends Element {
 		}
 		
 		return Collections.unmodifiableList(dependencies);
+	}
+	
+	/**
+	 * Esse método recebe uma interface e procura os elementso (Pacotes e Classes) que a 
+	 * implementam ou que a requerem a interface em questão e  a remove da lista de interfaces implementadas
+	 * ou requeridas
+	 * 
+	 * @param interfacee
+	 */
+	public void removeInterfaceFromRequiredOrImplemented() {
+		for (Iterator<Relationship> i = RelationshipHolder.getRelationships().iterator(); i.hasNext();) {
+			Relationship r = i.next();
+			
+			if(r instanceof RealizationRelationship){
+				RealizationRelationship realization = (RealizationRelationship) r;
+				if( realization.getSupplier().equals(this)){
+					if(realization.getClient() instanceof Package){
+						((Package)realization.getClient()).removeImplementedInterface(this);
+					}
+					if(realization.getClient() instanceof Class){
+						((Class)realization.getClient()).removeImplementedInterface(this);
+					}
+					
+				}
+			}
+			
+			if(r instanceof DependencyRelationship){
+				DependencyRelationship dependency = (DependencyRelationship) r;
+				if( dependency.getSupplier().equals(this)){
+					if(dependency.getClient() instanceof Package){
+						((Package)dependency.getClient()).removeRequiredInterface(this);
+					}
+					if(dependency.getClient() instanceof Class){
+						((Class)dependency.getClient()).removeRequiredInterface(this);
+					}
+					
+				}
+			}
+		}
 	}
 
 }

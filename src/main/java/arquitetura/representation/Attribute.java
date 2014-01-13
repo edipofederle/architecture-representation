@@ -27,8 +27,8 @@ public class Attribute extends Element {
 	 * @param namesapce
 	 * @param id
 	 */
-	public Attribute(Architecture architecture, String name, String visibilityKind, Variant variantType, String type, String namesapce, String id, boolean shouldGenerateVisualAttribute) {
-		super(architecture, name, variantType, "attribute", namesapce, id);
+	public Attribute(String name, String visibilityKind, Variant variantType, String type, String namesapce, String id, boolean shouldGenerateVisualAttribute) {
+		super(name, variantType, "attribute", namesapce, id);
 		setType(type);
 		setVisibilityKind(visibilityKind);
 		setGeneratVisualAttribute(shouldGenerateVisualAttribute);
@@ -59,8 +59,8 @@ public class Attribute extends Element {
 	 * @param namespace
 	 * @param id
 	 */
-	public Attribute(Architecture architecture, String name, String visibilityKind, String type, String namespace, String id) {
-		this(architecture, name, visibilityKind, null, type, namespace, id, true);
+	public Attribute(String name, String visibilityKind, String type, String namespace, String id) {
+		this(name, visibilityKind, null, type, namespace, id, true);
 	}
 
 	public String getType() {

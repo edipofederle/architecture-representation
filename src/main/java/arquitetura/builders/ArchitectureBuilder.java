@@ -29,9 +29,12 @@ import arquitetura.helpers.ModelHelper;
 import arquitetura.helpers.ModelHelperFactory;
 import arquitetura.helpers.StereotypeHelper;
 import arquitetura.representation.Architecture;
+import arquitetura.representation.ArchitectureHolder;
 import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
+import arquitetura.representation.ConcernHolder;
 import arquitetura.representation.Interface;
+import arquitetura.representation.RelationshipHolder;
 import arquitetura.representation.Variability;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.Relationship;
@@ -59,12 +62,15 @@ public class ArchitectureBuilder {
 	private AbstractionRelationshipBuilder abstractionRelationshipBuilder; 
 	private UsageRelationshipBuilder usageRelationshipBuilder;
 	
+	
 	private ModelHelper modelHelper;
 	
 	/**
 	 * 
 	 */
 	public ArchitectureBuilder() {
+		RelationshipHolder.clearLists();
+		ConcernHolder.INSTANCE.clear();
 		modelHelper = ModelHelperFactory.getModelHelper();
 	}
 
@@ -105,7 +111,7 @@ public class ArchitectureBuilder {
 		EList<Stereotype> concernsAllowed = concerns.getOwnedStereotypes();
 		
 		for (Stereotype stereotype : concernsAllowed)
-			architecture.allowedConcerns().add(new Concern(stereotype.getName()));
+			ConcernHolder.INSTANCE.allowedConcerns().add(new Concern(stereotype.getName()));
 		
 		for(arquitetura.representation.Package p : loadPackages())
 			architecture.addPackage(p); // Classes que possuem pacotes são carregadas juntamente com seus pacotes
@@ -122,6 +128,7 @@ public class ArchitectureBuilder {
 		
 		Cloner cloner = new Cloner();
 		architecture.setCloner(cloner);
+		ArchitectureHolder.setName(architecture.getName());
 		return architecture;
 	}
 

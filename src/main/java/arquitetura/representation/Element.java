@@ -30,8 +30,7 @@ public abstract class Element implements Serializable {
 	private String namespace;
 	private List<Relationship> relationships = new ArrayList<Relationship>();
 	
-	public Element(Architecture architecture, String name, Variant variant, String typeElement, String namespace, String id) {
-		setArchitecture(architecture);
+	public Element(String name, Variant variant, String typeElement, String namespace, String id) {
 		setId(id);
 		setName(name);
 		setVariant(variant);
@@ -91,10 +90,6 @@ public abstract class Element implements Serializable {
 		return getName();
 	}
 	
-	private void setArchitecture(Architecture architecture) {
-		this.architecture = architecture;
-	}
-
 	/**
 	 * Retorna apenas os interesses pertencentes a este elemento.<br />
 	 * 
@@ -128,12 +123,13 @@ public abstract class Element implements Serializable {
 	 * 
 	 */
 	public void addConcern(String concernName) throws ConcernNotFoundException {
-		Concern concern = architecture.getOrCreateConcern(concernName);
+		Concern concern = ConcernHolder.INSTANCE.getOrCreateConcern(concernName);
 		concerns.add(concern);
 	}
 	
 	public void removeConcern(String concernName){
-		concerns.remove(architecture.getConcernByName(concernName));
+		Concern concern = ConcernHolder.INSTANCE.getConcernByName(concernName);
+		concerns.remove(concern);
 	}
 
 	/**

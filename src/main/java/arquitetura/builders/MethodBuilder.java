@@ -50,7 +50,7 @@ public class MethodBuilder extends ElementBuilder<Method> {
 		
 		String namespace = modelElement.getNamespace().getQualifiedName();
 			
-		Method m = new Method(architecture, name, variantType, type, isAbstract, parameterMethodReceives, namespace, XmiHelper.getXmiId(modelElement));
+		Method m = new Method(name, variantType, type, isAbstract, parameterMethodReceives, namespace, XmiHelper.getXmiId(modelElement));
 		return m;
 	}
 

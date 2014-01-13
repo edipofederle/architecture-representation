@@ -41,7 +41,7 @@ public class InterfaceGeneratorTest extends TestHelper {
 		assertEquals(1, a.getAllPackages().size());
 		assertEquals(2, a.findPackageByName("Package1").getElements().size());
 		
-		Interface inter = new Interface(a, "MyInterface");
+		Interface inter = a.createInterface("MyInterface");
 		a.findPackageByName("Package1").addExternalInterface(inter);
 		
 		GenerateArchitecture generate = new GenerateArchitecture();

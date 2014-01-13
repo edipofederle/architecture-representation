@@ -20,6 +20,7 @@ import arquitetura.exceptions.PackageNotFound;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
+import arquitetura.representation.ConcernHolder;
 import arquitetura.representation.Method;
 import arquitetura.representation.Package;
 import arquitetura.representation.Variability;
@@ -52,13 +53,13 @@ public class ArchitectureBuilderTest extends TestHelper {
 	@Test
 	public void shouldHaveAListOfAllowedConcerns() throws Exception{
 		Architecture a = givenAArchitecture("concerns/completeClass");
-		assertNotNull(a.allowedConcerns());
+		assertNotNull(ConcernHolder.INSTANCE.allowedConcerns());
 	}
 
 	@Test
-	public void shouldHaveTwoConcerns() {
-		assertEquals("Architecture should have two conecern", 2, architecture
-				.getAllConcerns().size());
+	public void shouldHaveTwoConcerns() throws Exception {
+		Architecture architecture2 = givenAArchitecture("testArch");
+		assertEquals("Architecture should have two conecern", 2, architecture2.getAllConcerns().size());
 	}
 
 	@Test

@@ -16,6 +16,7 @@ import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
 import arquitetura.representation.Package;
+import arquitetura.representation.RelationshipHolder;
 import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 
@@ -139,12 +140,12 @@ public class CrossoverUtils {
 			removeChildrenOfComponent(child, comp, architecture);
 		}
 		if (comp.getAllClasses().contains(parent)){
-			architecture.removeRelatedRelationships(parent);
+			RelationshipHolder.removeRelatedRelationships(parent);
 			comp.removeClass(parent);							
 		} else{				
 			for (Package auxComp: architecture.getAllPackages()){
 				if (auxComp.getAllClasses().contains(parent)){
-					architecture.removeRelatedRelationships(parent);
+					RelationshipHolder.removeRelatedRelationships(parent);
 					auxComp.removeClass(parent);
 					break;
 				}

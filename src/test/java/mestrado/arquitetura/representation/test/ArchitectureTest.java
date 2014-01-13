@@ -76,23 +76,6 @@ public class ArchitectureTest extends TestHelper {
 		
 		assertContainsConcern(concernsClass1, "action", "bowling");
 	}
-	
-	@Test
-	public void teste() throws Exception{
-		String uriToArchitecture = getUrlToModel("pacotesTesteRe/Needless");
-		Architecture architecture = new ArchitectureBuilder().create(uriToArchitecture);
-		
-		System.out.println(architecture.getAllRealizations().iterator().next().getName());
-		System.out.println("Client:"+architecture.getAllRealizations().iterator().next().getClient().getName());
-		System.out.println("Supplier:"+architecture.getAllRealizations().iterator().next().getSupplier().getName());
-		
-		System.out.println("\n");
-		System.out.println(architecture.getAllDependencies().iterator().next().getName());
-		System.out.println("Cliente:"+architecture.getAllDependencies().iterator().next().getClient().getName());
-		System.out.println("Supplier:"+architecture.getAllDependencies().iterator().next().getSupplier().getName());
-		
-	}
-	
 	@Test
 	public void shouldArchitectureHaveAName(){
 		assertEquals("arquitetura", arch.getName());
@@ -106,7 +89,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllPackages(){
-		new Package(arch, "Pacote");
+		arch.createPackage("Pacote");
 		
 		assertEquals(1, arch.getAllPackages().size());
 		assertEquals("Pacote", arch.getAllPackages().iterator().next().getName());
@@ -119,7 +102,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllClasses() throws ClassNotFound{
-		new Class(arch, "Klass", false);
+		arch.createClass("Klass", false);
 		
 		assertEquals(1, arch.getClasses().size());
 		assertEquals("Klass", arch.findClassByName("Klass").get(0).getName());
@@ -142,7 +125,7 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnElementClassByName(){
-		new Class(arch, "Klass", false);
+		arch.createClass("Klass", false);
 		Element klass = arch.findElementByName("klass","class");
 		
 		assertNotNull(klass);
@@ -153,7 +136,7 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldReturnElementPackageByName(){
 		assertEquals(0, arch.getAllPackages().size());
 		
-		new Package(arch, "Pacote");
+		arch.createPackage("Pacote");
 		Element pkg = arch.findElementByName("Pacote", "package");
 		
 		assertNotNull(pkg);
@@ -163,9 +146,10 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllInterfaces() throws InterfaceNotFound{
-		new Class(arch, "Klass1", false);
-		new Interface(arch, "Interface1");
-		new Interface(arch, "Interface2");
+		
+		arch.createClass("Klass1", false);
+		arch.createInterface("Interface1");
+		arch.createInterface("Interface2");
 		
 		assertEquals(2, arch.getInterfaces().size());
 		assertEquals(1, arch.getClasses().size());
