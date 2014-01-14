@@ -1,7 +1,6 @@
 package arquitetura.representation;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -14,16 +13,10 @@ import arquitetura.exceptions.AttributeNotFoundException;
 import arquitetura.exceptions.MethodNotFoundException;
 import arquitetura.flyweights.VariantFlyweight;
 import arquitetura.helpers.UtilResources;
-import arquitetura.representation.relationship.AbstractionRelationship;
 import arquitetura.representation.relationship.AssociationClassRelationship;
-import arquitetura.representation.relationship.AssociationEnd;
-import arquitetura.representation.relationship.AssociationRelationship;
-import arquitetura.representation.relationship.DependencyRelationship;
-import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.MemberEnd;
-import arquitetura.representation.relationship.RealizationRelationship;
+import arquitetura.representation.relationship.RelationshiopCommons;
 import arquitetura.representation.relationship.Relationship;
-import arquitetura.representation.relationship.UsageRelationship;
 import arquitetura.touml.Types.Type;
 import arquitetura.touml.VisibilityKind;
 
@@ -46,7 +39,7 @@ public class Class extends Element {
 	private Set<Interface> implementedInterfaces = new HashSet<Interface>();
 	private Set<Interface> requiredInterfaces = new HashSet<Interface>();
 	
-	private RelationshipHolder relationshipHolder;
+	private RelationshipsHolder relationshipHolder;
 	
 	/**
 	 * 
@@ -59,17 +52,17 @@ public class Class extends Element {
 	 * @param interfacee
 	 * @param packageName
 	 */
-	public Class(RelationshipHolder relationshipHolder, String name, Variant variantType, boolean isAbstract, String namespace, String id) {
+	public Class(RelationshipsHolder relationshipHolder, String name, Variant variantType, boolean isAbstract, String namespace, String id) {
 		super(name, variantType, "klass", namespace, id);
 		setAbstract(isAbstract);
 		setRelationshipHolder(relationshipHolder);
 	}
 
-	public Class(RelationshipHolder relationshipHolder, String name, boolean isAbstract) {
+	public Class(RelationshipsHolder relationshipHolder, String name, boolean isAbstract) {
 		this(relationshipHolder, name,  null, isAbstract,  UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
 	}
 	
-	public Class(RelationshipHolder relationshipHolder, String name, boolean isAbstract, String packageName) {
+	public Class(RelationshipsHolder relationshipHolder, String name, boolean isAbstract, String packageName) {
 		this(relationshipHolder, name,  null, isAbstract,  UtilResources.createNamespace(ArchitectureHolder.getName()+"::"+packageName, name), UtilResources.getRandonUUID());
 	}
 
@@ -374,60 +367,16 @@ public class Class extends Element {
 		return klass;
 	}
 
-	public RelationshipHolder getRelationshipHolder() {
+	public RelationshipsHolder getRelationshipHolder() {
 		return relationshipHolder;
 	}
 
-	public void setRelationshipHolder(RelationshipHolder relationshipHolder) {
+	public void setRelationshipHolder(RelationshipsHolder relationshipHolder) {
 		this.relationshipHolder = relationshipHolder;
 	}
 
-	public Collection<Relationship> getRelationships() {
-		Set<Relationship> relations = new HashSet<Relationship>();
-		for(Relationship r : getRelationshipHolder().getRelationships()){
-			if(r instanceof GeneralizationRelationship){
-				if(((GeneralizationRelationship) r).getParent().equals(this) || ((GeneralizationRelationship) r).getChild().equals(this)){
-					relations.add(r);
-				}
-			}
-			if(r instanceof RealizationRelationship){
-				if(((RealizationRelationship) r).getClient().equals(this) || ((RealizationRelationship) r).getSupplier().equals(this)){
-					relations.add(r);
-				}
-			}
-			if(r instanceof DependencyRelationship){
-				if(((DependencyRelationship) r).getClient().equals(this) || ((DependencyRelationship) r).getSupplier().equals(this)){
-					relations.add(r);
-				}
-			}
-			if(r instanceof UsageRelationship){
-				if(((UsageRelationship) r).getClient().equals(this) || ((UsageRelationship) r).getSupplier().equals(this)){
-					relations.add(r);
-				}
-			}
-			if(r instanceof AbstractionRelationship){
-				if(((AbstractionRelationship) r).getClient().equals(this) || ((AbstractionRelationship) r).getSupplier().equals(this)){
-					relations.add(r);
-				}
-			}
-			if(r instanceof AssociationRelationship){
-				for(AssociationEnd a : ((AssociationRelationship)r).getParticipants()){
-					if(a.getCLSClass().equals(this)){
-						relations.add(r);
-					}
-				}
-			}
-			
-			if(r instanceof AssociationClassRelationship){
-				for(MemberEnd memberEnd : ((AssociationClassRelationship) r).getMemebersEnd()){
-					if(memberEnd.getType().equals(this)){
-						relations.add(r);
-					}
-				}
-			}
-		}
-		return relations;
+	public Set<Relationship> getRelationships() {
+		return Collections.unmodifiableSet(RelationshiopCommons.getRelationships(relationshipHolder.getRelationships(), this));
 	}
-	
 
 }

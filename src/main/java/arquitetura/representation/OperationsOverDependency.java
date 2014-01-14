@@ -6,9 +6,9 @@ import arquitetura.representation.relationship.DependencyRelationship;
 public class OperationsOverDependency {
 
 	private DependencyRelationship dependency;
-	private RelationshipHolder relationshipHolder;
+	private RelationshipsHolder relationshipHolder;
 
-	public OperationsOverDependency(RelationshipHolder relationshipHolder) {
+	public OperationsOverDependency(RelationshipsHolder relationshipHolder) {
 		this.relationshipHolder = relationshipHolder;
 	}
 	

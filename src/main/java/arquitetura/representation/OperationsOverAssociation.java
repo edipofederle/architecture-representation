@@ -32,9 +32,9 @@ public class OperationsOverAssociation {
 
 	private AssociationEnd associationEnd1;
 	private AssociationRelationship association;
-	private RelationshipHolder relationshipHolder;
+	private RelationshipsHolder relationshipHolder;
 	
-	public OperationsOverAssociation(RelationshipHolder relationshipHolder){
+	public OperationsOverAssociation(RelationshipsHolder relationshipHolder){
 		this.relationshipHolder = relationshipHolder;
 		String id = UtilResources.getRandonUUID();
 		association = new AssociationRelationship(id);

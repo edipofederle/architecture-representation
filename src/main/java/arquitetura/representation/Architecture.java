@@ -47,7 +47,7 @@ public class Architecture extends Variable {
 	private Set<Interface> interfaces = new HashSet<Interface>();
 	private String name;
 	
-	private RelationshipHolder relationshipHolder = new RelationshipHolder();
+	private RelationshipsHolder relationshipHolder = new RelationshipsHolder();
 
 
 	public Architecture(String name) {
@@ -675,7 +675,7 @@ public class Architecture extends Variable {
 		this.cloner = cloner;
 	}
 
-	public RelationshipHolder getRelationshipHolder() {
+	public RelationshipsHolder getRelationshipHolder() {
 		return relationshipHolder;
 	}
 	

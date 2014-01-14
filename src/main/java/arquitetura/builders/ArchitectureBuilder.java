@@ -34,7 +34,7 @@ import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
 import arquitetura.representation.ConcernHolder;
 import arquitetura.representation.Interface;
-import arquitetura.representation.RelationshipHolder;
+import arquitetura.representation.RelationshipsHolder;
 import arquitetura.representation.Variability;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.Relationship;

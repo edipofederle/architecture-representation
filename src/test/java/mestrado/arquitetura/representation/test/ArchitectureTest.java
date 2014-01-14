@@ -551,10 +551,10 @@ public class ArchitectureTest extends TestHelper {
 		Architecture a = givenAArchitecture("PackageClassUsage");
 		
 		Package p = a.getAllPackages().iterator().next();
-		List<Relationship> relationships = p.getRelationships();
+		Set<Relationship> relationships = p.getRelationships();
 		
 		assertEquals(1, relationships.size());
-		assertTrue(relationships.get(0) instanceof UsageRelationship);
+		assertTrue(relationships.iterator().next() instanceof UsageRelationship);
 	}
 	
 	@Test

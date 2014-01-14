@@ -9,7 +9,7 @@ import arquitetura.helpers.ElementsTypes;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
-import arquitetura.representation.RelationshipHolder;
+import arquitetura.representation.RelationshipsHolder;
 
 /**
  * 
@@ -20,9 +20,9 @@ public class GeneralizationRelationship extends Relationship {
 
 	private Element parent;
 	private Element child;
-	private RelationshipHolder relationshipHolder;
+	private RelationshipsHolder relationshipHolder;
 
-	public GeneralizationRelationship(Element parentClass, Element childClass, RelationshipHolder relationshipHolder, String id) {
+	public GeneralizationRelationship(Element parentClass, Element childClass, RelationshipsHolder relationshipHolder, String id) {
 		setParent(parentClass);
 		setChild(childClass);
 		this.relationshipHolder = relationshipHolder;
@@ -30,7 +30,7 @@ public class GeneralizationRelationship extends Relationship {
 		super.setType(ElementsTypes.GENERALIZATION);
 	}
 	
-	public GeneralizationRelationship(Element parentClass, Element childClass, RelationshipHolder relationshipHolder) {
+	public GeneralizationRelationship(Element parentClass, Element childClass, RelationshipsHolder relationshipHolder) {
 		setParent(parentClass);
 		setChild(childClass);
 		this.relationshipHolder = relationshipHolder;

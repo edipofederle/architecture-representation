@@ -20,7 +20,7 @@ import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 import arquitetura.representation.relationship.UsageRelationship;
 
-public class RelationshipHolder {
+public class RelationshipsHolder {
 	
 	private Set<Relationship> relationships = new HashSet<Relationship>();
 	

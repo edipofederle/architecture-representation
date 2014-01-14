@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.RealizationRelationship;
+import arquitetura.representation.relationship.RelationshiopCommons;
 import arquitetura.representation.relationship.Relationship;
 
 /**
@@ -27,10 +28,10 @@ public class Interface extends Element {
 
 	static Logger LOGGER = LogManager.getLogger(Interface.class.getName());
 	private final Set<Method> operations = new HashSet<Method>();
-	private RelationshipHolder relationshipHolder;
+	private RelationshipsHolder relationshipHolder;
 	
 
-	public Interface(RelationshipHolder relationshipHolder, String name, Variant variantType, String namespace, String id) {
+	public Interface(RelationshipsHolder relationshipHolder, String name, Variant variantType, String namespace, String id) {
 		super(name, variantType, "interface", namespace, id);
 		setRelationshipHolder(relationshipHolder);
 	}
@@ -45,7 +46,7 @@ public class Interface extends Element {
 	 * @param name - Nome da interface
 	 * @param relationshipHolder
 	 */
-	public Interface(RelationshipHolder relationshipHolder, String name) {
+	public Interface(RelationshipsHolder relationshipHolder, String name) {
 		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
 	}
 
@@ -57,7 +58,7 @@ public class Interface extends Element {
 	 * @param name - Nome da interface
 	 * @param id -  ID para a interface
 	 */
-	public Interface(RelationshipHolder relationshipHolder, String name, String id) {
+	public Interface(RelationshipsHolder relationshipHolder, String name, String id) {
 		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), id);
 	}
 
@@ -216,12 +217,16 @@ public class Interface extends Element {
 		}
 	}
 	
-	public RelationshipHolder getRelationshipHolder() {
+	public RelationshipsHolder getRelationshipHolder() {
 		return relationshipHolder;
 	}
 
-	public void setRelationshipHolder(RelationshipHolder relationshipHolder) {
+	public void setRelationshipHolder(RelationshipsHolder relationshipHolder) {
 		this.relationshipHolder = relationshipHolder;
+	}
+	
+	public Set<Relationship> getRelationships() {
+		return Collections.unmodifiableSet(RelationshiopCommons.getRelationships(relationshipHolder.getRelationships(), this));
 	}
 	
 }
