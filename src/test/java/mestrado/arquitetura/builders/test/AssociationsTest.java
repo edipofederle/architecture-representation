@@ -24,14 +24,14 @@ public class AssociationsTest extends TestHelper {
 	@Test
 	public void shouldHaveTwoAssociations() throws Exception {
 		Architecture a = givenAArchitecture("association");
-		assertEquals("Architecture should contain 2 associations", 2,	a.getAllAssociationsRelationships().size());
+		assertEquals("Architecture should contain 2 associations", 2,	a.getRelationshipHolder().getAllAssociationsRelationships().size());
 	}
 	
 	@Test
 	public void testAssociationEndNavegability() throws Exception{
 		Architecture a = givenAArchitecture("associations/nevegability");
 		
-		List<AssociationRelationship> associations = a.getAllAssociationsRelationships();
+		List<AssociationRelationship> associations = a.getRelationshipHolder().getAllAssociationsRelationships();
 		AssociationRelationship association = associations.iterator().next();
 		List<AssociationEnd> parts = association.getParticipants();
 		
@@ -43,7 +43,7 @@ public class AssociationsTest extends TestHelper {
 	public void testAssociations() throws Exception {
 		Architecture architecture2 = givenAArchitecture("association");
 
-		List<AssociationRelationship> r = architecture2.getAllAssociationsRelationships();
+		List<AssociationRelationship> r = architecture2.getRelationshipHolder().getAllAssociationsRelationships();
 		assertNotNull(r);
 
 		AssociationRelationship association = r.iterator().next();
@@ -69,7 +69,7 @@ public class AssociationsTest extends TestHelper {
 		
 		AssociationRelationship association = null;
 		
-		Iterator<AssociationRelationship> iter = architecture2.getAllAssociationsRelationships().iterator();
+		Iterator<AssociationRelationship> iter = architecture2.getRelationshipHolder().getAllAssociationsRelationships().iterator();
 		while (iter.hasNext()) {
 			iter.next();
 			association = iter.next();
@@ -95,7 +95,7 @@ public class AssociationsTest extends TestHelper {
 		Architecture architecture2 = givenAArchitecture("association");
 		AssociationRelationship association = null;
 		
-		Iterator<AssociationRelationship> iter = architecture2.getAllAssociationsRelationships().iterator();
+		Iterator<AssociationRelationship> iter = architecture2.getRelationshipHolder().getAllAssociationsRelationships().iterator();
 		while (iter.hasNext()) {
 			iter.next();
 			association = iter.next();
@@ -108,7 +108,7 @@ public class AssociationsTest extends TestHelper {
 	@Test
 	public void testMultiplicityAssociationRelationship2() throws Exception {
 		Architecture architecture2 = givenAArchitecture("association");
-		AssociationRelationship association = architecture2.getAllAssociationsRelationships().iterator().next();
+		AssociationRelationship association = architecture2.getRelationshipHolder().getAllAssociationsRelationships().iterator().next();
 
 		assertEquals("1", association.getParticipants().get(0).getMultiplicity().getLowerValue());
 		assertEquals("1", association.getParticipants().get(0).getMultiplicity().getUpperValue());
@@ -118,7 +118,7 @@ public class AssociationsTest extends TestHelper {
 	@Test
 	public void shouldContainCompositeAssociation() throws Exception {
 		Architecture architecture2 = givenAArchitecture("association");
-		AssociationRelationship associationComposite = architecture2.getAllCompositions().iterator().next();
+		AssociationRelationship associationComposite = architecture2.getRelationshipHolder().getAllCompositions().iterator().next();
 		List<AssociationEnd> participants = associationComposite.getParticipants();
 
 		assertFalse(associationComposite.getParticipants().get(0).isNavigable());
@@ -136,7 +136,7 @@ public class AssociationsTest extends TestHelper {
 	@Test
 	public void shouldContainAggregationAssociation() throws Exception {
 		Architecture architecture2 = givenAArchitecture("association");
-		AssociationRelationship aggregation = architecture2.getAllAgragations().iterator().next();
+		AssociationRelationship aggregation = architecture2.getRelationshipHolder().getAllAgragations().iterator().next();
 		List<AssociationEnd> participants = aggregation.getParticipants();
 
 		assertFalse(aggregation.getParticipants().get(0).isNavigable());
@@ -155,7 +155,7 @@ public class AssociationsTest extends TestHelper {
 	@Test
 	public void testAssociationWithThreeClasses() throws Exception {
 		Architecture architecture3 = givenAArchitecture("complexAssociation");
-		Set<Relationship> r = architecture3.getAllRelationships();
+		Set<Relationship> r = architecture3.getRelationshipHolder().getAllRelationships();
 
 		assertNotNull(architecture3);
 		assertEquals("Should Contains Two Relationships", 2, r.size());
@@ -164,9 +164,9 @@ public class AssociationsTest extends TestHelper {
 		AssociationRelationship association1 = null;
 		AssociationRelationship association2 = null;
 		
-		architecture3.getAllAssociationsRelationships().iterator().next();
+		architecture3.getRelationshipHolder().getAllAssociationsRelationships().iterator().next();
 		
-		Iterator<AssociationRelationship> iter = architecture3.getAllAssociationsRelationships().iterator();
+		Iterator<AssociationRelationship> iter = architecture3.getRelationshipHolder().getAllAssociationsRelationships().iterator();
 		while (iter.hasNext()) {
 		  association1 = iter.next();
 		  association2 = iter.next();
@@ -199,9 +199,9 @@ public class AssociationsTest extends TestHelper {
 	public void test() throws Exception{
 		Architecture a = givenAArchitecture("associacoa1");
 		
-		assertEquals(1, a.getAllAssociationsRelationships().size());
+		assertEquals(1, a.getRelationshipHolder().getAllAssociationsRelationships().size());
 		
-		AssociationRelationship as = a.getAllAssociationsRelationships().iterator().next();
+		AssociationRelationship as = a.getRelationshipHolder().getAllAssociationsRelationships().iterator().next();
 		
 		assertEquals(2, as.getParticipants().size());
 		assertEquals("Class2", as.getParticipants().get(0).getCLSClass().getName());

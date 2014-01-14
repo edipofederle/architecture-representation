@@ -219,38 +219,38 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			if(!packages.isEmpty())
 				buildPackages(op, packages);
 			
-			for (AssociationRelationship r : a.getAllAssociationsRelationships()) 
+			for (AssociationRelationship r : a.getRelationshipHolder().getAllAssociationsRelationships()) 
 				generateSimpleAssociation(op, r);
 			
-			for (AssociationRelationship r : a.getAllCompositions()) 
+			for (AssociationRelationship r : a.getRelationshipHolder().getAllCompositions()) 
 				generateComposition(op, r);
 			
-			for (AssociationRelationship r : a.getAllAgragations()) 
+			for (AssociationRelationship r : a.getRelationshipHolder().getAllAgragations()) 
 				generateAggregation(op, r);
 			
-			for(GeneralizationRelationship g : a.getAllGeneralizations()){
+			for(GeneralizationRelationship g : a.getRelationshipHolder().getAllGeneralizations()){
 				op.forGeneralization().createRelation().between(g.getChild().getId()).and(g.getParent().getId()).build();
 			}
 			
-			for(DependencyRelationship d : a.getAllDependencies()){
+			for(DependencyRelationship d : a.getRelationshipHolder().getAllDependencies()){
 				op.forDependency().createRelation()
 							  .withName(d.getName())
 							  .between(d.getClient().getId())
 							  .and(d.getSupplier().getId()).build();
 			}
-			for(RealizationRelationship r : a.getAllRealizations()){
+			for(RealizationRelationship r : a.getRelationshipHolder().getAllRealizations()){
 				op.forRealization().createRelation().withName(r.getName()).between(r.getClient().getId()).and(r.getSupplier().getId()).build();
 			}
 			
-			for(AbstractionRelationship r : a.getAllAbstractions()){
+			for(AbstractionRelationship r : a.getRelationshipHolder().getAllAbstractions()){
 				op.forAbstraction().createRelation().withName(r.getName()).between(r.getClient().getId()).and(r.getSupplier().getId()).build();
 			}
 			
-			for(UsageRelationship u : a.getAllUsage()){
+			for(UsageRelationship u : a.getRelationshipHolder().getAllUsage()){
 				op.forUsage().createRelation("").between(u.getClient().getId()).and(u.getSupplier().getId()).build();
 			}
 			
-			for(AssociationClassRelationship asr : a.getAllAssociationsClass()){
+			for(AssociationClassRelationship asr : a.getRelationshipHolder().getAllAssociationsClass()){
 				op.forAssociationClass().createAssociationClass(asr).build();
 				op.forPackage().withId(asr.getPackageOwner()).add(asr.getId());
 			}

@@ -31,9 +31,9 @@ public class AssociationRelationshipBuilder extends ArchitectureHelper {
 		associationRelationship.setType("association");
 		associationRelationship.setName(association.getName());
 		
-		for(AssociationEnd associationEnd : associationRelationship.getParticipants()){
-			associationEnd.getCLSClass().addRelationship(associationRelationship);
-		}
+//		for(AssociationEnd associationEnd : associationRelationship.getParticipants()){
+//			associationEnd.getCLSClass().addRelationship(associationRelationship);
+//		}
 		
 		return associationRelationship;
 	}

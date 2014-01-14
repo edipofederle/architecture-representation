@@ -3,9 +3,7 @@ package arquitetura.representation;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,17 +22,10 @@ import arquitetura.exceptions.PackageNotFound;
 import arquitetura.flyweights.VariabilityFlyweight;
 import arquitetura.flyweights.VariantFlyweight;
 import arquitetura.flyweights.VariationPointFlyweight;
-import arquitetura.helpers.Predicate;
 import arquitetura.helpers.UtilResources;
-import arquitetura.representation.relationship.AbstractionRelationship;
-import arquitetura.representation.relationship.AssociationClassRelationship;
-import arquitetura.representation.relationship.AssociationEnd;
-import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
-import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
-import arquitetura.representation.relationship.UsageRelationship;
 
 import com.rits.cloning.Cloner;
 
@@ -54,8 +45,10 @@ public class Architecture extends Variable {
 	private Set<Package> packages = new HashSet<Package>();
 	private Set<Class> classes = new HashSet<Class>();
 	private Set<Interface> interfaces = new HashSet<Interface>();
-	private HashMap<String, Concern> concerns = new HashMap<String, Concern>();
 	private String name;
+	
+	private RelationshipHolder relationshipHolder = new RelationshipHolder();
+
 
 	public Architecture(String name) {
 		setName(name);
@@ -83,26 +76,6 @@ public class Architecture extends Variable {
 		
 		return  Collections.unmodifiableList(elts);
 	}
-
-//	/**
-//	 * Procura concern por nome.
-//	 * 
-//	 * Se o concern não estiver no arquivo de profile é lançada uma Exception.
-//	 * 
-//	 * @param name
-//	 * @return
-//	 * @throws ConcernNotFoundException 
-//	 */
-//	public Concern getOrCreateConcern(String name) throws ConcernNotFoundException {
-//		Concern concern = allowedConcernContains(name.toLowerCase());
-//		if(concerns.containsValue(concern)) return concern;
-//		if(concern != null){
-//			concerns.put(name.toLowerCase(), concern);
-//			return concern;
-//		}
-//		throw new ConcernNotFoundException("Concern " + name + " cannot be found");
-//	}
-
 
 	/**
 	 * Retorna um Map imutável. É feito isso para garantir que nenhum modificação seja
@@ -237,141 +210,6 @@ public class Architecture extends Variable {
 		return null;
 	}
 
-	
-	public Set<Relationship> getAllRelationships(){
-		return Collections.unmodifiableSet(RelationshipHolder.getRelationships());
-	}
-
-	public List<GeneralizationRelationship> getAllGeneralizations() {
-		Predicate<Relationship> isValid = new Predicate<Relationship>() {
-			public boolean apply(Relationship parent) {
-				return GeneralizationRelationship.class.isInstance(parent);
-			}
-		};
-
-		List<GeneralizationRelationship> generalizations = UtilResources.filter(RelationshipHolder.getRelationships(), isValid);
-		
-		return Collections.unmodifiableList(generalizations);
-	}
-	
-	public List<AssociationRelationship> getAllAssociationsRelationships() {
-		List<AssociationRelationship> associations = getAllAssociations();
-		List<AssociationRelationship> association = new ArrayList<AssociationRelationship>();
-		for (AssociationRelationship associationRelationship : associations) {
-			if((notComposition(associationRelationship)) && (notAgregation(associationRelationship))){
-				association.add(associationRelationship);
-			}
-		}
-		associations = null;
-		return association; 
-
-	}
-
-	private boolean notAgregation(AssociationRelationship associationRelationship) {
-		return ((!associationRelationship.getParticipants().get(0).isAggregation()) && (!associationRelationship.getParticipants().get(1).isAggregation()));
-	}
-
-	private boolean notComposition(AssociationRelationship associationRelationship) {
-		return ((!associationRelationship.getParticipants().get(0).isComposite()) && (!associationRelationship.getParticipants().get(1).isComposite()));
-	}
-
-	public List<AssociationRelationship> getAllAssociations() {
-		Predicate<Relationship> isValid = new Predicate<Relationship>() {
-			public boolean apply(Relationship parent) {
-				return AssociationRelationship.class.isInstance(parent);
-			}
-		};
-
-		List<AssociationRelationship> allAssociations = UtilResources.filter(RelationshipHolder.getRelationships(), isValid);
-		
-		return Collections.unmodifiableList(allAssociations);
-
-	}
-	
-	public List<AssociationRelationship> getAllCompositions() {
-		List<AssociationRelationship> associations = getAllAssociations();
-		List<AssociationRelationship> compositions = new ArrayList<AssociationRelationship>();
-		for (AssociationRelationship associationRelationship : associations) {
-			if((associationRelationship.getParticipants().get(0).isComposite()) || (associationRelationship.getParticipants().get(1).isComposite())){
-				compositions.add(associationRelationship);
-			}
-		}
-		associations = null;
-		return Collections.unmodifiableList(compositions); 
-	}
-	
-	public List<AssociationRelationship> getAllAgragations() {
-		List<AssociationRelationship> associations = getAllAssociations();
-		List<AssociationRelationship> agragation = new ArrayList<AssociationRelationship>();
-		for (AssociationRelationship associationRelationship : associations) {
-			if((associationRelationship.getParticipants().get(0).isAggregation()) || (associationRelationship.getParticipants().get(1).isAggregation())){
-				agragation.add(associationRelationship);
-			}
-		}
-		return Collections.unmodifiableList(agragation); 
-	}
-
-	public List<UsageRelationship> getAllUsage() {
-		Predicate<Relationship> isValid = new Predicate<Relationship>() {
-			public boolean apply(Relationship parent) {
-				return UsageRelationship.class.isInstance(parent);
-			}
-		};
-
-		List<UsageRelationship> allUsages = UtilResources.filter(RelationshipHolder.getRelationships(), isValid);
-		
-		return Collections.unmodifiableList(allUsages);
-	}
-
-	public List<DependencyRelationship> getAllDependencies() {
-		Predicate<Relationship> isValid = new Predicate<Relationship>() {
-			public boolean apply(Relationship parent) {
-				return DependencyRelationship.class.isInstance(parent);
-			}
-		};
-
-		List<DependencyRelationship> allDependencies = UtilResources.filter(RelationshipHolder.getRelationships(), isValid);
-		
-		return Collections.unmodifiableList(allDependencies);
-	}
-
-	public List<RealizationRelationship> getAllRealizations() {
-		Predicate<Relationship> realizations = new Predicate<Relationship>() {
-			public boolean apply(Relationship parent) {
-				return RealizationRelationship.class.isInstance(parent);
-			}
-		};
-
-		List<RealizationRelationship> allRealizations = UtilResources.filter(RelationshipHolder.getRelationships(), realizations);
-		
-		return Collections.unmodifiableList(allRealizations);
-	}
-
-	public List<AbstractionRelationship> getAllAbstractions() {
-		Predicate<Relationship> realizations = new Predicate<Relationship>() {
-			public boolean apply(Relationship parent) {
-				return AbstractionRelationship.class.isInstance(parent);
-			}
-		};
-
-		List<AbstractionRelationship> allAbstractions = UtilResources.filter(RelationshipHolder.getRelationships(), realizations);
-		
-		return Collections.unmodifiableList(allAbstractions);
-	}
-	
-
-	public List<AssociationClassRelationship> getAllAssociationsClass() {
-		Predicate<Relationship> associationClasses = new Predicate<Relationship>() {
-			public boolean apply(Relationship parent) {
-				return AssociationClassRelationship.class.isInstance(parent);
-			}
-		};
-
-		List<AssociationClassRelationship> allAssociationClasses = UtilResources.filter(RelationshipHolder.getRelationships(), associationClasses);
-		
-		return Collections.unmodifiableList(allAssociationClasses);
-	}
-
 
 	/**
 	 * Recupera uma classe por nome.
@@ -448,13 +286,13 @@ public class Architecture extends Variable {
 
 
 	public Package createPackage(String packageName) {
-		Package pkg = new Package(packageName);
+		Package pkg = new Package(getRelationshipHolder(), packageName);
 		this.packages.add(pkg);
 		return pkg;
 	}
 	
 	public Package createPackage(String packageName, String id) {
-		Package pkg = new Package(packageName, id);
+		Package pkg = new Package(getRelationshipHolder(), packageName, id);
 		this.packages.add(pkg);
 		return pkg;
 	}
@@ -465,36 +303,36 @@ public class Architecture extends Variable {
 		 * que esta sendo deletado possa ter.
 		 */
 		for(Element element : p.getElements()){
-			RelationshipHolder.removeRelatedRelationships(element);
+			relationshipHolder.removeRelatedRelationships(element);
 		}
 		//Remove os relacionamentos que o pacote possa pertencer
-		RelationshipHolder.removeRelatedRelationships(p);
+		relationshipHolder.removeRelatedRelationships(p);
 		
 		this.packages.remove(p);
 		LOGGER.info("Pacote:" + p.getName() + "removido");
 	}
 
 	public Interface createInterface(String interfaceName) {
-		Interface interfacee = new Interface(interfaceName);
+		Interface interfacee = new Interface(getRelationshipHolder(), interfaceName);
 		this.addExternalInterface(interfacee);
 		return interfacee;
 	}
 	
 	public Interface createInterface(String interfaceName, String id) {
-		Interface interfacee = new Interface(interfaceName, id);
+		Interface interfacee = new Interface(getRelationshipHolder(), interfaceName, id);
 		this.addExternalInterface(interfacee);
 		return interfacee;
 	}
 	
 	public Class createClass(String klassName, boolean isAbstract) {
-		Class klass = new Class(klassName, isAbstract);
+		Class klass = new Class(getRelationshipHolder(), klassName, isAbstract);
 		this.addExternalClass(klass);
 		return klass;
 	}
 
 	public void removeInterface(Interface interfacee) {
 		interfacee.removeInterfaceFromRequiredOrImplemented();
-		RelationshipHolder.removeRelatedRelationships(interfacee);
+		relationshipHolder.removeRelatedRelationships(interfacee);
 		if (removeInterfaceFromArch(interfacee)){
 			LOGGER.info("Interface:" + interfacee.getName() + " removida da arquitetura");
 		}
@@ -512,7 +350,7 @@ public class Architecture extends Variable {
 	}
 
 	public void removeClass(Element klass) {
-		RelationshipHolder.removeRelatedRelationships(klass);
+		relationshipHolder.removeRelatedRelationships(klass);
 		if(this.classes.remove(klass))
 			LOGGER.info("Classe " + klass.getName()+"("+klass.getId()+") removida da arquitetura");
 		
@@ -555,13 +393,6 @@ public class Architecture extends Variable {
 				return klass;
 		
 		throw new ClassNotFound("Class " + idClass + " can not found.\n");
-	}
-	
-	/**
-	 * @param concerns the concerns to set
-	 */
-	public void setConcerns(HashMap<String, Concern> concerns) {
-		this.concerns = concerns;
 	}
 	
 	public void addExternalInterface(Interface interface_){
@@ -627,7 +458,7 @@ public class Architecture extends Variable {
 	
 	public boolean removeRelationship(Relationship as) {
 		if(as == null) return false;
-		if(RelationshipHolder.getRelationships().remove(as)){
+		if(relationshipHolder.getRelationships().remove(as)){
 			LOGGER.info("Relacionamento : " + as.getType() + " removido da arquitetura");
 			return true;
 		}else{
@@ -672,7 +503,7 @@ public class Architecture extends Variable {
 	}
 	
 	private boolean haveRelationship(Interface supplier, Element client) {
-		for(Relationship r : this.getAllRelationships()){
+		for(Relationship r : relationshipHolder.getAllRelationships()){
 			if(r instanceof RealizationRelationship)
 				if(((RealizationRelationship) r).getClient().equals(client) && ((RealizationRelationship) r).getSupplier().equals(supplier))
 					return true;
@@ -699,12 +530,12 @@ public class Architecture extends Variable {
 	
 	public void removeImplementedInterface(Interface inter, Package pacote) {
 		pacote.removeImplementedInterface(inter);
-		RelationshipHolder.removeRelatedRelationships(inter);
+		relationshipHolder.removeRelatedRelationships(inter);
 	}
 	
 	public void removeImplementedInterface(Class foo, Interface inter) {
 		foo.removeImplementedInterface(inter);
-		RelationshipHolder.removeRelatedRelationships(inter);
+		relationshipHolder.removeRelatedRelationships(inter);
 	}
 	
 	public void addRequiredInterface(Interface supplier, Class client) {
@@ -736,8 +567,8 @@ public class Architecture extends Variable {
 	}
 
 	public boolean addRelationship(Relationship relationship) {
-		if(!haveRelationship(relationship)){
-			if(RelationshipHolder.getRelationships().add(relationship)){
+		if(!relationshipHolder.haveRelationship(relationship)){
+			if(relationshipHolder.getRelationships().add(relationship)){
 				LOGGER.info("Relacionamento: " + relationship.getType() + " adicionado na arquitetura.("+UtilResources.detailLogRelationship(relationship)+")");
 				return true;
 			}else{
@@ -746,35 +577,6 @@ public class Architecture extends Variable {
 			}
 		}
 		return false;
-	}
-
-	public boolean haveRelationship(Relationship relationship) {
-		//Association
-		for(Relationship r : this.getAllRelationships()){
-			if((r instanceof AssociationRelationship) && (relationship instanceof AssociationRelationship)){
-				List<AssociationEnd> participantsNew = ((AssociationRelationship)relationship).getParticipants();
-				List<AssociationEnd> participantsExists = ((AssociationRelationship)r).getParticipants();
-
-				if(participantsNew.equals(participantsExists))
-					return true;
-			}
-		}
-		
-		if(relationship instanceof GeneralizationRelationship)
-			if(this.getAllGeneralizations().contains(relationship)) return true;
-		if(relationship instanceof DependencyRelationship )
-			if(this.getAllDependencies().contains(relationship)) return true;
-		if(relationship instanceof UsageRelationship)
-			if(this.getAllUsage().contains(relationship)) return true;
-		if(relationship instanceof RealizationRelationship)
-			if(this.getAllRealizations().contains(relationship)) return true;
-		if(relationship instanceof AbstractionRelationship)
-			if(this.getAllAbstractions().contains(relationship)) return true;
-		if(relationship instanceof AssociationClassRelationship)
-			if(this.getAllAssociationsClass().contains(relationship)) return true;
-		
-		return false;
-		
 	}
 
 	public Package findPackageOfClass(Class targetClass) throws PackageNotFound {
@@ -845,12 +647,12 @@ public class Architecture extends Variable {
 
 	public void removeRequiredInterface(Interface supplier, Package client) {
 		if(!client.removeRequiredInterface(supplier));
-		RelationshipHolder.removeRelatedRelationships(supplier);
+		relationshipHolder.removeRelatedRelationships(supplier);
 	}
 	
 	public void removeRequiredInterface(Interface supplier, Class client) {
 		if(!client.removeRequiredInterface(supplier));
-		RelationshipHolder.removeRelatedRelationships(supplier);
+		relationshipHolder.removeRelatedRelationships(supplier);
 	}
 	
 	public boolean removeOnlyElement(Element element) {
@@ -872,4 +674,9 @@ public class Architecture extends Variable {
 	public void setCloner(Cloner cloner) {
 		this.cloner = cloner;
 	}
+
+	public RelationshipHolder getRelationshipHolder() {
+		return relationshipHolder;
+	}
+	
 }

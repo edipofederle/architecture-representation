@@ -151,7 +151,7 @@ public class DependencyRelationship extends Relationship {
 	}
 
 	private List<Element> getClassesForSpecificTypePartOfDependency(String type) {
-		Set<Relationship> relations = architecture.getAllRelationships();
+		Set<Relationship> relations = architecture.getRelationshipHolder().getAllRelationships();
 		List<DependencyRelationship> dependencies = new ArrayList<DependencyRelationship>();
 		
 		List<Element> dependenciesTemp = new ArrayList<Element>();

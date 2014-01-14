@@ -102,8 +102,6 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test 
 	public void shouldCreateAssociationBetweenClasses() throws Exception{
-		DocumentManager doc = givenADocument("newAssociation");
-		
 		Architecture a = givenAArchitecture2("newAssociation");
 		
 		Class foo = a.createClass("Foo", false);
@@ -115,7 +113,7 @@ public class ModelManagerTest extends TestHelper {
 		g.generate(a, "newAssociationGerada");
 		
 		Architecture gerada = givenAArchitecture2("newAssociationGerada");
-		assertEquals(1, gerada.getAllAssociations().size());
+		assertEquals(1, gerada.getRelationshipHolder().getAllAssociations().size());
 		
 	}
 	
@@ -585,7 +583,7 @@ public class ModelManagerTest extends TestHelper {
 		Architecture gerada = givenAArchitecture2("testePacoteClassAsssociationGerado");
 		
 		assertEquals(2, gerada.findPackageByName("Pacote").getAllClasses().size());
-		assertEquals(1, gerada.getAllAssociations().size());
+		assertEquals(1, gerada.getRelationshipHolder().getAllAssociations().size());
 	}
 	
 	@Test @Ignore

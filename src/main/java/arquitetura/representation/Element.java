@@ -1,15 +1,12 @@
 package arquitetura.representation;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import arquitetura.exceptions.ConcernNotFoundException;
-import arquitetura.representation.relationship.Relationship;
 
 /**
  * 
@@ -28,7 +25,6 @@ public abstract class Element implements Serializable {
 	private Architecture architecture;
 	private String typeElement;
 	private String namespace;
-	private List<Relationship> relationships = new ArrayList<Relationship>();
 	
 	public Element(String name, Variant variant, String typeElement, String namespace, String id) {
 		setId(id);
@@ -157,9 +153,6 @@ public abstract class Element implements Serializable {
 		this.variationPoint = variationPoint;
 	}
 	
-	public List<Relationship> getRelationships() {
-		return Collections.unmodifiableList(relationships);
-	}
 
 	@Override
 	public int hashCode() {
@@ -185,15 +178,4 @@ public abstract class Element implements Serializable {
 	        );
 	 }
 
-	public void addRelationship(Relationship relationship) {
-		this.relationships.add(relationship);
-	}
-	
-	public void removeRelationship(Relationship relationship) {
-		this.relationships.remove(relationship);
-	}
-	
-	
-
-	
 }

@@ -27,7 +27,7 @@ public class RealizationsTest extends TestHelper {
 		Architecture architecture6 = givenAArchitecture("realization");
 		assertNotNull(architecture6);
 		
-		Set<Relationship> relations = architecture6.getAllRelationships();
+		Set<Relationship> relations = architecture6.getRelationshipHolder().getAllRelationships();
 		RealizationRelationship realization = (RealizationRelationship) relations.iterator().next();
 		
 		assertNotNull(realization);
@@ -46,11 +46,11 @@ public class RealizationsTest extends TestHelper {
 	public void shouldLoadRealizationClassPackage() throws Exception{
 		Architecture a = givenAArchitecture("realizationClassPackage");
 		
-		assertNotNull(a.getAllRealizations());
-		assertEquals(1, a.getAllRealizations().size());
+		assertNotNull(a.getRelationshipHolder().getAllRealizations());
+		assertEquals(1, a.getRelationshipHolder().getAllRealizations().size());
 		
-		assertEquals("Client should be Class1", "Class1", a.getAllRealizations().get(0).getClient().getName());
-		assertEquals("Supplier should be Package1", "Package1", a.getAllRealizations().get(0).getSupplier().getName());
+		assertEquals("Client should be Class1", "Class1", a.getRelationshipHolder().getAllRealizations().get(0).getClient().getName());
+		assertEquals("Supplier should be Package1", "Package1", a.getRelationshipHolder().getAllRealizations().get(0).getSupplier().getName());
 	}
 	
 	
@@ -63,12 +63,12 @@ public class RealizationsTest extends TestHelper {
 	public void shouldLoadRealizationPackageClass() throws Exception{
 		Architecture a = givenAArchitecture("realizationPackageClass");
 		
-		assertNotNull(a.getAllRealizations());
-		assertEquals(1, a.getAllRelationships().size());
-		assertEquals(1, a.getAllRealizations().size());
+		assertNotNull(a.getRelationshipHolder().getAllRealizations());
+		assertEquals(1, a.getRelationshipHolder().getAllRelationships().size());
+		assertEquals(1, a.getRelationshipHolder().getAllRealizations().size());
 		
-		assertEquals("Client should be Package1", "Package1", a.getAllRealizations().get(0).getClient().getName());
-		assertEquals("Supplier should be Class1", "Class1", a.getAllRealizations().get(0).getSupplier().getName());
+		assertEquals("Client should be Package1", "Package1", a.getRelationshipHolder().getAllRealizations().get(0).getClient().getName());
+		assertEquals("Supplier should be Class1", "Class1", a.getRelationshipHolder().getAllRealizations().get(0).getSupplier().getName());
 	}
 	
 	@Test
@@ -76,10 +76,10 @@ public class RealizationsTest extends TestHelper {
 		Architecture a = givenAArchitecture("realizationPackagePackage");
 		
 		assertNotNull(a);
-		assertEquals(1, a.getAllRealizations().size());
+		assertEquals(1, a.getRelationshipHolder().getAllRealizations().size());
 		
-		assertEquals("Package2", a.getAllRealizations().get(0).getClient().getName());
-		assertEquals("Package1", a.getAllRealizations().get(0).getSupplier().getName());
+		assertEquals("Package2", a.getRelationshipHolder().getAllRealizations().get(0).getClient().getName());
+		assertEquals("Package1", a.getRelationshipHolder().getAllRealizations().get(0).getSupplier().getName());
 		
 	}
 	

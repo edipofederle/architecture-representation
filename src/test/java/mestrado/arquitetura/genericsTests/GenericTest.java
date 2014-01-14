@@ -77,9 +77,9 @@ public class GenericTest extends TestHelper {
 		
 		assertNotNull(architecture);
 		assertEquals(2, allClasses.size());
-		assertEquals(1, architecture.getAllRelationships().size());
+		assertEquals(1, architecture.getRelationshipHolder().getAllRelationships().size());
 		
-		DependencyRelationship r = architecture.getAllDependencies().get(0);
+		DependencyRelationship r = architecture.getRelationshipHolder().getAllDependencies().get(0);
 		
 		assertNotNull(r);
 		assertEquals("Class1", r.getClient().getName());
@@ -101,24 +101,24 @@ public class GenericTest extends TestHelper {
 		
 		allClasses.addAll(a.getClasses());
 		
-		assertEquals(3, a.getAllRelationships().size());
-		assertEquals(1, a.getAllGeneralizations().size());
-		assertEquals(1, a.getAllAssociationsRelationships().size());
-		assertEquals(1, a.getAllUsage().size());
+		assertEquals(3, a.getRelationshipHolder().getAllRelationships().size());
+		assertEquals(1, a.getRelationshipHolder().getAllGeneralizations().size());
+		assertEquals(1, a.getRelationshipHolder().getAllAssociationsRelationships().size());
+		assertEquals(1, a.getRelationshipHolder().getAllUsage().size());
 		assertEquals(2, a.getAllPackages().size());
 		assertEquals(4, allClasses.size());
 		
-		GeneralizationRelationship g = a.getAllGeneralizations().get(0);
+		GeneralizationRelationship g = a.getRelationshipHolder().getAllGeneralizations().get(0);
 		assertEquals("Class2",g.getChild().getName());
 		assertEquals("Class1", g.getParent().getName());
 		assertNotNull(g.getId());
 		
-		UsageRelationship usage = a.getAllUsage().get(0);
+		UsageRelationship usage = a.getRelationshipHolder().getAllUsage().get(0);
 		assertNotNull(usage.getId());
 		assertEquals("Class2", usage.getClient().getName());
 		assertEquals("Class3", usage.getSupplier().getName());
 		
-		AssociationRelationship association = a.getAllAssociationsRelationships().get(0);
+		AssociationRelationship association = a.getRelationshipHolder().getAllAssociationsRelationships().get(0);
 		assertEquals(2, association.getParticipants().size());
 		
 		AssociationEnd p1 = association.getParticipants().get(0);

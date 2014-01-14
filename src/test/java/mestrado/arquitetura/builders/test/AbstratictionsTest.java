@@ -18,7 +18,7 @@ public class AbstratictionsTest  extends TestHelper{
 
 		assertNotNull(architecture7);
 
-		AbstractionRelationship abstractionInterElement = architecture7.getAllAbstractions().iterator().next();
+		AbstractionRelationship abstractionInterElement = architecture7.getRelationshipHolder().getAllAbstractions().iterator().next();
 
 		assertNotNull(abstractionInterElement);
 		assertEquals("Client should be Class2", "Class2",	abstractionInterElement.getClient().getName());

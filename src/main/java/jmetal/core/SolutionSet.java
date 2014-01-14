@@ -397,22 +397,22 @@ public class SolutionSet implements Serializable {
 					bw.newLine();
 					bw.newLine();
 					bw.write("Number of DependencyInterElementRelationships: "+
-					arch.getAllDependencies().size());
+					arch.getRelationshipHolder().getAllDependencies().size());
 					bw.newLine();
 					bw.newLine();
 					bw.write("Number of AbstractionInterElementRelationships: "
-							+ arch.getAllAbstractions().size());
+							+ arch.getRelationshipHolder().getAllAbstractions().size());
 					bw.newLine();
 					bw.newLine();
 					bw.write("Number of GeneralizationsRelationships: "
-							+ arch.getAllGeneralizations().size());
+							+ arch.getRelationshipHolder().getAllGeneralizations().size());
 					bw.newLine();
 					bw.newLine();
 					bw.write("Number of AssociationsRelationships: "
-							+ arch.getAllAssociationsRelationships().size());
+							+ arch.getRelationshipHolder().getAllAssociationsRelationships().size());
 					bw.newLine();
 					bw.write("Number of AssociationClasses: "
-							+ arch.getAllAssociationsClass().size());
+							+ arch.getRelationshipHolder().getAllAssociationsClass().size());
 					bw.newLine();
 					contIntfs = 0;
 					contClass = 0;

@@ -61,9 +61,9 @@ public class CompositionTest extends TestHelper {
 		generateComposition(a, op);
 	
 		Architecture saida = givenAArchitecture2("composicao1Gerada");
-		assertEquals(1,saida.getAllCompositions().size());
+		assertEquals(1,saida.getRelationshipHolder().getAllCompositions().size());
 		
-		AssociationRelationship comp = saida.getAllCompositions().get(0);
+		AssociationRelationship comp = saida.getRelationshipHolder().getAllCompositions().get(0);
 		assertTrue(comp.getParticipants().get(0).isNavigable());
 		assertFalse(comp.getParticipants().get(1).isNavigable());
 	}
@@ -79,9 +79,9 @@ public class CompositionTest extends TestHelper {
 		generateComposition(a, op);
 	
 		Architecture saida = givenAArchitecture2("composicaoComMultiplicidade1Gerada");
-		assertEquals(1,saida.getAllCompositions().size());
+		assertEquals(1,saida.getRelationshipHolder().getAllCompositions().size());
 		
-		AssociationRelationship comp = saida.getAllCompositions().get(0);
+		AssociationRelationship comp = saida.getRelationshipHolder().getAllCompositions().get(0);
 		assertFalse(comp.getParticipants().get(0).isNavigable());
 		assertFalse(comp.getParticipants().get(1).isNavigable());
 	}
@@ -89,7 +89,7 @@ public class CompositionTest extends TestHelper {
 
 
 	private void generateComposition(Architecture a, Operations op) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
-		for(AssociationRelationship r : a.getAllCompositions()){
+		for(AssociationRelationship r : a.getRelationshipHolder().getAllCompositions()){
 			AssociationEnd p1 = r.getParticipants().get(0);
 			AssociationEnd p2 = r.getParticipants().get(1);
 			if(p1.isComposite()){

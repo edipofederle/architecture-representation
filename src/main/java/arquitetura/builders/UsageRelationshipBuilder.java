@@ -28,19 +28,12 @@ public class UsageRelationshipBuilder extends ArchitectureHelper {
 		EList<NamedElement> suppliers = element.getSuppliers();
 		EList<NamedElement> clieents = element.getClients();
 		
-//		EList<org.eclipse.uml2.uml.Element> relatedElements = element.getRelatedElements();
-//		
-//		for (org.eclipse.uml2.uml.Element el : relatedElements) {
-//			arquitetura.representation.Element e = architecture.getElementByXMIID(getModelHelper().getXmiId(el));
-//			e.getIdsRelationships().add((getModelHelper().getXmiId(element)));
-//		}
-		
 		Element client = architecture.findElementById(getModelHelper().getXmiId(clieents.get(0)));
 		Element supplier = architecture.findElementById(getModelHelper().getXmiId(suppliers.get(0)));
 		UsageRelationship usageRelationship = new UsageRelationship(element.getName(), supplier, client, getModelHelper().getXmiId(element));
 		
-		usageRelationship.getClient().addRelationship(usageRelationship);
-		usageRelationship.getSupplier().addRelationship(usageRelationship);
+//		usageRelationship.getClient().addRelationship(usageRelationship);
+//		usageRelationship.getSupplier().addRelationship(usageRelationship);
 		
 		return usageRelationship;
 	}

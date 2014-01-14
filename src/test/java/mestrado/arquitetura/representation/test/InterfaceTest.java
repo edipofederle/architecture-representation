@@ -94,4 +94,12 @@ public class InterfaceTest extends TestHelper {
 		assertEquals("Package1", i.getDependents().iterator().next().getName());
 	}
 	
+	@Test
+	public void shouldReturunsDependenciesForInterface() throws Exception{
+		Architecture a = givenAArchitecture("interfaceGetDependencies");
+		Interface inter = a.findInterfaceByName("Interface1");
+		
+		assertNotNull(inter.getDependencies());
+	}
+	
 }

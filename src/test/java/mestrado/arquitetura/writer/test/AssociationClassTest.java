@@ -21,7 +21,7 @@ public class AssociationClassTest extends TestHelper {
 	public void testLoadAssociationClass() throws Exception{
 		Architecture a = givenAArchitecture("associationClass/associationClass");
 		
-		List<AssociationClassRelationship> associationClasses = a.getAllAssociationsClass();
+		List<AssociationClassRelationship> associationClasses = a.getRelationshipHolder().getAllAssociationsClass();
 		
 		assertEquals(1, associationClasses.size());
 		assertEquals(2, associationClasses.get(0).getMemebersEnd().size());
@@ -30,7 +30,7 @@ public class AssociationClassTest extends TestHelper {
 	@Test
 	public void associationClassShouldBelongsToPackage() throws Exception{
 		Architecture a = givenAArchitecture("associationClass/associationClassComPacote");
-		assertNotNull(a.getAllAssociationsClass().get(0).getPackageOwner());
+		assertNotNull(a.getRelationshipHolder().getAllAssociationsClass().get(0).getPackageOwner());
 		
 	}
 	
@@ -43,7 +43,7 @@ public class AssociationClassTest extends TestHelper {
 		
 		generateClasses(a, op);
 		
-		for(AssociationClassRelationship asr : a.getAllAssociationsClass()){
+		for(AssociationClassRelationship asr : a.getRelationshipHolder().getAllAssociationsClass()){
 			op.forAssociationClass()
 			  .createAssociationClass(asr)
 			  .build();
@@ -51,7 +51,7 @@ public class AssociationClassTest extends TestHelper {
 
 		Architecture genereted = givenAArchitecture2("associationClassGerado");
 		assertNotNull(genereted);
-		assertEquals(3, genereted.getAllAssociationsClass().get(0).getAllAttributes().size());
+		assertEquals(3, genereted.getRelationshipHolder().getAllAssociationsClass().get(0).getAllAttributes().size());
 	}
 	
 	@Test
@@ -64,14 +64,14 @@ public class AssociationClassTest extends TestHelper {
 		generateClasses(a, op);
 		
 		
-		for(AssociationClassRelationship asr : a.getAllAssociationsClass()){
+		for(AssociationClassRelationship asr : a.getRelationshipHolder().getAllAssociationsClass()){
 			op.forAssociationClass()
 			  .createAssociationClass(asr)
 			  .build();
 		}
 
 		Architecture genereted = givenAArchitecture2("associationClass2Gerado");
-		assertEquals(1, genereted.getAllAssociationsClass().size());
+		assertEquals(1, genereted.getRelationshipHolder().getAllAssociationsClass().size());
 		
 	}
 	
@@ -99,9 +99,9 @@ public class AssociationClassTest extends TestHelper {
 		
 		assertEquals("deve ter somente duas classes", 2, ar.getClasses().size());
 		
-		assertEquals(1 ,ar.getAllAssociationsClass().size());
-		assertEquals(3, ar.getAllAssociationsClass().get(0).getAssociationClass().getAllAttributes().size());
-		assertEquals(1, ar.getAllAssociationsClass().get(0).getAssociationClass().getAllMethods().size());
+		assertEquals(1 ,ar.getRelationshipHolder().getAllAssociationsClass().size());
+		assertEquals(3, ar.getRelationshipHolder().getAllAssociationsClass().get(0).getAssociationClass().getAllAttributes().size());
+		assertEquals(1, ar.getRelationshipHolder().getAllAssociationsClass().get(0).getAssociationClass().getAllMethods().size());
 	}
 
 }

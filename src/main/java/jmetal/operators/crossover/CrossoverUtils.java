@@ -16,7 +16,6 @@ import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
 import arquitetura.representation.Package;
-import arquitetura.representation.RelationshipHolder;
 import arquitetura.representation.relationship.GeneralizationRelationship;
 import arquitetura.representation.relationship.Relationship;
 
@@ -140,12 +139,10 @@ public class CrossoverUtils {
 			removeChildrenOfComponent(child, comp, architecture);
 		}
 		if (comp.getAllClasses().contains(parent)){
-			RelationshipHolder.removeRelatedRelationships(parent);
 			comp.removeClass(parent);							
 		} else{				
 			for (Package auxComp: architecture.getAllPackages()){
 				if (auxComp.getAllClasses().contains(parent)){
-					RelationshipHolder.removeRelatedRelationships(parent);
 					auxComp.removeClass(parent);
 					break;
 				}
@@ -161,7 +158,7 @@ public class CrossoverUtils {
     }
   	
   	private GeneralizationRelationship getGeneralizationForClass(Element cls) {
-  		for (Relationship relationship: cls.getRelationships()){
+  		for (Relationship relationship: ((Class) cls).getRelationships()){
     		if (relationship instanceof GeneralizationRelationship){
     			GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
     			if (generalization.getParent().equals(cls))

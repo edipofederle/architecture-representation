@@ -69,7 +69,7 @@ public class ArchitectureBuilder {
 	 * 
 	 */
 	public ArchitectureBuilder() {
-		RelationshipHolder.clearLists();
+		//RelationshipHolder.clearLists();
 		ConcernHolder.INSTANCE.clear();
 		modelHelper = ModelHelperFactory.getModelHelper();
 	}

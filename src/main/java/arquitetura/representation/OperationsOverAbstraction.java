@@ -23,36 +23,48 @@ public class OperationsOverAbstraction {
 	}
 
 	public void moveClient(AbstractionRelationship abstractionRelationship,	Class newClient) {
-		abstractionRelationship.getClient().removeRelationship(abstractionRelationship);
+		updateRelationship(abstractionRelationship, abstractionRelationship.getClient());
 		abstractionRelationship.setClient(newClient);
-		newClient.addRelationship(abstractionRelationship);
+		architecture.addRelationship(abstractionRelationship);
 	}
 
 	public void moveSupplier(AbstractionRelationship abstractionRelationship, Class newSupplier) {
-		abstractionRelationship.getSupplier().removeRelationship(abstractionRelationship);
+		updateRelationship(abstractionRelationship, abstractionRelationship.getSupplier());
 		abstractionRelationship.setSupplier(newSupplier);
-		newSupplier.addRelationship(abstractionRelationship);
+		architecture.addRelationship(abstractionRelationship);
 		
 	}
 
+	private void updateRelationship(AbstractionRelationship abstractionRelationship, Element element) {
+		if(element instanceof Class){
+			Class supplier = (Class) element;
+			supplier.getRelationshipHolder().removeRelationship(abstractionRelationship);
+		}
+		if(element instanceof Interface){
+			Interface supplier = (Interface)element;
+			supplier.getRelationshipHolder().removeRelationship(abstractionRelationship);
+		}
+		if(element instanceof Package){
+			Package supplier = (Package)element;
+			supplier.getRelationshipHolder().removeRelationship(abstractionRelationship);
+		}
+	}
+
 	public void move(AbstractionRelationship abstractionRelationship, Class newSupplier, Class newCliente) {
-		abstractionRelationship.getClient().removeRelationship(abstractionRelationship);
-		abstractionRelationship.getSupplier().removeRelationship(abstractionRelationship);
+		updateRelationship(abstractionRelationship, abstractionRelationship.getSupplier());
+		updateRelationship(abstractionRelationship, abstractionRelationship.getClient());
 		
 		abstractionRelationship.setSupplier(newSupplier);
 		abstractionRelationship.setClient(newCliente);
 		
-		newSupplier.addRelationship(abstractionRelationship);
-		newCliente.addRelationship(abstractionRelationship);
+		architecture.addRelationship(abstractionRelationship);
 	}
 
 	public AbstractionRelationship create(Element newClient, Element newSupplier) {
 		String id = UtilResources.getRandonUUID();
 		AbstractionRelationship abs = new AbstractionRelationship(newClient, newSupplier, id);
-		newClient.addRelationship(abs);
-		newSupplier.addRelationship(abs);
+		architecture.addRelationship(abs);
 		this.architecture.addRelationship(abs);
-		
 		return abs;
 	}
 

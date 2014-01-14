@@ -70,7 +70,7 @@ public class CrossoverOperations {
 	}
 	
 	public static void updateClassRelationships(Element classComp, Architecture offspring ) {
-		Collection<Relationship> parentRelationships = classComp.getRelationships();
+		Collection<Relationship> parentRelationships = ((Class) classComp).getRelationships();
 		for (Relationship relationship : parentRelationships){
 			if (relationship instanceof DependencyRelationship){
 				DependencyRelationship dependency = (DependencyRelationship) relationship;
@@ -292,7 +292,7 @@ public class CrossoverOperations {
 	}
     
 	private static GeneralizationRelationship getGeneralizationForClass(Element cls) {
-		for (Relationship relationship: cls.getRelationships()){
+		for (Relationship relationship: ((Class) cls).getRelationships()){
 			if (relationship instanceof GeneralizationRelationship){
 				GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
 	    		if (generalization.getParent().equals(cls))

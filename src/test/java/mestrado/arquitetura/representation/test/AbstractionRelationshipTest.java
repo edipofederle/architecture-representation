@@ -14,12 +14,12 @@ public class AbstractionRelationshipTest extends TestHelper {
 	public void testPackageInterfaceAbstraction() throws Exception{
 		Architecture a = givenAArchitecture("abstractionTestPackageInterface");
 		
-		assertEquals(1,a.getAllRelationships().size());
-		assertEquals(1,a.getAllAbstractions().size());
+		assertEquals(1,a.getRelationshipHolder().getAllRelationships().size());
+		assertEquals(1,a.getRelationshipHolder().getAllAbstractions().size());
 		
-		System.out.println(a.getAllAbstractions().iterator().next().getClient().getName());
-		System.out.println(a.getAllAbstractions().iterator().next().getSupplier().getName());
-		System.out.println( ((Package) a.getAllAbstractions().iterator().next().getClient()).getImplementedInterfaces());
+		System.out.println(a.getRelationshipHolder().getAllAbstractions().iterator().next().getClient().getName());
+		System.out.println(a.getRelationshipHolder().getAllAbstractions().iterator().next().getSupplier().getName());
+		System.out.println( ((Package) a.getRelationshipHolder().getAllAbstractions().iterator().next().getClient()).getImplementedInterfaces());
 	}
 
 }

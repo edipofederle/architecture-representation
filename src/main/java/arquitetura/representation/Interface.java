@@ -27,10 +27,12 @@ public class Interface extends Element {
 
 	static Logger LOGGER = LogManager.getLogger(Interface.class.getName());
 	private final Set<Method> operations = new HashSet<Method>();
+	private RelationshipHolder relationshipHolder;
 	
 
-	public Interface(String name, Variant variantType, String namespace, String id) {
+	public Interface(RelationshipHolder relationshipHolder, String name, Variant variantType, String namespace, String id) {
 		super(name, variantType, "interface", namespace, id);
+		setRelationshipHolder(relationshipHolder);
 	}
 	
 	/**
@@ -41,21 +43,22 @@ public class Interface extends Element {
 	 * 
 	 * @param architecture Architecture em questão
 	 * @param name - Nome da interface
+	 * @param relationshipHolder
 	 */
-	public Interface(String name) {
-		this(name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
+	public Interface(RelationshipHolder relationshipHolder, String name) {
+		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
 	}
-//	
+
 	/**
 	 * Use este construtor quando você deseja criar uma interface usando algum ID passado por você<br /><br />
 	 * 
-	 * OBS 2: Esse construtor NAO adicionar a interface na arquitetura<br/>
+	 * OBS 1: Esse construtor NAO adicionar a interface na arquitetura<br/>
 	 * 
-	 * @param architecture Architecture em questão
 	 * @param name - Nome da interface
+	 * @param id -  ID para a interface
 	 */
-	public Interface(String name, String id) {
-		this(name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), id);
+	public Interface(RelationshipHolder relationshipHolder, String name, String id) {
+		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), id);
 	}
 
 	public  Set<Method> getOperations() {
@@ -108,7 +111,7 @@ public class Interface extends Element {
 	public Set<Element> getImplementors() {
 		Set<Element> implementors = new HashSet<Element>();
 		
-		Set<Relationship> relations = RelationshipHolder.getRelationships();
+		Set<Relationship> relations = getRelationshipHolder().getRelationships();
 		
 		for (Relationship relationship : relations) {
 			
@@ -140,7 +143,7 @@ public class Interface extends Element {
 	public Set<Element> getDependents() {
 		Set<Element> dependents = new HashSet<Element>();
 		
-		Set<Relationship> relations = RelationshipHolder.getRelationships();
+		Set<Relationship> relations = getRelationshipHolder().getRelationships();
 		
 		for (Relationship relationship : relations) {
 			if(relationship instanceof DependencyRelationship){
@@ -166,7 +169,7 @@ public class Interface extends Element {
 	public List<DependencyRelationship> getDependencies() {
 		List<DependencyRelationship> dependencies = new ArrayList<DependencyRelationship>();
 		
-		for (DependencyRelationship dependency : getArchitecture().getAllDependencies()) {
+		for (DependencyRelationship dependency : getRelationshipHolder().getAllDependencies()) {
 			if (dependency.getSupplier().equals(this))
 				dependencies.add(dependency);
 		}
@@ -175,14 +178,14 @@ public class Interface extends Element {
 	}
 	
 	/**
-	 * Esse método recebe uma interface e procura os elementso (Pacotes e Classes) que a 
-	 * implementam ou que a requerem a interface em questão e  a remove da lista de interfaces implementadas
+	 * Procura os elementos (Pacotes e Classes) que  
+	 * implementam a interface em questão ou que a requerem a interface em questão e a remove da lista de interfaces implementadas
 	 * ou requeridas
 	 * 
 	 * @param interfacee
 	 */
 	public void removeInterfaceFromRequiredOrImplemented() {
-		for (Iterator<Relationship> i = RelationshipHolder.getRelationships().iterator(); i.hasNext();) {
+		for (Iterator<Relationship> i = getRelationshipHolder().getRelationships().iterator(); i.hasNext();) {
 			Relationship r = i.next();
 			
 			if(r instanceof RealizationRelationship){
@@ -212,5 +215,13 @@ public class Interface extends Element {
 			}
 		}
 	}
+	
+	public RelationshipHolder getRelationshipHolder() {
+		return relationshipHolder;
+	}
 
+	public void setRelationshipHolder(RelationshipHolder relationshipHolder) {
+		this.relationshipHolder = relationshipHolder;
+	}
+	
 }

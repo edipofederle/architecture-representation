@@ -973,7 +973,7 @@ public class PLAFeatureMutation extends Mutation {
      * @return {@link GeneralizationRelationship}
      */
 	private GeneralizationRelationship getGeneralizationRelationshipForClass(Element element) {
-    	for(Relationship r : element.getRelationships()){
+    	for(Relationship r : ((Class) element).getRelationships()){
     		if(r instanceof GeneralizationRelationship){
     			GeneralizationRelationship g = (GeneralizationRelationship)r;
     			if(g.getParent().equals(element) || (g.getChild().equals(element)))

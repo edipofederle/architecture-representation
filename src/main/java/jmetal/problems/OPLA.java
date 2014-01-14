@@ -422,7 +422,7 @@ public class OPLA extends Problem {
 
 	private void removeComponentRelationships(Package comp, Architecture architecture) {
 		//
-		Relationship[] allInterElementRelationships = architecture.getAllRelationships().toArray(new Relationship[0]);
+		Relationship[] allInterElementRelationships = architecture.getRelationshipHolder().getAllRelationships().toArray(new Relationship[0]);
 		for (Relationship relationship : allInterElementRelationships) {
 			if (relationship instanceof AbstractionRelationship) {
 				AbstractionRelationship abstraction = (AbstractionRelationship) relationship;

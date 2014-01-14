@@ -1,5 +1,6 @@
 package arquitetura.representation;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +10,16 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import arquitetura.helpers.UtilResources;
+import arquitetura.representation.relationship.AbstractionRelationship;
+import arquitetura.representation.relationship.AssociationClassRelationship;
+import arquitetura.representation.relationship.AssociationEnd;
+import arquitetura.representation.relationship.AssociationRelationship;
+import arquitetura.representation.relationship.DependencyRelationship;
+import arquitetura.representation.relationship.GeneralizationRelationship;
+import arquitetura.representation.relationship.MemberEnd;
+import arquitetura.representation.relationship.RealizationRelationship;
+import arquitetura.representation.relationship.Relationship;
+import arquitetura.representation.relationship.UsageRelationship;
 
 
 /**
@@ -33,6 +44,8 @@ public class Package extends Element {
 	private Set<Interface> requiredInterfaces = new HashSet<Interface>();
 	public  Set<Package> nestedPackages = new HashSet<Package>();
 	
+	private RelationshipHolder relationshipHolder;
+	
 	/**
 	 * Construtor Para um Elemento do Tipo Pacote
 	 * 
@@ -42,16 +55,17 @@ public class Package extends Element {
 	 * @param variantType - Qual o tipo ( {@link VariantType} ) da variante
 	 * @param parent - Qual o {@link Element} pai
 	 */
-	public Package(String name, Variant variantType,  String namespace, String id) {
+	public Package(RelationshipHolder relationshipHolder, String name, Variant variantType,  String namespace, String id) {
 		super(name,  variantType, "package", namespace, id);
+		setRelationshipHolder(relationshipHolder);
 	}
 	
-	public Package(String name) {
-		this(name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
+	public Package(RelationshipHolder relationshipHolder, String name) {
+		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
 	}
 	
-	public Package(String name, String id) {
-		this(name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), id);
+	public Package(RelationshipHolder relationshipHolder, String name, String id) {
+		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), id);
 	}
 	
 	/**
@@ -132,7 +146,7 @@ public class Package extends Element {
 	 * @throws Exception
 	 */
 	public Class createClass(String className, boolean isAbstract) throws Exception {
-		Class c = new Class(className, isAbstract, this.getName());
+		Class c = new Class(getRelationshipHolder(), className, isAbstract, this.getName());
 		this.classes.add(c);
 		return c;
 	}
@@ -144,7 +158,7 @@ public class Package extends Element {
 	 * @return
 	 */
 	public Interface createInterface(String name) {
-		Interface inter = new Interface(name);
+		Interface inter = new Interface(getRelationshipHolder(),name);
 		this.interfaces.add(inter);
 		return inter;
 	}
@@ -156,7 +170,7 @@ public class Package extends Element {
 	 * @return
 	 */
 	public Interface createInterface(String name, String id) {
-		Interface inter = new Interface(name, id);
+		Interface inter = new Interface(getRelationshipHolder(), name, id);
 		this.interfaces.add(inter);
 		return inter;
 	}
@@ -217,7 +231,7 @@ public class Package extends Element {
 	}
 	
 	public boolean removeClass(Element klass) {
-		RelationshipHolder.removeRelatedRelationships(klass);
+		getRelationshipHolder().removeRelatedRelationships(klass);
 		if(this.classes.remove(klass)){
 			LOGGER.info("Classe: "+klass.getName() + " removida do pacote: "+this.getName());
 			return true;
@@ -227,7 +241,7 @@ public class Package extends Element {
 	
 	public boolean removeInterface(Element interfacee) {
 		((Interface) interfacee).removeInterfaceFromRequiredOrImplemented();
-		RelationshipHolder.removeRelatedRelationships(interfacee);
+		getRelationshipHolder().removeRelatedRelationships(interfacee);
 		if(this.interfaces.remove(interfacee)){
 			LOGGER.info("Interface: "+interfacee.getName() + " removida do pacote: "+this.getName());
 			return true;
@@ -281,6 +295,61 @@ public class Package extends Element {
 		}
 		
 		return false;
+	}
+
+	public RelationshipHolder getRelationshipHolder() {
+		return relationshipHolder;
+	}
+
+	public void setRelationshipHolder(RelationshipHolder relationshipHolder) {
+		this.relationshipHolder = relationshipHolder;
+	}
+	
+	public List<Relationship> getRelationships() {
+		List<Relationship> relations = new ArrayList<Relationship>();
+		for(Relationship r : getRelationshipHolder().getRelationships()){
+			if(r instanceof GeneralizationRelationship){
+				if(((GeneralizationRelationship) r).getParent().equals(this) || ((GeneralizationRelationship) r).getChild().equals(this)){
+					relations.add(r);
+				}
+			}
+			if(r instanceof RealizationRelationship){
+				if(((RealizationRelationship) r).getClient().equals(this) || ((RealizationRelationship) r).getSupplier().equals(this)){
+					relations.add(r);
+				}
+			}
+			if(r instanceof DependencyRelationship){
+				if(((DependencyRelationship) r).getClient().equals(this) || ((DependencyRelationship) r).getSupplier().equals(this)){
+					relations.add(r);
+				}
+			}
+			if(r instanceof AbstractionRelationship){
+				if(((AbstractionRelationship) r).getClient().equals(this) || ((AbstractionRelationship) r).getSupplier().equals(this)){
+					relations.add(r);
+				}
+			}
+			if(r instanceof UsageRelationship){
+				if(((UsageRelationship) r).getClient().equals(this) || ((UsageRelationship) r).getSupplier().equals(this)){
+					relations.add(r);
+				}
+			}
+			if(r instanceof AssociationRelationship){
+				for(AssociationEnd a : ((AssociationRelationship)r).getParticipants()){
+					if(a.getCLSClass().equals(this)){
+						relations.add(r);
+					}
+				}
+			}
+			
+			if(r instanceof AssociationClassRelationship){
+				for(MemberEnd memberEnd : ((AssociationClassRelationship) r).getMemebersEnd()){
+					if(memberEnd.getType().equals(this)){
+						relations.add(r);
+					}
+				}
+			}
+		}
+		return Collections.unmodifiableList(relations);
 	}
 	
 }

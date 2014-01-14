@@ -26,11 +26,11 @@ public class UsageRelationshipTest extends HelperTest {
 	public void shouldLoadUsageClassInsidePackage() throws Exception{
 		Architecture a = givenAArchitecture("usageClassInsidePackage");
 		
-		assertNotNull(a.getAllUsage());
-		assertEquals(1, a.getAllUsage().size());
-		assertEquals(1, a.getAllRelationships().size());
+		assertNotNull(a.getRelationshipHolder().getAllUsage());
+		assertEquals(1, a.getRelationshipHolder().getAllUsage().size());
+		assertEquals(1, a.getRelationshipHolder().getAllRelationships().size());
 		
-		 UsageRelationship u = a.getAllUsage().get(0);
+		 UsageRelationship u = a.getRelationshipHolder().getAllUsage().get(0);
 		 assertEquals("Class2", u.getClient().getName());
 		 assertEquals("model::Package1", u.getClient().getNamespace());
 		 
@@ -45,7 +45,7 @@ public class UsageRelationshipTest extends HelperTest {
 	public void shouldReturnAllUsageClass() throws Exception{
 		String uriToArchitecture = getUrlToModel("classUsageClass");
 		Architecture a = new ArchitectureBuilder().create(uriToArchitecture);
-		assertEquals(2, a.getAllUsage().size());
+		assertEquals(2, a.getRelationshipHolder().getAllUsage().size());
 	}
 	
 	/**
@@ -59,7 +59,7 @@ public class UsageRelationshipTest extends HelperTest {
 
 		assertNotNull(architecture8);
 
-		Set<Relationship> relations2 = architecture8.getAllRelationships();
+		Set<Relationship> relations2 = architecture8.getRelationshipHolder().getAllRelationships();
 
 		assertNotNull(relations2);
 		assertEquals(2, relations2.size());
@@ -78,11 +78,11 @@ public class UsageRelationshipTest extends HelperTest {
 		Architecture architecture8 = givenAArchitecture("usage3");
 		assertNotNull(architecture8);
 
-		Set<Relationship> relations2 = architecture8.getAllRelationships();
+		Set<Relationship> relations2 = architecture8.getRelationshipHolder().getAllRelationships();
 		assertEquals(1, relations2.size());
 		
 		
-		 UsageRelationship u = architecture8.getAllUsage().iterator().next();
+		 UsageRelationship u = architecture8.getRelationshipHolder().getAllUsage().iterator().next();
 		 assertEquals("Class1", u.getClient().getName());
 		 assertEquals("model::Package2", u.getClient().getNamespace());
 		 
@@ -98,7 +98,7 @@ public class UsageRelationshipTest extends HelperTest {
 	@Test
 	public void shouldLoadUsageInterClassPackage() throws Exception{
 		Architecture a = givenAArchitecture("usageClassPackage");
-		Set<Relationship> relations = a.getAllRelationships();
+		Set<Relationship> relations = a.getRelationshipHolder().getAllRelationships();
 		assertNotNull(a);
 		UsageRelationship relation = (UsageRelationship)relations.iterator().next();
 		assertNotNull(relation);
@@ -116,7 +116,7 @@ public class UsageRelationshipTest extends HelperTest {
 	public void shouldLoadUsageInterPackageClass() throws Exception{
 		String uriToArchitecture = getUrlToModel("PackageClassUsage");
 		Architecture architecture2 = new ArchitectureBuilder().create(uriToArchitecture);
-		Set<Relationship> relations2 = architecture2.getAllRelationships();
+		Set<Relationship> relations2 = architecture2.getRelationshipHolder().getAllRelationships();
 		UsageRelationship relation2 = (UsageRelationship)relations2.iterator().next();
 		assertNotNull(relations2);
 		
@@ -128,9 +128,9 @@ public class UsageRelationshipTest extends HelperTest {
 	public void shouldLoadUsagePackagePackage() throws Exception{
 		Architecture a = givenAArchitecture("UsagePackagePackage");
 		
-		assertEquals(1, a.getAllUsage().size());
+		assertEquals(1, a.getRelationshipHolder().getAllUsage().size());
 		
-		assertEquals("Package1", a.getAllUsage().get(0).getClient().getName());
+		assertEquals("Package1", a.getRelationshipHolder().getAllUsage().get(0).getClient().getName());
 	}
 	
 }

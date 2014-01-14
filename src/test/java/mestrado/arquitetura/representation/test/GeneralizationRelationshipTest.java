@@ -23,7 +23,7 @@ public class GeneralizationRelationshipTest extends HelperTest {
 		Architecture arch = givenAArchitecture(path+"herancaInterfaceClass");
 		
 		List
-		<GeneralizationRelationship> generalization = arch.getAllGeneralizations();
+		<GeneralizationRelationship> generalization = arch.getRelationshipHolder().getAllGeneralizations();
 		assertEquals(1, generalization.size());
 		
 		GeneralizationRelationship g = generalization.iterator().next();

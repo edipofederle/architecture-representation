@@ -21,9 +21,9 @@ public class GeneralizationsTest extends TestHelper {
 	public void shouldLoadGeneralization() throws Exception {
 		Architecture arch1 = givenAArchitecture("replaceGeneralization");
 
-		assertEquals(1, arch1.getAllGeneralizations().size());
+		assertEquals(1, arch1.getRelationshipHolder().getAllGeneralizations().size());
 
-		GeneralizationRelationship generalization = arch1.getAllGeneralizations().iterator().next();
+		GeneralizationRelationship generalization = arch1.getRelationshipHolder().getAllGeneralizations().iterator().next();
 		assertNotNull(generalization);
 		assertEquals("Class1", generalization.getParent().getName());
 		assertEquals(1, generalization.getAllChildrenForGeneralClass().size());
@@ -36,7 +36,7 @@ public class GeneralizationsTest extends TestHelper {
 		Class class3 = a.findClassByName("Class3").get(0);
 		assertNotNull(class3);
 
-		GeneralizationRelationship generalization = a.getAllGeneralizations().iterator().next();
+		GeneralizationRelationship generalization = a.getRelationshipHolder().getAllGeneralizations().iterator().next();
 
 		assertContains(generalization.getAllChildrenForGeneralClass(), "Class2");
 		generalization.replaceChild(class3);
@@ -52,7 +52,7 @@ public class GeneralizationsTest extends TestHelper {
 		assertNotNull(professorKlass);
 		assertEquals("Class2", professorKlass.getName());
 
-		GeneralizationRelationship generalization = architecture.getAllGeneralizations().iterator().next();
+		GeneralizationRelationship generalization = architecture.getRelationshipHolder().getAllGeneralizations().iterator().next();
 
 		assertEquals("Class1", generalization.getParent().getName());
 		generalization.replaceParent((Class) professorKlass);
@@ -62,9 +62,9 @@ public class GeneralizationsTest extends TestHelper {
 	@Test
 	public void shouldLoadGeneralizationWithTwoChildreen() throws Exception {
 		Architecture architecture = givenAArchitecture("generalaizationReplacce");					
-		GeneralizationRelationship g1 = architecture.getAllGeneralizations().get(0);
+		GeneralizationRelationship g1 = architecture.getRelationshipHolder().getAllGeneralizations().get(0);
 		
-		assertEquals(2, architecture.getAllGeneralizations().size());
+		assertEquals(2, architecture.getRelationshipHolder().getAllGeneralizations().size());
 		Set<Element> ch = g1.getAllChildrenForGeneralClass();
 		assertEquals(2, ch.size());
 		assertContains(ch, "Class2", "Class3");
@@ -75,7 +75,7 @@ public class GeneralizationsTest extends TestHelper {
 		Architecture a = givenAArchitecture("generalizationTwoChild");
 
 
-		GeneralizationRelationship r = a.getAllGeneralizations().iterator().next();
+		GeneralizationRelationship r = a.getRelationshipHolder().getAllGeneralizations().iterator().next();
 		assertEquals(2, r.getAllChildrenForGeneralClass().size());
 		assertContains(r.getAllChildrenForGeneralClass(), "Class1", "Class2");
 	}
@@ -84,7 +84,7 @@ public class GeneralizationsTest extends TestHelper {
 	public void resursiveGeneralization() throws Exception {
 		Architecture arch1 = givenAArchitecture("generalizationRecur");
 
-		assertEquals(4, arch1.getAllGeneralizations().size());
+		assertEquals(4, arch1.getRelationshipHolder().getAllGeneralizations().size());
 	}
 	
 }

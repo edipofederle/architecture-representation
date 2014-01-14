@@ -58,11 +58,11 @@ public class UsageTest extends TestHelper {
 		op.forUsage().createRelation("Usage #1").between(employeeKlass.get("id")).and(manager.get("id")).build();
 	
 		Architecture a = givenAArchitecture2("usageTeste1");
-		assertNotNull(a.getAllUsage());
-		assertEquals(1, a.getAllUsage().size());
-		assertEquals(0, a.getAllDependencies().size());
+		assertNotNull(a.getRelationshipHolder().getAllUsage());
+		assertEquals(1, a.getRelationshipHolder().getAllUsage().size());
+		assertEquals(0, a.getRelationshipHolder().getAllDependencies().size());
 		
-		UsageRelationship usage = a.getAllUsage().get(0);
+		UsageRelationship usage = a.getRelationshipHolder().getAllUsage().get(0);
 		assertEquals("Usage #1",usage.getName());
 		
 		assertEquals("Employee",usage.getClient().getName());
@@ -83,7 +83,7 @@ public class UsageTest extends TestHelper {
 		op.forUsage().createRelation("Usage #2").between(employeeKlass.get("id")).and(managerKlass.get("id")).build();
 		
 		Architecture a = givenAArchitecture2("usageTeste2");
-		assertEquals(1,a.getAllUsage().size());
+		assertEquals(1,a.getRelationshipHolder().getAllUsage().size());
 		
 	}
 	
@@ -101,7 +101,7 @@ public class UsageTest extends TestHelper {
 		op.forUsage().createRelation("Usage #2").between(managerKlass.get("id")).and(employeeKlass.get("id")).build();
 		
 		Architecture a = givenAArchitecture2("usageTeste3");
-		assertEquals(1, a.getAllUsage().size());
+		assertEquals(1, a.getRelationshipHolder().getAllUsage().size());
 	}
 	
 	@Test
@@ -115,7 +115,7 @@ public class UsageTest extends TestHelper {
 		op.forUsage().createRelation("Usage com Nome").between(p1).and(p2).build();
 		
 		Architecture a = givenAArchitecture2("usageTeste4");
-		assertEquals(1, a.getAllUsage().size());
+		assertEquals(1, a.getRelationshipHolder().getAllUsage().size());
 	}
 	
 }

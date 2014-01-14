@@ -41,9 +41,9 @@ public class DependencyRelationshipBuilder  extends ArchitectureHelper{
 		
 		DependencyRelationship dependency =  new DependencyRelationship(supplier, client, element.getName(), architecture, getModelHelper().getXmiId(element));
 		
-		dependency.getClient().addRelationship(dependency);
-		dependency.getSupplier().addRelationship(dependency);
-		
+//		dependency.getClient().addRelationship(dependency);
+//		dependency.getSupplier().addRelationship(dependency);
+//		
 		return dependency;
 	}
 

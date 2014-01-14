@@ -24,30 +24,19 @@ public class OperationsOverRelationships {
 	}
 
 	public void moveAssociation(AssociationRelationship association, Class class1, Class class2) {
-		class1.removeRelationship(association);
-		class2.removeRelationship(association);
-		
 		association.getParticipants().get(0).setCLSClass(class1);
 		association.getParticipants().get(1).setCLSClass(class2);
-		
-		class1.addRelationship(association);
-		class2.addRelationship(association);
 	}
 	
 	public void moveAssociationClass(AssociationClassRelationship association, Class member1, Class member2) {
 		association.getMemebersEnd().clear();
 		association.getMemebersEnd().add(new MemberEnd("none", null, "public", member1));
 		association.getMemebersEnd().add(new MemberEnd("none", null, "public", member2));
-		
-		member1.addRelationship(association);
-		member2.addRelationship(association);
 	}
 	
 	public void moveDependency(DependencyRelationship dependency, Class client, Class supplier) {
 		dependency.setClient(client);
 		dependency.setSupplier(supplier);
-		client.addRelationship(dependency);
-		supplier.addRelationship(dependency);
 	}
 
 
@@ -99,9 +88,7 @@ public class OperationsOverRelationships {
 	 * @param newClient
 	 */
 	public void moveRealizationClient(RealizationRelationship realization, Element newClient) {
-		realization.getSupplier().removeRelationship(realization);
 		realization.setClient(newClient);
-		newClient.addRelationship(realization);
 	}
 
 	/**
@@ -111,9 +98,7 @@ public class OperationsOverRelationships {
 	 * @param newSupplier
 	 */
 	public void moveRealizationSupplier(RealizationRelationship realization, Element newSupplier) {
-		realization.getSupplier().removeRelationship(realization);
 		realization.setSupplier(newSupplier);
-		newSupplier.addRelationship(realization);
 	}
 	
 	/**
@@ -124,23 +109,13 @@ public class OperationsOverRelationships {
 	 * @param supplier - Novo Supplier
 	 */
 	public void moveRealization(RealizationRelationship realization, Element client, Element supplier) {
-		
-		realization.getClient().removeRelationship(realization);
-		realization.getSupplier().removeRelationship(realization);
-		
 		realization.setClient(client);
 		realization.setSupplier(supplier);
-		
-		client.addRelationship(realization);
-		supplier.addRelationship(realization);
-		
 	}
 
 	public void createNewRealization(Element client, Element supplier) {
 		String id = UtilResources.getRandonUUID();
 		RealizationRelationship realization = new RealizationRelationship(client, supplier, "", id);
-		client.addRelationship(realization);
-		supplier.addRelationship(realization);
 		this.architecture.addRelationship(realization);
 	}
 

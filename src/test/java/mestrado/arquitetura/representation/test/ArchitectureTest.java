@@ -164,27 +164,27 @@ public class ArchitectureTest extends TestHelper {
 	
 	@Test
 	public void shouldReturnAllGeneralizations() throws Exception{
-		assertEquals(3, architecture.getAllRelationships().size());
-		assertNotNull(architecture.getAllGeneralizations());
-		assertEquals(1, architecture.getAllGeneralizations().size());
+		assertEquals(3, architecture.getRelationshipHolder().getAllRelationships().size());
+		assertNotNull(architecture.getRelationshipHolder().getAllGeneralizations());
+		assertEquals(1, architecture.getRelationshipHolder().getAllGeneralizations().size());
 	}
 	
 	
 	@Test
 	public void shouldReturnAllAssociations(){
-		assertEquals(1, architecture.getAllAssociationsRelationships().size());
+		assertEquals(1, architecture.getRelationshipHolder().getAllAssociationsRelationships().size());
 	}
 	
 	@Test
 	public void shouldReturnAllUsageClassPackage(){
-		assertEquals(1, architecture.getAllUsage().size());
+		assertEquals(1, architecture.getRelationshipHolder().getAllUsage().size());
 	}
 	
 	@Test
 	public void shouldReturnAllDependency() throws Exception{
 		String uriToArchitecture = getUrlToModel("dependency");
 		Architecture a = new ArchitectureBuilder().create(uriToArchitecture);
-		assertEquals(5, a.getAllDependencies().size());
+		assertEquals(5, a.getRelationshipHolder().getAllDependencies().size());
 	}
 	
 	@Test
@@ -199,7 +199,7 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldReturnAllDependencyClassPackage() throws Exception{
 		String uriToArchitecture = getUrlToModel("dependency");
 		Architecture a = new ArchitectureBuilder().create(uriToArchitecture);
-		assertEquals(5, a.getAllDependencies().size());
+		assertEquals(5, a.getRelationshipHolder().getAllDependencies().size());
 	}
 	
 	/**
@@ -210,7 +210,7 @@ public class ArchitectureTest extends TestHelper {
 	public void shouldLoadDependencyPackageClass() throws Exception{
 		String uriToArchitecture = getUrlToModel("dependency2");
 		Architecture a = new ArchitectureBuilder().create(uriToArchitecture);
-		assertEquals(1, a.getAllDependencies().size());
+		assertEquals(1, a.getRelationshipHolder().getAllDependencies().size());
 	}
 	
 	@Test
@@ -290,103 +290,102 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void shouldRemoveAssociationRelationship() throws Exception{
 		Architecture a = givenAArchitecture("associations/associationWithMultiplicity");
-		AssociationRelationship as = a.getAllAssociationsRelationships().iterator().next();
-		assertEquals("Architecture should contain 2 associations", 1, a.getAllAssociationsRelationships().size());
+		AssociationRelationship as = a.getRelationshipHolder().getAllAssociationsRelationships().iterator().next();
+		assertEquals("Architecture should contain 2 associations", 1, a.getRelationshipHolder().getAllAssociationsRelationships().size());
 		assertEquals(2, a.getClasses().size());
 		a.removeRelationship(as);
-		assertEquals("Architecture should contain 0 associations", 0, a.getAllAssociationsRelationships().size());
+		assertEquals("Architecture should contain 0 associations", 0, a.getRelationshipHolder().getAllAssociationsRelationships().size());
 	}
 	
 	@Test
 	public void shouldNotChangeListWhenTryRemoveAssociationRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("associations/associationWithMultiplicity");
-		assertEquals("Architecture should contain 2 associations", 1,	a.getAllAssociationsRelationships().size());
-		a.operationsOverRelationship().removeAssociationRelationship(null);
-		assertEquals("Architecture should contain 2 associations", 1,	a.getAllAssociationsRelationships().size());
+		assertEquals("Architecture should contain 2 associations", 1,	a.getRelationshipHolder().getAllAssociationsRelationships().size());
+		assertEquals("Architecture should contain 2 associations", 1,	a.getRelationshipHolder().getAllAssociationsRelationships().size());
 	}
 	
 	@Test
 	public void shouldRemoveDependecyRelationship() throws Exception{
 		Architecture a = givenAArchitecture("dependency");
-		DependencyRelationship dp = a.getAllDependencies().iterator().next();
-		assertEquals("Architecture should contain 5 dependency", 5,	a.getAllDependencies().size());
+		DependencyRelationship dp = a.getRelationshipHolder().getAllDependencies().iterator().next();
+		assertEquals("Architecture should contain 5 dependency", 5,	a.getRelationshipHolder().getAllDependencies().size());
 		a.operationsOverRelationship().removeDependencyRelationship(dp);
-		assertEquals("Architecture should contain 4 dependency", 4,	a.getAllDependencies().size());
+		assertEquals("Architecture should contain 4 dependency", 4,	a.getRelationshipHolder().getAllDependencies().size());
 	}
 	
 	@Test
 	public void shouldNotChangeListWhenTryRemoveDependencyRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("dependency");
-		assertEquals("Architecture should contain 5 dependency", 5,	a.getAllDependencies().size());
+		assertEquals("Architecture should contain 5 dependency", 5,	a.getRelationshipHolder().getAllDependencies().size());
 		a.operationsOverRelationship().removeDependencyRelationship(null);
-		assertEquals("Architecture should contain 4 dependency", 5,	a.getAllDependencies().size());
+		assertEquals("Architecture should contain 4 dependency", 5,	a.getRelationshipHolder().getAllDependencies().size());
 	}
 	
 	@Test
 	public void shouldRemoveUsageRelationship() throws Exception{
 		Architecture a = givenAArchitecture("usage3");
-		UsageRelationship usage = a.getAllUsage().iterator().next();
-		assertEquals("Architecture should contain 1 usage", 1,	a.getAllUsage().size());
+		UsageRelationship usage = a.getRelationshipHolder().getAllUsage().iterator().next();
+		assertEquals("Architecture should contain 1 usage", 1,	a.getRelationshipHolder().getAllUsage().size());
 		a.forUsage().remove(usage);
-		assertEquals("Architecture should contain 0 usage", 0,	a.getAllUsage().size());
+		assertEquals("Architecture should contain 0 usage", 0,	a.getRelationshipHolder().getAllUsage().size());
 	}
 	
 	@Test
 	public void shouldNotChangeListWhenTryRemoveUsageRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("usage3");
-		assertEquals("Architecture should contain 1 usage", 1,	a.getAllUsage().size());
+		assertEquals("Architecture should contain 1 usage", 1,	a.getRelationshipHolder().getAllUsage().size());
 		a.forUsage().remove(null);
-		assertEquals("Architecture should contain 0 usage", 1,	a.getAllUsage().size());
+		assertEquals("Architecture should contain 0 usage", 1,	a.getRelationshipHolder().getAllUsage().size());
 	}
 	
 	@Test
 	public void shouldRemoveAssociationClassRelationship() throws Exception{
 		Architecture a = givenAArchitecture("associationClass");
-		AssociationClassRelationship associationClass = a.getAllAssociationsClass().iterator().next();
-		assertEquals("Architecture should contain 1 AssociationClass", 1,	a.getAllAssociationsClass().size());
+		AssociationClassRelationship associationClass = a.getRelationshipHolder().getAllAssociationsClass().iterator().next();
+		assertEquals("Architecture should contain 1 AssociationClass", 1,	a.getRelationshipHolder().getAllAssociationsClass().size());
 		a.operationsOverRelationship().removeAssociationClass(associationClass);
-		assertEquals("Architecture should contain 0 AssociationClass", 0,	a.getAllAssociationsClass().size());
+		assertEquals("Architecture should contain 0 AssociationClass", 0,	a.getRelationshipHolder().getAllAssociationsClass().size());
 	}
 	
 	@Test
 	public void shouldNotChangeListWhenTryRemoveAssociationClassRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("associationClass");
-		assertEquals("Architecture should contain 1 AssociationClass", 1,	a.getAllAssociationsClass().size());
-		assertEquals("Architecture should contain 0 AssociationClass", 1,	a.getAllAssociationsClass().size());
+		assertEquals("Architecture should contain 1 AssociationClass", 1,	a.getRelationshipHolder().getAllAssociationsClass().size());
+		assertEquals("Architecture should contain 0 AssociationClass", 1,	a.getRelationshipHolder().getAllAssociationsClass().size());
 	}
 	
 	@Test
 	public void shouldRemoveGeneralizationRelationship() throws Exception{
 		Architecture a = givenAArchitecture("generalizationArch");
-		GeneralizationRelationship g = a.getAllGeneralizations().iterator().next();
-		assertEquals("Architecture should contain 3 generalization", 3,	a.getAllGeneralizations().size());
+		GeneralizationRelationship g = a.getRelationshipHolder().getAllGeneralizations().iterator().next();
+		assertEquals("Architecture should contain 3 generalization", 3,	a.getRelationshipHolder().getAllGeneralizations().size());
 		a.operationsOverRelationship().removeGeneralizationRelationship(g);
-		assertEquals("Architecture should contain 2 generalization", 2,	a.getAllGeneralizations().size());
+		assertEquals("Architecture should contain 2 generalization", 2,	a.getRelationshipHolder().getAllGeneralizations().size());
 	}
 	
 	@Test
 	public void shouldNotChangeListWhenTryRemoveGeneralizationRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("generalizationArch");
-		assertEquals("Architecture should contain 3 generalization", 3,	a.getAllGeneralizations().size());
+		assertEquals("Architecture should contain 3 generalization", 3,	a.getRelationshipHolder().getAllGeneralizations().size());
 		a.operationsOverRelationship().removeGeneralizationRelationship(null);
-		assertEquals("Architecture should contain 2 generalization", 3,	a.getAllGeneralizations().size());
+		assertEquals("Architecture should contain 2 generalization", 3,	a.getRelationshipHolder().getAllGeneralizations().size());
 	}
 	
 	@Test
 	public void shouldRemoveAbstractionRelationship() throws Exception{
 		Architecture a = givenAArchitecture("abstractionInterElement");
-		AbstractionRelationship ab = a.getAllAbstractions().iterator().next();
-		assertEquals("Architecture should contain 1 Abstraction", 2,	a.getAllAbstractions().size());
+		AbstractionRelationship ab = a.getRelationshipHolder().getAllAbstractions().iterator().next();
+		assertEquals("Architecture should contain 1 Abstraction", 2,	a.getRelationshipHolder().getAllAbstractions().size());
 		a.forAbstraction().remove(ab);
-		assertEquals("Architecture should contain 0 Abstraction", 1,	a.getAllAbstractions().size());
+		assertEquals("Architecture should contain 0 Abstraction", 1,	a.getRelationshipHolder().getAllAbstractions().size());
 	}
 	
 	@Test
 	public void shouldNotChangeListWhenTryRemoveAbstractionRelationshipNotExist() throws Exception{
 		Architecture a = givenAArchitecture("abstractionInterElement");
-		assertEquals("Architecture should contain 1 Abstraction", 2, a.getAllAbstractions().size());
+		assertEquals("Architecture should contain 1 Abstraction", 2, a.getRelationshipHolder().getAllAbstractions().size());
 		a.forAbstraction().remove(null);
-		assertEquals("Architecture should contain 1 Abstraction", 2, a.getAllAbstractions().size());
+		assertEquals("Architecture should contain 1 Abstraction", 2, a.getRelationshipHolder().getAllAbstractions().size());
 	}
 	
 	@Test
@@ -442,12 +441,12 @@ public class ArchitectureTest extends TestHelper {
 		
 		
 		assertEquals(2, allClasses.size());
-		assertEquals(1, a.getAllAssociationsRelationships().size());
+		assertEquals(1, a.getRelationshipHolder().getAllAssociationsRelationships().size());
 		
 		a.removePackage(a.getAllPackages().iterator().next());
 		
 		assertEquals(1, a.getClasses().size());
-		assertEquals(0, a.getAllAssociationsRelationships().size());
+		assertEquals(0, a.getRelationshipHolder().getAllAssociationsRelationships().size());
 	}
 	
 	@Test
@@ -461,9 +460,9 @@ public class ArchitectureTest extends TestHelper {
 		allClasses.addAll(a.getClasses());
 		
 		assertEquals("Deve ter tres clases", 3, allClasses.size());
-		assertEquals("Deve ter 2 associações",2, a.getAllAssociationsRelationships().size());
+		assertEquals("Deve ter 2 associações",2, a.getRelationshipHolder().getAllAssociationsRelationships().size());
 		
-		for(AssociationRelationship as : a.getAllAssociationsRelationships())
+		for(AssociationRelationship as : a.getRelationshipHolder().getAllAssociationsRelationships())
 			assertEquals(2, as.getParticipants().size());
 		
 		a.removePackage(a.getAllPackages().iterator().next());
@@ -475,7 +474,7 @@ public class ArchitectureTest extends TestHelper {
 		allClasses2.addAll(a.getClasses());
 		
 		assertEquals("Deve ter uma classe", 1,allClasses2.size());
-		assertEquals(0, a.getAllAssociationsRelationships().size());
+		assertEquals(0, a.getRelationshipHolder().getAllAssociationsRelationships().size());
 		
 	}
 	
@@ -592,7 +591,7 @@ public class ArchitectureTest extends TestHelper {
 		
 		assertEquals(1, gerada.getAllClasses().size());
 		assertEquals(1, gerada.getAllInterfaces().size());
-		assertEquals(1, gerada.getAllRealizations().size());
+		assertEquals(1, gerada.getRelationshipHolder().getAllRealizations().size());
 		assertEquals(1, gerada.findClassByName("Foo").get(0).getImplementedInterfaces().size());
 	}
 
@@ -617,7 +616,7 @@ public class ArchitectureTest extends TestHelper {
 		
 		assertEquals(1, gerada.getAllPackages().size());
 		assertEquals(1, gerada.getAllInterfaces().size());
-		assertEquals(1, gerada.getAllRealizations().size());
+		assertEquals(1, gerada.getRelationshipHolder().getAllRealizations().size());
 		assertEquals(1, gerada.findPackageByName("Package1").getImplementedInterfaces().size());
 	}
 	
@@ -634,7 +633,7 @@ public class ArchitectureTest extends TestHelper {
 		Architecture gerada = givenAArchitecture2("implementedInterfaceRemovedFromClass");
 		assertEquals(1, gerada.getAllClasses().size());
 		assertEquals(1, gerada.getAllInterfaces().size());
-		assertEquals(0, gerada.getAllRealizations().size());
+		assertEquals(0, gerada.getRelationshipHolder().getAllRealizations().size());
 		assertEquals(0, gerada.findClassByName("Foo").get(0).getImplementedInterfaces().size());
 	}
 
@@ -649,7 +648,7 @@ public class ArchitectureTest extends TestHelper {
 		generate.generate(arch, "implementedInterfaceRemovedFromPackage");
 		Architecture gerada = givenAArchitecture2("implementedInterfaceRemovedFromPackage");
 		assertEquals(0, gerada.findPackageByName("Package1").getImplementedInterfaces().size());
-		assertEquals(0, gerada.getAllRealizations().size());
+		assertEquals(0, gerada.getRelationshipHolder().getAllRealizations().size());
 	}
 	
 	/**
@@ -712,7 +711,7 @@ public class ArchitectureTest extends TestHelper {
 		Package client = a.createPackage("Pacote1");
 		Interface supplier = a.createInterface("Bar");
 		a.addRequiredInterface(supplier, client);
-		assertEquals(1, a.getAllDependencies().size());
+		assertEquals(1, a.getRelationshipHolder().getAllDependencies().size());
 		
 		a.removeRequiredInterface(supplier, client);
 		
@@ -720,7 +719,7 @@ public class ArchitectureTest extends TestHelper {
 		Architecture gerada = givenAArchitecture2("requiredInterfacePackageRemoveGerada");
 		
 		assertEquals(0 ,gerada.findPackageByName("Pacote1").getRequiredInterfaces().size());
-		assertEquals(0 ,gerada.getAllDependencies().size());
+		assertEquals(0 ,gerada.getRelationshipHolder().getAllDependencies().size());
 	}
 	
 	@Test
@@ -743,7 +742,7 @@ public class ArchitectureTest extends TestHelper {
 		g.generate(a, "requiredInterfacePackageRemoveGerada");
 		
 		assertEquals(0 ,gerada.findClassByName("Foo").get(0).getRequiredInterfaces().size());
-		assertEquals(0 ,gerada.getAllDependencies().size());
+		assertEquals(0 ,gerada.getRelationshipHolder().getAllDependencies().size());
 		
 	}
 	
@@ -761,7 +760,7 @@ public class ArchitectureTest extends TestHelper {
 		
 		assertTrue(a.addRelationship(newRelationship));
 		assertFalse(a.addRelationship(newRelationship2));
-		assertEquals(2, a.getAllRelationships().size());
+		assertEquals(2, a.getRelationshipHolder().getAllRelationships().size());
 	}
 	
 	@Test
@@ -782,9 +781,9 @@ public class ArchitectureTest extends TestHelper {
 		assertTrue(a.addRelationship(d));
 		assertTrue(a.addRelationship(d2));
 		
-		assertEquals(2, a.getAllDependencies().size());
+		assertEquals(2, a.getRelationshipHolder().getAllDependencies().size());
 		assertFalse(a.addRelationship(dsame));
-		assertEquals(2, a.getAllDependencies().size());
+		assertEquals(2, a.getRelationshipHolder().getAllDependencies().size());
 	}
 	
 	@Test
@@ -797,7 +796,7 @@ public class ArchitectureTest extends TestHelper {
 		RealizationRelationship r = new RealizationRelationship(client, supplier, "", UtilResources.getRandonUUID());
 		
 		assertTrue(a.addRelationship(r));
-		assertEquals(2, a.getAllRelationships().size());
+		assertEquals(2, a.getRelationshipHolder().getAllRelationships().size());
 	}
 	
 	@Test
@@ -810,8 +809,8 @@ public class ArchitectureTest extends TestHelper {
 		GeneralizationRelationship r = a.forGeneralization().createGeneralization(parent, child);
 		
 		assertFalse(a.addRelationship(r));
-		assertEquals(2, a.getAllRelationships().size());
-		assertEquals(1, a.getAllGeneralizations().size());
+		assertEquals(2, a.getRelationshipHolder().getAllRelationships().size());
+		assertEquals(1, a.getRelationshipHolder().getAllGeneralizations().size());
 	}
 	
 	@Test
@@ -824,8 +823,8 @@ public class ArchitectureTest extends TestHelper {
 		GeneralizationRelationship r = new GeneralizationRelationship(parent, child, a);
 		
 		assertTrue(a.addRelationship(r));
-		assertEquals(2, a.getAllRelationships().size());
-		assertEquals(1, a.getAllGeneralizations().size());
+		assertEquals(2, a.getRelationshipHolder().getAllRelationships().size());
+		assertEquals(1, a.getRelationshipHolder().getAllGeneralizations().size());
 	}
 	
 	@Test
@@ -838,8 +837,8 @@ public class ArchitectureTest extends TestHelper {
 		UsageRelationship r = a.forUsage().create(client, supplier);
 		
 		assertFalse(a.addRelationship(r));
-		assertEquals(2, a.getAllRelationships().size());
-		assertEquals(1, a.getAllUsage().size());
+		assertEquals(2, a.getRelationshipHolder().getAllRelationships().size());
+		assertEquals(1, a.getRelationshipHolder().getAllUsage().size());
 	}
 	
 	@Test
@@ -854,8 +853,8 @@ public class ArchitectureTest extends TestHelper {
 		assertTrue(a.addRelationship(r));
 		assertFalse(a.addRelationship(r));
 		
-		assertEquals(2, a.getAllRelationships().size());
-		assertEquals(1, a.getAllUsage().size());
+		assertEquals(2, a.getRelationshipHolder().getAllRelationships().size());
+		assertEquals(1, a.getRelationshipHolder().getAllUsage().size());
 	}
 	
 	@Test
@@ -869,8 +868,8 @@ public class ArchitectureTest extends TestHelper {
 		assertTrue(a.addRelationship(r));
 		assertFalse(a.addRelationship(r));
 		
-		assertEquals(2, a.getAllRelationships().size());
-		assertEquals(1, a.getAllAbstractions().size());
+		assertEquals(2, a.getRelationshipHolder().getAllRelationships().size());
+		assertEquals(1, a.getRelationshipHolder().getAllAbstractions().size());
 	}
 	
 	@Test
@@ -883,8 +882,8 @@ public class ArchitectureTest extends TestHelper {
 		AbstractionRelationship r = a.forAbstraction().create(client, supplier);
 		assertFalse(a.addRelationship(r));
 		
-		assertEquals(2, a.getAllRelationships().size());
-		assertEquals(1, a.getAllAbstractions().size());
+		assertEquals(2, a.getRelationshipHolder().getAllRelationships().size());
+		assertEquals(1, a.getRelationshipHolder().getAllAbstractions().size());
 	}
 	
 	
@@ -946,11 +945,11 @@ public class ArchitectureTest extends TestHelper {
 		Class c1 = a.findClassByName("Class1").get(0);
 		
 		assertEquals(4, a.getAllClasses().size());
-		assertEquals(1, a.getAllAssociations().size());
+		assertEquals(1, a.getRelationshipHolder().getAllAssociations().size());
 		
 		a.removeClass(c1);
 		
-		assertEquals(0, a.getAllAssociations().size());
+		assertEquals(0, a.getRelationshipHolder().getAllAssociations().size());
 		assertEquals(3, a.getAllClasses().size());
 	}
 	
@@ -960,11 +959,11 @@ public class ArchitectureTest extends TestHelper {
 		Class c1 = a.findClassByName("Foo").get(0);
 		
 		assertEquals(4, a.getAllClasses().size());
-		assertEquals(1, a.getAllDependencies().size());
+		assertEquals(1, a.getRelationshipHolder().getAllDependencies().size());
 		
 		a.removeClass(c1);
 		
-		assertEquals(0, a.getAllDependencies().size());
+		assertEquals(0, a.getRelationshipHolder().getAllDependencies().size());
 		assertEquals(3, a.getAllClasses().size());
 		assertEquals(1, a.getAllPackages().size());
 	}
@@ -978,8 +977,8 @@ public class ArchitectureTest extends TestHelper {
 		a.removePackage(p);
 		
 		assertEquals(0, a.getAllPackages().size());
-		assertEquals(0, a.getAllDependencies().size());
-		assertEquals(0, a.getAllAssociations().size());
+		assertEquals(0, a.getRelationshipHolder().getAllDependencies().size());
+		assertEquals(0, a.getRelationshipHolder().getAllAssociations().size());
 		assertNotNull(a.findClassByName("Class3"));
 		assertNotNull(a.findClassByName("Class2"));
 		

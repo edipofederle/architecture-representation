@@ -52,7 +52,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	 */
 	@Test
 	public void shouldHaveAListOfAllowedConcerns() throws Exception{
-		Architecture a = givenAArchitecture("concerns/completeClass");
+		givenAArchitecture("concerns/completeClass");
 		assertNotNull(ConcernHolder.INSTANCE.allowedConcerns());
 	}
 
@@ -198,7 +198,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	public void shouldLoadInterElementDependency() throws Exception {
 		Architecture architecture8 = givenAArchitecture("dependency2");
 
-		DependencyRelationship dependencyInterElement = architecture8.getAllDependencies().get(0);
+		DependencyRelationship dependencyInterElement = architecture8.getRelationshipHolder().getAllDependencies().get(0);
 
 		assertNotNull(dependencyInterElement);
 		
@@ -213,7 +213,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 		String uriToArchitecture8 = getUrlToModel("associationClass");
 		Architecture architecture8 = new ArchitectureBuilder().create(uriToArchitecture8);
 
-		List<AssociationClassRelationship> associationClass = architecture8.getAllAssociationsClass();
+		List<AssociationClassRelationship> associationClass = architecture8.getRelationshipHolder().getAllAssociationsClass();
 
 		assertEquals(2, associationClass.iterator().next().getMemebersEnd().size());
 		assertEquals("Employee", associationClass.iterator().next().getMemebersEnd().get(0).getType().getName());
@@ -232,10 +232,10 @@ public class ArchitectureBuilderTest extends TestHelper {
 		String uriToArchitecture8 = getUrlToModel("associationClassAndAssociations");
 		Architecture architecture8 = new ArchitectureBuilder().create(uriToArchitecture8);
 
-		assertEquals(1, architecture8.getAllAssociationsRelationships().size());
-		assertEquals(1, architecture8.getAllAssociationsClass().size());
+		assertEquals(1, architecture8.getRelationshipHolder().getAllAssociationsRelationships().size());
+		assertEquals(1, architecture8.getRelationshipHolder().getAllAssociationsClass().size());
 
-		AssociationRelationship association =  architecture8.getAllAssociationsRelationships().iterator().next();
+		AssociationRelationship association =  architecture8.getRelationshipHolder().getAllAssociationsRelationships().iterator().next();
 
 		assertNotNull(association);
 		assertEquals(2, association.getParticipants().size());

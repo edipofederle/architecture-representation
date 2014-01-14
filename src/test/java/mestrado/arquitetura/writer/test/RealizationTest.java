@@ -49,7 +49,7 @@ public class RealizationTest extends TestHelper {
 			.build();
 		
 		Architecture a = givenAArchitecture2("realization");
-		assertNotNull(a.getAllRealizations());
+		assertNotNull(a.getRelationshipHolder().getAllRealizations());
 	}
 	
 }

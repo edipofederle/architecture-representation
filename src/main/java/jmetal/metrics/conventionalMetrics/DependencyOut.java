@@ -17,7 +17,7 @@ public class DependencyOut {
 		int depOut = 0;
 		
 	for (Package component : architecture.getAllPackages()) {
-		List<DependencyRelationship> relationships = architecture.getAllDependencies();
+		List<DependencyRelationship> relationships = architecture.getRelationshipHolder().getAllDependencies();
 		
 		for (DependencyRelationship dependency : relationships)
 			if (dependency.getClient().equals(component)) depOut++;

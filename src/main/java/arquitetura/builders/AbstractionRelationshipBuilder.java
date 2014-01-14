@@ -37,16 +37,9 @@ public class AbstractionRelationshipBuilder extends ArchitectureHelper {
 		Element client = architecture.findElementById(getModelHelper().getXmiId(clientElement));
 		Element supplier = architecture.findElementById(getModelHelper().getXmiId(supplierElement));
 		
-//		EList<org.eclipse.uml2.uml.Element> relatedElements = modelElement.getRelatedElements();
-		
-//		for (org.eclipse.uml2.uml.Element element : relatedElements) {
-//			arquitetura.representation.Element e = architecture.getElementByXMIID(getModelHelper().getXmiId(element));
-//			e.getIdsRelationships().add((getModelHelper().getXmiId(modelElement)));
-//		}
-		
 		AbstractionRelationship abs = new  AbstractionRelationship(client, supplier, getModelHelper().getXmiId(modelElement));
-		abs.getClient().addRelationship(abs);
-		abs.getSupplier().addRelationship(abs);
+//		abs.getClient().addRelationship(abs);
+	//	abs.getSupplier().addRelationship(abs);
 		return abs;
 		
 		

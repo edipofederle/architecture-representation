@@ -85,8 +85,8 @@ public class GeneralizationTest extends TestHelper {
 		
 		Architecture arch = givenAArchitecture2("generalization1");
 		
-		assertEquals(1,arch.getAllGeneralizations().size());
-		GeneralizationRelationship g = arch.getAllGeneralizations().get(0);
+		assertEquals(1,arch.getRelationshipHolder().getAllGeneralizations().size());
+		GeneralizationRelationship g = arch.getRelationshipHolder().getAllGeneralizations().get(0);
 		assertEquals("Casa",g.getParent().getName());
 		assertEquals("Employee",g.getChild().getName());
 	}
@@ -101,9 +101,9 @@ public class GeneralizationTest extends TestHelper {
 		
 		Architecture arch2 = givenAArchitecture2("xpto");
 		
-		assertEquals(1,arch2.getAllGeneralizations().size());
+		assertEquals(1,arch2.getRelationshipHolder().getAllGeneralizations().size());
 		
-		GeneralizationRelationship g = arch.getAllGeneralizations().get(0);
+		GeneralizationRelationship g = arch.getRelationshipHolder().getAllGeneralizations().get(0);
 		
 		assertEquals("Class2",g.getParent().getName());
 		assertEquals("Class1",g.getChild().getName());
@@ -133,8 +133,8 @@ public class GeneralizationTest extends TestHelper {
 		
 		Architecture arch = givenAArchitecture2("generalization2");
 		
-		assertEquals(2,arch.getAllGeneralizations().size());
-		GeneralizationRelationship g = arch.getAllGeneralizations().get(0);
+		assertEquals(2,arch.getRelationshipHolder().getAllGeneralizations().size());
+		GeneralizationRelationship g = arch.getRelationshipHolder().getAllGeneralizations().get(0);
 		assertEquals("Comment", g.getParent().getName());
 		
 		assertEquals(2, g.getAllChildrenForGeneralClass().size());

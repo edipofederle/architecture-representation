@@ -20,7 +20,7 @@ public DependencyIn(Architecture architecture) {
 		int depIn = 0;
 		
 	for (Package component : this.architecture.getAllPackages()) {
-		List<AbstractionRelationship> relationships = architecture.getAllAbstractions();
+		List<AbstractionRelationship> relationships = architecture.getRelationshipHolder().getAllAbstractions();
 		
 		for (AbstractionRelationship abstraction : relationships) 
 			if (abstraction.getSupplier().equals(component)) depIn++;

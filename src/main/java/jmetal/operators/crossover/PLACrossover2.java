@@ -150,7 +150,7 @@ public class PLACrossover2 extends Crossover {
 	}
 	
 	public void addElementsToOffspring(Concern feature, Architecture offspring, Architecture parent, String scope) {
-		CrossoverRelationship.setParentRelationships(parent.getAllRelationships());
+		CrossoverRelationship.setParentRelationships(parent.getRelationshipHolder().getAllRelationships());
 		for(Package parentPackage : parent.getAllPackages()){
 			//Cria ou adiciona o pacote de parent em offspring
 			addOrCreatePackageIntoOffspring(feature, offspring, parent, parentPackage);

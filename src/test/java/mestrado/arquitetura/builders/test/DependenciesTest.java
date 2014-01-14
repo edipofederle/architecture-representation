@@ -34,7 +34,7 @@ public class DependenciesTest extends TestHelper {
 	@Test
 	public void shouldLoadDependency() throws Exception {
 		Architecture arch = givenAArchitecture("dependency2");
-		DependencyRelationship dependency = arch.getAllDependencies().iterator().next();
+		DependencyRelationship dependency = arch.getRelationshipHolder().getAllDependencies().iterator().next();
 
 		assertNotNull(dependency);
 		assertEquals("Supplier Should be Class1", "Class1", dependency.getSupplier().getName());
@@ -52,8 +52,8 @@ public class DependenciesTest extends TestHelper {
 		Architecture a = new ArchitectureBuilder().create(uriToArchitecture2);
 
 		assertNotNull(a);
-		Element class1 = a.getAllDependencies().iterator().next().getClient();
-		Element class2 = a.getAllDependencies().iterator().next().getSupplier();
+		Element class1 = a.getRelationshipHolder().getAllDependencies().iterator().next().getClient();
+		Element class2 = a.getRelationshipHolder().getAllDependencies().iterator().next().getSupplier();
 		assertEquals("Class1", class1.getName());
 		assertEquals("Class2", class2.getName());
 	}
@@ -68,18 +68,18 @@ public class DependenciesTest extends TestHelper {
 
 		assertNotNull(a);
 
-		assertEquals(1, a.getAllDependencies().size());
-		assertEquals("Class1", a.getAllDependencies().iterator().next().getClient().getName());
-		assertEquals("model", a.getAllDependencies().iterator().next().getClient().getNamespace());
-		assertEquals("Class2", a.getAllDependencies().iterator().next().getSupplier().getName());
-		assertEquals("model::Package1", a.getAllDependencies().iterator().next().getSupplier().getNamespace());
+		assertEquals(1, a.getRelationshipHolder().getAllDependencies().size());
+		assertEquals("Class1", a.getRelationshipHolder().getAllDependencies().iterator().next().getClient().getName());
+		assertEquals("model", a.getRelationshipHolder().getAllDependencies().iterator().next().getClient().getNamespace());
+		assertEquals("Class2", a.getRelationshipHolder().getAllDependencies().iterator().next().getSupplier().getName());
+		assertEquals("model::Package1", a.getRelationshipHolder().getAllDependencies().iterator().next().getSupplier().getNamespace());
 
 	}
 
 	@Test
 	public void shouldDependencyNameBeEmptyWhenNull() throws Exception {
 
-		DependencyRelationship dependency = arch.getAllDependencies().iterator().next();
+		DependencyRelationship dependency = arch.getRelationshipHolder().getAllDependencies().iterator().next();
 		dependency.setName(null);
 		assertEquals("Dependency name should be empty", "",	dependency.getName());
 	}
@@ -93,22 +93,12 @@ public class DependenciesTest extends TestHelper {
 
 	@Test @Ignore
 	public void shouldDependencyContainsTwoSuppliers() throws Exception {
-
-
-		DependencyRelationship d4 = findDependency("Dependency4");
-		DependencyRelationship d5 = findDependency("Dependency5");
 		assertNotNull(findDependency("Dependency4"));
 		assertNotNull(findDependency("Dependency5"));
-//
-//		assertEquals(2, d4.getAllSuppliersForClientClass().size());
-//		
-//		assertContains(d5.getAllSuppliersForClientClass(), "Class7", "Class8");
-//		assertContains(d4.getAllSuppliersForClientClass(), "Class7", "Class8");
-		
 	}
 
 	private DependencyRelationship findDependency(String name) {
-		Iterator<DependencyRelationship> iter = arch.getAllDependencies().iterator();
+		Iterator<DependencyRelationship> iter = arch.getRelationshipHolder().getAllDependencies().iterator();
 		while (iter.hasNext()) {
 		  DependencyRelationship d = iter.next();
 		  if(d.getName().equals(name))
@@ -123,7 +113,7 @@ public class DependenciesTest extends TestHelper {
 
 		Class klass = a.findClassByName("Class2").get(0);
 		
-		DependencyRelationship dependency = a.getAllDependencies().iterator().next();
+		DependencyRelationship dependency = a.getRelationshipHolder().getAllDependencies().iterator().next();
 		assertEquals("Class3", dependency.getClient().getName());
 
 		dependency.replaceClient(klass);
@@ -138,7 +128,7 @@ public class DependenciesTest extends TestHelper {
 
 		Class klass = a.findClassByName("Class2").get(0);
 
-		DependencyRelationship dependency = a.getAllDependencies().iterator().next();
+		DependencyRelationship dependency = a.getRelationshipHolder().getAllDependencies().iterator().next();
 		assertEquals("Class1", dependency.getSupplier().getName());
 
 		dependency.replaceSupplier(klass);
@@ -156,7 +146,7 @@ public class DependenciesTest extends TestHelper {
 		String uriToArchitecture8 = getUrlToModel("dependency2");
 		Architecture architecture8 = new ArchitectureBuilder().create(uriToArchitecture8);
 
-		DependencyRelationship dependencyInterElement = architecture8.getAllDependencies().iterator().next();
+		DependencyRelationship dependencyInterElement = architecture8.getRelationshipHolder().getAllDependencies().iterator().next();
 
 		assertNotNull(dependencyInterElement);
 
@@ -176,7 +166,7 @@ public class DependenciesTest extends TestHelper {
 	public void shouldLoadDependencyClassPackage() throws Exception{
 		Architecture a = givenAArchitecture("classPackageDependency");
 		
-		DependencyRelationship dependencyInterElement = a.getAllDependencies().iterator().next();
+		DependencyRelationship dependencyInterElement = a.getRelationshipHolder().getAllDependencies().iterator().next();
 
 		assertNotNull(dependencyInterElement);
 		assertEquals("Class2", dependencyInterElement.getClient().getName());
@@ -187,7 +177,7 @@ public class DependenciesTest extends TestHelper {
 	public void shouldLoadDependencyPackagePackage() throws Exception{
 		Architecture a = givenAArchitecture("dependencyPackagePackage");
 		
-		List<DependencyRelationship> dependency = a.getAllDependencies();
+		List<DependencyRelationship> dependency = a.getRelationshipHolder().getAllDependencies();
 
 		assertNotNull(dependency);
 		assertEquals(1, dependency.size());
@@ -203,7 +193,7 @@ public class DependenciesTest extends TestHelper {
 	public void shouldLoadDependencyPackageClass() throws Exception{
 		Architecture a = givenAArchitecture("dependencyPackageClass");
 		
-		List<DependencyRelationship> dependency = a.getAllDependencies();
+		List<DependencyRelationship> dependency = a.getRelationshipHolder().getAllDependencies();
 
 		assertNotNull(dependency);
 		assertEquals(1, dependency.size());

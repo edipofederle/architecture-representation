@@ -52,9 +52,9 @@ public class AssociationClassRelationshipBuilder extends ArchitectureHelper {
 											    getModelHelper().getXmiId(associationClass),
 											    idOwner,
 											    classAssociation);
-		for(MemberEnd member : ascc.getMemebersEnd()){
-			member.getType().addRelationship(ascc);
-		}
+//		for(MemberEnd member : ascc.getMemebersEnd()){
+//			member.getType().addRelationship(ascc);
+//		}
 		
 		return ascc;
 	}

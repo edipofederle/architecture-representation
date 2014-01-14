@@ -86,10 +86,10 @@ public class DependencyTest extends TestHelper {
 		
 		Architecture a = givenAArchitecture2("testeDependencia1");
 		assertNotNull(a);
-		assertNotNull(a.getAllDependencies());
-		assertEquals("Dependency #12", a.getAllDependencies().get(0).getName());
-		assertEquals("Employee", a.getAllDependencies().get(0).getClient().getName());
-		assertEquals("Casa", a.getAllDependencies().get(0).getSupplier().getName());
+		assertNotNull(a.getRelationshipHolder().getAllDependencies());
+		assertEquals("Dependency #12", a.getRelationshipHolder().getAllDependencies().get(0).getName());
+		assertEquals("Employee", a.getRelationshipHolder().getAllDependencies().get(0).getClient().getName());
+		assertEquals("Casa", a.getRelationshipHolder().getAllDependencies().get(0).getSupplier().getName());
 	}
 
 	
@@ -107,11 +107,11 @@ public class DependencyTest extends TestHelper {
 							.and(id.get("packageId")).build();
 
 		Architecture a = givenAArchitecture2("testeDependenciClassPackage");
-		DependencyRelationship dependency = a.getAllDependencies().get(0);
+		DependencyRelationship dependency = a.getRelationshipHolder().getAllDependencies().get(0);
 		
 		assertNotNull(a);
 		assertEquals(1, a.getAllPackages().size());
-		assertNotNull(a.getAllDependencies().size());
+		assertNotNull(a.getRelationshipHolder().getAllDependencies().size());
 		assertEquals("Employee", dependency.getClient().getName());
 		assertEquals("controllers", dependency.getSupplier().getName());
 	}
@@ -132,11 +132,11 @@ public class DependencyTest extends TestHelper {
 							.build();
 		
 		Architecture a = givenAArchitecture2("testeDependenciPackagePackage");
-		DependencyRelationship dependency = a.getAllDependencies().get(0);
+		DependencyRelationship dependency = a.getRelationshipHolder().getAllDependencies().get(0);
 		
 		assertNotNull(a);
 		assertEquals(2, a.getAllPackages().size());
-		assertNotNull(a.getAllDependencies().size());
+		assertNotNull(a.getRelationshipHolder().getAllDependencies().size());
 		assertEquals("controllers", dependency.getClient().getName());
 		assertEquals("models", dependency.getSupplier().getName());
 	}
@@ -157,10 +157,10 @@ public class DependencyTest extends TestHelper {
 		
 		Architecture a = givenAArchitecture2("dependenciaMultipla");
 		
-		assertEquals(3, a.getAllDependencies().size());
-		assertEquals("Post", a.getAllDependencies().get(0).getClient().getName());
-		assertEquals("Post", a.getAllDependencies().get(1).getClient().getName());
-		assertEquals("Post", a.getAllDependencies().get(2).getClient().getName());
+		assertEquals(3, a.getRelationshipHolder().getAllDependencies().size());
+		assertEquals("Post", a.getRelationshipHolder().getAllDependencies().get(0).getClient().getName());
+		assertEquals("Post", a.getRelationshipHolder().getAllDependencies().get(1).getClient().getName());
+		assertEquals("Post", a.getRelationshipHolder().getAllDependencies().get(2).getClient().getName());
 		
 		//TODO TODO TESTE VER
 	//	assertEquals(3, a.getAllDependencies().get(0).getAllSuppliersForClientClass().size());
@@ -181,11 +181,6 @@ public class DependencyTest extends TestHelper {
 		op.forDependency().createRelation().withName("Dependency #1").between(userKlass).and(commentKlass).build();
 		op.forDependency().createRelation().withName("Dependency #2").between(postKlass).and(commentKlass).build();
 		op.forDependency().createRelation().withName("Dependency #3").between(categoryKlass).and(commentKlass).build();
-		
-		Architecture a = givenAArchitecture2("dependenciaMultipla2");
-		
-//		assertEquals(3, a.getAllDependencies().get(0).getAllClientsForSupplierClass().size());
-//		assertEquals(1, a.getAllDependencies().get(0).getAllSuppliersForClientClass().size());
 	}
 	
 	@Test
@@ -204,8 +199,8 @@ public class DependencyTest extends TestHelper {
 		assertTrue(modelContainId("dependenciaClassClassPackage", klassId));
 		assertTrue(modelContainId("dependenciaClassClassPackage", fooId));
 		
-		assertEquals(1, a.getAllDependencies().size());
-		DependencyRelationship dependency = a.getAllDependencies().get(0);
+		assertEquals(1, a.getRelationshipHolder().getAllDependencies().size());
+		DependencyRelationship dependency = a.getRelationshipHolder().getAllDependencies().get(0);
 		assertEquals("Comment",dependency.getClient().getName());
 		assertEquals("Post",dependency.getSupplier().getName());
 	}
@@ -225,7 +220,7 @@ public class DependencyTest extends TestHelper {
 		
 		assertTrue(modelContainId("dependencyPacakgeClassClass", klassId));
 		assertTrue(modelContainId("dependencyPacakgeClassClass", fooId));
-		DependencyRelationship dependency = a.getAllDependencies().get(0);
+		DependencyRelationship dependency = a.getRelationshipHolder().getAllDependencies().get(0);
 		assertEquals("Comment",dependency.getClient().getName());
 		assertEquals("Post",dependency.getSupplier().getName());
 	}
@@ -242,6 +237,6 @@ public class DependencyTest extends TestHelper {
 
 		Architecture a = givenAArchitecture2("dependencySemNome");
 		
-		assertEquals("", a.getAllDependencies().get(0).getName());
+		assertEquals("", a.getRelationshipHolder().getAllDependencies().get(0).getName());
 	}
 }

@@ -33,13 +33,13 @@ public class AssociationTests  extends TestHelper {
 		generateAssociations(a, op);
 		
 		Architecture genereted = givenAArchitecture2("nevegabilityGerado");
-		List<AssociationRelationship> asoci = genereted.getAllAssociationsRelationships();
+		List<AssociationRelationship> asoci = genereted.getRelationshipHolder().getAllAssociationsRelationships();
 		assertFalse(asoci.get(0).getParticipants().get(0).isNavigable());
 		assertTrue(asoci.get(0).getParticipants().get(1).isNavigable());
 	}
 
 	private void generateAssociations(Architecture a, Operations op) {
-		for(AssociationRelationship as : a.getAllAssociationsRelationships()){
+		for(AssociationRelationship as : a.getRelationshipHolder().getAllAssociationsRelationships()){
 			op.forAssociation().createAssociation()
 							   .withName(as.getName())
 							   .betweenClass(as.getParticipants().get(0))
@@ -59,7 +59,7 @@ public class AssociationTests  extends TestHelper {
 		generateAssociations(a, op);
 		
 		Architecture genereted = givenAArchitecture2("nomeAssociacaoBothDirectionGerada");
-		List<AssociationRelationship> asoci = genereted.getAllAssociationsRelationships();
+		List<AssociationRelationship> asoci = genereted.getRelationshipHolder().getAllAssociationsRelationships();
 		
 		assertEquals("class1_class2_1", asoci.get(0).getName());
 		AssociationEnd associationEnd1 = asoci.get(0).getParticipants().get(1);
@@ -78,7 +78,7 @@ public class AssociationTests  extends TestHelper {
 		generateAssociations(a, op);
 		
 		Architecture genereted = givenAArchitecture2("nevegability_one_directionGerada");
-		List<AssociationRelationship> asoci = genereted.getAllAssociationsRelationships();
+		List<AssociationRelationship> asoci = genereted.getRelationshipHolder().getAllAssociationsRelationships();
 		assertEquals("Edipo", asoci.get(0).getName());
 		assertTrue(asoci.get(0).getParticipants().get(1).isNavigable());
 		assertFalse(asoci.get(0).getParticipants().get(0).isNavigable());
@@ -96,7 +96,7 @@ public class AssociationTests  extends TestHelper {
 		
 		Architecture genereted = givenAArchitecture2("associationWithMultiplicityGerada");
 		
-		List<AssociationRelationship> asoci = genereted.getAllAssociationsRelationships();
+		List<AssociationRelationship> asoci = genereted.getRelationshipHolder().getAllAssociationsRelationships();
 		
 		assertEquals("class1_class2_1", asoci.get(0).getName());
 		AssociationEnd associationEnd1 = asoci.get(0).getParticipants().get(1);
@@ -120,7 +120,7 @@ public class AssociationTests  extends TestHelper {
 		
 		Architecture genereted = givenAArchitecture2("associationWithMultiplicityGerada2");
 		
-		List<AssociationRelationship> asoci = genereted.getAllAssociationsRelationships();
+		List<AssociationRelationship> asoci = genereted.getRelationshipHolder().getAllAssociationsRelationships();
 		
 		assertEquals("class1_class2_1", asoci.get(0).getName());
 		AssociationEnd associationEnd1 = asoci.get(0).getParticipants().get(1);
@@ -142,7 +142,7 @@ public class AssociationTests  extends TestHelper {
 		
 		Architecture genereted = givenAArchitecture2("associationWithMultiplicity3Gerado");
 		
-		List<AssociationRelationship> asoci = genereted.getAllAssociationsRelationships();
+		List<AssociationRelationship> asoci = genereted.getRelationshipHolder().getAllAssociationsRelationships();
 		
 		assertEquals("class1_class2_1", asoci.get(0).getName());
 		AssociationEnd associationEnd1 = asoci.get(0).getParticipants().get(1);

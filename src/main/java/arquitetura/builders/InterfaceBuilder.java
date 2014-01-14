@@ -27,7 +27,7 @@ public class InterfaceBuilder extends ElementBuilder<arquitetura.representation.
 	@Override
 	protected Interface buildElement(NamedElement modelElement) {
 		
-		Interface interfacee = new Interface(name, variantType, modelElement.getNamespace().getQualifiedName(), XmiHelper.getXmiId(modelElement));
+		Interface interfacee = new Interface(architecture.getRelationshipHolder(), name, variantType, modelElement.getNamespace().getQualifiedName(), XmiHelper.getXmiId(modelElement));
 		
 		List<Operation> elements = ((org.eclipse.uml2.uml.Class)modelElement).getOperations();
 		

@@ -22,15 +22,11 @@ public class OperationsOverUsage {
 	}
 
 	public void moveClient(UsageRelationship usageRelationship, Element newClient) {
-		usageRelationship.getClient().removeRelationship(usageRelationship);
 		usageRelationship.setClient(newClient);
-		newClient.addRelationship(usageRelationship);
 	}
 	
 	public void moveSupplier(UsageRelationship usageRelationship, Element newSupplier) {
-		usageRelationship.getSupplier().removeRelationship(usageRelationship);
 		usageRelationship.setSupplier(newSupplier);
-		newSupplier.addRelationship(usageRelationship);
 	}
 
 
@@ -46,8 +42,6 @@ public class OperationsOverUsage {
 	public UsageRelationship create(Element client, Element supplier) {
 		UsageRelationship usage = new UsageRelationship("", supplier, client, UtilResources.getRandonUUID());
 		this.architecture.addRelationship(usage);
-		client.addRelationship(usage);
-		supplier.addRelationship(usage);
 		return usage;
 	}
 
@@ -59,14 +53,8 @@ public class OperationsOverUsage {
 	 * @param newClient
 	 */
 	public void move(UsageRelationship usageRelationship, Class newSupplier, Class newClient) {
-		usageRelationship.getClient().removeRelationship(usageRelationship);
-		usageRelationship.getSupplier().removeRelationship(usageRelationship);
-		
 		usageRelationship.setClient(newClient);
 		usageRelationship.setSupplier(newSupplier);
-		
-		newSupplier.addRelationship(usageRelationship);
-		newClient.addRelationship(usageRelationship);
 	}
 
 }

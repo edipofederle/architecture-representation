@@ -100,7 +100,7 @@ public class OperationsOverAssociation {
 	 */
 	public void createAssociationClass(Set<Attribute> listAttrs, Set<Method> listMethods, Element owner, Element klass, String associationClassName) {
 		String namespace = UtilResources.createNamespace(architecture.getName(), "AssociationClass");
-		Class asClass = new Class(associationClassName, null, false, namespace, UtilResources.getRandonUUID());
+		Class asClass = new Class(architecture.getRelationshipHolder(), associationClassName, null, false, namespace, UtilResources.getRandonUUID());
 		
 		for(Attribute a : listAttrs)
 			asClass.addExternalAttribute(a);
@@ -120,11 +120,7 @@ public class OperationsOverAssociation {
 																			asClass.getId(),
 																			null,
 																			asClass);
-		owner.addRelationship(asc);
-		klass.addRelationship(asc);
-		
 		this.architecture.addRelationship(asc);
-		
 	}
 
 	/**
