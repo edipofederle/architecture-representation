@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import arquitetura.helpers.ElementsTypes;
-import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
@@ -36,7 +35,7 @@ public class AssociationClassRelationship extends Relationship {
 	 * @param idOwner - ex: pacote
 	 * @param associationClass
 	 */
-	public AssociationClassRelationship(Architecture a, String name, List<MemberEnd> ends, Element ownedEnd, String id, String idOwner, Class associationClass) {
+	public AssociationClassRelationship(String name, List<MemberEnd> ends, Element ownedEnd, String id, String idOwner, Class associationClass) {
 		super.setName(name);
 		this.memebersEnd = ends;
 		this.ownedEnd = ownedEnd;

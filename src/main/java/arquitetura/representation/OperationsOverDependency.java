@@ -6,10 +6,10 @@ import arquitetura.representation.relationship.DependencyRelationship;
 public class OperationsOverDependency {
 
 	private DependencyRelationship dependency;
-	private Architecture architecture;
+	private RelationshipHolder relationshipHolder;
 
-	public OperationsOverDependency(Architecture architecture) {
-		this.architecture = architecture;
+	public OperationsOverDependency(RelationshipHolder relationshipHolder) {
+		this.relationshipHolder = relationshipHolder;
 	}
 	
 	/**
@@ -21,7 +21,6 @@ public class OperationsOverDependency {
 	public OperationsOverDependency create(String name) {
 		dependency = new DependencyRelationship();
 		dependency.setId(UtilResources.getRandonUUID());
-		dependency.setArchitecture(architecture);
 		dependency.setName(name);
 		return this;
 	}
@@ -53,7 +52,7 @@ public class OperationsOverDependency {
 	 * 
 	 */
 	public DependencyRelationship build() {
-		this.architecture.addRelationship(dependency);
+		this.relationshipHolder.getRelationships().add(dependency);
 		return dependency;
 	}
 

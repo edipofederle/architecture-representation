@@ -46,7 +46,7 @@ public class AssociationClassRelationshipBuilder extends ArchitectureHelper {
 		if(!associationClass.getPackage().getName().equalsIgnoreCase("model"))
 			idOwner = getModelHelper().getXmiId(associationClass.getOwner());
 
-		AssociationClassRelationship ascc = new AssociationClassRelationship(architecture, associationClass.getName(),
+		AssociationClassRelationship ascc = new AssociationClassRelationship(associationClass.getName(),
 											    membersEnd,
 											    onewd,
 											    getModelHelper().getXmiId(associationClass),

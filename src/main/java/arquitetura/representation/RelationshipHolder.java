@@ -29,7 +29,7 @@ public class RelationshipHolder {
 		relationships.clear();
 	}
 
-	public   Set<Relationship> getRelationships() {
+	public Set<Relationship> getRelationships() {
 		return relationships;
 	}
 

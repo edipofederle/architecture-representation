@@ -412,11 +412,11 @@ public class Architecture extends Variable {
 	}
 
 	public OperationsOverAssociation forAssociation() {
-		return new OperationsOverAssociation(this);
+		return new OperationsOverAssociation(relationshipHolder);
 	}
 
 	public OperationsOverDependency forDependency() {
-		return new OperationsOverDependency(this);
+		return new OperationsOverDependency(relationshipHolder);
 	}
 
 	public void moveElementToPackage(Element klass, Package pkg) {
@@ -540,7 +540,7 @@ public class Architecture extends Variable {
 	
 	public void addRequiredInterface(Interface supplier, Class client) {
 		if(!haveRelationship(supplier, client)){
-			if(addRelationship(new DependencyRelationship(supplier, client, "", this, UtilResources.getRandonUUID())))
+			if(addRelationship(new DependencyRelationship(supplier, client, "", UtilResources.getRandonUUID())))
 				LOGGER.info("RequiredInterface: " + supplier.getName() + " adicionada a: " +client.getName());
 			else
 				LOGGER.info("TENTOU adicionar RequiredInterface: "+ supplier.getName() + " a : "+client.getName() + " porém não consegiu");
@@ -549,7 +549,7 @@ public class Architecture extends Variable {
 	
 	public void addRequiredInterface(Interface supplier, Package client) {
 		if(!haveRelationship(supplier, client)){
-			if(addRelationship(new DependencyRelationship(supplier, client, "", this, UtilResources.getRandonUUID())))
+			if(addRelationship(new DependencyRelationship(supplier, client, "", UtilResources.getRandonUUID())))
 				LOGGER.info("RequiredInterface: " + supplier.getName() + " adicionada a: " +client.getName());
 			else
 				LOGGER.info("TENTOU adicionar RequiredInterface: "+ supplier.getName() + " a : "+client.getName() + " porém não consegiu");

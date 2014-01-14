@@ -1,14 +1,8 @@
 package arquitetura.representation.relationship;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
 import arquitetura.exceptions.NotFoundException;
 import arquitetura.helpers.ElementsTypes;
 import arquitetura.helpers.UtilResources;
-import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
@@ -24,7 +18,6 @@ public class DependencyRelationship extends Relationship {
 
 	private Element client;
 	private Element supplier;
-	private Architecture architecture;
 	String  name;
 	
 	public DependencyRelationship(){}
@@ -37,11 +30,10 @@ public class DependencyRelationship extends Relationship {
 	 * @param architecture
 	 * @param id
 	 */
-	public DependencyRelationship(Element supplier, Element client, String name, Architecture architecture, String id) {
+	public DependencyRelationship(Element supplier, Element client, String name, String id) {
 		setSupplier(supplier);
 		setClient(client);
 		setName(name);
-		this.architecture = architecture;
 		setId(id);
 		super.setType(ElementsTypes.DEPENDENCY);
 
@@ -49,11 +41,10 @@ public class DependencyRelationship extends Relationship {
 		
 	}
 
-	public DependencyRelationship(Element supplier, Element client, String string, Architecture a) {
+	public DependencyRelationship(Element supplier, Element client, String string) {
 		setSupplier(supplier);
 		setClient(client);
 		setName(name);
-		this.architecture = a;
 		setId(UtilResources.getRandonUUID());
 		super.setType(ElementsTypes.DEPENDENCY);
 
@@ -120,58 +111,8 @@ public class DependencyRelationship extends Relationship {
 		setClient (client);
 	}
 
-	public Architecture getArchitecture() {
-		return architecture;
-	}
-
-	public void setArchitecture(Architecture architecture) {
-		this.architecture = architecture;
-	}
-
 	public String getName() {
 		return name != null ? name : "" ;
-	}
-
-	/**
-	 * Retornar todas as {@link Class}'s que são 'client' de 'supplier'; 
-	 * 
-	 * @return
-	 */
-	public List<Element> getAllClientsForSupplierClass() {
-	 return getClassesForSpecificTypePartOfDependency("client");
-	}
-
-	/**
-	 * Retorna todas as {@link Class}'s que são 'suppliers' da classe 'cliente'
-	 * 
-	 * @return
-	 */
-	public List<Element> getAllSuppliersForClientClass() {
-		return getClassesForSpecificTypePartOfDependency("supplier");
-	}
-
-	private List<Element> getClassesForSpecificTypePartOfDependency(String type) {
-		Set<Relationship> relations = architecture.getRelationshipHolder().getAllRelationships();
-		List<DependencyRelationship> dependencies = new ArrayList<DependencyRelationship>();
-		
-		List<Element> dependenciesTemp = new ArrayList<Element>();
-		
-		for (Relationship relationship : relations)
-			if(relationship instanceof DependencyRelationship)
-				dependencies.add(((DependencyRelationship)relationship));
-		
-		if("client".equalsIgnoreCase(type)){
-			for (DependencyRelationship dependencyInterClassRelationship : dependencies)
-				if(dependencyInterClassRelationship.getSupplier().getName().equalsIgnoreCase(this.supplier.getName()))
-					dependenciesTemp.add(dependencyInterClassRelationship.getClient());
-		}else if ("supplier".equalsIgnoreCase(type)) {
-			for (DependencyRelationship dependencyInterClassRelationship : dependencies)
-				if(dependencyInterClassRelationship.getClient().getName().equalsIgnoreCase(this.getClient().getName()))
-					dependenciesTemp.add(dependencyInterClassRelationship.getSupplier());
-		}
-		
-		
-		return Collections.unmodifiableList(dependenciesTemp);
 	}
 	
 	private void setRequiredInterfaces(Element supplier, Element client) {

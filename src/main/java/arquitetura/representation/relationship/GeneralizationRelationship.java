@@ -7,9 +7,9 @@ import java.util.Set;
 
 import arquitetura.helpers.ElementsTypes;
 import arquitetura.helpers.UtilResources;
-import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
+import arquitetura.representation.RelationshipHolder;
 
 /**
  * 
@@ -19,21 +19,21 @@ import arquitetura.representation.Element;
 public class GeneralizationRelationship extends Relationship {
 
 	private Element parent;
-	private Architecture architecture;
 	private Element child;
+	private RelationshipHolder relationshipHolder;
 
-	public GeneralizationRelationship(Element parentClass, Element childClass, Architecture architecture, String id) {
+	public GeneralizationRelationship(Element parentClass, Element childClass, RelationshipHolder relationshipHolder, String id) {
 		setParent(parentClass);
 		setChild(childClass);
-		this.architecture = architecture;
+		this.relationshipHolder = relationshipHolder;
 		setId(id);
 		super.setType(ElementsTypes.GENERALIZATION);
 	}
 	
-	public GeneralizationRelationship(Element parentClass, Element childClass, Architecture architecture) {
+	public GeneralizationRelationship(Element parentClass, Element childClass, RelationshipHolder relationshipHolder) {
 		setParent(parentClass);
 		setChild(childClass);
-		this.architecture = architecture;
+		this.relationshipHolder = relationshipHolder;
 		setId(UtilResources.getRandonUUID());
 		super.setType(ElementsTypes.GENERALIZATION);
 	}
@@ -68,7 +68,7 @@ public class GeneralizationRelationship extends Relationship {
 	 * @return
 	 */
 	public Set<Element> getAllChildrenForGeneralClass() {
-		List<GeneralizationRelationship> generalizations = architecture.getRelationshipHolder().getAllGeneralizations();
+		List<GeneralizationRelationship> generalizations = this.relationshipHolder.getAllGeneralizations();
 		Set<Element> childreen = new HashSet<Element>();
 
 		String general = this.parent.getName();

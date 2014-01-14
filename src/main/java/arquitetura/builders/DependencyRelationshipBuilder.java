@@ -39,7 +39,7 @@ public class DependencyRelationshipBuilder  extends ArchitectureHelper{
 		if((client instanceof Package) && (supplier instanceof Interface))
 			((Package) client).addRequiredInterface((Interface) supplier);
 		
-		DependencyRelationship dependency =  new DependencyRelationship(supplier, client, element.getName(), architecture, getModelHelper().getXmiId(element));
+		DependencyRelationship dependency =  new DependencyRelationship(supplier, client, element.getName(), getModelHelper().getXmiId(element));
 		
 //		dependency.getClient().addRelationship(dependency);
 //		dependency.getSupplier().addRelationship(dependency);

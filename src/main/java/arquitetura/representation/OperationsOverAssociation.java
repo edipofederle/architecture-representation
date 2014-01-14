@@ -32,10 +32,10 @@ public class OperationsOverAssociation {
 
 	private AssociationEnd associationEnd1;
 	private AssociationRelationship association;
-	private Architecture architecture;
+	private RelationshipHolder relationshipHolder;
 	
-	public OperationsOverAssociation(Architecture architecture){
-		this.architecture = architecture;
+	public OperationsOverAssociation(RelationshipHolder relationshipHolder){
+		this.relationshipHolder = relationshipHolder;
 		String id = UtilResources.getRandonUUID();
 		association = new AssociationRelationship(id);
 	}
@@ -70,12 +70,12 @@ public class OperationsOverAssociation {
 
 	public void build() {
 		this.association.getParticipants().add(associationEnd1);
-		this.architecture.addRelationship(this.association);
+		this.relationshipHolder.getRelationships().add(this.association);
 	}
 
 	public OperationsOverAssociation and() {
 		this.association.getParticipants().add(associationEnd1);
-		this.architecture.removeRelationship(association);
+		this.relationshipHolder.removeRelationship(association);
 		return this;
 	}
 
@@ -99,8 +99,8 @@ public class OperationsOverAssociation {
 	 * @param associationClass
 	 */
 	public void createAssociationClass(Set<Attribute> listAttrs, Set<Method> listMethods, Element owner, Element klass, String associationClassName) {
-		String namespace = UtilResources.createNamespace(architecture.getName(), "AssociationClass");
-		Class asClass = new Class(architecture.getRelationshipHolder(), associationClassName, null, false, namespace, UtilResources.getRandonUUID());
+		String namespace = UtilResources.createNamespace(ArchitectureHolder.getName(), "AssociationClass");
+		Class asClass = new Class(relationshipHolder, associationClassName, null, false, namespace, UtilResources.getRandonUUID());
 		
 		for(Attribute a : listAttrs)
 			asClass.addExternalAttribute(a);
@@ -113,14 +113,13 @@ public class OperationsOverAssociation {
 		ends.add(new MemberEnd("none", null, "public", klass));
 		
 	
-		AssociationClassRelationship asc = new AssociationClassRelationship(this.architecture,
-																			"",
+		AssociationClassRelationship asc = new AssociationClassRelationship("",
 																			ends,
 																			owner,
 																			asClass.getId(),
 																			null,
 																			asClass);
-		this.architecture.addRelationship(asc);
+		this.relationshipHolder.getRelationships().add(asc);
 	}
 
 	/**
@@ -145,7 +144,7 @@ public class OperationsOverAssociation {
 		this.association.getParticipants().add(associatioEnd1);
 		this.association.getParticipants().add(associatioEnd2);
 		
-		this.architecture.addRelationship(this.association);
+		this.relationshipHolder.getRelationships().add(this.association);
 	}
 
 

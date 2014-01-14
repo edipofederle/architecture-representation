@@ -772,10 +772,10 @@ public class ArchitectureTest extends TestHelper {
 		
 		Class supplier2 = a.createClass("Teste", false);
 		
-		DependencyRelationship d = new DependencyRelationship(supplier, client, "", a);
-		DependencyRelationship d2 = new DependencyRelationship(supplier2, client, "", a);
+		DependencyRelationship d = new DependencyRelationship(supplier, client, "");
+		DependencyRelationship d2 = new DependencyRelationship(supplier2, client, "");
 		
-		DependencyRelationship dsame = new DependencyRelationship(supplier, client, "", a);
+		DependencyRelationship dsame = new DependencyRelationship(supplier, client, "");
 		
 		
 		assertTrue(a.addRelationship(d));
@@ -820,7 +820,7 @@ public class ArchitectureTest extends TestHelper {
 		Class parent = a.createClass("Foo", false);
 		Class child = a.createClass("Bar", false);
 		
-		GeneralizationRelationship r = new GeneralizationRelationship(parent, child, a);
+		GeneralizationRelationship r = new GeneralizationRelationship(parent, child, a.getRelationshipHolder());
 		
 		assertTrue(a.addRelationship(r));
 		assertEquals(2, a.getRelationshipHolder().getAllRelationships().size());
