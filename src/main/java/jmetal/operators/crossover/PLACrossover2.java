@@ -150,7 +150,6 @@ public class PLACrossover2 extends Crossover {
 	}
 	
 	public void addElementsToOffspring(Concern feature, Architecture offspring, Architecture parent, String scope) {
-		CrossoverRelationship.setParentRelationships(parent.getRelationshipHolder().getAllRelationships());
 		for(Package parentPackage : parent.getAllPackages()){
 			//Cria ou adiciona o pacote de parent em offspring
 			addOrCreatePackageIntoOffspring(feature, offspring, parent, parentPackage);
@@ -254,14 +253,14 @@ public class PLACrossover2 extends Crossover {
 						try {
 							targetClass = newComp.createClass(classComp.getName(), false);
 							targetClass.addConcern(feature.getName());
-							CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent,offspring);
+							CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent, offspring);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						CrossoverRelationship.saveAllRelationshiopForElement(newComp,parent,offspring);
+						CrossoverRelationship.saveAllRelationshiopForElement(newComp, parent, offspring);
 					}
 					classComp.moveAttributeToClass(attribute, targetClass);
-					CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent,offspring);
+					CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent, offspring);
 				}
 			}
 		}

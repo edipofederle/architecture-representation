@@ -48,7 +48,7 @@ import arquitetura.touml.VisibilityKind;
 
 public class GenerateArchitecture  extends ArchitectureBase{
 	
-	Logger LOGGER = LogManager.getLogger(GenerateArchitecture.class.getName());
+	static Logger LOGGER = LogManager.getLogger(GenerateArchitecture.class.getName());
 	
 	private List<String> packageCreated = new ArrayList<String>();
 	public void generate(Architecture a, String output){
@@ -114,6 +114,9 @@ public class GenerateArchitecture  extends ArchitectureBase{
 				for(Method m : methodsForClass){
 					op.forConcerns().withConcerns(m.getConcerns(), m.getId());
 				}
+				
+				attributesForClass.clear();
+				methodsForClass.clear();
 				//Adiciona Interesses nas classes
 				
 				//Variant Type
@@ -229,30 +232,54 @@ public class GenerateArchitecture  extends ArchitectureBase{
 				generateAggregation(op, r);
 			
 			for(GeneralizationRelationship g : a.getRelationshipHolder().getAllGeneralizations()){
-				op.forGeneralization().createRelation().between(g.getChild().getId()).and(g.getParent().getId()).build();
+				try{
+					op.forGeneralization().createRelation().between(g.getChild().getId()).and(g.getParent().getId()).build();
+				}catch(Exception e ){
+					LOGGER.info("Generalizacao nao criada");
+				}
 			}
 			
 			for(DependencyRelationship d : a.getRelationshipHolder().getAllDependencies()){
-				op.forDependency().createRelation()
-							  .withName(d.getName())
-							  .between(d.getClient().getId())
-							  .and(d.getSupplier().getId()).build();
+				try{
+					op.forDependency().createRelation()
+								  .withName(d.getName())
+								  .between(d.getClient().getId())
+								  .and(d.getSupplier().getId()).build();
+				}catch(Exception e){
+					LOGGER.info("Dependencia nao criada");
+				}
 			}
 			for(RealizationRelationship r : a.getRelationshipHolder().getAllRealizations()){
-				op.forRealization().createRelation().withName(r.getName()).between(r.getClient().getId()).and(r.getSupplier().getId()).build();
+				try{
+					op.forRealization().createRelation().withName(r.getName()).between(r.getClient().getId()).and(r.getSupplier().getId()).build();
+				}catch(Exception e ){
+					LOGGER.info("Realizacao nao criada");
+				}
 			}
 			
 			for(AbstractionRelationship r : a.getRelationshipHolder().getAllAbstractions()){
-				op.forAbstraction().createRelation().withName(r.getName()).between(r.getClient().getId()).and(r.getSupplier().getId()).build();
+				try{
+					op.forAbstraction().createRelation().withName(r.getName()).between(r.getClient().getId()).and(r.getSupplier().getId()).build();
+				}catch(Exception e ){
+					LOGGER.info("Abstracao nao criada");
+				}
 			}
 			
 			for(UsageRelationship u : a.getRelationshipHolder().getAllUsage()){
-				op.forUsage().createRelation("").between(u.getClient().getId()).and(u.getSupplier().getId()).build();
+				try{
+					op.forUsage().createRelation("").between(u.getClient().getId()).and(u.getSupplier().getId()).build();
+				}catch(Exception e ){
+					LOGGER.info("Usage nao criada");
+				}
 			}
 			
 			for(AssociationClassRelationship asr : a.getRelationshipHolder().getAllAssociationsClass()){
-				op.forAssociationClass().createAssociationClass(asr).build();
-				op.forPackage().withId(asr.getPackageOwner()).add(asr.getId());
+				try{
+					op.forAssociationClass().createAssociationClass(asr).build();
+					op.forPackage().withId(asr.getPackageOwner()).add(asr.getId());
+				}catch(Exception e ){
+					LOGGER.info("AssociationClass nao criada");
+				}
 			}
 			
 			//Variabilidades - Notes
@@ -278,11 +305,13 @@ public class GenerateArchitecture  extends ArchitectureBase{
 					
 				
 			}
+			variabilities.clear();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(0);
 		}
+		
 		LOGGER.info("\n\n\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget()+doc.getNewModelName() + "\n\n\n\n");
 		System.out.println("\n\n\nDone. Architecture save into: " + ReaderConfig.getDirExportTarget()+doc.getNewModelName() + "\n\n\n\n");
 		
@@ -308,6 +337,7 @@ public class GenerateArchitecture  extends ArchitectureBase{
 				packageCreated.add(p.getId());
 			}
 		}
+		nestedIds.clear();
 	}
 
 	private List<String> getOnlyInterfacesAndClasses(Package package1) {
@@ -321,52 +351,65 @@ public class GenerateArchitecture  extends ArchitectureBase{
 	}
 
 	private static void generateAggregation(Operations op,	AssociationRelationship r) throws NotSuppportedOperation {
-		AssociationEnd p1 = r.getParticipants().get(0);
-		AssociationEnd p2 = r.getParticipants().get(1);
-		
-		if(p1.isAggregation()){
-			op.forAggregation().createRelation()
-								.withName(r.getName())
-								.between(p1)
-								.and(p2)
-								.build();
-		}else if(p2.isAggregation()){
-			op.forAggregation().createRelation()
-							   .withName(r.getName())
-							   .between(p2)
-							   .and(p1)
-							   .build();
+		try{
+			AssociationEnd p1 = r.getParticipants().get(0);
+			AssociationEnd p2 = r.getParticipants().get(1);
+			
+			if(p1.isAggregation()){
+				op.forAggregation().createRelation()
+									.withName(r.getName())
+									.between(p1)
+									.and(p2)
+									.build();
+			}else if(p2.isAggregation()){
+				op.forAggregation().createRelation()
+								   .withName(r.getName())
+								   .between(p2)
+								   .and(p1)
+								   .build();
+			}
+		}catch(Exception e){
+			LOGGER.info("Associacao agregacao nao criada");
 		}
 	}
 
 	private static void generateSimpleAssociation(Operations op, AssociationRelationship r) {
-		AssociationEnd p1 = r.getParticipants().get(0);
-		AssociationEnd p2 = r.getParticipants().get(1);
 		
-		if(p1.getAggregation().equalsIgnoreCase("none") && (p2.getAggregation().equalsIgnoreCase("none"))){
-			op.forAssociation().createAssociation()
-			  .withName(r.getName())
-			  .betweenClass(p1)
-			  .andClass(p2).build();
+		try{
+			AssociationEnd p1 = r.getParticipants().get(0);
+			AssociationEnd p2 = r.getParticipants().get(1);
+			
+			if(p1.getAggregation().equalsIgnoreCase("none") && (p2.getAggregation().equalsIgnoreCase("none"))){
+				op.forAssociation().createAssociation()
+				  .withName(r.getName())
+				  .betweenClass(p1)
+				  .andClass(p2).build();
+			}
+		}catch(Exception e){
+			LOGGER.info("Relacionamento associacao não criado");
 		}
 	}
 
 	private static void generateComposition(Operations op, AssociationRelationship r) throws CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException {
-		AssociationEnd p1 = r.getParticipants().get(0);
-		AssociationEnd p2 = r.getParticipants().get(1);
-		
-		if(p1.isComposite()){
-			op.forComposition().createComposition()
-			                   .withName(r.getName())
-							   .between(p1)
-							   .and(p2)
-							   .build();
-		}else if(p2.isComposite()){
-			op.forComposition().createComposition()
-			.withName(r.getName())
-			   .between(p2)
-			   .and(p1)
-			   .build();
+		try{
+			AssociationEnd p1 = r.getParticipants().get(0);
+			AssociationEnd p2 = r.getParticipants().get(1);
+			
+			if(p1.isComposite()){
+				op.forComposition().createComposition()
+				                   .withName(r.getName())
+								   .between(p1)
+								   .and(p2)
+								   .build();
+			}else if(p2.isComposite()){
+				op.forComposition().createComposition()
+				.withName(r.getName())
+				   .between(p2)
+				   .and(p1)
+				   .build();
+			}
+		}catch(Exception e){
+			LOGGER.info("Associacao Composicao não criada");
 		}
 	}
 
@@ -405,7 +448,6 @@ public class GenerateArchitecture  extends ArchitectureBase{
 						  .withReturn(Types.getByName(method.getReturnType())).build();
 				methods.add(m);
 			}
-				 
 		}
 		
 		return methods;

@@ -252,8 +252,9 @@ public class RelationshipsHolder {
 	}
 
 	public boolean addRelationship(Relationship relationship) {
-		if(!haveRelationship(relationship))
+		if(!haveRelationship(relationship)){
 			return this.relationships.add(relationship);
+		}
 		return false;
 	}
 	
