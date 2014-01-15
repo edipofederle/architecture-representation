@@ -46,8 +46,16 @@ public class Interface extends Element {
 	 * @param name - Nome da interface
 	 * @param relationshipHolder
 	 */
+	public Interface(RelationshipsHolder relationshipHolder, String name, Package packagee) {
+		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(),packagee.getName()), UtilResources.getRandonUUID());
+	}
+	
 	public Interface(RelationshipsHolder relationshipHolder, String name) {
 		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
+	}
+	
+	public Interface(RelationshipsHolder relationshipHolder, String name, String id) {
+		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name),id);
 	}
 
 	/**
@@ -58,8 +66,8 @@ public class Interface extends Element {
 	 * @param name - Nome da interface
 	 * @param id -  ID para a interface
 	 */
-	public Interface(RelationshipsHolder relationshipHolder, String name, String id) {
-		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), id);
+	public Interface(RelationshipsHolder relationshipHolder, String name, String id, Package packagee) {
+		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(),packagee.getName()), id);
 	}
 
 	public  Set<Method> getOperations() {

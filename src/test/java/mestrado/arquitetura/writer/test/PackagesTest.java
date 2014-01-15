@@ -35,7 +35,7 @@ public class PackagesTest extends TestHelper {
 		
 		arquitetura.representation.Class foo = a.findClassByName("Foo").get(0);
 		assertNotNull(foo);
-		assertEquals("Package::PacoteUm::Foo",foo.getNamespace());
+		assertEquals("Package::PacoteUm",foo.getNamespace());
 	}
 	
 	@Test @Ignore("Verificar pacote dentro de pacote...")

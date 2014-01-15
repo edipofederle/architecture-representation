@@ -149,7 +149,7 @@ public class Package extends Element {
 	 * @return
 	 */
 	public Interface createInterface(String name) {
-		Interface inter = new Interface(getRelationshipHolder(),name);
+		Interface inter = new Interface(getRelationshipHolder(),name, this);
 		this.interfaces.add(inter);
 		return inter;
 	}
@@ -161,7 +161,7 @@ public class Package extends Element {
 	 * @return
 	 */
 	public Interface createInterface(String name, String id) {
-		Interface inter = new Interface(getRelationshipHolder(), name, id);
+		Interface inter = new Interface(getRelationshipHolder(), name, id, this);
 		this.interfaces.add(inter);
 		return inter;
 	}

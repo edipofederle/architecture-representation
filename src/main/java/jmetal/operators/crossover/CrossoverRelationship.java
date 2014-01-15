@@ -116,30 +116,30 @@ public class CrossoverRelationship {
 	
 	public static void saveAllRelationshiopForElement(Element element, Architecture parent, Architecture offspring) {
 		
-		if(element instanceof Package){
-			Package packagee = (Package)element;
-			Set<Relationship> relations = packagee.getRelationships();
-			for(Relationship r : relations)
-				offspring.getRelationshipHolder().addRelationship(r);
-			
-			relations = null;
-		}
-		if(element instanceof Class){
-			Class klass = (Class)element;
-			Set<Relationship> relations = klass.getRelationships();
-			for(Relationship r : relations)
-				offspring.getRelationshipHolder().addRelationship(r);
-			
-			relations = null;
-		}
-		if(element instanceof Interface){
-			Interface inter = (Interface)element;
-			Set<Relationship> relations = inter.getRelationships();
-			for(Relationship r : relations)
-				offspring.getRelationshipHolder().addRelationship(r);
-			
-			relations = null;
-		}
+//		if(element instanceof Package){
+//			Package packagee = (Package)element;
+//			Set<Relationship> relations = packagee.getRelationships();
+//			for(Relationship r : relations)
+//				offspring.getRelationshipHolder().addRelationship(r);
+//			
+//			relations = null;
+//		}
+//		if(element instanceof Class){
+//			Class klass = (Class)element;
+//			Set<Relationship> relations = klass.getRelationships();
+//			for(Relationship r : relations)
+//				offspring.getRelationshipHolder().addRelationship(r);
+//			
+//			relations = null;
+//		}
+//		if(element instanceof Interface){
+//			Interface inter = (Interface)element;
+//			Set<Relationship> relations = inter.getRelationships();
+//			for(Relationship r : relations)
+//				offspring.getRelationshipHolder().addRelationship(r);
+//			
+//			relations = null;
+//		}
 //		
 //		for(Relationship r : parentRelationships){
 //			if(r instanceof DependencyRelationship){

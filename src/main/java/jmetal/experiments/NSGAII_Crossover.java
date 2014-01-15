@@ -32,9 +32,9 @@ public class NSGAII_Crossover {
 
  	 	 	 	
 	 	
-         int runsNumber = 5; //30;
-         populationSize_ = 5; //100; 
-         maxEvaluations_ = 50; //300 gerações
+         int runsNumber = 10; //30;
+         populationSize_ = 20; //100; 
+         maxEvaluations_ = 1000; //300 gerações
          int totalDiscardedSolutions = 0;
          int discardedSolutions[] = new int[runsNumber];
          

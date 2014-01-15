@@ -63,7 +63,7 @@ public class Class extends Element {
 	}
 	
 	public Class(RelationshipsHolder relationshipHolder, String name, boolean isAbstract, String packageName) {
-		this(relationshipHolder, name,  null, isAbstract,  UtilResources.createNamespace(ArchitectureHolder.getName()+"::"+packageName, name), UtilResources.getRandonUUID());
+		this(relationshipHolder, name,  null, isAbstract,  UtilResources.createNamespace(ArchitectureHolder.getName(), packageName), UtilResources.getRandonUUID());
 	}
 
 	public Attribute createAttribute(String name, Type type, VisibilityKind visibility) {

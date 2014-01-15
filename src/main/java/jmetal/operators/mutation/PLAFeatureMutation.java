@@ -788,8 +788,7 @@ public class PLAFeatureMutation extends Mutation {
 			architecture.addImplementedInterface(targetInterface, klass);
 	}
 
-	private void addExternalInterface(Package targetComp,
-			Architecture architecture, Interface targetInterface) {
+	private void addExternalInterface(Package targetComp, Architecture architecture, Interface targetInterface) {
 		String packageNameInterface = UtilResources.extractPackageName(targetInterface.getNamespace().trim());
 		if(packageNameInterface.equalsIgnoreCase("model"))
 			architecture.addExternalInterface(targetInterface);

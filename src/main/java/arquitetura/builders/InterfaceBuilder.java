@@ -2,7 +2,6 @@ package arquitetura.builders;
 
 import java.util.List;
 
-
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
 
