@@ -6,7 +6,10 @@ import java.util.Set;
 
 import arquitetura.exceptions.ElementNotFound;
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Class;
 import arquitetura.representation.Element;
+import arquitetura.representation.Interface;
+import arquitetura.representation.Package;
 import arquitetura.representation.relationship.AbstractionRelationship;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.AssociationEnd;
@@ -112,43 +115,62 @@ public class CrossoverRelationship {
 		}
 	}
 	
-	public static void saveAllRelationshiopForElement(Element element, Architecture parent) {
+	public static void saveAllRelationshiopForElement(Element element, Architecture parent, Architecture offspring) {
 		
-		for(Relationship r : parentRelationships){
-			if(r instanceof DependencyRelationship){
-				if(((DependencyRelationship) r).getClient().equals(element) || (((DependencyRelationship) r).getSupplier().equals(element)))
-					relationships.add(r);
-			}
-			if(r instanceof RealizationRelationship){
-				if(((RealizationRelationship) r).getClient().equals(element) || (((RealizationRelationship) r).getSupplier().equals(element)) ){
-					relationships.add(r);
-				}
-			}
-			if(r instanceof UsageRelationship){
-				if(((UsageRelationship) r).getClient().equals(element) || (((UsageRelationship) r).getSupplier().equals(element)) ){
-					relationships.add(r);
-				}
-			}
-			if(r instanceof AbstractionRelationship){
-				if(((AbstractionRelationship) r).getClient().equals(element) || (((AbstractionRelationship) r).getSupplier().equals(element)) ){
-					relationships.add(r);
-				}
-			}
-			
-			if(r instanceof GeneralizationRelationship){
-				if(((GeneralizationRelationship) r).getParent().equals(element) || (((GeneralizationRelationship) r).getChild().equals(element)) ){
-					relationships.add(r);
-				}
-			}
-			
-			if(r instanceof AssociationRelationship){
-				AssociationRelationship association = (AssociationRelationship)r;
-				for(AssociationEnd ase : association.getParticipants()){
-					if(ase.getCLSClass().equals(element))
-						relationships.add(r);
-				}
-			}
+		if(element instanceof Package){
+			Package packagee = (Package)element;
+			Set<Relationship> relations = packagee.getRelationships();
+			for(Relationship r : relations)
+				offspring.getRelationshipHolder().addRelationship(r);
 		}
+		if(element instanceof Class){
+			Class klass = (Class)element;
+			Set<Relationship> relations = klass.getRelationships();
+			for(Relationship r : relations)
+				offspring.getRelationshipHolder().addRelationship(r);
+		}
+		if(element instanceof Interface){
+			Interface inter = (Interface)element;
+			Set<Relationship> relations = inter.getRelationships();
+			for(Relationship r : relations)
+				offspring.getRelationshipHolder().addRelationship(r);
+		}
+//		
+//		for(Relationship r : parentRelationships){
+//			if(r instanceof DependencyRelationship){
+//				if(((DependencyRelationship) r).getClient().equals(element) || (((DependencyRelationship) r).getSupplier().equals(element)))
+//					relationships.add(r);
+//			}
+//			if(r instanceof RealizationRelationship){
+//				if(((RealizationRelationship) r).getClient().equals(element) || (((RealizationRelationship) r).getSupplier().equals(element)) ){
+//					relationships.add(r);
+//				}
+//			}
+//			if(r instanceof UsageRelationship){
+//				if(((UsageRelationship) r).getClient().equals(element) || (((UsageRelationship) r).getSupplier().equals(element)) ){
+//					relationships.add(r);
+//				}
+//			}
+//			if(r instanceof AbstractionRelationship){
+//				if(((AbstractionRelationship) r).getClient().equals(element) || (((AbstractionRelationship) r).getSupplier().equals(element)) ){
+//					relationships.add(r);
+//				}
+//			}
+//			
+//			if(r instanceof GeneralizationRelationship){
+//				if(((GeneralizationRelationship) r).getParent().equals(element) || (((GeneralizationRelationship) r).getChild().equals(element)) ){
+//					relationships.add(r);
+//				}
+//			}
+//			
+//			if(r instanceof AssociationRelationship){
+//				AssociationRelationship association = (AssociationRelationship)r;
+//				for(AssociationEnd ase : association.getParticipants()){
+//					if(ase.getCLSClass().equals(element))
+//						relationships.add(r);
+//				}
+//			}
+//		}
 		
 	}
 

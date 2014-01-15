@@ -70,7 +70,7 @@ public class OperationsOverAssociation {
 
 	public void build() {
 		this.association.getParticipants().add(associationEnd1);
-		this.relationshipHolder.getRelationships().add(this.association);
+		this.relationshipHolder.addRelationship(this.association);
 	}
 
 	public OperationsOverAssociation and() {
@@ -119,7 +119,7 @@ public class OperationsOverAssociation {
 																			asClass.getId(),
 																			null,
 																			asClass);
-		this.relationshipHolder.getRelationships().add(asc);
+		this.relationshipHolder.addRelationship(asc);
 	}
 
 	/**

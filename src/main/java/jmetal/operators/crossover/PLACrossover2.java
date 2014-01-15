@@ -155,7 +155,7 @@ public class PLACrossover2 extends Crossover {
 			//Cria ou adiciona o pacote de parent em offspring
 			addOrCreatePackageIntoOffspring(feature, offspring, parent, parentPackage);
 		}
-		CrossoverRelationship.createRelationshipsInOffspring(offspring);
+//		CrossoverRelationship.createRelationshipsInOffspring(offspring); // memory problem
 		CrossoverRelationship.cleanRelationships();
 		
 	}
@@ -183,7 +183,7 @@ public class PLACrossover2 extends Crossover {
 			addClassesRealizingFeatureToOffspring(feature, parentPackage, offspring, parent, SCOPE_LEVEL);
 		}
 		
-		CrossoverRelationship.saveAllRelationshiopForElement(parentPackage, parent);
+		CrossoverRelationship.saveAllRelationshiopForElement(parentPackage, parent, offspring);
 		
 	}
 
@@ -210,11 +210,11 @@ public class PLACrossover2 extends Crossover {
         		} else {
         			if (this.isHierarchyInASameComponent(classComp,parent)){
         				moveHierarchyToSameComponent(classComp, newComp, parentPackage, offspring, parent, feature);
-        				CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent);
+        				CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent, offspring);
         			}else{
         				newComp.addExternalClass(classComp);
         				moveHierarchyToDifferentPackage(classComp, newComp, parentPackage, offspring, parent);
-        				CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent);
+        				CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent, offspring);
         			}
         		}
         	}	
@@ -254,14 +254,14 @@ public class PLACrossover2 extends Crossover {
 						try {
 							targetClass = newComp.createClass(classComp.getName(), false);
 							targetClass.addConcern(feature.getName());
-							CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent);
+							CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent,offspring);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						CrossoverRelationship.saveAllRelationshiopForElement(newComp,parent);
+						CrossoverRelationship.saveAllRelationshiopForElement(newComp,parent,offspring);
 					}
 					classComp.moveAttributeToClass(attribute, targetClass);
-					CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent);
+					CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent,offspring);
 				}
 			}
 		}
@@ -294,7 +294,7 @@ public class PLACrossover2 extends Crossover {
 							targetClass.addConcern(feature.getName());
 						} catch (Exception e) {e.printStackTrace();}
             		}
-        			CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent);
+        			CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent,offspring);
             		classComp.moveMethodToClass(method, targetClass);
             	}
 			}
@@ -314,7 +314,7 @@ public class PLACrossover2 extends Crossover {
     	Set<Interface> interfacesOfPackage = parentPackage.getAllInterfaces();
     	for(Interface inter : interfacesOfPackage){
     		packageInOffspring.addExternalInterface(inter);
-    		CrossoverRelationship.saveAllRelationshiopForElement(inter, parent);
+    		CrossoverRelationship.saveAllRelationshiopForElement(inter, parent,offspring);
     	}
     	interfacesOfPackage = null;
 	}
@@ -336,7 +336,7 @@ public class PLACrossover2 extends Crossover {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					CrossoverRelationship.saveAllRelationshiopForElement(newComp, parent);
+					CrossoverRelationship.saveAllRelationshiopForElement(newComp, parent, offspring);
     			}
     			if(interfaceComp.getNamespace().equalsIgnoreCase("model"))
     				offspring.addExternalInterface(interfaceComp);
@@ -345,7 +345,7 @@ public class PLACrossover2 extends Crossover {
 					Package packageToAddInterface = findOrCreatePakage(interfaceCompPackageName, offspring);
 					interfaceComp = packageToAddInterface.createInterface(interfaceComp.getName());
     			}
-    			CrossoverRelationship.saveAllRelationshiopForElement(interfaceComp, parent);
+    			CrossoverRelationship.saveAllRelationshiopForElement(interfaceComp, parent, offspring);
         	}else{
         		addOperationsRealizingFeatureToOffspring(feature, interfaceComp, comp, offspring, parent);
         	}
@@ -374,7 +374,7 @@ public class PLACrossover2 extends Crossover {
         			if (newComp == null) {
         				try {
 							newComp = offspring.createPackage(comp.getName());
-							CrossoverRelationship.saveAllRelationshiopForElement(newComp, parent);
+							CrossoverRelationship.saveAllRelationshiopForElement(newComp, parent, offspring);
 						} catch (Exception e) {	e.printStackTrace();}
         			}
         			try {
@@ -386,7 +386,7 @@ public class PLACrossover2 extends Crossover {
         					targetInterface = packageToAddInterface.createInterface(interfaceComp.getName());
         				}
 						targetInterface.addConcern(feature.getName());
-						CrossoverRelationship.saveAllRelationshiopForElement(interfaceComp, parent);
+						CrossoverRelationship.saveAllRelationshiopForElement(interfaceComp, parent, offspring);
 					} catch (Exception e) {e.printStackTrace();}
         		}
         		interfaceComp.moveOperationToInterface(operation, targetInterface);
@@ -429,7 +429,7 @@ public class PLACrossover2 extends Crossover {
     				packageInOffspring.addExternalClass(classComp);
     				moveHierarchyToDifferentPackage(classComp, packageInOffspring, parentPackage, offspring, parent);
     			}
-    			CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent);
+    			CrossoverRelationship.saveAllRelationshiopForElement(classComp, parent, offspring);
     		}
     		addInterfacesImplementedByClass(classComp, offspring, parent, parentPackage);
     		addInterfacesRequiredByClass(classComp, offspring, parent, parentPackage);
@@ -458,7 +458,7 @@ public class PLACrossover2 extends Crossover {
 					Package packageToAddInterface = findOrCreatePakage(interfaceCompPackageName, offspring);
 					packageToAddInterface.addExternalInterface(interfaceComp);
 				}
-				CrossoverRelationship.saveAllRelationshiopForElement(interfaceComp, parent);
+				CrossoverRelationship.saveAllRelationshiopForElement(interfaceComp, parent, offspring);
 			}
 		}
 		allInterfaces = null;
@@ -478,7 +478,7 @@ public class PLACrossover2 extends Crossover {
 					Package packageToAddInterface = findOrCreatePakage(interfaceCompPackageName, offspring);
 					packageToAddInterface.addExternalInterface(interfaceComp);
 				}
-				CrossoverRelationship.saveAllRelationshiopForElement(interfaceComp, parent);
+				CrossoverRelationship.saveAllRelationshiopForElement(interfaceComp, parent, offspring);
 			}
 		}
 		allInterfaces = null;
@@ -574,7 +574,7 @@ public class PLACrossover2 extends Crossover {
 		addClassToOffspring(root, rootTargetPackage, offspring, parent);
 		
 		try {
-			CrossoverRelationship.saveAllRelationshiopForElement(parent.findPackageByName(rootPackageName), parent);
+			CrossoverRelationship.saveAllRelationshiopForElement(parent.findPackageByName(rootPackageName), parent, offspring);
 		} catch (PackageNotFound e1) {
 			
 		}
@@ -607,7 +607,7 @@ public class PLACrossover2 extends Crossover {
 			e.printStackTrace();
 		}			
 		targetComp.addExternalClass(classComp);
-		CrossoverRelationship.saveAllRelationshiopForElement(klass, parent);
+		CrossoverRelationship.saveAllRelationshiopForElement(klass, parent, offspring);
 	}
 	
 	/**
@@ -629,7 +629,7 @@ public class PLACrossover2 extends Crossover {
 				Package packageToAddInterface = findOrCreatePakage(interfaceCompPackageName, offspring);
 				packageToAddInterface.addExternalInterface(itf);
     		}
-    		CrossoverRelationship.saveAllRelationshiopForElement(itf, parent);
+    		CrossoverRelationship.saveAllRelationshiopForElement(itf, parent, offspring);
     	}
 	}
     
@@ -652,7 +652,7 @@ public class PLACrossover2 extends Crossover {
 				Package packageToAddInterface = findOrCreatePakage(interfaceCompPackageName, offspring);
 				packageToAddInterface.addExternalInterface(itf);
     		}
-    		CrossoverRelationship.saveAllRelationshiopForElement(itf, parent);
+    		CrossoverRelationship.saveAllRelationshiopForElement(itf, parent, offspring);
     	}
 	}
     

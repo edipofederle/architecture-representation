@@ -458,7 +458,7 @@ public class Architecture extends Variable {
 	
 	public boolean removeRelationship(Relationship as) {
 		if(as == null) return false;
-		if(relationshipHolder.getRelationships().remove(as)){
+		if(relationshipHolder.removeRelationship(as)){
 			LOGGER.info("Relacionamento : " + as.getType() + " removido da arquitetura");
 			return true;
 		}else{
@@ -568,7 +568,7 @@ public class Architecture extends Variable {
 
 	public boolean addRelationship(Relationship relationship) {
 		if(!relationshipHolder.haveRelationship(relationship)){
-			if(relationshipHolder.getRelationships().add(relationship)){
+			if(relationshipHolder.addRelationship(relationship)){
 				LOGGER.info("Relacionamento: " + relationship.getType() + " adicionado na arquitetura.("+UtilResources.detailLogRelationship(relationship)+")");
 				return true;
 			}else{

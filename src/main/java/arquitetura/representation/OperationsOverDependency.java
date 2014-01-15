@@ -52,7 +52,7 @@ public class OperationsOverDependency {
 	 * 
 	 */
 	public DependencyRelationship build() {
-		this.relationshipHolder.getRelationships().add(dependency);
+		this.relationshipHolder.addRelationship(dependency);
 		return dependency;
 	}
 

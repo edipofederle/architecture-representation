@@ -30,10 +30,10 @@ public class RelationshipsHolder {
 	}
 
 	public Set<Relationship> getRelationships() {
-		return relationships;
+		return Collections.unmodifiableSet(relationships);
 	}
 
-	public   void setRelationships(Set<Relationship> rs) {
+	public void setRelationships(Set<Relationship> rs) {
 		relationships = rs;
 	}
 	
@@ -43,7 +43,7 @@ public class RelationshipsHolder {
 	 * @param element
 	 */
 	public   void removeRelatedRelationships(Element element) {
-		for (Iterator<Relationship> i = getRelationships().iterator(); i.hasNext();) {
+		for (Iterator<Relationship> i = relationships.iterator(); i.hasNext();) {
 			Relationship r = i.next();
 			if(r instanceof GeneralizationRelationship){
 				if(((GeneralizationRelationship) r).getParent().equals(element) || ((GeneralizationRelationship) r).getChild().equals(element)){
@@ -247,8 +247,14 @@ public class RelationshipsHolder {
 		
 	}
 
-	public void removeRelationship(Relationship relation) {
-		this.relationships.remove(relation);
+	public boolean removeRelationship(Relationship relation) {
+		return this.relationships.remove(relation);
+	}
+
+	public boolean addRelationship(Relationship relationship) {
+		if(!haveRelationship(relationship))
+			return this.relationships.add(relationship);
+		return false;
 	}
 	
 }
