@@ -286,22 +286,26 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			List<Variability> variabilities = a.getAllVariabilities();
 			String idOwner = "";
 			for (Variability variability : variabilities) {
-				VariationPoint variationPointForVariability = variability.getVariationPoint();
-				/*
-				 * Um Variabilidade pode estar ligada a uma classe que não seja um ponto de variação,
-				 * neste caso a chama do método acima vai retornar null. Quando isso acontecer é usado o
-				 * método getOwnerClass() que retorna a classe que é dona da variabilidade.
-				 */
-				if(variationPointForVariability == null){
-					idOwner = a.findClassByName(variability.getOwnerClass()).get(0).getId();
-				}else{
-					idOwner = variationPointForVariability.getVariationPointElement().getId();
+				try{
+					VariationPoint variationPointForVariability = variability.getVariationPoint();
+					/*
+					 * Um Variabilidade pode estar ligada a uma classe que não seja um ponto de variação,
+					 * neste caso a chama do método acima vai retornar null. Quando isso acontecer é usado o
+					 * método getOwnerClass() que retorna a classe que é dona da variabilidade.
+					 */
+					if(variationPointForVariability == null){
+						idOwner = a.findClassByName(variability.getOwnerClass()).get(0).getId();
+					}else{
+						idOwner = variationPointForVariability.getVariationPointElement().getId();
+					}
+					
+					String idNote = op.forNote().createNote().build();
+					VariabilityStereotype var = new VariabilityStereotype(variability);
+					op.forNote().addVariability(idNote, var).build();
+					op.forClass().withId(idOwner).linkToNote(idNote);
+				}catch(Exception e){
+					LOGGER.info("Nao conseguiu criar variationPoint");
 				}
-				
-				String idNote = op.forNote().createNote().build();
-				VariabilityStereotype var = new VariabilityStereotype(variability);
-				op.forNote().addVariability(idNote, var).build();
-				op.forClass().withId(idOwner).linkToNote(idNote);
 					
 				
 			}

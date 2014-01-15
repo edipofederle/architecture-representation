@@ -31,15 +31,15 @@ public class NSGAII_Crossover {
  public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
 
  	 	 	 	
-
-         int runsNumber = 10; //30;
+	 	
+         int runsNumber = 5; //30;
          populationSize_ = 5; //100; 
-         maxEvaluations_ = 100; //300 gerações
+         maxEvaluations_ = 50; //300 gerações
          int totalDiscardedSolutions = 0;
          int discardedSolutions[] = new int[runsNumber];
          
-         crossoverProbability_ = 0.2;  //0.1
-         mutationProbability_ = 0.0; 
+         crossoverProbability_ = 0.1;  
+         mutationProbability_ = 0.9; 
          String context = "OPLA";
        //Thelma - Dez2013 linha adicionada para identificar o algoritmo no nome do arquivo do hypervolume
          String moea = "NSGAII-MC";
