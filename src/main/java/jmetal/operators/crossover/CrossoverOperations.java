@@ -246,14 +246,8 @@ public class CrossoverOperations {
 	}
 	
 	public static void addClassToOffspring(Element klass, Package targetComp, Architecture offspring){
-		Element classComp = null;
-		try {
-			classComp = ((Class) klass).deepClone();
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		}			
-		targetComp.addExternalClass(classComp);
-		CrossoverOperations.updateClassRelationships(classComp, offspring);
+		targetComp.addExternalClass((Class) klass);
+		CrossoverOperations.updateClassRelationships((Class)klass, offspring);
 	}
 	
 	/*

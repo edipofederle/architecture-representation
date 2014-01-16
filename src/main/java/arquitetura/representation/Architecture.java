@@ -440,7 +440,7 @@ public class Architecture extends Variable {
 
 	private void addClassOrInterface(Element klass, Package pkg) {
 		if (klass instanceof Class) {
-		       pkg.addExternalClass(klass);
+		       pkg.addExternalClass((Class)klass);
 		   } else if (klass instanceof Interface) {
 		       pkg.addExternalInterface((Interface) klass);
 		   }

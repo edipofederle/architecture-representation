@@ -33,8 +33,8 @@ public class NSGAII_Crossover {
  	 	 	 	
 	 	
          int runsNumber = 10; //30;
-         populationSize_ = 20; //100; 
-         maxEvaluations_ = 1000; //300 gerações
+         populationSize_ = 10; //100; 
+         maxEvaluations_ = 50; //300 gerações
          int totalDiscardedSolutions = 0;
          int discardedSolutions[] = new int[runsNumber];
          
@@ -62,9 +62,6 @@ public class NSGAII_Crossover {
 
 
                	xmiFilePath = pla;
-//             	System.out.println("Enter the path of the xmi file: ");
-//             	String xmiFilePath = buffer.readLine();
-//             	String xmiFilePath = "C:/MM-Final.xmi";
 
          
      	OPLA problem = null;
@@ -108,7 +105,6 @@ public class NSGAII_Crossover {
          algorithm.addOperator("crossover",crossover);
          algorithm.addOperator("mutation",mutation);
          algorithm.addOperator("selection",selection);
-         
         
                    
         System.out.println("\n================ NSGAII ================");
@@ -153,7 +149,7 @@ public class NSGAII_Crossover {
              //armazena as solucoes de todas runs
              todasRuns = todasRuns.union(resultFront);
              
-        	 
+        	  
            //Thelma - Dez2013
              allSolutions = allSolutions.union(resultFront);
              resultFront.printMetricsToFile(directory + "/Metrics_" + PLAName + "_" + runs + ".txt");

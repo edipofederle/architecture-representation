@@ -35,7 +35,7 @@ public class CrossoverUtils {
 						Iterator<Interface> iteratorInterfaces = allInterfacesComp.iterator();
 			            while (iteratorInterfaces.hasNext()){
 			            	Interface interfaceComp = iteratorInterfaces.next();
-			            	offspring.removeInterface(interfaceComp);	
+			            	offspring.removeInterface(interfaceComp);
 						}
 	        		}
 	        		this.removeClassesComponent(comp, offspring, scope);

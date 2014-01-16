@@ -199,8 +199,7 @@ public class Package extends Element {
 			getElements().add(element);
 	}
 
-	public void moveClassToPackage(Element klass, Package packageToMove) {
-		if (!classes.contains(klass)) return;
+	public void moveClassToPackage(Class klass, Package packageToMove) {
 		packageToMove.addExternalClass(klass);
 		this.classes.remove(klass);
 	}
@@ -212,9 +211,8 @@ public class Package extends Element {
 		return true;
 	}
 
-	public void addExternalClass(Element klass) {
-		Class k = (Class) klass;
-		classes.add(k);
+	public void addExternalClass(Class klass) {
+		classes.add(klass);
 	}
 	
 	public void addExternalInterface(Interface inter) {
