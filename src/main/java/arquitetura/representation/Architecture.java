@@ -62,7 +62,7 @@ public class Architecture extends Variable {
 	}
 
 	public List<Element> getElements() {
-		List<Element> elts = new ArrayList<Element>();
+		final List<Element> elts = new ArrayList<Element>();
 		
 		for(Package p : getAllPackages())
 			for(Element element : p.getElements())
@@ -253,11 +253,10 @@ public class Architecture extends Variable {
 			for(Element element : p.getElements()){
 				if(element.getName().equals(elementName))
 					return element;
-				searchRecursivellyInPackage(p.getNestedPackages(), elementName);
 			}
+			searchRecursivellyInPackage(p.getNestedPackages(), elementName);
 			if(p.getName().equals(elementName))
 				return p;
-			searchRecursivellyInPackage(p.getNestedPackages(), elementName);
 		}
 		
 		return null;
@@ -436,8 +435,10 @@ public class Architecture extends Variable {
 	           this.removeOnlyElement(klass);
 	       }else{
 	    	   Package oldPackage = this.findPackageByName(oldPackageName);
-	           addClassOrInterface(klass, pkg);
-	           oldPackage.removeOnlyElement(klass);
+	    	   if(oldPackage != null){
+	    		   addClassOrInterface(klass, pkg);
+	    		   oldPackage.removeOnlyElement(klass);
+	    	   }
 	       }
        }
 	}

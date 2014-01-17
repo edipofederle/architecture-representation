@@ -30,8 +30,8 @@ public class NSGAII_OPLA_FeatMut {
  public static void main(String[] args) throws FileNotFoundException, IOException, JMException, ClassNotFoundException {
 
          int runsNumber = 10; //30;
-         populationSize_ = 50; //100
-         maxEvaluations_ = 10000; //300 gera��es
+         populationSize_ = 100; //100
+         maxEvaluations_ = 30000; //300 gera��es
          
          crossoverProbability_ = 0.0; 
          mutationProbability_ = 0.9;
@@ -128,8 +128,8 @@ public class NSGAII_OPLA_FeatMut {
              //System.out.println("Iruns: " + runs + "\tTotal time: " + estimatedTime);
              time[runs] = estimatedTime;
              
-//             resultFront = problem.removeDominadas(resultFront);
-//             resultFront = problem.removeRepetidas(resultFront);
+             resultFront = problem.removeDominadas(resultFront);
+             resultFront = problem.removeRepetidas(resultFront);
 
              resultFront.printObjectivesToFile(directory + "/FUN_" + PLAName + "_" + runs + ".txt");
              //resultFront.printVariablesToFile(directory + "/VAR_" + runs);
@@ -152,8 +152,8 @@ public class NSGAII_OPLA_FeatMut {
                 
          todasRuns.printTimeToFile(directory + "/TIME_" + PLAName, runsNumber, time, pla);
          
-//         todasRuns = problem.removeDominadas(todasRuns);
-//         todasRuns = problem.removeRepetidas(todasRuns);
+         todasRuns = problem.removeDominadas(todasRuns);
+         todasRuns = problem.removeRepetidas(todasRuns);
         
          System.out.println("------    All Runs - Non-dominated solutions --------");          
          todasRuns.printObjectivesToFile(directory + "/FUN_All_" + PLAName + ".txt");
