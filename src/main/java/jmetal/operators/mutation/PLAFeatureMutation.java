@@ -68,7 +68,7 @@ public class PLAFeatureMutation extends Mutation {
     //--------------------------------------------------------------------------
     //método para verificar se algum dos relacionamentos recebidos é generalização
     private boolean searchForGeneralizations(Class cls){
-    	Collection<Relationship> Relationships = cls.getRelationships();
+    	final Collection<Relationship> Relationships = cls.getRelationships();
     	for (Relationship relationship: Relationships){
 	    	if (relationship instanceof GeneralizationRelationship){
 	    		GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
@@ -763,9 +763,11 @@ public class PLAFeatureMutation extends Mutation {
 					 */
 					final List<Class> targetClasses = allClassesWithConcerns(concern, architecture.getAllClasses());
 					final Class klass = randonClass(targetClasses);
-					architecture.removeImplementedInterface(sourceInterface, sourceComp);
-					addExternalInterface(targetComp, architecture, targetInterface);
-					addImplementedInterface(targetComp, architecture,targetInterface, klass);
+					if(klass != null){
+						architecture.removeImplementedInterface(sourceInterface, sourceComp);
+						addExternalInterface(targetComp, architecture, targetInterface);
+						addImplementedInterface(targetComp, architecture,targetInterface, klass);
+					}
 				}
 			}
 

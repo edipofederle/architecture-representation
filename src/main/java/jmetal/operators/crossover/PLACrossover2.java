@@ -655,18 +655,16 @@ public class PLACrossover2 extends Crossover {
 	
 	private boolean updateVariabilitiesOffspring(Architecture offspring){ 
 		boolean variabilitiesOk = true;
-		try{
-			for (Variability variability: offspring.getAllVariabilities()){	    	
-				final VariationPoint variationPoint = variability.getVariationPoint();
-				if(variationPoint != null){
-					Element elementVP = variationPoint.getVariationPointElement();
-					Element VP = offspring.findElementByName(elementVP.getName());
+		for (Variability variability: offspring.getAllVariabilities()){	    	
+			final VariationPoint variationPoint = variability.getVariationPoint();
+			if(variationPoint != null){
+				Element elementVP = variationPoint.getVariationPointElement();
+				Element VP = offspring.findElementByName(elementVP.getName());
+				if(VP != null){
 					if (!(VP.equals(elementVP)))
 						variationPoint.replaceVariationPointElement(offspring.findElementByName(elementVP.getName(), "class"));
 				}
 			}
-		}catch(Exception e){
-			System.err.println(e);
 		}
 		return variabilitiesOk;
 	}

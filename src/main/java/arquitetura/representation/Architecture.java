@@ -15,9 +15,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import arquitetura.exceptions.ClassNotFound;
-import arquitetura.exceptions.ElementNotFound;
 import arquitetura.exceptions.InterfaceNotFound;
-import arquitetura.exceptions.PackageNotFound;
 import arquitetura.flyweights.VariabilityFlyweight;
 import arquitetura.flyweights.VariantFlyweight;
 import arquitetura.flyweights.VariationPointFlyweight;
@@ -233,7 +231,13 @@ public class Architecture extends Variable {
 		return classesFound;
 	}
 	
-	public Element findElementByName(String elementName) throws ElementNotFound{
+	/**
+	 * Busca elemento por nome.
+	 * 
+	 * @param elementName
+	 * @return - null se nao encontrar
+	 */
+	public Element findElementByName(String elementName){
 		Element element = searchRecursivellyInPackage(this.packages, elementName);
 		if(element == null){
 			for(Class klass : this.classes)
@@ -244,7 +248,7 @@ public class Architecture extends Variable {
 					return inter;
 		}
 		if(element == null)
-			throw new ElementNotFound("No element called: " + elementName +" found");
+			LOGGER.info("No element called: " + elementName +" found");
 		return element;
 	}
 
@@ -253,10 +257,12 @@ public class Architecture extends Variable {
 			for(Element element : p.getElements()){
 				if(element.getName().equals(elementName))
 					return element;
+				searchRecursivellyInPackage(p.getNestedPackages(), elementName);
 			}
-			searchRecursivellyInPackage(p.getNestedPackages(), elementName);
+			
 			if(p.getName().equals(elementName))
 				return p;
+			searchRecursivellyInPackage(p.getNestedPackages(), elementName);
 		}
 		
 		return null;
