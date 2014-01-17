@@ -710,7 +710,6 @@ public class PLAFeatureMutation extends Mutation {
 			} catch (ConcernNotFoundException e) {
 				e.printStackTrace();
 			}
-			//addConcernToNewInterface(concern, targetInterface, sourceInterface);
 		}else{
 			sourceInterface.moveOperationToInterface(operation, targetInterface);
 		}
@@ -806,30 +805,30 @@ public class PLAFeatureMutation extends Mutation {
 		return false;
 	}
 
-	//Édipo
-	private void addConcernToNewInterface(Concern concern, Interface targetInterface, Interface sourceInterface) {
-		Set<Concern> interfaceConcerns = sourceInterface.getOwnConcerns();
-		try {
-			for(Concern c : interfaceConcerns)
-				targetInterface.addConcern(c.getName());
-		} catch (ConcernNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		for(Method operation : sourceInterface.getOperations()){
-			Set<Concern> operationConcerns = operation.getOwnConcerns();
-			for(Method o : targetInterface.getOperations()){
-				for(Concern c : operationConcerns){
-					try {
-						o.addConcern(c.getName());
-					} catch (ConcernNotFoundException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-
-		}
-	}
+//	//Édipo
+//	private void addConcernToNewInterface(Concern concern, Interface targetInterface, Interface sourceInterface) {
+//		Set<Concern> interfaceConcerns = sourceInterface.getOwnConcerns();
+//		try {
+//			for(Concern c : interfaceConcerns)
+//				targetInterface.addConcern(c.getName());
+//		} catch (ConcernNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//
+//		for(Method operation : sourceInterface.getOperations()){
+//			Set<Concern> operationConcerns = operation.getOwnConcerns();
+//			for(Method o : targetInterface.getOperations()){
+//				for(Concern c : operationConcerns){
+//					try {
+//						o.addConcern(c.getName());
+//					} catch (ConcernNotFoundException e) {
+//						e.printStackTrace();
+//					}
+//				}
+//			}
+//
+//		}
+//	}
 
 	//Édipo Método
     private Interface searchForInterfaceWithConcern(Concern concern, Package targetComp) {
