@@ -82,19 +82,11 @@ public class CrossoverUtils {
 		boolean sameComponent = true;
 		Class parent = class_;
 		Package componentOfClass = null;
-		try {
-			componentOfClass = architecture.findPackageOfClass(class_);
-		} catch (PackageNotFound e) {
-			e.printStackTrace();
-		}
+		componentOfClass = architecture.findPackageOfClass(class_);
 		Package componentOfParent = componentOfClass;
 		while (CrossoverOperations.isChild(parent)){
 			parent = CrossoverOperations.getParent(parent);	
-			try {
-				componentOfParent = architecture.findPackageOfClass(parent);
-			} catch (PackageNotFound e) {
-				e.printStackTrace();
-			}
+			componentOfParent = architecture.findPackageOfClass(parent);
 			if (!(componentOfClass.equals(componentOfParent))){
 				sameComponent = false;
 				return false;

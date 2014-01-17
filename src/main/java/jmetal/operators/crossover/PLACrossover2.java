@@ -17,7 +17,6 @@ import jmetal.util.JMException;
 import jmetal.util.PseudoRandom;
 import arquitetura.exceptions.ClassNotFound;
 import arquitetura.exceptions.ConcernNotFoundException;
-import arquitetura.exceptions.ElementNotFound;
 import arquitetura.exceptions.InterfaceNotFound;
 import arquitetura.exceptions.NotFoundException;
 import arquitetura.exceptions.PackageNotFound;
@@ -166,11 +165,9 @@ public class PLACrossover2 extends Crossover {
 		 * Caso não encontrar o cria.
 		 */
 		if(parentPackage.containsConcern(feature) && (parentPackage.getOwnConcerns().size() == 1)){
-			try {
-				packageInOffspring = offspring.findPackageByName(parentPackage.getName());
-			} catch (PackageNotFound e) {
+			packageInOffspring = offspring.findPackageByName(parentPackage.getName());
+			if(packageInOffspring == null)
 				packageInOffspring = offspring.createPackage(parentPackage.getName());
-			}
 			addImplementedInterfacesByPackageInOffspring(parentPackage, offspring, parent);
 			addRequiredInterfacesByPackageInOffspring(parentPackage, offspring, parent);
 			addInterfacesToPackageInOffSpring(parentPackage, packageInOffspring, offspring, parent);
@@ -188,11 +185,7 @@ public class PLACrossover2 extends Crossover {
 	private void addClassesRealizingFeatureToOffspring(Concern feature,	Package parentPackage, Architecture offspring, Architecture parent,	String sCOPE_LEVEL2) {
     	Package newComp = null;
     	
-    	try {
-			newComp = offspring.findPackageByName(parentPackage.getName());
-		} catch (PackageNotFound e1) {
-			newComp = null;
-		}
+		newComp = offspring.findPackageByName(parentPackage.getName());
     	
     	List<Class> allClasses = new ArrayList<Class> (parentPackage.getAllClasses());
 		Iterator<Class> iteratorClasses = allClasses.iterator();
@@ -240,28 +233,26 @@ public class PLACrossover2 extends Crossover {
 		List<Attribute> allAttributes = new ArrayList<Attribute>(classComp.getAllAttributes());
 		if (!allAttributes.isEmpty()) {
 			Iterator<Attribute> iteratorAttributes = allAttributes.iterator();
-			while (iteratorAttributes.hasNext()) {
-				Attribute attribute = iteratorAttributes.next();
-				if (attribute.containsConcern(feature) && attribute.getOwnConcerns().size() == 1) {
-					if (targetClass == null) {
-						Package newComp = null;
-						try {
+			try{
+				while (iteratorAttributes.hasNext()) {
+					Attribute attribute = iteratorAttributes.next();
+					if (attribute.containsConcern(feature) && attribute.getOwnConcerns().size() == 1) {
+						if (targetClass == null) {
+							Package newComp = null;
 							newComp = offspring.findPackageByName(comp.getName());
-						} catch (PackageNotFound e) {
-							newComp = offspring.createPackage(comp.getName());
-						}
-						try {
+							if(newComp == null)
+								newComp = offspring.createPackage(comp.getName());
 							targetClass = newComp.createClass(classComp.getName(), false);
 							targetClass.addConcern(feature.getName());
 							saveAllRelationshiopForElement(classComp, parent, offspring);
-						} catch (Exception e) {
-							e.printStackTrace();
+							saveAllRelationshiopForElement(newComp, parent, offspring);
 						}
-						saveAllRelationshiopForElement(newComp, parent, offspring);
+						classComp.moveAttributeToClass(attribute, targetClass);
+						saveAllRelationshiopForElement(classComp, parent, offspring);
 					}
-					classComp.moveAttributeToClass(attribute, targetClass);
-					saveAllRelationshiopForElement(classComp, parent, offspring);
 				}
+			}catch(Exception e){
+				System.err.println(e);
 			}
 		}
 		allAttributes = null;
@@ -278,24 +269,24 @@ public class PLACrossover2 extends Crossover {
     	List<Method> allMethods = new ArrayList<Method> (classComp.getAllMethods());
 		if (!allMethods.isEmpty()) {
 			Iterator<Method> iteratorMethods = allMethods.iterator();
-			while (iteratorMethods.hasNext()){
-				Method method= iteratorMethods.next();
-            	if (method.containsConcern(feature) && method.getOwnConcerns().size()==1){
-        			if (targetClass == null){
-        				Package newComp;
-						try {
+			try{
+				while (iteratorMethods.hasNext()){
+					Method method= iteratorMethods.next();
+	            	if (method.containsConcern(feature) && method.getOwnConcerns().size()==1){
+	        			if (targetClass == null){
+	        				Package newComp;
 							newComp = offspring.findPackageByName(comp.getName());
-						} catch (PackageNotFound e1) {
-							newComp = offspring.createPackage(comp.getName());
-						}
-            			try {
+							if(newComp == null)
+								newComp = offspring.createPackage(comp.getName());
 							targetClass=newComp.createClass(classComp.getName(), false);
 							targetClass.addConcern(feature.getName());
-						} catch (Exception e) {e.printStackTrace();}
-            		}
-        			saveAllRelationshiopForElement(classComp, parent,offspring);
-            		classComp.moveMethodToClass(method, targetClass);
-            	}
+	            		}
+	        			saveAllRelationshiopForElement(classComp, parent,offspring);
+	            		classComp.moveMethodToClass(method, targetClass);
+	            	}
+				}
+			}catch(Exception e){
+				System.err.println(e);
 			}
 			iteratorMethods = null;
 		}
@@ -328,15 +319,9 @@ public class PLACrossover2 extends Crossover {
 		while (iteratorInterfaces.hasNext()){
 			Interface interfaceComp = iteratorInterfaces.next();
         	if (interfaceComp.containsConcern(feature) && interfaceComp.getOwnConcerns().size() == 1){
-    			try {
-					newComp = offspring.findPackageByName(comp.getName());
-				} catch (PackageNotFound e1) { newComp = null; }
+				newComp = offspring.findPackageByName(comp.getName());
     			if (newComp == null){
-					try {
-						newComp = offspring.createPackage(comp.getName());
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+					newComp = offspring.createPackage(comp.getName());
 					saveAllRelationshiopForElement(newComp, parent, offspring);
     			}
     			if(interfaceComp.getNamespace().equalsIgnoreCase("model"))
@@ -364,47 +349,42 @@ public class PLACrossover2 extends Crossover {
 		
     	List<Method> allOperations = new ArrayList<Method> (interfaceComp.getOperations());
 		Iterator<Method> iteratorOperations = allOperations.iterator();
-		while (iteratorOperations.hasNext()){
-			Method operation = iteratorOperations.next();
-        	if (operation.containsConcern(feature) && operation.getOwnConcerns().size() == 1){
-        		if (targetInterface == null){
-        			Package newComp;
-        			try {
+		try{
+			while (iteratorOperations.hasNext()){
+				Method operation = iteratorOperations.next();
+	        	if (operation.containsConcern(feature) && operation.getOwnConcerns().size() == 1){
+	        		if (targetInterface == null){
+	        			Package newComp;
 						newComp = offspring.findPackageByName(comp.getName());
-					} catch (PackageNotFound e1) {newComp = null;}
-					
-        			if (newComp == null) {
-        				try {
+						
+	        			if (newComp == null) {
 							newComp = offspring.createPackage(comp.getName());
 							saveAllRelationshiopForElement(newComp, parent, offspring);
-						} catch (Exception e) {	e.printStackTrace();}
-        			}
-        			try {
-        				if(interfaceComp.getNamespace().equalsIgnoreCase("model"))
-        					targetInterface = offspring.createInterface(interfaceComp.getName());
-        				else{
-        					String interfaceCompPackageName = UtilResources.extractPackageName(interfaceComp.getNamespace());
-        					Package packageToAddInterface = findOrCreatePakage(interfaceCompPackageName, offspring);
-        					targetInterface = packageToAddInterface.createInterface(interfaceComp.getName());
-        				}
+	        			}
+	    				if(interfaceComp.getNamespace().equalsIgnoreCase("model"))
+	    					targetInterface = offspring.createInterface(interfaceComp.getName());
+	    				else{
+	    					String interfaceCompPackageName = UtilResources.extractPackageName(interfaceComp.getNamespace());
+	    					Package packageToAddInterface = findOrCreatePakage(interfaceCompPackageName, offspring);
+	    					targetInterface = packageToAddInterface.createInterface(interfaceComp.getName());
+	    				}
 						targetInterface.addConcern(feature.getName());
 						saveAllRelationshiopForElement(interfaceComp, parent, offspring);
-					} catch (Exception e) {e.printStackTrace();}
-        		}
-        		interfaceComp.moveOperationToInterface(operation, targetInterface);
-        	}
+	        		}
+	        		interfaceComp.moveOperationToInterface(operation, targetInterface);
+	        	}
+			}
+		}catch(Exception e ){
+			System.err.println(e);
 		}
 		allOperations = null;
     }    
     
     private Package findOrCreatePakage(String packageName,Architecture offspring) {
     	Package pkg = null;
-    	try{
-    		pkg = offspring.findPackageByName(packageName);
-    	}catch(PackageNotFound e){
-    		pkg = offspring.createPackage(packageName);
-    	}
-    	
+    	pkg = offspring.findPackageByName(packageName);
+    	if(pkg == null)
+    		return  offspring.createPackage(packageName);
     	return pkg;
 	}
 
@@ -447,56 +427,52 @@ public class PLACrossover2 extends Crossover {
 	 * @param parent
 	 */
 	private void addImplementedInterfacesByPackageInOffspring(Package parentPackage, Architecture offspring, Architecture parent) {
-		List<Interface> allInterfaces = new ArrayList<Interface>(parentPackage.getOnlyInterfacesImplementedByPackage());
+		final List<Interface> allInterfaces = new ArrayList<Interface>(parentPackage.getOnlyInterfacesImplementedByPackage());
 		
 		if(!allInterfaces.isEmpty()){
-			Iterator<Interface> iteratorInterfaces = allInterfaces.iterator();
+			final Iterator<Interface> iteratorInterfaces = allInterfaces.iterator();
 			while (iteratorInterfaces.hasNext()) {
-				Interface interfaceComp = iteratorInterfaces.next();
+				final Interface interfaceComp = iteratorInterfaces.next();
 				if(interfaceComp.getNamespace().equalsIgnoreCase("model"))
 					offspring.addExternalInterface(interfaceComp);
 				else{
-					String interfaceCompPackageName = UtilResources.extractPackageName(interfaceComp.getNamespace());
-					Package packageToAddInterface = findOrCreatePakage(interfaceCompPackageName, offspring);
+					final String interfaceCompPackageName = UtilResources.extractPackageName(interfaceComp.getNamespace());
+					final Package packageToAddInterface = findOrCreatePakage(interfaceCompPackageName, offspring);
 					packageToAddInterface.addExternalInterface(interfaceComp);
 				}
 				saveAllRelationshiopForElement(interfaceComp, parent, offspring);
 			}
-			iteratorInterfaces = null;
 		}
-		allInterfaces = null;
 	}
 	
 	private void addRequiredInterfacesByPackageInOffspring(Package parentPackage, Architecture offspring, Architecture parent) {
-		List<Interface> allInterfaces = new ArrayList<Interface>(parentPackage.getOnlyInterfacesRequiredByPackage());
+		final List<Interface> allInterfaces = new ArrayList<Interface>(parentPackage.getOnlyInterfacesRequiredByPackage());
 		
 		if(!allInterfaces.isEmpty()){
-			Iterator<Interface> iteratorInterfaces = allInterfaces.iterator();
+			final Iterator<Interface> iteratorInterfaces = allInterfaces.iterator();
 			while (iteratorInterfaces.hasNext()) {
-				Interface interfaceComp = iteratorInterfaces.next();
+				final Interface interfaceComp = iteratorInterfaces.next();
 				if(interfaceComp.getNamespace().equalsIgnoreCase("model"))
 					offspring.addExternalInterface(interfaceComp);
 				else{
-					String interfaceCompPackageName = UtilResources.extractPackageName(interfaceComp.getNamespace());
-					Package packageToAddInterface = findOrCreatePakage(interfaceCompPackageName, offspring);
+					final String interfaceCompPackageName = UtilResources.extractPackageName(interfaceComp.getNamespace());
+					final Package packageToAddInterface = findOrCreatePakage(interfaceCompPackageName, offspring);
 					packageToAddInterface.addExternalInterface(interfaceComp);
 				}
 				saveAllRelationshiopForElement(interfaceComp, parent, offspring);
 			}
 		}
-		allInterfaces = null;
 	}
 	
     private boolean searchForGeneralizations(Class cls){
-    	Collection<Relationship> relationships = cls.getRelationships();
+    	final Collection<Relationship> relationships = cls.getRelationships();
     	for (Relationship relationship: relationships){
 	    	if (relationship instanceof GeneralizationRelationship){
-	    		GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
+	    		final GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
 	    		if (generalization.getChild().equals(cls) || generalization.getParent().equals(cls))
 	    			return true;
 	    	}
 	    }
-    	relationships = null;
     	return false;
     }
     
@@ -504,19 +480,11 @@ public class PLACrossover2 extends Crossover {
 		boolean sameComponent = true;
 		Class parent = class_;
 		Package componentOfClass = null;
-		try {
-			componentOfClass = architecture.findPackageOfClass(class_);
-		} catch (PackageNotFound e) {
-			e.printStackTrace();
-		}
+		componentOfClass = architecture.findPackageOfClass(class_);
 		Package componentOfParent = componentOfClass;
 		while (CrossoverOperations.isChild(parent)){
 			parent = CrossoverOperations.getParent(parent);	
-			try {
-				componentOfParent = architecture.findPackageOfClass(parent);
-			} catch (PackageNotFound e) {
-				e.printStackTrace();
-			}
+			componentOfParent = architecture.findPackageOfClass(parent);
 			if (!(componentOfClass.equals(componentOfParent))){
 				sameComponent = false;
 				return false;
@@ -527,71 +495,56 @@ public class PLACrossover2 extends Crossover {
 	
     private void moveChildrenToSameComponent(Class parent, Package sourceComp, Package targetComp, Architecture offspring, Architecture parentArch){
 	  	
-		Collection<Element> children = CrossoverOperations.getChildren(parent);
+		final Collection<Element> children = CrossoverOperations.getChildren(parent);
 		//move cada subclasse
 		for (Element child: children){
 			moveChildrenToSameComponent((Class) child, sourceComp, targetComp, offspring, parentArch);			
 		}	
-		children = null;
 		//move a super classe
 		if (sourceComp.getAllClasses().contains(parent)){
 			addClassToOffspring(parent, targetComp, offspring, parentArch);
 		} else{
-			for (Package auxComp: parentArch.getAllPackages()){
-				if (auxComp.getAllClasses().contains(parent)){
-					sourceComp = auxComp;
-					if (sourceComp.getName()!=targetComp.getName()){
-						try {
+			try{
+				for (Package auxComp: parentArch.getAllPackages()){
+					if (auxComp.getAllClasses().contains(parent)){
+						sourceComp = auxComp;
+						if (sourceComp.getName()!=targetComp.getName()){
 							targetComp = offspring.findPackageByName(sourceComp.getName());
-						} catch (PackageNotFound e1) {
-							targetComp = null;
-						}
-						if (targetComp == null){
-							try {
+							if (targetComp == null){
 								targetComp=offspring.createPackage(sourceComp.getName());
 								for (Concern feature:sourceComp.getOwnConcerns())
 									targetComp.addConcern(feature.getName());
-							} catch (Exception e) {
-								e.printStackTrace();
+								}
 							}
 						}
+						addClassToOffspring(parent, targetComp, offspring, parentArch);
+						break;
 					}
-					addClassToOffspring(parent, targetComp, offspring, parentArch);
-					break;
-				}
+			}catch (Exception e) {
+				System.err.println(e);
 			}
-		}
-	}
+    	}
+    }
     
 	private void moveChildrenToDifferentComponent(Class root, Package newComp, Architecture offspring, Architecture parent) {
-		Collection<Element> children = CrossoverOperations.getChildren(root);
+		final Collection<Element> children = CrossoverOperations.getChildren(root);
 		
-		String rootPackageName = UtilResources.extractPackageName(root.getNamespace());
+		final String rootPackageName = UtilResources.extractPackageName(root.getNamespace());
 		Package rootTargetPackage = null;
-		try {
 			rootTargetPackage = offspring.findPackageByName(rootPackageName);
-		} catch (PackageNotFound e1) {
-			rootTargetPackage = offspring.createPackage(rootPackageName);
-		}
+			if(rootPackageName == null)
+				rootTargetPackage = offspring.createPackage(rootPackageName);
 		
 		addClassToOffspring(root, rootTargetPackage, offspring, parent);
 		
-		try {
-			saveAllRelationshiopForElement(parent.findPackageByName(rootPackageName), parent, offspring);
-		} catch (PackageNotFound e1) {
-			
-		}
+		saveAllRelationshiopForElement(parent.findPackageByName(rootPackageName), parent, offspring);
 		for (Element child: children){
-			String packageName = UtilResources.extractPackageName(child.getNamespace());
+			final String packageName = UtilResources.extractPackageName(child.getNamespace());
 			Package targetPackage = null;
-			try {
-				targetPackage = parent.findPackageByName(packageName);
-			} catch (PackageNotFound e) {
-				e.printStackTrace();
-			}
-			moveChildrenToDifferentComponent((Class) child, targetPackage, offspring, parent);			
+			targetPackage = parent.findPackageByName(packageName);
+			if(targetPackage != null)
+				moveChildrenToDifferentComponent((Class) child, targetPackage, offspring, parent);			
 		}
-		children = null;
 	}
     
     /**
@@ -616,19 +569,18 @@ public class PLACrossover2 extends Crossover {
 	 * @param targetComp
 	 */
     private void addInterfacesImplementedByClass(Class klass, Architecture offspring, Architecture parent, Package targetComp) {
-    	Set<Interface> interfaces = klass.getImplementedInterfaces();
+    	final Set<Interface> interfaces = klass.getImplementedInterfaces();
     	
     	for(Interface itf : interfaces){
     		if(itf.getNamespace().equalsIgnoreCase("model"))
     			offspring.addExternalInterface(itf);
     		else{
-    			String interfaceCompPackageName = UtilResources.extractPackageName(itf.getNamespace());
+    			final String interfaceCompPackageName = UtilResources.extractPackageName(itf.getNamespace());
 				Package packageToAddInterface = findOrCreatePakage(interfaceCompPackageName, offspring);
 				packageToAddInterface.addExternalInterface(itf);
     		}
     		saveAllRelationshiopForElement(itf, parent, offspring);
     	}
-    	interfaces = null;
 	}
     
     /**
@@ -640,19 +592,18 @@ public class PLACrossover2 extends Crossover {
      * @param targetComp
      */
     private void addInterfacesRequiredByClass(Class klass, Architecture offspring, Architecture parent, Package targetComp) {
-    	Set<Interface> interfaces = klass.getRequiredInterfaces();
+    	final Set<Interface> interfaces = klass.getRequiredInterfaces();
     	
     	for(Interface itf : interfaces){
     		if(itf.getNamespace().equalsIgnoreCase("model"))
     			offspring.addExternalInterface(itf);
     		else{
-    			String interfaceCompPackageName = UtilResources.extractPackageName(itf.getNamespace());
-				Package packageToAddInterface = findOrCreatePakage(interfaceCompPackageName, offspring);
+    			final String interfaceCompPackageName = UtilResources.extractPackageName(itf.getNamespace());
+				final Package packageToAddInterface = findOrCreatePakage(interfaceCompPackageName, offspring);
 				packageToAddInterface.addExternalInterface(itf);
     		}
     		saveAllRelationshiopForElement(itf, parent, offspring);
     	}
-    	interfaces = null;
 	}
     
     private  void moveHierarchyToSameComponent(Class classComp, Package targetComp, Package sourceComp, Architecture offspring, Architecture parent, Concern concern){
@@ -704,20 +655,18 @@ public class PLACrossover2 extends Crossover {
 	
 	private boolean updateVariabilitiesOffspring(Architecture offspring){ 
 		boolean variabilitiesOk = true;
-		for (Variability variability: offspring.getAllVariabilities()){	    	
-			VariationPoint variationPoint = variability.getVariationPoint();
-			if(variationPoint != null){
-				Element elementVP = variationPoint.getVariationPointElement();
-				Element VP = null;
-				try {
-					VP = offspring.findElementByName(elementVP.getName());
-				} catch (ElementNotFound e) {
-					return false;
+		try{
+			for (Variability variability: offspring.getAllVariabilities()){	    	
+				final VariationPoint variationPoint = variability.getVariationPoint();
+				if(variationPoint != null){
+					Element elementVP = variationPoint.getVariationPointElement();
+					Element VP = offspring.findElementByName(elementVP.getName());
+					if (!(VP.equals(elementVP)))
+						variationPoint.replaceVariationPointElement(offspring.findElementByName(elementVP.getName(), "class"));
 				}
-	
-				if (!(VP.equals(elementVP)))
-					variationPoint.replaceVariationPointElement(offspring.findElementByName(elementVP.getName(), "class"));
 			}
+		}catch(Exception e){
+			System.err.println(e);
 		}
 		return variabilitiesOk;
 	}
@@ -727,16 +676,14 @@ public class PLACrossover2 extends Crossover {
 	private boolean isValidSolution(Architecture solution){
 		boolean isValid=true;
 			
-		List<Interface> allInterfaces = new ArrayList<Interface> (solution.getAllInterfaces());
+		final List<Interface> allInterfaces = new ArrayList<Interface> (solution.getAllInterfaces());
 		if (!allInterfaces.isEmpty()){
 			for (Interface itf: allInterfaces){
 				if ((itf.getImplementors().isEmpty()) && (itf.getDependents().isEmpty()) && (!itf.getOperations().isEmpty())){
-					allInterfaces = null;
 					return false;
 				}
 			}
 		}
-		allInterfaces = null;
 		if (!(this.variabilitiesOk))
 			return false;
 		return isValid;
@@ -747,30 +694,27 @@ public class PLACrossover2 extends Crossover {
 	private void saveAllRelationshiopForElement(Element element, Architecture parent, Architecture offspring) {
 		
 		if(element instanceof Package){
-			Package packagee = (Package)element;
-			Set<Relationship> relations = packagee.getRelationships();
+			final Package packagee = (Package)element;
+			final Set<Relationship> relations = packagee.getRelationships();
 			for(Relationship r : relations)
 				offspring.getRelationshipHolder().addRelationship(r);
 			
-			relations = null;
 			return ;
 		}
 		if(element instanceof Class){
-			Class klass = (Class)element;
-			Set<Relationship> relations = klass.getRelationships();
+			final Class klass = (Class)element;
+			final Set<Relationship> relations = klass.getRelationships();
 			for(Relationship r : relations)
 				offspring.getRelationshipHolder().addRelationship(r);
 			
-			relations = null;
 			return ;
 		}
 		if(element instanceof Interface){
-			Interface inter = (Interface)element;
-			Set<Relationship> relations = inter.getRelationships();
+			final Interface inter = (Interface)element;
+			final Set<Relationship> relations = inter.getRelationships();
 			for(Relationship r : relations)
 				offspring.getRelationshipHolder().addRelationship(r);
 			
-			relations = null;
 			return ;
 		}
 	}

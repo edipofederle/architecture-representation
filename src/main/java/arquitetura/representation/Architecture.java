@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
 
 import jmetal.core.Variable;
 import main.GenerateArchitecture;
@@ -84,7 +83,7 @@ public class Architecture extends Variable {
 	 * @return Map<String, Concern>
 	 */
 	public List<Concern> getAllConcerns() {
-		List<Concern> concerns = new ArrayList<Concern>();
+		final List<Concern> concerns = new ArrayList<Concern>();
 		for (Map.Entry<String, Concern> entry : ConcernHolder.INSTANCE.getConcerns().entrySet()) {
 			concerns.add(entry.getValue());
 		}
@@ -122,7 +121,7 @@ public class Architecture extends Variable {
 	 * @return
 	 */
 	public Set<Interface> getAllInterfaces(){
-		Set<Interface> interfaces = new HashSet<Interface>();
+		final Set<Interface> interfaces = new HashSet<Interface>();
 		for(Package p : this.packages)
 			interfaces.addAll(p.getAllInterfaces());
 		
@@ -149,7 +148,7 @@ public class Architecture extends Variable {
 	 * @return
 	 */
 	public Set<Class> getAllClasses(){
-		Set<Class> klasses = new HashSet<Class>();
+		final Set<Class> klasses = new HashSet<Class>();
 		for(Package p : this.packages)
 			klasses.addAll(p.getAllClasses());
 		
@@ -276,12 +275,19 @@ public class Architecture extends Variable {
 		throw new InterfaceNotFound("Interface " + interfaceName + " can not found.\n");
 	}
 
-	public Package findPackageByName(String packageName) throws PackageNotFound {
+	/**
+	 * Busca um pacote por nome. 
+	 * 
+	 * @param packageName
+	 * @return Package
+	 * @throws Retorna null caso pacote não existir.
+	 */
+	public Package findPackageByName(String packageName) {
 		for(Package pkg : getAllPackages())
 			if(packageName.equalsIgnoreCase(pkg.getName()))
 				return pkg;
 		
-		throw new PackageNotFound("Pakcage " + packageName + " can not found.\n");
+		return null;
 	}
 
 
@@ -420,21 +426,19 @@ public class Architecture extends Variable {
 	}
 
 	public void moveElementToPackage(Element klass, Package pkg) {
-       try {
-           if (pkg.getElements().contains(klass)) {
-               return;
-           }
-           String oldPackageName = UtilResources.extractPackageName(klass.getNamespace());
-           if(oldPackageName.equals("model")){
+       if (pkg.getElements().contains(klass)) {
+           return;
+       }
+       String oldPackageName = UtilResources.extractPackageName(klass.getNamespace());
+       if(this.packages.contains(pkg)){
+	       if(oldPackageName.equals("model")){
 	           addClassOrInterface(klass, pkg);
 	           this.removeOnlyElement(klass);
-           }else{
-        	   Package oldPackage = this.findPackageByName(oldPackageName);
+	       }else{
+	    	   Package oldPackage = this.findPackageByName(oldPackageName);
 	           addClassOrInterface(klass, pkg);
 	           oldPackage.removeOnlyElement(klass);
-           }
-       } catch (PackageNotFound ex) {
-           java.util.logging.Logger.getLogger(Architecture.class.getName()).log(Level.SEVERE, null, ex);
+	       }
        }
 	}
 
@@ -579,7 +583,7 @@ public class Architecture extends Variable {
 		return false;
 	}
 
-	public Package findPackageOfClass(Class targetClass) throws PackageNotFound {
+	public Package findPackageOfClass(Class targetClass) {
 		String packageName = UtilResources.extractPackageName(targetClass.getNamespace());
 		return findPackageByName(packageName);
 	}

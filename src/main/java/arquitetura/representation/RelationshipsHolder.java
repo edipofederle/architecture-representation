@@ -95,20 +95,19 @@ public class RelationshipsHolder {
 			}
 		};
 
-		List<GeneralizationRelationship> generalizations = UtilResources.filter(getRelationships(), isValid);
+		final List<GeneralizationRelationship> generalizations = UtilResources.filter(getRelationships(), isValid);
 		
 		return Collections.unmodifiableList(generalizations);
 	}
 	
 	public   List<AssociationRelationship> getAllAssociationsRelationships() {
-		List<AssociationRelationship> associations = getAllAssociations();
-		List<AssociationRelationship> association = new ArrayList<AssociationRelationship>();
+		final List<AssociationRelationship> associations = getAllAssociations();
+		final List<AssociationRelationship> association = new ArrayList<AssociationRelationship>();
 		for (AssociationRelationship associationRelationship : associations) {
 			if((notComposition(associationRelationship)) && (notAgregation(associationRelationship))){
 				association.add(associationRelationship);
 			}
 		}
-		associations = null;
 		return association; 
 
 	}
@@ -128,27 +127,26 @@ public class RelationshipsHolder {
 			}
 		};
 
-		List<AssociationRelationship> allAssociations = UtilResources.filter(getRelationships(), isValid);
+		final List<AssociationRelationship> allAssociations = UtilResources.filter(getRelationships(), isValid);
 		
 		return Collections.unmodifiableList(allAssociations);
 
 	}
 	
 	public   List<AssociationRelationship> getAllCompositions() {
-		List<AssociationRelationship> associations = getAllAssociations();
-		List<AssociationRelationship> compositions = new ArrayList<AssociationRelationship>();
+		final List<AssociationRelationship> associations = getAllAssociations();
+		final List<AssociationRelationship> compositions = new ArrayList<AssociationRelationship>();
 		for (AssociationRelationship associationRelationship : associations) {
 			if((associationRelationship.getParticipants().get(0).isComposite()) || (associationRelationship.getParticipants().get(1).isComposite())){
 				compositions.add(associationRelationship);
 			}
 		}
-		associations = null;
 		return Collections.unmodifiableList(compositions); 
 	}
 	
 	public   List<AssociationRelationship> getAllAgragations() {
-		List<AssociationRelationship> associations = getAllAssociations();
-		List<AssociationRelationship> agragation = new ArrayList<AssociationRelationship>();
+		final List<AssociationRelationship> associations = getAllAssociations();
+		final List<AssociationRelationship> agragation = new ArrayList<AssociationRelationship>();
 		for (AssociationRelationship associationRelationship : associations) {
 			if((associationRelationship.getParticipants().get(0).isAggregation()) || (associationRelationship.getParticipants().get(1).isAggregation())){
 				agragation.add(associationRelationship);
@@ -164,7 +162,7 @@ public class RelationshipsHolder {
 			}
 		};
 
-		List<UsageRelationship> allUsages = UtilResources.filter(getRelationships(), isValid);
+		final List<UsageRelationship> allUsages = UtilResources.filter(getRelationships(), isValid);
 		
 		return Collections.unmodifiableList(allUsages);
 	}
@@ -176,7 +174,7 @@ public class RelationshipsHolder {
 			}
 		};
 
-		List<DependencyRelationship> allDependencies = UtilResources.filter(getRelationships(), isValid);
+		final List<DependencyRelationship> allDependencies = UtilResources.filter(getRelationships(), isValid);
 		
 		return Collections.unmodifiableList(allDependencies);
 	}
@@ -188,32 +186,32 @@ public class RelationshipsHolder {
 			}
 		};
 
-		List<RealizationRelationship> allRealizations = UtilResources.filter(getRelationships(), realizations);
+		final List<RealizationRelationship> allRealizations = UtilResources.filter(getRelationships(), realizations);
 		
 		return Collections.unmodifiableList(allRealizations);
 	}
 
-	public   List<AbstractionRelationship> getAllAbstractions() {
+	public List<AbstractionRelationship> getAllAbstractions() {
 		Predicate<Relationship> realizations = new Predicate<Relationship>() {
 			public boolean apply(Relationship parent) {
 				return AbstractionRelationship.class.isInstance(parent);
 			}
 		};
 
-		List<AbstractionRelationship> allAbstractions = UtilResources.filter(getRelationships(), realizations);
+		final List<AbstractionRelationship> allAbstractions = UtilResources.filter(getRelationships(), realizations);
 		
 		return Collections.unmodifiableList(allAbstractions);
 	}
 	
 
-	public   List<AssociationClassRelationship> getAllAssociationsClass() {
+	public List<AssociationClassRelationship> getAllAssociationsClass() {
 		Predicate<Relationship> associationClasses = new Predicate<Relationship>() {
 			public boolean apply(Relationship parent) {
 				return AssociationClassRelationship.class.isInstance(parent);
 			}
 		};
 
-		List<AssociationClassRelationship> allAssociationClasses = UtilResources.filter(getRelationships(), associationClasses);
+		final List<AssociationClassRelationship> allAssociationClasses = UtilResources.filter(getRelationships(), associationClasses);
 		
 		return Collections.unmodifiableList(allAssociationClasses);
 	}
@@ -222,8 +220,8 @@ public class RelationshipsHolder {
 		//Association
 		for(Relationship r : getAllRelationships()){
 			if((r instanceof AssociationRelationship) && (relationship instanceof AssociationRelationship)){
-				List<AssociationEnd> participantsNew = ((AssociationRelationship)relationship).getParticipants();
-				List<AssociationEnd> participantsExists = ((AssociationRelationship)r).getParticipants();
+				final List<AssociationEnd> participantsNew = ((AssociationRelationship)relationship).getParticipants();
+				final List<AssociationEnd> participantsExists = ((AssociationRelationship)r).getParticipants();
 
 				if(participantsNew.equals(participantsExists))
 					return true;

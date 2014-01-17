@@ -268,9 +268,8 @@ public class ArchitectureTest extends TestHelper {
 		assertEquals("Package1", pkg.getName());
 	}
 	
-	@Test(expected=PackageNotFound.class)
 	public void shouldRaisePackageNotFoundExceptionWhenPackageNotFound() throws PackageNotFound{
-		architecture.findPackageByName("noPackage");
+		assertNull(architecture.findPackageByName("noPackage"));
 	}
 	
 	@Test
@@ -536,14 +535,13 @@ public class ArchitectureTest extends TestHelper {
 		assertEquals("Package1", arch.findPackageOfClass(klass).getName());
 	}
 	
-	@Test(expected=PackageNotFound.class)
 	public void shouldThrowsPackageNotFound() throws Exception{
 		Architecture arch = givenAArchitecture("classPacote");
 		
 		Class klass = Mockito.mock(Class.class);
 		Mockito.when(klass.getName()).thenReturn("XPTO");
 		
-		arch.findPackageOfClass(klass);
+		assertNull(arch.findPackageOfClass(klass));
 	}
 	
 	@Test

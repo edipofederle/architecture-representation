@@ -69,7 +69,7 @@ public class VariabilityFlyweight {
 			String[] variantsElements = this.variabilityAttributes.get(v.getName()).get("variants").split(",");
 			
 			for (String variantElement : variantsElements) {
-				if((variantElement != null) && (!"".equals(variantElement.trim()))){
+				if((variantElement != null) && (variantElement.length() != 0)){
 					Classifier klasss = modelHelper.getClassByName(variantElement.trim(), this.model);
 					if (klasss != null) {
 						variants.add(variantFlyweight.getOrCreateVariant(klasss));
