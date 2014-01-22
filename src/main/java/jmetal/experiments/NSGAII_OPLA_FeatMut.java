@@ -52,7 +52,7 @@ public class NSGAII_OPLA_FeatMut {
 
 
          String plas[] = new String[]{
-        		"/Users/elf/Documents/workspaceModeling/modelosTests/fm.uml" };
+        		"/Users/elf/mestrado/sourcesMestrado/arquitetura/src/test/java/resources/agmfinal/agm.uml" };
          String xmiFilePath;
           		
          for (String pla : plas) {

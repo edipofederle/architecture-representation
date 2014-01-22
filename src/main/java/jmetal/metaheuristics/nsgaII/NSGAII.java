@@ -105,16 +105,8 @@ public class NSGAII extends Algorithm {
       if (i>0)
 		try {
 			mutationOperator.execute(newSolution);
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		} catch (ClassNotFound e) {
-			e.printStackTrace();
-		} catch (PackageNotFound e) {
-			e.printStackTrace();
-		} catch (NotFoundException e) {
-			e.printStackTrace();
-		} catch (ConcernNotFoundException e) {
-			e.printStackTrace();
+		}catch (Exception e) {
+			System.err.println(e.getMessage());
 		}
       
       problem_.evaluate(newSolution);

@@ -68,12 +68,12 @@ public class PLAFeatureMutation extends Mutation {
     //--------------------------------------------------------------------------
     //método para verificar se algum dos relacionamentos recebidos é generalização
     private boolean searchForGeneralizations(Class cls){
-    	final Collection<Relationship> Relationships = cls.getRelationships();
-    	for (Relationship relationship: Relationships){
+    	for (Relationship relationship: cls.getRelationships()){
 	    	if (relationship instanceof GeneralizationRelationship){
 	    		GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-	    		if (generalization.getChild().equals(cls) || generalization.getParent().equals(cls))
-	    		return true;
+	    		if (generalization.getChild().equals(cls) || generalization.getParent().equals(cls)){
+	    			return true;
+	    		}
 	    	}
 	    }
     	return false;
@@ -82,61 +82,59 @@ public class PLAFeatureMutation extends Mutation {
     public void MoveAttributeMutation(double probability, Solution solution, String scope) throws JMException{
     	LOGGER.info("Executando MoveAttributeMutation");
     	try {
-    		if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
-            	Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
-
-            	if (PseudoRandom.randDouble() < probability) {
-            	if (scope == "sameComponent") {
-            		Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
-            		List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getAllClasses());
-            		if (ClassesComp.size() > 1) {
-            			Class targetClass = randomObject(ClassesComp);
-            		    Class sourceClass = randomObject(ClassesComp);
-            		    if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass))
-            		    		&& (sourceClass.getAllAttributes().size()>1)
-            		    		&& (sourceClass.getAllMethods().size()>1)
-            		    		&& (!isVarPoint(arch, sourceClass))
-            		    		&& (!isVariant(arch, sourceClass))
-            		    		&& (!isOptional(arch, sourceClass))){ //sourceClass n�o tem relacionamentos de generaliza��o
-            		    	if ((targetClass!=null) && (!(targetClass.equals(sourceClass))))
-            		    		moveAttribute(arch, targetClass, sourceClass);
-            			}
-            		}
-
-            	} else{//considerando todos os componentes
-            		if (scope == "allComponents") {
-            			Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
-            			List<Class> ClassesSourceComp = new ArrayList<Class> (sourceComp.getAllClasses());
-            			if (ClassesSourceComp.size() >=1) {
-            				Class sourceClass = randomObject(ClassesSourceComp);
-            				if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass))
-            						                && (sourceClass.getAllAttributes().size()>1)
-            						                && (sourceClass.getAllMethods().size()>1)
-            						                && (!isVarPoint(arch, sourceClass))
-            						                && (!isVariant(arch, sourceClass))
-            						                && (!isOptional(arch, sourceClass))){ //sourceClass n�o tem relacionamentos de generaliza��o{
-            					Package targetComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
-            					if (checkSameLayer(sourceComp,targetComp)){
-	                				List<Class> ClassesTargetComp = new ArrayList<Class> (targetComp.getAllClasses());
-	                				if (ClassesTargetComp.size() >=1) {
-	                					Class targetClass = randomObject(ClassesTargetComp);
-	                					if ((targetClass!=null) &&  (!(targetClass.equals(sourceClass))))
-	                						moveAttribute(arch, targetClass, sourceClass);
-	                				}
-            					}
-            				}
-            			}
-            		}
-            	}
-            	}//pseudoRandom
-            } else {
-                Configuration.logger_.log(Level.SEVERE, "MoveAttributeMutation.doMutation: invalid type. "+ "{0}", solution.getDecisionVariables()[0].getVariableType());
-                java.lang.Class<String> cls = java.lang.String.class;
-                String name = cls.getName();
-                throw new JMException("Exception in " + name + ".doMutation()");
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+    		if (PseudoRandom.randDouble() < probability) {
+    			if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
+    				Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
+	            	if (scope == "sameComponent") {
+	            		Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
+	            		List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getAllClasses());
+	            		if (ClassesComp.size() > 1) {
+	            			Class targetClass = randomObject(ClassesComp);
+	            		    Class sourceClass = randomObject(ClassesComp);
+	            		    if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass))
+	            		    		&& (sourceClass.getAllAttributes().size()>1)
+	            		    		&& (sourceClass.getAllMethods().size()>1)
+	            		    		&& (!isVarPoint(arch, sourceClass))
+	            		    		&& (!isVariant(arch, sourceClass))
+	            		    		&& (!isOptional(arch, sourceClass))){
+	            		    	if ((targetClass!=null) && (!(targetClass.equals(sourceClass))))
+	            		    		moveAttribute(arch, targetClass, sourceClass);
+	            			}
+	            		}
+	            		ClassesComp.clear();
+	            	} else{
+	            		if (scope == "allComponents") {
+	            			Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
+	            			List<Class> ClassesSourceComp = new ArrayList<Class> (sourceComp.getAllClasses());
+	            			if (ClassesSourceComp.size() >=1) {
+	            				Class sourceClass = randomObject(ClassesSourceComp);
+	            				if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass))
+	            						                && (sourceClass.getAllAttributes().size()>1)
+	            						                && (sourceClass.getAllMethods().size()>1)
+	            						                && (!isVarPoint(arch, sourceClass))
+	            						                && (!isVariant(arch, sourceClass))
+	            						                && (!isOptional(arch, sourceClass))){
+	            					Package targetComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
+	            					if (checkSameLayer(sourceComp,targetComp)){
+		                				List<Class> ClassesTargetComp = new ArrayList<Class> (targetComp.getAllClasses());
+		                				if (ClassesTargetComp.size() >=1) {
+		                					Class targetClass = randomObject(ClassesTargetComp);
+		                					if ((targetClass!=null) &&  (!(targetClass.equals(sourceClass))))
+		                						moveAttribute(arch, targetClass, sourceClass);
+		                				}
+	            					}
+	            				}
+	            			}
+	            			ClassesSourceComp.clear();
+	            		}
+	            	}
+            	}else {
+                    Configuration.logger_.log(Level.SEVERE, "MoveAttributeMutation.doMutation: invalid type. "+ "{0}", solution.getDecisionVariables()[0].getVariableType());
+                    java.lang.Class<String> cls = java.lang.String.class;
+                    String name = cls.getName();
+                    throw new JMException("Exception in " + name + ".doMutation()");
+                }
+            } 
         } catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -163,62 +161,60 @@ public class PLAFeatureMutation extends Mutation {
     public void MoveMethodMutation(double probability, Solution solution, String scope) throws JMException{
     	LOGGER.info("Executando MoveMethodMutation");
     	try {
-            if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
-            	final Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
-
-            	if (PseudoRandom.randDouble() < probability) {
-            	if (scope == "sameComponent") {
-            		final Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
-            		List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getAllClasses());
-            	   	if (ClassesComp.size() > 1) {
-            	   		final Class targetClass = randomObject(ClassesComp);
-            	   		final Class sourceClass = randomObject(ClassesComp);
-            	   		if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass))
-            	   								&& (sourceClass.getAllAttributes().size()>1)
-            	   								&& (sourceClass.getAllMethods().size()>1)
-            	   								&& (!isVarPoint(arch, sourceClass))
-            	   								&& (!isVariant(arch, sourceClass))
-            	   								&& (!isOptional(arch, sourceClass))){
-            	   			if ((targetClass!=null) && (!(targetClass.equals(sourceClass))))
-                	   			moveMethod(arch, targetClass, sourceClass, sourceComp, sourceComp);
-            	   		}
-            	   	}
-            	} else {
-            		if (scope == "allComponents") {
-            			final Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
-            			final List<Class> ClassesSourceComp = new ArrayList<Class> (sourceComp.getAllClasses());
-            			if (ClassesSourceComp.size()>=1) {
-                			final Class sourceClass = randomObject(ClassesSourceComp);
-                			if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass))
-                									&& (sourceClass.getAllAttributes().size()>1)
-                									&& (sourceClass.getAllMethods().size()>1)
-                									&& (!isVarPoint(arch, sourceClass))
-                									&& (!isVariant(arch, sourceClass))
-                									&& (!isOptional(arch, sourceClass))){
-                				final Package targetComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
-                				if (checkSameLayer(sourceComp,targetComp)){
-	                    			final List<Class> ClassesTargetComp = new ArrayList<Class> (targetComp.getAllClasses());
-	                    			if (ClassesTargetComp.size() >=1) {
-	                    				final Class targetClass = randomObject(ClassesTargetComp);
-	                    				if ((targetClass != null) && (!(targetClass.equals(sourceClass))))
-	                    						moveMethod(arch, targetClass, sourceClass, targetComp, sourceComp);
-	                    			}
-                				}
-                			}
-                		}
-            		}
-            	}
-            	}//PseudoRandom
-            } else {
-                Configuration.logger_.log(
-                        Level.SEVERE, "MoveMethodMutation.doMutation: invalid type. "
-                        + "{0}", solution.getDecisionVariables()[0].getVariableType());
-                java.lang.Class<String> cls = java.lang.String.class;
-                String name = cls.getName();
-                throw new JMException("Exception in " + name + ".doMutation()");
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+    		if (PseudoRandom.randDouble() < probability) {	
+    			if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
+    				final Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
+	            	if (scope == "sameComponent") {
+	            		final Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
+	            		List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getAllClasses());
+	            	   	if (ClassesComp.size() > 1) {
+	            	   		final Class targetClass = randomObject(ClassesComp);
+	            	   		final Class sourceClass = randomObject(ClassesComp);
+	            	   		if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass))
+	            	   								&& (sourceClass.getAllAttributes().size()>1)
+	            	   								&& (sourceClass.getAllMethods().size()>1)
+	            	   								&& (!isVarPoint(arch, sourceClass))
+	            	   								&& (!isVariant(arch, sourceClass))
+	            	   								&& (!isOptional(arch, sourceClass))){
+	            	   			if ((targetClass!=null) && (!(targetClass.equals(sourceClass))))
+	                	   			moveMethod(arch, targetClass, sourceClass, sourceComp, sourceComp);
+	            	   		}
+	            	   	}
+	            	   	ClassesComp.clear();
+	            	} else {
+	            		if (scope == "allComponents") {
+	            			final Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
+	            			final List<Class> ClassesSourceComp = new ArrayList<Class> (sourceComp.getAllClasses());
+	            			if (ClassesSourceComp.size()>=1) {
+	                			final Class sourceClass = randomObject(ClassesSourceComp);
+	                			if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass))
+	                									&& (sourceClass.getAllAttributes().size()>1)
+	                									&& (sourceClass.getAllMethods().size()>1)
+	                									&& (!isVarPoint(arch, sourceClass))
+	                									&& (!isVariant(arch, sourceClass))
+	                									&& (!isOptional(arch, sourceClass))){
+	                				final Package targetComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
+	                				if (checkSameLayer(sourceComp,targetComp)){
+		                    			final List<Class> ClassesTargetComp = new ArrayList<Class> (targetComp.getAllClasses());
+		                    			if (ClassesTargetComp.size() >=1) {
+		                    				final Class targetClass = randomObject(ClassesTargetComp);
+		                    				if ((targetClass != null) && (!(targetClass.equals(sourceClass))))
+		                    						moveMethod(arch, targetClass, sourceClass, targetComp, sourceComp);
+		                    			}
+	                				}
+	                			}
+	                		}
+	            			ClassesSourceComp.clear();
+	            		}
+	            	}
+            	}else {
+                    Configuration.logger_.log(Level.SEVERE, "MoveMethodMutation.doMutation: invalid type. "
+                            + "{0}", solution.getDecisionVariables()[0].getVariableType());
+                    java.lang.Class<String> cls = java.lang.String.class;
+                    String name = cls.getName();
+                    throw new JMException("Exception in " + name + ".doMutation()");
+                }
+    		}
         } catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -240,52 +236,49 @@ public class PLAFeatureMutation extends Mutation {
     public void MoveOperationMutation(double probability, Solution solution) throws JMException{
     	LOGGER.info("Executando MoveOperationMutation");
     	try {
-          if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
-        	if (PseudoRandom.randDouble() < probability) {
-        	Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
-
-            Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
-            Package targetComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
-
-            if (checkSameLayer(sourceComp, targetComp)){
-            	List<Interface> InterfacesSourceComp = new ArrayList<Interface> ();
-            	List<Interface> InterfacesTargetComp = new ArrayList<Interface> ();
-
-            	InterfacesSourceComp.addAll(sourceComp.getImplementedInterfaces());
-            	InterfacesTargetComp.addAll(targetComp.getImplementedInterfaces());
-
-            	if ((InterfacesSourceComp.size()>=1) && (InterfacesTargetComp.size()>=1)) {
-            		Interface targetInterface = randomObject(InterfacesTargetComp);
-            		Interface sourceInterface = randomObject(InterfacesSourceComp);
-
-            		if (targetInterface!=sourceInterface){
-            			List<Method> OpsInterface = new ArrayList<Method> ();
-            			OpsInterface.addAll(sourceInterface.getOperations());
-            			if (OpsInterface.size() >=1) {
-            				Method op = randomObject(OpsInterface);
-            				sourceInterface.moveOperationToInterface(op, targetInterface);
-        					for(Element implementor : sourceInterface.getImplementors()){
-            					if(implementor instanceof Package)
-            						arch.addImplementedInterface(targetInterface, (Package)implementor);
-            					if(implementor instanceof Class)
-            						arch.addImplementedInterface(targetInterface, (Class)implementor);
-        					}
-            			}
-            		}
-            	}
-            }
-        	}//PseudoRandom
-           } else {
-                Configuration.logger_.log(Level.SEVERE, "MoveOperationMutation.doMutation: invalid type. "
-                        + "{0}", solution.getDecisionVariables()[0].getVariableType());
-                java.lang.Class<String> cls = java.lang.String.class;
-                String name = cls.getName();
-                throw new JMException("Exception in " + name + ".doMutation()");
-            }
-       } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+    		if (PseudoRandom.randDouble() < probability) {
+    			if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
+	    			Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
+		            Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
+		            Package targetComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
+		
+		            if (checkSameLayer(sourceComp, targetComp)){
+		            	List<Interface> InterfacesSourceComp = new ArrayList<Interface> ();
+		            	List<Interface> InterfacesTargetComp = new ArrayList<Interface> ();
+		
+		            	InterfacesSourceComp.addAll(sourceComp.getImplementedInterfaces());
+		            	InterfacesTargetComp.addAll(targetComp.getImplementedInterfaces());
+		
+		            	if ((InterfacesSourceComp.size()>=1) && (InterfacesTargetComp.size()>=1)) {
+		            		Interface targetInterface = randomObject(InterfacesTargetComp);
+		            		Interface sourceInterface = randomObject(InterfacesSourceComp);
+		
+		            		if (targetInterface!=sourceInterface){
+		            			List<Method> OpsInterface = new ArrayList<Method> ();
+		            			OpsInterface.addAll(sourceInterface.getOperations());
+		            			if (OpsInterface.size() >=1) {
+		            				Method op = randomObject(OpsInterface);
+		            				sourceInterface.moveOperationToInterface(op, targetInterface);
+		        					for(Element implementor : sourceInterface.getImplementors()){
+		            					if(implementor instanceof Package)
+		            						arch.addImplementedInterface(targetInterface, (Package)implementor);
+		            					if(implementor instanceof Class)
+		            						arch.addImplementedInterface(targetInterface, (Class)implementor);
+		        					}
+		            			}
+		            		}
+		            	}
+		            }
+    			}else {
+                    Configuration.logger_.log(Level.SEVERE, "MoveOperationMutation.doMutation: invalid type. "
+                            + "{0}", solution.getDecisionVariables()[0].getVariableType());
+                    java.lang.Class<String> cls = java.lang.String.class;
+                    String name = cls.getName();
+                    throw new JMException("Exception in " + name + ".doMutation()");
+                }
+    		}
        } catch (Exception e) {
-			e.printStackTrace();
+		e.printStackTrace();
 	}
   }
 
@@ -294,68 +287,64 @@ public class PLAFeatureMutation extends Mutation {
 	public void AddClassMutation(double probability, Solution solution, String scope) throws JMException {
     	LOGGER.info("Executand AddClassMutation ");
     	try {
-            if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
-              if (PseudoRandom.randDouble() < probability) {
-               Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
-              Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
-               List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getAllClasses());
-               if (ClassesComp.size() >=1 ) {
-            	   Class sourceClass = randomObject(ClassesComp);
-            	   if ((sourceClass != null) && (!searchForGeneralizations(sourceClass))
-            			   					 && (sourceClass.getAllAttributes().size()>1)
-            			   					 && (sourceClass.getAllMethods().size()>1)
-            			   					 && (!isVarPoint(arch, sourceClass))
-            			   					 && (!isVariant(arch, sourceClass))
-            			   					 && (!isOptional(arch, sourceClass))){
-                        	int option = PseudoRandom.randInt(0,1);
-                        	if (option == 0) { //attribute
-                        		List<Attribute> AttributesClass = new ArrayList<Attribute> (sourceClass.getAllAttributes());
-                        		if (AttributesClass.size()>=1) {
-                        			if (scope=="sameComponent") {
-                        				Class newClass = sourceComp.createClass("Class"+ OPLA.contClass_++,false);
-                        				moveAttributeToNewClass(arch, sourceClass, AttributesClass, newClass);
-                        			} else {
-                        				if (scope=="allComponents") {
-                        					Package targetComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
-                        					if (checkSameLayer(sourceComp, targetComp)){
-                        						Class newClass = targetComp.createClass("Class"+ OPLA.contClass_++,false);
-                        						moveAttributeToNewClass(arch, sourceClass, AttributesClass, newClass);
-                        					}
-                        				}
-                        			}
-                        		}
-                        	} else { //method
-                        		List<Method> MethodsClass = new ArrayList<Method> (sourceClass.getAllMethods());
-                        		if (MethodsClass.size() >=1) {
-                        			if (scope=="sameComponent") {
-                        				Class newClass = sourceComp.createClass("Class"+ OPLA.contClass_++, false);
-                        				moveMethodToNewClass(arch, sourceClass, MethodsClass, newClass);
-                        			} else {
-                        				if (scope=="allComponents") {
-                        					Package targetComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
-                        					if (checkSameLayer(sourceComp, targetComp)){
-                        						Class newClass = targetComp.createClass("Class"+ OPLA.contClass_++,false);
-                        						moveMethodToNewClass(arch, sourceClass, MethodsClass, newClass);
-                        					}
-                        				}
-                        			}
-                        		}
-                        	}
-            	   }
-               } //ClassesComp não é vazia
-              }//PseudoRandom
-            }else {
-                Configuration.logger_.log(
-                        Level.SEVERE, "AddClassMutation.doMutation: invalid type. "
-                        + "{0}", solution.getDecisionVariables()[0].getVariableType());
-                java.lang.Class<String> cls = java.lang.String.class;
-                String name = cls.getName();
-                throw new JMException("Exception in " + name + ".doMutation()");
+    		if (PseudoRandom.randDouble() < probability) {
+	            if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
+	               Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
+	               Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
+	               List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getAllClasses());
+	               if (ClassesComp.size() >=1 ) {
+	            	   Class sourceClass = randomObject(ClassesComp);
+	            	   if ((sourceClass != null) && (!searchForGeneralizations(sourceClass))
+	            			   					 && (sourceClass.getAllAttributes().size()>1)
+	            			   					 && (sourceClass.getAllMethods().size()>1)
+	            			   					 && (!isVarPoint(arch, sourceClass))
+	            			   					 && (!isVariant(arch, sourceClass))
+	            			   					 && (!isOptional(arch, sourceClass))){
+	                    	int option = PseudoRandom.randInt(0,1);
+	                    	if (option == 0) { //attribute
+	                    		List<Attribute> AttributesClass = new ArrayList<Attribute> (sourceClass.getAllAttributes());
+	                    		if (AttributesClass.size()>=1) {
+	                    			if (scope=="sameComponent") {
+	                    				Class newClass = sourceComp.createClass("Class"+ OPLA.contClass_++,false);
+	                    				moveAttributeToNewClass(arch, sourceClass, AttributesClass, newClass);
+	                    			} else {
+	                    				if (scope=="allComponents") {
+	                    					Package targetComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
+	                    					if (checkSameLayer(sourceComp, targetComp)){
+	                    						Class newClass = targetComp.createClass("Class"+ OPLA.contClass_++,false);
+	                    						moveAttributeToNewClass(arch, sourceClass, AttributesClass, newClass);
+	                    					}
+	                    				}
+	                    			}
+	                    		}
+	                    	} else { //method
+	                    		List<Method> MethodsClass = new ArrayList<Method> (sourceClass.getAllMethods());
+	                    		if (MethodsClass.size() >=1) {
+	                    			if (scope=="sameComponent") {
+	                    				Class newClass = sourceComp.createClass("Class"+ OPLA.contClass_++, false);
+	                    				moveMethodToNewClass(arch, sourceClass, MethodsClass, newClass);
+	                    			} else {
+	                    				if (scope=="allComponents") {
+	                    					Package targetComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
+	                    					if (checkSameLayer(sourceComp, targetComp)){
+	                    						Class newClass = targetComp.createClass("Class"+ OPLA.contClass_++,false);
+	                    						moveMethodToNewClass(arch, sourceClass, MethodsClass, newClass);
+	                    					}
+	                    				}
+	                    			}
+	                    		}
+	                    	}
+	            	   	}
+	               	} 
+	              }else {
+	                  Configuration.logger_.log(Level.SEVERE, "AddClassMutation.doMutation: invalid type. "
+	                          + "{0}", solution.getDecisionVariables()[0].getVariableType());
+	                  java.lang.Class<String> cls = java.lang.String.class;
+	                  String name = cls.getName();
+	                  throw new JMException("Exception in " + name + ".doMutation()");
+	              }
             }
-    	} catch (ClassNotFoundException e) {
-            	e.printStackTrace();
     	} catch (Exception e) {
-
 			e.printStackTrace();
 		}
     }
@@ -422,9 +411,9 @@ public class PLAFeatureMutation extends Mutation {
   public void AddManagerClassMutation(double probability, Solution solution) throws JMException {
 	LOGGER.info("Executando AddManagerClassMutation");
     try {
-        if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
-          if (PseudoRandom.randDouble() < probability) {
-            Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
+    	if (PseudoRandom.randDouble() < probability) {
+    		if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
+    		Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
 
             Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
             List<Interface> InterfacesComp = new ArrayList<Interface> ();
@@ -453,29 +442,28 @@ public class PLAFeatureMutation extends Mutation {
             			newInterface.addConcern(con.getName());
             	}
             }
+          }else {
+              Configuration.logger_.log(
+                      Level.SEVERE, "AddManagerClassMutation.doMutation: invalid type. "
+                      + "{0}", solution.getDecisionVariables()[0].getVariableType());
+              java.lang.Class<String> cls = java.lang.String.class;
+              String name = cls.getName();
+              throw new JMException("Exception in " + name + ".doMutation()");
           }
-         } else {
-                Configuration.logger_.log(
-                        Level.SEVERE, "AddManagerClassMutation.doMutation: invalid type. "
-                        + "{0}", solution.getDecisionVariables()[0].getVariableType());
-                java.lang.Class<String> cls = java.lang.String.class;
-                String name = cls.getName();
-                throw new JMException("Exception in " + name + ".doMutation()");
-            }
-      } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-      } catch (Exception e) {
-			e.printStackTrace();
-		}
+    	} 
+    } catch (Exception e) {
+		e.printStackTrace();
     }
+ }
 
     //--------------------------------------------------------------------------
 
 	public void FeatureMutation(double probability, Solution solution, String scope) throws JMException {
        LOGGER.info("Executando FeatureMutation.");
 		try {
-        	if (solution.getDecisionVariables()[0].getVariableType().toString().equals("class "+ Architecture.ARCHITECTURE_TYPE)){
-              if (PseudoRandom.randDouble() < probability) {
+			if (PseudoRandom.randDouble() < probability) {
+				if (solution.getDecisionVariables()[0].getVariableType().toString().equals("class "+ Architecture.ARCHITECTURE_TYPE)){
+              
             	  final Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
             	  final List<Package> allComponents = new ArrayList<Package> (arch.getAllPackages());
             	  if (!allComponents.isEmpty()){
@@ -500,22 +488,22 @@ public class PLAFeatureMutation extends Mutation {
                     			modularizeConcernInComponent(targetComponent, selectedConcern,arch);
                     		}
                 		}
+                		 allComponentsAssignedOnlyToConcern.clear();
                 	  }
                 	  concernsSelectedComp.clear();
+                	  allComponents.clear();
             	  }
-            	  allComponents.clear();
-            	  
-              }
-        	}
-          else {
-                Configuration.logger_.log(Level.SEVERE, "FeatureMutation.doMutation: invalid type. " + "{0}", solution.getDecisionVariables()[0].getVariableType());
-                java.lang.Class<String> cls = java.lang.String.class;
-                String name = cls.getName();
-                throw new JMException("Exception in " + name + ".doMutation()");
-           }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            	 
+              }else {
+                  Configuration.logger_.log(Level.SEVERE, "FeatureMutation.doMutation: invalid type. " + "{0}", solution.getDecisionVariables()[0].getVariableType());
+                  java.lang.Class<String> cls = java.lang.String.class;
+                  String name = cls.getName();
+                  throw new JMException("Exception in " + name + ".doMutation()");
+             }
+		}
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
     }
 
 
@@ -547,27 +535,18 @@ public class PLAFeatureMutation extends Mutation {
 				final Set<Interface> allInterfaces = new HashSet<Interface>(comp.getAllInterfaces());
 				allInterfaces.addAll(comp.getImplementedInterfaces());
 
-				if (allInterfaces.size() >= 1) {
-					for (Interface interfaceComp : allInterfaces) {
+				for (Interface interfaceComp : allInterfaces) {
 						if (interfaceComp.containsConcern(concern) && interfaceComp.getOwnConcerns().size() == 1) {
 							moveInterfaceToComponent(interfaceComp, targetComponent, comp, arch, concern); // EDIPO TESTADO
 						} else {
 							List<Method> operationsInterfaceComp = new ArrayList<Method>(interfaceComp.getOperations());
-							if (operationsInterfaceComp.size() >= 1) {
-								for (Method operation : operationsInterfaceComp) {
-									if (operation.containsConcern(concern) && operation.getOwnConcerns().size() == 1)
-										moveOperationToComponent(operation, interfaceComp, targetComponent, comp, arch, concern);
-								}
+							for (Method operation : operationsInterfaceComp) {
+								if (operation.containsConcern(concern) && operation.getOwnConcerns().size() == 1)
+									moveOperationToComponent(operation, interfaceComp, targetComponent, comp, arch, concern);
 							}
 						}
 					}
-				}
-			}
-		}
 
-		for (Package comp : allComponents) {
-
-			if (!comp.equals(targetComponent) && checkSameLayer(comp, targetComponent)) {// &&	// !comp.containsConcern(concern)){
 				final List<Class> allClasses = new ArrayList<Class>(comp.getAllClasses());
 				if (allClasses.size() >= 1 ) {
 					for (Class classComp : allClasses) {
@@ -581,28 +560,26 @@ public class PLAFeatureMutation extends Mutation {
 								if (!searchForGeneralizations(classComp)) {
 									if (!isVarPointOfConcern(arch, classComp, concern) && !isVariantOfConcern(arch, classComp, concern)) {
 										final List<Attribute> attributesClassComp = new ArrayList<Attribute>(classComp.getAllAttributes());
-										if (attributesClassComp.size() >= 1) {
-											for (Attribute attribute : attributesClassComp) {
-												if (attribute.containsConcern(concern) && attribute.getOwnConcerns().size() == 1)
-													moveAttributeToComponent(attribute,	classComp, targetComponent, comp, arch, concern);
-											}
+										for (Attribute attribute : attributesClassComp) {
+											if (attribute.containsConcern(concern) && attribute.getOwnConcerns().size() == 1)
+												moveAttributeToComponent(attribute,	classComp, targetComponent, comp, arch, concern);
 										}
+										attributesClassComp.clear();
 										final List<Method> methodsClassComp = new ArrayList<Method>(classComp.getAllMethods());
-										if (methodsClassComp.size() >= 1) {
-											for (Method method : methodsClassComp) {
-												if (method.containsConcern(concern) && method.getOwnConcerns().size() == 1)
-													moveMethodToComponent(method, classComp, targetComponent, comp, arch, concern);
-											}
+										for (Method method : methodsClassComp) {
+											if (method.containsConcern(concern) && method.getOwnConcerns().size() == 1)
+												moveMethodToComponent(method, classComp, targetComponent, comp, arch, concern);
 										}
+										attributesClassComp.clear();
 									}
 								}
-
 							}
 						}
 					}
 				}
 			}
 		}
+		
 	}
 
 
@@ -653,9 +630,9 @@ public class PLAFeatureMutation extends Mutation {
 							architecture.removeImplementedInterface(interfaceComp, sourceComp);
 							addExternalInterface(targetComp, architecture, interfaceComp);
 							addImplementedInterface(targetComp, architecture, interfaceComp, klass);
-							return ;
 						}
 					}
+					return ;
 				}else if(targetComp.getAllClasses().size() > 1){
 					final List<Class> targetClasses = allClassesWithConcerns(concernSelected, targetComp.getAllClasses());
 					final Class klass = randonClass(targetClasses);
@@ -877,17 +854,18 @@ public class PLAFeatureMutation extends Mutation {
     //-------------------------------------------------------------------------------------------------
 
     public <T> T randomObject(List<T> allObjects)  throws JMException   {
-
-        int numObjects= allObjects.size();
-        int key;
-        T object;
-        if (numObjects == 0)
-        	object = null;
-            else{
-        	  key = PseudoRandom.randInt(0, numObjects-1);
-        	  object = allObjects.get(key);
-           }
-        return object;
+    	Collections.shuffle(allObjects);
+    	return allObjects.get(0);
+//        int numObjects= allObjects.size();
+//        int key;
+//        T object;
+//        if (numObjects == 0)
+//        	object = null;
+//            else{
+//        	  key = PseudoRandom.randInt(0, numObjects-1);
+//        	  object = allObjects.get(key);
+//           }
+//        return object;
     }
 
   //-------------------------------------------------------------------------------------------------
@@ -948,6 +926,7 @@ public class PLAFeatureMutation extends Mutation {
 						isVariantConcern = true;
   			}
   		}
+  		variabilities.clear();
   		return isVariantConcern;
   }
 
@@ -962,8 +941,7 @@ public class PLAFeatureMutation extends Mutation {
 	 * @param concern - interesse sendo modularizado
 	 */
     private void moveHierarchyToComponent(Class classComp, Package targetComp, Package sourceComp, Architecture architecture, Concern concern){
-    	GeneralizationRelationship gene = getGeneralizationRelationshipForClass(classComp);
-    	architecture.forGeneralization().moveGeneralizationToPackage(gene,targetComp);
+    	architecture.forGeneralization().moveGeneralizationToPackage(getGeneralizationRelationshipForClass(classComp),targetComp);
 	}
 
     //EDIPO Identifica quem é o parent para a classComp
