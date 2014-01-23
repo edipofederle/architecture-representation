@@ -10,7 +10,6 @@ import java.util.Set;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import arquitetura.exceptions.ClassNotFound;
 import arquitetura.exceptions.NotFoundException;
 import arquitetura.exceptions.PackageNotFound;
 import arquitetura.representation.Architecture;
@@ -20,15 +19,9 @@ import arquitetura.representation.Concern;
 import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Package;
-import arquitetura.representation.relationship.AbstractionRelationship;
-import arquitetura.representation.relationship.AssociationClassRelationship;
-import arquitetura.representation.relationship.AssociationEnd;
-import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.DependencyRelationship;
 import arquitetura.representation.relationship.GeneralizationRelationship;
-import arquitetura.representation.relationship.RealizationRelationship;
 import arquitetura.representation.relationship.Relationship;
-import arquitetura.representation.relationship.UsageRelationship;
 
 public class CrossoverOperations {
 
@@ -37,12 +30,7 @@ public class CrossoverOperations {
 	
 	public static void addAttributesRealizingFeatureToOffspring(Concern feature, Class classComp, Package comp, Architecture offspring) {
 
-		Class targetClass;
-		try {
-			targetClass = offspring.findClassByName(classComp.getName()).get(0);
-		} catch (ClassNotFound e1) {
-			targetClass = null;
-		}
+			Class targetClass = offspring.findClassByName(classComp.getName()).get(0);
 		List<Attribute> allAttributes = new ArrayList<Attribute>(classComp.getAllAttributes());
 		if (!allAttributes.isEmpty()) {
 			Iterator<Attribute> iteratorAttributes = allAttributes.iterator();

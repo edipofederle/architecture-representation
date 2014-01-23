@@ -78,6 +78,8 @@ public class Class extends Element {
 	}
 	
 	public Set<Attribute> getAllAttributes() {
+		if(attributes.isEmpty()) 
+			return Collections.emptySet();
 		return Collections.unmodifiableSet(attributes);
 	}
 	
@@ -90,6 +92,8 @@ public class Class extends Element {
 	}
 	
 	public Set<Method> getAllMethods() {
+		if(methods.isEmpty()) 
+			return Collections.emptySet();
 		return Collections.unmodifiableSet(methods);
 	}
 

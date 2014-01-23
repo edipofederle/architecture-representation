@@ -15,7 +15,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import arquitetura.exceptions.ClassNotFound;
-import arquitetura.exceptions.InterfaceNotFound;
 import arquitetura.flyweights.VariabilityFlyweight;
 import arquitetura.flyweights.VariantFlyweight;
 import arquitetura.flyweights.VariationPointFlyweight;
@@ -213,9 +212,8 @@ public class Architecture extends Variable {
 	 * 
 	 * @param className
 	 * @return {@link Class}
-	 * @throws ClassNotFound se classe não encontrada
 	 */
-	public List<Class> findClassByName(String className) throws ClassNotFound {
+	public List<Class> findClassByName(String className)  {
 		List<Class> classesFound = new ArrayList<Class>();
 		for (Class klass : getClasses()) 
 			if(className.trim().equalsIgnoreCase(klass.getName().trim()))
@@ -227,7 +225,7 @@ public class Architecture extends Variable {
 					classesFound.add(klass);
 		
 		if(classesFound.isEmpty())
-			throw new ClassNotFound("Class " + className + " can not be found.\n");
+			return null;
 		return classesFound;
 	}
 	
@@ -268,7 +266,7 @@ public class Architecture extends Variable {
 		return null;
 	}
 
-	public Interface findInterfaceByName(String interfaceName) throws InterfaceNotFound {
+	public Interface findInterfaceByName(String interfaceName) {
 		for (Interface interfacee : getInterfaces())
 			if(interfaceName.equalsIgnoreCase(interfacee.getName()))
 				return interfacee;
@@ -277,7 +275,7 @@ public class Architecture extends Variable {
 				if(interfaceName.equalsIgnoreCase(interfacee.getName()))
 					return interfacee;
 		
-		throw new InterfaceNotFound("Interface " + interfaceName + " can not found.\n");
+		return null;
 	}
 
 	/**

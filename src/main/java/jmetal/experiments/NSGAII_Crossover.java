@@ -24,7 +24,7 @@ public class NSGAII_Crossover {
  
  public static int populationSize_; 
  public static int maxEvaluations_;
- public static double mutationProbability_;
+ public static double mutationProbability_; 
  public static double crossoverProbability_; 
  
 //--  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --

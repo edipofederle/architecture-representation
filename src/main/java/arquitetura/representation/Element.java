@@ -2,6 +2,7 @@ package arquitetura.representation;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -92,6 +93,8 @@ public abstract class Element implements Serializable {
 	 * @return List<{@link Concern}>
 	 */
 	public Set<Concern> getOwnConcerns() {
+		if(concerns.isEmpty())
+			return Collections.emptySet();
 		return concerns;
 	}
 	
