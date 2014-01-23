@@ -21,19 +21,11 @@
 
 package jmetal.metaheuristics.nsgaII;
 
-import java.util.Collection;
-import java.util.Set;
-
-import arquitetura.exceptions.ClassNotFound;
-import arquitetura.exceptions.ConcernNotFoundException;
-import arquitetura.exceptions.NotFoundException;
-import arquitetura.exceptions.PackageNotFound;
 import jmetal.core.Algorithm;
 import jmetal.core.Operator;
 import jmetal.core.Problem;
 import jmetal.core.Solution;
 import jmetal.core.SolutionSet;
-import jmetal.problems.OPLA;
 import jmetal.qualityIndicator.QualityIndicator;
 import jmetal.util.Distance;
 import jmetal.util.JMException;
@@ -127,75 +119,22 @@ public class NSGAII extends Algorithm {
           //obtain parents
           try {
 			parents[0] = (Solution) selectionOperator.execute(population);
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		} catch (ClassNotFound e) {
-			e.printStackTrace();
-		} catch (PackageNotFound e) {
-			e.printStackTrace();
-		} catch (NotFoundException e) {
-			e.printStackTrace();
-		} catch (ConcernNotFoundException e) {
-			e.printStackTrace();
-		}
-          try {
+
 			parents[1] = (Solution) selectionOperator.execute(population);
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		} catch (ClassNotFound e) {
-			e.printStackTrace();
-		} catch (PackageNotFound e) {
-			e.printStackTrace();
-		} catch (NotFoundException e) {
-			e.printStackTrace();
-		} catch (ConcernNotFoundException e) {
-			e.printStackTrace();
-		}
+		
           
          
           Solution[] offSpring = null;
-		try {
 			offSpring = (Solution[]) crossoverOperator.execute(parents);
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		} catch (ClassNotFound e) {
-			e.printStackTrace();
-		} catch (PackageNotFound e) {
-			e.printStackTrace();
-		} catch (NotFoundException e) {
-			e.printStackTrace();
-		} catch (ConcernNotFoundException e) {
-			e.printStackTrace();
-		}
+		
           problem_.evaluateConstraints(offSpring[0]);
           problem_.evaluateConstraints(offSpring[1]);         
        
-          try {
 			mutationOperator.execute(offSpring[0]);
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		} catch (ClassNotFound e) {
-			e.printStackTrace();
-		} catch (PackageNotFound e) {
-			e.printStackTrace();
-		} catch (NotFoundException e) {
-			e.printStackTrace();
-		} catch (ConcernNotFoundException e) {
-			e.printStackTrace();
-		}
-          try {
+		
 			mutationOperator.execute(offSpring[1]);
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		} catch (ClassNotFound e) {
-			e.printStackTrace();
-		} catch (PackageNotFound e) {
-			e.printStackTrace();
-		} catch (NotFoundException e) {
-			e.printStackTrace();
-		} catch (ConcernNotFoundException e) {
-			e.printStackTrace();
-		}
+	
+		
           problem_.evaluateConstraints(offSpring[0]);
           problem_.evaluateConstraints(offSpring[1]);
           
@@ -205,6 +144,9 @@ public class NSGAII extends Algorithm {
           offspringPopulation.add(offSpring[0]);
           offspringPopulation.add(offSpring[1]);
           evaluations += 2;
+          } catch (Exception e) {
+  			e.printStackTrace();
+  		}
           
         } // if                            
       } // for

@@ -29,7 +29,6 @@ import arquitetura.exceptions.ClassNotFound;
 import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.exceptions.NotFoundException;
 import arquitetura.exceptions.PackageNotFound;
-import jmetal.util.JMException;
 
 /**
  * Class representing an operator
@@ -67,9 +66,10 @@ public abstract class Operator implements Serializable {
 	 * @throws ClassNotFound 
 	 * @throws CloneNotSupportedException 
 	 * @throws ConcernNotFoundException 
+	 * @throws Exception 
 	 */
 
-	abstract public Object execute(Object object) throws JMException, CloneNotSupportedException, ClassNotFound, PackageNotFound, NotFoundException, ConcernNotFoundException;
+	abstract public Object execute(Object object) throws  Exception;
 
 	// abstract public Object execute(Object object, OPLA_agregacao_MAC_MSI
 	// problem) throws JMException;

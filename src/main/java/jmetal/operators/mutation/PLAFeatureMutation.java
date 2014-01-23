@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -349,16 +350,12 @@ public class PLAFeatureMutation extends Mutation {
 		}
     }
 
-	private void moveMethodToNewClass(Architecture arch, Class sourceClass, List<Method> MethodsClass, Class newClass) throws JMException {
+	private void moveMethodToNewClass(Architecture arch, Class sourceClass, List<Method> MethodsClass, Class newClass) throws Exception {
 		Method targetMethod = randomObject (MethodsClass);
 		sourceClass.moveMethodToClass(targetMethod, newClass);
 		//if (targetMethod.isAbstract()) targetMethod.setAbstract(false);
 		for (Concern con: targetMethod.getOwnConcerns()){
-			try {
-				newClass.addConcern(con.getName());
-			} catch (ConcernNotFoundException e) {
-				e.printStackTrace();
-			}
+			newClass.addConcern(con.getName());
 		}
 		createAssociation(arch, newClass, sourceClass);
 	}
@@ -378,28 +375,11 @@ public class PLAFeatureMutation extends Mutation {
 //		arch.getAllRelationships().add(newRelationship);
 //	}
 
-	private void moveAttributeSameComponent(Architecture arch, Class sourceClass, List<Attribute> AttributesClass, Class newClass) throws JMException {
+	private void moveAttributeToNewClass(Architecture arch, Class sourceClass, List<Attribute> AttributesClass, Class newClass)	throws Exception {
 		Attribute targetAttribute = randomObject (AttributesClass);
 		sourceClass.moveAttributeToClass(targetAttribute, newClass);
 		for (Concern con: targetAttribute.getOwnConcerns()){
-			try {
-				newClass.addConcern(con.getName());
-			} catch (ConcernNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
-		createAssociation(arch, newClass, sourceClass);
-	}
-
-	private void moveAttributeToNewClass(Architecture arch, Class sourceClass, List<Attribute> AttributesClass, Class newClass)	throws JMException {
-		Attribute targetAttribute = randomObject (AttributesClass);
-		sourceClass.moveAttributeToClass(targetAttribute, newClass);
-		for (Concern con: targetAttribute.getOwnConcerns()){
-			try {
-				newClass.addConcern(con.getName());
-			} catch (ConcernNotFoundException e) {
-				e.printStackTrace();
-			}
+			newClass.addConcern(con.getName());
 		}
 		createAssociation(arch, newClass, sourceClass);
 
@@ -474,18 +454,15 @@ public class PLAFeatureMutation extends Mutation {
                 		final Concern selectedConcern = randomObject(concernsSelectedComp);
                 		List<Package> allComponentsAssignedOnlyToConcern = new ArrayList<Package> (searchComponentsAssignedToConcern(selectedConcern,allComponents));
                 		if (allComponentsAssignedOnlyToConcern.size() == 0 ){
-                			final Package newComponent = arch.createPackage("Package"+ OPLA.contComp_ + getSuffix(selectedComp));
                 			OPLA.contComp_++;
-                    		modularizeConcernInComponent(newComponent, selectedConcern,arch);
+                    		modularizeConcernInComponent(allComponents, arch.createPackage("Package"+ OPLA.contComp_ + getSuffix(selectedComp)), selectedConcern,arch);
                 		}
                 		else{
                 			if (allComponentsAssignedOnlyToConcern.size() == 1 ){
-                				final Package targetComponent = allComponentsAssignedOnlyToConcern.get(0);
-                    			modularizeConcernInComponent(targetComponent, selectedConcern, arch);
+                    			modularizeConcernInComponent(allComponents, allComponentsAssignedOnlyToConcern.get(0), selectedConcern, arch);
                     		}
                     		else {
-                    			final Package targetComponent = randomObject(allComponentsAssignedOnlyToConcern);
-                    			modularizeConcernInComponent(targetComponent, selectedConcern,arch);
+                    			modularizeConcernInComponent(allComponents, randomObject(allComponentsAssignedOnlyToConcern), selectedConcern,arch);
                     		}
                 		}
                 		 allComponentsAssignedOnlyToConcern.clear();
@@ -528,30 +505,38 @@ public class PLAFeatureMutation extends Mutation {
 		return listOfOwnedConcern;
 	}
 
-	private void modularizeConcernInComponent(Package targetComponent, Concern concern, Architecture arch) {
-		final List<Package> allComponents = new ArrayList<Package>(arch.getAllPackages());
-		for (Package comp : allComponents) {
-			if (!comp.equals(targetComponent) && checkSameLayer(comp, targetComponent)) {
-				final Set<Interface> allInterfaces = new HashSet<Interface>(comp.getAllInterfaces());
-				allInterfaces.addAll(comp.getImplementedInterfaces());
-
-				for (Interface interfaceComp : allInterfaces) {
-						if (interfaceComp.containsConcern(concern) && interfaceComp.getOwnConcerns().size() == 1) {
-							moveInterfaceToComponent(interfaceComp, targetComponent, comp, arch, concern); // EDIPO TESTADO
-						} else {
-							List<Method> operationsInterfaceComp = new ArrayList<Method>(interfaceComp.getOperations());
-							for (Method operation : operationsInterfaceComp) {
-								if (operation.containsConcern(concern) && operation.getOwnConcerns().size() == 1)
-									moveOperationToComponent(operation, interfaceComp, targetComponent, comp, arch, concern);
+	private void modularizeConcernInComponent(List<Package> allComponents, Package targetComponent, Concern concern, Architecture arch) {
+		try{
+			Iterator<Package> itrComp = allComponents.iterator();
+			while(itrComp.hasNext()){
+				Package comp = itrComp.next();
+				if (!comp.equals(targetComponent) && checkSameLayer(comp, targetComponent)) {
+					final Set<Interface> allInterfaces = new HashSet<Interface>(comp.getAllInterfaces());
+					allInterfaces.addAll(comp.getImplementedInterfaces());
+					
+					Iterator<Interface> itrInterface = allInterfaces.iterator();
+					while(itrInterface.hasNext()){
+						Interface interfaceComp = itrInterface.next();
+							if (interfaceComp.getOwnConcerns().size() == 1 && interfaceComp.containsConcern(concern)) {
+								moveInterfaceToComponent(interfaceComp, targetComponent, comp, arch, concern); // EDIPO TESTADO
+							} else {
+								List<Method> operationsInterfaceComp = new ArrayList<Method>();
+								Iterator<Method> itrOperation = operationsInterfaceComp.iterator();
+								while(itrOperation.hasNext()){
+									Method operation = itrOperation.next();
+									if (operation.getOwnConcerns().size() == 1 && operation.containsConcern(concern))
+										moveOperationToComponent(operation, interfaceComp, targetComponent, comp, arch, concern);
+								}
 							}
 						}
-					}
-
-				final List<Class> allClasses = new ArrayList<Class>(comp.getAllClasses());
-				if (allClasses.size() >= 1 ) {
-					for (Class classComp : allClasses) {
+					
+					allInterfaces.clear();
+					final List<Class> allClasses = new ArrayList<Class>(comp.getAllClasses());
+					Iterator<Class> ItrClass = allClasses.iterator();
+					while(ItrClass.hasNext()){
+						Class classComp = ItrClass.next();
 						if (comp.getAllClasses().contains(classComp)) {
-							if ((classComp.containsConcern(concern)) && (classComp.getOwnConcerns().size() == 1)) {
+							if ((classComp.getOwnConcerns().size() == 1) && (classComp.containsConcern(concern))) {
 								if (!searchForGeneralizations(classComp)) //realiza a mutação em classe que nãoo estão numa hierarquia de herança
 									moveClassToComponent(classComp,	targetComponent, comp, arch, concern);
 								else
@@ -560,14 +545,18 @@ public class PLAFeatureMutation extends Mutation {
 								if (!searchForGeneralizations(classComp)) {
 									if (!isVarPointOfConcern(arch, classComp, concern) && !isVariantOfConcern(arch, classComp, concern)) {
 										final List<Attribute> attributesClassComp = new ArrayList<Attribute>(classComp.getAllAttributes());
-										for (Attribute attribute : attributesClassComp) {
-											if (attribute.containsConcern(concern) && attribute.getOwnConcerns().size() == 1)
+										Iterator<Attribute> irtAttribute = attributesClassComp.iterator();
+										while(irtAttribute.hasNext()){
+											Attribute attribute = irtAttribute.next();
+											if (attribute.getOwnConcerns().size() == 1 && attribute.containsConcern(concern))
 												moveAttributeToComponent(attribute,	classComp, targetComponent, comp, arch, concern);
 										}
 										attributesClassComp.clear();
 										final List<Method> methodsClassComp = new ArrayList<Method>(classComp.getAllMethods());
-										for (Method method : methodsClassComp) {
-											if (method.containsConcern(concern) && method.getOwnConcerns().size() == 1)
+										Iterator<Method> irtMethod = methodsClassComp.iterator();
+										while(irtMethod.hasNext()){
+											Method method = irtMethod.next();
+											if (method.getOwnConcerns().size() == 1 && method.containsConcern(concern))
 												moveMethodToComponent(method, classComp, targetComponent, comp, arch, concern);
 										}
 										attributesClassComp.clear();
@@ -576,10 +565,12 @@ public class PLAFeatureMutation extends Mutation {
 							}
 						}
 					}
+					allClasses.clear();
 				}
 			}
+		}catch(Exception e){
+			System.err.println(e.getMessage());
 		}
-		
 	}
 
 
@@ -587,31 +578,27 @@ public class PLAFeatureMutation extends Mutation {
 		sourceComp.moveClassToPackage(classComp, targetComp);
 	}
 
-	private void moveAttributeToComponent(Attribute attribute, Class classComp, Package targetComp, Package sourceComp, Architecture architecture, Concern concern){
+	private void moveAttributeToComponent(Attribute attribute, Class classComp, Package targetComp, Package sourceComp, Architecture architecture, Concern concern) throws ConcernNotFoundException{
 		final Class targetClass = findOrCreateClassWithConcern(targetComp, concern);
 		classComp.moveAttributeToClass(attribute, targetClass);
 		createAssociation(architecture, targetClass, classComp);
 	}
 
-	private void moveMethodToComponent(Method method, Class classComp, Package targetComp, Package sourceComp, Architecture architecture, Concern concern){
+	private void moveMethodToComponent(Method method, Class classComp, Package targetComp, Package sourceComp, Architecture architecture, Concern concern) throws ConcernNotFoundException{
 		final Class targetClass = findOrCreateClassWithConcern(targetComp, concern);
 		classComp.moveMethodToClass(method, targetClass);
 		createAssociation(architecture, targetClass, classComp);
 	}
 
 	//add por Édipo
-	private Class findOrCreateClassWithConcern(Package targetComp, Concern concern) {
+	private Class findOrCreateClassWithConcern(Package targetComp, Concern concern) throws ConcernNotFoundException {
 		Class targetClass = null;
 		for (Class cls : targetComp.getAllClasses())
 			if (cls.containsConcern(concern)) targetClass = cls;
 
 		if (targetClass == null){
-			try {
-				targetClass = targetComp.createClass("Class"+ OPLA.contClass_++,false);
-				targetClass.addConcern(concern.getName());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			targetClass = targetComp.createClass("Class"+ OPLA.contClass_++,false);
+			targetClass.addConcern(concern.getName());
 		}
 		return targetClass;
 	}
@@ -677,18 +664,14 @@ public class PLAFeatureMutation extends Mutation {
 		return klasses;
 	}
 
-	private void moveOperationToComponent(Method operation, Interface sourceInterface, Package targetComp, Package sourceComp, Architecture architecture, Concern concern){
+	private void moveOperationToComponent(Method operation, Interface sourceInterface, Package targetComp, Package sourceComp, Architecture architecture, Concern concern) throws ConcernNotFoundException{
 		Interface targetInterface = null;
 		targetInterface = searchForInterfaceWithConcern(concern, targetComp);
 
 		if(targetInterface == null){
 			targetInterface = targetComp.createInterface("Interface"+ OPLA.contInt_++);
 			sourceInterface.moveOperationToInterface(operation, targetInterface);
-			try {
-				targetInterface.addConcern(concern.getName());
-			} catch (ConcernNotFoundException e) {
-				e.printStackTrace();
-			}
+			targetInterface.addConcern(concern.getName());
 		}else{
 			sourceInterface.moveOperationToInterface(operation, targetInterface);
 		}
@@ -824,7 +807,7 @@ public class PLAFeatureMutation extends Mutation {
 		return null;
 	}
 
-	public Object execute(Object object) throws JMException {
+	public Object execute(Object object) throws Exception {
         Solution solution = (Solution) object;
         Double probability = (Double) getParameter("probability");
 
@@ -835,11 +818,7 @@ public class PLAFeatureMutation extends Mutation {
             throw new JMException("Exception in " + name + ".execute()");
         }
 
-        try {
-        	this.doMutation(mutationProbability_, solution);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        this.doMutation(mutationProbability_, solution);
 
         if(!this.isValidSolution(((Architecture) solution.getDecisionVariables()[0]))){
             Architecture clone = null;
@@ -854,18 +833,16 @@ public class PLAFeatureMutation extends Mutation {
     //-------------------------------------------------------------------------------------------------
 
     public <T> T randomObject(List<T> allObjects)  throws JMException   {
-    	Collections.shuffle(allObjects);
-    	return allObjects.get(0);
-//        int numObjects= allObjects.size();
-//        int key;
-//        T object;
-//        if (numObjects == 0)
-//        	object = null;
-//            else{
-//        	  key = PseudoRandom.randInt(0, numObjects-1);
-//        	  object = allObjects.get(key);
-//           }
-//        return object;
+        int numObjects= allObjects.size();
+        int key;
+        T object;
+        if (numObjects == 0)
+        	object = null;
+            else{
+        	  key = PseudoRandom.randInt(0, numObjects-1);
+        	  object = allObjects.get(key);
+           }
+        return object;
     }
 
   //-------------------------------------------------------------------------------------------------

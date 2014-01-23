@@ -117,17 +117,9 @@ public class PAES extends Algorithm {
       Solution mutatedIndividual = new Solution(solution);  
       try {
 		mutationOperator.execute(mutatedIndividual);
-	} catch (CloneNotSupportedException e) {
+	} catch (Exception e) {
 		e.printStackTrace();
-	} catch (ClassNotFound e) {
-		e.printStackTrace();
-	} catch (PackageNotFound e) {
-		e.printStackTrace();
-	} catch (NotFoundException e) {
-		e.printStackTrace();
-	} catch (ConcernNotFoundException e) {
-		e.printStackTrace();
-	}
+	} 
             
       problem_.evaluateConstraints(mutatedIndividual);
       problem_.evaluate(mutatedIndividual);                     

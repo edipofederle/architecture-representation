@@ -21,19 +21,17 @@
 
 package jmetal.operators.localSearch;
 
+import java.util.Comparator;
+import java.util.HashMap;
+
 import jmetal.core.Operator;
 import jmetal.core.Problem;
 import jmetal.core.Solution;
 import jmetal.core.SolutionSet;
-import jmetal.util.comparators.DominanceComparator;
-import jmetal.util.comparators.OverallConstraintViolationComparator;
 import jmetal.operators.mutation.Mutation;
 import jmetal.util.JMException;
-import jmetal.problems.OPLA;
-
-import java.util.Comparator;
-import java.util.HashMap;
-
+import jmetal.util.comparators.DominanceComparator;
+import jmetal.util.comparators.OverallConstraintViolationComparator;
 import arquitetura.exceptions.ClassNotFound;
 import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.exceptions.NotFoundException;
@@ -143,7 +141,11 @@ public class MutationLocalSearch extends LocalSearch {
     {
       i++;
       Solution mutatedSolution = new Solution(solution);
-      mutationOperator_.execute(mutatedSolution);
+      try {
+		mutationOperator_.execute(mutatedSolution);
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
             
       // Evaluate the getNumberOfConstraints
       if (problem_.getNumberOfConstraints() > 0)

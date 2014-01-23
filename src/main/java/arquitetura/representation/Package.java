@@ -136,7 +136,7 @@ public class Package extends Element {
 	 * @return {@link Class}
 	 * @throws Exception
 	 */
-	public Class createClass(String className, boolean isAbstract) throws Exception {
+	public Class createClass(String className, boolean isAbstract)  {
 		Class c = new Class(getRelationshipHolder(), className, isAbstract, this.getName());
 		this.classes.add(c);
 		return c;
