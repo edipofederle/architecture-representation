@@ -65,6 +65,7 @@ public class DocumentManager extends XmiHelper {
 	private void copyProfilesToDestination() {
 		String pathSmarty = ReaderConfig.getPathToProfileSMarty();
 		String pathConcern = ReaderConfig.getPathToProfileConcerns();
+		String pathToProfileRelationships = ReaderConfig.getPathToProfileRelationships();
 		
 		createResourcesDirectoryIfNotExist();
 		

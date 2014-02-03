@@ -115,6 +115,10 @@ public class DependencyNode extends XmiHelper {
 		edges.appendChild(bendpoints);
 		
 		node.appendChild(edges);
+		
+		//Código para aparecer estereótipos nos relacionamentos
+		//RelationshipsXMI.enableVisibleStereotypes(this.docNotation);
+		
 		}catch(Exception e){}
 	}
 

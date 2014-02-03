@@ -51,11 +51,25 @@ public class ReaderConfigTest {
 		assertNotNull(path);
 	}
 	
+	
+	@Test 
+	public void shouldReturnPathToRelationshipProfile(){
+		String path = ReaderConfig.getPathToProfileRelationships();
+		assertNotNull(path);
+	}
+	
 	@Test
 	public void shouldProfileFileExistsOnConfiguredPath(){
 		File profile = new File(ReaderConfig.getPathToProfileSMarty());
 		assertTrue(profile.exists());
 	}
+	
+	@Test
+	public void dontReturnConfigFileConfIfISetOne6(){
+		ReaderConfig.setPathProfileRelationship("new/path/");
+		assertEquals("new/path/", ReaderConfig.getPathToProfileRelationships());
+	}
+	
 	
 	@Test
 	public void semPerfilSetado(){
@@ -106,6 +120,6 @@ public class ReaderConfigTest {
 		ReaderConfig.setDirTarget("new/path/");
 		assertEquals("new/path/", ReaderConfig.getDirTarget());
 	}
-	
+
 	
 }

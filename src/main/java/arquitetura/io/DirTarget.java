@@ -7,7 +7,8 @@ public class DirTarget {
 	private String pathToProfile;
 	private String pathToProfileConcern;
 	private String pathToTemplateModelsDirectory;
-
+	private String pathToProfileRelationships;
+	
 	/**
 	 * @return the directoryToSaveModels
 	 */
@@ -65,6 +66,13 @@ public class DirTarget {
 	public void setPathToTemplateModelsDirectory(String pathToTemplateModelsDirectory) {
 		this.pathToTemplateModelsDirectory = pathToTemplateModelsDirectory;
 	}
-	
-	
+
+	public String getPathToProfileRelationships() {
+		return pathToProfileRelationships;
+	}
+
+	public void setPathToProfileRelationships(String pathToProfileRelationships) {
+		this.pathToProfileRelationships = pathToProfileRelationships;
+	}
+
 }
