@@ -68,13 +68,9 @@ public class GeneralizationRelationship extends Relationship {
 	 * @return
 	 */
 	public Set<Element> getAllChildrenForGeneralClass() {
-		List<GeneralizationRelationship> generalizations = this.relationshipHolder.getAllGeneralizations();
 		Set<Element> childreen = new HashSet<Element>();
-
-		String general = this.parent.getName();
-
-		for (GeneralizationRelationship generalization : generalizations)
-			if (generalization.getParent().getName().equalsIgnoreCase(general))
+		for (GeneralizationRelationship generalization : this.relationshipHolder.getAllGeneralizations())
+			if (generalization.getParent().getName().equalsIgnoreCase(this.parent.getName()))
 				childreen.add(generalization.getChild());
 
 		return Collections.unmodifiableSet(childreen);

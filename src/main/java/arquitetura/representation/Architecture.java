@@ -70,7 +70,7 @@ public class Architecture extends Variable {
 		for(Interface i : this.interfaces)
 			elts.add(i);
 		
-		return  Collections.unmodifiableList(elts);
+		return  elts;
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class Architecture extends Variable {
 		for (Map.Entry<String, Concern> entry : ConcernHolder.INSTANCE.getConcerns().entrySet()) {
 			concerns.add(entry.getValue());
 		}
-		return Collections.unmodifiableList(concerns);
+		return concerns;
 	}
 	
 	/**

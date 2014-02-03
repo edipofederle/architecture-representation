@@ -69,6 +69,7 @@ public class NSGAII extends Algorithm {
     Operator crossoverOperator;
     Operator selectionOperator;
 
+    
     Distance distance = new Distance();
 
     //Read the parameters
@@ -87,29 +88,28 @@ public class NSGAII extends Algorithm {
     crossoverOperator = operators_.get("crossover");
     selectionOperator = operators_.get("selection");
 
+    
+    try{
     // Create the initial solutionSet
     Solution newSolution;
     for (int i = 0; i < populationSize; i++) {
       newSolution = new Solution(problem_);
-      // criar a diversidade na populacao inicial por meio da geracao de mutantes a partir da PLA Original. 
-      // A PLA original � mantida como primeiro elementos da populacao inicial (i=0)
-    //Thelma - Dez2013
-      if (i>0)
-		try {
-			mutationOperator.execute(newSolution);
-		}catch (Exception e) {
-			System.err.println(e.getMessage());
-		}
-      
+      // criar a diversidade na populacao inicial
+      mutationOperator.execute(newSolution);
       problem_.evaluate(newSolution);
+      
       //problem_.evaluateConstraints(newSolution);
       evaluations++;
       population.add(newSolution);
-    } //for       
+    } //for  
+    }catch(Exception e){
+    	System.err.println(e);
+    }
     
+    try{
     // Generations 
     while (evaluations < maxEvaluations) {
-    	System.out.println("Executando .... Evaluations="+evaluations + ". maxEvaluation="+maxEvaluations );
+    	System.out.println("==>" + evaluations);
       // Create the offSpring solutionSet      
       offspringPopulation = new SolutionSet(populationSize);
       Solution[] parents = new Solution[2];
@@ -117,24 +117,16 @@ public class NSGAII extends Algorithm {
       for (int i = 0; i < (populationSize / 2); i++) {
         if (evaluations < maxEvaluations) {
           //obtain parents
-          try {
-			parents[0] = (Solution) selectionOperator.execute(population);
-
-			parents[1] = (Solution) selectionOperator.execute(population);
-		
+          parents[0] = (Solution) selectionOperator.execute(population);
+          parents[1] = (Solution) selectionOperator.execute(population);
           
          
-          Solution[] offSpring = null;
-			offSpring = (Solution[]) crossoverOperator.execute(parents);
-		
+          Solution[] offSpring = (Solution[]) crossoverOperator.execute(parents);
           problem_.evaluateConstraints(offSpring[0]);
           problem_.evaluateConstraints(offSpring[1]);         
        
-			mutationOperator.execute(offSpring[0]);
-		
-			mutationOperator.execute(offSpring[1]);
-	
-		
+          mutationOperator.execute(offSpring[0]);
+          mutationOperator.execute(offSpring[1]);
           problem_.evaluateConstraints(offSpring[0]);
           problem_.evaluateConstraints(offSpring[1]);
           
@@ -144,10 +136,6 @@ public class NSGAII extends Algorithm {
           offspringPopulation.add(offSpring[0]);
           offspringPopulation.add(offSpring[1]);
           evaluations += 2;
-          } catch (Exception e) {
-  			e.printStackTrace();
-  		}
-          
         } // if                            
       } // for
 
@@ -206,6 +194,9 @@ public class NSGAII extends Algorithm {
         } // if
       } // if
     } // while
+    }catch(Exception e){
+    	
+    }
 
     // Return as output parameter the required evaluations
     setOutputParameter("evaluations", requiredEvaluations);

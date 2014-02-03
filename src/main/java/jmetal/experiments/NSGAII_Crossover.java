@@ -38,7 +38,7 @@ public class NSGAII_Crossover {
          int totalDiscardedSolutions = 0;
          int discardedSolutions[] = new int[runsNumber];
          
-         crossoverProbability_ = 0.1;  
+         crossoverProbability_ = 0.0;  
          mutationProbability_ = 0.9; 
          String context = "OPLA";
        //Thelma - Dez2013 linha adicionada para identificar o algoritmo no nome do arquivo do hypervolume
@@ -54,22 +54,19 @@ public class NSGAII_Crossover {
          }
 
 
-         String plas[] = new String[]{
+        String plas[] = new String[]{
         		"/Users/elf/mestrado/sourcesMestrado/arquitetura/src/test/java/resources/agmfinal/agm.uml"  };
-         String xmiFilePath;
+        String xmiFilePath;
                  
-         for (String pla : plas) {
-
-
-               	xmiFilePath = pla;
-
+        for (String pla : plas) {
+        	xmiFilePath = pla;
          
      	OPLA problem = null;
-			try {
-				problem = new OPLA(xmiFilePath);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		try {
+			problem = new OPLA(xmiFilePath);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 			
          Algorithm algorithm; 
          SolutionSet todasRuns = new SolutionSet();

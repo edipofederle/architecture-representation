@@ -244,9 +244,8 @@ public class ArchitectureTest extends TestHelper {
 		targetDirExport = ReaderConfig.getDirExportTarget();
 	}
 	
-	@Test(expected=ClassNotFound.class)
-	public void shouldRaiseClassNotFoundExceptionWhenClassNotFound() throws ClassNotFound{
-		architecture.findClassByName("noClass");
+	public void shouldReturnsNullWhenClassNotFound() throws ClassNotFound{
+		assertNull(architecture.findClassByName("noClass"));
 	}
 	
 	@Test
@@ -256,9 +255,8 @@ public class ArchitectureTest extends TestHelper {
 		assertEquals("Interface", a.findInterfaceByName("Interface").getName());
 	}
 	
-	@Test(expected=InterfaceNotFound.class)
-	public void shouldRaiseInterfaceNotFoundExceptionWhenInterfaceNotFound() throws InterfaceNotFound{
-		architecture.findInterfaceByName("noInterface");
+	public void shouldReturnsNullWhenInterfaceNotFound() throws InterfaceNotFound{
+		assertNull(architecture.findInterfaceByName("noInterface"));
 	}
 	
 	@Test
@@ -969,9 +967,7 @@ public class ArchitectureTest extends TestHelper {
 	@Test
 	public void testRemovePackage() throws Exception {
 		Architecture a = givenAArchitecture("removePackage");
-		
 		Package p = a.findPackageByName("Package1");
-		
 		a.removePackage(p);
 		
 		assertEquals(0, a.getAllPackages().size());
@@ -979,12 +975,7 @@ public class ArchitectureTest extends TestHelper {
 		assertEquals(0, a.getRelationshipHolder().getAllAssociations().size());
 		assertNotNull(a.findClassByName("Class3"));
 		assertNotNull(a.findClassByName("Class2"));
-		
-		try{
-			a.findClassByName("Class1").isEmpty();
-		}catch(Exception e){
-			assertEquals("Class Class1 can not be found.\n", e.getMessage() );
-		}
+		assertNull(a.findClassByName("Class1"));
 	}
 	
 	/**

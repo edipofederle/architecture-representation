@@ -26,6 +26,7 @@ public abstract class Element implements Serializable {
 	private Architecture architecture;
 	private String typeElement;
 	private String namespace;
+	private boolean belongsToGeneralization;
 	
 	public Element(String name, Variant variant, String typeElement, String namespace, String id) {
 		setId(id);
@@ -93,7 +94,7 @@ public abstract class Element implements Serializable {
 	 * @return List<{@link Concern}>
 	 */
 	public Set<Concern> getOwnConcerns() {
-		if(concerns.isEmpty())
+		if( concerns == null || concerns.isEmpty())
 			return Collections.emptySet();
 		return concerns;
 	}
@@ -154,6 +155,14 @@ public abstract class Element implements Serializable {
 	 */
 	public void setVariationPoint(VariationPoint variationPoint) {
 		this.variationPoint = variationPoint;
+	}
+	
+	public boolean belongsToGeneralization() {
+		return this.belongsToGeneralization;
+	}
+
+	public void setBelongsToGeneralization(boolean belongsToGeneralization) {
+		this.belongsToGeneralization = belongsToGeneralization;
 	}
 	
 

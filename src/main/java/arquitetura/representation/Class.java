@@ -329,11 +329,11 @@ public class Class extends Element {
 	}
 
 	public Set<Interface> getImplementedInterfaces() {
-		return Collections.unmodifiableSet(implementedInterfaces);
+		return implementedInterfaces;
 	}
 
 	public Set<Interface> getRequiredInterfaces() {
-		return Collections.unmodifiableSet(requiredInterfaces);
+		return requiredInterfaces;
 	}
 
 	public void removeImplementedInterface(Interface inter) {
@@ -380,7 +380,8 @@ public class Class extends Element {
 	}
 
 	public Set<Relationship> getRelationships() {
-		return Collections.unmodifiableSet(RelationshiopCommons.getRelationships(relationshipHolder.getRelationships(), this));
+		return RelationshiopCommons.getRelationships(relationshipHolder.getRelationships(), this);
 	}
 
+	
 }

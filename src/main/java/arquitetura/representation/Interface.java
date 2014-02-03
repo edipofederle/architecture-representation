@@ -183,7 +183,7 @@ public class Interface extends Element {
 				dependencies.add(dependency);
 		}
 		
-		return Collections.unmodifiableList(dependencies);
+		return dependencies;
 	}
 	
 	/**

@@ -481,9 +481,6 @@ public class OPLA extends Problem {
 
 	public void evaluateConstraints(Solution solution) throws JMException {
 		List<Package> allComponents = new ArrayList<Package>(((Architecture) solution.getDecisionVariables()[0]).getAllPackages());
-		if (allComponents.isEmpty())
-			System.out.println("Arquitetura chegou sem componentes no evaluate constraints");
-
 		for (Package comp : allComponents) {
 			List<Class> allClasses = new ArrayList<Class>(comp.getAllClasses());
 			if (!(allClasses.isEmpty())) {
@@ -501,6 +498,7 @@ public class OPLA extends Problem {
 					}
 				}
 			}
+			
 			List<Interface> allItfsComp = new ArrayList<Interface>(comp.getImplementedInterfaces());
 			if (!(allItfsComp.isEmpty())) {
 				Iterator<Interface> iteratorInterfaces = allItfsComp.iterator();
@@ -510,24 +508,16 @@ public class OPLA extends Problem {
 					if (comp.getImplementedInterfaces().size() == 1)
 						ultimaInterface = true;
 					if (itf.getOperations().isEmpty() && !ultimaInterface) {
-						try {
-							((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
+						((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
 						// this.removeInterfaceRelationships(itf, (Architecture)
 						// solution.getDecisionVariables()[0]);
 					}
-					if (itf.getOperations().isEmpty() && ultimaInterface
-							&& comp.getAllClasses().size() < 1) {
-						try {
-							((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
+					if (itf.getOperations().isEmpty() && ultimaInterface && comp.getAllClasses().size() < 1) {
+						((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
 					}
 				}
 			}
+			allItfsComp.clear();
 			
 			Iterator<Interface> iteratorInterfaces = ((Architecture) solution.getDecisionVariables()[0]).getAllInterfaces().iterator();
 			while (iteratorInterfaces.hasNext()) {
@@ -536,20 +526,12 @@ public class OPLA extends Problem {
 				if (comp.getImplementedInterfaces().size() == 1)
 					ultimaInterface = true;
 				if (itf.getOperations().isEmpty() && !ultimaInterface) {
-					try {
-						((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+					((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
 					// this.removeInterfaceRelationships(itf, (Architecture)
 					// solution.getDecisionVariables()[0]);
 				}
 				if (itf.getOperations().isEmpty() && ultimaInterface && comp.getAllClasses().size() < 1) {
-					try {
-						((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+					((Architecture) solution.getDecisionVariables()[0]).removeInterface(itf);
 				}
 			}
 			
@@ -558,5 +540,7 @@ public class OPLA extends Problem {
 				((Architecture) solution.getDecisionVariables()[0]).removePackage(comp);
 			}
 		}
+		allComponents.clear();
+		
 	}
 }

@@ -65,7 +65,7 @@ public class Package extends Element {
 	 * @return
 	 */
 	public Set<Interface> getAllInterfaces(){
-		return Collections.unmodifiableSet(this.interfaces);
+		return this.interfaces;
 	}
 	/**
 	 * Retorna todas {@link Class} que pertencem ao pacote. 
@@ -73,7 +73,7 @@ public class Package extends Element {
 	 * @return List<{@link Class}>
 	 */
 	public Set<Class> getAllClasses(){
-		return Collections.unmodifiableSet(this.classes);
+		return this.classes;
 	}
 	
 	/**
@@ -103,15 +103,15 @@ public class Package extends Element {
 			implementedInterfecesForClassIntoPackage.addAll(klass.getImplementedInterfaces());
 		
 		implementedInterfacesForPackage.addAll(implementedInterfecesForClassIntoPackage);
-		return Collections.unmodifiableSet(implementedInterfacesForPackage);
+		return implementedInterfacesForPackage;
 	} 
 	
 	public Set<Interface> getOnlyInterfacesImplementedByPackage(){
-		return Collections.unmodifiableSet(implementedInterfaces);
+		return implementedInterfaces;
 	}
 	
 	public Set<Interface> getOnlyInterfacesRequiredByPackage() {
-		return Collections.unmodifiableSet(requiredInterfaces);
+		return requiredInterfaces;
 	}
 
 	public void addRequiredInterface(Interface interfacee) {
@@ -125,7 +125,7 @@ public class Package extends Element {
 			requiredInterfacesForPackage.addAll(klass.getRequiredInterfaces());
 		
 		implementedInterfacesForPackage.addAll(requiredInterfacesForPackage);
-		return Collections.unmodifiableSet(implementedInterfacesForPackage);
+		return implementedInterfacesForPackage;
 	}
 
 	/**
@@ -295,7 +295,7 @@ public class Package extends Element {
 	}
 	
 	public Set<Relationship> getRelationships() {
-		return Collections.unmodifiableSet(RelationshiopCommons.getRelationships(relationshipHolder.getRelationships(), this));
+		return RelationshiopCommons.getRelationships(relationshipHolder.getRelationships(), this);
 	}
 	
 }

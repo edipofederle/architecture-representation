@@ -33,8 +33,6 @@ public class NSGAII_OPLA_FeatMut {
          populationSize_ = 100; //100
          maxEvaluations_ = 30000; //300 gera��es
          
-         
-         
          crossoverProbability_ = 0.0; 
          mutationProbability_ = 0.9;
          String context = "OPLA";

@@ -30,7 +30,7 @@ public class CrossoverOperations {
 	
 	public static void addAttributesRealizingFeatureToOffspring(Concern feature, Class classComp, Package comp, Architecture offspring) {
 
-			Class targetClass = offspring.findClassByName(classComp.getName()).get(0);
+		Class targetClass = offspring.findClassByName(classComp.getName()).get(0);
 		List<Attribute> allAttributes = new ArrayList<Attribute>(classComp.getAllAttributes());
 		if (!allAttributes.isEmpty()) {
 			Iterator<Attribute> iteratorAttributes = allAttributes.iterator();

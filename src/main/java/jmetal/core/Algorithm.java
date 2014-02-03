@@ -76,6 +76,7 @@ public abstract class Algorithm implements Serializable {
 	 * 
 	 * @return a <code>SolutionSet</code> that is a set of non dominated
 	 *         solutions as a result of the algorithm execution
+	 * @throws Exception 
 	 */
 	public abstract SolutionSet execute() throws JMException, ClassNotFoundException;
 

@@ -97,7 +97,7 @@ public class RelationshipsHolder {
 
 		final List<GeneralizationRelationship> generalizations = UtilResources.filter(getRelationships(), isValid);
 		
-		return Collections.unmodifiableList(generalizations);
+		return generalizations;
 	}
 	
 	public   List<AssociationRelationship> getAllAssociationsRelationships() {
@@ -129,7 +129,7 @@ public class RelationshipsHolder {
 
 		final List<AssociationRelationship> allAssociations = UtilResources.filter(getRelationships(), isValid);
 		
-		return Collections.unmodifiableList(allAssociations);
+		return allAssociations;
 
 	}
 	
@@ -141,7 +141,7 @@ public class RelationshipsHolder {
 				compositions.add(associationRelationship);
 			}
 		}
-		return Collections.unmodifiableList(compositions); 
+		return compositions; 
 	}
 	
 	public   List<AssociationRelationship> getAllAgragations() {
@@ -152,7 +152,7 @@ public class RelationshipsHolder {
 				agragation.add(associationRelationship);
 			}
 		}
-		return Collections.unmodifiableList(agragation); 
+		return agragation; 
 	}
 
 	public   List<UsageRelationship> getAllUsage() {
@@ -162,9 +162,7 @@ public class RelationshipsHolder {
 			}
 		};
 
-		final List<UsageRelationship> allUsages = UtilResources.filter(getRelationships(), isValid);
-		
-		return Collections.unmodifiableList(allUsages);
+		return UtilResources.filter(getRelationships(), isValid);
 	}
 
 	public   List<DependencyRelationship> getAllDependencies() {
@@ -174,9 +172,7 @@ public class RelationshipsHolder {
 			}
 		};
 
-		final List<DependencyRelationship> allDependencies = UtilResources.filter(getRelationships(), isValid);
-		
-		return Collections.unmodifiableList(allDependencies);
+		return UtilResources.filter(getRelationships(), isValid);
 	}
 
 	public   List<RealizationRelationship> getAllRealizations() {
@@ -186,9 +182,7 @@ public class RelationshipsHolder {
 			}
 		};
 
-		final List<RealizationRelationship> allRealizations = UtilResources.filter(getRelationships(), realizations);
-		
-		return Collections.unmodifiableList(allRealizations);
+		return  UtilResources.filter(getRelationships(), realizations);
 	}
 
 	public List<AbstractionRelationship> getAllAbstractions() {
@@ -198,9 +192,8 @@ public class RelationshipsHolder {
 			}
 		};
 
-		final List<AbstractionRelationship> allAbstractions = UtilResources.filter(getRelationships(), realizations);
+		return UtilResources.filter(getRelationships(), realizations);
 		
-		return Collections.unmodifiableList(allAbstractions);
 	}
 	
 
@@ -211,9 +204,7 @@ public class RelationshipsHolder {
 			}
 		};
 
-		final List<AssociationClassRelationship> allAssociationClasses = UtilResources.filter(getRelationships(), associationClasses);
-		
-		return Collections.unmodifiableList(allAssociationClasses);
+		return UtilResources.filter(getRelationships(), associationClasses);
 	}
 
 	public   boolean haveRelationship(Relationship relationship) {

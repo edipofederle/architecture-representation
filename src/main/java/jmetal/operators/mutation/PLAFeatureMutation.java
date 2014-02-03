@@ -150,6 +150,7 @@ public class PLAFeatureMutation extends Mutation {
 				createAssociation(arch, targetClass, sourceClass);
 			}
 		}
+		attributesClass.clear();
 	}
 
 	//Add por Édipo
@@ -160,10 +161,7 @@ public class PLAFeatureMutation extends Mutation {
   //--------------------------------------------------------------------------
 
     public void MoveMethodMutation(double probability, Solution solution, String scope) throws JMException{
-    	LOGGER.info("Executando MoveMethodMutation");
-    	try {
     		if (PseudoRandom.randDouble() < probability) {	
-    			if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
     				final Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
 	            	if (scope == "sameComponent") {
 	            		final Package sourceComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
@@ -208,28 +206,18 @@ public class PLAFeatureMutation extends Mutation {
 	            			ClassesSourceComp.clear();
 	            		}
 	            	}
-            	}else {
-                    Configuration.logger_.log(Level.SEVERE, "MoveMethodMutation.doMutation: invalid type. "
-                            + "{0}", solution.getDecisionVariables()[0].getVariableType());
-                    java.lang.Class<String> cls = java.lang.String.class;
-                    String name = cls.getName();
-                    throw new JMException("Exception in " + name + ".doMutation()");
-                }
     		}
-        } catch (Exception e) {
-			e.printStackTrace();
-		}
     }
 
-	private void moveMethod(Architecture arch, Class targetClass, Class sourceClass, Package targetComp, Package sourceComp) throws JMException, Exception {
+	private void moveMethod(Architecture arch, Class targetClass, Class sourceClass, Package targetComp, Package sourceComp){
 		final List<Method> MethodsClass = new ArrayList<Method> (sourceClass.getAllMethods());
 		if (MethodsClass.size() >=1) {
 			final Method targetMethod = randomObject(MethodsClass);
 			if (sourceClass.moveMethodToClass(targetMethod,targetClass)){
 				createAssociation(arch, targetClass, sourceClass);
 			}
-
 		}
+		MethodsClass.clear();
 	}
 
   //--------------------------------------------------------------------------
@@ -448,7 +436,6 @@ public class PLAFeatureMutation extends Mutation {
             	  final List<Package> allComponents = new ArrayList<Package> (arch.getAllPackages());
             	  if (!allComponents.isEmpty()){
             		 final Package selectedComp = randomObject(allComponents);
-
             		  List<Concern> concernsSelectedComp = new ArrayList<Concern>(selectedComp.getAllConcerns());
                 	  if (concernsSelectedComp.size() > 1){ // = somente para testes
                 		final Concern selectedConcern = randomObject(concernsSelectedComp);
@@ -832,7 +819,7 @@ public class PLAFeatureMutation extends Mutation {
 
     //-------------------------------------------------------------------------------------------------
 
-    public <T> T randomObject(List<T> allObjects)  throws JMException   {
+    public <T> T randomObject(List<T> allObjects)    {
         int numObjects= allObjects.size();
         int key;
         T object;
