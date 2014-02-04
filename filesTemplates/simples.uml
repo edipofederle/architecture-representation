@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:perfilConcerns="http:///schemas/perfilConcerns/_P_xWkHt4EeKj6c5Uq9Fn3w/13" xmlns:smartyProfile="123123" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="">
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+ xmlns:perfilConcerns="http:///schemas/perfilConcerns/_SsrrUBWgEeObs-pQrJ2skQ/19" xmlns:relationships="http:///schemas/relationships/_HfawAIzxEeO6Yt6TRR4QNg/1" xmlns:smartyProfile="http:///schemas/smartyProfile/_HFLycBygEeOSUsTHUSsmgQ/1" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/perfilConcerns/_SsrrUBWgEeObs-pQrJ2skQ/19 resources/perfilConcerns.profile.uml#_SsrrURWgEeObs-pQrJ2skQ http:///schemas/relationships/_HfawAIzxEeO6Yt6TRR4QNg/1 resources/relationships.profile.uml#_HfawAYzxEeO6Yt6TRR4QNg http:///schemas/smartyProfile/_HFLycBygEeOSUsTHUSsmgQ/1 resources/smarty.profile.uml#_HFMZgBygEeOSUsTHUSsmgQ">
   <uml:Model xmi:id="_cooD4LmGEeKQQp7P9cQvNQ" name="model">
     <profileApplication xmi:id="_AZMtQMLoEeK4buShvBMouA">
       <eAnnotations xmi:id="_AZV3MMLoEeK4buShvBMouA" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="smarty.profile.uml#123123"/>
+        <references xmi:type="ecore:EPackage" href="resources/smarty.profile.uml#_HFMZgBygEeOSUsTHUSsmgQ"/>
       </eAnnotations>
-      <appliedProfile href="smarty.profile.uml#12312312"/>
+      <appliedProfile href="resources/smarty.profile.uml#12312312"/>
     </profileApplication>
     <profileApplication xmi:id="_AZWeQMLoEeK4buShvBMouA">
       <eAnnotations xmi:id="_AZdzAMLoEeK4buShvBMouA" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="perfilConcerns.profile.uml#edipo"/>
+        <references xmi:type="ecore:EPackage" href="resources/perfilConcerns.profile.uml#_SsrrURWgEeObs-pQrJ2skQ"/>
       </eAnnotations>
-      <appliedProfile href="perfilConcerns.profile.uml#_9v_84HqaEeK1gM_kVgXLQw"/>
+      <appliedProfile href="resources/perfilConcerns.profile.uml#_9v_84HqaEeK1gM_kVgXLQw"/>
     </profileApplication>
     <profileApplication xmi:id="_AZWeQMLoEeK4buShvBMasss">
       <eAnnotations xmi:id="_AZdzAMLoEeK4buShvBM2323" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="relationships.profile.uml#343434343"/>
+        <references xmi:type="ecore:EPackage" href="resources/relationships.profile.uml#_HfawAYzxEeO6Yt6TRR4QNg"/>
       </eAnnotations>
-      <appliedProfile href="relationships.profile.uml#4343434"/>
+      <appliedProfile href="resources/relationships.profile.uml#4343434"/>
     </profileApplication>
   </uml:Model>
 </xmi:XMI>
