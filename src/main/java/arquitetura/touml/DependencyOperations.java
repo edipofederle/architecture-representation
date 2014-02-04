@@ -1,5 +1,7 @@
 package arquitetura.touml;
 
+import java.util.List;
+
 import arquitetura.exceptions.NotSuppportedOperation;
 import arquitetura.representation.Architecture;
 
@@ -15,6 +17,7 @@ public class DependencyOperations implements Relationship {
 	private String clientElement;
 	private String supplierElement;
 	private String name;
+	private List<String> stereotypes;
 	private Architecture a;
 	
 	public DependencyOperations(DocumentManager doc, Architecture a) {
@@ -43,7 +46,7 @@ public class DependencyOperations implements Relationship {
 	}
 
 	public String build() {
-		final DependencyNode dependencyNode = new DependencyNode(this.documentManager, this.name, this.clientElement, this.supplierElement,a);
+		final DependencyNode dependencyNode = new DependencyNode(this.documentManager, this.name, this.clientElement, this.supplierElement,stereotypes ,a);
 		
 		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
@@ -54,13 +57,17 @@ public class DependencyOperations implements Relationship {
 		return ""; //TODO return id;
 
 	}
+	
+	public DependencyOperations withStereotypes(List<String> stereotypes){
+		this.stereotypes = stereotypes;
+		return this;
+	}
 
 	public DependencyOperations withMultiplicy(String string) throws NotSuppportedOperation {
 		throw new NotSuppportedOperation("Dependency dont have multiplicy");
 	}
 
-	//TODO mover - duplicado
-	public Relationship withName(String relationshipName) {
+	public DependencyOperations withName(String relationshipName) {
 		if(relationshipName == null)
 			this.name = "";
 		else

@@ -243,6 +243,7 @@ public class GenerateArchitecture  extends ArchitectureBase{
 				try{
 					op.forDependency().createRelation()
 								  .withName(d.getName())
+								  .withStereotypes(d.getStereotypes())
 								  .between(d.getClient().getId())
 								  .and(d.getSupplier().getId()).build();
 				}catch(Exception e){

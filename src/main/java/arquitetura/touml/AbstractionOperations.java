@@ -38,7 +38,7 @@ public class AbstractionOperations implements Relationship {
 		}
 
 		public String build() {
-			final DependencyNode dependencyNode = new DependencyNode(this.documentManager, this.name, this.clientElement, this.supplierElement,a);
+			final DependencyNode dependencyNode = new DependencyNode(this.documentManager, this.name, this.clientElement, this.supplierElement, null, a);
 			
 			arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 				public void useTransformation() {

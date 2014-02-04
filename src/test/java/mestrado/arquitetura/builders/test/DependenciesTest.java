@@ -38,7 +38,6 @@ public class DependenciesTest extends TestHelper {
 
 		assertNotNull(dependency);
 		assertEquals("Supplier Should be Class1", "Class1", dependency.getSupplier().getName());
-	//	assertEquals("Client Should be Package1", "Package1", dependency.getAllClientsForSupplierClass().iterator().next().getName());
 		assertEquals("Dependency name should be Dependency1", "Dependency1", dependency.getName());
 	}
 	

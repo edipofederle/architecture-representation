@@ -6,12 +6,14 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 
+import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
@@ -239,4 +241,36 @@ public class DependencyTest extends TestHelper {
 		
 		assertEquals("", a.getRelationshipHolder().getAllDependencies().get(0).getName());
 	}
+	
+	//Estereótipos
+	@Test
+	public void shouldLoadCreateStereotype() throws Exception{
+		ArchitectureBuilder builder = new ArchitectureBuilder();
+		Architecture arch = builder.create("/Users/elf/Documents/workspaceModeling/profiles/demo.uml");
+		
+		DependencyRelationship dep = arch.getRelationshipHolder().getAllDependencies().get(0);
+		assertNotNull(dep.getStereotypes());
+		assertEquals("create", dep.getStereotypes().get(0));
+		
+		GenerateArchitecture generate = new GenerateArchitecture();
+		
+		generate.generate(arch, "saidaTesteRela");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -12,6 +12,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Comment;
+import org.eclipse.uml2.uml.Dependency;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.NamedElement;
@@ -24,6 +25,7 @@ import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.exceptions.ModelIncompleteException;
 import arquitetura.exceptions.ModelNotFoundException;
 import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import arquitetura.touml.Relationship;
 
 /**
  * 
@@ -81,9 +83,6 @@ public class StereotypeHelper {
 		List<Comment> belongsComments = new ArrayList<Comment>();
 		EList<Comment> comments = ((Class) element).getPackage().getOwnedComments();
 		for (Comment comment : comments){
-		//	if((comment.getAnnotatedElements().size() > 0) && (comment.getAnnotatedElements() !=null ))
-			//	nameOfElement = ((NamedElement) comment.getAnnotatedElements().get(0)).getName();
-			
 			if(comment.getAnnotatedElements().contains(element)){
 				for (Stereotype stereotype : comment.getAppliedStereotypes())
 					if (stereotype.getName().equalsIgnoreCase("variability")){
@@ -130,6 +129,26 @@ public class StereotypeHelper {
 		} catch (Exception e) { return hasStereotype(element, StereotypesTypes.CONCERN); }
 		
 		return false;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param element
+	 * @return
+	 */
+	public static List<String> getAllRelationshipStereotypes(org.eclipse.uml2.uml.Relationship element) {
+		List<String> stereotypes = new ArrayList<String>();
+		EList<Stereotype> stes = element.getAppliedStereotypes();
+		for (Stereotype stereotype : stes) {
+			if(stereotype instanceof StereotypeImpl)
+				if(!stereotype.getAllExtendedMetaclasses().isEmpty())
+					if (stereotype.getAllExtendedMetaclasses().get(0).getName().equalsIgnoreCase(StereotypesTypes.RELATIONSHIP))
+						stereotypes.add(stereotype.getName());
+					
+		}
+		
+		return stereotypes;
 	}
 	
 	/**
@@ -264,5 +283,5 @@ public class StereotypeHelper {
 		
 		return null;
 	}
-	
+
 }

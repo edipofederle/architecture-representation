@@ -1,6 +1,8 @@
 package arquitetura.touml;
 
 
+import java.util.List;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -21,15 +23,17 @@ public class DependencyNode extends XmiHelper {
 	private DocumentManager documentManager;
 	private String clientElement;
 	private String supplierElement;
+	private List<String> stereotypes;
 	private String name;
 	private String id;
 	
-	public DependencyNode(DocumentManager documentManager, String name,	String clientElement, String supplierElement, Architecture a) {
+	public DependencyNode(DocumentManager documentManager, String name,	String clientElement, String supplierElement, List<String> stereotypes, Architecture a) {
 		this.documentManager = documentManager;
 		this.docUml = documentManager.getDocUml();
 		this.docNotation = documentManager.getDocNotation();
 		this.clientElement = clientElement;
 		this.supplierElement = supplierElement;
+		this.stereotypes = stereotypes;
 		this.name = name;
 	}
 
@@ -97,6 +101,10 @@ public class DependencyNode extends XmiHelper {
 		 Element element = docNotation.createElement("element");
 		 if("dependency".equalsIgnoreCase(type)){
 			 element.setAttribute("xmi:type", "uml:Dependency");
+			//Código para aparecer estereótipos no relacionamento
+			Element eAnnotations = RelationshipsXMI.enableVisibleStereotypesWithBraces(this.docNotation, this.stereotypes);
+			edges.appendChild(eAnnotations);
+			RelationshipsXMI.layoutConstraint(docNotation, edges);
 		 }else if("usage".equalsIgnoreCase(type)){
 			 element.setAttribute("xmi:type", "uml:Usage");
 		 }else if("realization".equalsIgnoreCase(type)){
@@ -115,9 +123,6 @@ public class DependencyNode extends XmiHelper {
 		edges.appendChild(bendpoints);
 		
 		node.appendChild(edges);
-		
-		//Código para aparecer estereótipos nos relacionamentos
-		//RelationshipsXMI.enableVisibleStereotypes(this.docNotation);
 		
 		}catch(Exception e){}
 	}
@@ -148,6 +153,9 @@ public class DependencyNode extends XmiHelper {
 		
 		modelRoot.appendChild(elementDependency);
 		
+		//Estereotipos
+		for(String nameSte : this.stereotypes)
+			RelationshipsXMI.createStereotypeTagInUmlFile(docUml, nameSte, idDependency);
 		
 	}
 

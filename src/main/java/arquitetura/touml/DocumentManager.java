@@ -50,7 +50,7 @@ public class DocumentManager extends XmiHelper {
 		makeACopy(BASE_DOCUMENT);
 		createXMIDocument();
 
-			updateProfilesRefs();
+			//updateProfilesRefs();
 			copyProfilesToDestination();
 
 		this.saveAndCopy(outputModelName);

@@ -35,7 +35,6 @@ import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
 import arquitetura.representation.ConcernHolder;
 import arquitetura.representation.Interface;
-import arquitetura.representation.RelationshipsHolder;
 import arquitetura.representation.Variability;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.Relationship;
@@ -156,7 +155,7 @@ public class ArchitectureBuilder {
 		List<Relationship> relationships = new ArrayList<Relationship>();
 		relationships.addAll(loadGeneralizations());
 		relationships.addAll(loadAssociations());
-		relationships.addAll(loadInterClassDependencies()); //Todo renomear carrega todo tipo de depdenencias( pacote -> classe, class -> pacote)
+		relationships.addAll(loadDependencies()); //Todo renomear carrega todo tipo de depdenencias( pacote -> classe, class -> pacote)
 		relationships.addAll(loadRealizations());
 		relationships.addAll(loadUsageInterClass());
 		relationships.addAll(loadAbstractions());
@@ -213,7 +212,7 @@ public class ArchitectureBuilder {
 		return relationships;
 	}
 
-	private List<? extends Relationship> loadInterClassDependencies() {
+	private List<? extends Relationship> loadDependencies() {
 		List<Relationship> relationships = new ArrayList<Relationship>();
 		List<Dependency> dependencies = modelHelper.getAllDependencies(model);
 

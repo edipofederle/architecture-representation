@@ -1,5 +1,8 @@
 package arquitetura.representation.relationship;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * 
@@ -11,6 +14,14 @@ public abstract class Relationship {
 	private String id;
 	private String type;
 	private String name;
+	
+	/**
+	 * Estereótipos para os relacionamentos
+	 * 
+	 * São somente o nome do estereótipo, e devem estar presentes no arquivo de perfil (relationships.profile.uml).
+	 * 
+	 */
+	private List<String> stereotypes = new ArrayList<String>();
 
 	/**
 	 * @return the id
@@ -51,6 +62,14 @@ public abstract class Relationship {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public void setStereotypes(List<String> stereotypes){
+		this.stereotypes = stereotypes;
+	}
+	
+	public List<String> getStereotypes(){
+		return this.stereotypes;
 	}
 
 	/* (non-Javadoc)

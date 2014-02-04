@@ -6,6 +6,7 @@ import org.eclipse.uml2.uml.Dependency;
 import org.eclipse.uml2.uml.NamedElement;
 
 import arquitetura.base.ArchitectureHelper;
+import arquitetura.helpers.StereotypeHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
@@ -26,6 +27,8 @@ public class DependencyRelationshipBuilder  extends ArchitectureHelper{
 		this.architecture = architecture;
 	}
 	public DependencyRelationship create(Dependency element) {
+		
+		
 
 		EList<NamedElement> suppliers = element.getSuppliers();
 		EList<NamedElement> clieents = element.getClients();
@@ -39,11 +42,9 @@ public class DependencyRelationshipBuilder  extends ArchitectureHelper{
 		if((client instanceof Package) && (supplier instanceof Interface))
 			((Package) client).addRequiredInterface((Interface) supplier);
 		
-		DependencyRelationship dependency =  new DependencyRelationship(supplier, client, element.getName(), getModelHelper().getXmiId(element));
+		DependencyRelationship dependency = new DependencyRelationship(supplier, client, element.getName(), getModelHelper().getXmiId(element));
+		dependency.setStereotypes(StereotypeHelper.getAllRelationshipStereotypes(element));
 		
-//		dependency.getClient().addRelationship(dependency);
-//		dependency.getSupplier().addRelationship(dependency);
-//		
 		return dependency;
 	}
 

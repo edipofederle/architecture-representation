@@ -372,6 +372,8 @@ public class ElementXmiGenerator extends XmiHelper {
 	}
 
 
+	//TODO refatorar/generalizar esse método e o método da classe RelationshipXMI em Um so.
+	//Responsavel por criar a tag de estereotipo no arquivo .uml.
 	private void createConcern(String name, String idClass) {
 		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
 		Element stereotype = this.documentManager.getDocUml().createElement("perfilConcerns:"+name);
