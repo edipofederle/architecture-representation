@@ -76,12 +76,12 @@ public class ReaderConfigTest {
 		PowerMockito.mockStatic(ReaderConfig.class);
 		PowerMockito.when(ReaderConfig.getPathToProfileSMarty()).thenReturn(null);
 		PowerMockito.when(ReaderConfig.getPathToProfileConcerns()).thenReturn(null);
-		assertFalse(ReaderConfig.hasProfilesSeted());
+		assertFalse(ReaderConfig.hasSmartyProfile());
 	}
 	
 	@Test
 	public void comPerfilSetado(){
-		assertTrue(ReaderConfig.hasProfilesSeted());
+		assertTrue(ReaderConfig.hasSmartyProfile());
 	}
 	
 	@Test
@@ -119,6 +119,18 @@ public class ReaderConfigTest {
 	public void dontReturnConfigFileConfIfISetOne5(){
 		ReaderConfig.setDirTarget("new/path/");
 		assertEquals("new/path/", ReaderConfig.getDirTarget());
+	}
+	
+	@Test
+	public void shouldReturnsTrueIfHasSmartyProfile(){
+		ReaderConfig.setPathToProfileSMarty("/new/path");
+		assertTrue(ReaderConfig.hasSmartyProfile());
+	}
+	
+	@Test
+	public void shouldReturnsFalseIfHasSmartyProfile(){
+		ReaderConfig.setPathToProfileSMarty("");
+		assertFalse(ReaderConfig.hasSmartyProfile());
 	}
 
 	

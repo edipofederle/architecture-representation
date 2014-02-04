@@ -2,7 +2,13 @@ package mestrado.arquitetura.writer.test;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.io.IOException;
+
+import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
 import arquitetura.exceptions.CustonTypeNotFound;
 import arquitetura.exceptions.InvalidMultiplictyForAssociationException;
@@ -24,7 +30,7 @@ public class DocumentManagerTest {
 	}
 	
 	@Test
-	public void testUpdateRefsToProfiles() throws ModelNotFoundException, ModelIncompleteException, CustonTypeNotFound, NodeNotFound, InvalidMultiplictyForAssociationException{
+	public void testUpdateRefsToProfiles() throws Exception{
 		DocumentManager doc = new DocumentManager("saida");
 		doc.updateProfilesRefs();
 		//TODO Asserções

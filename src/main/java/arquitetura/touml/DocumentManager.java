@@ -36,54 +36,67 @@ import com.google.common.io.Files;
  *
  */
 public class DocumentManager extends XmiHelper {
-	
+
 	private org.w3c.dom.Document docUml;
 	private org.w3c.dom.Document docNotation;
 	private org.w3c.dom.Document docDi;
 	private final String BASE_DOCUMENT = "simples";
 	private String outputModelName;
-	
+
 	static Logger LOGGER = LogManager.getLogger(DocumentManager.class.getName());
-	
+
 	public DocumentManager(String outputModelName) throws ModelNotFoundException, ModelIncompleteException {
 		this.outputModelName = outputModelName;
 		makeACopy(BASE_DOCUMENT);
 		createXMIDocument();
-		
-		if(onlyUpdateProfilesAndCopyIfExists()){
+
 			updateProfilesRefs();
 			copyProfilesToDestination();
-		}
-		
+
 		this.saveAndCopy(outputModelName);
 	}
 
-	private boolean onlyUpdateProfilesAndCopyIfExists() {
-		return ReaderConfig.hasProfilesSeted();
-	}
-
-	private void copyProfilesToDestination() {
-		String pathSmarty = ReaderConfig.getPathToProfileSMarty();
-		String pathConcern = ReaderConfig.getPathToProfileConcerns();
-		String pathToProfileRelationships = ReaderConfig.getPathToProfileRelationships();
-		
-		createResourcesDirectoryIfNotExist();
-		
-		final File sourceFileSmarty = new File(pathSmarty);
-		final File destFileSmarty = new File(ReaderConfig.getDirExportTarget()+"/resources/smarty.profile.uml");
-		
-		final File sourceFileConcern = new File(pathConcern);
-		final File destFileConcern = new File(ReaderConfig.getDirExportTarget()+"/resources/perfilConcerns.profile.uml");
-		
-		try {
-			Files.copy(sourceFileSmarty, destFileSmarty);
-			Files.copy(sourceFileConcern, destFileConcern);
-		} catch (IOException e) {
-			LOGGER.warn("I cannot copy resources to destination. " + e.getMessage() );
-			e.printStackTrace();
-		}
-		
-	}
+	  private void copyProfilesToDestination() {
+		    
+		    try {
+		      createResourcesDirectoryIfNotExist();
+		      
+		      if(ReaderConfig.hasSmartyProfile()){
+		        String pathSmarty = ReaderConfig.getPathToProfileSMarty();
+		        final File sourceFileSmarty = new File(pathSmarty);
+		        final File destFileSmarty = new File(ReaderConfig.getDirExportTarget()+"/resources/smarty.profile.uml");
+		        Files.copy(sourceFileSmarty, destFileSmarty);
+		      }else{
+		    	//Caso perfil não esteja setado remove do arquivo de tempalte
+		        XmiHelper.removeNode(docUml, "profileApplication", "_AZMtQMLoEeK4buShvBMouA"); //id setado no arquivo de template
+		      }
+		      
+		      if(ReaderConfig.hasConcernsProfile()){
+		        String pathConcern = ReaderConfig.getPathToProfileConcerns();
+		        final File sourceFileConcern = new File(pathConcern);
+		        final File destFileConcern = new File(ReaderConfig.getDirExportTarget()+"/resources/concerns.profile.uml");
+		        Files.copy(sourceFileConcern, destFileConcern);
+		      }else{
+		    	//Caso perfil não esteja setado remove do arquivo de tempalte
+		        XmiHelper.removeNode(docUml, "profileApplication", "_AZWeQMLoEeK4buShvBMouA"); //id setado no arquivo de template
+		      }
+		      
+		      if(ReaderConfig.hasRelationsShipProfile()){
+		        String pathToProfileRelationships = ReaderConfig.getPathToProfileRelationships();
+		        final File sourceFileRelationships = new File(pathToProfileRelationships);
+		        final File destFileRelationship = new File(ReaderConfig.getDirExportTarget()+"/resources/relationships.profile.uml"); //id setado no arquivo de template
+		        Files.copy(sourceFileRelationships, destFileRelationship);
+		      }else{
+		    	//Caso perfil não esteja setado remove do arquivo de tempalte
+		        XmiHelper.removeNode(docUml, "profileApplication", "_AZWeQMLoEeK4buShvBMasss");
+		      }
+		      
+		    } catch (IOException e) {
+		      LOGGER.warn("I cannot copy resources to destination. " + e.getMessage() );
+		      e.printStackTrace();
+		    }
+		    
+		  }
 
 	private void createResourcesDirectoryIfNotExist() {
 		File resourcesDir = new File(ReaderConfig.getDirExportTarget()+"/resources/");
@@ -96,16 +109,16 @@ public class DocumentManager extends XmiHelper {
 		DocumentBuilderFactory docBuilderFactoryNotation = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilderNotation = null;
 		DocumentBuilder docBuilderUml = null;
-		
+
 		try {
 			docBuilderNotation = docBuilderFactoryNotation.newDocumentBuilder();
 			DocumentBuilderFactory docBuilderFactoryUml = DocumentBuilderFactory.newInstance();
 			docBuilderUml = docBuilderFactoryUml.newDocumentBuilder();
-			
+
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		}
-			
+
 		try {
 			this.docNotation =  docBuilderNotation.parse(ReaderConfig.getDirTarget()+BASE_DOCUMENT+".notation");
 			this.docUml = docBuilderUml.parse(ReaderConfig.getDirTarget()+BASE_DOCUMENT+".uml");
@@ -116,7 +129,7 @@ public class DocumentManager extends XmiHelper {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Realiza um cópia dos três arquivos para o diretório <b>manipulation</b>.
 	 * 
@@ -131,14 +144,14 @@ public class DocumentManager extends XmiHelper {
 	 * @throws IOException
 	 */
 	private void makeACopy(String modelName) throws ModelNotFoundException, ModelIncompleteException {
-		
+
 		LOGGER.info("makeACopy(String modelName) - Enter");
-		
-		
+
+
 		String notationCopy = ReaderConfig.getDirTarget()+BASE_DOCUMENT+".notation";
 		String umlCopy = ReaderConfig.getDirTarget()+BASE_DOCUMENT+".uml";
 		String diCopy = ReaderConfig.getDirTarget()+BASE_DOCUMENT+".di";
-		
+
 		URL n = null;
 		URL u = null;
 		URL d = null;
@@ -153,13 +166,13 @@ public class DocumentManager extends XmiHelper {
 		  } catch (MalformedURLException e) {
 		     LOGGER.error("makeACopy(String modelName) - Could not find template files directory: " + ReaderConfig.getPathToTemplateModelsDirectory());
 		  }
-		
+
 		CopyFile.copyFile(new File(n.getPath()), new File(notationCopy));
 		CopyFile.copyFile(new File(u.getPath()),  new File(umlCopy));
 		CopyFile.copyFile(new File(d.getPath()),  new File(diCopy));
-						
+
 		LOGGER.info("makeACopy(String modelName) - Exit");
-		
+
 	}
 
 //	private void copyFileToDest(String notationCopy, InputStream n1) {
@@ -195,7 +208,7 @@ public class DocumentManager extends XmiHelper {
 
 	public void saveAndCopy(String newModelName) {
 		this.outputModelName = newModelName;
-		
+
 		try {
 			SaveAndMove.saveAndMove(docNotation, docUml, docDi, BASE_DOCUMENT, newModelName);
 		} catch (TransformerException e) {
@@ -213,7 +226,7 @@ public class DocumentManager extends XmiHelper {
 		return this.outputModelName;
 	}
 
-	
+
 	/**
 	 * Esse método é responsável por atualizar as referencias aos profiles (definidos no arquivo application.yml)
 	 * que são usados no modelo.
@@ -230,48 +243,68 @@ public class DocumentManager extends XmiHelper {
 	public void updateProfilesRefs()  {
 		String pathToProfileSMarty = ReaderConfig.getPathToProfileSMarty();
 		String pathToProfileConcern = ReaderConfig.getPathToProfileConcerns();
-		
-		
+		String pathToProfileRelationship = ReaderConfig.getPathToProfileRelationships();
+
 		DocumentBuilderFactory factorySmarty = DocumentBuilderFactory.newInstance();
 		DocumentBuilder profileSmarty = null;
-		
+
 		DocumentBuilderFactory factoryConcern = DocumentBuilderFactory.newInstance();
 		DocumentBuilder profileConcern = null;
 		
+		DocumentBuilderFactory factoryRelationships = DocumentBuilderFactory.newInstance();
+		DocumentBuilder profileRelationships = null;
+		
 		try {
-			profileSmarty = factorySmarty.newDocumentBuilder();
-			final Document docProfile = profileSmarty.parse(pathToProfileSMarty);
 			
-			profileConcern = factoryConcern.newDocumentBuilder();
-			final Document docConcern = profileConcern.parse(pathToProfileConcern);
+			if(ReaderConfig.hasConcernsProfile()){
+				profileConcern = factoryConcern.newDocumentBuilder();
+				final Document docConcern = profileConcern.parse(pathToProfileConcern);
+				
+				updateHrefAtt(getIdOnNode(docConcern, "contents", "xmi:id"), "Concerns", "appliedProfile", false);
+				updateHrefAtt(getIdOnNode(docConcern, "uml:Profile", "xmi:id"), "Concerns", "appliedProfile", true);
+				
+				final String nsUriPerfilConcern = getIdOnNode(docConcern, "contents", "nsURI");
+			     arquitetura.touml.Document.executeTransformation(this, new Transformation(){
+			          public void useTransformation() {
+			        	  Node xmlsnsConcern = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xmlns:perfilConcerns");
+			        	  xmlsnsConcern.setNodeValue(nsUriPerfilConcern);
+			        	  String concernLocaltionSchema = nsUriPerfilConcern + " " + "resources/perfilConcerns.profile.uml#"+ getIdOnNode(docConcern, "contents", "xmi:id");
+		              
+			        	  Node nodeSchemaLocation = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xsi:schemaLocation");
+			        	  nodeSchemaLocation.setNodeValue(" " + concernLocaltionSchema + " ");
+			          }
+			      });
+				
+			}
+
+			if(ReaderConfig.hasSmartyProfile()){
+				profileSmarty = factorySmarty.newDocumentBuilder();
+				final Document docProfile = profileSmarty.parse(pathToProfileSMarty);
+				
+				updateHrefAtt(getIdOnNode(docProfile, "uml:Profile", "xmi:id"), "smarty", "appliedProfile", true);
+				updateHrefAtt(getIdOnNode(docProfile, "contents", "xmi:id"), "smarty", "appliedProfile", false);
+				
+				final String nsUriPerfilSmarty = getIdOnNode(docProfile, "contents", "nsURI");
+			     arquitetura.touml.Document.executeTransformation(this, new Transformation(){
+			          public void useTransformation() {
+			        	  Node xmlsnsSmarty = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xmlns:smartyProfile");
+			              xmlsnsSmarty.setNodeValue(nsUriPerfilSmarty);
+			              String samrtyLocaltionSchema = nsUriPerfilSmarty + " " + "resources/smarty.profile.uml#"+ getIdOnNode(docProfile, "contents", "xmi:id");
+			              
+			              Node nodeSchemaLocation = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xsi:schemaLocation");
+			              nodeSchemaLocation.setNodeValue(" " + samrtyLocaltionSchema + " ");
+			          }
+			      });
+			}
 			
-			updateHrefAtt(getIdOnNode(docProfile, "contents", "xmi:id"), "smarty", "appliedProfile", false);
-			updateHrefAtt(getIdOnNode(docConcern, "contents", "xmi:id"), "Concerns", "appliedProfile", false);
-			
-			updateHrefAtt(getIdOnNode(docProfile, "uml:Profile", "xmi:id"), "smarty", "appliedProfile", true);
-			updateHrefAtt(getIdOnNode(docConcern, "uml:Profile", "xmi:id"), "Concerns", "appliedProfile", true);
-			
-			
-			//Recuperar os valores de nsURI para os profiles.
-			final String nsUriPerfilSmarty = getIdOnNode(docProfile, "contents", "nsURI");
-			final String nsUriPerfilConcern = getIdOnNode(docConcern, "contents", "nsURI");
-			
-			arquitetura.touml.Document.executeTransformation(this, new Transformation(){
-				public void useTransformation() {
-					Node xmlsnsSmarty = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xmlns:smartyProfile");
-					xmlsnsSmarty.setNodeValue(nsUriPerfilSmarty);
-					
-					Node xmlsnsConcern = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xmlns:perfilConcerns");
-					xmlsnsConcern.setNodeValue(nsUriPerfilConcern);
-					
-					Node nodeSchemaLocation = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xsi:schemaLocation");
-					String concernLocaltionSchema = nsUriPerfilConcern + " " + "resources/perfilConcerns.profile.uml#"+ getIdOnNode(docConcern, "contents", "xmi:id");
-					String samrtyLocaltionSchema = nsUriPerfilSmarty + " " + "resources/smarty.profile.uml#"+ getIdOnNode(docProfile, "contents", "xmi:id");
-					
-					nodeSchemaLocation.setNodeValue(concernLocaltionSchema +" " + samrtyLocaltionSchema);
-				}
-			});
-			
+			if(ReaderConfig.hasRelationsShipProfile()){
+				profileRelationships = factoryRelationships.newDocumentBuilder();
+				final Document docRelationships = profileRelationships.parse(pathToProfileRelationship);
+				
+				updateHrefAtt(getIdOnNode(docRelationships, "uml:Profile", "xmi:id"), "relationships", "appliedProfile", true);
+				updateHrefAtt(getIdOnNode(docRelationships, "contents", "xmi:id"), "relationships", "appliedProfile", false);
+			}
+
 		} catch (SAXException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -279,7 +312,7 @@ public class DocumentManager extends XmiHelper {
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		}	
-			
+
 	}
 
 
@@ -309,7 +342,7 @@ public class DocumentManager extends XmiHelper {
 		}
 		return null;
 	}
-	
+
 		private Node getReference(String profileName, String tagName){
 			NodeList elements = this.docUml.getElementsByTagName("profileApplication");
 			for (int i = 0; i < elements.getLength(); i++) {
@@ -325,10 +358,10 @@ public class DocumentManager extends XmiHelper {
 							}
 						}
 					}
-						
+
 				}
 			}
-			
+
 			return null;
 		}
 
@@ -337,7 +370,7 @@ public class DocumentManager extends XmiHelper {
 		return (eAnnotationsChilds.item(l).getNodeName().equalsIgnoreCase("references") &&
 			   (eAnnotationsChilds.item(l).getAttributes().getNamedItem("href").getNodeValue().contains(profileName)));
 	}
-	
+
 	/**
 	 * 
 	 * @param document - O documento em que se quer pesquisar.
@@ -348,5 +381,5 @@ public class DocumentManager extends XmiHelper {
 	private String getIdOnNode(Document document, String tagName, String attrName) {
 		return document.getElementsByTagName(tagName).item(0).getAttributes().getNamedItem(attrName).getNodeValue();
 	}
-	
+
 }

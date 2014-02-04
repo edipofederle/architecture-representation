@@ -95,14 +95,30 @@ public class ReaderConfig {
 
 
 	/**
-	 * Verifica se existe ou não perfis setados no arquivo de configuração.
+	 * Verifica se existe o perfil smarty configurado
 	 * 
 	 * @return boolean
 	 */
-	public static boolean hasProfilesSeted() {
-		if((getPathToProfileConcerns() == null) || (getPathToProfileSMarty() == null))
-			return false;
-		return true;
+	public static boolean hasSmartyProfile() {
+		return getPathToProfileSMarty() == "" || getPathToProfileSMarty() == null ? false : true;
+	}
+	
+	/**
+	 * Verifica se existe o perfil concerns configurado
+	 * 
+	 * @return boolean
+	 */
+	public static boolean hasConcernsProfile() {
+		return getPathToProfileConcerns() == null || getPathToProfileConcerns() == null ? false : true;
+	}
+	
+	/**
+	 * Verifica se existe o perfil concerns configurado
+	 * 
+	 * @return boolean
+	 */
+	public static boolean hasRelationsShipProfile() {
+		return getPathToProfileRelationships() == null || getPathToProfileRelationships() == null ? false : true;
 	}
 
 	public static void setDirTarget(String path) {

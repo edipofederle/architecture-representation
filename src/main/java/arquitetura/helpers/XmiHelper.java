@@ -250,4 +250,24 @@ public class XmiHelper {
 	public static Document getOriginalNotation(){
 		return originalNotation;
 	}
+
+
+	/**
+	 * 
+	 * @param document - Document que deseja-se remover o nodo
+	 * @param nodeNameToRemove - nome do nodo
+	 * @param nodeIdToRemove - id do nodo
+	 */
+	public static void removeNode(Document document, String nodeNameToRemove, String nodeIdToRemove) {
+		NodeList elements = document.getElementsByTagName(nodeNameToRemove);
+		for (int i = 0; i < elements.getLength(); i++) {
+			NamedNodeMap attrs = elements.item(i).getAttributes();
+			for(int j = 0;  j < attrs.getLength(); j++){
+				if(attrs.item(j).getNodeValue().equals(nodeIdToRemove)){
+					Node toDelete = elements.item(i);
+					toDelete.getParentNode().removeChild(toDelete);
+				}
+			}
+		}
+	}
 }

@@ -1,7 +1,8 @@
 --- !DirTarget
 pathToTemplateModelsDirectory: /Users/elf/Desktop/templates/
 directoryToSaveModels: manipulation/
-directoryToExportModels: /Users/edipofederle/Documents/modelingParaEscrita/AMG_SAIDA
-pathToProfile: /Users/edipofederle/sourcesMestrado/arquitetura/src/test/java/resources/agm_gerada/resources/perfilConcerns.profile.uml
-pathToProfileConcern: /Users/edipofederle/sourcesMestrado/arquitetura/src/test/java/resources/agm_gerada/resources/perfilConcerns.profile.uml
-pathToProfileRelationships: "/test/"
+directoryToExportModels: /Users/elf/Documents/workspaceModeling/testeFinal/
+pathToProfile: /Users/elf/mestrado/sourcesMestrado/arquitetura/src/test/java/resources/agm_gerada/resources/smarty.profile.uml
+pathToProfileConcern: /Users/elf/mestrado/sourcesMestrado/arquitetura/src/test/java/resources/agm_gerada/resources/concerns.profile.uml
+pathToProfileRelationships: /Users/elf/mestrado/sourcesMestrado/arquitetura/src/test/java/resources/agm_gerada/resources/relationships.profile.uml
+

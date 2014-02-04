@@ -28,6 +28,7 @@ import arquitetura.helpers.ModelElementHelper;
 import arquitetura.helpers.ModelHelper;
 import arquitetura.helpers.ModelHelperFactory;
 import arquitetura.helpers.StereotypeHelper;
+import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.ArchitectureHolder;
 import arquitetura.representation.Class;
@@ -107,11 +108,12 @@ public class ArchitectureBuilder {
 		
 		initialize(architecture);
 		
-		Package concerns = modelHelper.loadConcernProfile();
-		EList<Stereotype> concernsAllowed = concerns.getOwnedStereotypes();
-		
-		for (Stereotype stereotype : concernsAllowed)
-			ConcernHolder.INSTANCE.allowedConcerns().add(new Concern(stereotype.getName()));
+		if(ReaderConfig.hasConcernsProfile()){
+			Package concerns = modelHelper.loadConcernProfile();
+			EList<Stereotype> concernsAllowed = concerns.getOwnedStereotypes();
+			for (Stereotype stereotype : concernsAllowed)
+				ConcernHolder.INSTANCE.allowedConcerns().add(new Concern(stereotype.getName()));
+		}
 		
 		for(arquitetura.representation.Package p : loadPackages())
 			architecture.addPackage(p); // Classes que possuem pacotes são carregadas juntamente com seus pacotes

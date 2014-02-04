@@ -102,10 +102,10 @@ public class ModelManagerTest extends TestHelper {
 	
 	@Test 
 	public void shouldCreateAssociationBetweenClasses() throws Exception{
-		Architecture a = givenAArchitecture2("newAssociation");
+		Architecture a = givenAArchitecture("newAssociation");
 		
 		Class foo = a.createClass("Foo", false);
-		Class bar = a.createClass("Bar", false);
+		Class bar = a.createClass("subBar", false);
 		
 		a.forAssociation().createAssociationEnd().withKlass(foo).and().createAssociationEnd().withKlass(bar).build();
 		
