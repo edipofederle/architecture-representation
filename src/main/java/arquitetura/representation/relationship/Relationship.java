@@ -1,12 +1,16 @@
 package arquitetura.representation.relationship;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
 /**
  * 
- * @author edipofederle<edipofederle@gmail.com>
+ * @author edipofederle<edipofederle@gmail.com> <br /><br/>
+ * 
+ * 
+ * OBS: Esterótipos somente foram implementamos para o relacionamento do {@link DependencyRelationship}.
  *
  */
 public abstract class Relationship {
@@ -64,12 +68,20 @@ public abstract class Relationship {
 		this.name = name;
 	}
 	
+	public List<String> getStereotypes(){
+		return Collections.unmodifiableList(this.stereotypes);
+	}
+	
+	public void removeStereotype(String stereotypeName){
+		this.stereotypes.remove(stereotypeName);
+	}
+	
 	public void setStereotypes(List<String> stereotypes){
 		this.stereotypes = stereotypes;
 	}
 	
-	public List<String> getStereotypes(){
-		return this.stereotypes;
+	public void setStereotype(String name){
+		this.stereotypes.add(name);
 	}
 
 	/* (non-Javadoc)

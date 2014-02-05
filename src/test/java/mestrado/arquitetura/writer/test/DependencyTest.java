@@ -245,32 +245,50 @@ public class DependencyTest extends TestHelper {
 	//Estereótipos
 	@Test
 	public void shouldLoadCreateStereotype() throws Exception{
-		ArchitectureBuilder builder = new ArchitectureBuilder();
-		Architecture arch = builder.create("/Users/elf/Documents/workspaceModeling/profiles/demo.uml");
+		Architecture arch = givenAArchitecture("loadDependencyWithCreateStereotype");
+		
+		DependencyRelationship dep = arch.getRelationshipHolder().getAllDependencies().get(0);
+		assertNotNull(dep.getStereotypes());
+		assertEquals("create", dep.getStereotypes().get(0));
+	}
+	
+	@Test
+	public void shouldAddCreateStereotype() throws Exception{
+		Architecture a = givenAArchitecture("dependencySte");
+		
+		DependencyRelationship dep = a.getRelationshipHolder().getAllDependencies().get(0);
+		dep.setStereotype("create");
+		
+		GenerateArchitecture generate = new GenerateArchitecture();
+		generate.generate(a, "saidaTesteRela2");
+		
+		Architecture archOutput = givenAArchitecture2("saidaTesteRela2");
+		assertNotNull(archOutput);
+		
+		DependencyRelationship depOutput = archOutput.getRelationshipHolder().getAllDependencies().get(0);
+		assertNotNull(depOutput.getStereotypes());
+		assertEquals("create", depOutput.getStereotypes().get(0));
+	}
+	
+	@Test
+	public void shouldRemoveCreateStereotype() throws Exception{
+		
+		Architecture arch = givenAArchitecture("loadDependencyWithCreateStereotype");
 		
 		DependencyRelationship dep = arch.getRelationshipHolder().getAllDependencies().get(0);
 		assertNotNull(dep.getStereotypes());
 		assertEquals("create", dep.getStereotypes().get(0));
 		
-		GenerateArchitecture generate = new GenerateArchitecture();
+		dep.removeStereotype("create");
 		
-		generate.generate(arch, "saidaTesteRela");
+		GenerateArchitecture generate = new GenerateArchitecture();
+		generate.generate(arch, "saidaTesteRela3");
+		
+		Architecture archOutput = givenAArchitecture2("saidaTesteRela3");
+		
+		DependencyRelationship depOutput = archOutput.getRelationshipHolder().getAllDependencies().get(0);
+		assertTrue(depOutput.getStereotypes().isEmpty());
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }
