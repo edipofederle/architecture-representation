@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Class;
@@ -148,8 +150,8 @@ public class StereotypeHelper {
 		return stereotypes;
 	}
 	
-	public static List<String> getAllPatternsStereotypes(NamedElement element) {
-		List<String> stereotypes = new ArrayList<String>();
+	public static Set<String> getAllPatternsStereotypes(NamedElement element) {
+		Set<String> stereotypes = new HashSet<String>();
 		EList<Stereotype> stes = element.getAppliedStereotypes();
 		for (Stereotype stereotype : stes) {
 			if(isPatternStereotype(stereotype))
@@ -160,7 +162,12 @@ public class StereotypeHelper {
 	}
 
 	private static boolean isPatternStereotype(Stereotype stereotype) {
-		return stereotype.getGeneralizations().get(0).getGeneral().getName().equalsIgnoreCase(StereotypesTypes.PATTERN);
+		if(!stereotype.getGeneralizations().isEmpty()){
+			return stereotype.getGeneralizations().get(0).getGeneral().getName().equalsIgnoreCase(StereotypesTypes.PATTERN);
+		}
+		
+		return false;
+		
 	}
 	
 	/**

@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import mestrado.arquitetura.factories.Klass;
 
@@ -195,11 +196,11 @@ public class StereotypeHelperTest extends TestHelper {
 		NamedElement klass = modelHelper.getAllClasses(model).get(0);
 		assertNotNull(klass);
 		
-		List<String> stereotypes = StereotypeHelper.getAllPatternsStereotypes(klass);
+		Set<String> stereotypes = StereotypeHelper.getAllPatternsStereotypes(klass);
 		
 		assertNotNull(stereotypes);
 		assertEquals(1, stereotypes.size());
-		assertEquals("bridge", stereotypes.get(0));
+		assertEquals("bridge", stereotypes.iterator().next());
 	}
-
+	
 }

@@ -29,6 +29,7 @@ public class Interface extends Element {
 	static Logger LOGGER = LogManager.getLogger(Interface.class.getName());
 	private final Set<Method> operations = new HashSet<Method>();
 	private RelationshipsHolder relationshipHolder;
+	private Set<String> patternsStereotypes = new HashSet<String>();
 	
 
 	public Interface(RelationshipsHolder relationshipHolder, String name, Variant variantType, String namespace, String id) {
@@ -235,6 +236,22 @@ public class Interface extends Element {
 	
 	public Set<Relationship> getRelationships() {
 		return Collections.unmodifiableSet(RelationshiopCommons.getRelationships(relationshipHolder.getRelationships(), this));
+	}
+
+	public Set<String> getPatternsStereotypes() {
+		return patternsStereotypes;
+	}
+
+	public void setPatternsStereotypes(Set<String> patternsStereotypes) {
+		this.patternsStereotypes = patternsStereotypes;
+	}
+	
+	/**
+	 * Retorna se a interface tem ou não estereótipo de algum padrão aplicado 
+	 * @return {@link boolean}
+	 */
+	public boolean hasPatternApplied() {
+		return !this.patternsStereotypes.isEmpty();
 	}
 	
 }

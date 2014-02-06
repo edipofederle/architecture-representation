@@ -269,8 +269,22 @@ public class ClassTest extends TestHelper {
 		arquitetura.representation.Class foo = a.findClassByName("Foo").get(0);
 		
 		assertEquals(1, foo.getOwnConcerns().size());
+	}
+	
+	@Test
+	public void shouldReturnPatternsStereotype() throws Exception{
+		Architecture a = givenAArchitecture("patternsSte");
 		
+		arquitetura.representation.Class klass = a.getAllClasses().iterator().next();
+		assertEquals(1, klass.getPatternsStereotypes().size());
+	}
+	
+	@Test
+	public void shouldCheckIfClassAsAPatternStereotypeApplied() throws Exception {
+		Architecture a = givenAArchitecture("patternsSte");
+		arquitetura.representation.Class klass = a.getAllClasses().iterator().next();
 		
+		assertTrue(klass.hasPatternApplied());
 	}
 	
 }

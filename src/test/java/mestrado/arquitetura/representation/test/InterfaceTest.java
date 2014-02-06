@@ -2,6 +2,7 @@ package mestrado.arquitetura.representation.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Before;
@@ -102,4 +103,20 @@ public class InterfaceTest extends TestHelper {
 		assertNotNull(inter.getDependencies());
 	}
 	
+	@Test
+	public void shouldReturnPatternsStereotype() throws Exception{
+		Architecture a = givenAArchitecture("patternsSte");
+		
+		Interface inter = a.getAllInterfaces().iterator().next();
+		assertEquals(1, inter.getPatternsStereotypes().size());
+	}
+	
+	@Test
+	public void shouldCheckIfClassAsAPatternStereotypeApplied() throws Exception {
+		Architecture a = givenAArchitecture("patternsSte");
+		Interface inter = a.getAllInterfaces().iterator().next();
+		
+		assertTrue(inter.hasPatternApplied());
+	}
+
 }

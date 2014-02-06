@@ -10,6 +10,7 @@ import org.eclipse.uml2.uml.internal.impl.ClassImpl;
 
 import arquitetura.helpers.ModelHelper;
 import arquitetura.helpers.ModelHelperFactory;
+import arquitetura.helpers.StereotypeHelper;
 import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
@@ -61,6 +62,8 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 		for(Method m : getMethods(modelElement, klass)){
 			klass.addExternalMethod(m);
 		}
+		
+		klass.setPatternsStereotypes(StereotypeHelper.getAllPatternsStereotypes(modelElement));
 		
 		return klass;
 	}

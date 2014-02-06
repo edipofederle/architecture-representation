@@ -38,6 +38,7 @@ public class Class extends Element {
 	private final Set<Method> methods = new HashSet<Method>();
 	private Set<Interface> implementedInterfaces = new HashSet<Interface>();
 	private Set<Interface> requiredInterfaces = new HashSet<Interface>();
+	private Set<String> patternsStereotypes = new HashSet<String>();
 	
 	private RelationshipsHolder relationshipHolder;
 	
@@ -363,7 +364,6 @@ public class Class extends Element {
 		return null;
 	}
 	
-	// private static int count = 1;
 	public Class deepClone() throws CloneNotSupportedException {
 		Cloner cloner = new Cloner();
 		Class klass = (Class) cloner.deepClone(this);
@@ -383,5 +383,20 @@ public class Class extends Element {
 		return RelationshiopCommons.getRelationships(relationshipHolder.getRelationships(), this);
 	}
 
+	public Set<String> getPatternsStereotypes() {
+		return patternsStereotypes;
+	}
+
+	public void setPatternsStereotypes(Set<String> patternsStereotypes) {
+		this.patternsStereotypes = patternsStereotypes;
+	}
 	
+	/**
+	 * Retorna se a classe tem ou não estereótipo de algum padrão aplicado 
+	 * @return {@link boolean}
+	 */
+	public boolean hasPatternApplied() {
+		return !this.patternsStereotypes.isEmpty();
+	}
+
 }

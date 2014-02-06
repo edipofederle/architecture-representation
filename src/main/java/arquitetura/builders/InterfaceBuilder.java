@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
 
+import arquitetura.helpers.StereotypeHelper;
 import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Interface;
@@ -33,6 +34,7 @@ public class InterfaceBuilder extends ElementBuilder<arquitetura.representation.
 		for (Operation operation : elements)
 			interfacee.addExternalOperation(methodBuilder.create(operation));
 		
+		interfacee.setPatternsStereotypes(StereotypeHelper.getAllPatternsStereotypes(modelElement));
 		return interfacee;
 	}
 
