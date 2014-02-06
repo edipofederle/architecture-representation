@@ -1,6 +1,7 @@
 package arquitetura.touml;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -23,7 +24,7 @@ public class DependencyNode extends XmiHelper {
 	private DocumentManager documentManager;
 	private String clientElement;
 	private String supplierElement;
-	private List<String> stereotypes;
+	private List<String> stereotypes = new ArrayList<String>();
 	private String name;
 	private String id;
 	
@@ -102,8 +103,10 @@ public class DependencyNode extends XmiHelper {
 		 if("dependency".equalsIgnoreCase(type)){
 			 element.setAttribute("xmi:type", "uml:Dependency");
 			//Código para aparecer estereótipos no relacionamento
-			Element eAnnotations = RelationshipsXMI.enableVisibleStereotypesWithBraces(this.docNotation, this.stereotypes);
-			edges.appendChild(eAnnotations);
+			if(!this.stereotypes.isEmpty()){
+				Element eAnnotations = RelationshipsXMI.enableVisibleStereotypesWithBraces(this.docNotation, this.stereotypes);
+				edges.appendChild(eAnnotations);
+			}
 			RelationshipsXMI.layoutConstraint(docNotation, edges);
 		 }else if("usage".equalsIgnoreCase(type)){
 			 element.setAttribute("xmi:type", "uml:Usage");
@@ -154,8 +157,10 @@ public class DependencyNode extends XmiHelper {
 		modelRoot.appendChild(elementDependency);
 		
 		//Estereotipos
-		for(String nameSte : this.stereotypes)
-			RelationshipsXMI.createStereotypeTagInUmlFile(docUml, nameSte, idDependency);
+		if(this.stereotypes != null){
+			for(String nameSte : this.stereotypes)
+				RelationshipsXMI.createStereotypeTagInUmlFile(docUml, nameSte, idDependency);
+		}
 		
 	}
 

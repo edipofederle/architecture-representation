@@ -149,13 +149,6 @@ public class ModelHelperTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldApplySMartyProfileWhenModelNotHasOne() throws ModelNotFoundException, ModelIncompleteException , SMartyProfileNotAppliedToModelExcepetion{
-		Package model = modelHelper.getModel(getUrlToModel("modelSemPerfil"));
-		assertEquals(1,model.getAllAppliedProfiles().size());
-		assertEquals("smartyProfile",model.getAllAppliedProfiles().get(0).getName());
-	}
-	
-	@Test
 	public void shouldBeAbastractClass() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
 		Package model = givenAModel("testArch"); // Classes estao em pacotes
 		assertNotNull(model);

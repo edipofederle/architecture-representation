@@ -2,19 +2,10 @@ package mestrado.arquitetura.writer.test;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.io.IOException;
-
-import javax.xml.parsers.FactoryConfigurationError;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.junit.Test;
-import org.xml.sax.SAXException;
 
-import arquitetura.exceptions.CustonTypeNotFound;
-import arquitetura.exceptions.InvalidMultiplictyForAssociationException;
 import arquitetura.exceptions.ModelIncompleteException;
 import arquitetura.exceptions.ModelNotFoundException;
-import arquitetura.exceptions.NodeNotFound;
 import arquitetura.touml.DocumentManager;
 
 public class DocumentManagerTest {
@@ -28,12 +19,4 @@ public class DocumentManagerTest {
 		assertNotNull(documentManager.getDocNotation());
 		assertNotNull(documentManager.getDocUml());
 	}
-	
-	@Test
-	public void testUpdateRefsToProfiles() throws Exception{
-		DocumentManager doc = new DocumentManager("saida");
-		doc.updateProfilesRefs();
-		//TODO Asserções
-	}
-
 }

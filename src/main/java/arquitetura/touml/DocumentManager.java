@@ -68,7 +68,7 @@ public class DocumentManager extends XmiHelper {
 		        Files.copy(sourceFileSmarty, destFileSmarty);
 		      }else{
 		    	//Caso perfil não esteja setado remove do arquivo de tempalte
-		        XmiHelper.removeNode(docUml, "profileApplication", "_AZMtQMLoEeK4buShvBMouA"); //id setado no arquivo de template
+		        XmiHelper.removeNode(docUml, "profileApplication", "_2RlssY9OEeO5xq3Ur4qgFw"); //id setado no arquivo de template
 		      }
 		      
 		      if(ReaderConfig.hasConcernsProfile()){
@@ -78,7 +78,7 @@ public class DocumentManager extends XmiHelper {
 		        Files.copy(sourceFileConcern, destFileConcern);
 		      }else{
 		    	//Caso perfil não esteja setado remove do arquivo de tempalte
-		        XmiHelper.removeNode(docUml, "profileApplication", "_AZWeQMLoEeK4buShvBMouA"); //id setado no arquivo de template
+		        XmiHelper.removeNode(docUml, "profileApplication", "_2RHyoI9OEeO5xq3Ur4qgFw"); //id setado no arquivo de template
 		      }
 		      
 		      if(ReaderConfig.hasRelationsShipProfile()){
@@ -88,8 +88,16 @@ public class DocumentManager extends XmiHelper {
 		        Files.copy(sourceFileRelationships, destFileRelationship);
 		      }else{
 		    	//Caso perfil não esteja setado remove do arquivo de tempalte
-		        XmiHelper.removeNode(docUml, "profileApplication", "_AZWeQMLoEeK4buShvBMasss");
+		        XmiHelper.removeNode(docUml, "profileApplication", "_2RXDMI9OEeO5xq3Ur4qgFw");
 		      }
+		      
+		      if(ReaderConfig.hasPatternsProfile()){
+			        final File destFileRelationship = new File(ReaderConfig.getDirExportTarget()+"/resources/patterns.profile.uml"); //id setado no arquivo de template
+			        Files.copy(new File(ReaderConfig.getPathToProfilePatterns()), destFileRelationship);
+			      }else{
+			    	//Caso perfil não esteja setado remove do arquivo de tempalte
+			        XmiHelper.removeNode(docUml, "profileApplication", "_2RHyoY9OEeO5xq3Ur4qgFw");
+			      }
 		      
 		    } catch (IOException e) {
 		      LOGGER.warn("I cannot copy resources to destination. " + e.getMessage() );
@@ -268,7 +276,7 @@ public class DocumentManager extends XmiHelper {
 			          public void useTransformation() {
 			        	  Node xmlsnsConcern = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xmlns:perfilConcerns");
 			        	  xmlsnsConcern.setNodeValue(nsUriPerfilConcern);
-			        	  String concernLocaltionSchema = nsUriPerfilConcern + " " + "resources/perfilConcerns.profile.uml#"+ getIdOnNode(docConcern, "contents", "xmi:id");
+			        	  String concernLocaltionSchema = nsUriPerfilConcern + " " + "resources/concerns.profile.uml#"+ getIdOnNode(docConcern, "contents", "xmi:id");
 		              
 			        	  Node nodeSchemaLocation = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xsi:schemaLocation");
 			        	  nodeSchemaLocation.setNodeValue(" " + concernLocaltionSchema + " ");

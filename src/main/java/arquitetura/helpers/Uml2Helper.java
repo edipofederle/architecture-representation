@@ -281,12 +281,7 @@ public class Uml2Helper extends Base {
 				return model;
 			}
 			
-			if (hasSMartyProfile(model))
-				return model;
-			else{
-				applyProfile(model, getSMartyProfile());
-				return model;
-			}
+			return model;
 
 		}
 

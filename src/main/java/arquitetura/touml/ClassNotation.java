@@ -245,9 +245,9 @@ public class ClassNotation extends XmiHelper {
 			Node valueAttr = node.getAttributes().getNamedItem("value");
 			 String oldValue = valueAttr.getNodeValue().trim();
 			 if("smarty".equalsIgnoreCase(perfilType))
-				 valueAttr.setNodeValue(oldValue +",smartyProfile::"+name);
+				 valueAttr.setNodeValue(oldValue +",smarty::"+name);
 			 else if("concern".equalsIgnoreCase(perfilType))
-				 valueAttr.setNodeValue(oldValue +",perfilConcerns::"+name);
+				 valueAttr.setNodeValue(oldValue +",concerns::"+name);
 		}else{
 			ste(name, idClass,false, perfilType);
 			ste(name, idClass, true, perfilType);
@@ -308,9 +308,9 @@ public class ClassNotation extends XmiHelper {
 		details2.setAttribute("xmi:id",  UtilResources.getRandonUUID());
 		details2.setAttribute("key", "StereotypeList");
 		if("smarty".equalsIgnoreCase(perfilType))
-			details2.setAttribute("value", "smartyProfile::"+name);
+			details2.setAttribute("value", "smarty::"+name);
 		else if("concern".equalsIgnoreCase(perfilType))
-				details2.setAttribute("value", "perfilConcerns::"+name);
+				details2.setAttribute("value", "concerns::"+name);
 		eAnnotations.appendChild(details2);
 		
 		Element details3 = documentManager.getDocNotation().createElement("details");

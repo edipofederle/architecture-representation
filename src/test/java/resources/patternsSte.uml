@@ -1,23 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:profile="http:///schemas/profile/_u3nyII8lEeO5xq3Ur4qgFw/2" xmlns:smartyProfile="http:///schemas/smartyProfile/_HFLycBygEeOSUsTHUSsmgQ/1" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/profile/_u3nyII8lEeO5xq3Ur4qgFw/2 ../../../../perfis/patterns.profile.uml#_u3oZMI8lEeO5xq3Ur4qgFw http:///schemas/smartyProfile/_HFLycBygEeOSUsTHUSsmgQ/1 ../../../../perfis/smarty.profile.uml#_HFMZgBygEeOSUsTHUSsmgQ">
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:profile="http:///schemas/profile/_u3nyII8lEeO5xq3Ur4qgFw/2" xmlns:smarty="http:///schemas/smarty/_cl6_wI9OEeO5S8PTmh49hw/3" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/profile/_u3nyII8lEeO5xq3Ur4qgFw/2 ../../../../perfis/patterns.profile.uml#_u3oZMI8lEeO5xq3Ur4qgFw http:///schemas/smarty/_cl6_wI9OEeO5S8PTmh49hw/3 ../../../../perfis/smarty.profile.uml#_cl7m0I9OEeO5S8PTmh49hw">
   <uml:Model xmi:id="_a1hgUI8mEeO5S8PTmh49hw" name="model">
     <packagedElement xmi:type="uml:Class" xmi:id="_ii2YYI8mEeO5S8PTmh49hw" name="Class1"/>
     <packagedElement xmi:type="uml:Class" xmi:id="_whs6EI9AEeO5S8PTmh49hw" name="MyInterface"/>
-    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_hv6fkI8mEeO5S8PTmh49hw">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_hwa14I8mEeO5S8PTmh49hw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_cA1jcI9TEeO5S8PTmh49hw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cA84MI9TEeO5S8PTmh49hw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../../../../perfis/concerns.profile.uml#_SsrrURWgEeObs-pQrJ2skQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../../../../perfis/concerns.profile.uml#_9v_84HqaEeK1gM_kVgXLQw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_cA9fQI9TEeO5S8PTmh49hw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cBGpMI9TEeO5S8PTmh49hw" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="../../../../perfis/patterns.profile.uml#_u3oZMI8lEeO5xq3Ur4qgFw"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="../../../../perfis/patterns.profile.uml#_xETMcI8iEeO5xq3Ur4qgFw"/>
     </profileApplication>
-    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_PARCMI8pEeO5S8PTmh49hw">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_PBUyII8pEeO5S8PTmh49hw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../../../../perfis/smarty.profile.uml#_HFMZgBygEeOSUsTHUSsmgQ"/>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_cBHQQI9TEeO5S8PTmh49hw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cBPzII9TEeO5S8PTmh49hw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../../../../perfis/relationships.profile.uml#_ZXU80I9OEeO5S8PTmh49hw"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../../../../perfis/relationships.profile.uml#__hjjkIzaEeO6Yt6TRR4QNg"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_cBQaMI9TEeO5S8PTmh49hw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cBY9EI9TEeO5S8PTmh49hw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../../../../perfis/smarty.profile.uml#_cl7m0I9OEeO5S8PTmh49hw"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="../../../../perfis/smarty.profile.uml#_9ppH0MeqEeK-FvYCaEYIKA"/>
     </profileApplication>
   </uml:Model>
-  <profile:bridge xmi:id="_kJKO4I8mEeO5S8PTmh49hw" base_Class="_ii2YYI8mEeO5S8PTmh49hw"/>
-  <smartyProfile:alternative_OR xmi:id="_avRnAI8pEeO5S8PTmh49hw" base_Class="_ii2YYI8mEeO5S8PTmh49hw"/>
-  <smartyProfile:interface xmi:id="_ysAOcI9AEeO5S8PTmh49hw" base_Class="_whs6EI9AEeO5S8PTmh49hw"/>
-  <profile:mediator xmi:id="_2RoRUI9AEeO5S8PTmh49hw" base_Class="_whs6EI9AEeO5S8PTmh49hw"/>
+  <profile:bridge xmi:id="_czoSUI9TEeO5S8PTmh49hw" base_Class="_ii2YYI8mEeO5S8PTmh49hw"/>
+  <profile:bridge xmi:id="_dntaoI9TEeO5S8PTmh49hw" base_Class="_whs6EI9AEeO5S8PTmh49hw"/>
+  <smarty:interface xmi:id="_zkHnkI9TEeO5S8PTmh49hw" base_Class="_whs6EI9AEeO5S8PTmh49hw"/>
 </xmi:XMI>

@@ -121,6 +121,10 @@ public class ReaderConfig {
 	public static boolean hasRelationsShipProfile() {
 		return getPathToProfileRelationships() == null || getPathToProfileRelationships() == null ? false : true;
 	}
+	
+	public static boolean hasPatternsProfile() {
+		return getPathToProfilePatterns() == null || getPathToProfilePatterns() == null ? false : true;
+	}
 
 	public static void setDirTarget(String path) {
 		dirTarget = path;
@@ -161,5 +165,6 @@ public class ReaderConfig {
 	public static void setPathToProfilePatterns(String pathToProfilePatterns) {
 		ReaderConfig.pathToProfilePatterns = pathToProfilePatterns;
 	}
+
 	
 }

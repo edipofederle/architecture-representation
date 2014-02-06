@@ -325,7 +325,7 @@ public class ElementXmiGenerator extends XmiHelper {
 
 	private void addStereotypeToUmlFile(Variant variant, String idClass) {
 		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
-		Element stereotype = this.documentManager.getDocUml().createElement("smartyProfile:"+variant.getVariantType());
+		Element stereotype = this.documentManager.getDocUml().createElement("smarty:"+variant.getVariantType());
 		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		stereotype.setAttribute("base_Class", idClass); // A classe que tem o estereotype
 		
@@ -337,7 +337,7 @@ public class ElementXmiGenerator extends XmiHelper {
 
 	public void createStereotypeVariationPoint(String idClass, String variants, String variabilities, String dESIGN_TIME) {
 		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
-		Element stereotype = this.documentManager.getDocUml().createElement("smartyProfile:variationPoint");
+		Element stereotype = this.documentManager.getDocUml().createElement("smarty:variationPoint");
 		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		stereotype.setAttribute("base_Class", idClass); // A classe que tem o estereotype
 		stereotype.setAttribute("variants", variants);
@@ -351,7 +351,7 @@ public class ElementXmiGenerator extends XmiHelper {
 
 	public void createStereotypeVariability(String idNote, VariabilityStereotype a) {
 		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
-		Element stereotype = this.documentManager.getDocUml().createElement("smartyProfile:"+a.getStereotypeName());
+		Element stereotype = this.documentManager.getDocUml().createElement("smarty:"+a.getStereotypeName());
 		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		
 		String type = findTypeById(idNote, documentManager.getDocUml());
@@ -376,7 +376,7 @@ public class ElementXmiGenerator extends XmiHelper {
 	//Responsavel por criar a tag de estereotipo no arquivo .uml.
 	private void createConcern(String name, String idClass) {
 		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
-		Element stereotype = this.documentManager.getDocUml().createElement("perfilConcerns:"+name);
+		Element stereotype = this.documentManager.getDocUml().createElement("concerns:"+name);
 		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		stereotype.setAttribute("base_Class", idClass); // A classe que tem o estereotype
 		nodeXmi.getParentNode().appendChild(stereotype);
@@ -385,7 +385,7 @@ public class ElementXmiGenerator extends XmiHelper {
 	
 	public void interfaceStereoptye(String idClass) {
 		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
-		Element stereotype = this.documentManager.getDocUml().createElement("smartyProfile:interface");
+		Element stereotype = this.documentManager.getDocUml().createElement("smarty:interface");
 		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		stereotype.setAttribute("base_Class", idClass); // A classe que tem o estereotype
 		nodeXmi.getParentNode().appendChild(stereotype);
