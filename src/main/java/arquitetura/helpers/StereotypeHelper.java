@@ -145,8 +145,22 @@ public class StereotypeHelper {
 						stereotypes.add(stereotype.getName());
 					
 		}
+		return stereotypes;
+	}
+	
+	public static List<String> getAllPatternsStereotypes(NamedElement element) {
+		List<String> stereotypes = new ArrayList<String>();
+		EList<Stereotype> stes = element.getAppliedStereotypes();
+		for (Stereotype stereotype : stes) {
+			if(isPatternStereotype(stereotype))
+				stereotypes.add(stereotype.getName());
+		}
 		
 		return stereotypes;
+	}
+
+	private static boolean isPatternStereotype(Stereotype stereotype) {
+		return stereotype.getGeneralizations().get(0).getGeneral().getName().equalsIgnoreCase(StereotypesTypes.PATTERN);
 	}
 	
 	/**
@@ -281,5 +295,6 @@ public class StereotypeHelper {
 		
 		return null;
 	}
+
 
 }

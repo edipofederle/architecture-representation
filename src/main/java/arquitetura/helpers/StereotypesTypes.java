@@ -12,5 +12,6 @@ public class StereotypesTypes {
 	static final String VARIABILITY = "variability";
 	public static final String CONCERN = "concern";
 	public static final String RELATIONSHIP = "Relationship";
+	public static final String PATTERN = "pattern";
 
 }

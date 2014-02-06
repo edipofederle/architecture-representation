@@ -154,7 +154,7 @@ public class StereotypeHelperTest extends TestHelper {
 	
 	
 	@Test
-	public void shouldReturnStereotypesForModelWithTwoProfilesApplied() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+	public void shouldReturnStereotypesForModelWithTwoProfilesApplied() throws Exception {
 		String uri = getUrlToModel("testArch");
 	
 		Package model = uml2Helper.load(uri);
@@ -166,7 +166,7 @@ public class StereotypeHelperTest extends TestHelper {
 	}
 	
 	@Test
-	public void shouldGetPerpertyOfVariabilityStereotype() throws ModelNotFoundException, ModelIncompleteException, SMartyProfileNotAppliedToModelExcepetion{
+	public void shouldGetPerpertyOfVariabilityStereotype() throws Exception{
 		String uri = getUrlToModel("variability");
 		String absolutePath = new File(uri).getAbsolutePath();
 		Package model = uml2Helper.load(absolutePath);
@@ -183,7 +183,23 @@ public class StereotypeHelperTest extends TestHelper {
 		assertEquals("1", variabilityAttrubutes.get("minSelection"));
 		assertEquals("teste1, teste2, teste3", variabilityAttrubutes.get("variants"));
 		assertEquals("false", variabilityAttrubutes.get("allowAddingVar"));
+	}
+	
+	
+	@Test
+	public void shouldLoadPatternsStereotypes() throws Exception{
+		String uri = getUrlToModel("patternsSte");
+		String absolutePath = new File(uri).getAbsolutePath();
+		Package model = uml2Helper.load(absolutePath);
 		
+		NamedElement klass = modelHelper.getAllClasses(model).get(0);
+		assertNotNull(klass);
+		
+		List<String> stereotypes = StereotypeHelper.getAllPatternsStereotypes(klass);
+		
+		assertNotNull(stereotypes);
+		assertEquals(1, stereotypes.size());
+		assertEquals("bridge", stereotypes.get(0));
 	}
 
 }
