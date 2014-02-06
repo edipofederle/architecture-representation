@@ -26,6 +26,7 @@ public class ReaderConfig {
 	private static String pathToProfileConcerns;
 	private static String pathToTemplateModelsDirectory;
 	private static String pathToProfileRelationships;
+	private static String pathToProfilePatterns;
 	
 	static{
 		try {
@@ -149,6 +150,16 @@ public class ReaderConfig {
 
 	public static void setPathProfileRelationship(String path) {
 		pathToProfileRelationships = path;
+	}
+
+	public static String getPathToProfilePatterns() {
+		if(pathToProfilePatterns != null)
+			return pathToProfilePatterns;
+		return dir.getPathToProfilePatterns();
+	}
+
+	public static void setPathToProfilePatterns(String pathToProfilePatterns) {
+		ReaderConfig.pathToProfilePatterns = pathToProfilePatterns;
 	}
 	
 }

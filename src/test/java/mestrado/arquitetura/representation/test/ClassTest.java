@@ -286,5 +286,4 @@ public class ClassTest extends TestHelper {
 		
 		assertTrue(klass.hasPatternApplied());
 	}
-	
 }

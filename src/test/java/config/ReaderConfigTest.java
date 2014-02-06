@@ -58,6 +58,12 @@ public class ReaderConfigTest {
 		assertNotNull(path);
 	}
 	
+	@Test 
+	public void shouldReturnPathToPatternsProfile(){
+		String path = ReaderConfig.getPathToProfilePatterns();
+		assertNotNull(path);
+	}
+	
 	@Test
 	public void shouldProfileFileExistsOnConfiguredPath(){
 		File profile = new File(ReaderConfig.getPathToProfileSMarty());
@@ -133,5 +139,4 @@ public class ReaderConfigTest {
 		assertFalse(ReaderConfig.hasSmartyProfile());
 	}
 
-	
 }
