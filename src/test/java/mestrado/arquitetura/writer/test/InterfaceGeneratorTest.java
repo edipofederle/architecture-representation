@@ -74,7 +74,7 @@ public class InterfaceGeneratorTest extends TestHelper {
 		
 		
 		op.forClass().createClass(inter).asInterface().withMethod(m).build();
-		op.forConcerns().withConcern(persistence, inter.getId());
+		op.forConcerns().withStereotype(persistence, inter.getId());
 		
 		Architecture a = givenAArchitecture2("IntefaceConcern");
 		assertNotNull(a.getInterfaces());

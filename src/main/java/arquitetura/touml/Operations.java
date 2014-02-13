@@ -20,7 +20,7 @@ public class Operations {
 	 private CompositionOperations compositionOperations;
 	 private AggregationOperations aggregationOperations;
 	 private NoteOperations noteOperations;
-	 private ConcernOperations concernOperation;
+	 private StereotypeOperations concernOperation;
 	 private RealizationsOperations realizationOperations;
 	 private AssociationKlassOperations associationKlassOperations;
 	 private AbstractionOperations abstractionOperations;
@@ -55,7 +55,7 @@ public class Operations {
 	}
 
 	private void createConcernOperation() {
-		this.concernOperation = new ConcernOperations(doc);
+		this.concernOperation = new StereotypeOperations(doc);
 	}
 
 	private void createNoteOperations(Architecture a) {
@@ -95,7 +95,7 @@ public class Operations {
 	}
 
 	public ClassOperations forClass() { return classOperation; }
-	public ConcernOperations forConcerns() { return concernOperation;}
+	public StereotypeOperations forConcerns() { return concernOperation;}
 	public AssociationOperations forAssociation(){ return associationOperation; }
 	public PackageOperations forPackage(){ return packageOperaiton; }
 	public DependencyOperations forDependency(){ return dependencyOperation; }

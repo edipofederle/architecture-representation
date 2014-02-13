@@ -124,27 +124,27 @@ public class AssociationKlassOperations {
 		//Adiciona Interesses nos atributos
 		for (arquitetura.touml.Attribute attribute : attrs) {
 			for (Concern c : attribute.getConcerns()) {
-				elementXmiGenerator.generateConcern(c, attribute.getId());
+				elementXmiGenerator.generateConcern(c.getName(), attribute.getId(), "concerns");
 			}
 		}
 		
 		//Adiciona Interesses nos métodos
 		for (arquitetura.touml.Method method : methods) {
 			for (Concern c : method.getConcerns()) {
-				elementXmiGenerator.generateConcern(c, method.getId());
+				elementXmiGenerator.generateConcern(c.getName(), method.getId(), "concerns");
 			}
 		}
 		
 		//Adiciona Interesses nos métodos
 		for (arquitetura.touml.Method method : methods) {
 			for (Concern c : method.getConcerns()) {
-				elementXmiGenerator.generateConcern(c, method.getId());
+				elementXmiGenerator.generateConcern(c.getName(), method.getId(), "concerns");
 			}
 		}
 		
 		//Adiciona Interesses na associationClass
 		for (Concern c : associationClass.getOwnConcerns()) {
-			elementXmiGenerator.generateConcern(c, associationClass.getId());
+			elementXmiGenerator.generateConcern(c.getName(), associationClass.getId(), "concerns");
 		}
 		
 	}

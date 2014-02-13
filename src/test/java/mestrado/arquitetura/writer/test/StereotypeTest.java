@@ -167,7 +167,7 @@ public class StereotypeTest extends TestHelper {
 			   .createClass(casa)
 			   .build().get("id");
 			
-			op.forConcerns().withConcern(persistence, id);
+			op.forConcerns().withStereotype(persistence, id);
 		
 		ArchitectureBuilder builder = new ArchitectureBuilder();
 		Architecture a = builder.create(ReaderConfig.getDirExportTarget()+"addConcern.uml");

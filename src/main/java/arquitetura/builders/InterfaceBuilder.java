@@ -9,6 +9,7 @@ import arquitetura.helpers.StereotypeHelper;
 import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Interface;
+import arquitetura.representation.PatternsOperations;
 
 /**
  * 
@@ -34,7 +35,7 @@ public class InterfaceBuilder extends ElementBuilder<arquitetura.representation.
 		for (Operation operation : elements)
 			interfacee.addExternalOperation(methodBuilder.create(operation));
 		
-		interfacee.setPatternsStereotypes(StereotypeHelper.getAllPatternsStereotypes(modelElement));
+		interfacee.setPatternOperations(new PatternsOperations(StereotypeHelper.getAllPatternsStereotypes(modelElement)));
 		return interfacee;
 	}
 

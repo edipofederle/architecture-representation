@@ -11,6 +11,7 @@ import java.util.Set;
 
 import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
+import mestrado.arquitetura.representation.Patterns;
 
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Package;
@@ -32,6 +33,7 @@ public class ClassTest extends TestHelper {
 	private arquitetura.representation.Class class1, class2;
 	
 	private Architecture architecture;
+	private GenerateArchitecture generate;
 
 	@Before
 	public void setUp()	throws Exception {
@@ -47,6 +49,7 @@ public class ClassTest extends TestHelper {
 		class1 = classBuilder.create(klass);
 		class2 = classBuilder.create(klass2);
 		
+		generate = new GenerateArchitecture();
 	}
 	
 	@Test
@@ -276,7 +279,7 @@ public class ClassTest extends TestHelper {
 		Architecture a = givenAArchitecture("patternsSte");
 		
 		arquitetura.representation.Class klass = a.getAllClasses().iterator().next();
-		assertEquals(1, klass.getPatternsStereotypes().size());
+		assertEquals(1, klass.getPatternsOperations().getAllPatterns().size());
 	}
 	
 	@Test
@@ -284,6 +287,47 @@ public class ClassTest extends TestHelper {
 		Architecture a = givenAArchitecture("patternsSte");
 		arquitetura.representation.Class klass = a.getAllClasses().iterator().next();
 		
-		assertTrue(klass.hasPatternApplied());
+		assertTrue(klass.getPatternsOperations().hasPatternApplied());
+	}
+	
+	
+	@Test
+	public void test() throws Exception {
+		Architecture a = givenAArchitecture("patternsSte");
+		generate.generate(a, "patterns");
+	}
+	
+	
+	@Test
+	public void shouldAppyPatternStereotype() throws Exception {
+		Architecture a = givenAArchitecture("patternsSte");
+		arquitetura.representation.Class klass = a.getAllClasses().iterator().next();
+
+		klass.getPatternsOperations().applyPattern(Patterns.BRIDGE);
+		
+		generate.generate(a, "patterns");
+		
+		Architecture output = givenAArchitecture2("patterns");
+		arquitetura.representation.Class klassOutput = output.getAllClasses().iterator().next();
+		
+		assertTrue(klassOutput.getPatternsOperations().hasPatternApplied());
+		assertEquals(2, klassOutput.getPatternsOperations().getAllPatterns().size());
+	}
+	
+	@Test
+	public void shouldRemovePattern() throws Exception{
+		Architecture a = givenAArchitecture("patternsSte");
+		arquitetura.representation.Class klass = a.getAllClasses().iterator().next();
+		
+		assertTrue(klass.getPatternsOperations().removePattern(Patterns.FACADE));
+		assertFalse(klass.getPatternsOperations().hasPatternApplied());
+		
+		generate.generate(a, "patterns_remove");
+		Architecture output = givenAArchitecture2("patterns_remove");
+		arquitetura.representation.Class klassOutput = output.getAllClasses().iterator().next();
+		
+		assertFalse(klassOutput.getPatternsOperations().hasPatternApplied());
+		assertTrue(klassOutput.getPatternsOperations().getAllPatterns().isEmpty());
+		
 	}
 }

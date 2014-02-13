@@ -246,8 +246,10 @@ public class ClassNotation extends XmiHelper {
 			 String oldValue = valueAttr.getNodeValue().trim();
 			 if("smarty".equalsIgnoreCase(perfilType))
 				 valueAttr.setNodeValue(oldValue +",smarty::"+name);
-			 else if("concern".equalsIgnoreCase(perfilType))
+			 else if("concerns".equalsIgnoreCase(perfilType))
 				 valueAttr.setNodeValue(oldValue +",concerns::"+name);
+			 else if("patterns".equalsIgnoreCase(perfilType))
+				 valueAttr.setNodeValue(oldValue +",patterns::"+name);
 		}else{
 			ste(name, idClass,false, perfilType);
 			ste(name, idClass, true, perfilType);
@@ -309,8 +311,10 @@ public class ClassNotation extends XmiHelper {
 		details2.setAttribute("key", "StereotypeList");
 		if("smarty".equalsIgnoreCase(perfilType))
 			details2.setAttribute("value", "smarty::"+name);
-		else if("concern".equalsIgnoreCase(perfilType))
+		else if("concerns".equalsIgnoreCase(perfilType))
 				details2.setAttribute("value", "concerns::"+name);
+		else if("patterns".equalsIgnoreCase(perfilType))
+			details2.setAttribute("value", "patterns::"+name);
 		eAnnotations.appendChild(details2);
 		
 		Element details3 = documentManager.getDocNotation().createElement("details");

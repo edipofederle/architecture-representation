@@ -16,6 +16,7 @@ import arquitetura.representation.Architecture;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
 import arquitetura.representation.Method;
+import arquitetura.representation.PatternsOperations;
 
 /**
  * Builder resposável por criar element do tipo Classe.
@@ -59,15 +60,15 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 		for(Attribute a : getAttributes(modelElement)){
 			klass.addExternalAttribute(a);
 		}
+		
 		for(Method m : getMethods(modelElement, klass)){
 			klass.addExternalMethod(m);
 		}
 		
-		klass.setPatternsStereotypes(StereotypeHelper.getAllPatternsStereotypes(modelElement));
+		klass.setPatternOperations(new PatternsOperations(StereotypeHelper.getAllPatternsStereotypes(modelElement)));
 		
 		return klass;
 	}
-	
 
 	/**
 	 * Retorna todos atributos de uma Class.

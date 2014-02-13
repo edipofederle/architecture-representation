@@ -103,16 +103,17 @@ public class GenerateArchitecture  extends ArchitectureBase{
 				}
 				
 				//Adiciona Interesses nas classes
-				op.forConcerns().withConcerns(klass.getOwnConcerns(), klass.getId());
-				//Adiciona Interesses nas classes
+				op.forConcerns().withStereotypes(klass.getOwnConcerns(), klass.getId());
+				
+				op.forConcerns().withPatternsStereotype(klass);
 				
 				//Adiciona Interesses nos atributos
 				for (arquitetura.touml.Attribute attr : attributesForClass) {
-					op.forConcerns().withConcerns(attr.getConcerns(), attr.getId());
+					op.forConcerns().withStereotypes(attr.getConcerns(), attr.getId());
 				}
 				//Adiciona Interesses nos métodos
 				for(Method m : methodsForClass){
-					op.forConcerns().withConcerns(m.getConcerns(), m.getId());
+					op.forConcerns().withStereotypes(m.getConcerns(), m.getId());
 				}
 				
 				attributesForClass.clear();
@@ -214,9 +215,10 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			for(Interface inter : a.getAllInterfaces()){
 				//Adiciona Interesses nos métodos da interface
 				for (arquitetura.representation.Method operation : inter.getOperations()) {
-					op.forConcerns().withConcerns(operation.getOwnConcerns(), operation.getId());
+					op.forConcerns().withStereotypes(operation.getOwnConcerns(), operation.getId());
 				}
-				op.forConcerns().withConcerns(inter.getOwnConcerns(), inter.getId());
+				op.forConcerns().withStereotypes(inter.getOwnConcerns(), inter.getId());
+				op.forConcerns().withPatternsStereotype(inter);
 			}
 			
 			if(!packages.isEmpty())

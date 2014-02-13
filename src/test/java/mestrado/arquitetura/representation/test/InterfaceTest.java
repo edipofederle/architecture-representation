@@ -3,6 +3,7 @@ package mestrado.arquitetura.representation.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Before;
@@ -16,7 +17,8 @@ import arquitetura.representation.Method;
 public class InterfaceTest extends TestHelper {
 	
 	private Architecture architecture;
-
+	private GenerateArchitecture generate;
+	
 	/**
 	 * @see <a href="https://dl.dropbox.com/u/6730822/generico.png">Modelo usado para architecture (Imagem)</a>
 	 * @throws Exception
@@ -26,6 +28,8 @@ public class InterfaceTest extends TestHelper {
 		
 		String uriToArchitecture = getUrlToModel("generico");
 		architecture = new ArchitectureBuilder().create(uriToArchitecture);
+		generate = new GenerateArchitecture();
+		
 	}
 	
 	@Test
@@ -106,9 +110,18 @@ public class InterfaceTest extends TestHelper {
 	@Test
 	public void shouldReturnPatternsStereotype() throws Exception{
 		Architecture a = givenAArchitecture("patternsSte");
+		Interface inter = a.findInterfaceByName("MyInterface");
 		
-		Interface inter = a.getAllInterfaces().iterator().next();
-		assertEquals(1, inter.getPatternsStereotypes().size());
+		assertEquals(1, inter.getPatternsOperations().getAllPatterns().size());
+		assertEquals("bridge", inter.getPatternsOperations().getAllPatterns().iterator().next());
+		
+		generate.generate(a, "pattern_interface");
+		Architecture output = givenAArchitecture2("pattern_interface");
+		Interface interOutput = output.findInterfaceByName("MyInterface");
+		
+		assertEquals(1, interOutput.getPatternsOperations().getAllPatterns().size());
+		assertEquals("bridge", interOutput.getPatternsOperations().getAllPatterns().iterator().next());
+	
 	}
 	
 	@Test
@@ -116,7 +129,8 @@ public class InterfaceTest extends TestHelper {
 		Architecture a = givenAArchitecture("patternsSte");
 		Interface inter = a.getAllInterfaces().iterator().next();
 		
-		assertTrue(inter.hasPatternApplied());
+		assertTrue(inter.getPatternsOperations().hasPatternApplied());
 	}
+	
 
 }

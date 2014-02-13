@@ -200,7 +200,7 @@ public class StereotypeHelperTest extends TestHelper {
 		
 		assertNotNull(stereotypes);
 		assertEquals(1, stereotypes.size());
-		assertEquals("bridge", stereotypes.iterator().next());
+		assertEquals("facade", stereotypes.iterator().next());
 	}
 	
 }
