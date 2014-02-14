@@ -10,7 +10,8 @@ public enum Patterns {
 	MEDIATOR("mediator"),
 	STRATEGY("strategy"),
 	FACADE("facade"),
-	BRIDGE("bridge");
+	BRIDGE("bridge"),
+	ADAPTER("adapter");
 	
 	private final String patternName;
 	

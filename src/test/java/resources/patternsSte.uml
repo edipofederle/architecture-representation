@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:patterns="http:///schemas/patterns/_HXZPcJJiEeOm0oR3VRaMow/6" xmlns:patterns_1="http:///schemas/patterns/_1rJ6YJJlEeOENZsdUoZvrw/2" xmlns:perfilConcerns="http:///schemas/perfilConcerns/_SsrrUBWgEeObs-pQrJ2skQ/19" xmlns:smarty="http:///schemas/smarty/_cl6_wI9OEeO5S8PTmh49hw/3" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/patterns/_HXZPcJJiEeOm0oR3VRaMow/6 ../../../../perfis/patterns.profile.uml#_HXZPcZJiEeOm0oR3VRaMow http:///schemas/patterns/_1rJ6YJJlEeOENZsdUoZvrw/2 ../../../../perfis/patterns.profile.uml#_1rKhcJJlEeOENZsdUoZvrw http:///schemas/perfilConcerns/_SsrrUBWgEeObs-pQrJ2skQ/19 ../../../../perfis/concerns.profile.uml#_SsrrURWgEeObs-pQrJ2skQ http:///schemas/smarty/_cl6_wI9OEeO5S8PTmh49hw/3 ../../../../perfis/smarty.profile.uml#_cl7m0I9OEeO5S8PTmh49hw">
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:patterns="http:///schemas/patterns/_HXZPcJJiEeOm0oR3VRaMow/6" xmlns:patterns_1="http:///schemas/patterns/_wlXX8JVoEeOWwNcokQBARg/3" xmlns:perfilConcerns="http:///schemas/perfilConcerns/_SsrrUBWgEeObs-pQrJ2skQ/19" xmlns:smarty="http:///schemas/smarty/_cl6_wI9OEeO5S8PTmh49hw/3" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/patterns/_HXZPcJJiEeOm0oR3VRaMow/6 ../../../../perfis/patterns.profile.uml#_HXZPcZJiEeOm0oR3VRaMow http:///schemas/patterns/_wlXX8JVoEeOWwNcokQBARg/3 ../../../../perfis/patterns.profile.uml#_wlbCUJVoEeOWwNcokQBARg http:///schemas/perfilConcerns/_SsrrUBWgEeObs-pQrJ2skQ/19 ../../../../perfis/concerns.profile.uml#_SsrrURWgEeObs-pQrJ2skQ http:///schemas/smarty/_cl6_wI9OEeO5S8PTmh49hw/3 ../../../../perfis/smarty.profile.uml#_cl7m0I9OEeO5S8PTmh49hw">
   <uml:Model xmi:id="_a1hgUI8mEeO5S8PTmh49hw" name="model">
     <packagedElement xmi:type="uml:Class" xmi:id="_ii2YYI8mEeO5S8PTmh49hw" name="Class1">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_Z7758JJoEeO4z5pS7t2X8A" name="Attribute1" visibility="public">
@@ -31,7 +31,7 @@
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_Apa-wJJmEeO4z5pS7t2X8A">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ApiTgJJmEeO4z5pS7t2X8A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../../../../perfis/patterns.profile.uml#_1rKhcJJlEeOENZsdUoZvrw"/>
+        <references xmi:type="ecore:EPackage" href="../../../../perfis/patterns.profile.uml#_wlbCUJVoEeOWwNcokQBARg"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="../../../../perfis/patterns.profile.uml#_lDDfsJJlEeOENZsdUoZvrw"/>
     </profileApplication>
@@ -44,4 +44,5 @@
   <patterns_1:facade xmi:id="_mK9RAJJnEeO4z5pS7t2X8A" base_Class="_ii2YYI8mEeO5S8PTmh49hw"/>
   <perfilConcerns:collision xmi:id="_rFt60JJnEeO4z5pS7t2X8A" base_Class="_ii2YYI8mEeO5S8PTmh49hw"/>
   <perfilConcerns:logging xmi:id="_a-0TQJJoEeO4z5pS7t2X8A" base_Property="_Z7758JJoEeO4z5pS7t2X8A"/>
+  <patterns_1:adapter xmi:id="_FBIRgJVpEeOnl9JsWI81sg" base_Class="_whs6EI9AEeO5S8PTmh49hw"/>
 </xmi:XMI>

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
+import mestrado.arquitetura.representation.Patterns;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -112,14 +113,14 @@ public class InterfaceTest extends TestHelper {
 		Architecture a = givenAArchitecture("patternsSte");
 		Interface inter = a.findInterfaceByName("MyInterface");
 		
-		assertEquals(1, inter.getPatternsOperations().getAllPatterns().size());
+		assertEquals(2, inter.getPatternsOperations().getAllPatterns().size());
 		assertEquals("bridge", inter.getPatternsOperations().getAllPatterns().iterator().next());
 		
 		generate.generate(a, "pattern_interface");
 		Architecture output = givenAArchitecture2("pattern_interface");
 		Interface interOutput = output.findInterfaceByName("MyInterface");
 		
-		assertEquals(1, interOutput.getPatternsOperations().getAllPatterns().size());
+		assertEquals(2, interOutput.getPatternsOperations().getAllPatterns().size());
 		assertEquals("bridge", interOutput.getPatternsOperations().getAllPatterns().iterator().next());
 	
 	}
@@ -130,6 +131,22 @@ public class InterfaceTest extends TestHelper {
 		Interface inter = a.getAllInterfaces().iterator().next();
 		
 		assertTrue(inter.getPatternsOperations().hasPatternApplied());
+	}
+	
+	@Test
+	public void shouldAddPatternOnNewInterface() throws Exception{
+		Architecture a = givenAArchitecture("patternsSte");
+		Interface inter = a.createInterface("InterfaceTest");
+		inter.getPatternsOperations().applyPattern(Patterns.ADAPTER);
+		
+		assertTrue(inter.getPatternsOperations().hasPatternApplied());
+		
+		generate.generate(a, "pattern_interface_new");
+		Architecture output = givenAArchitecture2("pattern_interface_new");
+		
+		Interface inter2 = output.findInterfaceByName("InterfaceTest");
+		assertTrue(inter2.getPatternsOperations().hasPatternApplied());
+		
 	}
 	
 

@@ -49,14 +49,17 @@ public class Interface extends Element {
 	 */
 	public Interface(RelationshipsHolder relationshipHolder, String name, Package packagee) {
 		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(),packagee.getName()), UtilResources.getRandonUUID());
+		this.setPatternOperations(new PatternsOperations());
 	}
 	
 	public Interface(RelationshipsHolder relationshipHolder, String name) {
 		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
+		this.setPatternOperations(new PatternsOperations());
 	}
 	
 	public Interface(RelationshipsHolder relationshipHolder, String name, String id) {
 		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name),id);
+		this.setPatternOperations(new PatternsOperations());
 	}
 
 	/**
@@ -69,6 +72,7 @@ public class Interface extends Element {
 	 */
 	public Interface(RelationshipsHolder relationshipHolder, String name, String id, Package packagee) {
 		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(),packagee.getName()), id);
+		this.setPatternOperations(new PatternsOperations());
 	}
 
 	public  Set<Method> getOperations() {

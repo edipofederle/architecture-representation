@@ -305,6 +305,8 @@ public class ClassTest extends TestHelper {
 
 		klass.getPatternsOperations().applyPattern(Patterns.BRIDGE);
 		
+
+		
 		generate.generate(a, "patterns");
 		
 		Architecture output = givenAArchitecture2("patterns");
@@ -328,6 +330,52 @@ public class ClassTest extends TestHelper {
 		
 		assertFalse(klassOutput.getPatternsOperations().hasPatternApplied());
 		assertTrue(klassOutput.getPatternsOperations().getAllPatterns().isEmpty());
+	}
+	
+	@Test
+	public void shouldApplyAdapter() throws Exception{
+		Architecture a = givenAArchitecture("patternsSte");
+		
+		arquitetura.representation.Class klass = a.createClass("Foo", false);
+		klass.getPatternsOperations().applyPattern(Patterns.ADAPTER);
+		assertTrue(klass.getPatternsOperations().hasPatternApplied());
+		
+		generate.generate(a, "pattern_adapter");
+		Architecture arq = givenAArchitecture2("pattern_adapter");
+		
+		arquitetura.representation.Class klass1 = arq.findClassByName("Foo").get(0);
+		assertTrue(klass1.getPatternsOperations().hasPatternApplied());
 		
 	}
+	
+//	@Test
+//	public void teste_giovani() throws Exception{
+//		
+//		Architecture architecture=  givenAArchitecture("patternsSte");
+////		
+////		arquitetura.representation.Package aPackage = architecture.createPackage("PacoteDeTeste");
+////		Interface anInterface = aPackage.createInterface("InterfaceDeTeste");
+////		String packageName1= UtilResources.extractPackageName(anInterface.getNamespace());
+////		System.out.println(packageName1);
+////		
+////		arquitetura.representation.Class targetClass = architecture.findClassByName("Foo").get(0);
+////		String packageName = UtilResources.extractPackageName(targetClass.getNamespace());
+////		System.out.println(architecture.findPackageByName(packageName));
+//		
+//		generate.generate(architecture, "dsfdsf");
+//		
+//		Architecture a2 = givenAArchitecture2("dsfdsf");
+//		
+//		
+//		arquitetura.representation.Package aPackage = a2.createPackage("PacoteDeTeste");
+//		Interface anInterface = aPackage.createInterface("InterfaceDeTeste");
+//		String packageName1= UtilResources.extractPackageName(anInterface.getNamespace());
+//		System.out.println(packageName1);
+//		
+//		arquitetura.representation.Class targetClass = a2.findClassByName("Foo").get(0);
+//		String packageName = UtilResources.extractPackageName(targetClass.getNamespace());
+//		System.out.println(architecture.findPackageByName(packageName));
+//		
+//		
+//	}
 }

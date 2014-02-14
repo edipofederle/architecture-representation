@@ -1,6 +1,7 @@
 package arquitetura.representation;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import mestrado.arquitetura.representation.Patterns;
@@ -8,12 +9,15 @@ import mestrado.arquitetura.representation.Patterns;
 public class PatternsOperations {
 	
 	
-	private Set<String> patternsStereotypes;
+	private Set<String> patternsStereotypes = new HashSet<String>();
 	
 	public PatternsOperations(Set<String> listPatterns){
 		this.patternsStereotypes = listPatterns;
 	}
 	
+	public PatternsOperations() {
+	}
+
 	/**
 	 * Retorna todos os patterns aplicados para a classe.
 	 * 

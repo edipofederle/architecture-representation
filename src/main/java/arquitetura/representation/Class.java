@@ -57,14 +57,17 @@ public class Class extends Element {
 		super(name, variantType, "klass", namespace, id);
 		setAbstract(isAbstract);
 		setRelationshipHolder(relationshipHolder);
+		this.setPatternOperations(new PatternsOperations());
 	}
 
 	public Class(RelationshipsHolder relationshipHolder, String name, boolean isAbstract) {
 		this(relationshipHolder, name,  null, isAbstract,  UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
+		this.setPatternOperations(new PatternsOperations());
 	}
 	
 	public Class(RelationshipsHolder relationshipHolder, String name, boolean isAbstract, String packageName) {
 		this(relationshipHolder, name,  null, isAbstract,  UtilResources.createNamespace(ArchitectureHolder.getName(), packageName), UtilResources.getRandonUUID());
+		this.setPatternOperations(new PatternsOperations());
 	}
 
 	public Attribute createAttribute(String name, Type type, VisibilityKind visibility) {
