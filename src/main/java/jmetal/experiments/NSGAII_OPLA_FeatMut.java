@@ -42,7 +42,7 @@ public class NSGAII_OPLA_FeatMut {
          //File directory = new File("resultado/nsgaii/" + context);
          File directory = new File("experiment/OPLA/NSGA-II/FeatureMutation" + "/");
          if (!directory.exists()) {
-             if (!directory.mkdir()) {
+             if (!directory.mkdirs()) {
              	System.out.println("N�o foi poss�vel criar o diret�rio do resultado");
              	System.exit(0);
              }

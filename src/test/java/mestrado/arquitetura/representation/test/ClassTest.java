@@ -11,7 +11,6 @@ import java.util.Set;
 
 import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.Patterns;
 
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Package;
@@ -27,6 +26,7 @@ import arquitetura.representation.ArchitectureHolder;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
+import arquitetura.representation.Patterns;
 
 public class ClassTest extends TestHelper {
 	

@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import main.GenerateArchitecture;
 import mestrado.arquitetura.helpers.test.TestHelper;
-import mestrado.arquitetura.representation.Patterns;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +13,7 @@ import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
+import arquitetura.representation.Patterns;
 
 public class InterfaceTest extends TestHelper {
 	
