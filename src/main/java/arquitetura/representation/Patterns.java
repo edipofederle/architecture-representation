@@ -1,4 +1,4 @@
-package mestrado.arquitetura.representation;
+package arquitetura.representation;
 
 /**
  * Possíveis patterns a serem aplicados em classes e interfaces.
