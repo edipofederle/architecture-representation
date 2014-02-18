@@ -70,12 +70,9 @@ public class PLAFeatureMutation extends Mutation {
     //método para verificar se algum dos relacionamentos recebidos é generalização
     private boolean searchForGeneralizations(Class cls){
     	for (Relationship relationship: cls.getRelationships()){
-	    	if (relationship instanceof GeneralizationRelationship){
-	    		GeneralizationRelationship generalization = (GeneralizationRelationship) relationship;
-	    		if (generalization.getChild().equals(cls) || generalization.getParent().equals(cls)){
+	    	if (relationship instanceof GeneralizationRelationship)
+	    		if (((GeneralizationRelationship) relationship).getChild().equals(cls) || ((GeneralizationRelationship) relationship).getParent().equals(cls))
 	    			return true;
-	    		}
-	    	}
 	    }
     	return false;
     }
@@ -87,8 +84,7 @@ public class PLAFeatureMutation extends Mutation {
     			if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
     				Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
 	            	if (scope == "sameComponent") {
-	            		Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
-	            		List<Class> ClassesComp = new ArrayList<Class> (sourceComp.getAllClasses());
+	            		List<Class> ClassesComp = new ArrayList<Class> (randomObject(new ArrayList<Package>(arch.getAllPackages())).getAllClasses());
 	            		if (ClassesComp.size() > 1) {
 	            			Class targetClass = randomObject(ClassesComp);
 	            		    Class sourceClass = randomObject(ClassesComp);
@@ -144,12 +140,10 @@ public class PLAFeatureMutation extends Mutation {
 
 	private void moveAttribute(Architecture arch, Class targetClass, Class sourceClass) throws JMException, Exception {
 		List<Attribute> attributesClass = new ArrayList<Attribute> (sourceClass.getAllAttributes());
-		if (attributesClass.size() >= 1 ){
-			Attribute targetAttribute = randomObject(attributesClass);
-			if (sourceClass.moveAttributeToClass(targetAttribute, targetClass)){
+		if (attributesClass.size() >= 1 )
+			if (sourceClass.moveAttributeToClass(randomObject(attributesClass), targetClass))
 				createAssociation(arch, targetClass, sourceClass);
-			}
-		}
+		
 		attributesClass.clear();
 	}
 
@@ -170,12 +164,12 @@ public class PLAFeatureMutation extends Mutation {
 	            	   		final Class targetClass = randomObject(ClassesComp);
 	            	   		final Class sourceClass = randomObject(ClassesComp);
 	            	   		if ((sourceClass!=null) && (!searchForGeneralizations(sourceClass))
-	            	   								&& (sourceClass.getAllAttributes().size()>1)
-	            	   								&& (sourceClass.getAllMethods().size()>1)
+	            	   								&& (sourceClass.getAllAttributes().size() >1)
+	            	   								&& (sourceClass.getAllMethods().size() >1)
 	            	   								&& (!isVarPoint(arch, sourceClass))
 	            	   								&& (!isVariant(arch, sourceClass))
 	            	   								&& (!isOptional(arch, sourceClass))){
-	            	   			if ((targetClass!=null) && (!(targetClass.equals(sourceClass))))
+	            	   			if ((targetClass != null) && (!(targetClass.equals(sourceClass))))
 	                	   			moveMethod(arch, targetClass, sourceClass, sourceComp, sourceComp);
 	            	   		}
 	            	   	}
@@ -211,12 +205,10 @@ public class PLAFeatureMutation extends Mutation {
 
 	private void moveMethod(Architecture arch, Class targetClass, Class sourceClass, Package targetComp, Package sourceComp){
 		final List<Method> MethodsClass = new ArrayList<Method> (sourceClass.getAllMethods());
-		if (MethodsClass.size() >=1) {
-			final Method targetMethod = randomObject(MethodsClass);
-			if (sourceClass.moveMethodToClass(targetMethod,targetClass)){
+		if (MethodsClass.size() >=1)
+			if (sourceClass.moveMethodToClass(randomObject(MethodsClass),targetClass))
 				createAssociation(arch, targetClass, sourceClass);
-			}
-		}
+	
 		MethodsClass.clear();
 	}
 
@@ -238,25 +230,28 @@ public class PLAFeatureMutation extends Mutation {
 		            	InterfacesSourceComp.addAll(sourceComp.getImplementedInterfaces());
 		            	InterfacesTargetComp.addAll(targetComp.getImplementedInterfaces());
 		
-		            	if ((InterfacesSourceComp.size()>=1) && (InterfacesTargetComp.size()>=1)) {
+		            	if ((InterfacesSourceComp.size() >= 1) && (InterfacesTargetComp.size() >= 1)) {
 		            		Interface targetInterface = randomObject(InterfacesTargetComp);
 		            		Interface sourceInterface = randomObject(InterfacesSourceComp);
 		
-		            		if (targetInterface!=sourceInterface){
+		            		if (targetInterface !=  sourceInterface){
 		            			List<Method> OpsInterface = new ArrayList<Method> ();
 		            			OpsInterface.addAll(sourceInterface.getOperations());
-		            			if (OpsInterface.size() >=1) {
-		            				Method op = randomObject(OpsInterface);
-		            				sourceInterface.moveOperationToInterface(op, targetInterface);
+		            			if (OpsInterface.size() >= 1) {
+		            				sourceInterface.moveOperationToInterface(randomObject(OpsInterface), targetInterface);
 		        					for(Element implementor : sourceInterface.getImplementors()){
 		            					if(implementor instanceof Package)
-		            						arch.addImplementedInterface(targetInterface, (Package)implementor);
+		            						arch.addImplementedInterface(targetInterface, (Package) implementor);
 		            					if(implementor instanceof Class)
-		            						arch.addImplementedInterface(targetInterface, (Class)implementor);
+		            						arch.addImplementedInterface(targetInterface, (Class) implementor);
 		        					}
+		        					OpsInterface.clear();
 		            			}
 		            		}
 		            	}
+		            	InterfacesTargetComp.clear();
+		            	InterfacesSourceComp.clear();
+		            	
 		            }
     			}else {
                     Configuration.logger_.log(Level.SEVERE, "MoveOperationMutation.doMutation: invalid type. "
@@ -289,42 +284,41 @@ public class PLAFeatureMutation extends Mutation {
 	            			   					 && (!isVarPoint(arch, sourceClass))
 	            			   					 && (!isVariant(arch, sourceClass))
 	            			   					 && (!isOptional(arch, sourceClass))){
-	                    	int option = PseudoRandom.randInt(0,1);
-	                    	if (option == 0) { //attribute
+	                    	if (PseudoRandom.randInt(0,1) == 0) { //attribute
 	                    		List<Attribute> AttributesClass = new ArrayList<Attribute> (sourceClass.getAllAttributes());
 	                    		if (AttributesClass.size()>=1) {
 	                    			if (scope=="sameComponent") {
-	                    				Class newClass = sourceComp.createClass("Class"+ OPLA.contClass_++,false);
-	                    				moveAttributeToNewClass(arch, sourceClass, AttributesClass, newClass);
+	                    				moveAttributeToNewClass(arch, sourceClass, AttributesClass, sourceComp.createClass("Class"+ OPLA.contClass_++,false));
 	                    			} else {
 	                    				if (scope=="allComponents") {
 	                    					Package targetComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
 	                    					if (checkSameLayer(sourceComp, targetComp)){
-	                    						Class newClass = targetComp.createClass("Class"+ OPLA.contClass_++,false);
-	                    						moveAttributeToNewClass(arch, sourceClass, AttributesClass, newClass);
+	                    						moveAttributeToNewClass(arch, sourceClass, AttributesClass, targetComp.createClass("Class"+ OPLA.contClass_++,false));
 	                    					}
 	                    				}
 	                    			}
+	                    			AttributesClass.clear();
 	                    		}
 	                    	} else { //method
 	                    		List<Method> MethodsClass = new ArrayList<Method> (sourceClass.getAllMethods());
 	                    		if (MethodsClass.size() >=1) {
 	                    			if (scope=="sameComponent") {
-	                    				Class newClass = sourceComp.createClass("Class"+ OPLA.contClass_++, false);
-	                    				moveMethodToNewClass(arch, sourceClass, MethodsClass, newClass);
+	                    				moveMethodToNewClass(arch, sourceClass, MethodsClass, sourceComp.createClass("Class"+ OPLA.contClass_++, false));
 	                    			} else {
 	                    				if (scope=="allComponents") {
 	                    					Package targetComp = randomObject(new ArrayList<Package> (arch.getAllPackages()));
 	                    					if (checkSameLayer(sourceComp, targetComp)){
-	                    						Class newClass = targetComp.createClass("Class"+ OPLA.contClass_++,false);
-	                    						moveMethodToNewClass(arch, sourceClass, MethodsClass, newClass);
+	                    						moveMethodToNewClass(arch, sourceClass, MethodsClass, targetComp.createClass("Class"+ OPLA.contClass_++,false));
 	                    					}
 	                    				}
 	                    			}
+	                    			MethodsClass.clear();
 	                    		}
 	                    	}
 	            	   	}
 	               	} 
+	               ClassesComp.clear();
+	               
 	              }else {
 	                  Configuration.logger_.log(Level.SEVERE, "AddClassMutation.doMutation: invalid type. "
 	                          + "{0}", solution.getDecisionVariables()[0].getVariableType());
@@ -332,7 +326,9 @@ public class PLAFeatureMutation extends Mutation {
 	                  String name = cls.getName();
 	                  throw new JMException("Exception in " + name + ".doMutation()");
 	              }
+	            
             }
+    		
     	} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -409,6 +405,7 @@ public class PLAFeatureMutation extends Mutation {
             		for (Concern con: op.getOwnConcerns())
             			newInterface.addConcern(con.getName());
             	}
+            	OpsInterface.clear();
             }
           }else {
               Configuration.logger_.log(
@@ -427,7 +424,6 @@ public class PLAFeatureMutation extends Mutation {
     //--------------------------------------------------------------------------
 
 	public void FeatureMutation(double probability, Solution solution, String scope) throws JMException {
-       LOGGER.info("Executando FeatureMutation.");
 		try {
 			if (PseudoRandom.randDouble() < probability) {
 				if (solution.getDecisionVariables()[0].getVariableType().toString().equals("class "+ Architecture.ARCHITECTURE_TYPE)){
