@@ -38,8 +38,8 @@ public class Class extends Element {
 	private final Set<Method> methods = new HashSet<Method>();
 	private Set<Interface> implementedInterfaces = new HashSet<Interface>();
 	private Set<Interface> requiredInterfaces = new HashSet<Interface>();
-	private Set<String> patternsStereotypes = new HashSet<String>();
 	
+	private PatternsOperations patternsOperations;
 	private RelationshipsHolder relationshipHolder;
 	
 	/**
@@ -57,14 +57,17 @@ public class Class extends Element {
 		super(name, variantType, "klass", namespace, id);
 		setAbstract(isAbstract);
 		setRelationshipHolder(relationshipHolder);
+		this.setPatternOperations(new PatternsOperations());
 	}
 
 	public Class(RelationshipsHolder relationshipHolder, String name, boolean isAbstract) {
 		this(relationshipHolder, name,  null, isAbstract,  UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
+		this.setPatternOperations(new PatternsOperations());
 	}
 	
 	public Class(RelationshipsHolder relationshipHolder, String name, boolean isAbstract, String packageName) {
 		this(relationshipHolder, name,  null, isAbstract,  UtilResources.createNamespace(ArchitectureHolder.getName(), packageName), UtilResources.getRandonUUID());
+		this.setPatternOperations(new PatternsOperations());
 	}
 
 	public Attribute createAttribute(String name, Type type, VisibilityKind visibility) {
@@ -383,20 +386,12 @@ public class Class extends Element {
 		return RelationshiopCommons.getRelationships(relationshipHolder.getRelationships(), this);
 	}
 
-	public Set<String> getPatternsStereotypes() {
-		return patternsStereotypes;
-	}
-
-	public void setPatternsStereotypes(Set<String> patternsStereotypes) {
-		this.patternsStereotypes = patternsStereotypes;
+	public void setPatternOperations(PatternsOperations patternOperations) {
+		this.patternsOperations = patternOperations;
 	}
 	
-	/**
-	 * Retorna se a classe tem ou não estereótipo de algum padrão aplicado 
-	 * @return {@link boolean}
-	 */
-	public boolean hasPatternApplied() {
-		return !this.patternsStereotypes.isEmpty();
+	public PatternsOperations getPatternsOperations() {
+		return this.patternsOperations;
 	}
 
 }

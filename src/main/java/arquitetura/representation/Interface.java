@@ -29,7 +29,7 @@ public class Interface extends Element {
 	static Logger LOGGER = LogManager.getLogger(Interface.class.getName());
 	private final Set<Method> operations = new HashSet<Method>();
 	private RelationshipsHolder relationshipHolder;
-	private Set<String> patternsStereotypes = new HashSet<String>();
+	private PatternsOperations patternsOperations;
 	
 
 	public Interface(RelationshipsHolder relationshipHolder, String name, Variant variantType, String namespace, String id) {
@@ -49,14 +49,17 @@ public class Interface extends Element {
 	 */
 	public Interface(RelationshipsHolder relationshipHolder, String name, Package packagee) {
 		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(),packagee.getName()), UtilResources.getRandonUUID());
+		this.setPatternOperations(new PatternsOperations());
 	}
 	
 	public Interface(RelationshipsHolder relationshipHolder, String name) {
 		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name), UtilResources.getRandonUUID());
+		this.setPatternOperations(new PatternsOperations());
 	}
 	
 	public Interface(RelationshipsHolder relationshipHolder, String name, String id) {
 		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(), name),id);
+		this.setPatternOperations(new PatternsOperations());
 	}
 
 	/**
@@ -69,6 +72,7 @@ public class Interface extends Element {
 	 */
 	public Interface(RelationshipsHolder relationshipHolder, String name, String id, Package packagee) {
 		this(relationshipHolder, name, null, UtilResources.createNamespace(ArchitectureHolder.getName(),packagee.getName()), id);
+		this.setPatternOperations(new PatternsOperations());
 	}
 
 	public  Set<Method> getOperations() {
@@ -238,20 +242,12 @@ public class Interface extends Element {
 		return Collections.unmodifiableSet(RelationshiopCommons.getRelationships(relationshipHolder.getRelationships(), this));
 	}
 
-	public Set<String> getPatternsStereotypes() {
-		return patternsStereotypes;
-	}
-
-	public void setPatternsStereotypes(Set<String> patternsStereotypes) {
-		this.patternsStereotypes = patternsStereotypes;
+	public void setPatternOperations(PatternsOperations patternOperations) {
+		this.patternsOperations = patternOperations;
 	}
 	
-	/**
-	 * Retorna se a interface tem ou não estereótipo de algum padrão aplicado 
-	 * @return {@link boolean}
-	 */
-	public boolean hasPatternApplied() {
-		return !this.patternsStereotypes.isEmpty();
+	public PatternsOperations getPatternsOperations() {
+		return this.patternsOperations;
 	}
 	
 }

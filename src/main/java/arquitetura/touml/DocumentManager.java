@@ -78,7 +78,7 @@ public class DocumentManager extends XmiHelper {
 		        Files.copy(sourceFileConcern, destFileConcern);
 		      }else{
 		    	//Caso perfil não esteja setado remove do arquivo de tempalte
-		        XmiHelper.removeNode(docUml, "profileApplication", "_2RHyoI9OEeO5xq3Ur4qgFw"); //id setado no arquivo de template
+		        XmiHelper.removeNode(docUml, "profileApplication", "_2Q2s4I9OEeO5xq3Ur4qgFw"); //id setado no arquivo de template
 		      }
 		      
 		      if(ReaderConfig.hasRelationsShipProfile()){
@@ -96,7 +96,7 @@ public class DocumentManager extends XmiHelper {
 			        Files.copy(new File(ReaderConfig.getPathToProfilePatterns()), destFileRelationship);
 			      }else{
 			    	//Caso perfil não esteja setado remove do arquivo de tempalte
-			        XmiHelper.removeNode(docUml, "profileApplication", "_2RHyoY9OEeO5xq3Ur4qgFw");
+			        XmiHelper.removeNode(docUml, "profileApplication", "_cyBBIJJmEeOENZsdUoZvrw");
 			      }
 		      
 		    } catch (IOException e) {

@@ -14,7 +14,6 @@ import arquitetura.helpers.Strings;
 import arquitetura.helpers.UtilResources;
 import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
-import arquitetura.representation.Concern;
 import arquitetura.representation.Variant;
 
 /**
@@ -57,19 +56,20 @@ public class ElementXmiGenerator extends XmiHelper {
 		this.a = a;
 	}
 
-	public Node generateClass(final arquitetura.representation.Element _klass, final String idPackage){
+	public Node generateClass(final arquitetura.representation.Element clazz, final String idPackage){
 		
 		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 
 			public void useTransformation() {
 				element = documentManager.getDocUml().createElement("packagedElement");
 				element.setAttribute("xmi:type", "uml:Class");
-				element.setAttribute("xmi:id", _klass.getId());
-				element.setAttribute("name", _klass.getName());
+				element.setAttribute("xmi:id", clazz.getId());
+				element.setAttribute("name", clazz.getName());
 				klass = element;
+				
 				try {
 					
-					notation.createXmiForClassInNotationFile(_klass.getId(), idPackage, "class");
+					notation.createXmiForClassInNotationFile(clazz.getId(), idPackage, "class");
 					
 					if((idPackage != null) && !("".equals(idPackage))){
 						//Busca pacote para adicionar a class;
@@ -374,13 +374,13 @@ public class ElementXmiGenerator extends XmiHelper {
 
 	//TODO refatorar/generalizar esse método e o método da classe RelationshipXMI em Um so.
 	//Responsavel por criar a tag de estereotipo no arquivo .uml.
-	private void createConcern(String name, String idClass) {
+	private void createConcern(String name, String idClass, String type) {
 		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
-		Element stereotype = this.documentManager.getDocUml().createElement("concerns:"+name);
+		Element stereotype = this.documentManager.getDocUml().createElement(type+":"+name);
 		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
 		stereotype.setAttribute("base_Class", idClass); // A classe que tem o estereotype
 		nodeXmi.getParentNode().appendChild(stereotype);
-		notation.createXmiForStereotype(name, idClass, "concern");
+		notation.createXmiForStereotype(name, idClass, type);
 	}
 	
 	public void interfaceStereoptye(String idClass) {
@@ -393,10 +393,10 @@ public class ElementXmiGenerator extends XmiHelper {
 		notation.createXmiForStereotype("interface", idClass, "smarty");
 	}
 	
-	public void generateConcern(final Concern concern, final String idElement) {
+	public void generateConcern(final String concern, final String idElement, final String type) {
 		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
 			public void useTransformation() {
-				createConcern(concern.getName(), idElement);
+				createConcern(concern, idElement, type);
 			}
 		});
 	}

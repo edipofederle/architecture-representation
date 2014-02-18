@@ -38,7 +38,7 @@ public class NSGAII_Crossover {
          int totalDiscardedSolutions = 0;
          int discardedSolutions[] = new int[runsNumber];
          
-         crossoverProbability_ = 0.0;  
+         crossoverProbability_ = 0.1;  
          mutationProbability_ = 0.9; 
          String context = "OPLA";
        //Thelma - Dez2013 linha adicionada para identificar o algoritmo no nome do arquivo do hypervolume
