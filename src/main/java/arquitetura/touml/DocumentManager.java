@@ -50,7 +50,7 @@ public class DocumentManager extends XmiHelper {
 		makeACopy(BASE_DOCUMENT);
 		createXMIDocument();
 
-			//updateProfilesRefs();
+			updateProfilesRefs();
 			copyProfilesToDestination();
 
 		this.saveAndCopy(outputModelName);
@@ -268,50 +268,50 @@ public class DocumentManager extends XmiHelper {
 				profileConcern = factoryConcern.newDocumentBuilder();
 				final Document docConcern = profileConcern.parse(pathToProfileConcern);
 				
-				updateHrefAtt(getIdOnNode(docConcern, "contents", "xmi:id"), "Concerns", "appliedProfile", false);
-				updateHrefAtt(getIdOnNode(docConcern, "uml:Profile", "xmi:id"), "Concerns", "appliedProfile", true);
+				updateHrefAtt(getIdOnNode(docConcern, "contents", "xmi:id"), "concerns", "appliedProfile", false);
+				updateHrefAtt(getIdOnNode(docConcern, "uml:Profile", "xmi:id"), "concerns", "appliedProfile", true);
 				
 				final String nsUriPerfilConcern = getIdOnNode(docConcern, "contents", "nsURI");
 			     arquitetura.touml.Document.executeTransformation(this, new Transformation(){
 			          public void useTransformation() {
-			        	  Node xmlsnsConcern = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xmlns:perfilConcerns");
+			        	  Node xmlsnsConcern = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xmlns:concerns");
 			        	  xmlsnsConcern.setNodeValue(nsUriPerfilConcern);
 			        	  String concernLocaltionSchema = nsUriPerfilConcern + " " + "resources/concerns.profile.uml#"+ getIdOnNode(docConcern, "contents", "xmi:id");
 		              
 			        	  Node nodeSchemaLocation = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xsi:schemaLocation");
-			        	  nodeSchemaLocation.setNodeValue(" " + concernLocaltionSchema + " ");
+			        	  nodeSchemaLocation.setNodeValue(nodeSchemaLocation.getNodeValue()+ " " + concernLocaltionSchema + " ");
 			          }
 			      });
 				
 			}
 
-			if(ReaderConfig.hasSmartyProfile()){
-				profileSmarty = factorySmarty.newDocumentBuilder();
-				final Document docProfile = profileSmarty.parse(pathToProfileSMarty);
-				
-				updateHrefAtt(getIdOnNode(docProfile, "uml:Profile", "xmi:id"), "smarty", "appliedProfile", true);
-				updateHrefAtt(getIdOnNode(docProfile, "contents", "xmi:id"), "smarty", "appliedProfile", false);
-				
-				final String nsUriPerfilSmarty = getIdOnNode(docProfile, "contents", "nsURI");
-			     arquitetura.touml.Document.executeTransformation(this, new Transformation(){
-			          public void useTransformation() {
-			        	  Node xmlsnsSmarty = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xmlns:smartyProfile");
-			              xmlsnsSmarty.setNodeValue(nsUriPerfilSmarty);
-			              String samrtyLocaltionSchema = nsUriPerfilSmarty + " " + "resources/smarty.profile.uml#"+ getIdOnNode(docProfile, "contents", "xmi:id");
-			              
-			              Node nodeSchemaLocation = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xsi:schemaLocation");
-			              nodeSchemaLocation.setNodeValue(" " + samrtyLocaltionSchema + " ");
-			          }
-			      });
-			}
-			
-			if(ReaderConfig.hasRelationsShipProfile()){
-				profileRelationships = factoryRelationships.newDocumentBuilder();
-				final Document docRelationships = profileRelationships.parse(pathToProfileRelationship);
-				
-				updateHrefAtt(getIdOnNode(docRelationships, "uml:Profile", "xmi:id"), "relationships", "appliedProfile", true);
-				updateHrefAtt(getIdOnNode(docRelationships, "contents", "xmi:id"), "relationships", "appliedProfile", false);
-			}
+//			if(ReaderConfig.hasSmartyProfile()){
+//				profileSmarty = factorySmarty.newDocumentBuilder();
+//				final Document docProfile = profileSmarty.parse(pathToProfileSMarty);
+//				
+//				updateHrefAtt(getIdOnNode(docProfile, "uml:Profile", "xmi:id"), "smarty", "appliedProfile", true);
+//				updateHrefAtt(getIdOnNode(docProfile, "contents", "xmi:id"), "smarty", "appliedProfile", false);
+//				
+//				final String nsUriPerfilSmarty = getIdOnNode(docProfile, "contents", "nsURI");
+//			     arquitetura.touml.Document.executeTransformation(this, new Transformation(){
+//			          public void useTransformation() {
+//			        	  Node xmlsnsSmarty = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xmlns:smartyProfile");
+//			              xmlsnsSmarty.setNodeValue(nsUriPerfilSmarty);
+//			              String samrtyLocaltionSchema = nsUriPerfilSmarty + " " + "resources/smarty.profile.uml#"+ getIdOnNode(docProfile, "contents", "xmi:id");
+//			              
+//			              Node nodeSchemaLocation = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xsi:schemaLocation");
+//			              nodeSchemaLocation.setNodeValue(" " + samrtyLocaltionSchema + " ");
+//			          }
+//			      });
+//			}
+//			
+//			if(ReaderConfig.hasRelationsShipProfile()){
+//				profileRelationships = factoryRelationships.newDocumentBuilder();
+//				final Document docRelationships = profileRelationships.parse(pathToProfileRelationship);
+//				
+//				updateHrefAtt(getIdOnNode(docRelationships, "uml:Profile", "xmi:id"), "relationships", "appliedProfile", true);
+//				updateHrefAtt(getIdOnNode(docRelationships, "contents", "xmi:id"), "relationships", "appliedProfile", false);
+//			}
 
 		} catch (SAXException e) {
 			e.printStackTrace();
@@ -334,7 +334,7 @@ public class DocumentManager extends XmiHelper {
 					node = getReference(profileName, tagName);
 				Node nodeAttr = node.getAttributes().getNamedItem("href");
 				String oldValueAttr = nodeAttr.getNodeValue().substring(0,nodeAttr.getNodeValue().indexOf("#"));
-				nodeAttr.setNodeValue("resources/"+oldValueAttr+"#"+idApplied);
+				nodeAttr.setNodeValue(oldValueAttr+"#"+idApplied);
 			}
 		});
 	}
