@@ -69,7 +69,7 @@ public class OPLA extends Problem {
 	public OPLA(String xmiFilePath) throws Exception {
 
 		numberOfVariables_ = 1;
-		numberOfObjectives_ = 3;
+		numberOfObjectives_ = 2;
 		numberOfConstraints_ = 0;
 		problemName_ = "OPLA";
 		solutionType_ = new ArchitectureSolutionType(this);
@@ -87,7 +87,7 @@ public class OPLA extends Problem {
 	public void evaluate(Solution solution) {
 		double fitness0 = 0.0;
 		double fitness1 = 0.0;
-		double fitness2 = 0.0;
+//		double fitness2 = 0.0;
 
 		// double fitness3 = 0.0;
 
