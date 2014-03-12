@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>mestrado</groupId>
-  <artifactId>arch</artifactId>
-  <name>arch</name>
-  <version>0.0.1-SNAPSHOT</version>
-  <url>http://maven.apache.org</url>
+  <groupId>opla-tool</groupId>
+  <artifactId>opla-tool</artifactId>
+  <name>OPLA-Tool</name>
+  <version>0.0.1</version>
+  <url>github.com/edipofederle/architecture-representation</url>
   <build>
     <plugins>
       <plugin>
