@@ -445,6 +445,7 @@ public class Architecture extends Variable {
 	    	   }
 	       }
        }
+       klass.setNamespace(ArchitectureHolder.getName() + "::" + pkg.getName());
 	}
 
 	private void addClassOrInterface(Element klass, Package pkg) {

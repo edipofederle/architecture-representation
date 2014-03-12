@@ -21,6 +21,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import com.apple.jobjc.JObjCRuntime.Arch;
+
 import arquitetura.builders.ArchitectureBuilder;
 import arquitetura.exceptions.ClassNotFound;
 import arquitetura.exceptions.InterfaceNotFound;
@@ -30,6 +32,7 @@ import arquitetura.exceptions.PackageNotFound;
 import arquitetura.helpers.UtilResources;
 import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
+import arquitetura.representation.ArchitectureHolder;
 import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
 import arquitetura.representation.Element;
@@ -278,10 +281,13 @@ public class ArchitectureTest extends TestHelper {
 		
 		assertEquals(0, package1.getAllClasses().size());
 		
+		assertEquals("model", klass1.getNamespace());
+		
 		a.moveElementToPackage(klass1, package1);
 		assertEquals(1, a.getAllClasses().size());
 		assertEquals(1, package1.getAllClasses().size());
 		
+		assertEquals("classPackage::Package1", klass1.getNamespace());
 	}
 	
 	@Test

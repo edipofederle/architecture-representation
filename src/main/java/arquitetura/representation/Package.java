@@ -201,12 +201,18 @@ public class Package extends Element {
 	public void moveClassToPackage(Class klass, Package packageToMove) {
 		packageToMove.addExternalClass(klass);
 		this.classes.remove(klass);
+		updateNamespace(klass, packageToMove.getName());
 	}
 	
+	private void updateNamespace(Element klass, String packageName) {
+		klass.setNamespace(ArchitectureHolder.getName()+"::"+packageName);
+	}
+
 	public boolean moveInterfaceToPackage(Interface inter, Package packageToMove) {
 		if (!interfaces.contains(inter)) return false;
 		packageToMove.addExternalInterface(inter);
 		this.interfaces.remove(inter);
+		updateNamespace(inter, packageToMove.getName());
 		return true;
 	}
 

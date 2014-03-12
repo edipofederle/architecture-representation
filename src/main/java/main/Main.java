@@ -29,7 +29,7 @@ public class Main {
 		Architecture a = new ArchitectureBuilder().create(path);
 		
 		GenerateArchitecture generate = new GenerateArchitecture();
-		generate.generate(a, "saida94849");
+		generate.generate(a, "testeGiovani123");
 		
 		System.out.println("Working....");
 		
