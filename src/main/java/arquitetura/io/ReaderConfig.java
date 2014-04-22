@@ -28,12 +28,21 @@ public class ReaderConfig {
 	private static String pathToProfileRelationships;
 	private static String pathToProfilePatterns;
 	
+	private static String newPathToConfigurationFile;
+	
 	static{
 		try {
+		    if(newPathToConfigurationFile != null)
+			dir = Yaml.loadType(new File(newPathToConfigurationFile), DirTarget.class);
+		    else
 			dir = Yaml.loadType(new File(PATH_CONFIGURATION_FILE), DirTarget.class);
 		} catch (FileNotFoundException e) {
-			LOGGER.info("I can't read the configuration file at: " + PATH_CONFIGURATION_FILE);
+		    LOGGER.info("I can't read the configuration file at: " + PATH_CONFIGURATION_FILE);
 		}
+	}
+	
+	public static void setPathToConfigurationFile(String newPath){
+	    newPathToConfigurationFile = newPath;
 	}
 	
 	/**
