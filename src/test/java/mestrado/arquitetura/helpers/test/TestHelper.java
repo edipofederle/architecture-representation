@@ -49,6 +49,7 @@ public abstract class TestHelper {
 	protected static String targetDirExport;
 	
 	static{
+	    	ReaderConfig.load();
 		uml2Helper = Uml2HelperFactory.getUml2Helper();
 		
 		targetDir = ReaderConfig.getDirTarget();

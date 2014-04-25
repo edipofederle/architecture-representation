@@ -36,7 +36,7 @@ public class ClassTest extends TestHelper {
 	private GenerateArchitecture generate;
 
 	@Before
-	public void setUp()	throws Exception {
+	public void setUp() throws Exception {
 		
 		Package model = modelHelper.getModel("src/test/java/resources/completeClass.uml");
 		Class klass = modelHelper.getAllClasses(model).get(0);
