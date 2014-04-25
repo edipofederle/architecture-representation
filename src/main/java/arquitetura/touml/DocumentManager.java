@@ -154,7 +154,12 @@ public class DocumentManager extends XmiHelper {
 	private void makeACopy(String modelName) throws ModelNotFoundException, ModelIncompleteException {
 
 		LOGGER.info("makeACopy(String modelName) - Enter");
-
+		
+		//Verifica se o diretorio configurado em directoryToSaveModels existe.
+		//caso nao exista, o cria.
+		File temp = new File(ReaderConfig.getDirTarget());
+		if(!temp.exists())
+		    temp.mkdirs();
 
 		String notationCopy = ReaderConfig.getDirTarget()+BASE_DOCUMENT+".notation";
 		String umlCopy = ReaderConfig.getDirTarget()+BASE_DOCUMENT+".uml";
