@@ -161,7 +161,7 @@ public class Class extends Element {
 	    Method method = new Method(name, type, this.getName(), isAbstract, id);
 	    if (parameters != null)
 		method.getParameters().addAll(parameters);
-	    getAllMethods().add(method);
+	    methods.add(method);
 	    return method;
 	}
 	return null;
