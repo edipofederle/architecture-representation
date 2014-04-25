@@ -99,6 +99,10 @@ public class ArchitectureBuilder {
 	 * @throws Exception
 	 */
 	public Architecture create(String xmiFilePath) throws Exception {
+	    
+	    	//Load configure file. Call this method only once
+	    	ReaderConfig.load();
+	    
 		model = modelHelper.getModel(xmiFilePath);
 		VariationPointFlyweight.getInstance().addModel(model);
 		VariabilityFlyweight.getInstance().addModel(model);
