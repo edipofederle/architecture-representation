@@ -1,22 +1,5 @@
 package arquitetura.builders;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.uml2.uml.Abstraction;
-import org.eclipse.uml2.uml.Association;
-import org.eclipse.uml2.uml.AssociationClass;
-import org.eclipse.uml2.uml.Classifier;
-import org.eclipse.uml2.uml.Dependency;
-import org.eclipse.uml2.uml.Generalization;
-import org.eclipse.uml2.uml.NamedElement;
-import org.eclipse.uml2.uml.Package;
-import org.eclipse.uml2.uml.Realization;
-import org.eclipse.uml2.uml.Stereotype;
-import org.eclipse.uml2.uml.Usage;
-
 import arquitetura.exceptions.ModelIncompleteException;
 import arquitetura.exceptions.ModelNotFoundException;
 import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
@@ -38,8 +21,22 @@ import arquitetura.representation.Interface;
 import arquitetura.representation.Variability;
 import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.Relationship;
-
 import com.rits.cloning.Cloner;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.uml2.uml.Abstraction;
+import org.eclipse.uml2.uml.Association;
+import org.eclipse.uml2.uml.AssociationClass;
+import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Dependency;
+import org.eclipse.uml2.uml.Generalization;
+import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.Realization;
+import org.eclipse.uml2.uml.Stereotype;
+import org.eclipse.uml2.uml.Usage;
 
 /**
  * Builder responsável por criar a arquitetura.
@@ -71,6 +68,10 @@ public class ArchitectureBuilder {
 	public ArchitectureBuilder() {
 		//RelationshipHolder.clearLists();
 		ConcernHolder.INSTANCE.clear();
+                
+                //Load configure file. Call this method only once
+	    	ReaderConfig.load();
+                
 		modelHelper = ModelHelperFactory.getModelHelper();
 	}
 
@@ -99,9 +100,6 @@ public class ArchitectureBuilder {
 	 * @throws Exception
 	 */
 	public Architecture create(String xmiFilePath) throws Exception {
-	    
-	    	//Load configure file. Call this method only once
-	    	ReaderConfig.load();
 	    
 		model = modelHelper.getModel(xmiFilePath);
 		VariationPointFlyweight.getInstance().addModel(model);
