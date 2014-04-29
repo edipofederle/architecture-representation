@@ -594,7 +594,7 @@ public class Architecture extends Variable {
 		return findPackageByName(packageName);
 	}
 
-	public void save(Architecture architecture, String pathToSave, int i) {
+	public void save(Architecture architecture, String pathToSave, String i) {
 		GenerateArchitecture generate = new GenerateArchitecture();
 		generate.generate(architecture, pathToSave +architecture.getName() + i);
 	}
