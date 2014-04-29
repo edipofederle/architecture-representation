@@ -1,5 +1,14 @@
 package arquitetura.representation;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import arquitetura.exceptions.AttributeNotFoundException;
 import arquitetura.exceptions.MethodNotFoundException;
 import arquitetura.flyweights.VariantFlyweight;
@@ -10,14 +19,8 @@ import arquitetura.representation.relationship.RelationshiopCommons;
 import arquitetura.representation.relationship.Relationship;
 import arquitetura.touml.Types.Type;
 import arquitetura.touml.VisibilityKind;
+
 import com.rits.cloning.Cloner;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 
 /**
  * 
