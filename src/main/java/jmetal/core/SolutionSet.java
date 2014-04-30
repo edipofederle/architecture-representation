@@ -345,7 +345,7 @@ public class SolutionSet implements Serializable {
 			for (int j = 0; j < numberOfVariables; j++) {
 				Architecture arch = (Architecture) solutionsList_.get(i).getDecisionVariables()[j];
 				String pathToSave = path;
-				arch.save(arch, pathToSave, i);
+				arch.save(arch, pathToSave, String.valueOf(i));
 			}
 		}
 	}
