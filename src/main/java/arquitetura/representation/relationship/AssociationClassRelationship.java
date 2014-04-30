@@ -1,16 +1,15 @@
 package arquitetura.representation.relationship;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
 import arquitetura.helpers.ElementsTypes;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
 import arquitetura.representation.Element;
 import arquitetura.representation.Method;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -122,14 +121,20 @@ public class AssociationClassRelationship extends Relationship {
 		return result;
 	}
 
-
-	@Override
-	public boolean equals(Object obj) {
-		if( ((AssociationClassRelationship)obj).getMemebersEnd().get(0).getType().getName().equals(this.getMemebersEnd().get(0).getType().getName())
+        
+        @Override
+        public boolean equals(Object obj) {
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                if( ((AssociationClassRelationship)obj).getMemebersEnd().get(0).getType().getName().equals(this.getMemebersEnd().get(0).getType().getName())
 				&& ((AssociationClassRelationship)obj).getMemebersEnd().get(1).getType().getName().equals(this.getMemebersEnd().get(1).getType().getName()))
 			return true;
 		return false;
-	}
+        }
 	
 
 }
