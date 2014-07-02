@@ -50,9 +50,6 @@ public class NSGAII extends Algorithm {
         int populationSize = (Integer) getInputParameter("populationSize");
         SolutionSet population = new SolutionSet(populationSize);
         int currentEvaluations = 0;
-        Operator mutationOperator = operators_.get("mutation");
-
-        currentEvaluations = initializePopulation(population, populationSize, mutationOperator, currentEvaluations);
 
         return execute(population, currentEvaluations);
     }
