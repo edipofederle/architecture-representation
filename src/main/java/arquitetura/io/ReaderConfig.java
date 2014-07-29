@@ -7,8 +7,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.ho.yaml.Yaml;
 
-import com.sun.org.apache.bcel.internal.classfile.Code;
-
 /**
  * Classe responsável por acesso ao arquivo de configuração
  * <b>application.yaml</b>/
@@ -162,6 +160,10 @@ public class ReaderConfig {
 	if (pathToProfilePatterns != null)
 	    return pathToProfilePatterns;
 	return dir.getPathToProfilePatterns();
+    }
+    
+    public static void setPathToProfilePatterns(String path) {
+	pathToProfilePatterns = path;
     }
 
     public static String getNewPathToConfigurationFile() {
