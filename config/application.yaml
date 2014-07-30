@@ -5,5 +5,5 @@ directoryToExportModels: /Users/elf/mestrado/sourcesMestrado/arquitetura/output/
 pathToProfile: perfis/smarty.profile.uml
 pathToProfileConcern: perfis/concerns.profile.uml
 pathToProfileRelationships: perfis/relationships.profile.uml
-pathToProfilePatterns:  profiles/patterns.profile.uml
+pathToProfilePatterns:  perfis/patterns.profile.uml
 

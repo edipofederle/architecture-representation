@@ -251,11 +251,9 @@ public class Uml2Helper extends Base {
 
 	File file = new File(pathAbsolute);
 	FilenameFilter filter = new OnlyCompleteResources();
-	String file_separator = "/";
 	if (fileExists(file)) {
 	    File dir = file.getParentFile();
-	    String resourcesName = pathAbsolute.substring(pathAbsolute.lastIndexOf(file_separator) + 1,
-		    pathAbsolute.length() - 4);
+	    String resourcesName = file.getName().substring(0, file.getName().lastIndexOf("."));
 
 	    if (isCompleteResources(filter, dir, resourcesName))
 		throw new ModelIncompleteException("Modelo Incompleto");
