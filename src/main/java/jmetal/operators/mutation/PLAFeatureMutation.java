@@ -53,7 +53,7 @@ public class PLAFeatureMutation extends Mutation {
 	}
 
 	public void doMutation(double probability, Solution solution) throws Exception {
-		String scope = "sameComponent"; //"allComponents" usar "sameComponent" para que a troca seja realizada dentro do mesmo componente da arquitetura
+		String scope = "allComponents"; //"allComponents" usar "sameComponent" para que a troca seja realizada dentro do mesmo componente da arquitetura
                 String scopeLevels = "allLevels"; //usar "oneLevel" para não verificar a presença de interesses nos atributos e métodos
 
                 int r = PseudoRandom.randInt(0,5);
@@ -116,7 +116,7 @@ public class PLAFeatureMutation extends Mutation {
 										&& (!isVariant(arch, sourceClass))
 										&& (!isOptional(arch, sourceClass))) {
 									Package targetComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
-									if (checkSameLayer(sourceComp, targetComp)) {
+									//if (checkSameLayer(sourceComp, targetComp)) {
 										List<Class> ClassesTargetComp = new ArrayList<Class>(targetComp.getAllClasses());
 										if (ClassesTargetComp.size() >= 1) {
 											Class targetClass = randomObject(ClassesTargetComp);
@@ -124,7 +124,7 @@ public class PLAFeatureMutation extends Mutation {
 												moveAttribute(arch, targetClass, sourceClass);
 											}
 										}
-									}
+									//}
 								}
 							}
 							ClassesSourceComp.clear();
@@ -196,7 +196,7 @@ public class PLAFeatureMutation extends Mutation {
 								&& (!isVariant(arch, sourceClass))
 								&& (!isOptional(arch, sourceClass))) {
 							final Package targetComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
-							if (checkSameLayer(sourceComp, targetComp)) {
+							//if (checkSameLayer(sourceComp, targetComp)) {
 								final List<Class> ClassesTargetComp = new ArrayList<Class>(targetComp.getAllClasses());
 								if (ClassesTargetComp.size() >= 1) {
 									final Class targetClass = randomObject(ClassesTargetComp);
@@ -204,7 +204,7 @@ public class PLAFeatureMutation extends Mutation {
 										moveMethod(arch, targetClass, sourceClass, targetComp, sourceComp);
 									}
 								}
-							}
+							//}
 						}
 					}
 					ClassesSourceComp.clear();
@@ -235,7 +235,7 @@ public class PLAFeatureMutation extends Mutation {
 					Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
 					Package targetComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
 
-					if (checkSameLayer(sourceComp, targetComp)) {
+					//if (checkSameLayer(sourceComp, targetComp)) {
 						List<Interface> InterfacesSourceComp = new ArrayList<Interface>();
 						List<Interface> InterfacesTargetComp = new ArrayList<Interface>();
 
@@ -268,7 +268,7 @@ public class PLAFeatureMutation extends Mutation {
 						InterfacesTargetComp.clear();
 						InterfacesSourceComp.clear();
 
-					}
+					//}
 				} else {
 					Configuration.logger_.log(Level.SEVERE, "MoveOperationMutation.doMutation: invalid type. "
 							+ "{0}", solution.getDecisionVariables()[0].getVariableType());
@@ -309,9 +309,9 @@ public class PLAFeatureMutation extends Mutation {
                                                                         } else {
                                                                                 if ("allComponents".equals(scope)) {
                                                                                         Package targetComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
-                                                                                        if (checkSameLayer(sourceComp, targetComp)) {
+                                                                                        //if (checkSameLayer(sourceComp, targetComp)) {
                                                                                                 moveAttributeToNewClass(arch, sourceClass, AttributesClass, targetComp.createClass("Class" + OPLA.contClass_++, false));
-                                                                                        }
+                                                                                        //}
                                                                                 }
                                                                         }
                                                                         AttributesClass.clear();
@@ -324,9 +324,9 @@ public class PLAFeatureMutation extends Mutation {
 									} else {
 										if ("allComponents".equals(scope)) {
 											Package targetComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
-											if (checkSameLayer(sourceComp, targetComp)) {
+											//if (checkSameLayer(sourceComp, targetComp)) {
 												moveMethodToNewClass(arch, sourceClass, MethodsClass, targetComp.createClass("Class" + OPLA.contClass_++, false));
-											}
+											//}
 										}
 									}
 									MethodsClass.clear();
@@ -531,7 +531,7 @@ public class PLAFeatureMutation extends Mutation {
 			Iterator<Package> itrComp = allComponents.iterator();
 			while (itrComp.hasNext()) {
 				Package comp = itrComp.next();
-				if (!comp.equals(targetComponent) && checkSameLayer(comp, targetComponent)) {
+				if (!comp.equals(targetComponent) /*&& checkSameLayer(comp, targetComponent)*/) {
 					final Set<Interface> allInterfaces = new HashSet<Interface>(comp.getAllInterfaces());
 					allInterfaces.addAll(comp.getImplementedInterfaces());
 
@@ -883,15 +883,15 @@ public class PLAFeatureMutation extends Mutation {
 
 	//-------------------------------------------------------------------------------------------------
 	//Thelma: método adicionado para verificar se os componentes nos quais as mutacoes serao realizadas estao na mesma camada da arquitetura
-	private boolean checkSameLayer(Package source, Package target) {
-		boolean sameLayer = false;
-		if ((source.getName().endsWith("Mgr") && target.getName().endsWith("Mgr"))
-				|| (source.getName().endsWith("Ctrl") && target.getName().endsWith("Ctrl"))
-				|| (source.getName().endsWith("GUI") && target.getName().endsWith("GUI"))) {
-			sameLayer = true;
-		}
-		return sameLayer;
-	}
+//	private boolean checkSameLayer(Package source, Package target) {
+//		boolean sameLayer = false;
+//		if ((source.getName().endsWith("Mgr") && target.getName().endsWith("Mgr"))
+//				|| (source.getName().endsWith("Ctrl") && target.getName().endsWith("Ctrl"))
+//				|| (source.getName().endsWith("GUI") && target.getName().endsWith("GUI"))) {
+//			sameLayer = true;
+//		}
+//		return sameLayer;
+//	}
 
 	//-------------------------------------------------------------------------------------------------
 	//Thelma: método adicionado para retornar o sufixo do nome do componente
