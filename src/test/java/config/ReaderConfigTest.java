@@ -26,12 +26,6 @@ public class ReaderConfigTest {
     }
 
     @Test
-    public void shouldReturnPathToDirectorySaveModels() {
-	String dir = ReaderConfig.getDirTarget();
-	assertEquals("manipulation/", dir);
-    }
-
-    @Test
     public void shouldReturnPathToDirectoryExportModels() {
 	String dir = ReaderConfig.getDirExportTarget();
 	assertNotNull(dir);
