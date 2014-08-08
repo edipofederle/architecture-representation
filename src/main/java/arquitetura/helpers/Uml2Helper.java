@@ -272,16 +272,7 @@ public class Uml2Helper extends Base {
 
 	throw new ModelNotFoundException("Model " + pathAbsolute + " não encontrado.");
     }
-
-    private boolean hasSMartyProfile(Package model) {
-	EList<Profile> profiles = model.getAppliedProfiles();
-	for (Profile profile : profiles)
-	    if (profile.eClass().equals(UMLPackage.Literals.PROFILE))
-		return true;
-
-	return false;
-    }
-
+    
     public PackageableElement getEnumerationByName(Profile profile, String name) throws EnumerationNotFoundException {
 	EList<PackageableElement> a = profile.getPackagedElements();
 	for (PackageableElement packageableElement : a) {
