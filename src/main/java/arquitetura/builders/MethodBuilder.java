@@ -1,19 +1,16 @@
 package arquitetura.builders;
 
+import arquitetura.helpers.XmiHelper;
+import arquitetura.representation.Architecture;
+import arquitetura.representation.Method;
+import arquitetura.representation.ParameterMethod;
 import java.util.ArrayList;
 import java.util.List;
-
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.Type;
-
-import arquitetura.helpers.XmiHelper;
-import arquitetura.representation.Architecture;
-import arquitetura.representation.Method;
-import arquitetura.representation.ParameterMethod;
 
 /**
  * Builder resposável por criar element do tipo Método.
@@ -45,7 +42,14 @@ public class MethodBuilder extends ElementBuilder<Method> {
 		for (Parameter parameter : params){
 			if(parameter.getDirection().getName().equals("out"))
 				type = parameter.getType().getName();
-				parameterMethodReceives.add(new ParameterMethod(parameter.getName(), parameter.getType().getName(), parameter.getDirection().getName()));
+                        
+                        String typeTemp;
+                        if(parameter.getType() == null){
+                            typeTemp = "Undefined";
+                        } else {
+                            typeTemp = parameter.getType().getName();
+                        }
+				parameterMethodReceives.add(new ParameterMethod(parameter.getName(), typeTemp, parameter.getDirection().getName()));
 		}
 		
 		String namespace = modelElement.getNamespace().getQualifiedName();

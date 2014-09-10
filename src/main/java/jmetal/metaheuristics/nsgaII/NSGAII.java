@@ -208,7 +208,7 @@ public class NSGAII extends Algorithm {
                 } // if
             } // while
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
         // Return as output parameter the required evaluations
