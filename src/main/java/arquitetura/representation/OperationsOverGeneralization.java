@@ -59,37 +59,9 @@ public class OperationsOverGeneralization {
      * @param targetPackage - Pacote destino
      */
     public void moveGeneralizationToPackage(GeneralizationRelationship generalization, Package targetPackage) {
-        String gui = "Gui", mgr = "Mgr", ctrl = "Ctrl";
-        int contGui = 0, contMgr = 0, contCtrl = 0;
-
-        if (generalization.getParent().getNamespace().endsWith(gui)) {
-            contGui++;
-        } else if (generalization.getParent().getNamespace().endsWith(mgr)) {
-            contMgr++;
-        } else if (generalization.getParent().getNamespace().endsWith(ctrl)) {
-            contCtrl++;
-        }
-
         architecture.moveElementToPackage(generalization.getParent(), targetPackage);
         for (Element element : generalization.getAllChildrenForGeneralClass()) {
             architecture.moveElementToPackage(element, targetPackage);
-            if (element.getNamespace().endsWith(gui)) {
-                contGui++;
-            } else if (element.getNamespace().endsWith(mgr)) {
-                contMgr++;
-            } else if (element.getNamespace().endsWith(ctrl)) {
-                contCtrl++;
-            }
-        }
-
-        int totalElements = generalization.getAllChildrenForGeneralClass().size() + 1;
-        if ((totalElements == contCtrl) || (totalElements == contGui) || (totalElements == contMgr)) {
-        } else {
-            System.out.println("Different Layers");
-            System.out.println("Parent:" + generalization.getParent().getNamespace());
-            for (Element element : generalization.getAllChildrenForGeneralClass()) {
-                System.out.println("Child: " + element.getNamespace());
-            }
         }
     }
 
