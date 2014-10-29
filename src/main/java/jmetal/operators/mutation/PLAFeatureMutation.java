@@ -38,22 +38,10 @@ public class PLAFeatureMutation extends Mutation {
 
     private static final long serialVersionUID = 9039316729379302747L;
     static Logger LOGGER = LogManager.getLogger(PLAFeatureMutation.class.getName());
-
-    private String scope;
     private Double mutationProbability_ = null;
 
     public PLAFeatureMutation(HashMap<String, Object> parameters) {
         super(parameters);
-        this.scope = "allComponents";
-
-        if (parameters.get("probability") != null) {
-            mutationProbability_ = (Double) parameters.get("probability");
-        }
-    }
-
-    public PLAFeatureMutation(HashMap<String, Object> parameters, String scope) {
-        super(parameters);
-        this.scope = scope;
 
         if (parameters.get("probability") != null) {
             mutationProbability_ = (Double) parameters.get("probability");
@@ -61,7 +49,7 @@ public class PLAFeatureMutation extends Mutation {
     }
 
     public void doMutation(double probability, Solution solution) throws Exception {
-        //String scope = "allComponents"; //"allComponents" usar "sameComponent" para que a troca seja realizada dentro do mesmo componente da arquitetura
+        String scope = "allComponents"; //"allComponents" usar "sameComponent" para que a troca seja realizada dentro do mesmo componente da arquitetura
         String scopeLevels = "allLevels"; //usar "oneLevel" para não verificar a presença de interesses nos atributos e métodos
 
         int r = PseudoRandom.randInt(0, 5);
