@@ -44,6 +44,7 @@ public class PLAFeatureMutation extends Mutation {
 
     public PLAFeatureMutation(HashMap<String, Object> parameters) {
         super(parameters);
+        this.scope = "allComponents";
 
         if (parameters.get("probability") != null) {
             mutationProbability_ = (Double) parameters.get("probability");
@@ -86,7 +87,7 @@ public class PLAFeatureMutation extends Mutation {
         }
     }
 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //método para verificar se algum dos relacionamentos recebidos é generalização
     private boolean searchForGeneralizations(Class cls) {
         for (Relationship relationship : cls.getRelationships()) {
@@ -400,7 +401,7 @@ public class PLAFeatureMutation extends Mutation {
         createAssociation(arch, newClass, sourceClass);
     }
 
-	//	private void moveMethodAllComponents(Architecture arch, Class sourceClass, List<Method> MethodsClass, Class newClass) throws JMException {
+    //	private void moveMethodAllComponents(Architecture arch, Class sourceClass, List<Method> MethodsClass, Class newClass) throws JMException {
     //		Method targetMethod = randomObject (MethodsClass);
     //		sourceClass.moveMethodToClass(targetMethod, newClass);
     //		//if (targetMethod.isAbstract()) targetMethod.setAbstract(false);
@@ -862,11 +863,15 @@ public class PLAFeatureMutation extends Mutation {
             throw new JMException("Exception in " + name + ".execute()");
         }
 
+        //Thaina 10/2014 - Variável criada para armazenar a solução antes da mutação, com o objetivo de mantê-la caso ela seja inválida
+        Solution solutionBeforeMutation = new Solution(solution);
         this.doMutation(mutationProbability_, solution);
 
         if (!this.isValidSolution(((Architecture) solution.getDecisionVariables()[0]))) {
             Architecture clone;
-            clone = ((Architecture) solution.getDecisionVariables()[0]).deepClone();
+            //substituido para corrigir bug da solução inválida
+            //clone = ((Architecture) solution.getDecisionVariables()[0]).deepClone();
+            clone = ((Architecture) solutionBeforeMutation.getDecisionVariables()[0]).deepClone();
             solution.getDecisionVariables()[0] = clone;
             OPLA.contDiscardedSolutions_++;
         }
@@ -888,7 +893,7 @@ public class PLAFeatureMutation extends Mutation {
         return object;
     }
 
-	//-------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------
     //Thelma: método adicionado para verificar se os componentes nos quais as mutacoes serao realizadas estao na mesma camada da arquitetura
 //	private boolean checkSameLayer(Package source, Package target) {
 //		boolean sameLayer = false;
@@ -899,7 +904,7 @@ public class PLAFeatureMutation extends Mutation {
 //		}
 //		return sameLayer;
 //	}
-	//-------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------
     //Thelma: método adicionado para retornar o sufixo do nome do componente
     private String getSuffix(Package comp) {
         String suffix;
@@ -915,7 +920,7 @@ public class PLAFeatureMutation extends Mutation {
         return suffix;
     }
 
-	//-------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------
     //Thelma: método adicionado para verificar se a classe tem uma variabilidade relativa ao concern
     private boolean isVarPointOfConcern(Architecture arch, Class cls, Concern concern) {
         boolean isVariationPointConcern = false;
@@ -932,7 +937,7 @@ public class PLAFeatureMutation extends Mutation {
         return isVariationPointConcern;
     }
 
-	//-------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------
     //Thelma: método adicionado para verificar se a classe é variant de uma variabilidade relativa ao concern
     private boolean isVariantOfConcern(Architecture arch, Class cls, Concern concern) {
         boolean isVariantConcern = false;
@@ -1000,7 +1005,7 @@ public class PLAFeatureMutation extends Mutation {
         }
         return isOptional;
     }
-	//-------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------
     // verificar se a classe é variant de uma variabilidade
 
     private boolean isVariant(Architecture arch, Class cls) {
@@ -1034,7 +1039,7 @@ public class PLAFeatureMutation extends Mutation {
         return isVariationPoint;
     }
 
-	// Thelma - Dez2013 método adicionado
+    // Thelma - Dez2013 método adicionado
     // verify if the architecture contains a valid PLA design, i.e., if there is not any interface without relationships in the architecture.
     private boolean isValidSolution(Architecture solution) {
         boolean isValid = true;
@@ -1048,5 +1053,4 @@ public class PLAFeatureMutation extends Mutation {
         }
         return isValid;
     }
-
 }

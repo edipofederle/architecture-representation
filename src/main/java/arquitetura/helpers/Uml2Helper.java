@@ -1,11 +1,17 @@
 package arquitetura.helpers;
 
+import arquitetura.base.Base;
+import arquitetura.exceptions.EnumerationNotFoundException;
+import arquitetura.exceptions.ModelIncompleteException;
+import arquitetura.exceptions.ModelNotFoundException;
+import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
+import arquitetura.exceptions.StereotypeNotFoundException;
+import arquitetura.io.ReaderConfig;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -30,14 +36,6 @@ import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLFactory;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.resource.UMLResource;
-
-import arquitetura.base.Base;
-import arquitetura.exceptions.EnumerationNotFoundException;
-import arquitetura.exceptions.ModelIncompleteException;
-import arquitetura.exceptions.ModelNotFoundException;
-import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
-import arquitetura.exceptions.StereotypeNotFoundException;
-import arquitetura.io.ReaderConfig;
 
 /**
  * 
