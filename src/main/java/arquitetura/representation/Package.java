@@ -1,15 +1,13 @@
 package arquitetura.representation;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.relationship.RelationshiopCommons;
 import arquitetura.representation.relationship.Relationship;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -103,7 +101,7 @@ public class Package extends Element {
 		
 		implementedInterfacesForPackage.addAll(implementedInterfecesForClassIntoPackage);
 		return implementedInterfacesForPackage;
-	} 
+	}
 	
 	public Set<Interface> getOnlyInterfacesImplementedByPackage(){
 		return implementedInterfaces;

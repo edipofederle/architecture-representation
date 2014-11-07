@@ -39,6 +39,8 @@ public class PLAFeatureMutation extends Mutation {
     private static final long serialVersionUID = 9039316729379302747L;
     static Logger LOGGER = LogManager.getLogger(PLAFeatureMutation.class.getName());
     private Double mutationProbability_ = null;
+    public static int featureDrivenMoveOperationToComponent = 0;
+    public static int featureDrivenMoveOperationToComponentCreateInterface = 0;
 
     public PLAFeatureMutation(HashMap<String, Object> parameters) {
         super(parameters);
@@ -247,10 +249,14 @@ public class PLAFeatureMutation extends Mutation {
                     List<Interface> InterfacesSourceComp = new ArrayList<Interface>();
                     List<Interface> InterfacesTargetComp = new ArrayList<Interface>();
 
-                    InterfacesSourceComp.addAll(sourceComp.getImplementedInterfaces());
+                    //modificado Thainá 11/14
+                    //InterfacesSourceComp.addAll(sourceComp.getImplementedInterfaces());
+                    InterfacesSourceComp.addAll(sourceComp.getAllInterfaces());
                     removeInterfacesInPatternStructureFromArray(InterfacesSourceComp);
 
-                    InterfacesTargetComp.addAll(targetComp.getImplementedInterfaces());
+                    //modificado Thainá 11/14
+                    //InterfacesTargetComp.addAll(targetComp.getImplementedInterfaces());
+                    InterfacesTargetComp.addAll(targetComp.getAllInterfaces());
 
                     if ((InterfacesSourceComp.size() >= 1) && (InterfacesTargetComp.size() >= 1)) {
                         Interface targetInterface = randomObject(InterfacesTargetComp);
@@ -420,10 +426,12 @@ public class PLAFeatureMutation extends Mutation {
             if (PseudoRandom.randDouble() < probability) {
                 if (solution.getDecisionVariables()[0].getVariableType() == java.lang.Class.forName(Architecture.ARCHITECTURE_TYPE)) {
                     Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
-
                     Package sourceComp = randomObject(new ArrayList<Package>(arch.getAllPackages()));
                     List<Interface> InterfacesComp = new ArrayList<Interface>();
-                    InterfacesComp.addAll(sourceComp.getImplementedInterfaces());
+                    //modificado - Thaina 11/14
+                    //InterfacesComp.addAll(sourceComp.getImplementedInterfaces());
+                    InterfacesComp.addAll(sourceComp.getAllInterfaces());
+                    
 
                     removeInterfacesInPatternStructureFromArray(InterfacesComp);
 
@@ -439,7 +447,6 @@ public class PLAFeatureMutation extends Mutation {
                             Interface newInterface = newComp.createInterface("Interface" + OPLA.contInt_++);
 
                             sourceInterface.moveOperationToInterface(op, newInterface);
-
                             for (Element implementor : sourceInterface.getImplementors()) {
                                 if (implementor instanceof Package) {
                                     arch.addImplementedInterface(newInterface, (Package) implementor);
@@ -541,7 +548,9 @@ public class PLAFeatureMutation extends Mutation {
                 Package comp = itrComp.next();
                 if (!comp.equals(targetComponent) /*&& checkSameLayer(comp, targetComponent)*/) {
                     final Set<Interface> allInterfaces = new HashSet<Interface>(comp.getAllInterfaces());
-                    allInterfaces.addAll(comp.getImplementedInterfaces());
+                    //modificado - Thaina 11/14
+                    allInterfaces.addAll(comp.getAllInterfaces());
+                    //allInterfaces.addAll(comp.getImplementedInterfaces());
 
                     Iterator<Interface> itrInterface = allInterfaces.iterator();
                     while (itrInterface.hasNext()) {
@@ -705,8 +714,10 @@ public class PLAFeatureMutation extends Mutation {
     private void moveOperationToComponent(Method operation, Interface sourceInterface, Package targetComp, Package sourceComp, Architecture architecture, Concern concern) throws ConcernNotFoundException {
         Interface targetInterface = null;
         targetInterface = searchForInterfaceWithConcern(concern, targetComp);
+        featureDrivenMoveOperationToComponent++;
 
         if (targetInterface == null) {
+            featureDrivenMoveOperationToComponentCreateInterface++;
             targetInterface = targetComp.createInterface("Interface" + OPLA.contInt_++);
             sourceInterface.moveOperationToInterface(operation, targetInterface);
             targetInterface.addConcern(concern.getName());
@@ -825,11 +836,12 @@ public class PLAFeatureMutation extends Mutation {
     //	}
     //Édipo Método
     private Interface searchForInterfaceWithConcern(Concern concern, Package targetComp) {
-        for (Interface itf : targetComp.getImplementedInterfaces()) {
-            if (itf.containsConcern(concern)) {
-                return itf;
-            }
-        }
+        //excluído - Thainá 11/14
+//        for (Interface itf : targetComp.getImplementedInterfaces()) {
+//            if (itf.containsConcern(concern)) {
+//                return itf;
+//            }
+//        }
 
         for (Interface itf : targetComp.getAllInterfaces()) {
             if (itf.containsConcern(concern)) {
