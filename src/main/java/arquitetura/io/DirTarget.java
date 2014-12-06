@@ -2,86 +2,99 @@ package arquitetura.io;
 
 public class DirTarget {
 
-	private String directoryToSaveModels;
-	private String directoryToExportModels;
-	private String pathToProfile;
-	private String pathToProfileConcern;
-	private String pathToTemplateModelsDirectory;
-	private String pathToProfileRelationships;
-	private String pathToProfilePatterns;
-	
-	/**
-	 * @return the directoryToSaveModels
-	 */
-	public String getDirectoryToSaveModels() {
-		return directoryToSaveModels;
-	}
+    private String directoryToSaveModels;
+    private String directoryToExportModels;
+    private String pathToProfile;
+    private String pathToProfileConcern;
+    private String pathToTemplateModelsDirectory;
+    private String pathToProfileRelationships;
+    private String pathToProfilePatterns;
+    //Inicio - Thaina 11/14 (Implantação de aspectos)
+    private String pathToProfileAspect;
+    //Fim - Thaina 11/14 (Implantação de aspectos)
 
-	/**
-	 * @param directoryToSaveModels the directoryToSaveModels to set
-	 */
-	public void setDirectoryToSaveModels(String directoryToSaveModels) {
-		this.directoryToSaveModels = directoryToSaveModels;
-	}
+    /**
+     * @return the directoryToSaveModels
+     */
+    public String getDirectoryToSaveModels() {
+        return directoryToSaveModels;
+    }
 
-	/**
-	 * @return the directoryToExportModels
-	 */
-	public String getDirectoryToExportModels() {
-		return directoryToExportModels;
-	}
+    /**
+     * @param directoryToSaveModels the directoryToSaveModels to set
+     */
+    public void setDirectoryToSaveModels(String directoryToSaveModels) {
+        this.directoryToSaveModels = directoryToSaveModels;
+    }
 
-	/**
-	 * @param directoryToExportModels the directoryToExportModels to set
-	 */
-	public void setDirectoryToExportModels(String directoryToExportModels) {
-		this.directoryToExportModels = directoryToExportModels;
-	}
+    /**
+     * @return the directoryToExportModels
+     */
+    public String getDirectoryToExportModels() {
+        return directoryToExportModels;
+    }
 
-	/**
-	 * @return the pathToProfile
-	 */
-	public String getPathToProfile() {
-		return pathToProfile;
-	}
+    /**
+     * @param directoryToExportModels the directoryToExportModels to set
+     */
+    public void setDirectoryToExportModels(String directoryToExportModels) {
+        this.directoryToExportModels = directoryToExportModels;
+    }
 
-	/**
-	 * @param pathToProfile the pathToProfile to set
-	 */
-	public void setPathToProfile(String pathToProfile) {
-		this.pathToProfile = pathToProfile;
-	}
+    /**
+     * @return the pathToProfile
+     */
+    public String getPathToProfile() {
+        return pathToProfile;
+    }
 
-	public void setPathToProfileConcern(String pathToProfileConcern) {
-		this.pathToProfileConcern = pathToProfileConcern;
-	}
+    /**
+     * @param pathToProfile the pathToProfile to set
+     */
+    public void setPathToProfile(String pathToProfile) {
+        this.pathToProfile = pathToProfile;
+    }
 
-	public String getPathToProfileConcern() {
-		return pathToProfileConcern;
-	}
+    public void setPathToProfileConcern(String pathToProfileConcern) {
+        this.pathToProfileConcern = pathToProfileConcern;
+    }
 
-	public String getPathToTemplateModelsDirectory() {
-		return pathToTemplateModelsDirectory;
-	}
+    public String getPathToProfileConcern() {
+        return pathToProfileConcern;
+    }
 
-	public void setPathToTemplateModelsDirectory(String pathToTemplateModelsDirectory) {
-		this.pathToTemplateModelsDirectory = pathToTemplateModelsDirectory;
-	}
+    public String getPathToTemplateModelsDirectory() {
+        return pathToTemplateModelsDirectory;
+    }
 
-	public String getPathToProfileRelationships() {
-		return pathToProfileRelationships;
-	}
+    public void setPathToTemplateModelsDirectory(String pathToTemplateModelsDirectory) {
+        this.pathToTemplateModelsDirectory = pathToTemplateModelsDirectory;
+    }
 
-	public void setPathToProfileRelationships(String pathToProfileRelationships) {
-		this.pathToProfileRelationships = pathToProfileRelationships;
-	}
+    public String getPathToProfileRelationships() {
+        return pathToProfileRelationships;
+    }
 
-	public String getPathToProfilePatterns() {
-		return pathToProfilePatterns;
-	}
+    public void setPathToProfileRelationships(String pathToProfileRelationships) {
+        this.pathToProfileRelationships = pathToProfileRelationships;
+    }
 
-	public void setPathToProfilePatterns(String pathToProfilePatterns) {
-		this.pathToProfilePatterns = pathToProfilePatterns;
-	}
-	
+    public String getPathToProfilePatterns() {
+        return pathToProfilePatterns;
+    }
+
+    public void setPathToProfilePatterns(String pathToProfilePatterns) {
+        this.pathToProfilePatterns = pathToProfilePatterns;
+    }
+
+    //Inicio - Thaina 11/14 (Implantação de aspectos)
+    public String getPathToProfileAspect() {
+        return pathToProfileAspect;
+    }
+
+    public void setPathToProfileAspect(String pathToProfileAspect) {
+        this.pathToProfileAspect = pathToProfileAspect;
+    }
+    //Fim - Thaina 11/14 (Implantação de aspectos)
+
 }
