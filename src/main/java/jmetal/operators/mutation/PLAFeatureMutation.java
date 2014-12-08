@@ -3,6 +3,7 @@ package jmetal.operators.mutation;
 import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Aspect;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
@@ -10,6 +11,7 @@ import arquitetura.representation.Element;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Method;
 import arquitetura.representation.Package;
+import arquitetura.representation.RelationshipsHolder;
 import arquitetura.representation.Variability;
 import arquitetura.representation.Variant;
 import arquitetura.representation.VariationPoint;
@@ -53,6 +55,36 @@ public class PLAFeatureMutation extends Mutation {
     public void doMutation(double probability, Solution solution) throws Exception {
         String scope = "allComponents"; //"allComponents" usar "sameComponent" para que a troca seja realizada dentro do mesmo componente da arquitetura
         String scopeLevels = "allLevels"; //usar "oneLevel" para não verificar a presença de interesses nos atributos e métodos
+
+        Architecture arch = ((Architecture) solution.getDecisionVariables()[0]);
+        Set<Class> allClasses = arch.getAllClasses();
+        for(Class c: allClasses){
+            Set<Aspect> ownAspects = c.getAspects();
+            System.out.println("Class: " +c.getName());
+            System.out.println("Size: " +ownAspects.size());
+            
+            for (Iterator<Aspect> iterator = ownAspects.iterator(); iterator.hasNext();) {
+                Aspect aspect = iterator.next();
+                System.out.println(aspect);
+            }
+            
+            Set<Method> allMethods = c.getAllMethods();
+            for (Iterator<Method> iterator = allMethods.iterator(); iterator.hasNext();) {
+                Method method = iterator.next();
+                System.out.println(method);
+                Set<Aspect> aspectMethod = method.getAspects();
+                for (Iterator<Aspect> iterator1 = aspectMethod.iterator(); iterator1.hasNext();) {
+                    Aspect methodAsp = iterator1.next();
+                    System.out.println(methodAsp);
+                }
+            }
+        }
+        
+        RelationshipsHolder relationshipHolder = arch.getRelationshipHolder();
+        List<AssociationRelationship> allAssociations = relationshipHolder.getAllAssociations();
+        for (AssociationRelationship allAssociation : allAssociations) {
+        }
+        
 
         int r = PseudoRandom.randInt(0, 5);
         switch (r) {

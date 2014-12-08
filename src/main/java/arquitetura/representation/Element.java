@@ -23,6 +23,9 @@ public abstract class Element implements Serializable {
 	private VariationPoint variationPoint;
 	private Variant variant;
 	private Set<Concern> concerns = new HashSet<Concern>();
+        //Inicio - Thaina 12/14 - Aspecto
+        private Set<Aspect> aspects = new HashSet<Aspect>();
+        //Fim - Thaina 12/14 - Aspecto
 	private Architecture architecture;
 	private String typeElement;
 	private String namespace;
@@ -111,6 +114,27 @@ public abstract class Element implements Serializable {
 		for (String name : concernsNames) 
 			addConcern(name);
 	}
+        
+        //Inicio - Thaina 12/14 - Aspecto
+        public Set<Aspect> getAspects() {
+            if(aspects == null || aspects.isEmpty())
+		return Collections.emptySet();
+            return aspects;
+	}
+                
+        public boolean containsAspect(Aspect aspect){
+            for (Aspect a : getAspects()) {
+		if(a.getName().equalsIgnoreCase(aspect.getName()))
+		return true;
+		}
+		return false;
+	}
+                
+        public void addAspects(List<String> aspectsNames) throws ConcernNotFoundException {
+            for (String name : aspectsNames) 
+			addAspect(name);
+	}
+        //Fim - Thaina 12/14 - Aspecto
 	
 	/**
 	 * Adiciona um interesse a classe.<br/>
@@ -131,6 +155,19 @@ public abstract class Element implements Serializable {
 		Concern concern = ConcernHolder.INSTANCE.getConcernByName(concernName);
 		concerns.remove(concern);
 	}
+        
+        //Inicio - Thaina 12/14 - Aspecto
+        public void addAspect(String aspectName) throws ConcernNotFoundException {
+		Aspect aspect = AspectHolder.INSTANCE.getOrCreateAspect(aspectName);
+		aspects.add(aspect);
+                
+	}
+	
+	public void removeAspect(String aspectName){
+		Aspect aspect = AspectHolder.INSTANCE.getAspectByName(aspectName);
+		aspects.remove(aspect);
+	}
+        //Fim - Thaina 12/14 - Aspecto
 
 	/**
 	 * @return the namespace

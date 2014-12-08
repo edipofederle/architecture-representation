@@ -14,6 +14,8 @@ import arquitetura.helpers.StereotypeHelper;
 import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.ArchitectureHolder;
+import arquitetura.representation.Aspect;
+import arquitetura.representation.AspectHolder;
 import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
 import arquitetura.representation.ConcernHolder;
@@ -23,8 +25,12 @@ import arquitetura.representation.relationship.AssociationClassRelationship;
 import arquitetura.representation.relationship.Relationship;
 import com.rits.cloning.Cloner;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Abstraction;
 import org.eclipse.uml2.uml.Association;
@@ -115,6 +121,16 @@ public class ArchitectureBuilder {
 			for (Stereotype stereotype : concernsAllowed)
 				ConcernHolder.INSTANCE.allowedConcerns().add(new Concern(stereotype.getName()));
 		}
+                
+                //Inicio - Thainá 12/14 Aspectos
+		if(ReaderConfig.hasAspectProfile()){
+			Package aspectsProfile = modelHelper.loadAspectProfile();
+			EList<Stereotype> aspectsAllowed = aspectsProfile.getOwnedStereotypes();
+			for (Stereotype stereotype : aspectsAllowed){
+                                AspectHolder.INSTANCE.allowedAspects().add(new Aspect(stereotype.getName()));
+                    }
+                }
+                //Fim - Thainá 12/14 Aspectos
 		
 		for(arquitetura.representation.Package p : loadPackages())
 			architecture.addPackage(p); // Classes que possuem pacotes são carregadas juntamente com seus pacotes

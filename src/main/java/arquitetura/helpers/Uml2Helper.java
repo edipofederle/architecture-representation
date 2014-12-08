@@ -385,7 +385,13 @@ public class Uml2Helper extends Base {
 	public Profile loadConcernProfile() {
 		return (Profile) getExternalResources(ReaderConfig.getPathToProfileConcerns());
 	}
-
+        
+        //Inicio - Thainá 12/14 - Aspectos
+        public Profile loadAspectProfile() {
+		return (Profile) getExternalResources(ReaderConfig.getPathToProfileAspect());
+	}
+        //Fim - Thainá 12/14 - Aspectos
+        
 	public Profile getSMartyProfile() {
 		return (Profile) profile;
 	}
