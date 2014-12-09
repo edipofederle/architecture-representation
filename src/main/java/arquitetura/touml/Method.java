@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import arquitetura.helpers.UtilResources;
+import arquitetura.representation.Aspect;
 import arquitetura.representation.Concern;
 
 
@@ -25,6 +26,7 @@ public class Method {
 	private Types.Type typeReturn;
 	private boolean isAbstract = false;
 	private Set<Concern> concerns = new HashSet<Concern>();
+        private Set<Aspect> aspects = new HashSet<Aspect>();
 
 	private Method(){}
 	
@@ -67,6 +69,13 @@ public class Method {
 	public Set<Concern> getConcerns() {
 		return Collections.unmodifiableSet(concerns);
 	}
+        
+        //Inicio - Thaina 12/14 - Aspecto
+        public Set<Aspect> getAspects() {
+		return Collections.unmodifiableSet(aspects);
+	}
+        //Fim - Thaina 12/14 - Aspecto
+        
 
 	/**
 	 * @return the visibility
@@ -136,6 +145,13 @@ public class Method {
 		this.concerns  = ownConcerns;
 		return this;
 	}
+        
+        //Inicio - Thaina 12/14 - Aspecto
+        public Method withAspects(Set<Aspect> ownAspects) {
+		this.aspects  = ownAspects;
+		return this;
+	}
+        //Fim - Thaina 12/14 - Aspecto
 
 	public Method withId(String id2) {
 		this.id = id2;

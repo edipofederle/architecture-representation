@@ -76,6 +76,19 @@ public class DocumentManager extends XmiHelper {
 		    	//Caso perfil não esteja setado remove do arquivo de tempalte
 		        XmiHelper.removeNode(docUml, "profileApplication", "_2Q2s4I9OEeO5xq3Ur4qgFw"); //id setado no arquivo de template
 		      }
+                      
+                      //Inicio - Thaina 12/14 - Aspecto
+		      if(ReaderConfig.hasAspectProfile()){
+		        String pathAspect = ReaderConfig.getPathToProfileAspect();
+		        final File sourceFileAspect = new File(pathAspect);
+		        final File destFileAspect = new File(ReaderConfig.getDirExportTarget()+"/resources/aspect.profile.uml");
+		        Files.copy(sourceFileAspect, destFileAspect);
+		      }else{
+		    	//Caso perfil não esteja setado remove do arquivo de tempalte
+                          System.out.println("Arrumar - remover do arquivo do template");
+		        //XmiHelper.removeNode(docUml, "profileApplication", "_2Q2s4I9OEeO5xq3Ur4qgFw"); //id setado no arquivo de template
+		      }
+                      //Fim - Thaina 12/14 - Aspecto
 		      
 		      if(ReaderConfig.hasRelationsShipProfile()){
 		        String pathToProfileRelationships = ReaderConfig.getPathToProfileRelationships();
@@ -252,6 +265,9 @@ public class DocumentManager extends XmiHelper {
 	public void updateProfilesRefs()  {
 		String pathToProfileSMarty = ReaderConfig.getPathToProfileSMarty();
 		String pathToProfileConcern = ReaderConfig.getPathToProfileConcerns();
+                //Inicio - Thaina 12/14 - Aspecto
+                String pathToProfileAspect = ReaderConfig.getPathToProfileAspect();
+                //Fim - Thaina 12/14 - Aspecto
 		String pathToProfileRelationship = ReaderConfig.getPathToProfileRelationships();
 
 		DocumentBuilderFactory factorySmarty = DocumentBuilderFactory.newInstance();
@@ -259,6 +275,11 @@ public class DocumentManager extends XmiHelper {
 
 		DocumentBuilderFactory factoryConcern = DocumentBuilderFactory.newInstance();
 		DocumentBuilder profileConcern = null;
+                
+                //Inicio - Thaina 12/14 - Aspecto
+		DocumentBuilderFactory factoryAspect = DocumentBuilderFactory.newInstance();
+		DocumentBuilder profileAspect = null;
+                //Fim - Thaina 12/14 - Aspecto
 		
 		DocumentBuilderFactory factoryRelationships = DocumentBuilderFactory.newInstance();
 		DocumentBuilder profileRelationships = null;
@@ -285,7 +306,30 @@ public class DocumentManager extends XmiHelper {
 			      });
 				
 			}
-
+                        
+                        //Inicio - Thaina 12/14 - Aspecto
+			if(ReaderConfig.hasAspectProfile()){
+				profileAspect = factoryAspect.newDocumentBuilder();
+				final Document docAspect = profileAspect.parse(pathToProfileAspect);
+				
+				updateHrefAtt(getIdOnNode(docAspect, "contents", "xmi:id"), "aspect", "appliedProfile", false);
+				updateHrefAtt(getIdOnNode(docAspect, "uml:Profile", "xmi:id"), "aspect", "appliedProfile", true);
+				
+				final String nsUriPerfilAspect = getIdOnNode(docAspect, "contents", "nsURI");
+                                arquitetura.touml.Document.executeTransformation(this, new Transformation(){
+			          public void useTransformation() {
+			        	  Node xmlsnsAspect = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xmlns:aspect");
+			        	  xmlsnsAspect.setNodeValue(nsUriPerfilAspect);
+			        	  String aspectLocaltionSchema = nsUriPerfilAspect + " " + "resources/aspect.profile.uml#"+ getIdOnNode(docAspect, "contents", "xmi:id");
+		              
+			        	  Node nodeSchemaLocation = docUml.getElementsByTagName("xmi:XMI").item(0).getAttributes().getNamedItem("xsi:schemaLocation");
+			        	  nodeSchemaLocation.setNodeValue(nodeSchemaLocation.getNodeValue()+ " " + aspectLocaltionSchema + " ");
+			          }
+			      });
+				
+			}                        
+                        //Fim - Thaina 12/14 - Aspecto
+                        
 //			if(ReaderConfig.hasSmartyProfile()){
 //				profileSmarty = factorySmarty.newDocumentBuilder();
 //				final Document docProfile = profileSmarty.parse(pathToProfileSMarty);
@@ -326,8 +370,8 @@ public class DocumentManager extends XmiHelper {
 
 
 	private void updateHrefAtt(final String idApplied, final String profileName, final String tagName, final boolean updateReference) {
-		arquitetura.touml.Document.executeTransformation(this, new Transformation(){
-			public void useTransformation() {
+            arquitetura.touml.Document.executeTransformation(this, new Transformation(){
+                    public void useTransformation() {
 				Node node = null;
 				if(updateReference)
 					node = getAppliedHrefProfile(profileName, tagName);
@@ -345,9 +389,10 @@ public class DocumentManager extends XmiHelper {
 		NodeList elements = docUml.getElementsByTagName("profileApplication");
 		for (int i = 0; i < elements.getLength(); i++) {
 			NodeList childs = (elements.item(i).getChildNodes());
-			for (int j = 0; j < childs.getLength(); j++)
-				if(childs.item(j).getNodeName().equals(tagName) && (childs.item(j).getAttributes().getNamedItem("href").getNodeValue().contains(profileName)))
+			for (int j = 0; j < childs.getLength(); j++){
+                            if(childs.item(j).getNodeName().equals(tagName) && (childs.item(j).getAttributes().getNamedItem("href").getNodeValue().contains(profileName)))
 					return childs.item(j);
+                        }
 		}
 		return null;
 	}

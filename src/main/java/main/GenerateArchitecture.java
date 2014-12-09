@@ -106,6 +106,10 @@ public class GenerateArchitecture  extends ArchitectureBase{
 				op.forConcerns().withStereotypes(klass.getOwnConcerns(), klass.getId());
 				
 				op.forConcerns().withPatternsStereotype(klass);
+                                
+                                //Inicio - Thaina 12/14 - Aspecto
+                                op.forConcerns().withStereotypesAspect(klass.getAspects(), klass.getId());
+                                //Fim - Thaina 12/14 - Aspecto
 				
 				//Adiciona Interesses nos atributos
 				for (arquitetura.touml.Attribute attr : attributesForClass) {
@@ -114,8 +118,11 @@ public class GenerateArchitecture  extends ArchitectureBase{
 				//Adiciona Interesses nos métodos
 				for(Method m : methodsForClass){
 					op.forConcerns().withStereotypes(m.getConcerns(), m.getId());
+                                //Inicio - Thaina 12/14 - Aspecto
+					op.forConcerns().withStereotypesAspect(m.getAspects(), m.getId());
+                                //Fim - Thaina 12/14 - Aspecto
 				}
-				
+                                
 				attributesForClass.clear();
 				methodsForClass.clear();
 				//Adiciona Interesses nas classes
@@ -444,6 +451,9 @@ public class GenerateArchitecture  extends ArchitectureBase{
 					  .withName(method.getName()).abstractMethod()
 					  .withArguments(currentMethodParams)
 					  .withConcerns(method.getOwnConcerns())
+                                          //Inicio - Thaina 12/14 - Aspecto
+                                          .withAspects(method.getAspects())
+                                            //Fim - Thaina 12/14 - Aspecto
 					  .withReturn(Types.getByName(method.getReturnType())).build();
 				methods.add(m);
 			}else{
@@ -452,6 +462,9 @@ public class GenerateArchitecture  extends ArchitectureBase{
 						  .withName(method.getName())
 						  .withArguments(currentMethodParams)
 						  .withConcerns(method.getOwnConcerns())
+                                                   //Inicio - Thaina 12/14 - Aspecto
+                                                   .withAspects(method.getAspects())
+                                                   //Fim - Thaina 12/14 - Aspecto
 						  .withReturn(Types.getByName(method.getReturnType())).build();
 				methods.add(m);
 			}

@@ -60,7 +60,8 @@ public class PLAFeatureMutation extends Mutation {
         Set<Class> allClasses = arch.getAllClasses();
         for(Class c: allClasses){
             Set<Aspect> ownAspects = c.getAspects();
-            System.out.println("Class: " +c.getName());
+            System.out.println("");
+            System.out.println("\nClass: " +c.getName());
             System.out.println("Size: " +ownAspects.size());
             
             for (Iterator<Aspect> iterator = ownAspects.iterator(); iterator.hasNext();) {
@@ -82,7 +83,12 @@ public class PLAFeatureMutation extends Mutation {
         
         RelationshipsHolder relationshipHolder = arch.getRelationshipHolder();
         List<AssociationRelationship> allAssociations = relationshipHolder.getAllAssociations();
-        for (AssociationRelationship allAssociation : allAssociations) {
+        for (AssociationRelationship association : allAssociations) {
+            System.out.println("");
+            System.out.println("Participant 1: " +association.getParticipants().get(0).getName());
+            System.out.println("Participant 2: " +association.getParticipants().get(1).getName());
+            
+            System.out.println("pointcut? " +association.isPoincut());
         }
         
 

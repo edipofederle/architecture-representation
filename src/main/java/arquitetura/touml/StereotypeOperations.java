@@ -1,5 +1,6 @@
 package arquitetura.touml;
 
+import arquitetura.representation.Aspect;
 import java.util.Set;
 
 import arquitetura.representation.Class;
@@ -11,6 +12,9 @@ public class StereotypeOperations{
 	
 	private static final String PATTERNS = "patterns";
 	private static final String CONCERNS = "concerns";
+        //Inicio - Thaina 12/14 - Aspecto
+        private static final String ASPECT = "aspect";
+        //Fim - Thaina 12/14 - Aspecto
 	private ElementXmiGenerator elementXmiGenerator;
 
 	public StereotypeOperations(DocumentManager documentManager) {
@@ -44,5 +48,15 @@ public class StereotypeOperations{
 			}
 		}
 	}
+        //Inicio - Thaina 12/14 - Aspecto
+        	public StereotypeOperations withStereotypesAspect(Set<Aspect> aspects, String id) {
+		if(!aspects.isEmpty()){
+		for(final Aspect aspect : aspects)
+			elementXmiGenerator.generateAspect(aspect.getName(), id, ASPECT);
+		}
+		return this;
+	}
+        //Fim - Thaina 12/14 - Aspecto
+        
 	
 }

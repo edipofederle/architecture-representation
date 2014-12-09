@@ -255,6 +255,7 @@ public class ArchitectureBuilder {
 	}
 
 	private List<Relationship> loadAssociations() {
+            
 		List<Relationship> relationships = new ArrayList<Relationship>();
 		List<Association> associations = modelHelper.getAllAssociations(model);
 		

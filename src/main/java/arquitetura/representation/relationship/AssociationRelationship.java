@@ -1,11 +1,17 @@
 package arquitetura.representation.relationship;
 
+import arquitetura.exceptions.ConcernNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 import arquitetura.helpers.ElementsTypes;
 import arquitetura.helpers.UtilResources;
+import arquitetura.representation.Aspect;
+import arquitetura.representation.AspectHolder;
 import arquitetura.representation.Element;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -16,6 +22,7 @@ import arquitetura.representation.Element;
 public class AssociationRelationship extends Relationship {
 
 	private final List<AssociationEnd> participants = new ArrayList<AssociationEnd>();
+        private boolean pointcut = false;
 	
 	public AssociationRelationship(String id) {setId(id);}
 	
@@ -31,6 +38,23 @@ public class AssociationRelationship extends Relationship {
 	public List<AssociationEnd> getParticipants() {
 		return participants;
 	}
+        
+        //Inicio - Thaina 12/14 - Aspecto
+                
+        public boolean isPoincut(){
+            return pointcut;
+	}
+        
+        public void removePoincut(){
+            pointcut = false;
+        }
+                
+        public void addPoincut(String aspectName) throws ConcernNotFoundException {
+		if(aspectName.equalsIgnoreCase("pointcut")){
+                    pointcut = true;
+                }
+	}
+        //Fim - Thaina 12/14 - Aspecto
 
 	@Override
 	public int hashCode() {

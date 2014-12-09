@@ -250,6 +250,10 @@ public class ClassNotation extends XmiHelper {
 				 valueAttr.setNodeValue(oldValue +",concerns::"+name);
 			 else if("patterns".equalsIgnoreCase(perfilType))
 				 valueAttr.setNodeValue(oldValue +",patterns::"+name);
+                        //Inicio - Thaina 12/14 - Aspecto
+                        else if("aspect".equalsIgnoreCase(perfilType))
+				 valueAttr.setNodeValue(oldValue +",aspect::"+name);
+                        //Fim - Thaina 12/14 - Aspecto
 		}else{
 			ste(name, idClass,false, perfilType);
 			ste(name, idClass, true, perfilType);
@@ -315,6 +319,10 @@ public class ClassNotation extends XmiHelper {
 				details2.setAttribute("value", "concerns::"+name);
 		else if("patterns".equalsIgnoreCase(perfilType))
 			details2.setAttribute("value", "patterns::"+name);
+                //Inicio - Thaina 12/14 - Aspecto
+                else if("aspect".equalsIgnoreCase(perfilType))
+			details2.setAttribute("value", "aspect::"+name);
+                //Fim - Thaina 12/14 - Aspecto
 		eAnnotations.appendChild(details2);
 		
 		Element details3 = documentManager.getDocNotation().createElement("details");
