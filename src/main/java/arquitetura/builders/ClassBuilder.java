@@ -1,5 +1,6 @@
 package arquitetura.builders;
 
+import arquitetura.exceptions.ConcernNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,8 @@ import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
 import arquitetura.representation.Method;
 import arquitetura.representation.PatternsOperations;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Builder resposável por criar element do tipo Classe.
@@ -57,13 +60,21 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 		packageName = packageName !=null ? packageName : "";
 		
 		klass = new Class(architecture.getRelationshipHolder(), name, variantType, isAbstract, packageName, XmiHelper.getXmiId(modelElement));
-		for(Attribute a : getAttributes(modelElement)){
-			klass.addExternalAttribute(a);
-		}
+            try {
+                for(Attribute a : getAttributes(modelElement)){
+                    klass.addExternalAttribute(a);
+                }
+            } catch (ConcernNotFoundException ex) {
+                Logger.getLogger(ClassBuilder.class.getName()).log(Level.SEVERE, null, ex);
+            }
 		
-		for(Method m : getMethods(modelElement, klass)){
-			klass.addExternalMethod(m);
-		}
+            try {
+                for(Method m : getMethods(modelElement, klass)){
+                    klass.addExternalMethod(m);
+                }
+            } catch (ConcernNotFoundException ex) {
+                Logger.getLogger(ClassBuilder.class.getName()).log(Level.SEVERE, null, ex);
+            }
 		
 		klass.setPatternOperations(new PatternsOperations(StereotypeHelper.getAllPatternsStereotypes(modelElement)));
 		
@@ -75,7 +86,7 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 	 * @param modelElement
 	 * @return List
 	 */
-	private List<Attribute> getAttributes(NamedElement modelElement) {
+	private List<Attribute> getAttributes(NamedElement modelElement) throws ConcernNotFoundException {
 		List<Attribute> attrs = new ArrayList<Attribute>();
 		
 			List<Property> attributes = modelHelper.getAllAttributesForAClass(modelElement);
@@ -92,7 +103,7 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 	 * @param modelElement
 	 * @return List
 	 */
-	private List<Method> getMethods(NamedElement modelElement, Class parent) {
+	private List<Method> getMethods(NamedElement modelElement, Class parent) throws ConcernNotFoundException {
 		List<Method> methods = new ArrayList<Method>();
 		List<Operation> elements = modelHelper.getAllMethods(modelElement);
 		

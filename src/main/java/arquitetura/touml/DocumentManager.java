@@ -85,8 +85,7 @@ public class DocumentManager extends XmiHelper {
 		        Files.copy(sourceFileAspect, destFileAspect);
 		      }else{
 		    	//Caso perfil não esteja setado remove do arquivo de tempalte
-                          System.out.println("Arrumar - remover do arquivo do template");
-		        //XmiHelper.removeNode(docUml, "profileApplication", "_2Q2s4I9OEeO5xq3Ur4qgFw"); //id setado no arquivo de template
+		        XmiHelper.removeNode(docUml, "profileApplication", "_2Q2s4I9OEeO5xq3Ur4qgFwAspect"); //id setado no arquivo de template
 		      }
                       //Fim - Thaina 12/14 - Aspecto
 		      
@@ -289,7 +288,7 @@ public class DocumentManager extends XmiHelper {
 			if(ReaderConfig.hasConcernsProfile()){
 				profileConcern = factoryConcern.newDocumentBuilder();
 				final Document docConcern = profileConcern.parse(pathToProfileConcern);
-				
+                                                       
 				updateHrefAtt(getIdOnNode(docConcern, "contents", "xmi:id"), "concerns", "appliedProfile", false);
 				updateHrefAtt(getIdOnNode(docConcern, "uml:Profile", "xmi:id"), "concerns", "appliedProfile", true);
 				
@@ -315,6 +314,7 @@ public class DocumentManager extends XmiHelper {
 				updateHrefAtt(getIdOnNode(docAspect, "contents", "xmi:id"), "aspect", "appliedProfile", false);
 				updateHrefAtt(getIdOnNode(docAspect, "uml:Profile", "xmi:id"), "aspect", "appliedProfile", true);
 				
+                                
 				final String nsUriPerfilAspect = getIdOnNode(docAspect, "contents", "nsURI");
                                 arquitetura.touml.Document.executeTransformation(this, new Transformation(){
 			          public void useTransformation() {
@@ -418,8 +418,7 @@ public class DocumentManager extends XmiHelper {
 
 			return null;
 		}
-
-
+                
 	private boolean isProfileNode(String profileName, NodeList eAnnotationsChilds, int l) {
 		return (eAnnotationsChilds.item(l).getNodeName().equalsIgnoreCase("references") &&
 			   (eAnnotationsChilds.item(l).getAttributes().getNamedItem("href").getNodeValue().contains(profileName)));

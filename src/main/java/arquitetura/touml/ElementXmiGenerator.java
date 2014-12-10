@@ -406,7 +406,14 @@ public class ElementXmiGenerator extends XmiHelper {
 		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
 		Element stereotype = this.documentManager.getDocUml().createElement(type+":"+name);
 		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
-		stereotype.setAttribute("base_Class", idClass); // A classe que tem o estereotype
+                
+                if(name.equalsIgnoreCase("aspect")){
+                    stereotype.setAttribute("base_Class", idClass);
+                } else if(name.equalsIgnoreCase("pointcut")){
+                    stereotype.setAttribute("base_Association", idClass);
+                } else{
+                    stereotype.setAttribute("base_Operation", idClass);
+                }
 		nodeXmi.getParentNode().appendChild(stereotype);
 		notation.createXmiForStereotype(name, idClass, type);
 	}

@@ -19,6 +19,7 @@ import arquitetura.helpers.Strings;
 import arquitetura.helpers.UtilResources;
 import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
+import arquitetura.representation.Aspect;
 import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
@@ -394,10 +395,15 @@ public class GenerateArchitecture  extends ArchitectureBase{
 			AssociationEnd p2 = r.getParticipants().get(1);
 			
 			if(p1.getAggregation().equalsIgnoreCase("none") && (p2.getAggregation().equalsIgnoreCase("none"))){
-				op.forAssociation().createAssociation()
-				  .withName(r.getName())
-				  .betweenClass(p1)
-				  .andClass(p2).build();
+                            String idAssociation = op.forAssociation().createAssociation()
+                                    .withName(r.getName())
+                                    .betweenClass(p1)
+                                    .andClass(p2).build();
+                                //Inicio - Thaina 12/14 - Aspecto
+                                if(r.isPoincut()){
+                                    op.forConcerns().withStereotypesPointcut("pointcut", idAssociation);
+                                }
+                                //Fim - Thaina 12/14 - Aspecto
 			}
 		}catch(Exception e){
 			LOGGER.info("Relacionamento associacao não criado");

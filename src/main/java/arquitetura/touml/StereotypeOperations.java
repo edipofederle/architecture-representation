@@ -49,10 +49,18 @@ public class StereotypeOperations{
 		}
 	}
         //Inicio - Thaina 12/14 - Aspecto
-        	public StereotypeOperations withStereotypesAspect(Set<Aspect> aspects, String id) {
+        	
+        public StereotypeOperations withStereotypesAspect(Set<Aspect> aspects, String id) {
 		if(!aspects.isEmpty()){
 		for(final Aspect aspect : aspects)
 			elementXmiGenerator.generateAspect(aspect.getName(), id, ASPECT);
+		}
+		return this;
+	}
+        
+         public StereotypeOperations withStereotypesPointcut(String aspect, String id) {
+		if(!aspect.equals("")){
+                    elementXmiGenerator.generateAspect(aspect, id, ASPECT);
 		}
 		return this;
 	}

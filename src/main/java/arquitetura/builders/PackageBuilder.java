@@ -1,5 +1,6 @@
 package arquitetura.builders;
 
+import arquitetura.exceptions.ConcernNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Package;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Builder responsável por criar element do tipo Pacote.
@@ -39,17 +42,29 @@ public class PackageBuilder extends ElementBuilder<Package> {
 	@Override
 	public Package buildElement(NamedElement modelElement) {
 		Package pkg = new Package(architecture.getRelationshipHolder(), name, variantType, modelElement.getNamespace().getQualifiedName(), XmiHelper.getXmiId(modelElement));
-		pkg.getNestedPackages().addAll(getNestedPackages(modelElement));
-		for(Class klass : getClasses(modelElement, pkg)){
-			pkg.addExternalClass(klass);
-		}
-		for(Interface itf : getInterfaces(modelElement,pkg))
-			pkg.addExternalInterface(itf);
+            try {
+                pkg.getNestedPackages().addAll(getNestedPackages(modelElement));
+            } catch (ConcernNotFoundException ex) {
+                Logger.getLogger(PackageBuilder.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                for(Class klass : getClasses(modelElement, pkg)){
+                    pkg.addExternalClass(klass);
+                }
+            } catch (ConcernNotFoundException ex) {
+                Logger.getLogger(PackageBuilder.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                for(Interface itf : getInterfaces(modelElement,pkg))
+                    pkg.addExternalInterface(itf);
+            } catch (ConcernNotFoundException ex) {
+                Logger.getLogger(PackageBuilder.class.getName()).log(Level.SEVERE, null, ex);
+            }
 		
 		return pkg;
 	}
 	
-	private List<Package> getNestedPackages(NamedElement modelElement) {
+	private List<Package> getNestedPackages(NamedElement modelElement) throws ConcernNotFoundException {
 		List<Package> listOfPackes = new ArrayList<Package>();
 		List<org.eclipse.uml2.uml.Package> paks = modelHelper.getAllPackages(modelElement);
 		
@@ -59,7 +74,7 @@ public class PackageBuilder extends ElementBuilder<Package> {
 		return listOfPackes;
 	}
 
-	private List<Class> getClasses(NamedElement modelElement, Package pkg) {
+	private List<Class> getClasses(NamedElement modelElement, Package pkg) throws ConcernNotFoundException {
 		List<Class> listOfClasses = new ArrayList<Class>();
 		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getAllClasses(((org.eclipse.uml2.uml.Package) modelElement));
 
@@ -73,7 +88,7 @@ public class PackageBuilder extends ElementBuilder<Package> {
 		return listOfClasses;
 	}
 	
-	private List<Interface> getInterfaces(NamedElement modelElement, Package pkg) {
+	private List<Interface> getInterfaces(NamedElement modelElement, Package pkg) throws ConcernNotFoundException {
 		List<Interface> allInterfaces = new ArrayList<Interface>();
 		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getAllClasses(((org.eclipse.uml2.uml.Package) modelElement));
 

@@ -1,5 +1,6 @@
 package arquitetura.builders;
 
+import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.exceptions.ModelIncompleteException;
 import arquitetura.exceptions.ModelNotFoundException;
 import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
@@ -74,6 +75,10 @@ public class ArchitectureBuilder {
 	public ArchitectureBuilder() {
 		//RelationshipHolder.clearLists();
 		ConcernHolder.INSTANCE.clear();
+                
+                //Inicio - Thaina 12/14 - Aspecto
+                AspectHolder.INSTANCE.clear();
+                //Fim - Thaina 12/14 - Aspecto
                 
                 //Load configure file. Call this method only once
 	    	ReaderConfig.load();
@@ -198,7 +203,7 @@ public class ArchitectureBuilder {
 		return usageClass;
 	}
 
-	private List<AssociationClassRelationship> loadAssociationClassAssociation() {
+	private List<AssociationClassRelationship> loadAssociationClassAssociation() throws ConcernNotFoundException {
 		List<AssociationClassRelationship> associationClasses = new ArrayList<AssociationClassRelationship>();
 		List<AssociationClass> associationsClass = modelHelper.getAllAssociationsClass(model);
 		
@@ -281,7 +286,7 @@ public class ArchitectureBuilder {
 		return Collections.emptyList();
 	}
 
-	private List<Class> loadClasses() {
+	private List<Class> loadClasses() throws ConcernNotFoundException {
 		List<Class> listOfClasses = new ArrayList<Class>();
 		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getClasses(model);
 		
@@ -293,7 +298,7 @@ public class ArchitectureBuilder {
 		return listOfClasses;
 	}
 	
-	private List<Interface> loadInterfaces() {
+	private List<Interface> loadInterfaces() throws ConcernNotFoundException {
 		List<Interface> listOfInterfaces = new ArrayList<Interface>();
 		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getClasses(model);
 		
@@ -308,7 +313,7 @@ public class ArchitectureBuilder {
 	 * Retornar todos os pacotes
 	 * @return {@link Collection<mestrado.arquitetura.representation.Package>}
 	 */
-	private List<arquitetura.representation.Package> loadPackages() {
+	private List<arquitetura.representation.Package> loadPackages() throws ConcernNotFoundException {
 		List<arquitetura.representation.Package> packages = new ArrayList<arquitetura.representation.Package>();
 		List<Package> packagess = modelHelper.getAllPackages(model);
 		

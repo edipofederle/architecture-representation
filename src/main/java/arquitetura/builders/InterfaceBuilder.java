@@ -1,5 +1,6 @@
 package arquitetura.builders;
 
+import arquitetura.exceptions.ConcernNotFoundException;
 import java.util.List;
 
 import org.eclipse.uml2.uml.NamedElement;
@@ -10,6 +11,8 @@ import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Interface;
 import arquitetura.representation.PatternsOperations;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 
@@ -33,7 +36,8 @@ public class InterfaceBuilder extends ElementBuilder<arquitetura.representation.
 		List<Operation> elements = ((org.eclipse.uml2.uml.Class)modelElement).getOperations();
 		
 		for (Operation operation : elements)
-			interfacee.addExternalOperation(methodBuilder.create(operation));
+                            interfacee.addExternalOperation(methodBuilder.create(operation));
+                 
 		
 		interfacee.setPatternOperations(new PatternsOperations(StereotypeHelper.getAllPatternsStereotypes(modelElement)));
 		return interfacee;

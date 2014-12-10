@@ -7,6 +7,7 @@ import org.eclipse.uml2.uml.AssociationClass;
 import org.eclipse.uml2.uml.Type;
 
 import arquitetura.base.ArchitectureHelper;
+import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
@@ -28,7 +29,7 @@ public class AssociationClassRelationshipBuilder extends ArchitectureHelper {
 		classBuilder = new ClassBuilder(architecture);
 	}
 
-	public AssociationClassRelationship create(AssociationClass associationClass) {
+	public AssociationClassRelationship create(AssociationClass associationClass) throws ConcernNotFoundException {
 		List<MemberEnd> membersEnd = new ArrayList<MemberEnd>();
 		
 		Class classAssociation = classBuilder.create(associationClass);
