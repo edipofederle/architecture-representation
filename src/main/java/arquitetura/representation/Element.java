@@ -121,6 +121,15 @@ public abstract class Element implements Serializable {
 		return Collections.emptySet();
             return aspects;
 	}
+        
+        public boolean isAspect() {
+            for(Aspect aspect: getAspects()){
+                if(aspect.getName().equalsIgnoreCase("aspect")){
+                    return true;
+                }
+            }
+            return false;
+	}
                 
         public boolean containsAspect(Aspect aspect){
             for (Aspect a : getAspects()) {
