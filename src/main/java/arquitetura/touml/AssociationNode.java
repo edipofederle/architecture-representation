@@ -62,7 +62,9 @@ public class AssociationNode extends XmiHelper{
 		
 		Element ownedEnd1 = this.docUml.createElement("ownedEnd");
 		ownedEnd1.setAttribute("xmi:id", memberEnd1Id);
-		ownedEnd1.setAttribute("name", memberEnd1.getCLSClass().getName());
+                //Thaina - 12/14 - Alterado aspecto
+		//ownedEnd1.setAttribute("name", memberEnd1.getCLSClass().getName());
+                ownedEnd1.setAttribute("name", memberEnd1.getName());
 		ownedEnd1.setAttribute("type", memberEnd1.getCLSClass().getId());
 		ownedEnd1.setAttribute("association", this.idAssocation);
 		
@@ -77,7 +79,9 @@ public class AssociationNode extends XmiHelper{
 		
 		Element ownedEnd2 = this.docUml.createElement("ownedEnd");
 		ownedEnd2.setAttribute("xmi:id", memberEnd2Id);
-		ownedEnd2.setAttribute("name", memberEnd2.getCLSClass().getName());
+                //Thaina - 12/14 - Alterado aspecto
+                ownedEnd2.setAttribute("name", memberEnd2.getName());
+		//ownedEnd2.setAttribute("name", memberEnd2.getCLSClass().getName());
 		ownedEnd2.setAttribute("type", memberEnd2.getCLSClass().getId());
 		ownedEnd2.setAttribute("association", this.idAssocation);
 		
