@@ -56,14 +56,24 @@ public class AssociationRelationship extends Relationship {
 	}
         //Fim - Thaina 12/14 - Aspecto
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result
-				+ ((participants == null) ? 0 : participants.hashCode());
-		return result;
-	}
+//THAINA 12/14 - REMOVIDO ESSE METODO PQ NAO ESTAVA FUNCIONANDO
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = super.hashCode();
+//		result = prime * result
+//				+ ((participants == null) ? 0 : participants.hashCode());
+//		return result;
+//	}
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 89 * hash + (this.participants != null ? this.participants.hashCode() : 0);
+        return hash;
+    }
+        
+        
 
 	@Override
 	public boolean equals(Object obj) {
