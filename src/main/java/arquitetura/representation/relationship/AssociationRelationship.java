@@ -65,14 +65,6 @@ public class AssociationRelationship extends Relationship {
 //				+ ((participants == null) ? 0 : participants.hashCode());
 //		return result;
 //	}
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 89 * hash + (this.participants != null ? this.participants.hashCode() : 0);
-        return hash;
-    }
-        
         
 
 	@Override
