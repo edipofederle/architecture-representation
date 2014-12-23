@@ -246,5 +246,11 @@ public class RelationshipsHolder {
 		}
 		return false;
 	}
+        
+        //Inicio - Thaina 12/14 - Aspecto
+        public boolean addPointcut(Relationship relationship) {
+		return this.relationships.add(relationship);
+	}
+        //Fim - Thaina 12/14 - Aspecto
 	
 }
