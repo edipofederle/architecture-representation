@@ -624,6 +624,18 @@ public class Architecture extends Variable {
         }
         return false;
     }
+    
+    //Inicio - Thaina 12/14 - Aspectos
+        public boolean addPointcut(Relationship relationship) {
+            if (relationshipHolder.addRelationship(relationship)) {
+                LOGGER.info("Relacionamento: " + relationship.getType() + " adicionado na arquitetura.(" + UtilResources.detailLogRelationship(relationship) + ")");
+                return true;
+            } else {
+                LOGGER.info("TENTOU adicionar Relacionamento: " + relationship.getType() + " na arquitetura porém não consegiu");
+                return false;
+            }
+    }
+    //Fim - Thaina 12/14 - Aspectos
 
     public Package findPackageOfClass(Class targetClass) {
         String packageName = UtilResources.extractPackageName(targetClass.getNamespace());
