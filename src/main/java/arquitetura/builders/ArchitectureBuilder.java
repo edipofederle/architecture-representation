@@ -23,6 +23,7 @@ import arquitetura.representation.ConcernHolder;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Variability;
 import arquitetura.representation.relationship.AssociationClassRelationship;
+import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.Relationship;
 import com.rits.cloning.Cloner;
 import java.util.ArrayList;
@@ -145,8 +146,15 @@ public class ArchitectureBuilder {
 		for(Interface inter : loadInterfaces())
 			architecture.addExternalInterface(inter);
 		architecture.getAllVariabilities().addAll(loadVariability());
-		for(Relationship r : loadInterClassRelationships())
+                //Inicio - Thaina 01/15 - Aspectos
+		for(Relationship r : loadInterClassRelationships()){
+                    if((r instanceof AssociationRelationship) && ((AssociationRelationship)r).isPoincut()){
+                        architecture.addPointcut(r);
+                    } else{
 			architecture.addRelationship(r);
+                    }
+                }
+                //Fim - Thaina 01/15 - Aspectos
 		for(Relationship as : loadAssociationClassAssociation())
 			architecture.addRelationship(as);
 		
