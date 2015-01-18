@@ -196,9 +196,11 @@ public class OPLA extends Problem {
 		MeanDepComponents depComps = new MeanDepComponents(architecture);
 		meanDepComps = depComps.getResults();
 
+                //Thaina - aspect
 		ClassDependencyOut classesDepOut = new ClassDependencyOut(architecture);
 		sumClassesDepOut = classesDepOut.getResults();
 
+                //Thaina - aspect
 		ClassDependencyIn classesDepIn = new ClassDependencyIn(architecture);
 		sumClassesDepIn = classesDepIn.getResults();
 
@@ -208,6 +210,7 @@ public class OPLA extends Problem {
 		DependencyIn DepIn = new DependencyIn(architecture);
 		sumDepIn = DepIn.getResults();
 
+                //Thaina - aspect
 		RelationalCohesion cohesion = new RelationalCohesion(architecture);
 		sumCohesion = cohesion.getResults();
 		if (sumCohesion == 0) {
@@ -350,6 +353,8 @@ public class OPLA extends Problem {
 
 		sumLCC = evaluateLCC(architecture);
 
+                
+                //Thaina - aspect
 		sumLCCClass = evaluateLCCClass(architecture);
 
 		CIBC cibc = new CIBC(architecture);
@@ -357,6 +362,7 @@ public class OPLA extends Problem {
 			sumCIBC += c.getInterlacedConcerns().size();
 		}
 
+                //Thaina - aspect
 		CIBClass cibclass = new CIBClass(architecture);
 		for (CIBClassResult c : cibclass.getResults().values()) {
 			sumCIBClass += c.getInterlacedConcerns().size();
@@ -377,6 +383,7 @@ public class OPLA extends Problem {
 			sumCDAC += c.getElements().size();
 		}
 
+                //Thaina - aspect
 		CDAClass cdaclass = new CDAClass(architecture);
 		for (CDAClassResult c : cdaclass.getResults()) {
 			sumCDAClass += c.getElements().size();

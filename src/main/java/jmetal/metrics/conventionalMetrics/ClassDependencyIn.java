@@ -26,7 +26,9 @@ public class ClassDependencyIn {
 	//EDIPO - Mudei para Pacote....
 	for (Package component : this.architecture.getAllPackages()) {
 		for (Class cls: component.getAllClasses()){
+                    //if(!cls.isAspect()){
 			depIn += searchClassDependencies(cls, component);
+                    //}
 			//System.out.println("DepIn- Classe: "+ cls.getName() + " :" + depIn);
 		}
 		

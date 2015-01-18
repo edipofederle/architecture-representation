@@ -53,12 +53,19 @@ public class RelationalCohesion {
 			    R += searchOperationInterfaceDependencies(itf, component);
 				R += searchImplementationDependencies (itf, component);
 			}
+                        List<Class> allClass = new ArrayList<Class>();
 			for (Class cls: component.getAllClasses()){
+                            //if(!cls.isAspect()){
 				R += searchAttributeClassDependencies(cls, component);
 				R += searchOperationClassDependencies(cls, component);
 				R += searchAssociationClassDependencies (cls, component);
+                                
+                                allClass.add(cls);
+                            //}
 			}
-			totalClassesAndInterfaces = component.getAllClasses().size() + component.getImplementedInterfaces().size();
+
+                        totalClassesAndInterfaces = allClass.size() + component.getImplementedInterfaces().size();
+			//totalClassesAndInterfaces = component.getAllClasses().size() + component.getImplementedInterfaces().size();
 			if (totalClassesAndInterfaces != 0 ){
 				H = (R + 1) / totalClassesAndInterfaces;
 				this.results += H; // soma de H para a arquitetura

@@ -10,30 +10,32 @@ import arquitetura.representation.Class;
 
 public class LCCClassComponentResult {
 
-	private final HashSet<Concern> allConcerns = new HashSet<Concern>();
-	private final Class cls;
+    private final HashSet<Concern> allConcerns = new HashSet<Concern>();
+    private final Class cls;
 
-	public LCCClassComponentResult(Class classC){
-		this.cls = classC;
-		addConcerns(cls.getOwnConcerns());
-		for (Attribute at : cls.getAllAttributes()) {
-			addConcerns(at.getOwnConcerns());
-		}
-		for (Method method : cls.getAllMethods()) {
-				addConcerns(method.getOwnConcerns());
-		}		
-	}
-	
-	private void addConcerns(Collection<Concern> concerns) {
-		allConcerns.addAll(concerns);
-	}
-	
-	public int numberOfConcerns(){
-		return allConcerns.size();
-	}
-	
-	@Override
-	public String toString() {
-		return cls.getName() + ": " + numberOfConcerns();
-	}
+    public LCCClassComponentResult(Class classC) {
+        this.cls = classC;
+        //if (!cls.isAspect()) {
+            addConcerns(cls.getOwnConcerns());
+            for (Attribute at : cls.getAllAttributes()) {
+                addConcerns(at.getOwnConcerns());
+            }
+            for (Method method : cls.getAllMethods()) {
+                addConcerns(method.getOwnConcerns());
+            }
+        //}
+    }
+
+    private void addConcerns(Collection<Concern> concerns) {
+        allConcerns.addAll(concerns);
+    }
+
+    public int numberOfConcerns() {
+        return allConcerns.size();
+    }
+
+    @Override
+    public String toString() {
+        return cls.getName() + ": " + numberOfConcerns();
+    }
 }
