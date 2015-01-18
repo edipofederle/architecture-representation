@@ -15,9 +15,9 @@ public class LCCClass {
         this.architecture = architecture;
         for (Class cls : architecture.getAllClasses()) {
             //Thaina - 01/14 - se classe for um aspecto ela não é contada nas métricas
-            //if (!cls.isAspect()) {
+            if (!cls.isAspect()) {
                 getResults().add(new LCCClassComponentResult(cls));
-            //}
+            }
         }
     }
 

@@ -55,13 +55,13 @@ public class RelationalCohesion {
 			}
                         List<Class> allClass = new ArrayList<Class>();
 			for (Class cls: component.getAllClasses()){
-                            //if(!cls.isAspect()){
+                            if(!cls.isAspect()){
 				R += searchAttributeClassDependencies(cls, component);
 				R += searchOperationClassDependencies(cls, component);
 				R += searchAssociationClassDependencies (cls, component);
                                 
                                 allClass.add(cls);
-                            //}
+                            }
 			}
 
                         totalClassesAndInterfaces = allClass.size() + component.getImplementedInterfaces().size();

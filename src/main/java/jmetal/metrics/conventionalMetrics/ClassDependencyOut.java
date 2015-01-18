@@ -28,9 +28,9 @@ public class ClassDependencyOut {
 	for (Package component : this.architecture.getAllPackages()) {
 	
 		for (arquitetura.representation.Class cls: component.getAllClasses()){
-                        ///if(!cls.isAspect()){
+                        if(!cls.isAspect()){
                             depOut += searchClassDependencies(cls, component);
-                        //}
+                        }
 			//System.out.println("DepOut- Classe: "+ cls.getName() + " :" + depOut);
 		}
 		

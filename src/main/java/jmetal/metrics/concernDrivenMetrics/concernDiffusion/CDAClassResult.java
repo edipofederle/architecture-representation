@@ -13,10 +13,10 @@ public class CDAClassResult extends ConcernDiffusionResult<Class> {
 	@Override
 	protected void loadElements(Architecture architecture) {
 		for (Class cls : architecture.getAllClasses()) {
-                    //if(!cls.isAspect()){
+                    if(!cls.isAspect()){
 			if (classContainsConcern(cls) || (classContainsConcernViaMethod(cls))) 
 				getElements().add(cls);
-                    //}
+                    }
 		}
 	}
 	

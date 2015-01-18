@@ -15,7 +15,7 @@ public class LCCClassComponentResult {
 
     public LCCClassComponentResult(Class classC) {
         this.cls = classC;
-        //if (!cls.isAspect()) {
+        if (!cls.isAspect()) {
             addConcerns(cls.getOwnConcerns());
             for (Attribute at : cls.getAllAttributes()) {
                 addConcerns(at.getOwnConcerns());
@@ -23,7 +23,7 @@ public class LCCClassComponentResult {
             for (Method method : cls.getAllMethods()) {
                 addConcerns(method.getOwnConcerns());
             }
-        //}
+        }
     }
 
     private void addConcerns(Collection<Concern> concerns) {
