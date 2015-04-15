@@ -1,5 +1,9 @@
 package arquitetura.representation.relationship;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 import arquitetura.helpers.ElementsTypes;
 import arquitetura.helpers.UtilResources;
 import arquitetura.representation.Class;
