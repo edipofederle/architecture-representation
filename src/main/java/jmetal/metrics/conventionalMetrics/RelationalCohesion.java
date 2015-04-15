@@ -199,11 +199,13 @@ private int searchAssociationClassDependencies (Class source, Package comp){
 			
 			if (relationship instanceof AssociationRelationship){
 				AssociationRelationship association = (AssociationRelationship) relationship;
-				for (AssociationEnd associationEnd : association.getParticipants()) {
+				if(!association.isPoincut()){
+                                    for (AssociationEnd associationEnd : association.getParticipants()) {
 					if (associationEnd.getCLSClass().equals(c.getName()) && (!(associationDepClasses.contains(c)))){ 
 						associationDepClasses.add(c);
 					}
-				}
+                                    }
+                                }
 			}
 		}
 	}//end for classes
@@ -224,11 +226,13 @@ private int searchAssociationClassDependencies (Class source, Package comp){
 			
 			if (relationship instanceof AssociationRelationship){
 				AssociationRelationship association = (AssociationRelationship) relationship;
-				for (AssociationEnd associationEnd : association.getParticipants()) {
+				if(!association.isPoincut()){
+                                    for (AssociationEnd associationEnd : association.getParticipants()) {
 					if (associationEnd.getCLSClass().equals(itf.getName()) && (!(associationDepInterfaces.contains(itf)))){ 
 						associationDepInterfaces.add(itf);
 					}
-				}
+                                    }
+                                }
 			}
 		}
 	}//end for interfaces
