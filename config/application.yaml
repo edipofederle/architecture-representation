@@ -6,4 +6,6 @@ pathToProfile: perfis/smarty.profile.uml
 pathToProfileConcern: perfis/concerns.profile.uml
 pathToProfileRelationships: perfis/relationships.profile.uml
 pathToProfilePatterns:  perfis/patterns.profile.uml
+pathToProfileAspect: perfis/aspect.profile.uml
+
 

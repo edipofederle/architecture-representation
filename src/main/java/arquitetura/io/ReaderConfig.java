@@ -108,7 +108,7 @@ public class ReaderConfig {
      * @return boolean
      */
     public static boolean hasSmartyProfile() {
-	return getPathToProfileSMarty().isEmpty() || getPathToProfileSMarty() == null ? false : true;
+        return getPathToProfileSMarty().isEmpty() || getPathToProfileSMarty() == null ? false : true;
     }
 
     /**
@@ -117,7 +117,7 @@ public class ReaderConfig {
      * @return boolean
      */
     public static boolean hasConcernsProfile() {
-	return getPathToProfileConcerns().isEmpty() || getPathToProfileConcerns() == null ? false : true;
+        return getPathToProfileConcerns().isEmpty() || getPathToProfileConcerns() == null ? false : true;
     }
 
     /**
@@ -126,11 +126,11 @@ public class ReaderConfig {
      * @return boolean
      */
     public static boolean hasRelationsShipProfile() {
-	return getPathToProfileRelationships().isEmpty() || getPathToProfileRelationships() == null ? false : true;
+        return getPathToProfileRelationships().isEmpty() || getPathToProfileRelationships() == null ? false : true;
     }
 
     public static boolean hasPatternsProfile() {
-	return getPathToProfilePatterns().isEmpty() || getPathToProfilePatterns() == null ? false : true;
+        return getPathToProfilePatterns().isEmpty() || getPathToProfilePatterns() == null ? false : true;
     }
 
     public static void setDirTarget(String path) {
@@ -191,12 +191,12 @@ public class ReaderConfig {
         return dir.getPathToProfileAspect();
     }
 
-    public static void setPathToProfileAspect(String pathToProfileAspect) {
-        ReaderConfig.pathToProfileAspect = pathToProfileAspect;
+    public static void setPathToProfileAspect(String path) {
+        pathToProfileAspect = path;
     }
 
     public static boolean hasAspectProfile() {
-        return getPathToProfileAspect() == null || getPathToProfileAspect() == null ? false : true;
+        return getPathToProfileAspect().isEmpty() || getPathToProfileAspect() == null ? false : true;
     }
     //Fim - Thaina 11/14 (Implantação de aspectos)
 

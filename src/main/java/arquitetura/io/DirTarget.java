@@ -9,9 +9,7 @@ public class DirTarget {
     private String pathToTemplateModelsDirectory;
     private String pathToProfileRelationships;
     private String pathToProfilePatterns;
-    //Inicio - Thaina 11/14 (Implantação de aspectos)
     private String pathToProfileAspect;
-    //Fim - Thaina 11/14 (Implantação de aspectos)
 
     /**
      * @return the directoryToSaveModels
