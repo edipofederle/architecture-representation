@@ -1,6 +1,5 @@
 package arquitetura.builders;
 
-import arquitetura.exceptions.ConcernNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,22 +59,15 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 		packageName = packageName !=null ? packageName : "";
 		
 		klass = new Class(architecture.getRelationshipHolder(), name, variantType, isAbstract, packageName, XmiHelper.getXmiId(modelElement));
-            try {
+
                 for(Attribute a : getAttributes(modelElement)){
                     klass.addExternalAttribute(a);
                 }
-            } catch (ConcernNotFoundException ex) {
-                Logger.getLogger(ClassBuilder.class.getName()).log(Level.SEVERE, null, ex);
-            }
-		
-            try {
+
                 for(Method m : getMethods(modelElement, klass)){
                     klass.addExternalMethod(m);
                 }
-            } catch (ConcernNotFoundException ex) {
-                Logger.getLogger(ClassBuilder.class.getName()).log(Level.SEVERE, null, ex);
-            }
-		
+
 		klass.setPatternOperations(new PatternsOperations(StereotypeHelper.getAllPatternsStereotypes(modelElement)));
 		
 		return klass;
@@ -86,7 +78,7 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 	 * @param modelElement
 	 * @return List
 	 */
-	private List<Attribute> getAttributes(NamedElement modelElement) throws ConcernNotFoundException {
+	private List<Attribute> getAttributes(NamedElement modelElement){
 		List<Attribute> attrs = new ArrayList<Attribute>();
 		
 			List<Property> attributes = modelHelper.getAllAttributesForAClass(modelElement);
@@ -103,7 +95,7 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 	 * @param modelElement
 	 * @return List
 	 */
-	private List<Method> getMethods(NamedElement modelElement, Class parent) throws ConcernNotFoundException {
+	private List<Method> getMethods(NamedElement modelElement, Class parent) {
 		List<Method> methods = new ArrayList<Method>();
 		List<Operation> elements = modelHelper.getAllMethods(modelElement);
 		

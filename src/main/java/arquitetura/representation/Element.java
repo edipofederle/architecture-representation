@@ -1,5 +1,6 @@
 package arquitetura.representation;
 
+import arquitetura.exceptions.ConcernNotFoundException;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -7,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import arquitetura.exceptions.ConcernNotFoundException;
 
 /**
  *
@@ -174,7 +174,7 @@ public abstract class Element implements Serializable {
     }
 
     //Inicio - Thaina 12/14 - Aspecto
-    public void addAspect(String aspectName) throws ConcernNotFoundException {
+    public void addAspect(String aspectName) throws ConcernNotFoundException{
         Aspect aspect = AspectHolder.INSTANCE.getOrCreateAspect(aspectName);
         aspects.add(aspect);
 

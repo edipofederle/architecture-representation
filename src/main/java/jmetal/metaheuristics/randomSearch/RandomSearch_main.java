@@ -26,10 +26,6 @@ import jmetal.operators.crossover.*;
 import jmetal.operators.mutation.*;
 import jmetal.operators.selection.*;
 import jmetal.problems.*                  ;
-import jmetal.problems.DTLZ.*;
-import jmetal.problems.ZDT.*;
-import jmetal.problems.WFG.*;
-import jmetal.problems.LZ09.* ;
 
 import jmetal.util.Configuration;
 import jmetal.util.JMException;

@@ -1,6 +1,5 @@
 package arquitetura.builders;
 
-import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.exceptions.ModelIncompleteException;
 import arquitetura.exceptions.ModelNotFoundException;
 import arquitetura.exceptions.SMartyProfileNotAppliedToModelExcepetion;
@@ -211,7 +210,8 @@ public class ArchitectureBuilder {
 		return usageClass;
 	}
 
-	private List<AssociationClassRelationship> loadAssociationClassAssociation() throws ConcernNotFoundException {
+	private List<AssociationClassRelationship>
+    loadAssociationClassAssociation(){
 		List<AssociationClassRelationship> associationClasses = new ArrayList<AssociationClassRelationship>();
 		List<AssociationClass> associationsClass = modelHelper.getAllAssociationsClass(model);
 		
@@ -294,7 +294,7 @@ public class ArchitectureBuilder {
 		return Collections.emptyList();
 	}
 
-	private List<Class> loadClasses() throws ConcernNotFoundException {
+	private List<Class> loadClasses(){
 		List<Class> listOfClasses = new ArrayList<Class>();
 		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getClasses(model);
 		
@@ -306,7 +306,7 @@ public class ArchitectureBuilder {
 		return listOfClasses;
 	}
 	
-	private List<Interface> loadInterfaces() throws ConcernNotFoundException {
+	private List<Interface> loadInterfaces(){
 		List<Interface> listOfInterfaces = new ArrayList<Interface>();
 		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getClasses(model);
 		
@@ -321,7 +321,7 @@ public class ArchitectureBuilder {
 	 * Retornar todos os pacotes
 	 * @return {@link Collection<mestrado.arquitetura.representation.Package>}
 	 */
-	private List<arquitetura.representation.Package> loadPackages() throws ConcernNotFoundException {
+	private List<arquitetura.representation.Package> loadPackages() {
 		List<arquitetura.representation.Package> packages = new ArrayList<arquitetura.representation.Package>();
 		List<Package> packagess = modelHelper.getAllPackages(model);
 		

@@ -29,7 +29,7 @@ public class AssociationClassRelationshipBuilder extends ArchitectureHelper {
 		classBuilder = new ClassBuilder(architecture);
 	}
 
-	public AssociationClassRelationship create(AssociationClass associationClass) throws ConcernNotFoundException {
+	public AssociationClassRelationship create(AssociationClass associationClass) {
 		List<MemberEnd> membersEnd = new ArrayList<MemberEnd>();
 		
 		Class classAssociation = classBuilder.create(associationClass);

@@ -1,6 +1,5 @@
 package arquitetura.builders;
 
-import arquitetura.exceptions.ConcernNotFoundException;
 import java.util.List;
 
 import org.eclipse.uml2.uml.NamedElement;
@@ -11,9 +10,6 @@ import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Interface;
 import arquitetura.representation.PatternsOperations;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  * 
  * @author edipofederle<edipofederle@gmail.com>
