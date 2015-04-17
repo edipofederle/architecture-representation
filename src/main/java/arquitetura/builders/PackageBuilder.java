@@ -39,12 +39,13 @@ public class PackageBuilder extends ElementBuilder<Package> {
 	@Override
 	public Package buildElement(NamedElement modelElement) {
 		Package pkg = new Package(architecture.getRelationshipHolder(), name, variantType, modelElement.getNamespace().getQualifiedName(), XmiHelper.getXmiId(modelElement));
-		pkg.getNestedPackages().addAll(getNestedPackages(modelElement));
-		for(Class klass : getClasses(modelElement, pkg)){
-			pkg.addExternalClass(klass);
-		}
-		for(Interface itf : getInterfaces(modelElement,pkg))
-			pkg.addExternalInterface(itf);
+                pkg.getNestedPackages().addAll(getNestedPackages(modelElement));
+            
+                for(Class klass : getClasses(modelElement, pkg)){
+                    pkg.addExternalClass(klass);
+                }
+                for(Interface itf : getInterfaces(modelElement,pkg))
+                    pkg.addExternalInterface(itf);
 		
 		return pkg;
 	}

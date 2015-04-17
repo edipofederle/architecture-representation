@@ -27,6 +27,9 @@ public abstract class ElementBuilder<T extends arquitetura.representation.Elemen
 	protected Boolean isVariationPoint;
 	protected Variant variantType;
 	protected List<String> concerns;
+        //Inicio - Thaina 12/14 - Aspecto
+        protected List<String> aspects;
+        //Fim - Thaina 12/14 - Aspecto
 	protected final Architecture architecture;
 	private final HashMap<String, T> createdElements = new HashMap<String, T>();
 	
@@ -49,6 +52,9 @@ public abstract class ElementBuilder<T extends arquitetura.representation.Elemen
 		T element = buildElement(modelElement);
 		try {
 			element.addConcerns(concerns);
+                        //Inicio - Thaina 12/14 - Aspecto
+                        element.addAspects(aspects);
+                        //Fim - Thaina 12/14 - Aspecto
 		} catch (ConcernNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -60,12 +66,22 @@ public abstract class ElementBuilder<T extends arquitetura.representation.Elemen
 		List<Stereotype> allStereotypes = ModelElementHelper.getAllStereotypes(modelElement);
 		for (Stereotype stereotype : allStereotypes) {
 			verifyConcern(stereotype);
+                        verifyAspect(stereotype);
 		}
 	}
+        
+        //Inicio - Thaina 12/14 - Aspectos
+        private void verifyAspect(Stereotype stereotype) {
+		if (StereotypeHelper.hasAspect(stereotype)){
+			 aspects.add(stereotype.getName());
+                }
+	}
+        //Fim - Thaina 12/14 - Aspectos
 	
 	private void verifyConcern(Stereotype stereotype) {
-		if (StereotypeHelper.hasConcern(stereotype))
+		if (StereotypeHelper.hasConcern(stereotype)){
 			 concerns.add(stereotype.getName());
+                }
 	}
 	
 	private void initialize() {
@@ -73,6 +89,9 @@ public abstract class ElementBuilder<T extends arquitetura.representation.Elemen
 		isVariationPoint = false;
 		variantType = null;
 		concerns = new ArrayList<String>();
+                //Inicio - Thaina 12/14 - Aspecto
+                aspects = new ArrayList<String>();
+                //Fim - Thaina 12/14 - Aspecto
 	}
 	
 }

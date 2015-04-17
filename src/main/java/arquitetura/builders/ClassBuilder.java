@@ -17,6 +17,8 @@ import arquitetura.representation.Attribute;
 import arquitetura.representation.Class;
 import arquitetura.representation.Method;
 import arquitetura.representation.PatternsOperations;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Builder resposável por criar element do tipo Classe.
@@ -57,14 +59,15 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 		packageName = packageName !=null ? packageName : "";
 		
 		klass = new Class(architecture.getRelationshipHolder(), name, variantType, isAbstract, packageName, XmiHelper.getXmiId(modelElement));
-		for(Attribute a : getAttributes(modelElement)){
-			klass.addExternalAttribute(a);
-		}
-		
-		for(Method m : getMethods(modelElement, klass)){
-			klass.addExternalMethod(m);
-		}
-		
+
+                for(Attribute a : getAttributes(modelElement)){
+                    klass.addExternalAttribute(a);
+                }
+
+                for(Method m : getMethods(modelElement, klass)){
+                    klass.addExternalMethod(m);
+                }
+
 		klass.setPatternOperations(new PatternsOperations(StereotypeHelper.getAllPatternsStereotypes(modelElement)));
 		
 		return klass;
@@ -75,7 +78,7 @@ public class ClassBuilder extends ElementBuilder<arquitetura.representation.Clas
 	 * @param modelElement
 	 * @return List
 	 */
-	private List<Attribute> getAttributes(NamedElement modelElement) {
+	private List<Attribute> getAttributes(NamedElement modelElement){
 		List<Attribute> attrs = new ArrayList<Attribute>();
 		
 			List<Property> attributes = modelHelper.getAllAttributesForAClass(modelElement);

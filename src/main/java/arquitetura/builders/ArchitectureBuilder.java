@@ -14,17 +14,24 @@ import arquitetura.helpers.StereotypeHelper;
 import arquitetura.io.ReaderConfig;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.ArchitectureHolder;
+import arquitetura.representation.Aspect;
+import arquitetura.representation.AspectHolder;
 import arquitetura.representation.Class;
 import arquitetura.representation.Concern;
 import arquitetura.representation.ConcernHolder;
 import arquitetura.representation.Interface;
 import arquitetura.representation.Variability;
 import arquitetura.representation.relationship.AssociationClassRelationship;
+import arquitetura.representation.relationship.AssociationRelationship;
 import arquitetura.representation.relationship.Relationship;
 import com.rits.cloning.Cloner;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Abstraction;
 import org.eclipse.uml2.uml.Association;
@@ -68,6 +75,10 @@ public class ArchitectureBuilder {
 	public ArchitectureBuilder() {
 		//RelationshipHolder.clearLists();
 		ConcernHolder.INSTANCE.clear();
+                
+                //Inicio - Thaina 12/14 - Aspecto
+                AspectHolder.INSTANCE.clear();
+                //Fim - Thaina 12/14 - Aspecto
                 
                 //Load configure file. Call this method only once
 	    	ReaderConfig.load();
@@ -115,6 +126,16 @@ public class ArchitectureBuilder {
 			for (Stereotype stereotype : concernsAllowed)
 				ConcernHolder.INSTANCE.allowedConcerns().add(new Concern(stereotype.getName()));
 		}
+                
+                //Inicio - Thainá 12/14 Aspectos
+		if(ReaderConfig.hasAspectProfile()){
+			Package aspectsProfile = modelHelper.loadAspectProfile();
+			EList<Stereotype> aspectsAllowed = aspectsProfile.getOwnedStereotypes();
+			for (Stereotype stereotype : aspectsAllowed){
+                                AspectHolder.INSTANCE.allowedAspects().add(new Aspect(stereotype.getName()));
+                    }
+                }
+                //Fim - Thainá 12/14 Aspectos
 		
 		for(arquitetura.representation.Package p : loadPackages())
 			architecture.addPackage(p); // Classes que possuem pacotes são carregadas juntamente com seus pacotes
@@ -124,8 +145,15 @@ public class ArchitectureBuilder {
 		for(Interface inter : loadInterfaces())
 			architecture.addExternalInterface(inter);
 		architecture.getAllVariabilities().addAll(loadVariability());
-		for(Relationship r : loadInterClassRelationships())
+                //Inicio - Thaina 01/15 - Aspectos
+		for(Relationship r : loadInterClassRelationships()){
+                    if((r instanceof AssociationRelationship) && ((AssociationRelationship)r).isPoincut()){
+                        architecture.addPointcut(r);
+                    } else{
 			architecture.addRelationship(r);
+                    }
+                }
+                //Fim - Thaina 01/15 - Aspectos
 		for(Relationship as : loadAssociationClassAssociation())
 			architecture.addRelationship(as);
 		
@@ -182,7 +210,8 @@ public class ArchitectureBuilder {
 		return usageClass;
 	}
 
-	private List<AssociationClassRelationship> loadAssociationClassAssociation() {
+	private List<AssociationClassRelationship>
+    loadAssociationClassAssociation(){
 		List<AssociationClassRelationship> associationClasses = new ArrayList<AssociationClassRelationship>();
 		List<AssociationClass> associationsClass = modelHelper.getAllAssociationsClass(model);
 		
@@ -239,6 +268,7 @@ public class ArchitectureBuilder {
 	}
 
 	private List<Relationship> loadAssociations() {
+            
 		List<Relationship> relationships = new ArrayList<Relationship>();
 		List<Association> associations = modelHelper.getAllAssociations(model);
 		
@@ -264,7 +294,7 @@ public class ArchitectureBuilder {
 		return Collections.emptyList();
 	}
 
-	private List<Class> loadClasses() {
+	private List<Class> loadClasses(){
 		List<Class> listOfClasses = new ArrayList<Class>();
 		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getClasses(model);
 		
@@ -276,7 +306,7 @@ public class ArchitectureBuilder {
 		return listOfClasses;
 	}
 	
-	private List<Interface> loadInterfaces() {
+	private List<Interface> loadInterfaces(){
 		List<Interface> listOfInterfaces = new ArrayList<Interface>();
 		List<org.eclipse.uml2.uml.Class> classes = modelHelper.getClasses(model);
 		

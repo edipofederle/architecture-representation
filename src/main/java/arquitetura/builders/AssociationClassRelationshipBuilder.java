@@ -7,6 +7,7 @@ import org.eclipse.uml2.uml.AssociationClass;
 import org.eclipse.uml2.uml.Type;
 
 import arquitetura.base.ArchitectureHelper;
+import arquitetura.exceptions.ConcernNotFoundException;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;

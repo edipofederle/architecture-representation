@@ -400,6 +400,32 @@ public class ElementXmiGenerator extends XmiHelper {
 			}
 		});
 	}
+        
+        //Inicio - Thaina 12/14 - Aspecto
+        private void createAspect(String name, String idClass, String type) {
+		Node nodeXmi = this.documentManager.getDocUml().getElementsByTagName("uml:Model").item(0);
+		Element stereotype = this.documentManager.getDocUml().createElement(type+":"+name);
+		stereotype.setAttribute("xmi:id", UtilResources.getRandonUUID());
+                
+                if(name.equalsIgnoreCase("aspect")){
+                    stereotype.setAttribute("base_Class", idClass);
+                } else if(name.equalsIgnoreCase("pointcut")){
+                    stereotype.setAttribute("base_Association", idClass);
+                } else{
+                    stereotype.setAttribute("base_Operation", idClass);
+                }
+		nodeXmi.getParentNode().appendChild(stereotype);
+		notation.createXmiForStereotype(name, idClass, type);
+	}
+                
+        public void generateAspect(final String aspect, final String idElement, final String type) {
+		arquitetura.touml.Document.executeTransformation(documentManager, new Transformation(){
+		public void useTransformation() {
+			createAspect(aspect, idElement, type);
+		}
+		});
+	}
+        //Fim - Thaina 12/14 - Aspecto
 	
 //	  <edges xmi:type="notation:Connector" xmi:id="_9v-S0IwhEeK_29491DjJRg" type="4016" source="_9vxegIwhEeK_29491DjJRg" target="_9v4MMIwhEeK_29491DjJRg" lineColor="0">
 //	    <styles xmi:type="notation:FontStyle" xmi:id="_9v-S0YwhEeK_29491DjJRg" fontName="Lucida Grande" fontHeight="11"/>

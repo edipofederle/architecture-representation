@@ -10,7 +10,6 @@ import arquitetura.helpers.XmiHelper;
 import arquitetura.representation.Architecture;
 import arquitetura.representation.Interface;
 import arquitetura.representation.PatternsOperations;
-
 /**
  * 
  * @author edipofederle<edipofederle@gmail.com>
@@ -33,7 +32,8 @@ public class InterfaceBuilder extends ElementBuilder<arquitetura.representation.
 		List<Operation> elements = ((org.eclipse.uml2.uml.Class)modelElement).getOperations();
 		
 		for (Operation operation : elements)
-			interfacee.addExternalOperation(methodBuilder.create(operation));
+                            interfacee.addExternalOperation(methodBuilder.create(operation));
+                 
 		
 		interfacee.setPatternOperations(new PatternsOperations(StereotypeHelper.getAllPatternsStereotypes(modelElement)));
 		return interfacee;

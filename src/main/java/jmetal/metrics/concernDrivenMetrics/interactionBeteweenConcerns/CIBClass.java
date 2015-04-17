@@ -19,11 +19,14 @@ public class CIBClass {
 		this.architecture = architecture;
 		
 		for (Class cls : architecture.getAllClasses()) {
-			inspectConcernsOfElement(cls, cls);
-			inspectMethods(cls);
-			//TODO incluir as interfaces que as classes podem realizar
-			inspectInterfaces(cls, cls.getRequiredInterfaces());
-			inspectInterfaces(cls, cls.getImplementedInterfaces());
+                        //Thaina - aspecto
+                        if(!cls.isAspect()){
+                            inspectConcernsOfElement(cls, cls);
+                            inspectMethods(cls);
+                            //TODO incluir as interfaces que as classes podem realizar
+                            inspectInterfaces(cls, cls.getRequiredInterfaces());
+                            inspectInterfaces(cls, cls.getImplementedInterfaces());
+                        }
 		}
 	}
 

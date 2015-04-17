@@ -314,5 +314,11 @@ public class ModelHelper extends ElementHelper {
 	public Package loadConcernProfile() {
 		return uml2Helper.loadConcernProfile();
 	}
+        
+        //Inicio - Thainá 12/14 - Aspectos
+ 	public Package loadAspectProfile() {
+		return uml2Helper.loadAspectProfile();
+	}       
+        //Fim - Thainá 12/14 - Aspectos
 
 }

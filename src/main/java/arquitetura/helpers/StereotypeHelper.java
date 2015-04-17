@@ -123,13 +123,31 @@ public class StereotypeHelper {
 		try {
 			if(element instanceof ClassImpl) if (searchForConcernsStereotypes(element) != null) return true;
 			
-			if (element instanceof StereotypeImpl) 
-				if (((Classifier) element).getGeneralizations().get(0).getGeneral().getName().equalsIgnoreCase(StereotypesTypes.CONCERN))
-					return true;
+			if (element instanceof StereotypeImpl) {
+				if (((Classifier) element).getGeneralizations().get(0).getGeneral().getName().equalsIgnoreCase(StereotypesTypes.CONCERN)){
+                                    return true;
+                                }
+                        }
 		} catch (Exception e) { return hasStereotype(element, StereotypesTypes.CONCERN); }
 		
 		return false;
 	}
+        
+        //Inicio - Thaina 12/14 - Aspect
+        public static boolean hasAspect(NamedElement element) {
+            try {
+		if(element instanceof ClassImpl) if (searchForAspectsStereotypes(element) != null) return true;
+			
+		if (element instanceof StereotypeImpl) {
+			if (((Classifier) element).getGeneralizations().get(0).getGeneral().getName().equalsIgnoreCase(StereotypesTypes.ASPECT)){
+			return true;
+                }
+            }
+		} catch (Exception e) { return hasStereotype(element, StereotypesTypes.ASPECT); }
+		
+		return false;
+	}
+        //Fim - Thaina 12/14 - Aspect
 	
 	/**
 	 * 
@@ -288,6 +306,21 @@ public class StereotypeHelper {
 		
 		return null;
 	}
+        
+        //Inicio - Thaina 12/14 - Aspecto
+        private static Stereotype searchForAspectsStereotypes(NamedElement element){
+            EList<Stereotype> stes = element.getAppliedStereotypes();
+            for (Stereotype stereotype : stes) {
+		if(stereotype instanceof StereotypeImpl){
+                    if(!stereotype.getGeneralizations().isEmpty()){
+			if (stereotype.getGeneralizations().get(0).getGeneral().getName().equalsIgnoreCase(StereotypesTypes.ASPECT))
+			return stereotype;
+                    }}	
+		}
+		
+		return null;
+	}
+        //Fim - Thaina 12/14 - Aspecto
 
 	public static Stereotype getVariantType(Classifier klass) {
 		List<String> possibileVariants = Arrays.asList("mandatory", "optional", "alternative_OR", "alternative_XOR"); 

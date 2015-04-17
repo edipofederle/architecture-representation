@@ -1,20 +1,18 @@
 package arquitetura.representation;
 
+import arquitetura.helpers.UtilResources;
+import arquitetura.representation.relationship.DependencyRelationship;
+import arquitetura.representation.relationship.RealizationRelationship;
+import arquitetura.representation.relationship.RelationshiopCommons;
+import arquitetura.representation.relationship.Relationship;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-
-import arquitetura.helpers.UtilResources;
-import arquitetura.representation.relationship.DependencyRelationship;
-import arquitetura.representation.relationship.RealizationRelationship;
-import arquitetura.representation.relationship.RelationshiopCommons;
-import arquitetura.representation.relationship.Relationship;
 
 /**
  * 

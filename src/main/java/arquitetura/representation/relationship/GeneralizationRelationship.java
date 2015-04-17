@@ -9,6 +9,9 @@ import arquitetura.helpers.UtilResources;
 import arquitetura.representation.Class;
 import arquitetura.representation.Element;
 import arquitetura.representation.RelationshipsHolder;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 
@@ -71,7 +74,6 @@ public class GeneralizationRelationship extends Relationship {
 		for (GeneralizationRelationship generalization : this.relationshipHolder.getAllGeneralizations())
 			if (generalization.getParent().getName().equalsIgnoreCase(this.parent.getName()))
 				childreen.add(generalization.getChild());
-
 		return Collections.unmodifiableSet(childreen);
 
 	}
