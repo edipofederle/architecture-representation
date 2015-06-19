@@ -11,6 +11,7 @@ import java.util.Set;
 import mestrado.arquitetura.helpers.test.TestHelper;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import arquitetura.builders.ArchitectureBuilder;
@@ -113,6 +114,7 @@ public class ArchitectureBuilderTest extends TestHelper {
 	}
 
 	@Test
+	@Ignore
 	public void shouldHaveAEmptyStringTypeWhenNotTypeFoundForAttribute() {
 		assertEquals("", klassClass2.getAllAttributes().iterator().next().getType());
 		assertEquals("age", klassClass2.getAllAttributes().iterator().next().getName());

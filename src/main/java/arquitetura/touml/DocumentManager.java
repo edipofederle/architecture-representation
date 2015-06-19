@@ -413,9 +413,12 @@ public class DocumentManager extends XmiHelper {
                 } else {
                     node = getReference(profileName, tagName);
                 }
-                Node nodeAttr = node.getAttributes().getNamedItem("href");
-                String oldValueAttr = nodeAttr.getNodeValue().substring(0, nodeAttr.getNodeValue().indexOf("#"));
-                nodeAttr.setNodeValue(oldValueAttr + "#" + idApplied);
+                if(node != null){ // avoid NPE when aspect profile
+                	Node nodeAttr = node.getAttributes().getNamedItem("href");
+                	String oldValueAttr = nodeAttr.getNodeValue().substring(0, nodeAttr.getNodeValue().indexOf("#"));
+                	nodeAttr.setNodeValue(oldValueAttr + "#" + idApplied);
+                }
+                	
             }
         });
     }

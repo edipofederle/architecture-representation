@@ -273,8 +273,8 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		Architecture genereted = givenAArchitecture2("movendoComposicao");
 		
 		assertEquals(1, genereted.getRelationshipHolder().getAllCompositions().size());
-		assertEquals("Class7",genereted.getRelationshipHolder().getAllCompositions().iterator().next().getParticipants().get(0).getName());
-		assertEquals("Class4",genereted.getRelationshipHolder().getAllCompositions().iterator().next().getParticipants().get(1).getName());
+		assertEquals("Class7",genereted.getRelationshipHolder().getAllCompositions().iterator().next().getParticipants().get(0).getCLSClass().getName());
+		assertEquals("Class4",genereted.getRelationshipHolder().getAllCompositions().iterator().next().getParticipants().get(1).getCLSClass().getName());
 	}
 	
 	@Test
@@ -290,8 +290,8 @@ public class OperationsOverRelationshipsTest extends TestHelper {
 		Architecture genereted = givenAArchitecture2("movendoPartOfComposicao");
 		
 		assertEquals(1, genereted.getRelationshipHolder().getAllCompositions().size());
-		assertEquals("Class6",genereted.getRelationshipHolder().getAllCompositions().iterator().next().getParticipants().get(0).getName());
-		assertEquals("Class4",genereted.getRelationshipHolder().getAllCompositions().iterator().next().getParticipants().get(1).getName());
+		assertEquals("Class6",genereted.getRelationshipHolder().getAllCompositions().iterator().next().getParticipants().get(0).getCLSClass().getName());
+		assertEquals("Class4",genereted.getRelationshipHolder().getAllCompositions().iterator().next().getParticipants().get(1).getCLSClass().getName());
 	}
 	
 	

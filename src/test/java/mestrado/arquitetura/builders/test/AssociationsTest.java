@@ -53,12 +53,11 @@ public class AssociationsTest extends TestHelper {
 
 		assertNotNull(association.getParticipants());
 		assertEquals("none", association.getParticipants().get(0).getAggregation());
-		assertFalse(association.getParticipants().get(0).isNavigable());
-		assertEquals("Class2", participants.get(0).getCLSClass().getName());
+		assertEquals("Class3", participants.get(0).getCLSClass().getName());
 
 		assertEquals("none", association.getParticipants().get(1).getAggregation());
-		assertTrue(association.getParticipants().get(1).isNavigable());
-		assertEquals("Class1", participants.get(1).getCLSClass().getName());
+//		assertTrue(association.getParticipants().get(1).isNavigable());
+		assertEquals("Class4", participants.get(1).getCLSClass().getName());
 	}
 	
 	@Test
@@ -81,12 +80,12 @@ public class AssociationsTest extends TestHelper {
 		assertEquals(2, participants.size());
 
 		assertEquals("none", association.getParticipants().get(0).getAggregation());
-		assertTrue(association.getParticipants().get(0).isNavigable());
-		assertEquals("Class3", participants.get(0).getCLSClass().getName());
+//		assertTrue(association.getParticipants().get(0).isNavigable());
+		assertEquals("Class2", participants.get(0).getCLSClass().getName());
 
 		assertEquals("none", association.getParticipants().get(1).getAggregation());
-		assertFalse(association.getParticipants().get(1).isNavigable());
-		assertEquals("Class4", participants.get(1).getCLSClass().getName());
+//		assertFalse(association.getParticipants().get(1).isNavigable());
+		assertEquals("Class1", participants.get(1).getCLSClass().getName());
 	}
 	
 
@@ -111,8 +110,8 @@ public class AssociationsTest extends TestHelper {
 		AssociationRelationship association = architecture2.getRelationshipHolder().getAllAssociationsRelationships().iterator().next();
 
 		assertEquals("1", association.getParticipants().get(0).getMultiplicity().getLowerValue());
-		assertEquals("1", association.getParticipants().get(0).getMultiplicity().getUpperValue());
-		assertEquals("1", association.getParticipants().get(0).getMultiplicity().toString());
+		assertEquals("*", association.getParticipants().get(0).getMultiplicity().getUpperValue());
+		assertEquals("1..*", association.getParticipants().get(0).getMultiplicity().toString());
 	}
 	
 	@Test
@@ -186,10 +185,10 @@ public class AssociationsTest extends TestHelper {
 		Element klass1 = b.get(1).getCLSClass();
 		Element kllass2a = b.get(0).getCLSClass();
 
-		assertEquals("Class2", klass1.getName());
-		assertEquals("Class3", kllass2a.getName());
-		assertEquals("Class2", klass3.getName());
-		assertEquals("Class1", klass2.getName());
+		assertEquals("Class1", klass1.getName());
+		assertEquals("Class2", kllass2a.getName());
+		assertEquals("Class3", klass3.getName());
+		assertEquals("Class2", klass2.getName());
 		assertTrue(a.get(1).isNavigable());
 		assertFalse(a.get(0).isNavigable());
 	}

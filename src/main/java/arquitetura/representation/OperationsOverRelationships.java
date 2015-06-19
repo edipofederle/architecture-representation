@@ -65,8 +65,8 @@ public class OperationsOverRelationships {
 		return this.architecture.removeRelationship(as);
 	}
 
-	public void moveAssociationEnd(AssociationEnd associationEnd, Class idclass8) {
-		associationEnd.setCLSClass(idclass8);
+	public void moveAssociationEnd(AssociationEnd associationEnd, Class id) {
+		associationEnd.setCLSClass(id);
 	}
 
 	public void moveDependencyClient(DependencyRelationship dependency,	Class newClient) {

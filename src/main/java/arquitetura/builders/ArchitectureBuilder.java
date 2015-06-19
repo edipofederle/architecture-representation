@@ -76,12 +76,12 @@ public class ArchitectureBuilder {
 		//RelationshipHolder.clearLists();
 		ConcernHolder.INSTANCE.clear();
                 
-                //Inicio - Thaina 12/14 - Aspecto
-                AspectHolder.INSTANCE.clear();
-                //Fim - Thaina 12/14 - Aspecto
+         //Inicio - Thaina 12/14 - Aspecto
+         AspectHolder.INSTANCE.clear();
+         //Fim - Thaina 12/14 - Aspecto
                 
-                //Load configure file. Call this method only once
-	    	ReaderConfig.load();
+         //Load configure file. Call this method only once
+	     ReaderConfig.load();
                 
 		modelHelper = ModelHelperFactory.getModelHelper();
 	}

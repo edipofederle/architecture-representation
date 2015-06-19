@@ -188,7 +188,7 @@ public class ReaderConfig {
         if (pathToProfileAspect != null) {
             return pathToProfileAspect;
         }
-        return dir.getPathToProfileAspect();
+        return dir.getPathToProfileAspect() == null ? "" : dir.getPathToProfileAspect();
     }
 
     public static void setPathToProfileAspect(String path) {
